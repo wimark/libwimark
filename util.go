@@ -5,82 +5,77 @@ import (
 	"strings"
 )
 
-type Module int
-type Direction int
-type MessageType int
-type Operation int
+type module int
+type direction int
+type messageType int
+type operation int
 
 const (
-	ModuleBackend = Module(0)
-	ModuleConfig  = Module(1)
-	ModuleDB      = Module(2)
-	ModuleCPE     = Module(3)
+	ModuleBackend = module(0)
+	ModuleConfig  = module(1)
+	ModuleDB      = module(2)
+	ModuleCPE     = module(3)
 )
 
-func moduleP(v Module) *Module { return &v }
 
-func parseModuleString(v_p *string) *Module {
+func parseModuleString(v_p *string) *module {
 	if v_p != nil {
 		var v = *v_p
-		switch v {
-		case "BACKEND":
-			return moduleP(ModuleBackend)
-		case "CONFIG":
-			return moduleP(ModuleConfig)
-		case "DB":
-			return moduleP(ModuleDB)
-		case "CPE":
-			return moduleP(ModuleCPE)
+		var ret, ok = map[string]module{
+			"BACKEND": ModuleBackend,
+			"CONFIG":  ModuleConfig,
+			"DB":      ModuleDB,
+			"CPE":     ModuleCPE,
+		}[v]
+		if ok {
+			return &ret
 		}
 	}
 	return nil
 }
 
 const (
-	OperationCreate = Operation(0)
-	OperationRead   = Operation(1)
-	OperationUpdate = Operation(2)
-	OperationDelete = Operation(3)
+	OperationCreate = operation(0)
+	OperationRead   = operation(1)
+	OperationUpdate = operation(2)
+	OperationDelete = operation(3)
 )
 
-func operationP(v Operation) *Operation { return &v }
-
-func parseOpString(v_p *string) *Operation {
+func parseOpString(v_p *string) *operation {
 	if v_p != nil {
 		var v = *v_p
-		switch v {
-		case "C":
-			return operationP(OperationCreate)
-		case "R":
-			return operationP(OperationRead)
-		case "U":
-			return operationP(OperationUpdate)
-		case "D":
-			return operationP(OperationDelete)
+		var ret, ok = map[string]operation{
+			"C": OperationCreate,
+			"R": OperationRead,
+			"U": OperationUpdate,
+			"D": OperationDelete,
+		}[v]
+		if ok {
+			return &ret
 		}
 	}
 	return nil
 }
 
 const (
-	DirectionBroadcast = Direction(0)
-	DirectionUnicast   = Direction(1)
+	DirectionBroadcast = direction(0)
+	DirectionUnicast   = direction(1)
 )
 
 const (
-	MessageRequest  = MessageType(0)
-	MessageResponse = MessageType(1)
+	MessageRequest  = messageType(0)
+	MessageResponse = messageType(1)
 )
 
 type Topic struct {
-	Dir            Direction
-	SenderModule   Module
+	Dir            direction
+	SenderModule   module
 	SenderID       string
-	ReceiverModule *Module `json:",omitempty"`
-	ReceiverID     *string `json:",omitempty"`
-	Type           *MessageType `json:",omitempty"`
-	RequestID      *string `json:",omitempty"`
-	Operation      *Operation `json:",omitempty"`
+	ReceiverModule *module      `json:",omitempty"`
+	ReceiverID     *string      `json:",omitempty"`
+	Type           *messageType `json:",omitempty"`
+	RequestID      *string      `json:",omitempty"`
+	Operation      *operation   `json:",omitempty"`
 }
 
 func ParseTopic(topic_string string) *Topic {
