@@ -17,6 +17,20 @@ const (
 	ModuleCPE     = module(3)
 )
 
+func (self module) toString() string {
+	var v, ok = map[module]string{
+		ModuleBackend: "BACKEND",
+		ModuleConfig:  "CONFIG",
+		ModuleDB:      "DB",
+		ModuleCPE:     "CPE",
+	}[self]
+
+	if !ok {
+		panic(self)
+	}
+
+	return v
+}
 
 func parseModuleString(v_p *string) *module {
 	if v_p != nil {
@@ -57,10 +71,38 @@ func parseOpString(v_p *string) *operation {
 	return nil
 }
 
+func (self operation) toString() string {
+	var v, ok = map[operation]string{
+		OperationCreate: "C",
+		OperationRead:   "R",
+		OperationUpdate: "U",
+		OperationDelete: "D",
+	}[self]
+
+	if !ok {
+		panic(self)
+	}
+
+	return v
+}
+
 const (
 	DirectionBroadcast = direction(0)
 	DirectionUnicast   = direction(1)
 )
+
+func (self direction) toString() string {
+	var v, ok = map[direction]string{
+		DirectionBroadcast: "B",
+		DirectionUnicast:   "U",
+	}[self]
+
+	if !ok {
+		panic(self)
+	}
+
+	return v
+}
 
 const (
 	MessageRequest  = messageType(0)
@@ -76,6 +118,36 @@ type Topic struct {
 	Type           *messageType `json:",omitempty"`
 	RequestID      *string      `json:",omitempty"`
 	Operation      *operation   `json:",omitempty"`
+}
+
+func (self *Topic) ToString() *string {
+	var sender_module = self.SenderModule.toString()
+	var sender_id = self.SenderID
+
+	switch self.Dir {
+	case DirectionBroadcast:
+		var v = fmt.Sprintf("B/%s/%s", sender_module, sender_id)
+		return &v
+	case DirectionUnicast:
+		if self.Type != nil && self.ReceiverModule != nil && self.ReceiverID != nil && self.RequestID != nil {
+			var t = *self.Type
+			var rmodule = *self.ReceiverModule
+			var rid = *self.ReceiverID
+			var reqid = *self.RequestID
+			switch t {
+			case MessageRequest:
+				if self.Operation != nil {
+					var v = fmt.Sprintf("U/%s/%s/%s/%s/REQ/%s/%s", sender_module, sender_id, rmodule, rid, reqid, self.Operation.toString())
+					return &v
+				}
+			case MessageResponse:
+				var v = fmt.Sprintf("U/%s/%s/%s/%s/RSP/%s", sender_module, sender_id, rmodule, rid, reqid)
+				return &v
+			}
+		}
+	}
+
+	return nil
 }
 
 func ParseTopic(topic_string string) *Topic {
