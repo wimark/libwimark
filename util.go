@@ -151,6 +151,8 @@ func (self *Topic) ToString() *string {
 	return nil
 }
 
+const STRING_PLACEHOLDER = "STRING_PLACEHOLDER"
+
 func ParseTopic(topic_string string) *Topic {
 	if !strings.Contains(topic_string, " ") {
 		var dir_s string
@@ -162,7 +164,21 @@ func ParseTopic(topic_string string) *Topic {
 		var reqid string
 		var op_s string
 
+		topic_string = strings.Replace(topic_string, "//", fmt.Sprintf("/%s/", STRING_PLACEHOLDER), -1)
+
 		fmt.Sscanf(strings.Replace(topic_string, "/", " ", -1), "%s %s %s %s %s %s %s %s", &dir_s, &smodule_s, &sid, &rmodule_s, &rid, &msgtype_s, &reqid, &op_s)
+
+		if sid == STRING_PLACEHOLDER {
+			sid = ""
+		}
+
+		if rid == STRING_PLACEHOLDER {
+			rid = ""
+		}
+
+		if dir_s == STRING_PLACEHOLDER || smodule_s == STRING_PLACEHOLDER {
+			return nil
+		}
 
 		var smodule_opt = parseModuleString(smodule_s)
 		if smodule_opt != nil {
@@ -171,7 +187,7 @@ func ParseTopic(topic_string string) *Topic {
 			} else if dir_s == "B" {
 				return &Topic{Dir: DirectionBroadcast, SenderModule: smodule, SenderID: sid}
 			} else if dir_s == "U" {
-				if (msgtype_s == "REQ" || msgtype_s == "RSP") && len(reqid) > 0 {
+				if (msgtype_s == "REQ" || msgtype_s == "RSP") && reqid != STRING_PLACEHOLDER {
 					var rmodule_opt = parseModuleString(rmodule_s)
 					if rmodule_opt != nil {
 						switch msgtype_s {
