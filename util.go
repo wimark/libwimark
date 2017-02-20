@@ -5,12 +5,15 @@ import (
 	"strings"
 )
 
+const MQTT_ANY_WILDCARD = "+"
+
 type module int
 type direction int
 type messageType int
 type operation int
 
 const (
+	ModuleAny     = module(-1)
 	ModuleBackend = module(0)
 	ModuleConfig  = module(1)
 	ModuleDB      = module(2)
@@ -19,6 +22,7 @@ const (
 
 func (self module) toString() string {
 	var v, ok = map[module]string{
+		ModuleAny:     MQTT_ANY_WILDCARD,
 		ModuleBackend: "BACKEND",
 		ModuleConfig:  "CONFIG",
 		ModuleDB:      "DB",
