@@ -155,6 +155,19 @@ func (self *Topic) ToString() *string {
 	return nil
 }
 
+func MakeFullTopic(d direction, sm module, sid string, rm module, rid string, t messageType, reqid string, op operation) Topic {
+	return Topic{
+		Dir:            d,
+		SenderModule:   sm,
+		SenderID:       sid,
+		ReceiverModule: &rm,
+		ReceiverID:     &rid,
+		Type:           &t,
+		RequestID:      &reqid,
+		Operation:      &op,
+	}
+}
+
 const STRING_PLACEHOLDER = "STRING_PLACEHOLDER"
 
 func ParseTopic(topic_string string) *Topic {
