@@ -38,5 +38,5 @@ type Configuration struct {
 type CPE struct {
 	Name   string
 	Macs   []string
-	Config UUID
+	Config Configuration
 }
