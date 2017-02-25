@@ -1,5 +1,7 @@
 package libwimark
 
+type Document map[string]interface{}
+
 type UUID string
 
 type SecurityType float64
