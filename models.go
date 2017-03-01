@@ -33,7 +33,7 @@ type InterfaceConfiguration struct {
 }
 
 type Configuration struct {
-	iconfigs map[InterfaceType]InterfaceConfiguration
+	IfaceConfigs map[InterfaceType]InterfaceConfiguration
 }
 
 type CPE struct {
