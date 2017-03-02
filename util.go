@@ -171,6 +171,24 @@ func MakeFullTopic(d direction, sm module, sid string, rm module, rid string, t 
 	}
 }
 
+// Generates topic for outgoing messages
+func MakeRspTopic(reqTopic Topic) Topic {
+	var t_dir = DirectionUnicast
+	var t_smodule = *reqTopic.ReceiverModule
+	var t_sid string
+	if reqTopic.ReceiverID != nil {
+		t_sid = *reqTopic.ReceiverID
+	}
+	var t_rmodule = reqTopic.SenderModule
+	var t_rid = reqTopic.SenderID
+	var t_type = MessageResponse
+	var t_reqid = reqTopic.RequestID
+
+	var rspTopic = Topic{Dir: t_dir, SenderModule: t_smodule, SenderID: t_sid, ReceiverModule: &t_rmodule, ReceiverID: &t_rid, Type: &t_type, RequestID: t_reqid}
+
+	return rspTopic
+}
+
 const STRING_PLACEHOLDER = "STRING_PLACEHOLDER"
 
 func ParseTopic(topic_string string) *Topic {
