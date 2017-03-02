@@ -14,10 +14,10 @@ type operation int
 
 const (
 	ModuleAny     = module(-1)
-	ModuleBackend = module(0)
-	ModuleConfig  = module(1)
-	ModuleDB      = module(2)
-	ModuleCPE     = module(3)
+	ModuleBackend = module(1)
+	ModuleConfig  = module(2)
+	ModuleDB      = module(3)
+	ModuleCPE     = module(4)
 )
 
 func (self module) toString() string {
@@ -50,10 +50,10 @@ func parseModuleString(v string) *module {
 }
 
 const (
-	OperationCreate = operation(0)
-	OperationRead   = operation(1)
-	OperationUpdate = operation(2)
-	OperationDelete = operation(3)
+	OperationCreate = operation(1)
+	OperationRead   = operation(2)
+	OperationUpdate = operation(3)
+	OperationDelete = operation(4)
 )
 
 func parseOpString(v string) *operation {
@@ -86,8 +86,8 @@ func (self operation) toString() string {
 }
 
 const (
-	DirectionBroadcast = direction(0)
-	DirectionUnicast   = direction(1)
+	DirectionBroadcast = direction(1)
+	DirectionUnicast   = direction(2)
 )
 
 func (self direction) toString() string {
@@ -104,8 +104,8 @@ func (self direction) toString() string {
 }
 
 const (
-	MessageRequest  = messageType(0)
-	MessageResponse = messageType(1)
+	MessageRequest  = messageType(1)
+	MessageResponse = messageType(2)
 )
 
 const (
