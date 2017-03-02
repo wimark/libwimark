@@ -29,7 +29,7 @@ type WLAN struct {
 }
 
 type InterfaceConfiguration struct {
-	WLANs map[UUID]bool // This is a set
+	WLANs []UUID
 }
 
 type Configuration struct {
