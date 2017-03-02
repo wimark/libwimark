@@ -175,10 +175,7 @@ func MakeFullTopic(d direction, sm module, sid string, rm module, rid string, t 
 func MakeRspTopic(reqTopic Topic) Topic {
 	var t_dir = DirectionUnicast
 	var t_smodule = *reqTopic.ReceiverModule
-	var t_sid string
-	if reqTopic.ReceiverID != nil {
-		t_sid = *reqTopic.ReceiverID
-	}
+	var t_sid = *reqTopic.ReceiverID
 	var t_rmodule = reqTopic.SenderModule
 	var t_rid = reqTopic.SenderID
 	var t_type = MessageResponse
