@@ -18,6 +18,7 @@ const (
 	ModuleConfig  = module(2)
 	ModuleDB      = module(3)
 	ModuleCPE     = module(4)
+	ModuleStat    = module(5)
 )
 
 func (self module) toString() string {
@@ -27,6 +28,7 @@ func (self module) toString() string {
 		ModuleConfig:  "CONFIG",
 		ModuleDB:      "DB",
 		ModuleCPE:     "CPE",
+		ModuleStat:    "STAT",
 	}[self]
 
 	if !ok {
@@ -42,6 +44,7 @@ func parseModuleString(v string) *module {
 		"CONFIG":  ModuleConfig,
 		"DB":      ModuleDB,
 		"CPE":     ModuleCPE,
+		"STAT":    ModuleStat,
 	}[v]
 	if ok {
 		return &ret
