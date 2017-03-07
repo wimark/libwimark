@@ -91,10 +91,10 @@ func (self operation) toString() string {
 const (
 	TOPIC_B_FORMAT   = `B/%s/%s`
 	TOPIC_B_REGEXP   = `B/(.*)/(.*)`
-	TOPIC_REQ_FORMAT = `U/%s/%s/%s/%s/REQ/%s/%s`
-	TOPIC_REQ_REGEXP = `U/(.*)/(.*)/(.*)/(.*)/REQ/(.*)/(.*)`
-	TOPIC_RSP_FORMAT = `U/%s/%s/%s/%s/RSP/%s`
-	TOPIC_RSP_REGEXP = `U/(.*)/(.*)/(.*)/(.*)/RSP/(.*)`
+	TOPIC_REQ_FORMAT = `REQ/%s/%s/%s/%s/%s/%s`
+	TOPIC_REQ_REGEXP = `REQ/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)`
+	TOPIC_RSP_FORMAT = `RSP/%s/%s/%s/%s/%s`
+	TOPIC_RSP_REGEXP = `RSP/(.*)/(.*)/(.*)/(.*)/(.*)`
 )
 
 type Topic interface {
