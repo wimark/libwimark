@@ -53,6 +53,7 @@ func parseModuleString(v string) *module {
 }
 
 const (
+	OperationAny    = operation(-1)
 	OperationCreate = operation(1)
 	OperationRead   = operation(2)
 	OperationUpdate = operation(3)
@@ -61,10 +62,11 @@ const (
 
 func parseOpString(v string) *operation {
 	var ret, ok = map[string]operation{
-		"C": OperationCreate,
-		"R": OperationRead,
-		"U": OperationUpdate,
-		"D": OperationDelete,
+		MQTT_ANY_WILDCARD: OperationAny,
+		"C":               OperationCreate,
+		"R":               OperationRead,
+		"U":               OperationUpdate,
+		"D":               OperationDelete,
 	}[v]
 	if ok {
 		return &ret
@@ -75,6 +77,7 @@ func parseOpString(v string) *operation {
 
 func (self operation) toString() string {
 	var v, ok = map[operation]string{
+		OperationAny:    MQTT_ANY_WILDCARD,
 		OperationCreate: "C",
 		OperationRead:   "R",
 		OperationUpdate: "U",
