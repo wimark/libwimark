@@ -4,20 +4,60 @@ type Document map[string]interface{}
 
 type UUID string
 
-type SecurityType float64
+type SecurityType string
 
 const (
-	WPA2Personal   = SecurityType(0)
-	WPA2Enterprise = SecurityType(1)
-	RADIUS         = SecurityType(2)
+	WPA2Personal   = SecurityType("wpa2personal")
+	WPA2Enterprise = SecurityType("wpa2enterprise")
 )
 
-type InterfaceType float64
+func SecurityTypeFromString(v string) *SecurityType {
+	switch v {
+	case "wpa2personal":
+		var v = WPA2Personal
+		return &v
+	case "wpa2enterprise":
+		var v = WPA2Enterprise
+		return &v
+	default:
+		return nil
+	}
+}
+
+type InterfaceType string
 
 const (
-	I2_4 = InterfaceType(0)
-	I5_0 = InterfaceType(1)
+	I2_4 = InterfaceType("2.4")
+	I5_0 = InterfaceType("5.0")
 )
+
+type SecuritySuite string
+
+const (
+	AES  = SecuritySuite("aes")
+	TKIP = SecuritySuite("tkip")
+)
+
+func (self *SecuritySuite) UnmarshalJSON(b []byte) error {
+	var data string
+	var err = json.Unmarshal(b, &data)
+	if err != nil {
+		return err
+	}
+
+	switch data {
+	case "aes":
+		var v = AES
+		(*self) = v
+	case "tkip":
+		var v = TKIP
+		(*self) = v
+	default:
+		return errors.New("Unknown security suite")
+	}
+
+	return nil
+}
 
 type WLAN struct {
 	Name     string `json:"name"`
