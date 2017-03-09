@@ -1,6 +1,26 @@
 package libwimark
 
+import (
+	"encoding/json"
+	"errors"
+)
+
 type Document map[string]interface{}
+
+func (self *Document) ToValue(factory func() interface{}) (interface{}, error) {
+	var s, merr = json.Marshal(self)
+	if merr != nil {
+		return nil, merr
+	}
+
+	var v = factory()
+	var umerr = json.Unmarshal(s, v)
+	if umerr != nil {
+		return nil, umerr
+	}
+
+	return v, nil
+}
 
 type UUID string
 
@@ -22,6 +42,13 @@ func SecurityTypeFromString(v string) *SecurityType {
 	default:
 		return nil
 	}
+}
+
+type StatisticsData struct {
+	CPE       UUID
+	Timestamp int64
+	CPU       float64
+	Mem       float64
 }
 
 type InterfaceType string
@@ -59,13 +86,79 @@ func (self *SecuritySuite) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type WPA2Common struct {
+	Suite SecuritySuite `json:"suite"`
+}
+
+type WPA2PersonalData struct {
+	WPA2Common `json:,inline`
+	PSK        string `json:"psk"`
+}
+
+type WPA2EnterpriseData struct {
+	WPA2Common           `json:,inline`
+	RadiusAuthentication []string `json:"radius_auth"`
+}
+
+type SecuritySettings interface {
+	is_security_settings()
+}
+
+func (*WPA2PersonalData) is_security_settings()   {}
+func (*WPA2EnterpriseData) is_security_settings() {}
+
+type EnumSecurity struct {
+	T SecurityType
+	D SecuritySettings
+}
+
+func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
+	var data Document
+	var err = json.Unmarshal(b, &data)
+	if err != nil {
+		return err
+	}
+
+	if data == nil {
+		return nil
+	}
+	var t_erased, t_found = data["type"]
+	var secdata_erased, secdata_found = data["data"]
+	if !t_found || !secdata_found {
+		return nil
+	}
+	var t_s = t_erased.(string)
+	var t = SecurityTypeFromString(t_s)
+	if t == nil {
+		return errors.New("Invalid security type")
+	}
+	var secdata_m = Document(secdata_erased.(map[string]interface{}))
+	var secdata interface{}
+	var secdata_err error
+
+	switch *t {
+	case WPA2Personal:
+		secdata, secdata_err = secdata_m.ToValue(func() interface{} { return &WPA2PersonalData{} })
+	case WPA2Enterprise:
+		secdata, secdata_err = secdata_m.ToValue(func() interface{} { return &WPA2EnterpriseData{} })
+	}
+	if secdata_err != nil {
+		return secdata_err
+	}
+
+	self.T = *t
+	self.D = secdata.(SecuritySettings)
+
+	return nil
+}
+
 type WLAN struct {
-	Name     string `json:"name"`
-	Power    int    `json:"power"`
-	Security *struct {
-		T    SecurityType `json:"type"`
-		Data UUID         `json:"data"`
-	} `json:"security"`
+	Name             string        `json:"name"`
+	SSID             string        `json:"ssid"`
+	Description      string        `json:"description"`
+	Security         *EnumSecurity `json:"security"`
+	VLAN             int           `json:"vlan"`
+	RadiusAccounting []UUID        `json:"radius_accounting"`
 }
 
 type InterfaceConfiguration struct {
