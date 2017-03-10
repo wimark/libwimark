@@ -2,7 +2,7 @@ package libwimark
 
 import (
 	"fmt"
-	"strings"
+	"regexp"
 )
 
 const MQTT_ANY_WILDCARD = "+"
@@ -53,6 +53,7 @@ func parseModuleString(v string) *module {
 }
 
 const (
+	OperationAny    = operation(-1)
 	OperationCreate = operation(1)
 	OperationRead   = operation(2)
 	OperationUpdate = operation(3)
@@ -61,10 +62,11 @@ const (
 
 func parseOpString(v string) *operation {
 	var ret, ok = map[string]operation{
-		"C": OperationCreate,
-		"R": OperationRead,
-		"U": OperationUpdate,
-		"D": OperationDelete,
+		MQTT_ANY_WILDCARD: OperationAny,
+		"C":               OperationCreate,
+		"R":               OperationRead,
+		"U":               OperationUpdate,
+		"D":               OperationDelete,
 	}[v]
 	if ok {
 		return &ret
@@ -75,6 +77,7 @@ func parseOpString(v string) *operation {
 
 func (self operation) toString() string {
 	var v, ok = map[operation]string{
+		OperationAny:    MQTT_ANY_WILDCARD,
 		OperationCreate: "C",
 		OperationRead:   "R",
 		OperationUpdate: "U",
@@ -89,67 +92,36 @@ func (self operation) toString() string {
 }
 
 const (
-	DirectionBroadcast = direction(1)
-	DirectionUnicast   = direction(2)
+	TOPIC_B_FORMAT   = `B/%s/%s`
+	TOPIC_B_REGEXP   = `B/(.*)/(.*)`
+	TOPIC_REQ_FORMAT = `REQ/%s/%s/%s/%s/%s/%s`
+	TOPIC_REQ_REGEXP = `REQ/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)`
+	TOPIC_RSP_FORMAT = `RSP/%s/%s/%s/%s/%s`
+	TOPIC_RSP_REGEXP = `RSP/(.*)/(.*)/(.*)/(.*)/(.*)`
 )
 
-func (self direction) toString() string {
-	var v, ok = map[direction]string{
-		DirectionBroadcast: "B",
-		DirectionUnicast:   "U",
-	}[self]
-
-	if !ok {
-		panic(self)
-	}
-
-	return v
+type Topic interface {
+	TopicPath() string
 }
 
-const (
-	MessageRequest  = messageType(1)
-	MessageResponse = messageType(2)
-)
-
-const (
-	TOPIC_B_FORMAT     = `B/%s/%s`
-	TOPIC_U_REQ_FORMAT = `U/%s/%s/%s/%s/REQ/%s/%s`
-	TOPIC_U_RSP_FORMAT = `U/%s/%s/%s/%s/RSP/%s`
-)
-
-type Topic struct {
-	Dir            direction
-	SenderModule   module
-	SenderID       string
-	ReceiverModule *module      `json:",omitempty"`
-	ReceiverID     *string      `json:",omitempty"`
-	Type           *messageType `json:",omitempty"`
-	RequestID      *string      `json:",omitempty"`
-	Operation      *operation   `json:",omitempty"`
+type BroadcastTopic struct {
+	SenderModule module
+	SenderID     string
 }
 
-func (self *Topic) ToString() *string {
-	var sender_module = self.SenderModule.toString()
-	var sender_id = self.SenderID
+func ParseBroadcastTopic(s string) *BroadcastTopic {
+	var r = regexp.MustCompile(TOPIC_B_REGEXP)
+	var ds = r.FindAllStringSubmatch(s, -1)
+	if ds != nil && len(ds) == 1 {
+		var data = ds[0]
+		if data != nil && len(data) == 2+1 {
+			var smodule = parseModuleString(data[1])
+			if smodule != nil {
+				var v BroadcastTopic
 
-	switch self.Dir {
-	case DirectionBroadcast:
-		var v = fmt.Sprintf(TOPIC_B_FORMAT, sender_module, sender_id)
-		return &v
-	case DirectionUnicast:
-		if self.Type != nil && self.ReceiverModule != nil && self.ReceiverID != nil && self.RequestID != nil {
-			var t = *self.Type
-			var rmodule = self.ReceiverModule.toString()
-			var rid = *self.ReceiverID
-			var reqid = *self.RequestID
-			switch t {
-			case MessageRequest:
-				if self.Operation != nil {
-					var v = fmt.Sprintf(TOPIC_U_REQ_FORMAT, sender_module, sender_id, rmodule, rid, reqid, self.Operation.toString())
-					return &v
-				}
-			case MessageResponse:
-				var v = fmt.Sprintf(TOPIC_U_RSP_FORMAT, sender_module, sender_id, rmodule, rid, reqid)
+				v.SenderModule = *smodule
+				v.SenderID = data[2]
+
 				return &v
 			}
 		}
@@ -158,87 +130,116 @@ func (self *Topic) ToString() *string {
 	return nil
 }
 
-func MakeFullTopic(d direction, sm module, sid string, rm module, rid string, t messageType, reqid string, op operation) Topic {
-	return Topic{
-		Dir:            d,
-		SenderModule:   sm,
-		SenderID:       sid,
-		ReceiverModule: &rm,
-		ReceiverID:     &rid,
-		Type:           &t,
-		RequestID:      &reqid,
-		Operation:      &op,
+func (self *BroadcastTopic) TopicPath() string {
+	return fmt.Sprintf(TOPIC_B_FORMAT, self.SenderModule.toString(), self.SenderID)
+}
+
+type RequestTopic struct {
+	SenderModule   module
+	SenderID       string
+	ReceiverModule module
+	ReceiverID     string
+	RequestID      string
+	Operation      operation
+}
+
+func (self *RequestTopic) TopicPath() string {
+	return fmt.Sprintf(TOPIC_REQ_FORMAT, self.SenderModule.toString(), self.SenderID, self.ReceiverModule.toString(), self.ReceiverID, self.RequestID, self.Operation.toString())
+}
+
+func (self *RequestTopic) ToResponse() ResponseTopic {
+	return ResponseTopic{
+		SenderModule:   self.SenderModule,
+		SenderID:       self.SenderID,
+		ReceiverModule: self.ReceiverModule,
+		ReceiverID:     self.ReceiverID,
+		RequestID:      self.RequestID,
 	}
 }
 
-// Generates topic for outgoing messages
-func MakeRspTopic(reqTopic Topic) Topic {
-	var t_dir = DirectionUnicast
-	var t_smodule = *reqTopic.ReceiverModule
-	var t_sid = *reqTopic.ReceiverID
-	var t_rmodule = reqTopic.SenderModule
-	var t_rid = reqTopic.SenderID
-	var t_type = MessageResponse
-	var t_reqid = reqTopic.RequestID
+func ParseRequestTopic(s string) *RequestTopic {
+	var r = regexp.MustCompile(TOPIC_REQ_REGEXP)
+	var ds = r.FindAllStringSubmatch(s, -1)
+	if ds != nil && len(ds) == 1 {
+		var data = ds[0]
+		if data != nil && len(data) == 6+1 {
+			var smodule = parseModuleString(data[1])
+			var rmodule = parseModuleString(data[3])
+			var op = parseOpString(data[6])
 
-	var rspTopic = Topic{Dir: t_dir, SenderModule: t_smodule, SenderID: t_sid, ReceiverModule: &t_rmodule, ReceiverID: &t_rid, Type: &t_type, RequestID: t_reqid}
+			if smodule != nil && rmodule != nil && op != nil {
+				var v RequestTopic
 
-	return rspTopic
+				v.SenderModule = *smodule
+				v.SenderID = data[2]
+				v.ReceiverModule = *rmodule
+				v.ReceiverID = data[4]
+				v.RequestID = data[5]
+				v.Operation = *op
+
+				return &v
+			}
+		}
+	}
+
+	return nil
 }
 
-const STRING_PLACEHOLDER = "STRING_PLACEHOLDER"
+type ResponseTopic struct {
+	SenderModule   module
+	SenderID       string
+	ReceiverModule module
+	ReceiverID     string
+	RequestID      string
+}
 
-func ParseTopic(topic_string string) *Topic {
-	if !strings.Contains(topic_string, " ") {
-		var dir_s string
-		var smodule_s string
-		var sid string
-		var rmodule_s string
-		var rid string
-		var msgtype_s string
-		var reqid string
-		var op_s string
+func (self *ResponseTopic) TopicPath() string {
+	return fmt.Sprintf(TOPIC_RSP_FORMAT, self.SenderModule.toString(), self.SenderID, self.ReceiverModule.toString(), self.ReceiverID, self.RequestID)
+}
 
-		topic_string = strings.Replace(topic_string, "//", fmt.Sprintf("/%s/", STRING_PLACEHOLDER), -1)
+func ParseResponseTopic(s string) *ResponseTopic {
+	var r = regexp.MustCompile(TOPIC_RSP_REGEXP)
+	var ds = r.FindAllStringSubmatch(s, -1)
+	if ds != nil && len(ds) == 1 {
+		var data = ds[0]
+		if data != nil && len(data) == 5+1 {
+			var smodule = parseModuleString(data[1])
+			var rmodule = parseModuleString(data[3])
 
-		fmt.Sscanf(strings.Replace(topic_string, "/", " ", -1), "%s %s %s %s %s %s %s %s", &dir_s, &smodule_s, &sid, &rmodule_s, &rid, &msgtype_s, &reqid, &op_s)
+			if smodule != nil && rmodule != nil {
+				var v ResponseTopic
 
-		if sid == STRING_PLACEHOLDER {
-			sid = ""
-		}
+				v.SenderModule = *smodule
+				v.SenderID = data[2]
+				v.ReceiverModule = *rmodule
+				v.ReceiverID = data[4]
+				v.RequestID = data[5]
 
-		if rid == STRING_PLACEHOLDER {
-			rid = ""
-		}
-
-		if dir_s == STRING_PLACEHOLDER || smodule_s == STRING_PLACEHOLDER {
-			return nil
-		}
-
-		var smodule_opt = parseModuleString(smodule_s)
-		if smodule_opt != nil {
-			var smodule = *smodule_opt
-			if false {
-			} else if dir_s == "B" {
-				return &Topic{Dir: DirectionBroadcast, SenderModule: smodule, SenderID: sid}
-			} else if dir_s == "U" {
-				if (msgtype_s == "REQ" || msgtype_s == "RSP") && reqid != STRING_PLACEHOLDER {
-					var rmodule_opt = parseModuleString(rmodule_s)
-					if rmodule_opt != nil {
-						switch msgtype_s {
-						case "REQ":
-							var op_opt = parseOpString(op_s)
-							if op_opt != nil {
-								var t = MessageRequest
-								return &Topic{Dir: DirectionUnicast, SenderModule: smodule, SenderID: sid, ReceiverModule: rmodule_opt, ReceiverID: &rid, Type: &t, RequestID: &reqid, Operation: op_opt}
-							}
-						case "RSP":
-							var t = MessageResponse
-							return &Topic{Dir: DirectionUnicast, SenderModule: smodule, SenderID: sid, ReceiverModule: rmodule_opt, ReceiverID: &rid, Type: &t, RequestID: &reqid}
-						}
-					}
-				}
+				return &v
 			}
+		}
+	}
+
+	return nil
+}
+
+func ParseTopicPath(s string) Topic {
+	{
+		var v = ParseBroadcastTopic(s)
+		if v != nil {
+			return v
+		}
+	}
+	{
+		var v = ParseRequestTopic(s)
+		if v != nil {
+			return v
+		}
+	}
+	{
+		var v = ParseResponseTopic(s)
+		if v != nil {
+			return v
 		}
 	}
 
