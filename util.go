@@ -245,3 +245,37 @@ func ParseTopicPath(s string) Topic {
 
 	return nil
 }
+
+type DBResponseBase struct {
+	Errors []ModelError `json:"errors"`
+}
+
+type DBDataObj struct {
+	wlans []WLAN `json:"wlan"`
+	cpes  []CPE  `json:"cpe"`
+}
+
+type DBDataUUID struct {
+	wlans []UUID `json:"wlan"`
+	cpes  []UUID `json:"cpe"`
+}
+
+type DBRequestC DBDataObj
+type DBRequestU DBDataObj
+type DBRequestR DBDataUUID
+type DBRequestD DBDataUUID
+
+type DBResponseObj struct {
+	DBResponseBase `json:",inline"`
+	DBDataObj      `json:"data",inline`
+}
+
+type DBResponseUUID struct {
+	DBResponseBase `json:",inline"`
+	DBDataUUID     `json:"data",inline`
+}
+
+type DBResponseC DBResponseUUID
+type DBResponseR DBResponseObj
+type DBResponseU DBResponseUUID
+type DBResponseD DBResponseUUID
