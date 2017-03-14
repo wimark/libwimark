@@ -92,7 +92,8 @@ func TestCPE(t *testing.T) {
                         "band_mode": "n",
                         "bandwidth": "20",
                         "channel": "5",
-                        "tx_power": 100
+                        "tx_power": 100,
+                        "wlans": ["WLAN001", "WLAN002"]
                     }
                 }
             },
@@ -107,6 +108,7 @@ func TestCPE(t *testing.T) {
 	d.Bandwidth = "20"
 	d.Channel = "5"
 	d.TxPower = 100
+	d.WLANs = []UUID{"WLAN001", "WLAN002"}
 
 	var i CPEInterface
 	i.Addr = "macaddr0"
