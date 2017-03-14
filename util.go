@@ -251,8 +251,8 @@ type DBResponseBase struct {
 }
 
 type DBDataObj struct {
-	WLANs []WLAN `json:"wlan"`
-	CPEs  []CPE  `json:"cpe"`
+	WLANs map[UUID]WLAN `json:"wlan"`
+	CPEs  map[UUID]CPE  `json:"cpe"`
 }
 
 type DBDataUUID struct {
