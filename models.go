@@ -169,8 +169,133 @@ type Configuration struct {
 	IfaceConfigs map[InterfaceType]InterfaceConfiguration
 }
 
+type ConfigurationStatus string
+
+const (
+	Pending = ConfigurationStatus("pending")
+	Error   = ConfigurationStatus("error")
+	OK      = ConfigurationStatus("ok")
+	Empty   = ConfigurationStatus("empty")
+)
+
+type WiredData struct {
+	Name string
+	Mac  string
+}
+
+type WiFiData struct {
+	Name      string  `json:"name,omitempty"`
+	Mac       string  `json:"mac,omitempty"`
+	Frequency float32 `json:"frequency,omitempty"`
+	BandMode  string  `json:"band_mode,omitempty"`
+	Bandwidth string  `json:"bandwidth,omitempty"`
+	Channel   string  `json:"channel,omitempty"`
+	TxPower   int     `json:"tx_power,omitempty"`
+	WLANs     []UUID  `json:"wlans,omitempty"`
+}
+
+type CPEInterfaceType string
+
+const (
+	InterfaceWired = CPEInterfaceType("wired")
+	InterfaceWiFi  = CPEInterfaceType("wifi")
+)
+
+func GetCPEInterfaceType(v string) *CPEInterfaceType {
+	switch v {
+	case string(InterfaceWired):
+		var v = InterfaceWired
+		return &v
+	case string(InterfaceWiFi):
+		var v = InterfaceWiFi
+		return &v
+	default:
+		return nil
+	}
+}
+
+type CPEInterfaceInfo struct {
+	T CPEInterfaceType `json:"type"`
+	D interface{}      `json:"data"`
+}
+
+func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
+	var doc Document
+	var err = json.Unmarshal(b, &doc)
+	if err != nil {
+		return err
+	}
+
+	if doc == nil {
+		return nil
+	}
+	var t_erased, t_found = doc["type"]
+	var data_erased, data_found = doc["data"]
+	if !t_found || !data_found {
+		return nil
+	}
+	var t_s = t_erased.(string)
+	var t = GetCPEInterfaceType(t_s)
+	if t == nil {
+		return errors.New("Invalid enum type")
+	}
+	var data_m = Document(data_erased.(map[string]interface{}))
+	var data interface{}
+	var data_err error
+
+	switch *t {
+	case InterfaceWired:
+		data, data_err = data_m.ToValue(func() interface{} { return &WiredData{} })
+	case InterfaceWiFi:
+		data, data_err = data_m.ToValue(func() interface{} { return &WiFiData{} })
+	}
+	if data_err != nil {
+		return data_err
+	}
+
+	self.T = *t
+	self.D = data
+
+	return nil
+}
+
+type CPEInterface struct {
+	CPEInterfaceInfo `json:",inline"`
+	Addr             string `json:"addr"`
+}
+
+func (self *CPEInterface) UnmarshalJSON(b []byte) error {
+	var doc Document
+	var err = json.Unmarshal(b, &doc)
+	if err != nil {
+		return err
+	}
+
+	if doc == nil {
+		return nil
+	}
+
+	var addrErased, addrExists = doc["addr"]
+	if addrExists {
+		var addr, addrOk = addrErased.(string)
+		if addrOk {
+			self.Addr = addr
+		} else {
+			return errors.New("Address must be a string")
+		}
+	}
+
+	delete(doc, "addr")
+
+	var v, _ = json.Marshal(doc)
+
+	return self.CPEInterfaceInfo.UnmarshalJSON(v)
+}
+
 type CPE struct {
-	Name   string
-	Macs   []string
-	Config Configuration
+	Name         string                  `json:"name"`
+	Description  string                  `json:"description"`
+	Model        UUID                    `json:"model"`
+	Interfaces   map[string]CPEInterface `json:"interfaces"`
+	ConfigStatus ConfigurationStatus     `json:"config_status"`
 }

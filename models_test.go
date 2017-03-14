@@ -74,3 +74,59 @@ func TestWLAN(t *testing.T) {
 	}
 	assert.True(t, reflect.DeepEqual(expectation, result))
 }
+
+func TestCPE(t *testing.T) {
+	var fixture = []byte(`
+        {
+            "name": "mycpe",
+            "description": "this is my CPE",
+            "model": "MODELID001",
+            "interfaces": {
+                "wlan0": {
+                    "addr": "macaddr0",
+                    "type": "wifi",
+                    "data": {
+                        "name": "WLAN Interface 0",
+                        "mac": "macaddr1",
+                        "frequency": 2.4,
+                        "band_mode": "n",
+                        "bandwidth": "20",
+                        "channel": "5",
+                        "tx_power": 100
+                    }
+                }
+            },
+            "config_status": "ok"
+        }
+    `)
+	var d = &WiFiData{}
+	d.Name = "WLAN Interface 0"
+	d.Mac = "macaddr1"
+	d.Frequency = 2.4
+	d.BandMode = "n"
+	d.Bandwidth = "20"
+	d.Channel = "5"
+	d.TxPower = 100
+
+	var i CPEInterface
+	i.Addr = "macaddr0"
+	i.T = InterfaceWiFi
+	i.D = d
+
+	var expectation CPE
+	expectation.Name = "mycpe"
+	expectation.Description = "this is my CPE"
+	expectation.Model = UUID("MODELID001")
+	expectation.Interfaces = map[string]CPEInterface{}
+	expectation.Interfaces["wlan0"] = i
+	expectation.ConfigStatus = OK
+
+	var result CPE
+	var err = json.Unmarshal(fixture, &result)
+
+	if err != nil {
+		panic(err)
+	}
+
+	assert.True(t, reflect.DeepEqual(expectation, result))
+}
