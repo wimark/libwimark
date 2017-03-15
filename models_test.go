@@ -9,7 +9,7 @@ import (
 
 func TestSecuritySuite(t *testing.T) {
 	var fixture = []byte(`["tkip"]`)
-	var expectation = TKIP
+	var expectation = SecuritySuite{TKIP{}}
 	var result []SecuritySuite
 	var err = json.Unmarshal(fixture, &result)
 
@@ -22,9 +22,9 @@ func TestSecuritySuite(t *testing.T) {
 func TestEnumSecurity(t *testing.T) {
 	var fixture = []byte(`{"type": "wpa2personal", "data": {"psk": "qwerty", "suite": "tkip"}}`)
 	var d = &WPA2PersonalData{}
-	d.Suite = TKIP
+	d.Suite = SecuritySuite{TKIP{}}
 	d.PSK = "qwerty"
-	var expectation = EnumSecurity{T: WPA2Personal, D: d}
+	var expectation = EnumSecurity{T: SecurityType{WPA2Personal{}}, D: d}
 	var result EnumSecurity
 	var err = json.Unmarshal(fixture, &result)
 
@@ -52,14 +52,14 @@ func TestWLAN(t *testing.T) {
             }
         `)
 	var d = &WPA2PersonalData{}
-	d.Suite = AES
+	d.Suite = SecuritySuite{AES{}}
 	d.PSK = "qwerty"
 	var expectation = WLAN{
 		Name:        "myhotspot",
 		SSID:        "qwertyasdfgh",
 		Description: "This is my pretty little honeypot",
 		Security: &EnumSecurity{
-			T: WPA2Personal,
+			T: SecurityType{WPA2Personal{}},
 			D: d,
 		},
 		VLAN:             5,
@@ -112,7 +112,7 @@ func TestCPE(t *testing.T) {
 
 	var i CPEInterface
 	i.Addr = "macaddr0"
-	i.T = InterfaceWiFi
+	i.T = CPEInterfaceType{InterfaceWiFi{}}
 	i.D = d
 
 	var expectation CPE
@@ -121,7 +121,7 @@ func TestCPE(t *testing.T) {
 	expectation.Model = UUID("MODELID001")
 	expectation.Interfaces = map[string]CPEInterface{}
 	expectation.Interfaces["wlan0"] = i
-	expectation.ConfigStatus = OK
+	expectation.ConfigStatus = ConfigurationStatus{StatusOK{}}
 
 	var result CPE
 	var err = json.Unmarshal(fixture, &result)

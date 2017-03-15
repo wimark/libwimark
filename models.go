@@ -24,24 +24,10 @@ func (self *Document) ToValue(factory func() interface{}) (interface{}, error) {
 
 type UUID string
 
-type SecurityType string
-
-const (
-	WPA2Personal   = SecurityType("wpa2personal")
-	WPA2Enterprise = SecurityType("wpa2enterprise")
-)
-
-func SecurityTypeFromString(v string) *SecurityType {
-	switch v {
-	case "wpa2personal":
-		var v = WPA2Personal
-		return &v
-	case "wpa2enterprise":
-		var v = WPA2Enterprise
-		return &v
-	default:
-		return nil
-	}
+type Radius struct {
+	Type     RadiusType `json:"type"`
+	Hostname string     `json:"hostname"`
+	Secret   string     `json:"secret"`
 }
 
 type StatisticsData struct {
@@ -57,34 +43,6 @@ const (
 	I2_4 = InterfaceType("2.4")
 	I5_0 = InterfaceType("5.0")
 )
-
-type SecuritySuite string
-
-const (
-	AES  = SecuritySuite("aes")
-	TKIP = SecuritySuite("tkip")
-)
-
-func (self *SecuritySuite) UnmarshalJSON(b []byte) error {
-	var data string
-	var err = json.Unmarshal(b, &data)
-	if err != nil {
-		return err
-	}
-
-	switch data {
-	case "aes":
-		var v = AES
-		(*self) = v
-	case "tkip":
-		var v = TKIP
-		(*self) = v
-	default:
-		return errors.New("Unknown security suite")
-	}
-
-	return nil
-}
 
 type WPA2Common struct {
 	Suite SecuritySuite `json:"suite"`
@@ -113,41 +71,45 @@ type EnumSecurity struct {
 }
 
 func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
-	var data Document
-	var err = json.Unmarshal(b, &data)
+	var doc map[string]json.RawMessage
+	var err = json.Unmarshal(b, &doc)
 	if err != nil {
 		return err
 	}
 
-	if data == nil {
+	if doc == nil {
 		return nil
 	}
-	var t_erased, t_found = data["type"]
-	var secdata_erased, secdata_found = data["data"]
-	if !t_found || !secdata_found {
+	var t_raw, t_found = doc["type"]
+	var data_raw, data_found = doc["data"]
+	if !t_found || !data_found {
 		return nil
 	}
-	var t_s = t_erased.(string)
-	var t = SecurityTypeFromString(t_s)
-	if t == nil {
-		return errors.New("Invalid security type")
+	var t SecurityType
+	var t_err = json.Unmarshal(t_raw, &t)
+	if t_err != nil {
+		return t_err
 	}
-	var secdata_m = Document(secdata_erased.(map[string]interface{}))
-	var secdata interface{}
-	var secdata_err error
+	var data_m = Document{}
+	var s_err = json.Unmarshal(data_raw, &data_m)
+	if s_err != nil {
+    		return s_err
+	}
+	var data interface{}
+	var data_err error
 
-	switch *t {
+	switch t.Value().(type) {
 	case WPA2Personal:
-		secdata, secdata_err = secdata_m.ToValue(func() interface{} { return &WPA2PersonalData{} })
+		data, data_err = data_m.ToValue(func() interface{} { return &WPA2PersonalData{} })
 	case WPA2Enterprise:
-		secdata, secdata_err = secdata_m.ToValue(func() interface{} { return &WPA2EnterpriseData{} })
+		data, data_err = data_m.ToValue(func() interface{} { return &WPA2EnterpriseData{} })
 	}
-	if secdata_err != nil {
-		return secdata_err
+	if data_err != nil {
+		return data_err
 	}
 
-	self.T = *t
-	self.D = secdata.(SecuritySettings)
+	self.T = t
+	self.D = data.(SecuritySettings)
 
 	return nil
 }
@@ -169,15 +131,6 @@ type Configuration struct {
 	IfaceConfigs map[InterfaceType]InterfaceConfiguration
 }
 
-type ConfigurationStatus string
-
-const (
-	Pending = ConfigurationStatus("pending")
-	Error   = ConfigurationStatus("error")
-	OK      = ConfigurationStatus("ok")
-	Empty   = ConfigurationStatus("empty")
-)
-
 type WiredData struct {
 	Name string
 	Mac  string
@@ -194,33 +147,14 @@ type WiFiData struct {
 	WLANs     []UUID  `json:"wlans,omitempty"`
 }
 
-type CPEInterfaceType string
-
-const (
-	InterfaceWired = CPEInterfaceType("wired")
-	InterfaceWiFi  = CPEInterfaceType("wifi")
-)
-
-func GetCPEInterfaceType(v string) *CPEInterfaceType {
-	switch v {
-	case string(InterfaceWired):
-		var v = InterfaceWired
-		return &v
-	case string(InterfaceWiFi):
-		var v = InterfaceWiFi
-		return &v
-	default:
-		return nil
-	}
-}
-
+// CPEInterfaceInfo
 type CPEInterfaceInfo struct {
 	T CPEInterfaceType `json:"type"`
 	D interface{}      `json:"data"`
 }
 
 func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
-	var doc Document
+	var doc map[string]json.RawMessage
 	var err = json.Unmarshal(b, &doc)
 	if err != nil {
 		return err
@@ -229,31 +163,34 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 	if doc == nil {
 		return nil
 	}
-	var t_erased, t_found = doc["type"]
-	var data_erased, data_found = doc["data"]
+	var t_raw, t_found = doc["type"]
+	var data_raw, data_found = doc["data"]
 	if !t_found || !data_found {
 		return nil
 	}
-	var t_s = t_erased.(string)
-	var t = GetCPEInterfaceType(t_s)
-	if t == nil {
-		return errors.New("Invalid enum type")
+	var t CPEInterfaceType
+	var t_err = json.Unmarshal(t_raw, &t)
+	if t_err != nil {
+		return t_err
 	}
-	var data_m = Document(data_erased.(map[string]interface{}))
-	var data interface{}
+	var data interface{} = nil
 	var data_err error
 
-	switch *t {
+	switch t.Value().(type) {
 	case InterfaceWired:
-		data, data_err = data_m.ToValue(func() interface{} { return &WiredData{} })
+    		data = &WiredData{}
+    		data_err = json.Unmarshal(data_raw, data)
 	case InterfaceWiFi:
-		data, data_err = data_m.ToValue(func() interface{} { return &WiFiData{} })
+    		data = &WiFiData{}
+		data_err = json.Unmarshal(data_raw, data)
+	default:
+    		return errors.New("Not implemented")
 	}
 	if data_err != nil {
 		return data_err
 	}
 
-	self.T = *t
+	self.T = t
 	self.D = data
 
 	return nil
@@ -298,4 +235,10 @@ type CPE struct {
 	Model        UUID                    `json:"model"`
 	Interfaces   map[string]CPEInterface `json:"interfaces"`
 	ConfigStatus ConfigurationStatus     `json:"config_status"`
+}
+
+type Stat struct {
+	Timestamp int64   `json:"time"`
+	CPU       float32 `json:"cpu"`
+	Mem       float32 `json:"mem"`
 }
