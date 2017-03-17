@@ -25,11 +25,11 @@ Stat    = { jkey = "STAT"    }
 [Operation]
 prefix = "Operation"
 [Operation.variants]
-Any    = { jkey = "+" }
-Create = { jkey = "C" }
-Delete = { jkey = "D" }
-Read   = { jkey = "R" }
-Update = { jkey = "U" }
+Any       = { jkey = "+"   }
+Create    = { jkey = "C"   }
+Delete    = { jkey = "D"   }
+Read      = { jkey = "R"   }
+Update    = { jkey = "U"   }
 
 [RadiusType]
 prefix = "Radius"

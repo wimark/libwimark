@@ -67,11 +67,11 @@ type RequestTopic struct {
 func (self *RequestTopic) TopicPath() string {
 	var u = strconv.Unquote
 
-	var sm,   _ = self.SenderModule.MarshalJSON()
+	var sm, _ = self.SenderModule.MarshalJSON()
 	var sm_s, _ = u(string(sm))
-	var rm, _   = self.ReceiverModule.MarshalJSON()
+	var rm, _ = self.ReceiverModule.MarshalJSON()
 	var rm_s, _ = u(string(rm))
-	var op, _   = self.Operation.MarshalJSON()
+	var op, _ = self.Operation.MarshalJSON()
 	var op_s, _ = u(string(op))
 	return fmt.Sprintf(TOPIC_REQ_FORMAT, sm_s, self.SenderID, rm_s, self.ReceiverID, self.RequestID, op_s)
 }
