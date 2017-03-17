@@ -30,6 +30,8 @@ Create    = { jkey = "C"   }
 Delete    = { jkey = "D"   }
 Read      = { jkey = "R"   }
 Update    = { jkey = "U"   }
+LuaScript = { jkey = "LUA" }
+SHScript  = { jkey = "SH"  }
 
 [RadiusType]
 prefix = "Radius"

@@ -211,9 +211,17 @@ type OperationDelete struct{}
 
 func (OperationDelete) OperationIfaceFunc() {}
 
+type OperationLuaScript struct{}
+
+func (OperationLuaScript) OperationIfaceFunc() {}
+
 type OperationRead struct{}
 
 func (OperationRead) OperationIfaceFunc() {}
+
+type OperationSHScript struct{}
+
+func (OperationSHScript) OperationIfaceFunc() {}
 
 type OperationUpdate struct{}
 
@@ -226,8 +234,12 @@ func (self *Operation) MarshalJSON() ([]byte, error) {
 		return json.Marshal("C")
 	case OperationDelete:
 		return json.Marshal("D")
+	case OperationLuaScript:
+		return json.Marshal("LUA")
 	case OperationRead:
 		return json.Marshal("R")
+	case OperationSHScript:
+		return json.Marshal("SH")
 	case OperationUpdate:
 		return json.Marshal("U")
 
@@ -250,8 +262,14 @@ func (self *Operation) UnmarshalJSON(b []byte) error {
 	case "D":
 		self.OperationIface = OperationDelete{}
 		return nil
+	case "LUA":
+		self.OperationIface = OperationLuaScript{}
+		return nil
 	case "R":
 		self.OperationIface = OperationRead{}
+		return nil
+	case "SH":
+		self.OperationIface = OperationSHScript{}
 		return nil
 	case "U":
 		self.OperationIface = OperationUpdate{}
