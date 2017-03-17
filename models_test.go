@@ -7,6 +7,18 @@ import (
 	"testing"
 )
 
+func TestCompare(t *testing.T) {
+	var fixture1 = SecuritySuite{TKIP{}}
+	var fixture2 = SecuritySuite{TKIP{}}
+	var fixture3 = SecuritySuite{AES{}}
+
+	assert.Equal(t, fixture1, fixture2)
+	assert.NotEqual(t, fixture1, fixture3)
+
+	assert.True(t, fixture1 == fixture2)
+	assert.True(t, fixture1 != fixture3)
+}
+
 func TestSecuritySuite(t *testing.T) {
 	var fixture = []byte(`["tkip"]`)
 	var expectation = SecuritySuite{TKIP{}}
