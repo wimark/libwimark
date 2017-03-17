@@ -238,7 +238,15 @@ type CPE struct {
 }
 
 type Stat struct {
-	Timestamp int64   `json:"time"`
-	CPU       float32 `json:"cpu"`
-	Mem       float32 `json:"mem"`
+	Timestamp    int64   `json:"time"`
+	CPU          float64 `json:"cpu"`
+	RAM          float64 `json:"ram"`
+	Storage      float64 `json:"storage"`
+	ProcActive   uint64  `json:"processes_active"`
+	ProcSleeping uint64  `json:"processes_sleeping"`
+	Interfaces   map[string]struct {
+		Name string  `json:"name"`
+		Tx   float64 `json:"tx"`
+		Rx   float64 `json:"rx"`
+	} `json:"interfaces"`
 }
