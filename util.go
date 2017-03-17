@@ -1,95 +1,13 @@
 package libwimark
 
 import (
+	"encoding/json"
 	"fmt"
 	"regexp"
+	"strconv"
 )
 
 const MQTT_ANY_WILDCARD = "+"
-
-type module int
-type direction int
-type messageType int
-type operation int
-
-const (
-	ModuleAny     = module(-1)
-	ModuleBackend = module(1)
-	ModuleConfig  = module(2)
-	ModuleDB      = module(3)
-	ModuleCPE     = module(4)
-	ModuleStat    = module(5)
-)
-
-func (self module) toString() string {
-	var v, ok = map[module]string{
-		ModuleAny:     MQTT_ANY_WILDCARD,
-		ModuleBackend: "BACKEND",
-		ModuleConfig:  "CONFIG",
-		ModuleDB:      "DB",
-		ModuleCPE:     "CPE",
-		ModuleStat:    "STAT",
-	}[self]
-
-	if !ok {
-		panic(self)
-	}
-
-	return v
-}
-
-func parseModuleString(v string) *module {
-	var ret, ok = map[string]module{
-		"BACKEND": ModuleBackend,
-		"CONFIG":  ModuleConfig,
-		"DB":      ModuleDB,
-		"CPE":     ModuleCPE,
-		"STAT":    ModuleStat,
-	}[v]
-	if ok {
-		return &ret
-	}
-	return nil
-}
-
-const (
-	OperationAny    = operation(-1)
-	OperationCreate = operation(1)
-	OperationRead   = operation(2)
-	OperationUpdate = operation(3)
-	OperationDelete = operation(4)
-)
-
-func parseOpString(v string) *operation {
-	var ret, ok = map[string]operation{
-		MQTT_ANY_WILDCARD: OperationAny,
-		"C":               OperationCreate,
-		"R":               OperationRead,
-		"U":               OperationUpdate,
-		"D":               OperationDelete,
-	}[v]
-	if ok {
-		return &ret
-	}
-
-	return nil
-}
-
-func (self operation) toString() string {
-	var v, ok = map[operation]string{
-		OperationAny:    MQTT_ANY_WILDCARD,
-		OperationCreate: "C",
-		OperationRead:   "R",
-		OperationUpdate: "U",
-		OperationDelete: "D",
-	}[self]
-
-	if !ok {
-		panic(self)
-	}
-
-	return v
-}
 
 const (
 	TOPIC_B_FORMAT   = `B/%s/%s`
@@ -105,7 +23,7 @@ type Topic interface {
 }
 
 type BroadcastTopic struct {
-	SenderModule module
+	SenderModule Module
 	SenderID     string
 }
 
@@ -115,11 +33,12 @@ func ParseBroadcastTopic(s string) *BroadcastTopic {
 	if ds != nil && len(ds) == 1 {
 		var data = ds[0]
 		if data != nil && len(data) == 2+1 {
-			var smodule = parseModuleString(data[1])
-			if smodule != nil {
+			var smodule Module
+			var smodule_err = json.Unmarshal([]byte(strconv.Quote(data[1])), &smodule)
+			if smodule_err == nil {
 				var v BroadcastTopic
 
-				v.SenderModule = *smodule
+				v.SenderModule = smodule
 				v.SenderID = data[2]
 
 				return &v
@@ -131,20 +50,30 @@ func ParseBroadcastTopic(s string) *BroadcastTopic {
 }
 
 func (self *BroadcastTopic) TopicPath() string {
-	return fmt.Sprintf(TOPIC_B_FORMAT, self.SenderModule.toString(), self.SenderID)
+	var sm, _ = self.SenderModule.MarshalJSON()
+	var sm_s, _ = strconv.Unquote(string(sm))
+	return fmt.Sprintf(TOPIC_B_FORMAT, sm_s, self.SenderID)
 }
 
 type RequestTopic struct {
-	SenderModule   module
+	SenderModule   Module
 	SenderID       string
-	ReceiverModule module
+	ReceiverModule Module
 	ReceiverID     string
 	RequestID      string
-	Operation      operation
+	Operation      Operation
 }
 
 func (self *RequestTopic) TopicPath() string {
-	return fmt.Sprintf(TOPIC_REQ_FORMAT, self.SenderModule.toString(), self.SenderID, self.ReceiverModule.toString(), self.ReceiverID, self.RequestID, self.Operation.toString())
+	var u = strconv.Unquote
+
+	var sm,   _ = self.SenderModule.MarshalJSON()
+	var sm_s, _ = u(string(sm))
+	var rm, _   = self.ReceiverModule.MarshalJSON()
+	var rm_s, _ = u(string(rm))
+	var op, _   = self.Operation.MarshalJSON()
+	var op_s, _ = u(string(op))
+	return fmt.Sprintf(TOPIC_REQ_FORMAT, sm_s, self.SenderID, rm_s, self.ReceiverID, self.RequestID, op_s)
 }
 
 func (self *RequestTopic) ToResponse() ResponseTopic {
@@ -163,19 +92,23 @@ func ParseRequestTopic(s string) *RequestTopic {
 	if ds != nil && len(ds) == 1 {
 		var data = ds[0]
 		if data != nil && len(data) == 6+1 {
-			var smodule = parseModuleString(data[1])
-			var rmodule = parseModuleString(data[3])
-			var op = parseOpString(data[6])
+			var smodule Module
+			var rmodule Module
+			var op Operation
 
-			if smodule != nil && rmodule != nil && op != nil {
+			var smodule_err = json.Unmarshal([]byte(strconv.Quote(data[1])), &smodule)
+			var rmodule_err = json.Unmarshal([]byte(strconv.Quote(data[3])), &rmodule)
+			var op_err = json.Unmarshal([]byte(strconv.Quote(data[6])), &op)
+
+			if smodule_err == nil && rmodule_err == nil && op_err == nil {
 				var v RequestTopic
 
-				v.SenderModule = *smodule
+				v.SenderModule = smodule
 				v.SenderID = data[2]
-				v.ReceiverModule = *rmodule
+				v.ReceiverModule = rmodule
 				v.ReceiverID = data[4]
 				v.RequestID = data[5]
-				v.Operation = *op
+				v.Operation = op
 
 				return &v
 			}
@@ -186,15 +119,22 @@ func ParseRequestTopic(s string) *RequestTopic {
 }
 
 type ResponseTopic struct {
-	SenderModule   module
+	SenderModule   Module
 	SenderID       string
-	ReceiverModule module
+	ReceiverModule Module
 	ReceiverID     string
 	RequestID      string
 }
 
 func (self *ResponseTopic) TopicPath() string {
-	return fmt.Sprintf(TOPIC_RSP_FORMAT, self.SenderModule.toString(), self.SenderID, self.ReceiverModule.toString(), self.ReceiverID, self.RequestID)
+	var u = strconv.Unquote
+
+	var sm, _ = self.SenderModule.MarshalJSON()
+	var rm, _ = self.ReceiverModule.MarshalJSON()
+
+	var sm_s, _ = u(string(sm))
+	var rm_s, _ = u(string(rm))
+	return fmt.Sprintf(TOPIC_RSP_FORMAT, sm_s, self.SenderID, rm_s, self.ReceiverID, self.RequestID)
 }
 
 func ParseResponseTopic(s string) *ResponseTopic {
@@ -203,15 +143,18 @@ func ParseResponseTopic(s string) *ResponseTopic {
 	if ds != nil && len(ds) == 1 {
 		var data = ds[0]
 		if data != nil && len(data) == 5+1 {
-			var smodule = parseModuleString(data[1])
-			var rmodule = parseModuleString(data[3])
+			var smodule Module
+			var rmodule Module
 
-			if smodule != nil && rmodule != nil {
+			var smodule_err = json.Unmarshal([]byte(strconv.Quote(data[1])), &smodule)
+			var rmodule_err = json.Unmarshal([]byte(strconv.Quote(data[3])), &rmodule)
+
+			if smodule_err == nil && rmodule_err == nil {
 				var v ResponseTopic
 
-				v.SenderModule = *smodule
+				v.SenderModule = smodule
 				v.SenderID = data[2]
-				v.ReceiverModule = *rmodule
+				v.ReceiverModule = rmodule
 				v.ReceiverID = data[4]
 				v.RequestID = data[5]
 

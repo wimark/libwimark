@@ -113,6 +113,155 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 
 }
 
+type ModuleIface interface {
+	ModuleIfaceFunc()
+}
+type Module struct{ ModuleIface }
+
+func (self *Module) Value() ModuleIface { return self.ModuleIface }
+
+type ModuleAny struct{}
+
+func (ModuleAny) ModuleIfaceFunc() {}
+
+type ModuleBackend struct{}
+
+func (ModuleBackend) ModuleIfaceFunc() {}
+
+type ModuleCPE struct{}
+
+func (ModuleCPE) ModuleIfaceFunc() {}
+
+type ModuleConfig struct{}
+
+func (ModuleConfig) ModuleIfaceFunc() {}
+
+type ModuleDB struct{}
+
+func (ModuleDB) ModuleIfaceFunc() {}
+
+type ModuleStat struct{}
+
+func (ModuleStat) ModuleIfaceFunc() {}
+func (self *Module) MarshalJSON() ([]byte, error) {
+	switch self.ModuleIface.(type) {
+	case ModuleAny:
+		return json.Marshal("+")
+	case ModuleBackend:
+		return json.Marshal("BACKEND")
+	case ModuleCPE:
+		return json.Marshal("CPE")
+	case ModuleConfig:
+		return json.Marshal("CONFIG")
+	case ModuleDB:
+		return json.Marshal("DB")
+	case ModuleStat:
+		return json.Marshal("STAT")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *Module) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "+":
+		self.ModuleIface = ModuleAny{}
+		return nil
+	case "BACKEND":
+		self.ModuleIface = ModuleBackend{}
+		return nil
+	case "CPE":
+		self.ModuleIface = ModuleCPE{}
+		return nil
+	case "CONFIG":
+		self.ModuleIface = ModuleConfig{}
+		return nil
+	case "DB":
+		self.ModuleIface = ModuleDB{}
+		return nil
+	case "STAT":
+		self.ModuleIface = ModuleStat{}
+		return nil
+
+	}
+	return errors.New("Unknown Module")
+
+}
+
+type OperationIface interface {
+	OperationIfaceFunc()
+}
+type Operation struct{ OperationIface }
+
+func (self *Operation) Value() OperationIface { return self.OperationIface }
+
+type OperationAny struct{}
+
+func (OperationAny) OperationIfaceFunc() {}
+
+type OperationCreate struct{}
+
+func (OperationCreate) OperationIfaceFunc() {}
+
+type OperationDelete struct{}
+
+func (OperationDelete) OperationIfaceFunc() {}
+
+type OperationRead struct{}
+
+func (OperationRead) OperationIfaceFunc() {}
+
+type OperationUpdate struct{}
+
+func (OperationUpdate) OperationIfaceFunc() {}
+func (self *Operation) MarshalJSON() ([]byte, error) {
+	switch self.OperationIface.(type) {
+	case OperationAny:
+		return json.Marshal("+")
+	case OperationCreate:
+		return json.Marshal("C")
+	case OperationDelete:
+		return json.Marshal("D")
+	case OperationRead:
+		return json.Marshal("R")
+	case OperationUpdate:
+		return json.Marshal("U")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *Operation) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "+":
+		self.OperationIface = OperationAny{}
+		return nil
+	case "C":
+		self.OperationIface = OperationCreate{}
+		return nil
+	case "D":
+		self.OperationIface = OperationDelete{}
+		return nil
+	case "R":
+		self.OperationIface = OperationRead{}
+		return nil
+	case "U":
+		self.OperationIface = OperationUpdate{}
+		return nil
+
+	}
+	return errors.New("Unknown Operation")
+
+}
+
 type RadiusTypeIface interface {
 	RadiusTypeIfaceFunc()
 }

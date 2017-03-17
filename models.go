@@ -93,7 +93,7 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 	var data_m = Document{}
 	var s_err = json.Unmarshal(data_raw, &data_m)
 	if s_err != nil {
-    		return s_err
+		return s_err
 	}
 	var data interface{}
 	var data_err error
@@ -178,13 +178,13 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 
 	switch t.Value().(type) {
 	case InterfaceWired:
-    		data = &WiredData{}
-    		data_err = json.Unmarshal(data_raw, data)
+		data = &WiredData{}
+		data_err = json.Unmarshal(data_raw, data)
 	case InterfaceWiFi:
-    		data = &WiFiData{}
+		data = &WiFiData{}
 		data_err = json.Unmarshal(data_raw, data)
 	default:
-    		return errors.New("Not implemented")
+		return errors.New("Not implemented")
 	}
 	if data_err != nil {
 		return data_err

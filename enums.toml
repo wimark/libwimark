@@ -1,0 +1,49 @@
+[CPEInterfaceType]
+prefix = "Interface"
+[CPEInterfaceType.variants]
+WiFi    = { jkey = "wifi"  }
+Wired   = { jkey = "wired" }
+
+[ConfigurationStatus]
+prefix = "Status"
+[ConfigurationStatus.variants]
+Empty   = { jkey = "empty"   }
+Error   = { jkey = "error"   }
+OK      = { jkey = "ok"      }
+Pending = { jkey = "pending" }
+
+[Module]
+prefix = "Module"
+[Module.variants]
+Any     = { jkey = "+"       }
+Backend = { jkey = "BACKEND" }
+CPE     = { jkey = "CPE"     }
+Config  = { jkey = "CONFIG"  }
+DB      = { jkey = "DB"      }
+Stat    = { jkey = "STAT"    }
+
+[Operation]
+prefix = "Operation"
+[Operation.variants]
+Any    = { jkey = "+" }
+Create = { jkey = "C" }
+Delete = { jkey = "D" }
+Read   = { jkey = "R" }
+Update = { jkey = "U" }
+
+[RadiusType]
+prefix = "Radius"
+[RadiusType.variants]
+Accounting     = { jkey = "acc"  }
+Authentication = { jkey = "auth" }
+Both           = { jkey = "both" }
+
+[SecuritySuite]
+[SecuritySuite.variants]
+AES  = { jkey = "aes"  }
+TKIP = { jkey = "tkip" }
+
+[SecurityType]
+[SecurityType.variants]
+WPA2Enterprise = { jkey = "wpa2enterprise" }
+WPA2Personal   = { jkey = "wpa2personal"   }
