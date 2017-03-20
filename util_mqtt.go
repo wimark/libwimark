@@ -1,7 +1,9 @@
 package libwimark
 
 import (
+	"encoding/json"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"log"
 )
 
 func MQTTConnectSync(addr string) (mqtt.Client, error) {
@@ -13,6 +15,65 @@ func MQTTConnectSync(addr string) (mqtt.Client, error) {
 	token.Wait()
 
 	return client, token.Error()
+}
+
+func MQTTMustConnectSync(addr string) mqtt.Client {
+	var client, err = MQTTConnectSync(addr)
+	if err != nil {
+		panic(err)
+	}
+
+	return client
+}
+
+type MQTTMessage interface {
+	Topic() Topic
+	Payload() []byte
+}
+
+type MQTTDocumentMessage struct {
+	T Topic
+	D map[string]interface{}
+}
+
+func (self *MQTTDocumentMessage) Topic() Topic {
+	return self.T
+}
+
+func (self *MQTTDocumentMessage) Payload() []byte {
+	var payload = []byte{}
+	if self.D != nil {
+		payload, _ = json.Marshal(self.D)
+	}
+	return payload
+}
+
+type MQTTRawMessage struct {
+	T Topic
+	D []byte
+}
+
+func (self *MQTTRawMessage) Topic() Topic {
+	return self.T
+}
+
+func (self *MQTTRawMessage) Payload() []byte {
+	return self.D
+}
+
+func MQTTMakePublishChan(client mqtt.Client, logger *log.Logger) chan<- MQTTMessage {
+	var publishChan = make(chan MQTTMessage)
+	go func() {
+		for msg := range publishChan {
+			var topic_str = msg.Topic().TopicPath()
+			var payload = msg.Payload()
+
+			logger.Printf("Sending message - Topic: %s, Payload: %s\n", topic_str, payload)
+			client.Publish(topic_str, 2, false, payload)
+		}
+	}()
+
+	return publishChan
 }
 
 type MsgCb func(mqtt.Message)
@@ -27,4 +88,11 @@ func MQTTMustSubscribeSync(client mqtt.Client, topic Topic, cb MsgCb) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func MQTTPublishSync(client mqtt.Client, topic Topic, payload interface{}) error {
+	var token = client.Publish(topic.TopicPath(), 2, false, payload)
+	token.Wait()
+	var err = token.Error()
+	return err
 }
