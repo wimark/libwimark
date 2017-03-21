@@ -30,13 +30,6 @@ type Radius struct {
 	Secret   string     `json:"secret"`
 }
 
-type StatisticsData struct {
-	CPE       UUID
-	Timestamp int64
-	CPU       float64
-	Mem       float64
-}
-
 type InterfaceType string
 
 const (
@@ -184,7 +177,7 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 		data = &WiFiData{}
 		data_err = json.Unmarshal(data_raw, data)
 	default:
-		return errors.New("Not implemented")
+		return errors.New("Invalid data associated with CPEInterfaceType")
 	}
 	if data_err != nil {
 		return data_err
