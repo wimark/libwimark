@@ -59,8 +59,8 @@ func (*WPA2PersonalData) is_security_settings()   {}
 func (*WPA2EnterpriseData) is_security_settings() {}
 
 type EnumSecurity struct {
-	T SecurityType
-	D SecuritySettings
+	T SecurityType     `json:"type"`
+	D SecuritySettings `json:"data"`
 }
 
 func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
