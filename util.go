@@ -78,10 +78,10 @@ func (self *RequestTopic) TopicPath() string {
 
 func (self *RequestTopic) ToResponse() ResponseTopic {
 	return ResponseTopic{
-		SenderModule:   self.SenderModule,
-		SenderID:       self.SenderID,
-		ReceiverModule: self.ReceiverModule,
-		ReceiverID:     self.ReceiverID,
+		SenderModule:   self.ReceiverModule,
+		SenderID:       self.ReceiverID,
+		ReceiverModule: self.SenderModule,
+		ReceiverID:     self.SenderID,
 		RequestID:      self.RequestID,
 	}
 }
