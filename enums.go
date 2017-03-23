@@ -21,6 +21,17 @@ func (InterfaceWiFi) CPEInterfaceTypeIfaceFunc() {}
 type InterfaceWired struct{}
 
 func (InterfaceWired) CPEInterfaceTypeIfaceFunc() {}
+func (self *CPEInterfaceType) String() string {
+	switch self.CPEInterfaceTypeIface.(type) {
+	case InterfaceWiFi:
+		return "InterfaceWiFi"
+	case InterfaceWired:
+		return "InterfaceWired"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
 func (self *CPEInterfaceType) MarshalJSON() ([]byte, error) {
 	switch self.CPEInterfaceTypeIface.(type) {
 	case InterfaceWiFi:
@@ -74,6 +85,21 @@ func (StatusOK) ConfigurationStatusIfaceFunc() {}
 type StatusPending struct{}
 
 func (StatusPending) ConfigurationStatusIfaceFunc() {}
+func (self *ConfigurationStatus) String() string {
+	switch self.ConfigurationStatusIface.(type) {
+	case StatusEmpty:
+		return "StatusEmpty"
+	case StatusError:
+		return "StatusError"
+	case StatusOK:
+		return "StatusOK"
+	case StatusPending:
+		return "StatusPending"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
 func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 	switch self.ConfigurationStatusIface.(type) {
 	case StatusEmpty:
@@ -143,6 +169,25 @@ func (ModuleDB) ModuleIfaceFunc() {}
 type ModuleStat struct{}
 
 func (ModuleStat) ModuleIfaceFunc() {}
+func (self *Module) String() string {
+	switch self.ModuleIface.(type) {
+	case ModuleAny:
+		return "ModuleAny"
+	case ModuleBackend:
+		return "ModuleBackend"
+	case ModuleCPE:
+		return "ModuleCPE"
+	case ModuleConfig:
+		return "ModuleConfig"
+	case ModuleDB:
+		return "ModuleDB"
+	case ModuleStat:
+		return "ModuleStat"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
 func (self *Module) MarshalJSON() ([]byte, error) {
 	switch self.ModuleIface.(type) {
 	case ModuleAny:
@@ -226,6 +271,27 @@ func (OperationSHScript) OperationIfaceFunc() {}
 type OperationUpdate struct{}
 
 func (OperationUpdate) OperationIfaceFunc() {}
+func (self *Operation) String() string {
+	switch self.OperationIface.(type) {
+	case OperationAny:
+		return "OperationAny"
+	case OperationCreate:
+		return "OperationCreate"
+	case OperationDelete:
+		return "OperationDelete"
+	case OperationLuaScript:
+		return "OperationLuaScript"
+	case OperationRead:
+		return "OperationRead"
+	case OperationSHScript:
+		return "OperationSHScript"
+	case OperationUpdate:
+		return "OperationUpdate"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
 func (self *Operation) MarshalJSON() ([]byte, error) {
 	switch self.OperationIface.(type) {
 	case OperationAny:
@@ -298,6 +364,19 @@ func (RadiusAuthentication) RadiusTypeIfaceFunc() {}
 type RadiusBoth struct{}
 
 func (RadiusBoth) RadiusTypeIfaceFunc() {}
+func (self *RadiusType) String() string {
+	switch self.RadiusTypeIface.(type) {
+	case RadiusAccounting:
+		return "RadiusAccounting"
+	case RadiusAuthentication:
+		return "RadiusAuthentication"
+	case RadiusBoth:
+		return "RadiusBoth"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
 func (self *RadiusType) MarshalJSON() ([]byte, error) {
 	switch self.RadiusTypeIface.(type) {
 	case RadiusAccounting:
@@ -346,6 +425,17 @@ func (AES) SecuritySuiteIfaceFunc() {}
 type TKIP struct{}
 
 func (TKIP) SecuritySuiteIfaceFunc() {}
+func (self *SecuritySuite) String() string {
+	switch self.SecuritySuiteIface.(type) {
+	case AES:
+		return "AES"
+	case TKIP:
+		return "TKIP"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
 func (self *SecuritySuite) MarshalJSON() ([]byte, error) {
 	switch self.SecuritySuiteIface.(type) {
 	case AES:
@@ -389,6 +479,17 @@ func (WPA2Enterprise) SecurityTypeIfaceFunc() {}
 type WPA2Personal struct{}
 
 func (WPA2Personal) SecurityTypeIfaceFunc() {}
+func (self *SecurityType) String() string {
+	switch self.SecurityTypeIface.(type) {
+	case WPA2Enterprise:
+		return "WPA2Enterprise"
+	case WPA2Personal:
+		return "WPA2Personal"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
 func (self *SecurityType) MarshalJSON() ([]byte, error) {
 	switch self.SecurityTypeIface.(type) {
 	case WPA2Enterprise:
