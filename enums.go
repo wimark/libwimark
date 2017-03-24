@@ -7,6 +7,82 @@ import (
 	"errors"
 )
 
+type CPEAgentStatusTypeIface interface {
+	CPEAgentStatusTypeIfaceFunc()
+}
+type CPEAgentStatusType struct{ CPEAgentStatusTypeIface }
+
+func (self *CPEAgentStatusType) Value() CPEAgentStatusTypeIface { return self.CPEAgentStatusTypeIface }
+
+type CPEAgentStatusException struct{}
+
+func (CPEAgentStatusException) CPEAgentStatusTypeIfaceFunc() {}
+
+type CPEAgentStatusSuccess struct{}
+
+func (CPEAgentStatusSuccess) CPEAgentStatusTypeIfaceFunc() {}
+
+type CPEAgentStatusSyntaxError struct{}
+
+func (CPEAgentStatusSyntaxError) CPEAgentStatusTypeIfaceFunc() {}
+
+type CPEAgentStatusUndefined struct{}
+
+func (CPEAgentStatusUndefined) CPEAgentStatusTypeIfaceFunc() {}
+func (self *CPEAgentStatusType) String() string {
+	switch self.CPEAgentStatusTypeIface.(type) {
+	case CPEAgentStatusException:
+		return "CPEAgentStatusException"
+	case CPEAgentStatusSuccess:
+		return "CPEAgentStatusSuccess"
+	case CPEAgentStatusSyntaxError:
+		return "CPEAgentStatusSyntaxError"
+	case CPEAgentStatusUndefined:
+		return "CPEAgentStatusUndefined"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self *CPEAgentStatusType) MarshalJSON() ([]byte, error) {
+	switch self.CPEAgentStatusTypeIface.(type) {
+	case CPEAgentStatusException:
+		return json.Marshal("exception")
+	case CPEAgentStatusSuccess:
+		return json.Marshal("success")
+	case CPEAgentStatusSyntaxError:
+		return json.Marshal("syntax")
+	case CPEAgentStatusUndefined:
+		return json.Marshal("undefined")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *CPEAgentStatusType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "exception":
+		self.CPEAgentStatusTypeIface = CPEAgentStatusException{}
+		return nil
+	case "success":
+		self.CPEAgentStatusTypeIface = CPEAgentStatusSuccess{}
+		return nil
+	case "syntax":
+		self.CPEAgentStatusTypeIface = CPEAgentStatusSyntaxError{}
+		return nil
+	case "undefined":
+		self.CPEAgentStatusTypeIface = CPEAgentStatusUndefined{}
+		return nil
+
+	}
+	return errors.New("Unknown CPEAgentStatusType")
+
+}
+
 type CPEInterfaceTypeIface interface {
 	CPEInterfaceTypeIfaceFunc()
 }

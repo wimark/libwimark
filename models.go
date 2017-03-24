@@ -128,3 +128,8 @@ type Stat struct {
 		Rx   float64 `json:"rx"`
 	} `json:"interfaces"`
 }
+
+type CPEAgentResponse struct {
+	Result Document           `json:"result"`
+	Status CPEAgentStatusType `json:"error"`
+}

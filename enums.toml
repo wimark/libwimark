@@ -49,3 +49,11 @@ TKIP = { jkey = "tkip" }
 [SecurityType.variants]
 WPA2Enterprise = { jkey = "wpa2enterprise" }
 WPA2Personal   = { jkey = "wpa2personal"   }
+
+[CPEAgentStatusType]
+prefix = "CPEAgentStatus"
+[CPEAgentStatusType.variants]
+Success     = { jkey = "success"   }
+Undefined   = { jkey = "undefined" }
+SyntaxError = { jkey = "syntax"    }
+Exception   = { jkey = "exception" }
