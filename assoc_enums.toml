@@ -1,0 +1,11 @@
+[EnumSecurity]
+constraint = "SecurityType"
+[EnumSecurity.Variants]
+WPA2Personal = "WPA2PersonalData"
+WPA2Enterprise = "WPA2EnterpriseData"
+
+[CPEInterfaceInfo]
+constraint = "CPEInterfaceType"
+[CPEInterfaceInfo.Variants]
+InterfaceWired = "WiredData"
+InterfaceWiFi = "WiFiData"

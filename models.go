@@ -41,58 +41,6 @@ type SecuritySettings interface {
 	is_security_settings()
 }
 
-func (*WPA2PersonalData) is_security_settings()   {}
-func (*WPA2EnterpriseData) is_security_settings() {}
-
-type EnumSecurity struct {
-	T SecurityType     `json:"type"`
-	D SecuritySettings `json:"data"`
-}
-
-func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
-	var doc map[string]json.RawMessage
-	var err = json.Unmarshal(b, &doc)
-	if err != nil {
-		return err
-	}
-
-	if doc == nil {
-		return nil
-	}
-	var t_raw, t_found = doc["type"]
-	var data_raw, data_found = doc["data"]
-	if !t_found || !data_found {
-		return nil
-	}
-	var t SecurityType
-	var t_err = json.Unmarshal(t_raw, &t)
-	if t_err != nil {
-		return t_err
-	}
-	var data_m = Document{}
-	var s_err = json.Unmarshal(data_raw, &data_m)
-	if s_err != nil {
-		return s_err
-	}
-	var data interface{}
-	var data_err error
-
-	switch t.Value().(type) {
-	case WPA2Personal:
-		data, data_err = data_m.ToValue(func() interface{} { return &WPA2PersonalData{} })
-	case WPA2Enterprise:
-		data, data_err = data_m.ToValue(func() interface{} { return &WPA2EnterpriseData{} })
-	}
-	if data_err != nil {
-		return data_err
-	}
-
-	self.T = t
-	self.D = data.(SecuritySettings)
-
-	return nil
-}
-
 type WLAN struct {
 	Name             string        `json:"name"`
 	SSID             string        `json:"ssid"`
@@ -124,55 +72,6 @@ type WiFiData struct {
 	Channel   string  `json:"channel,omitempty"`
 	TxPower   int     `json:"tx_power,omitempty"`
 	WLANs     []UUID  `json:"wlans,omitempty"`
-}
-
-// CPEInterfaceInfo
-type CPEInterfaceInfo struct {
-	T CPEInterfaceType `json:"type"`
-	D interface{}      `json:"data"`
-}
-
-func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
-	var doc map[string]json.RawMessage
-	var err = json.Unmarshal(b, &doc)
-	if err != nil {
-		return err
-	}
-
-	if doc == nil {
-		return nil
-	}
-	var t_raw, t_found = doc["type"]
-	var data_raw, data_found = doc["data"]
-	if !t_found || !data_found {
-		return nil
-	}
-	var t CPEInterfaceType
-	var t_err = json.Unmarshal(t_raw, &t)
-	if t_err != nil {
-		return t_err
-	}
-	var data interface{} = nil
-	var data_err error
-
-	switch t.Value().(type) {
-	case InterfaceWired:
-		data = &WiredData{}
-		data_err = json.Unmarshal(data_raw, data)
-	case InterfaceWiFi:
-		data = &WiFiData{}
-		data_err = json.Unmarshal(data_raw, data)
-	default:
-		return errors.New("Invalid data associated with CPEInterfaceType")
-	}
-	if data_err != nil {
-		return data_err
-	}
-
-	self.T = t
-	self.D = data
-
-	return nil
 }
 
 type CPEInterface struct {
