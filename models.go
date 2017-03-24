@@ -3,24 +3,10 @@ package libwimark
 import (
 	"encoding/json"
 	"errors"
+	"github.com/vorot93/goutil"
 )
 
-type Document map[string]interface{}
-
-func (self *Document) ToValue(factory func() interface{}) (interface{}, error) {
-	var s, merr = json.Marshal(self)
-	if merr != nil {
-		return nil, merr
-	}
-
-	var v = factory()
-	var umerr = json.Unmarshal(s, v)
-	if umerr != nil {
-		return nil, umerr
-	}
-
-	return v, nil
-}
+type Document goutil.Document
 
 type UUID string
 
