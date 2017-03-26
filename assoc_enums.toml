@@ -9,3 +9,11 @@ constraint = "CPEInterfaceType"
 [CPEInterfaceInfo.Variants]
 InterfaceWired = "WiredData"
 InterfaceWiFi = "WiFiData"
+
+[CPEAgentError]
+constraint = "CPEAgentStatusType"
+[CPEAgentError.Variants]
+CPEAgentStatusSuccess = "goutil.Document"
+CPEAgentStatusUndefined   = "string"
+CPEAgentStatusSyntaxError = "string"
+CPEAgentStatusException   = "string"
