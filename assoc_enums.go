@@ -44,25 +44,24 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	var data_m = goutil.Document{}
-	var s_err = json.Unmarshal(data_raw, &data_m)
-	if s_err != nil {
-		return s_err
-	}
-	var data interface{}
+	var data interface{} = nil
 	var data_err error
 	switch t.Value().(type) {
 	case InterfaceWiFi:
-		data, data_err = data_m.ToValue(func() interface{} { return &WiFiData{} })
+		var d WiFiData
+		data_err = json.Unmarshal(data_raw, &d)
+		data = &d
 	case InterfaceWired:
-		data, data_err = data_m.ToValue(func() interface{} { return &WiredData{} })
+		var d WiredData
+		data_err = json.Unmarshal(data_raw, &d)
+		data = &d
 
 	}
 	if data_err != nil {
 		return data_err
 	}
 	self.T = t
-	self.D = data.(CPEInterfaceType)
+	self.D = data
 	return nil
 
 }
@@ -104,25 +103,24 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	var data_m = goutil.Document{}
-	var s_err = json.Unmarshal(data_raw, &data_m)
-	if s_err != nil {
-		return s_err
-	}
-	var data interface{}
+	var data interface{} = nil
 	var data_err error
 	switch t.Value().(type) {
 	case WPA2Enterprise:
-		data, data_err = data_m.ToValue(func() interface{} { return &WPA2EnterpriseData{} })
+		var d WPA2EnterpriseData
+		data_err = json.Unmarshal(data_raw, &d)
+		data = &d
 	case WPA2Personal:
-		data, data_err = data_m.ToValue(func() interface{} { return &WPA2PersonalData{} })
+		var d WPA2PersonalData
+		data_err = json.Unmarshal(data_raw, &d)
+		data = &d
 
 	}
 	if data_err != nil {
 		return data_err
 	}
 	self.T = t
-	self.D = data.(SecurityType)
+	self.D = data
 	return nil
 
 }
