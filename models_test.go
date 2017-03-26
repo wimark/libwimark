@@ -3,7 +3,6 @@ package libwimark
 import (
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
-	"reflect"
 	"testing"
 )
 
@@ -43,7 +42,7 @@ func TestEnumSecurity(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	assert.True(t, reflect.DeepEqual(expectation, result))
+	assert.Equal(t, expectation, result)
 }
 
 func TestWLAN(t *testing.T) {
@@ -84,7 +83,7 @@ func TestWLAN(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	assert.True(t, reflect.DeepEqual(expectation, result))
+	assert.Equal(t, expectation, result)
 }
 
 func TestCPE(t *testing.T) {
@@ -142,5 +141,5 @@ func TestCPE(t *testing.T) {
 		panic(err)
 	}
 
-	assert.True(t, reflect.DeepEqual(expectation, result))
+	assert.Equal(t, expectation, result)
 }
