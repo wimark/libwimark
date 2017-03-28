@@ -194,9 +194,9 @@ type DBResponseBase struct {
 }
 
 type DBDataObj struct {
-	WLANs map[UUID]WLAN `json:"wlan"`
-	CPEs  map[UUID]CPE  `json:"cpe"`
-	Stats map[UUID]Stat `json:"stat"`
+	WLANs map[UUID]WLAN               `json:"wlan"`
+	CPEs  map[UUID]CPE                `json:"cpe"`
+	Stats map[UUID]Stat               `json:"stat"`
 	SDS   map[UUID]StatDaemonSettings `json:"stat-daemon-settings"`
 }
 
