@@ -222,17 +222,17 @@ type DBResponseBase struct {
 }
 
 type DBDataObj struct {
-	WLANs map[UUID]WLAN               `json:"wlan"`
-	CPEs  map[UUID]CPE                `json:"cpe"`
-	Stats map[UUID]Stat               `json:"stat"`
-	SDS   map[UUID]StatDaemonSettings `json:"stat-daemon-settings"`
+	WLANs map[UUID]WLAN               `json:"wlan,omitempty"`
+	CPEs  map[UUID]CPE                `json:"cpe,omitempty"`
+	Stats map[UUID]Stat               `json:"stat,omitempty"`
+	SDS   map[UUID]StatDaemonSettings `json:"stat-daemon-settings,omitempty"`
 }
 
 type DBDataUUID struct {
-	WLANs []UUID `json:"wlan"`
-	CPEs  []UUID `json:"cpe"`
-	Stats []UUID `json:"stat"`
-	SDS   []UUID `json:"stat-daemon-settings"`
+	WLANs []UUID `json:"wlan,omitempty"`
+	CPEs  []UUID `json:"cpe,omitempty"`
+	Stats []UUID `json:"stat,omitempty"`
+	SDS   []UUID `json:"stat-daemon-settings,omitempty"`
 }
 
 type DBRequestC DBDataObj
