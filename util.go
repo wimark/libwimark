@@ -196,11 +196,13 @@ type DBResponseBase struct {
 type DBDataObj struct {
 	WLANs map[UUID]WLAN `json:"wlan"`
 	CPEs  map[UUID]CPE  `json:"cpe"`
+	Stats map[UUID]Stat `json:"stat"`
 }
 
 type DBDataUUID struct {
 	WLANs []UUID `json:"wlan"`
 	CPEs  []UUID `json:"cpe"`
+	Stats []UUID `json:"stat"`
 }
 
 type DBRequestC DBDataObj
