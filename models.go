@@ -130,6 +130,6 @@ type Stat struct {
 }
 
 type CPEAgentResponse struct {
-	Result Document           `json:"result"`
-	Status CPEAgentStatusType `json:"error"`
+	Result json.RawMessage `json:"result"`
+	Status CPEAgentError   `json:"error"`
 }
