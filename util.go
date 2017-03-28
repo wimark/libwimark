@@ -208,6 +208,38 @@ type DBRequestU DBDataObj
 type DBRequestR DBDataUUID
 type DBRequestD DBDataUUID
 
+func (self *DBRequestC) UnmarshalJSON(b []byte) error {
+	for k, _ := range self.WLANs {
+		delete(self.WLANs, k)
+	}
+	for k, _ := range self.CPEs {
+		delete(self.CPEs, k)
+	}
+	return json.Unmarshal(b, (*DBDataObj)(self))
+}
+
+func (self *DBRequestU) UnmarshalJSON(b []byte) error {
+	for k, _ := range self.WLANs {
+		delete(self.WLANs, k)
+	}
+	for k, _ := range self.CPEs {
+		delete(self.CPEs, k)
+	}
+	return json.Unmarshal(b, (*DBDataObj)(self))
+}
+
+func (self *DBRequestR) UnmarshalJSON(b []byte) error {
+	self.WLANs = self.WLANs[:0]
+	self.CPEs = self.CPEs[:0]
+	return json.Unmarshal(b, (*DBDataUUID)(self))
+}
+
+func (self *DBRequestD) UnmarshalJSON(b []byte) error {
+	self.WLANs = self.WLANs[:0]
+	self.CPEs = self.CPEs[:0]
+	return json.Unmarshal(b, (*DBDataUUID)(self))
+}
+
 type DBResponseObj struct {
 	DBResponseBase `json:",inline"`
 	DBDataObj      `json:"data",inline`
