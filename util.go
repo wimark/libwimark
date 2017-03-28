@@ -10,12 +10,14 @@ import (
 const MQTT_ANY_WILDCARD = "+"
 
 const (
-	TOPIC_B_FORMAT   = `B/%s/%s`
-	TOPIC_B_REGEXP   = `B/(.*)/(.*)`
-	TOPIC_REQ_FORMAT = `REQ/%s/%s/%s/%s/%s/%s`
-	TOPIC_REQ_REGEXP = `REQ/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)`
-	TOPIC_RSP_FORMAT = `RSP/%s/%s/%s/%s/%s`
-	TOPIC_RSP_REGEXP = `RSP/(.*)/(.*)/(.*)/(.*)/(.*)`
+	TOPIC_STATUS_FORMAT = `B/%s/%s`
+	TOPIC_STATUS_REGEXP = `B/(.*)/(.*)`
+	TOPIC_LOG_FORMAT    = `LOG/%s/%s`
+	TOPIC_LOG_REGEXP    = `LOG/(.*)/(.*)`
+	TOPIC_REQ_FORMAT    = `REQ/%s/%s/%s/%s/%s/%s`
+	TOPIC_REQ_REGEXP    = `REQ/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)`
+	TOPIC_RSP_FORMAT    = `RSP/%s/%s/%s/%s/%s`
+	TOPIC_RSP_REGEXP    = `RSP/(.*)/(.*)/(.*)/(.*)/(.*)`
 )
 
 type Topic interface {
@@ -27,8 +29,8 @@ type BroadcastTopic struct {
 	SenderID     string
 }
 
-func ParseBroadcastTopic(s string) *BroadcastTopic {
-	var r = regexp.MustCompile(TOPIC_B_REGEXP)
+func ParseBroadcastTopic(s string, format string) *BroadcastTopic {
+	var r = regexp.MustCompile(format)
 	var ds = r.FindAllStringSubmatch(s, -1)
 	if ds != nil && len(ds) == 1 {
 		var data = ds[0]
@@ -49,10 +51,30 @@ func ParseBroadcastTopic(s string) *BroadcastTopic {
 	return nil
 }
 
-func (self *BroadcastTopic) TopicPath() string {
+func (self *BroadcastTopic) TopicPathGeneric(format string) string {
 	var sm, _ = self.SenderModule.MarshalJSON()
 	var sm_s, _ = strconv.Unquote(string(sm))
-	return fmt.Sprintf(TOPIC_B_FORMAT, sm_s, self.SenderID)
+	return fmt.Sprintf(format, sm_s, self.SenderID)
+}
+
+type StatusTopic BroadcastTopic
+
+func ParseStatusTopic(s string) *StatusTopic {
+	return (*StatusTopic)(ParseBroadcastTopic(s, TOPIC_STATUS_REGEXP))
+}
+
+func (self *StatusTopic) TopicPath() string {
+	return (*BroadcastTopic)(self).TopicPathGeneric(TOPIC_STATUS_FORMAT)
+}
+
+type LogTopic BroadcastTopic
+
+func ParseLogTopic(s string) *LogTopic {
+	return (*LogTopic)(ParseBroadcastTopic(s, TOPIC_LOG_REGEXP))
+}
+
+func (self *LogTopic) TopicPath() string {
+	return (*BroadcastTopic)(self).TopicPathGeneric(TOPIC_LOG_FORMAT)
 }
 
 type RequestTopic struct {
@@ -168,9 +190,15 @@ func ParseResponseTopic(s string) *ResponseTopic {
 
 func ParseTopicPath(s string) Topic {
 	{
-		var v = ParseBroadcastTopic(s)
+		var v = ParseStatusTopic(s)
 		if v != nil {
 			return v
+		}
+	}
+	{
+		var v = ParseLogTopic(s)
+		if v != nil {
+			return nil
 		}
 	}
 	{
