@@ -133,3 +133,8 @@ type CPEAgentResponse struct {
 	Result json.RawMessage `json:"result"`
 	Status CPEAgentError   `json:"error"`
 }
+
+type StatDaemonSettings struct {
+	CPEList  []UUID `json:"cpe-list"`
+	Interval int64  `json:"interval"`
+}
