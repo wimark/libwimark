@@ -109,6 +109,7 @@ func (self *CPEInterface) UnmarshalJSON(b []byte) error {
 
 type CPE struct {
 	Name         string                  `json:"name"`
+	Connected    bool                    `json:"connected"`
 	Description  string                  `json:"description"`
 	Model        UUID                    `json:"model"`
 	Interfaces   map[string]CPEInterface `json:"interfaces"`
