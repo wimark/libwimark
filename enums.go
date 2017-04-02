@@ -32,13 +32,13 @@ func (CPEAgentStatusUndefined) CPEAgentStatusTypeIfaceFunc() {}
 func (self *CPEAgentStatusType) String() string {
 	switch self.CPEAgentStatusTypeIface.(type) {
 	case CPEAgentStatusException:
-		return "CPEAgentStatusException"
+		return "exception"
 	case CPEAgentStatusSuccess:
-		return "CPEAgentStatusSuccess"
+		return "success"
 	case CPEAgentStatusSyntaxError:
-		return "CPEAgentStatusSyntaxError"
+		return "syntax"
 	case CPEAgentStatusUndefined:
-		return "CPEAgentStatusUndefined"
+		return "undefined"
 
 	}
 	panic(errors.New("Not implemented"))
@@ -100,9 +100,9 @@ func (InterfaceWired) CPEInterfaceTypeIfaceFunc() {}
 func (self *CPEInterfaceType) String() string {
 	switch self.CPEInterfaceTypeIface.(type) {
 	case InterfaceWiFi:
-		return "InterfaceWiFi"
+		return "wifi"
 	case InterfaceWired:
-		return "InterfaceWired"
+		return "wired"
 
 	}
 	panic(errors.New("Not implemented"))
@@ -164,13 +164,13 @@ func (StatusPending) ConfigurationStatusIfaceFunc() {}
 func (self *ConfigurationStatus) String() string {
 	switch self.ConfigurationStatusIface.(type) {
 	case StatusEmpty:
-		return "StatusEmpty"
+		return "empty"
 	case StatusError:
-		return "StatusError"
+		return "error"
 	case StatusOK:
-		return "StatusOK"
+		return "ok"
 	case StatusPending:
-		return "StatusPending"
+		return "pending"
 
 	}
 	panic(errors.New("Not implemented"))
@@ -248,17 +248,17 @@ func (ModuleStat) ModuleIfaceFunc() {}
 func (self *Module) String() string {
 	switch self.ModuleIface.(type) {
 	case ModuleAny:
-		return "ModuleAny"
+		return "+"
 	case ModuleBackend:
-		return "ModuleBackend"
+		return "BACKEND"
 	case ModuleCPE:
-		return "ModuleCPE"
+		return "CPE"
 	case ModuleConfig:
-		return "ModuleConfig"
+		return "CONFIG"
 	case ModuleDB:
-		return "ModuleDB"
+		return "DB"
 	case ModuleStat:
-		return "ModuleStat"
+		return "STAT"
 
 	}
 	panic(errors.New("Not implemented"))
@@ -350,19 +350,19 @@ func (OperationUpdate) OperationIfaceFunc() {}
 func (self *Operation) String() string {
 	switch self.OperationIface.(type) {
 	case OperationAny:
-		return "OperationAny"
+		return "+"
 	case OperationCreate:
-		return "OperationCreate"
+		return "C"
 	case OperationDelete:
-		return "OperationDelete"
+		return "D"
 	case OperationLuaScript:
-		return "OperationLuaScript"
+		return "LUA"
 	case OperationRead:
-		return "OperationRead"
+		return "R"
 	case OperationSHScript:
-		return "OperationSHScript"
+		return "SH"
 	case OperationUpdate:
-		return "OperationUpdate"
+		return "U"
 
 	}
 	panic(errors.New("Not implemented"))
@@ -443,11 +443,11 @@ func (RadiusBoth) RadiusTypeIfaceFunc() {}
 func (self *RadiusType) String() string {
 	switch self.RadiusTypeIface.(type) {
 	case RadiusAccounting:
-		return "RadiusAccounting"
+		return "acc"
 	case RadiusAuthentication:
-		return "RadiusAuthentication"
+		return "auth"
 	case RadiusBoth:
-		return "RadiusBoth"
+		return "both"
 
 	}
 	panic(errors.New("Not implemented"))
@@ -504,9 +504,9 @@ func (TKIP) SecuritySuiteIfaceFunc() {}
 func (self *SecuritySuite) String() string {
 	switch self.SecuritySuiteIface.(type) {
 	case AES:
-		return "AES"
+		return "aes"
 	case TKIP:
-		return "TKIP"
+		return "tkip"
 
 	}
 	panic(errors.New("Not implemented"))
@@ -558,9 +558,9 @@ func (WPA2Personal) SecurityTypeIfaceFunc() {}
 func (self *SecurityType) String() string {
 	switch self.SecurityTypeIface.(type) {
 	case WPA2Enterprise:
-		return "WPA2Enterprise"
+		return "wpa2enterprise"
 	case WPA2Personal:
-		return "WPA2Personal"
+		return "wpa2personal"
 
 	}
 	panic(errors.New("Not implemented"))

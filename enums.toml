@@ -1,59 +1,59 @@
 [CPEInterfaceType]
 prefix = "Interface"
 [CPEInterfaceType.variants]
-WiFi    = { jkey = "wifi"  }
-Wired   = { jkey = "wired" }
+WiFi    = { string = "wifi"  }
+Wired   = { string = "wired" }
 
 [ConfigurationStatus]
 prefix = "Status"
 [ConfigurationStatus.variants]
-Empty   = { jkey = "empty"   }
-Error   = { jkey = "error"   }
-OK      = { jkey = "ok"      }
-Pending = { jkey = "pending" }
+Empty   = { string = "empty"   }
+Error   = { string = "error"   }
+OK      = { string = "ok"      }
+Pending = { string = "pending" }
 
 [Module]
 prefix = "Module"
 [Module.variants]
-Any     = { jkey = "+"       }
-Backend = { jkey = "BACKEND" }
-CPE     = { jkey = "CPE"     }
-Config  = { jkey = "CONFIG"  }
-DB      = { jkey = "DB"      }
-Stat    = { jkey = "STAT"    }
+Any     = { string = "+"       }
+Backend = { string = "BACKEND" }
+CPE     = { string = "CPE"     }
+Config  = { string = "CONFIG"  }
+DB      = { string = "DB"      }
+Stat    = { string = "STAT"    }
 
 [Operation]
 prefix = "Operation"
 [Operation.variants]
-Any       = { jkey = "+"   }
-Create    = { jkey = "C"   }
-Delete    = { jkey = "D"   }
-Read      = { jkey = "R"   }
-Update    = { jkey = "U"   }
-LuaScript = { jkey = "LUA" }
-SHScript  = { jkey = "SH"  }
+Any       = { string = "+"   }
+Create    = { string = "C"   }
+Delete    = { string = "D"   }
+Read      = { string = "R"   }
+Update    = { string = "U"   }
+LuaScript = { string = "LUA" }
+SHScript  = { string = "SH"  }
 
 [RadiusType]
 prefix = "Radius"
 [RadiusType.variants]
-Accounting     = { jkey = "acc"  }
-Authentication = { jkey = "auth" }
-Both           = { jkey = "both" }
+Accounting     = { string = "acc"  }
+Authentication = { string = "auth" }
+Both           = { string = "both" }
 
 [SecuritySuite]
 [SecuritySuite.variants]
-AES  = { jkey = "aes"  }
-TKIP = { jkey = "tkip" }
+AES  = { string = "aes"  }
+TKIP = { string = "tkip" }
 
 [SecurityType]
 [SecurityType.variants]
-WPA2Enterprise = { jkey = "wpa2enterprise" }
-WPA2Personal   = { jkey = "wpa2personal"   }
+WPA2Enterprise = { string = "wpa2enterprise" }
+WPA2Personal   = { string = "wpa2personal"   }
 
 [CPEAgentStatusType]
 prefix = "CPEAgentStatus"
 [CPEAgentStatusType.variants]
-Success     = { jkey = "success"   }
-Undefined   = { jkey = "undefined" }
-SyntaxError = { jkey = "syntax"    }
-Exception   = { jkey = "exception" }
+Success     = { string = "success"   }
+Undefined   = { string = "undefined" }
+SyntaxError = { string = "syntax"    }
+Exception   = { string = "exception" }
