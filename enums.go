@@ -6,6 +6,9 @@ import (
 import (
 	"errors"
 )
+import (
+	"gopkg.in/mgo.v2/bson"
+)
 
 type CPEAgentStatusTypeIface interface {
 	CPEAgentStatusTypeIfaceFunc()
@@ -59,6 +62,25 @@ func (self *CPEAgentStatusType) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Not implemented")
 
 }
+func (self CPEAgentStatusType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("CPEAgentStatusType cannot be nil")
+	}
+	switch v.(type) {
+	case CPEAgentStatusException:
+		return "exception", nil
+	case CPEAgentStatusSuccess:
+		return "success", nil
+	case CPEAgentStatusSyntaxError:
+		return "syntax", nil
+	case CPEAgentStatusUndefined:
+		return "undefined", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
 func (self *CPEAgentStatusType) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -81,6 +103,10 @@ func (self *CPEAgentStatusType) UnmarshalJSON(b []byte) error {
 	}
 	return errors.New("Unknown CPEAgentStatusType")
 
+}
+
+func (self *CPEAgentStatusType) SetBSON(v bson.Raw) error {
+	return self.UnmarshalJSON(v.Data)
 }
 
 type CPEInterfaceTypeIface interface {
@@ -119,6 +145,21 @@ func (self *CPEInterfaceType) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Not implemented")
 
 }
+func (self CPEInterfaceType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("CPEInterfaceType cannot be nil")
+	}
+	switch v.(type) {
+	case InterfaceWiFi:
+		return "wifi", nil
+	case InterfaceWired:
+		return "wired", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
 func (self *CPEInterfaceType) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -135,6 +176,10 @@ func (self *CPEInterfaceType) UnmarshalJSON(b []byte) error {
 	}
 	return errors.New("Unknown CPEInterfaceType")
 
+}
+
+func (self *CPEInterfaceType) SetBSON(v bson.Raw) error {
+	return self.UnmarshalJSON(v.Data)
 }
 
 type ConfigurationStatusIface interface {
@@ -191,6 +236,25 @@ func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Not implemented")
 
 }
+func (self ConfigurationStatus) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("ConfigurationStatus cannot be nil")
+	}
+	switch v.(type) {
+	case StatusEmpty:
+		return "empty", nil
+	case StatusError:
+		return "error", nil
+	case StatusOK:
+		return "ok", nil
+	case StatusPending:
+		return "pending", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
 func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -213,6 +277,10 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 	}
 	return errors.New("Unknown ConfigurationStatus")
 
+}
+
+func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
+	return self.UnmarshalJSON(v.Data)
 }
 
 type ModuleIface interface {
@@ -283,6 +351,29 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Not implemented")
 
 }
+func (self Module) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("Module cannot be nil")
+	}
+	switch v.(type) {
+	case ModuleAny:
+		return "+", nil
+	case ModuleBackend:
+		return "BACKEND", nil
+	case ModuleCPE:
+		return "CPE", nil
+	case ModuleConfig:
+		return "CONFIG", nil
+	case ModuleDB:
+		return "DB", nil
+	case ModuleStat:
+		return "STAT", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
 func (self *Module) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -311,6 +402,10 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 	}
 	return errors.New("Unknown Module")
 
+}
+
+func (self *Module) SetBSON(v bson.Raw) error {
+	return self.UnmarshalJSON(v.Data)
 }
 
 type OperationIface interface {
@@ -389,6 +484,31 @@ func (self *Operation) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Not implemented")
 
 }
+func (self Operation) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("Operation cannot be nil")
+	}
+	switch v.(type) {
+	case OperationAny:
+		return "+", nil
+	case OperationCreate:
+		return "C", nil
+	case OperationDelete:
+		return "D", nil
+	case OperationLuaScript:
+		return "LUA", nil
+	case OperationRead:
+		return "R", nil
+	case OperationSHScript:
+		return "SH", nil
+	case OperationUpdate:
+		return "U", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
 func (self *Operation) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -420,6 +540,10 @@ func (self *Operation) UnmarshalJSON(b []byte) error {
 	}
 	return errors.New("Unknown Operation")
 
+}
+
+func (self *Operation) SetBSON(v bson.Raw) error {
+	return self.UnmarshalJSON(v.Data)
 }
 
 type RadiusTypeIface interface {
@@ -466,6 +590,23 @@ func (self *RadiusType) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Not implemented")
 
 }
+func (self RadiusType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("RadiusType cannot be nil")
+	}
+	switch v.(type) {
+	case RadiusAccounting:
+		return "acc", nil
+	case RadiusAuthentication:
+		return "auth", nil
+	case RadiusBoth:
+		return "both", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
 func (self *RadiusType) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -485,6 +626,10 @@ func (self *RadiusType) UnmarshalJSON(b []byte) error {
 	}
 	return errors.New("Unknown RadiusType")
 
+}
+
+func (self *RadiusType) SetBSON(v bson.Raw) error {
+	return self.UnmarshalJSON(v.Data)
 }
 
 type SecuritySuiteIface interface {
@@ -523,6 +668,21 @@ func (self *SecuritySuite) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Not implemented")
 
 }
+func (self SecuritySuite) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("SecuritySuite cannot be nil")
+	}
+	switch v.(type) {
+	case AES:
+		return "aes", nil
+	case TKIP:
+		return "tkip", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
 func (self *SecuritySuite) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -539,6 +699,10 @@ func (self *SecuritySuite) UnmarshalJSON(b []byte) error {
 	}
 	return errors.New("Unknown SecuritySuite")
 
+}
+
+func (self *SecuritySuite) SetBSON(v bson.Raw) error {
+	return self.UnmarshalJSON(v.Data)
 }
 
 type SecurityTypeIface interface {
@@ -577,6 +741,21 @@ func (self *SecurityType) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Not implemented")
 
 }
+func (self SecurityType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("SecurityType cannot be nil")
+	}
+	switch v.(type) {
+	case WPA2Enterprise:
+		return "wpa2enterprise", nil
+	case WPA2Personal:
+		return "wpa2personal", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
 func (self *SecurityType) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
@@ -593,4 +772,8 @@ func (self *SecurityType) UnmarshalJSON(b []byte) error {
 	}
 	return errors.New("Unknown SecurityType")
 
+}
+
+func (self *SecurityType) SetBSON(v bson.Raw) error {
+	return self.UnmarshalJSON(v.Data)
 }
