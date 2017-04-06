@@ -47,8 +47,8 @@ func (self *CPEAgentStatusType) String() string {
 	panic(errors.New("Not implemented"))
 
 }
-func (self *CPEAgentStatusType) MarshalJSON() ([]byte, error) {
-	switch self.CPEAgentStatusTypeIface.(type) {
+func (self CPEAgentStatusType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
 	case CPEAgentStatusException:
 		return json.Marshal("exception")
 	case CPEAgentStatusSuccess:
@@ -134,8 +134,8 @@ func (self *CPEInterfaceType) String() string {
 	panic(errors.New("Not implemented"))
 
 }
-func (self *CPEInterfaceType) MarshalJSON() ([]byte, error) {
-	switch self.CPEInterfaceTypeIface.(type) {
+func (self CPEInterfaceType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
 	case InterfaceWiFi:
 		return json.Marshal("wifi")
 	case InterfaceWired:
@@ -221,8 +221,8 @@ func (self *ConfigurationStatus) String() string {
 	panic(errors.New("Not implemented"))
 
 }
-func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
-	switch self.ConfigurationStatusIface.(type) {
+func (self ConfigurationStatus) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
 	case StatusEmpty:
 		return json.Marshal("empty")
 	case StatusError:
@@ -332,8 +332,8 @@ func (self *Module) String() string {
 	panic(errors.New("Not implemented"))
 
 }
-func (self *Module) MarshalJSON() ([]byte, error) {
-	switch self.ModuleIface.(type) {
+func (self Module) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
 	case ModuleAny:
 		return json.Marshal("+")
 	case ModuleBackend:
@@ -463,8 +463,8 @@ func (self *Operation) String() string {
 	panic(errors.New("Not implemented"))
 
 }
-func (self *Operation) MarshalJSON() ([]byte, error) {
-	switch self.OperationIface.(type) {
+func (self Operation) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
 	case OperationAny:
 		return json.Marshal("+")
 	case OperationCreate:
@@ -577,8 +577,8 @@ func (self *RadiusType) String() string {
 	panic(errors.New("Not implemented"))
 
 }
-func (self *RadiusType) MarshalJSON() ([]byte, error) {
-	switch self.RadiusTypeIface.(type) {
+func (self RadiusType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
 	case RadiusAccounting:
 		return json.Marshal("acc")
 	case RadiusAuthentication:
@@ -657,8 +657,8 @@ func (self *SecuritySuite) String() string {
 	panic(errors.New("Not implemented"))
 
 }
-func (self *SecuritySuite) MarshalJSON() ([]byte, error) {
-	switch self.SecuritySuiteIface.(type) {
+func (self SecuritySuite) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
 	case AES:
 		return json.Marshal("aes")
 	case TKIP:
@@ -730,8 +730,8 @@ func (self *SecurityType) String() string {
 	panic(errors.New("Not implemented"))
 
 }
-func (self *SecurityType) MarshalJSON() ([]byte, error) {
-	switch self.SecurityTypeIface.(type) {
+func (self SecurityType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
 	case WPA2Enterprise:
 		return json.Marshal("wpa2enterprise")
 	case WPA2Personal:
