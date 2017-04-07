@@ -28,7 +28,7 @@ func MQTTMustConnectSync(addr string) mqtt.Client {
 
 type MQTTMessage interface {
 	Topic() Topic
-	Payload() []byte
+	Payload() ([]byte, error)
 	Retained() bool
 }
 
@@ -42,12 +42,12 @@ func (self *MQTTDocumentMessage) Topic() Topic {
 	return self.T
 }
 
-func (self *MQTTDocumentMessage) Payload() []byte {
-	var payload = []byte{}
+func (self *MQTTDocumentMessage) Payload() ([]byte, error) {
 	if self.D != nil {
-		payload, _ = json.Marshal(self.D)
+		return json.Marshal(self.D)
+	} else {
+		return nil, nil
 	}
-	return payload
 }
 
 func (self *MQTTDocumentMessage) Retained() bool {
@@ -64,8 +64,8 @@ func (self *MQTTRawMessage) Topic() Topic {
 	return self.T
 }
 
-func (self *MQTTRawMessage) Payload() []byte {
-	return self.D
+func (self *MQTTRawMessage) Payload() ([]byte, error) {
+	return self.D, nil
 }
 
 func (self *MQTTRawMessage) Retained() bool {
@@ -77,10 +77,14 @@ func MQTTMakePublishChan(client mqtt.Client, logger *log.Logger) chan<- MQTTMess
 	go func() {
 		for msg := range publishChan {
 			var topic_str = msg.Topic().TopicPath()
-			var payload = msg.Payload()
+			var payload, pErr = msg.Payload()
 
-			logger.Printf("Sending message - Topic: %s, Payload: %s\n", topic_str, payload)
-			client.Publish(topic_str, 2, msg.Retained(), payload)
+			if pErr != nil {
+				logger.Printf("Error marshalling outgoind payload. Topic: %s, Error: %s", topic_str, pErr)
+			} else {
+				logger.Printf("Sending message - Topic: %s, Payload: %s\n", topic_str, payload)
+				client.Publish(topic_str, 2, msg.Retained(), payload)
+			}
 		}
 	}()
 
