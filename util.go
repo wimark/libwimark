@@ -51,7 +51,7 @@ func ParseBroadcastTopic(s string, format string) *BroadcastTopic {
 	return nil
 }
 
-func (self *BroadcastTopic) TopicPathGeneric(format string) string {
+func (self BroadcastTopic) TopicPathGeneric(format string) string {
 	var sm, _ = self.SenderModule.MarshalJSON()
 	var sm_s, _ = strconv.Unquote(string(sm))
 	return fmt.Sprintf(format, sm_s, self.SenderID)
@@ -63,8 +63,8 @@ func ParseStatusTopic(s string) *StatusTopic {
 	return (*StatusTopic)(ParseBroadcastTopic(s, TOPIC_STATUS_REGEXP))
 }
 
-func (self *StatusTopic) TopicPath() string {
-	return (*BroadcastTopic)(self).TopicPathGeneric(TOPIC_STATUS_FORMAT)
+func (self StatusTopic) TopicPath() string {
+	return (BroadcastTopic)(self).TopicPathGeneric(TOPIC_STATUS_FORMAT)
 }
 
 type LogTopic BroadcastTopic
@@ -73,8 +73,8 @@ func ParseLogTopic(s string) *LogTopic {
 	return (*LogTopic)(ParseBroadcastTopic(s, TOPIC_LOG_REGEXP))
 }
 
-func (self *LogTopic) TopicPath() string {
-	return (*BroadcastTopic)(self).TopicPathGeneric(TOPIC_LOG_FORMAT)
+func (self LogTopic) TopicPath() string {
+	return (BroadcastTopic)(self).TopicPathGeneric(TOPIC_LOG_FORMAT)
 }
 
 type RequestTopic struct {
@@ -86,7 +86,7 @@ type RequestTopic struct {
 	Operation      Operation
 }
 
-func (self *RequestTopic) TopicPath() string {
+func (self RequestTopic) TopicPath() string {
 	var u = strconv.Unquote
 
 	var sm, _ = self.SenderModule.MarshalJSON()
@@ -98,7 +98,7 @@ func (self *RequestTopic) TopicPath() string {
 	return fmt.Sprintf(TOPIC_REQ_FORMAT, sm_s, self.SenderID, rm_s, self.ReceiverID, self.RequestID, op_s)
 }
 
-func (self *RequestTopic) ToResponse() ResponseTopic {
+func (self RequestTopic) ToResponse() ResponseTopic {
 	return ResponseTopic{
 		SenderModule:   self.ReceiverModule,
 		SenderID:       self.ReceiverID,
@@ -148,7 +148,7 @@ type ResponseTopic struct {
 	RequestID      string
 }
 
-func (self *ResponseTopic) TopicPath() string {
+func (self ResponseTopic) TopicPath() string {
 	var u = strconv.Unquote
 
 	var sm, _ = self.SenderModule.MarshalJSON()
