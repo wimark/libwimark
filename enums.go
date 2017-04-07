@@ -106,7 +106,27 @@ func (self *CPEAgentStatusType) UnmarshalJSON(b []byte) error {
 }
 
 func (self *CPEAgentStatusType) SetBSON(v bson.Raw) error {
-	return self.UnmarshalJSON(v.Data)
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "exception":
+		self.CPEAgentStatusTypeIface = CPEAgentStatusException{}
+		return nil
+	case "success":
+		self.CPEAgentStatusTypeIface = CPEAgentStatusSuccess{}
+		return nil
+	case "syntax":
+		self.CPEAgentStatusTypeIface = CPEAgentStatusSyntaxError{}
+		return nil
+	case "undefined":
+		self.CPEAgentStatusTypeIface = CPEAgentStatusUndefined{}
+		return nil
+
+	}
+	return errors.New("Unknown CPEAgentStatusType")
+
 }
 
 type CPEInterfaceTypeIface interface {
@@ -179,7 +199,21 @@ func (self *CPEInterfaceType) UnmarshalJSON(b []byte) error {
 }
 
 func (self *CPEInterfaceType) SetBSON(v bson.Raw) error {
-	return self.UnmarshalJSON(v.Data)
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "wifi":
+		self.CPEInterfaceTypeIface = InterfaceWiFi{}
+		return nil
+	case "wired":
+		self.CPEInterfaceTypeIface = InterfaceWired{}
+		return nil
+
+	}
+	return errors.New("Unknown CPEInterfaceType")
+
 }
 
 type ConfigurationStatusIface interface {
@@ -280,7 +314,27 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 }
 
 func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
-	return self.UnmarshalJSON(v.Data)
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "empty":
+		self.ConfigurationStatusIface = StatusEmpty{}
+		return nil
+	case "error":
+		self.ConfigurationStatusIface = StatusError{}
+		return nil
+	case "ok":
+		self.ConfigurationStatusIface = StatusOK{}
+		return nil
+	case "pending":
+		self.ConfigurationStatusIface = StatusPending{}
+		return nil
+
+	}
+	return errors.New("Unknown ConfigurationStatus")
+
 }
 
 type ModuleIface interface {
@@ -405,7 +459,33 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 }
 
 func (self *Module) SetBSON(v bson.Raw) error {
-	return self.UnmarshalJSON(v.Data)
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "+":
+		self.ModuleIface = ModuleAny{}
+		return nil
+	case "BACKEND":
+		self.ModuleIface = ModuleBackend{}
+		return nil
+	case "CPE":
+		self.ModuleIface = ModuleCPE{}
+		return nil
+	case "CONFIG":
+		self.ModuleIface = ModuleConfig{}
+		return nil
+	case "DB":
+		self.ModuleIface = ModuleDB{}
+		return nil
+	case "STAT":
+		self.ModuleIface = ModuleStat{}
+		return nil
+
+	}
+	return errors.New("Unknown Module")
+
 }
 
 type OperationIface interface {
@@ -543,7 +623,36 @@ func (self *Operation) UnmarshalJSON(b []byte) error {
 }
 
 func (self *Operation) SetBSON(v bson.Raw) error {
-	return self.UnmarshalJSON(v.Data)
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "+":
+		self.OperationIface = OperationAny{}
+		return nil
+	case "C":
+		self.OperationIface = OperationCreate{}
+		return nil
+	case "D":
+		self.OperationIface = OperationDelete{}
+		return nil
+	case "LUA":
+		self.OperationIface = OperationLuaScript{}
+		return nil
+	case "R":
+		self.OperationIface = OperationRead{}
+		return nil
+	case "SH":
+		self.OperationIface = OperationSHScript{}
+		return nil
+	case "U":
+		self.OperationIface = OperationUpdate{}
+		return nil
+
+	}
+	return errors.New("Unknown Operation")
+
 }
 
 type RadiusTypeIface interface {
@@ -629,7 +738,24 @@ func (self *RadiusType) UnmarshalJSON(b []byte) error {
 }
 
 func (self *RadiusType) SetBSON(v bson.Raw) error {
-	return self.UnmarshalJSON(v.Data)
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "acc":
+		self.RadiusTypeIface = RadiusAccounting{}
+		return nil
+	case "auth":
+		self.RadiusTypeIface = RadiusAuthentication{}
+		return nil
+	case "both":
+		self.RadiusTypeIface = RadiusBoth{}
+		return nil
+
+	}
+	return errors.New("Unknown RadiusType")
+
 }
 
 type SecuritySuiteIface interface {
@@ -702,7 +828,21 @@ func (self *SecuritySuite) UnmarshalJSON(b []byte) error {
 }
 
 func (self *SecuritySuite) SetBSON(v bson.Raw) error {
-	return self.UnmarshalJSON(v.Data)
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "aes":
+		self.SecuritySuiteIface = AES{}
+		return nil
+	case "tkip":
+		self.SecuritySuiteIface = TKIP{}
+		return nil
+
+	}
+	return errors.New("Unknown SecuritySuite")
+
 }
 
 type SecurityTypeIface interface {
@@ -775,5 +915,19 @@ func (self *SecurityType) UnmarshalJSON(b []byte) error {
 }
 
 func (self *SecurityType) SetBSON(v bson.Raw) error {
-	return self.UnmarshalJSON(v.Data)
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "wpa2enterprise":
+		self.SecurityTypeIface = WPA2Enterprise{}
+		return nil
+	case "wpa2personal":
+		self.SecurityTypeIface = WPA2Personal{}
+		return nil
+
+	}
+	return errors.New("Unknown SecurityType")
+
 }
