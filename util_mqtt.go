@@ -29,11 +29,13 @@ func MQTTMustConnectSync(addr string) mqtt.Client {
 type MQTTMessage interface {
 	Topic() Topic
 	Payload() []byte
+	Retained() bool
 }
 
 type MQTTDocumentMessage struct {
 	T Topic
 	D map[string]interface{}
+	R bool
 }
 
 func (self *MQTTDocumentMessage) Topic() Topic {
@@ -48,9 +50,14 @@ func (self *MQTTDocumentMessage) Payload() []byte {
 	return payload
 }
 
+func (self *MQTTDocumentMessage) Retained() bool {
+	return self.R
+}
+
 type MQTTRawMessage struct {
 	T Topic
 	D []byte
+	R bool
 }
 
 func (self *MQTTRawMessage) Topic() Topic {
@@ -61,6 +68,10 @@ func (self *MQTTRawMessage) Payload() []byte {
 	return self.D
 }
 
+func (self *MQTTRawMessage) Retained() bool {
+	return self.R
+}
+
 func MQTTMakePublishChan(client mqtt.Client, logger *log.Logger) chan<- MQTTMessage {
 	var publishChan = make(chan MQTTMessage)
 	go func() {
@@ -69,7 +80,7 @@ func MQTTMakePublishChan(client mqtt.Client, logger *log.Logger) chan<- MQTTMess
 			var payload = msg.Payload()
 
 			logger.Printf("Sending message - Topic: %s, Payload: %s\n", topic_str, payload)
-			client.Publish(topic_str, 2, false, payload)
+			client.Publish(topic_str, 2, msg.Retained(), payload)
 		}
 	}()
 
