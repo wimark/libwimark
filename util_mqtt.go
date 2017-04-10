@@ -93,13 +93,40 @@ func MQTTMakePublishChan(client mqtt.Client, logger *log.Logger) chan<- MQTTMess
 
 type MsgCb func(mqtt.Message)
 
-func MQTTMustSubscribeSync(client mqtt.Client, topic Topic, cb MsgCb) {
+func MQTTSubscribeSync(client mqtt.Client, topic Topic, cb MsgCb) error {
 	var token = client.Subscribe(topic.TopicPath(), 2, func(_ mqtt.Client, msg mqtt.Message) {
 		cb(msg)
 	})
 
 	token.Wait()
 	var err = token.Error()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func MQTTMustSubscribeSync(client mqtt.Client, topic Topic, cb MsgCb) {
+	var err = MQTTSubscribeSync(client, topic, cb)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func MQTTUnsubscribeSync(client mqtt.Client, topic Topic) error {
+	var token = client.Unsubscribe(topic.TopicPath())
+	token.Wait()
+	var err = token.Error()
+	if err != nil {
+		return err
+	}
+
+	return err
+}
+
+func MQTTMustUnsubscribeSync(client mqtt.Client, topic Topic) {
+	var err = MQTTUnsubscribeSync(client, topic)
 	if err != nil {
 		panic(err)
 	}

@@ -9,6 +9,8 @@ const (
 	ErrorNotFound
 	ErrorInvalidRequestModel
 	ErrorInvalidUUID
+	ErrorMQTTSubscribe
+	ErrorMQTTPublish
 )
 
 type ModelError struct {
