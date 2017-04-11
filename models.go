@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/vorot93/goutil"
+	"gopkg.in/mgo.v2/bson"
 )
 
 type Document goutil.Document
@@ -131,12 +132,90 @@ func (self *CPEInterface) UnmarshalJSON(b []byte) error {
 	return self.CPEInterfaceInfo.UnmarshalJSON(v)
 }
 
+type CPEInterfaces map[string]CPEInterface
+
+func (self CPEInterfaces) GetBSON() (interface{}, error) {
+	var out = []bson.M{}
+	for k, v := range self {
+		var b []byte
+		{
+			var err error
+			b, err = bson.Marshal(v)
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		var obj_m bson.M
+		{
+			var err error
+			err = bson.Unmarshal(b, &obj_m)
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		obj_m["_id"] = k
+		out = append(out, obj_m)
+	}
+
+	return out, nil
+}
+
+func (self *CPEInterfaces) SetBSON(raw bson.Raw) error {
+	var in = []bson.M{}
+	{
+		var err error
+		err = raw.Unmarshal(&in)
+		if err != nil {
+			return err
+		}
+	}
+
+	var out = CPEInterfaces{}
+
+	for _, v := range in {
+		var obj_b []byte
+		{
+			var err error
+			obj_b, err = bson.Marshal(v)
+			if err != nil {
+				return err
+			}
+		}
+
+		var obj CPEInterface
+		{
+			var err error
+			err = bson.Unmarshal(obj_b, &obj)
+			if err != nil {
+				return err
+			}
+		}
+		var k_any, k_found = v["_id"]
+		if !k_found {
+			return errors.New("No ID found")
+		}
+
+		var k, k_correct = k_any.(string)
+		if !k_correct {
+			return errors.New("Invalid key type")
+		}
+
+		out[k] = obj
+	}
+
+	*self = out
+
+	return nil
+}
+
 type CPE struct {
 	Name         string                  `json:"name"`
 	Connected    bool                    `json:"connected"`
 	Description  string                  `json:"description"`
 	Model        UUID                    `json:"model"`
-	Interfaces   map[string]CPEInterface `json:"interfaces"`
+	Interfaces   CPEInterfaces       `json:"interfaces"`
 	ConfigStatus ConfigurationStatus     `json:"config_status"`
 }
 
