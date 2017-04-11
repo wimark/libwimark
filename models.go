@@ -211,12 +211,12 @@ func (self *CPEInterfaces) SetBSON(raw bson.Raw) error {
 }
 
 type CPE struct {
-	Name         string                  `json:"name"`
-	Connected    bool                    `json:"connected"`
-	Description  string                  `json:"description"`
-	Model        UUID                    `json:"model"`
+	Name         string              `json:"name"`
+	Connected    bool                `json:"connected"`
+	Description  string              `json:"description"`
+	Model        UUID                `json:"model"`
 	Interfaces   CPEInterfaces       `json:"interfaces"`
-	ConfigStatus ConfigurationStatus     `json:"config_status"`
+	ConfigStatus ConfigurationStatus `json:"config_status"`
 }
 
 type Stat struct {
