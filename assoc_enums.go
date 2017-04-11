@@ -12,7 +12,7 @@ type CPEAgentError struct {
 	D interface{}
 }
 
-func (self *CPEAgentError) MarshalJSON() ([]byte, error) {
+func (self CPEAgentError) MarshalJSON() ([]byte, error) {
 	var t, terr = json.Marshal(self.T)
 	if terr != nil {
 		return nil, terr
@@ -21,7 +21,7 @@ func (self *CPEAgentError) MarshalJSON() ([]byte, error) {
 	if derr != nil {
 		return nil, derr
 	}
-	return json.Marshal(goutil.Document{"type": t, "data": d})
+	return json.Marshal(map[string]json.RawMessage{"type": t, "data": d})
 
 }
 func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
@@ -79,7 +79,7 @@ type CPEInterfaceInfo struct {
 	D interface{}
 }
 
-func (self *CPEInterfaceInfo) MarshalJSON() ([]byte, error) {
+func (self CPEInterfaceInfo) MarshalJSON() ([]byte, error) {
 	var t, terr = json.Marshal(self.T)
 	if terr != nil {
 		return nil, terr
@@ -88,7 +88,7 @@ func (self *CPEInterfaceInfo) MarshalJSON() ([]byte, error) {
 	if derr != nil {
 		return nil, derr
 	}
-	return json.Marshal(goutil.Document{"type": t, "data": d})
+	return json.Marshal(map[string]json.RawMessage{"type": t, "data": d})
 
 }
 func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
@@ -138,7 +138,7 @@ type EnumSecurity struct {
 	D interface{}
 }
 
-func (self *EnumSecurity) MarshalJSON() ([]byte, error) {
+func (self EnumSecurity) MarshalJSON() ([]byte, error) {
 	var t, terr = json.Marshal(self.T)
 	if terr != nil {
 		return nil, terr
@@ -147,7 +147,7 @@ func (self *EnumSecurity) MarshalJSON() ([]byte, error) {
 	if derr != nil {
 		return nil, derr
 	}
-	return json.Marshal(goutil.Document{"type": t, "data": d})
+	return json.Marshal(map[string]json.RawMessage{"type": t, "data": d})
 
 }
 func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
