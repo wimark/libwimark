@@ -75,8 +75,32 @@ type WiFiData struct {
 }
 
 type CPEInterface struct {
-	CPEInterfaceInfo `json:",inline"`
-	Addr             string `json:"addr"`
+	CPEInterfaceInfo
+	Addr string
+}
+
+func (self CPEInterface) MarshalJSON() ([]byte, error) {
+	var b []byte
+	{
+		var err error
+		b, err = json.Marshal(self.CPEInterfaceInfo)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	var doc Document
+	{
+		var err error
+		err = json.Unmarshal(b, &doc)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	doc["addr"] = self.Addr
+
+	return json.Marshal(doc)
 }
 
 func (self *CPEInterface) UnmarshalJSON(b []byte) error {
