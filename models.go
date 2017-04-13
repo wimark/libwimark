@@ -222,7 +222,11 @@ type CPE struct {
 type Stat struct {
 	Timestamp    int64   `json:"time"`
 	CPU          float64 `json:"cpu"`
-	RAM          float64 `json:"ram"`
+	RAM       struct {
+		Total    float64 `json:"total"`
+		Reserved float64 `json:"reserved"`
+		Used     float64 `json:"used"`
+	} `json:"ram"`
 	Storage      float64 `json:"storage"`
 	ProcActive   uint64  `json:"processes_active"`
 	ProcSleeping uint64  `json:"processes_sleeping"`
