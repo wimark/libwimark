@@ -13,7 +13,9 @@ type UUID string
 
 type Radius struct {
 	Type     RadiusType `json:"type"`
+	Name     string     `json:"name"`
 	Hostname string     `json:"hostname"`
+	Port     uint16     `json:"port"`
 	Secret   string     `json:"secret"`
 }
 
@@ -25,7 +27,7 @@ const (
 )
 
 type WPA2Common struct {
-	Suite SecuritySuite `json:"suite"`
+	Suites []SecuritySuite `json:"suites"`
 }
 
 type WPA2PersonalData struct {
@@ -35,6 +37,8 @@ type WPA2PersonalData struct {
 
 type WPA2EnterpriseData struct {
 	WPA2Common           `json:,inline`
+	NasID                string   `json:"nas_id"`
+	PMKCaching           bool     `json:"pmk_caching"`
 	RadiusAuthentication []string `json:"radius_auth"`
 }
 
@@ -48,7 +52,11 @@ type WLAN struct {
 	Description      string        `json:"description"`
 	Security         *EnumSecurity `json:"security"`
 	VLAN             int           `json:"vlan"`
-	RadiusAccounting []UUID        `json:"radius_accounting"`
+	Hidden           bool          `json:"hidden"`
+	RadiusAccounting struct {
+		NasID   string   `json:"nas_id"`
+		Servers []string `json:"servers"`
+	} `json:"radius_accounting"`
 }
 
 type InterfaceConfiguration struct {
@@ -60,8 +68,9 @@ type Configuration struct {
 }
 
 type WiredData struct {
-	Name string
-	Mac  string
+	Name string `json:"name"`
+	Mac  string `json:"mac"`
+	VLAN int    `json:"vlan"`
 }
 
 type WiFiData struct {
@@ -220,8 +229,8 @@ type CPE struct {
 }
 
 type Stat struct {
-	Timestamp    int64   `json:"time"`
-	CPU          float64 `json:"cpu"`
+	Timestamp int64   `json:"time"`
+	CPU       float64 `json:"cpu"`
 	RAM       struct {
 		Total    float64 `json:"total"`
 		Reserved float64 `json:"reserved"`
@@ -242,7 +251,17 @@ type CPEAgentResponse struct {
 	Status CPEAgentError   `json:"error"`
 }
 
+type CPEStatSettings struct {
+	Rules   []StatEventRule `json:"rules"`
+	Timeout int64           `json:"rules"`
+}
+
 type StatDaemonSettings struct {
-	CPEList  []UUID `json:"cpe-list"`
-	Interval int64  `json:"interval"`
+	CPEList  map[UUID]CPEStatSettings `json:"cpe-list"`
+	Interval int64                    `json:"interval"`
+}
+
+type LimitBetween struct {
+	Upper float64
+	Lower float64
 }
