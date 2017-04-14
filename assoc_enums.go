@@ -191,3 +191,62 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 	return nil
 
 }
+
+type StatEventRule struct {
+	T StatEventRuleType
+	D interface{}
+}
+
+func (self StatEventRule) MarshalJSON() ([]byte, error) {
+	var t, terr = json.Marshal(self.T)
+	if terr != nil {
+		return nil, terr
+	}
+	var d, derr = json.Marshal(self.D)
+	if derr != nil {
+		return nil, derr
+	}
+	return json.Marshal(map[string]json.RawMessage{"type": t, "data": d})
+
+}
+func (self *StatEventRule) UnmarshalJSON(b []byte) error {
+	var doc map[string]json.RawMessage
+	if err := json.Unmarshal(b, &doc); err != nil {
+		return err
+	}
+	if doc == nil {
+		return nil
+	}
+	var t_raw, t_found = doc["type"]
+	if !t_found {
+		return nil
+	}
+	var data_raw, data_found = doc["data"]
+	if !data_found {
+		return nil
+	}
+	var t StatEventRuleType
+	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
+		return t_err
+	}
+	var data interface{} = nil
+	var data_err error
+	switch t.Value().(type) {
+	case StatEventCPUload:
+		var d LimitBetween
+		data_err = json.Unmarshal(data_raw, &d)
+		data = &d
+	case StatEventFreeRAM:
+		var d LimitBetween
+		data_err = json.Unmarshal(data_raw, &d)
+		data = &d
+
+	}
+	if data_err != nil {
+		return data_err
+	}
+	self.T = t
+	self.D = data
+	return nil
+
+}

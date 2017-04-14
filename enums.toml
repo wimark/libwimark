@@ -57,3 +57,9 @@ Success     = { string = "success"   }
 Undefined   = { string = "undefined" }
 SyntaxError = { string = "syntax"    }
 Exception   = { string = "exception" }
+
+[StatEventRuleType]
+prefix = "StatEvent"
+[StatEventRuleType.variants]
+FreeRAM = { string = "free_ram" }
+CPUload = { string = "cpu_load" }

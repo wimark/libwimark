@@ -17,3 +17,9 @@ CPEAgentStatusSuccess = "goutil.Document"
 CPEAgentStatusUndefined   = "string"
 CPEAgentStatusSyntaxError = "string"
 CPEAgentStatusException   = "string"
+
+[StatEventRule]
+constraint = "StatEventRuleType"
+[StatEventRule.Variants]
+StatEventFreeRAM = "LimitBetween"
+StatEventCPUload = "LimitBetween"

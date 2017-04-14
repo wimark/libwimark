@@ -931,3 +931,90 @@ func (self *SecurityType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown SecurityType")
 
 }
+
+type StatEventRuleTypeIface interface {
+	StatEventRuleTypeIfaceFunc()
+}
+type StatEventRuleType struct{ StatEventRuleTypeIface }
+
+func (self *StatEventRuleType) Value() StatEventRuleTypeIface { return self.StatEventRuleTypeIface }
+
+type StatEventCPUload struct{}
+
+func (StatEventCPUload) StatEventRuleTypeIfaceFunc() {}
+
+type StatEventFreeRAM struct{}
+
+func (StatEventFreeRAM) StatEventRuleTypeIfaceFunc() {}
+func (self *StatEventRuleType) String() string {
+	switch self.StatEventRuleTypeIface.(type) {
+	case StatEventCPUload:
+		return "cpu_load"
+	case StatEventFreeRAM:
+		return "free_ram"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self StatEventRuleType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
+	case StatEventCPUload:
+		return json.Marshal("cpu_load")
+	case StatEventFreeRAM:
+		return json.Marshal("free_ram")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self StatEventRuleType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("StatEventRuleType cannot be nil")
+	}
+	switch v.(type) {
+	case StatEventCPUload:
+		return "cpu_load", nil
+	case StatEventFreeRAM:
+		return "free_ram", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "cpu_load":
+		self.StatEventRuleTypeIface = StatEventCPUload{}
+		return nil
+	case "free_ram":
+		self.StatEventRuleTypeIface = StatEventFreeRAM{}
+		return nil
+
+	}
+	return errors.New("Unknown StatEventRuleType")
+
+}
+
+func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "cpu_load":
+		self.StatEventRuleTypeIface = StatEventCPUload{}
+		return nil
+	case "free_ram":
+		self.StatEventRuleTypeIface = StatEventFreeRAM{}
+		return nil
+
+	}
+	return errors.New("Unknown StatEventRuleType")
+
+}
