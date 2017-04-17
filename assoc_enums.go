@@ -1,11 +1,7 @@
 package libwimark
 
-import (
-	"github.com/vorot93/goutil"
-)
-import (
-	"encoding/json"
-)
+import "encoding/json"
+import "errors"
 
 type CPEAgentError struct {
 	T CPEAgentStatusType
@@ -37,39 +33,47 @@ func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	if !data_found {
-		return nil
-	}
+	_ = data_found
 	var t CPEAgentStatusType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	var data interface{} = nil
-	var data_err error
 	switch t.Value().(type) {
 	case CPEAgentStatusException:
+		if !data_found {
+			return errors.New("No associated data found for enum CPEAgentError")
+		}
 		var d string
-		data_err = json.Unmarshal(data_raw, &d)
-		data = &d
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
 	case CPEAgentStatusSuccess:
-		var d goutil.Document
-		data_err = json.Unmarshal(data_raw, &d)
-		data = &d
+		break
 	case CPEAgentStatusSyntaxError:
+		if !data_found {
+			return errors.New("No associated data found for enum CPEAgentError")
+		}
 		var d string
-		data_err = json.Unmarshal(data_raw, &d)
-		data = &d
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
 	case CPEAgentStatusUndefined:
+		if !data_found {
+			return errors.New("No associated data found for enum CPEAgentError")
+		}
 		var d string
-		data_err = json.Unmarshal(data_raw, &d)
-		data = &d
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
 
 	}
-	if data_err != nil {
-		return data_err
-	}
 	self.T = t
-	self.D = data
 	return nil
 
 }
@@ -104,31 +108,35 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	if !data_found {
-		return nil
-	}
+	_ = data_found
 	var t CPEInterfaceType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	var data interface{} = nil
-	var data_err error
 	switch t.Value().(type) {
 	case InterfaceWiFi:
+		if !data_found {
+			return errors.New("No associated data found for enum CPEInterfaceInfo")
+		}
 		var d WiFiData
-		data_err = json.Unmarshal(data_raw, &d)
-		data = &d
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
 	case InterfaceWired:
+		if !data_found {
+			return errors.New("No associated data found for enum CPEInterfaceInfo")
+		}
 		var d WiredData
-		data_err = json.Unmarshal(data_raw, &d)
-		data = &d
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
 
 	}
-	if data_err != nil {
-		return data_err
-	}
 	self.T = t
-	self.D = data
 	return nil
 
 }
@@ -163,31 +171,35 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	if !data_found {
-		return nil
-	}
+	_ = data_found
 	var t SecurityType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	var data interface{} = nil
-	var data_err error
 	switch t.Value().(type) {
 	case WPA2Enterprise:
+		if !data_found {
+			return errors.New("No associated data found for enum EnumSecurity")
+		}
 		var d WPA2EnterpriseData
-		data_err = json.Unmarshal(data_raw, &d)
-		data = &d
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
 	case WPA2Personal:
+		if !data_found {
+			return errors.New("No associated data found for enum EnumSecurity")
+		}
 		var d WPA2PersonalData
-		data_err = json.Unmarshal(data_raw, &d)
-		data = &d
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
 
 	}
-	if data_err != nil {
-		return data_err
-	}
 	self.T = t
-	self.D = data
 	return nil
 
 }
@@ -222,31 +234,35 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	if !data_found {
-		return nil
-	}
+	_ = data_found
 	var t StatEventRuleType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	var data interface{} = nil
-	var data_err error
 	switch t.Value().(type) {
 	case StatEventCPUload:
+		if !data_found {
+			return errors.New("No associated data found for enum StatEventRule")
+		}
 		var d LimitBetween
-		data_err = json.Unmarshal(data_raw, &d)
-		data = &d
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
 	case StatEventFreeRAM:
+		if !data_found {
+			return errors.New("No associated data found for enum StatEventRule")
+		}
 		var d LimitBetween
-		data_err = json.Unmarshal(data_raw, &d)
-		data = &d
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
 
 	}
-	if data_err != nil {
-		return data_err
-	}
 	self.T = t
-	self.D = data
 	return nil
 
 }

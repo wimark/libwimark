@@ -13,7 +13,7 @@ InterfaceWiFi = "WiFiData"
 [CPEAgentError]
 constraint = "CPEAgentStatusType"
 [CPEAgentError.Variants]
-CPEAgentStatusSuccess = "goutil.Document"
+CPEAgentStatusSuccess     = "null"
 CPEAgentStatusUndefined   = "string"
 CPEAgentStatusSyntaxError = "string"
 CPEAgentStatusException   = "string"
