@@ -234,9 +234,10 @@ type Stat struct {
 	CPU       float64 `json:"cpu"`
 	RAM       struct {
 		Total    float64 `json:"total"`
-		Reserved float64 `json:"reserved"`
-		Used     float64 `json:"used"`
-	} `json:"ram"`
+		Buffered float64 `json:"buffered"`
+		Shared   float64 `json:"shared"`
+		Free     float64 `json:"free"`
+	} `json:"memory"`
 	Storage      float64 `json:"storage"`
 	ProcActive   uint64  `json:"processes_active"`
 	ProcSleeping uint64  `json:"processes_sleeping"`
