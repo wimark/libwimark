@@ -14,6 +14,8 @@ const (
 	TOPIC_STATUS_REGEXP = `B/(.*)/(.*)`
 	TOPIC_LOG_FORMAT    = `LOG/%s/%s`
 	TOPIC_LOG_REGEXP    = `LOG/(.*)/(.*)`
+	TOPIC_EVENT_FORMAT  = `EVENT/%s/%s`
+	TOPIC_EVENT_REGEXP  = `EVENT/(.*)/(.*)`
 	TOPIC_REQ_FORMAT    = `REQ/%s/%s/%s/%s/%s/%s`
 	TOPIC_REQ_REGEXP    = `REQ/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)`
 	TOPIC_RSP_FORMAT    = `RSP/%s/%s/%s/%s/%s`
@@ -75,6 +77,16 @@ func ParseLogTopic(s string) *LogTopic {
 
 func (self LogTopic) TopicPath() string {
 	return (BroadcastTopic)(self).TopicPathGeneric(TOPIC_LOG_FORMAT)
+}
+
+type EventTopic BroadcastTopic
+
+func ParseEventTopic(s string) *EventTopic {
+	return (*EventTopic)(ParseBroadcastTopic(s, TOPIC_EVENT_REGEXP))
+}
+
+func (self EventTopic) TopicPath() string {
+	return (BroadcastTopic)(self).TopicPathGeneric(TOPIC_EVENT_FORMAT)
 }
 
 type RequestTopic struct {
