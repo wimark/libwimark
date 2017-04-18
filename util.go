@@ -230,7 +230,7 @@ func ParseTopicPath(s string) Topic {
 }
 
 type DBResponseBase struct {
-	Errors []ModelError `json:"errors"`
+	Errors []ModelError `json:"errors,omitempty"`
 }
 
 type DBDataObj struct {
