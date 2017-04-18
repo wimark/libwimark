@@ -254,8 +254,8 @@ type CPEAgentResponse struct {
 }
 
 type CPEStatSettings struct {
-	Rules   []StatEventRule `json:"rules"`
-	Timeout int64           `json:"rules"`
+	Rules       []StatEventRule `json:"rules"`
+	RuleTimeout int64           `json:"rule-timeout"`
 }
 
 type StatDaemonSettings struct {
