@@ -11,6 +11,10 @@ const (
 	ErrorInvalidUUID
 	ErrorMQTTSubscribe
 	ErrorMQTTPublish
+	ErrorModuleOffline
+	ErrorCPEException
+	ErrorCPESyntax
+	ErrorCPEUndefined
 )
 
 type ModelError struct {
