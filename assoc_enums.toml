@@ -23,3 +23,8 @@ constraint = "StatEventRuleType"
 [StatEventRule.Variants]
 StatEventFreeRAM = "LimitBetween"
 StatEventCPUload = "LimitBetween"
+
+[EventData]
+constraint = "EventType"
+[EventData.Variants]
+EventStatRuleViolation = "CPEStatSettings"

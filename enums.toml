@@ -63,3 +63,8 @@ prefix = "StatEvent"
 [StatEventRuleType.variants]
 FreeRAM = { string = "free_ram" }
 CPUload = { string = "cpu_load" }
+
+[EventType]
+prefix = "Event"
+[EventType.variants]
+StatRuleViolation = { string = "stat_rule_violation" }

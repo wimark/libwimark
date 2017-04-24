@@ -337,6 +337,77 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 
 }
 
+type EventTypeIface interface {
+	EventTypeIfaceFunc()
+}
+type EventType struct{ EventTypeIface }
+
+func (self *EventType) Value() EventTypeIface { return self.EventTypeIface }
+
+type EventStatRuleViolation struct{}
+
+func (EventStatRuleViolation) EventTypeIfaceFunc() {}
+func (self *EventType) String() string {
+	switch self.EventTypeIface.(type) {
+	case EventStatRuleViolation:
+		return "stat_rule_violation"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self EventType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
+	case EventStatRuleViolation:
+		return json.Marshal("stat_rule_violation")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self EventType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("EventType cannot be nil")
+	}
+	switch v.(type) {
+	case EventStatRuleViolation:
+		return "stat_rule_violation", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *EventType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "stat_rule_violation":
+		self.EventTypeIface = EventStatRuleViolation{}
+		return nil
+
+	}
+	return errors.New("Unknown EventType")
+
+}
+
+func (self *EventType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "stat_rule_violation":
+		self.EventTypeIface = EventStatRuleViolation{}
+		return nil
+
+	}
+	return errors.New("Unknown EventType")
+
+}
+
 type ModuleIface interface {
 	ModuleIfaceFunc()
 }

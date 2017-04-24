@@ -267,3 +267,8 @@ type LimitBetween struct {
 	Upper float64
 	Lower float64
 }
+
+type Event struct {
+	Time    int64     `json:"time"`
+	Payload EventData `json:"payload"`
+}
