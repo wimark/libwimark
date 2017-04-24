@@ -21,6 +21,7 @@ CPE     = { string = "CPE"     }
 Config  = { string = "CONFIG"  }
 DB      = { string = "DB"      }
 Stat    = { string = "STAT"    }
+Monitor = { string = "MONITOR" }
 
 [Operation]
 prefix = "Operation"
