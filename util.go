@@ -238,6 +238,7 @@ type DBDataObj struct {
 	CPEs  map[UUID]CPE                `json:"cpe,omitempty"`
 	Stats map[UUID]Stat               `json:"stat,omitempty"`
 	SDS   map[UUID]StatDaemonSettings `json:"stat-daemon-settings,omitempty"`
+	Events map[UUID]Event              `json:"event,omitempty"`
 }
 
 type DBDataUUID struct {
@@ -245,6 +246,7 @@ type DBDataUUID struct {
 	CPEs  []UUID `json:"cpe,omitempty"`
 	Stats []UUID `json:"stat,omitempty"`
 	SDS   []UUID `json:"stat-daemon-settings,omitempty"`
+	Events []UUID `json:"event,omitempty"`
 }
 
 type DBRequestC DBDataObj
