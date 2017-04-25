@@ -31,9 +31,9 @@ func TestSecuritySuite(t *testing.T) {
 }
 
 func TestEnumSecurity(t *testing.T) {
-	var fixture = []byte(`{"type": "wpa2personal", "data": {"psk": "qwerty", "suite": "tkip"}}`)
+	var fixture = []byte(`{"type": "wpa2personal", "data": {"psk": "qwerty", "suites": ["tkip"]}}`)
 	var d = &WPA2PersonalData{}
-	d.Suite = SecuritySuite{TKIP{}}
+	d.Suites = []SecuritySuite{SecuritySuite{TKIP{}}}
 	d.PSK = "qwerty"
 	var expectation = EnumSecurity{T: SecurityType{WPA2Personal{}}, D: d}
 	var result EnumSecurity
@@ -55,15 +55,18 @@ func TestWLAN(t *testing.T) {
                     "type": "wpa2personal",
                     "data": {
                         "psk": "qwerty",
-                        "suite": "aes"
+                        "suites": ["aes"]
                     }
                 },
                 "vlan": 5,
-                "radius_accounting": []
+                "radius_accounting": {
+                    "nas_id": "nas001",
+                    "servers": ["localhost"]
+                }
             }
         `)
 	var d = &WPA2PersonalData{}
-	d.Suite = SecuritySuite{AES{}}
+	d.Suites = []SecuritySuite{SecuritySuite{AES{}}}
 	d.PSK = "qwerty"
 	var expectation = WLAN{
 		Name:        "myhotspot",
@@ -73,9 +76,10 @@ func TestWLAN(t *testing.T) {
 			T: SecurityType{WPA2Personal{}},
 			D: d,
 		},
-		VLAN:             5,
-		RadiusAccounting: []UUID{},
+		VLAN: 5,
 	}
+	expectation.RadiusAccounting.NasID = "nas001"
+	expectation.RadiusAccounting.Servers = []string{"localhost"}
 
 	var result WLAN
 	var err = json.Unmarshal(fixture, &result)
@@ -91,6 +95,7 @@ func TestCPE(t *testing.T) {
         {
             "name": "mycpe",
             "description": "this is my CPE",
+            "connected": true,
             "model": "MODELID001",
             "interfaces": {
                 "wlan0": {
@@ -129,6 +134,7 @@ func TestCPE(t *testing.T) {
 	var expectation CPE
 	expectation.Name = "mycpe"
 	expectation.Description = "this is my CPE"
+	expectation.Connected = true
 	expectation.Model = UUID("MODELID001")
 	expectation.Interfaces = map[string]CPEInterface{}
 	expectation.Interfaces["wlan0"] = i
