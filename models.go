@@ -268,6 +268,11 @@ type LimitBetween struct {
 	Lower float64 `json:"lower"`
 }
 
+type CPEEventData struct {
+	ID       UUID            `json:"id"`
+	Settings CPEStatSettings `json:"settings"`
+}
+
 type Event struct {
 	Time    int64     `json:"time"`
 	Payload EventData `json:"payload"`

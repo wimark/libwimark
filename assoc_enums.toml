@@ -27,4 +27,4 @@ StatEventCPUload = "LimitBetween"
 [EventData]
 constraint = "EventType"
 [EventData.Variants]
-EventStatRuleViolation = "CPEStatSettings"
+EventStatRuleViolation = "CPEEventData"

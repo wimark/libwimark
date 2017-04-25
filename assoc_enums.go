@@ -244,7 +244,7 @@ func (self *EventData) UnmarshalJSON(b []byte) error {
 		if !data_found {
 			return errors.New("No associated data found for enum EventData")
 		}
-		var d CPEStatSettings
+		var d CPEEventData
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
