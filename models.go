@@ -264,8 +264,8 @@ type StatDaemonSettings struct {
 }
 
 type LimitBetween struct {
-	Upper float64
-	Lower float64
+	Upper float64 `json:"upper"`
+	Lower float64 `json:"lower"`
 }
 
 type Event struct {
