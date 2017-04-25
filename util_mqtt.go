@@ -38,11 +38,11 @@ type MQTTDocumentMessage struct {
 	R bool
 }
 
-func (self *MQTTDocumentMessage) Topic() Topic {
+func (self MQTTDocumentMessage) Topic() Topic {
 	return self.T
 }
 
-func (self *MQTTDocumentMessage) Payload() ([]byte, error) {
+func (self MQTTDocumentMessage) Payload() ([]byte, error) {
 	if self.D != nil {
 		return json.Marshal(self.D)
 	} else {
@@ -50,7 +50,7 @@ func (self *MQTTDocumentMessage) Payload() ([]byte, error) {
 	}
 }
 
-func (self *MQTTDocumentMessage) Retained() bool {
+func (self MQTTDocumentMessage) Retained() bool {
 	return self.R
 }
 
@@ -60,15 +60,15 @@ type MQTTRawMessage struct {
 	R bool
 }
 
-func (self *MQTTRawMessage) Topic() Topic {
+func (self MQTTRawMessage) Topic() Topic {
 	return self.T
 }
 
-func (self *MQTTRawMessage) Payload() ([]byte, error) {
+func (self MQTTRawMessage) Payload() ([]byte, error) {
 	return self.D, nil
 }
 
-func (self *MQTTRawMessage) Retained() bool {
+func (self MQTTRawMessage) Retained() bool {
 	return self.R
 }
 
