@@ -277,3 +277,13 @@ type Event struct {
 	Time    int64     `json:"time"`
 	Payload EventData `json:"payload"`
 }
+
+type SimpleMask struct {
+	UUID []UUID `json:"uuid"`
+}
+
+type CPEMask struct {
+	UUID      []UUID `json:"uuid"`
+	HasWLANs  []UUID `json:"has_wlans"`
+	Connected *bool  `json:"connected"`
+}
