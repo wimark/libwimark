@@ -296,3 +296,10 @@ type DBResponseC DBResponseUUID
 type DBResponseR DBResponseObj
 type DBResponseU DBResponseUUID
 type DBResponseD DBResponseUUID
+
+type ConnectorInfo struct {
+	Version   float64  `json:"version"`
+	DbType    string   `json:"db_type"`
+	DbServers []string `json:"db_servers"`
+	Models    []string `json:"models"`
+}
