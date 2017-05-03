@@ -11,6 +11,7 @@ Empty   = { string = "empty"   }
 Error   = { string = "error"   }
 OK      = { string = "ok"      }
 Pending = { string = "pending" }
+Future  = { string = "future"  }
 
 [Module]
 prefix = "Module"

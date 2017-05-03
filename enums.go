@@ -233,6 +233,10 @@ type StatusError struct{}
 
 func (StatusError) ConfigurationStatusIfaceFunc() {}
 
+type StatusFuture struct{}
+
+func (StatusFuture) ConfigurationStatusIfaceFunc() {}
+
 type StatusOK struct{}
 
 func (StatusOK) ConfigurationStatusIfaceFunc() {}
@@ -246,6 +250,8 @@ func (self *ConfigurationStatus) String() string {
 		return "empty"
 	case StatusError:
 		return "error"
+	case StatusFuture:
+		return "future"
 	case StatusOK:
 		return "ok"
 	case StatusPending:
@@ -261,6 +267,8 @@ func (self ConfigurationStatus) MarshalJSON() ([]byte, error) {
 		return json.Marshal("empty")
 	case StatusError:
 		return json.Marshal("error")
+	case StatusFuture:
+		return json.Marshal("future")
 	case StatusOK:
 		return json.Marshal("ok")
 	case StatusPending:
@@ -280,6 +288,8 @@ func (self ConfigurationStatus) GetBSON() (interface{}, error) {
 		return "empty", nil
 	case StatusError:
 		return "error", nil
+	case StatusFuture:
+		return "future", nil
 	case StatusOK:
 		return "ok", nil
 	case StatusPending:
@@ -300,6 +310,9 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 		return nil
 	case "error":
 		self.ConfigurationStatusIface = StatusError{}
+		return nil
+	case "future":
+		self.ConfigurationStatusIface = StatusFuture{}
 		return nil
 	case "ok":
 		self.ConfigurationStatusIface = StatusOK{}
@@ -324,6 +337,9 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 		return nil
 	case "error":
 		self.ConfigurationStatusIface = StatusError{}
+		return nil
+	case "future":
+		self.ConfigurationStatusIface = StatusFuture{}
 		return nil
 	case "ok":
 		self.ConfigurationStatusIface = StatusOK{}
