@@ -39,7 +39,7 @@ type WPA2EnterpriseData struct {
 	WPA2Common           `json:,inline`
 	NasID                string   `json:"nas_id"`
 	PMKCaching           bool     `json:"pmk_caching"`
-	RadiusAuthentication []string `json:"radius_auth"`
+	RadiusAuthentication []UUID   `json:"radius_auth"`
 }
 
 type SecuritySettings interface {
@@ -53,10 +53,8 @@ type WLAN struct {
 	Security         *EnumSecurity `json:"security"`
 	VLAN             int           `json:"vlan"`
 	Hidden           bool          `json:"hidden"`
-	RadiusAccounting struct {
-		NasID   string   `json:"nas_id"`
-		Servers []string `json:"servers"`
-	} `json:"radius_accounting"`
+	NasID            *string       `json:"nas_id"`
+	RadiusAcctServers []UUID       `json:"radius_acct_servers"`
 }
 
 type InterfaceConfiguration struct {
