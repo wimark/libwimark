@@ -3,7 +3,9 @@ package libwimark
 import (
 	"encoding/json"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	cache "github.com/patrickmn/go-cache"
 	"log"
+	"time"
 )
 
 func MQTTConnectSync(addr string) (mqtt.Client, error) {
@@ -137,4 +139,16 @@ func MQTTPublishSync(client mqtt.Client, topic Topic, payload interface{}) error
 	token.Wait()
 	var err = token.Error()
 	return err
+}
+
+func CacheSetRequest(c *cache.Cache, id string, d time.Duration, v MQTTMessage) {
+	c.Set(id, v, d)
+}
+
+func CacheGetRequest(c *cache.Cache, id string) MQTTMessage {
+	var v, ok = c.Get(id)
+	if !ok {
+		return nil
+	}
+	return v.(MQTTMessage)
 }
