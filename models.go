@@ -47,14 +47,14 @@ type SecuritySettings interface {
 }
 
 type WLAN struct {
-	Name             string        `json:"name"`
-	SSID             string        `json:"ssid"`
-	Description      string        `json:"description"`
-	Security         *EnumSecurity `json:"security"`
-	VLAN             int           `json:"vlan"`
-	Hidden           bool          `json:"hidden"`
-	NasID            *string       `json:"nas_id"`
-	RadiusAcctServers []UUID       `json:"radius_acct_servers"`
+	Name              string        `json:"name"`
+	SSID              string        `json:"ssid"`
+	Description       string        `json:"description"`
+	Security          *EnumSecurity `json:"security"`
+	VLAN              int           `json:"vlan"`
+	Hidden            bool          `json:"hidden"`
+	NasID             *string       `json:"nas_id"`
+	RadiusAcctServers []UUID        `json:"radius_acct_servers"`
 }
 
 type InterfaceConfiguration struct {
