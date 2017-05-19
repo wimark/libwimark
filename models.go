@@ -37,9 +37,9 @@ type WPA2PersonalData struct {
 
 type WPA2EnterpriseData struct {
 	WPA2Common           `json:,inline`
-	NasID                string   `json:"nas_id"`
-	PMKCaching           bool     `json:"pmk_caching"`
-	RadiusAuthentication []UUID   `json:"radius_auth"`
+	NasID                string `json:"nas_id"`
+	PMKCaching           bool   `json:"pmk_caching"`
+	RadiusAuthentication []UUID `json:"radius_auth"`
 }
 
 type SecuritySettings interface {
@@ -284,4 +284,10 @@ type CPEMask struct {
 	UUID      []UUID `json:"uuid"`
 	HasWLANs  []UUID `json:"has_wlans"`
 	Connected *bool  `json:"connected"`
+}
+
+type StatsMask struct {
+	UUID  []UUID `json:"uuid"`
+	Start *int64 `json:"start"`
+	Stop  *int64 `json:"stop"`
 }
