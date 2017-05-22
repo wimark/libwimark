@@ -234,27 +234,30 @@ type DBResponseBase struct {
 }
 
 type DBDataObj struct {
-	WLANs  map[UUID]WLAN               `json:"wlan,omitempty"`
-	CPEs   map[UUID]CPE                `json:"cpe,omitempty"`
-	Stats  map[UUID]Stat               `json:"stat,omitempty"`
-	SDS    map[UUID]StatDaemonSettings `json:"stat-daemon-settings,omitempty"`
-	Events map[UUID]Event              `json:"event,omitempty"`
+	WLANs          map[UUID]WLAN               `json:"wlan,omitempty"`
+	CPEs           map[UUID]CPE                `json:"cpe,omitempty"`
+	Stats          map[UUID]Stat               `json:"stat,omitempty"`
+	SDS            map[UUID]StatDaemonSettings `json:"stat-daemon-settings,omitempty"`
+	Events         map[UUID]Event              `json:"event,omitempty"`
+	StatEventRules map[UUID]StatEventRule      `json:"stat-event-rule,omitempty"`
 }
 
 type DBDataUUID struct {
-	WLANs  []UUID `json:"wlan,omitempty"`
-	CPEs   []UUID `json:"cpe,omitempty"`
-	Stats  []UUID `json:"stat,omitempty"`
-	SDS    []UUID `json:"stat-daemon-settings,omitempty"`
-	Events []UUID `json:"event,omitempty"`
+	WLANs          []UUID `json:"wlan,omitempty"`
+	CPEs           []UUID `json:"cpe,omitempty"`
+	Stats          []UUID `json:"stat,omitempty"`
+	SDS            []UUID `json:"stat-daemon-settings,omitempty"`
+	Events         []UUID `json:"event,omitempty"`
+	StatEventRules []UUID `json:"stat-event-rule,omitempty"`
 }
 
 type DBDataMasks struct {
-	WLANs  *SimpleMask `json:"wlan,omitempty"`
-	CPEs   *CPEMask    `json:"cpe,omitempty"`
-	Stats  *SimpleMask `json:"stat,omitempty"`
-	SDS    *SimpleMask `json:"stat-daemon-settings,omitempty"`
-	Events *SimpleMask `json:"event,omitempty"`
+	WLANs          *SimpleMask `json:"wlan,omitempty"`
+	CPEs           *CPEMask    `json:"cpe,omitempty"`
+	Stats          *SimpleMask `json:"stat,omitempty"`
+	SDS            *SimpleMask `json:"stat-daemon-settings,omitempty"`
+	Events         *SimpleMask `json:"event,omitempty"`
+	StatEventRules *SimpleMask `json:"stat-event-rule,omitempty"`
 }
 
 type DBRequestC DBDataObj
