@@ -38,7 +38,7 @@ SHScript  = { string = "SH"  }
 [RadiusType]
 prefix = "Radius"
 [RadiusType.variants]
-Accounting     = { string = "acc"  }
+Accounting     = { string = "acct"  }
 Authentication = { string = "auth" }
 Both           = { string = "both" }
 

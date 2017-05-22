@@ -241,6 +241,7 @@ type DBDataObj struct {
 	Events         map[UUID]Event              `json:"event,omitempty"`
 	StatEventRules map[UUID]StatEventRule      `json:"stat-event-rule,omitempty"`
 	PollCPE        map[UUID][]UUID             `json:"poll-cpe,omitempty"`
+	Radius         map[UUID]Radius             `json:"radius,omitempty"`
 }
 
 type DBDataUUID struct {
@@ -251,6 +252,7 @@ type DBDataUUID struct {
 	Events         []UUID `json:"event,omitempty"`
 	StatEventRules []UUID `json:"stat-event-rule,omitempty"`
 	PollCPE        []UUID `json:"poll-cpe,omitempty"`
+	Radius         []UUID `json:"radius,omitempty"`
 }
 
 type DBDataMasks struct {
@@ -261,6 +263,7 @@ type DBDataMasks struct {
 	Events         *SimpleMask `json:"event,omitempty"`
 	StatEventRules *SimpleMask `json:"stat-event-rule,omitempty"`
 	PollCPE        *SimpleMask `json:"stat-event-rule,omitempty"`
+	Radius         *SimpleMask `json:"radius,omitempty"`
 }
 
 type DBRequestC DBDataObj
