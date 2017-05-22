@@ -258,7 +258,7 @@ type DBDataUUID struct {
 type DBDataMasks struct {
 	WLANs          *SimpleMask `json:"wlan,omitempty"`
 	CPEs           *CPEMask    `json:"cpe,omitempty"`
-	Stats          *SimpleMask `json:"stat,omitempty"`
+	Stats          *StatsMask  `json:"stat,omitempty"`
 	SDS            *SimpleMask `json:"stat-daemon-settings,omitempty"`
 	Events         *SimpleMask `json:"event,omitempty"`
 	StatEventRules *SimpleMask `json:"stat-event-rule,omitempty"`
