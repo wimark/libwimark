@@ -779,7 +779,7 @@ func (RadiusBoth) RadiusTypeIfaceFunc() {}
 func (self *RadiusType) String() string {
 	switch self.RadiusTypeIface.(type) {
 	case RadiusAccounting:
-		return "acc"
+		return "acct"
 	case RadiusAuthentication:
 		return "auth"
 	case RadiusBoth:
@@ -792,7 +792,7 @@ func (self *RadiusType) String() string {
 func (self RadiusType) MarshalJSON() ([]byte, error) {
 	switch self.Value().(type) {
 	case RadiusAccounting:
-		return json.Marshal("acc")
+		return json.Marshal("acct")
 	case RadiusAuthentication:
 		return json.Marshal("auth")
 	case RadiusBoth:
@@ -809,7 +809,7 @@ func (self RadiusType) GetBSON() (interface{}, error) {
 	}
 	switch v.(type) {
 	case RadiusAccounting:
-		return "acc", nil
+		return "acct", nil
 	case RadiusAuthentication:
 		return "auth", nil
 	case RadiusBoth:
@@ -825,7 +825,7 @@ func (self *RadiusType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "acc":
+	case "acct":
 		self.RadiusTypeIface = RadiusAccounting{}
 		return nil
 	case "auth":
@@ -846,7 +846,7 @@ func (self *RadiusType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "acc":
+	case "acct":
 		self.RadiusTypeIface = RadiusAccounting{}
 		return nil
 	case "auth":
