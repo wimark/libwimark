@@ -14,8 +14,8 @@ const (
 	TOPIC_STATUS_REGEXP = `B/(.*)/(.*)`
 	TOPIC_LOG_FORMAT    = `LOG/%s/%s`
 	TOPIC_LOG_REGEXP    = `LOG/(.*)/(.*)`
-	TOPIC_EVENT_FORMAT  = `EVENT/%s/%s`
-	TOPIC_EVENT_REGEXP  = `EVENT/(.*)/(.*)`
+	TOPIC_EVENT_FORMAT  = `EVENT/%s/%s/%s`
+	TOPIC_EVENT_REGEXP  = `EVENT/(.*)/(.*)/(.*)`
 	TOPIC_REQ_FORMAT    = `REQ/%s/%s/%s/%s/%s/%s`
 	TOPIC_REQ_REGEXP    = `REQ/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)`
 	TOPIC_RSP_FORMAT    = `RSP/%s/%s/%s/%s/%s`
@@ -79,14 +79,43 @@ func (self LogTopic) TopicPath() string {
 	return (BroadcastTopic)(self).TopicPathGeneric(TOPIC_LOG_FORMAT)
 }
 
-type EventTopic BroadcastTopic
+type EventTopic struct {
+	SenderModule Module
+	SenderID     string
+	Type         EventType
+}
 
 func ParseEventTopic(s string) *EventTopic {
-	return (*EventTopic)(ParseBroadcastTopic(s, TOPIC_EVENT_REGEXP))
+	var r = regexp.MustCompile(TOPIC_EVENT_REGEXP)
+	var ds = r.FindAllStringSubmatch(s, -1)
+	if ds != nil && len(ds) == 1 {
+		var data = ds[0]
+		if data != nil && len(data) == 3+1 {
+			var smodule Module
+			var event_type EventType
+			var smodule_err = json.Unmarshal([]byte(strconv.Quote(data[1])), &smodule)
+			var event_type_err = json.Unmarshal([]byte(strconv.Quote(data[3])), &event_type)
+			if smodule_err == nil && event_type_err == nil {
+				var v EventTopic
+
+				v.SenderModule = smodule
+				v.SenderID = data[2]
+				v.Type = event_type
+
+				return &v
+			}
+		}
+	}
+
+	return nil
 }
 
 func (self EventTopic) TopicPath() string {
-	return (BroadcastTopic)(self).TopicPathGeneric(TOPIC_EVENT_FORMAT)
+	var sm, _ = self.SenderModule.MarshalJSON()
+	var sm_s, _ = strconv.Unquote(string(sm))
+	var t, _ = self.Type.MarshalJSON()
+	var t_s, _ = strconv.Unquote(string(t))
+	return fmt.Sprintf(TOPIC_EVENT_FORMAT, sm_s, self.SenderID, t_s)
 }
 
 type RequestTopic struct {

@@ -363,10 +363,16 @@ func (self *EventType) Value() EventTypeIface { return self.EventTypeIface }
 type EventStatRuleViolation struct{}
 
 func (EventStatRuleViolation) EventTypeIfaceFunc() {}
+
+type EventStatRulesChanged struct{}
+
+func (EventStatRulesChanged) EventTypeIfaceFunc() {}
 func (self *EventType) String() string {
 	switch self.EventTypeIface.(type) {
 	case EventStatRuleViolation:
-		return "stat_rule_violation"
+		return "STAT_RULE_VIOLATION"
+	case EventStatRulesChanged:
+		return "STAT_RULES_CHANGED"
 
 	}
 	panic(errors.New("Not implemented"))
@@ -375,7 +381,9 @@ func (self *EventType) String() string {
 func (self EventType) MarshalJSON() ([]byte, error) {
 	switch self.Value().(type) {
 	case EventStatRuleViolation:
-		return json.Marshal("stat_rule_violation")
+		return json.Marshal("STAT_RULE_VIOLATION")
+	case EventStatRulesChanged:
+		return json.Marshal("STAT_RULES_CHANGED")
 
 	}
 	return nil, errors.New("Not implemented")
@@ -388,7 +396,9 @@ func (self EventType) GetBSON() (interface{}, error) {
 	}
 	switch v.(type) {
 	case EventStatRuleViolation:
-		return "stat_rule_violation", nil
+		return "STAT_RULE_VIOLATION", nil
+	case EventStatRulesChanged:
+		return "STAT_RULES_CHANGED", nil
 
 	}
 	return nil, errors.New("Not implemented")
@@ -400,8 +410,11 @@ func (self *EventType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "stat_rule_violation":
+	case "STAT_RULE_VIOLATION":
 		self.EventTypeIface = EventStatRuleViolation{}
+		return nil
+	case "STAT_RULES_CHANGED":
+		self.EventTypeIface = EventStatRulesChanged{}
 		return nil
 
 	}
@@ -415,8 +428,11 @@ func (self *EventType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "stat_rule_violation":
+	case "STAT_RULE_VIOLATION":
 		self.EventTypeIface = EventStatRuleViolation{}
+		return nil
+	case "STAT_RULES_CHANGED":
+		self.EventTypeIface = EventStatRulesChanged{}
 		return nil
 
 	}

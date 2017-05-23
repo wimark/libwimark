@@ -35,6 +35,12 @@ Update    = { string = "U"   }
 LuaScript = { string = "LUA" }
 SHScript  = { string = "SH"  }
 
+[EventType]
+prefix = "Event"
+[EventType.variants]
+StatRuleViolation = { string = "STAT_RULE_VIOLATION" }
+StatRulesChanged  = { string = "STAT_RULES_CHANGED"  }
+
 [RadiusType]
 prefix = "Radius"
 [RadiusType.variants]
@@ -65,8 +71,3 @@ prefix = "StatEvent"
 [StatEventRuleType.variants]
 FreeRAM = { string = "free_ram" }
 CPUload = { string = "cpu_load" }
-
-[EventType]
-prefix = "Event"
-[EventType.variants]
-StatRuleViolation = { string = "stat_rule_violation" }

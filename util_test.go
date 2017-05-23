@@ -28,3 +28,11 @@ func TestBroadcast(t *testing.T) {
 
 	assert.Equal(t, expectation, result)
 }
+
+func TestEvent(t *testing.T) {
+	var fixture = `EVENT/STAT/STAT001/STAT_RULE_VIOLATION`
+	var expectation = fixture
+	var result = ParseTopicPath(fixture).TopicPath()
+
+	assert.Equal(t, expectation, result)
+}
