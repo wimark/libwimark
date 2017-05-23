@@ -214,6 +214,12 @@ func ParseTopicPath(s string) Topic {
 		}
 	}
 	{
+		var v = ParseEventTopic(s)
+		if v != nil {
+			return v
+		}
+	}
+	{
 		var v = ParseRequestTopic(s)
 		if v != nil {
 			return v
