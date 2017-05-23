@@ -210,7 +210,7 @@ func ParseTopicPath(s string) Topic {
 	{
 		var v = ParseLogTopic(s)
 		if v != nil {
-			return nil
+			return v
 		}
 	}
 	{
