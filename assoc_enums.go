@@ -4,22 +4,10 @@ import "encoding/json"
 import "errors"
 
 type CPEAgentError struct {
-	T CPEAgentStatusType
-	D interface{}
+	T CPEAgentStatusType `json:"type"`
+	D interface{}        `json:"data"`
 }
 
-func (self CPEAgentError) MarshalJSON() ([]byte, error) {
-	var t, terr = json.Marshal(self.T)
-	if terr != nil {
-		return nil, terr
-	}
-	var d, derr = json.Marshal(self.D)
-	if derr != nil {
-		return nil, derr
-	}
-	return json.Marshal(map[string]json.RawMessage{"type": t, "data": d})
-
-}
 func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	if err := json.Unmarshal(b, &doc); err != nil {
@@ -79,22 +67,10 @@ func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 }
 
 type CPEInterfaceInfo struct {
-	T CPEInterfaceType
-	D interface{}
+	T CPEInterfaceType `json:"type"`
+	D interface{}      `json:"data"`
 }
 
-func (self CPEInterfaceInfo) MarshalJSON() ([]byte, error) {
-	var t, terr = json.Marshal(self.T)
-	if terr != nil {
-		return nil, terr
-	}
-	var d, derr = json.Marshal(self.D)
-	if derr != nil {
-		return nil, derr
-	}
-	return json.Marshal(map[string]json.RawMessage{"type": t, "data": d})
-
-}
 func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	if err := json.Unmarshal(b, &doc); err != nil {
@@ -142,22 +118,10 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 }
 
 type EnumSecurity struct {
-	T SecurityType
-	D interface{}
+	T SecurityType `json:"type"`
+	D interface{}  `json:"data"`
 }
 
-func (self EnumSecurity) MarshalJSON() ([]byte, error) {
-	var t, terr = json.Marshal(self.T)
-	if terr != nil {
-		return nil, terr
-	}
-	var d, derr = json.Marshal(self.D)
-	if derr != nil {
-		return nil, derr
-	}
-	return json.Marshal(map[string]json.RawMessage{"type": t, "data": d})
-
-}
 func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	if err := json.Unmarshal(b, &doc); err != nil {
@@ -205,22 +169,10 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 }
 
 type EventData struct {
-	T EventType
-	D interface{}
+	T EventType   `json:"type"`
+	D interface{} `json:"data"`
 }
 
-func (self EventData) MarshalJSON() ([]byte, error) {
-	var t, terr = json.Marshal(self.T)
-	if terr != nil {
-		return nil, terr
-	}
-	var d, derr = json.Marshal(self.D)
-	if derr != nil {
-		return nil, derr
-	}
-	return json.Marshal(map[string]json.RawMessage{"type": t, "data": d})
-
-}
 func (self *EventData) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	if err := json.Unmarshal(b, &doc); err != nil {
@@ -258,22 +210,10 @@ func (self *EventData) UnmarshalJSON(b []byte) error {
 }
 
 type StatEventRule struct {
-	T StatEventRuleType
-	D interface{}
+	T StatEventRuleType `json:"type"`
+	D interface{}       `json:"data"`
 }
 
-func (self StatEventRule) MarshalJSON() ([]byte, error) {
-	var t, terr = json.Marshal(self.T)
-	if terr != nil {
-		return nil, terr
-	}
-	var d, derr = json.Marshal(self.D)
-	if derr != nil {
-		return nil, derr
-	}
-	return json.Marshal(map[string]json.RawMessage{"type": t, "data": d})
-
-}
 func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	if err := json.Unmarshal(b, &doc); err != nil {
