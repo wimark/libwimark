@@ -59,10 +59,9 @@ func TestWLAN(t *testing.T) {
                     }
                 },
                 "vlan": 5,
-                "radius_accounting": {
-                    "nas_id": "nas001",
-                    "servers": ["localhost"]
-                }
+                "radius_acct_servers": [
+                    "nas001"
+                ]
             }
         `)
 	var d = &WPA2PersonalData{}
@@ -78,8 +77,7 @@ func TestWLAN(t *testing.T) {
 		},
 		VLAN: 5,
 	}
-	expectation.RadiusAccounting.NasID = "nas001"
-	expectation.RadiusAccounting.Servers = []string{"localhost"}
+	expectation.RadiusAcctServers = []UUID{"nas001"}
 
 	var result WLAN
 	var err = json.Unmarshal(fixture, &result)
