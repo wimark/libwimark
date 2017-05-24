@@ -360,18 +360,18 @@ type EventType struct{ EventTypeIface }
 
 func (self *EventType) Value() EventTypeIface { return self.EventTypeIface }
 
-type EventStatRuleViolation struct{}
+type EventTypeStatRuleViolation struct{}
 
-func (EventStatRuleViolation) EventTypeIfaceFunc() {}
+func (EventTypeStatRuleViolation) EventTypeIfaceFunc() {}
 
-type EventStatRulesChanged struct{}
+type EventTypeStatRulesChanged struct{}
 
-func (EventStatRulesChanged) EventTypeIfaceFunc() {}
+func (EventTypeStatRulesChanged) EventTypeIfaceFunc() {}
 func (self *EventType) String() string {
 	switch self.EventTypeIface.(type) {
-	case EventStatRuleViolation:
+	case EventTypeStatRuleViolation:
 		return "STAT_RULE_VIOLATION"
-	case EventStatRulesChanged:
+	case EventTypeStatRulesChanged:
 		return "STAT_RULES_CHANGED"
 
 	}
@@ -380,9 +380,9 @@ func (self *EventType) String() string {
 }
 func (self EventType) MarshalJSON() ([]byte, error) {
 	switch self.Value().(type) {
-	case EventStatRuleViolation:
+	case EventTypeStatRuleViolation:
 		return json.Marshal("STAT_RULE_VIOLATION")
-	case EventStatRulesChanged:
+	case EventTypeStatRulesChanged:
 		return json.Marshal("STAT_RULES_CHANGED")
 
 	}
@@ -395,9 +395,9 @@ func (self EventType) GetBSON() (interface{}, error) {
 		return nil, errors.New("EventType cannot be nil")
 	}
 	switch v.(type) {
-	case EventStatRuleViolation:
+	case EventTypeStatRuleViolation:
 		return "STAT_RULE_VIOLATION", nil
-	case EventStatRulesChanged:
+	case EventTypeStatRulesChanged:
 		return "STAT_RULES_CHANGED", nil
 
 	}
@@ -411,10 +411,10 @@ func (self *EventType) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "STAT_RULE_VIOLATION":
-		self.EventTypeIface = EventStatRuleViolation{}
+		self.EventTypeIface = EventTypeStatRuleViolation{}
 		return nil
 	case "STAT_RULES_CHANGED":
-		self.EventTypeIface = EventStatRulesChanged{}
+		self.EventTypeIface = EventTypeStatRulesChanged{}
 		return nil
 
 	}
@@ -429,10 +429,10 @@ func (self *EventType) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "STAT_RULE_VIOLATION":
-		self.EventTypeIface = EventStatRuleViolation{}
+		self.EventTypeIface = EventTypeStatRuleViolation{}
 		return nil
 	case "STAT_RULES_CHANGED":
-		self.EventTypeIface = EventStatRulesChanged{}
+		self.EventTypeIface = EventTypeStatRulesChanged{}
 		return nil
 
 	}

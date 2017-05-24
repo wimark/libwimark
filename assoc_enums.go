@@ -168,47 +168,6 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 
 }
 
-type EventData struct {
-	T EventType   `json:"type"`
-	D interface{} `json:"data"`
-}
-
-func (self *EventData) UnmarshalJSON(b []byte) error {
-	var doc map[string]json.RawMessage
-	if err := json.Unmarshal(b, &doc); err != nil {
-		return err
-	}
-	if doc == nil {
-		return nil
-	}
-	var t_raw, t_found = doc["type"]
-	if !t_found {
-		return nil
-	}
-	var data_raw, data_found = doc["data"]
-	_ = data_found
-	var t EventType
-	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
-		return t_err
-	}
-	switch t.Value().(type) {
-	case EventStatRuleViolation:
-		if !data_found {
-			return errors.New("No associated data found for enum EventData")
-		}
-		var d CPEEventData
-		var data_err = json.Unmarshal(data_raw, &d)
-		if data_err != nil {
-			return data_err
-		}
-		self.D = &d
-
-	}
-	self.T = t
-	return nil
-
-}
-
 type StatEventRule struct {
 	T StatEventRuleType `json:"type"`
 	D interface{}       `json:"data"`

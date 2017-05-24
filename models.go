@@ -251,33 +251,35 @@ type CPEAgentResponse struct {
 	Status CPEAgentError   `json:"error"`
 }
 
-type CPEStatSettings struct {
-	Rules       []StatEventRule `json:"rules"`
-	RuleTimeout int64           `json:"rule-timeout"`
-}
-
-type StatDaemonSettings struct {
-	CPEList  map[UUID]CPEStatSettings `json:"cpe-list"`
-	Interval int64                    `json:"interval"`
-}
-
 type LimitBetween struct {
 	Upper float64 `json:"upper"`
 	Lower float64 `json:"lower"`
 }
 
-type CPEEventData struct {
-	ID       UUID            `json:"id"`
-	Settings CPEStatSettings `json:"settings"`
+type EventSimple struct {
+	Time int64 `json:"time"`
 }
 
-type Event struct {
-	Time    int64     `json:"time"`
-	Payload EventData `json:"payload"`
+type EventStatRuleViolation struct {
+	Time     int64 `json:"time"`
+	CPEUUID  UUID  `json:"cpe_uuid"`
+	RuleUUID UUID  `json:"rule_uuid"`
 }
 
 type SimpleMask struct {
 	UUID []UUID `json:"uuid"`
+}
+
+type EventSimpleMask struct {
+	UUID  []UUID `json:"uuid"`
+	Start *int64 `json:"start"`
+	Stop  *int64 `json:"stop"`
+}
+
+type EventStatRuleViolationMask struct {
+	EventSimpleMask
+	CPEUUID  []UUID `json:"cpe_uuid"`
+	RuleUUID []UUID `json:"rule_uuid"`
 }
 
 type CPEMask struct {

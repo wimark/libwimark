@@ -269,36 +269,36 @@ type DBResponseBase struct {
 }
 
 type DBDataObj struct {
-	WLANs          map[UUID]WLAN               `json:"wlan,omitempty"`
-	CPEs           map[UUID]CPE                `json:"cpe,omitempty"`
-	Stats          map[UUID]Stat               `json:"stat,omitempty"`
-	SDS            map[UUID]StatDaemonSettings `json:"stat-daemon-settings,omitempty"`
-	Events         map[UUID]Event              `json:"event,omitempty"`
-	StatEventRules map[UUID]StatEventRule      `json:"stat-event-rule,omitempty"`
-	PollCPE        map[UUID][]UUID             `json:"poll-cpe,omitempty"`
-	Radius         map[UUID]Radius             `json:"radius,omitempty"`
+	WLANs                     map[UUID]WLAN                   `json:"wlan,omitempty"`
+	CPEs                      map[UUID]CPE                    `json:"cpe,omitempty"`
+	Stats                     map[UUID]Stat                   `json:"stat,omitempty"`
+	EventsStatRuleViolation   map[UUID]EventStatRuleViolation `json:"event-stat-rule-violation,omitempty"`
+	EventsStatSettingsChanged map[UUID]EventSimple            `json:"event-stat-settings-changed,omitempty"`
+	StatEventRules            map[UUID]StatEventRule          `json:"stat-event-rule,omitempty"`
+	PollCPE                   map[UUID][]UUID                 `json:"poll-cpe,omitempty"`
+	Radius                    map[UUID]Radius                 `json:"radius,omitempty"`
 }
 
 type DBDataUUID struct {
-	WLANs          []UUID `json:"wlan,omitempty"`
-	CPEs           []UUID `json:"cpe,omitempty"`
-	Stats          []UUID `json:"stat,omitempty"`
-	SDS            []UUID `json:"stat-daemon-settings,omitempty"`
-	Events         []UUID `json:"event,omitempty"`
-	StatEventRules []UUID `json:"stat-event-rule,omitempty"`
-	PollCPE        []UUID `json:"poll-cpe,omitempty"`
-	Radius         []UUID `json:"radius,omitempty"`
+	WLANs                     []UUID `json:"wlan,omitempty"`
+	CPEs                      []UUID `json:"cpe,omitempty"`
+	Stats                     []UUID `json:"stat,omitempty"`
+	EventsStatRuleViolation   []UUID `json:"event-stat-rule-violation,omitempty"`
+	EventsStatSettingsChanged []UUID `json:"event-stat-settings-changed,omitempty"`
+	StatEventRules            []UUID `json:"stat-event-rule,omitempty"`
+	PollCPE                   []UUID `json:"poll-cpe,omitempty"`
+	Radius                    []UUID `json:"radius,omitempty"`
 }
 
 type DBDataMasks struct {
-	WLANs          *SimpleMask `json:"wlan,omitempty"`
-	CPEs           *CPEMask    `json:"cpe,omitempty"`
-	Stats          *StatsMask  `json:"stat,omitempty"`
-	SDS            *SimpleMask `json:"stat-daemon-settings,omitempty"`
-	Events         *SimpleMask `json:"event,omitempty"`
-	StatEventRules *SimpleMask `json:"stat-event-rule,omitempty"`
-	PollCPE        *SimpleMask `json:"stat-event-rule,omitempty"`
-	Radius         *SimpleMask `json:"radius,omitempty"`
+	WLANs                     *SimpleMask                 `json:"wlan,omitempty"`
+	CPEs                      *CPEMask                    `json:"cpe,omitempty"`
+	Stats                     *StatsMask                  `json:"stat,omitempty"`
+	EventsStatRuleViolation   *EventStatRuleViolationMask `json:"event-stat-rule-violation,omitempty"`
+	EventsStatSettingsChanged *EventSimpleMask            `json:"event-stat-settings-changed,omitempty"`
+	StatEventRules            *SimpleMask                 `json:"stat-event-rule,omitempty"`
+	PollCPE                   *SimpleMask                 `json:"poll-cpe,omitempty"`
+	Radius                    *SimpleMask                 `json:"radius,omitempty"`
 }
 
 type DBRequestC DBDataObj
