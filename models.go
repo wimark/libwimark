@@ -287,7 +287,8 @@ type CPEMask struct {
 }
 
 type StatsMask struct {
-	UUID  []UUID `json:"uuid"`
-	Start *int64 `json:"start"`
-	Stop  *int64 `json:"stop"`
+	UUID    []UUID `json:"uuid"`
+	CPEUUID []UUID `json:"cpe"`
+	Start   *int64 `json:"start"`
+	Stop    *int64 `json:"stop"`
 }
