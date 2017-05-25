@@ -256,6 +256,10 @@ type LimitBetween struct {
 	Lower float64 `json:"lower"`
 }
 
+type CPEPollSettings struct {
+	Rules []UUID `json:"rules"`
+}
+
 type EventSimple struct {
 	Time int64 `json:"time"`
 }

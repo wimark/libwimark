@@ -275,7 +275,7 @@ type DBDataObj struct {
 	EventsStatRuleViolation   map[UUID]EventStatRuleViolation `json:"event-stat-rule-violation,omitempty"`
 	EventsStatSettingsChanged map[UUID]EventSimple            `json:"event-stat-settings-changed,omitempty"`
 	StatEventRules            map[UUID]StatEventRule          `json:"stat-event-rule,omitempty"`
-	PollCPE                   map[UUID][]UUID                 `json:"poll-cpe,omitempty"`
+	PollCPE                   map[UUID]CPEPollSettings        `json:"poll-cpe,omitempty"`
 	Radius                    map[UUID]Radius                 `json:"radius,omitempty"`
 }
 
