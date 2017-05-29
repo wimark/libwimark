@@ -342,8 +342,36 @@ type DBResponseU DBResponseUUID
 type DBResponseD DBResponseUUID
 
 type ConnectorInfo struct {
-	Version   float64  `json:"version"`
 	DbType    string   `json:"db_type"`
 	DbServers []string `json:"db_servers"`
 	Models    []string `json:"models"`
+}
+
+type ModuleStatus struct {
+	Version     string      `json:"version"`
+	IsConnected bool        `json:"connected"`
+	Metadata    interface{} `json:"meta,omitempty"`
+}
+
+func (self ModuleStatus) Connected() ModuleStatus {
+	var v = self
+	v.IsConnected = true
+
+	return v
+}
+
+func (self ModuleStatus) Disconnected() ModuleStatus {
+	var v = self
+	v.IsConnected = false
+
+	return v
+}
+
+func (self ModuleStatus) String() string {
+	var s, sErr = json.Marshal(self)
+	if sErr != nil {
+		panic(sErr)
+	}
+
+	return string(s)
 }
