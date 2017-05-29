@@ -8,15 +8,18 @@ import (
 	"time"
 )
 
-func MQTTConnectSync(addr string) (mqtt.Client, error) {
-	var opts = mqtt.NewClientOptions()
-	opts.AddBroker(addr)
-
+func MQTTConnectSyncOpts(opts *mqtt.ClientOptions) (mqtt.Client, error) {
 	var client = mqtt.NewClient(opts)
 	var token = client.Connect()
 	token.Wait()
 
 	return client, token.Error()
+}
+
+func MQTTConnectSync(addr string) (mqtt.Client, error) {
+	var opts = mqtt.NewClientOptions()
+	opts.AddBroker(addr)
+	return MQTTConnectSyncOpts(opts)
 }
 
 func MQTTMustConnectSync(addr string) mqtt.Client {
