@@ -40,6 +40,7 @@ prefix = "EventType"
 [EventType.variants]
 StatRuleViolation = { string = "STAT_RULE_VIOLATION" }
 StatRulesChanged  = { string = "STAT_RULES_CHANGED"  }
+CPEConnect        = { string = "CPE_CONNECT"         }
 
 [RadiusType]
 prefix = "Radius"
