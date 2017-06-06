@@ -360,6 +360,10 @@ type EventType struct{ EventTypeIface }
 
 func (self *EventType) Value() EventTypeIface { return self.EventTypeIface }
 
+type EventTypeCPEConnect struct{}
+
+func (EventTypeCPEConnect) EventTypeIfaceFunc() {}
+
 type EventTypeStatRuleViolation struct{}
 
 func (EventTypeStatRuleViolation) EventTypeIfaceFunc() {}
@@ -369,6 +373,8 @@ type EventTypeStatRulesChanged struct{}
 func (EventTypeStatRulesChanged) EventTypeIfaceFunc() {}
 func (self *EventType) String() string {
 	switch self.EventTypeIface.(type) {
+	case EventTypeCPEConnect:
+		return "CPE_CONNECT"
 	case EventTypeStatRuleViolation:
 		return "STAT_RULE_VIOLATION"
 	case EventTypeStatRulesChanged:
@@ -380,6 +386,8 @@ func (self *EventType) String() string {
 }
 func (self EventType) MarshalJSON() ([]byte, error) {
 	switch self.Value().(type) {
+	case EventTypeCPEConnect:
+		return json.Marshal("CPE_CONNECT")
 	case EventTypeStatRuleViolation:
 		return json.Marshal("STAT_RULE_VIOLATION")
 	case EventTypeStatRulesChanged:
@@ -395,6 +403,8 @@ func (self EventType) GetBSON() (interface{}, error) {
 		return nil, errors.New("EventType cannot be nil")
 	}
 	switch v.(type) {
+	case EventTypeCPEConnect:
+		return "CPE_CONNECT", nil
 	case EventTypeStatRuleViolation:
 		return "STAT_RULE_VIOLATION", nil
 	case EventTypeStatRulesChanged:
@@ -410,6 +420,9 @@ func (self *EventType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
+	case "CPE_CONNECT":
+		self.EventTypeIface = EventTypeCPEConnect{}
+		return nil
 	case "STAT_RULE_VIOLATION":
 		self.EventTypeIface = EventTypeStatRuleViolation{}
 		return nil
@@ -428,6 +441,9 @@ func (self *EventType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
+	case "CPE_CONNECT":
+		self.EventTypeIface = EventTypeCPEConnect{}
+		return nil
 	case "STAT_RULE_VIOLATION":
 		self.EventTypeIface = EventTypeStatRuleViolation{}
 		return nil
