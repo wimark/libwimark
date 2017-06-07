@@ -72,3 +72,12 @@ prefix = "StatEvent"
 [StatEventRuleType.variants]
 FreeRAM = { string = "free_ram" }
 CPUload = { string = "cpu_load" }
+
+[ClientStatPacketType]
+prefix = "ClientStat"
+[ClientStatPacketType.variants]
+On      = { string = "Accounting-On" }
+Off     = { string = "Accounting-Off" }
+Start   = { string = "Start" }
+Stop    = { string = "Stop" }
+Interim = { string = "Interim-Update" }

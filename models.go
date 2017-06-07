@@ -246,6 +246,23 @@ type Stat struct {
 	} `json:"interfaces"`
 }
 
+type ClientStat struct {
+	AcctStatusType      ClientStatPacketType `json:"Acct-Status-Type"`
+	CPE                 UUID                 `json:"NAS-Identifier"`
+	CallingStationId    string               `json:"Calling-Station-Id"`
+	AcctDelayTime       int                  `json:"Acct-Delay-Time"`
+	AcctSessionId       string               `json:"Acct-Session-Id"`
+	AcctInputGigawords  *int                 `json:"Acct-Input-Gigawords"`
+	CalledStationId     string               `json:"Called-Station-Id"`
+	AcctOutputGigawords *int                 `json:"Acct-Output-Gigawords"`
+	AcctOutputOctets    *int                 `json:"Acct-Output-Octets"`
+	AcctInputOctets     *int                 `json:"Acct-Input-Octets"`
+	AcctSessionTime     *int                 `json:"Acct-Session-Time"`
+	AcctInputPackets    *int                 `json:"Acct-Input-Packets"`
+	AcctOutputPackets   *int                 `json:"Acct-Output-Packets"`
+	Timestamp           int                  `json:"Timestamp"`
+}
+
 type CPEAgentResponse struct {
 	Result json.RawMessage `json:"result"`
 	Status CPEAgentError   `json:"error"`

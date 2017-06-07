@@ -216,6 +216,143 @@ func (self *CPEInterfaceType) SetBSON(v bson.Raw) error {
 
 }
 
+type ClientStatPacketTypeIface interface {
+	ClientStatPacketTypeIfaceFunc()
+}
+type ClientStatPacketType struct{ ClientStatPacketTypeIface }
+
+func (self *ClientStatPacketType) Value() ClientStatPacketTypeIface {
+	return self.ClientStatPacketTypeIface
+}
+
+type ClientStatInterim struct{}
+
+func (ClientStatInterim) ClientStatPacketTypeIfaceFunc() {}
+
+type ClientStatOff struct{}
+
+func (ClientStatOff) ClientStatPacketTypeIfaceFunc() {}
+
+type ClientStatOn struct{}
+
+func (ClientStatOn) ClientStatPacketTypeIfaceFunc() {}
+
+type ClientStatStart struct{}
+
+func (ClientStatStart) ClientStatPacketTypeIfaceFunc() {}
+
+type ClientStatStop struct{}
+
+func (ClientStatStop) ClientStatPacketTypeIfaceFunc() {}
+func (self *ClientStatPacketType) String() string {
+	switch self.ClientStatPacketTypeIface.(type) {
+	case ClientStatInterim:
+		return "Interim-Update"
+	case ClientStatOff:
+		return "Accounting-Off"
+	case ClientStatOn:
+		return "Accounting-On"
+	case ClientStatStart:
+		return "Start"
+	case ClientStatStop:
+		return "Stop"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self ClientStatPacketType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
+	case ClientStatInterim:
+		return json.Marshal("Interim-Update")
+	case ClientStatOff:
+		return json.Marshal("Accounting-Off")
+	case ClientStatOn:
+		return json.Marshal("Accounting-On")
+	case ClientStatStart:
+		return json.Marshal("Start")
+	case ClientStatStop:
+		return json.Marshal("Stop")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self ClientStatPacketType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("ClientStatPacketType cannot be nil")
+	}
+	switch v.(type) {
+	case ClientStatInterim:
+		return "Interim-Update", nil
+	case ClientStatOff:
+		return "Accounting-Off", nil
+	case ClientStatOn:
+		return "Accounting-On", nil
+	case ClientStatStart:
+		return "Start", nil
+	case ClientStatStop:
+		return "Stop", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *ClientStatPacketType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "Interim-Update":
+		self.ClientStatPacketTypeIface = ClientStatInterim{}
+		return nil
+	case "Accounting-Off":
+		self.ClientStatPacketTypeIface = ClientStatOff{}
+		return nil
+	case "Accounting-On":
+		self.ClientStatPacketTypeIface = ClientStatOn{}
+		return nil
+	case "Start":
+		self.ClientStatPacketTypeIface = ClientStatStart{}
+		return nil
+	case "Stop":
+		self.ClientStatPacketTypeIface = ClientStatStop{}
+		return nil
+
+	}
+	return errors.New("Unknown ClientStatPacketType")
+
+}
+
+func (self *ClientStatPacketType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "Interim-Update":
+		self.ClientStatPacketTypeIface = ClientStatInterim{}
+		return nil
+	case "Accounting-Off":
+		self.ClientStatPacketTypeIface = ClientStatOff{}
+		return nil
+	case "Accounting-On":
+		self.ClientStatPacketTypeIface = ClientStatOn{}
+		return nil
+	case "Start":
+		self.ClientStatPacketTypeIface = ClientStatStart{}
+		return nil
+	case "Stop":
+		self.ClientStatPacketTypeIface = ClientStatStop{}
+		return nil
+
+	}
+	return errors.New("Unknown ClientStatPacketType")
+
+}
+
 type ConfigurationStatusIface interface {
 	ConfigurationStatusIfaceFunc()
 }

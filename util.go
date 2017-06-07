@@ -272,6 +272,7 @@ type DBDataObj struct {
 	WLANs                     map[UUID]WLAN                   `json:"wlan,omitempty"`
 	CPEs                      map[UUID]CPE                    `json:"cpe,omitempty"`
 	Stats                     map[UUID]Stat                   `json:"stat,omitempty"`
+	ClientStats               map[UUID]ClientStat             `json:"client-stat,omitempty"`
 	EventsStatRuleViolation   map[UUID]EventStatRuleViolation `json:"event-stat-rule-violation,omitempty"`
 	EventsStatSettingsChanged map[UUID]EventSimple            `json:"event-stat-settings-changed,omitempty"`
 	StatEventRules            map[UUID]StatEventRule          `json:"stat-event-rule,omitempty"`
@@ -287,6 +288,7 @@ type DBDataUUID struct {
 	WLANs                     []UUID `json:"wlan,omitempty"`
 	CPEs                      []UUID `json:"cpe,omitempty"`
 	Stats                     []UUID `json:"stat,omitempty"`
+	ClientStats               []UUID `json:"client-stat,omitempty"`
 	EventsStatRuleViolation   []UUID `json:"event-stat-rule-violation,omitempty"`
 	EventsStatSettingsChanged []UUID `json:"event-stat-settings-changed,omitempty"`
 	StatEventRules            []UUID `json:"stat-event-rule,omitempty"`
@@ -302,6 +304,7 @@ type DBDataMasks struct {
 	WLANs                     *SimpleMask                 `json:"wlan,omitempty"`
 	CPEs                      *CPEMask                    `json:"cpe,omitempty"`
 	Stats                     *StatsMask                  `json:"stat,omitempty"`
+	ClientStats               *SimpleMask                 `json:"client-stat,omitempty"`
 	EventsStatRuleViolation   *EventStatRuleViolationMask `json:"event-stat-rule-violation,omitempty"`
 	EventsStatSettingsChanged *EventSimpleMask            `json:"event-stat-settings-changed,omitempty"`
 	StatEventRules            *SimpleMask                 `json:"stat-event-rule,omitempty"`
