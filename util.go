@@ -301,7 +301,7 @@ func (self *DBDataUUID) Reset() {
 }
 
 type DBDataMasks struct {
-	WLANs                     *SimpleMask                 `json:"wlan,omitempty"`
+	WLANs                     *WLANMask                   `json:"wlan,omitempty"`
 	CPEs                      *CPEMask                    `json:"cpe,omitempty"`
 	Stats                     *StatsMask                  `json:"stat,omitempty"`
 	ClientStats               *SimpleMask                 `json:"client-stat,omitempty"`
