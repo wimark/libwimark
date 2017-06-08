@@ -292,6 +292,11 @@ type CPEMask struct {
 	Connected *bool  `json:"connected"`
 }
 
+type WLANMask struct {
+	UUID      []UUID `json:"uuid"`
+	HasRadius []UUID `json:"has_radius"`
+}
+
 type StatsMask struct {
 	UUID    []UUID `json:"uuid"`
 	CPEUUID []UUID `json:"cpe"`
