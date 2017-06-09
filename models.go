@@ -37,9 +37,9 @@ type WPA2PersonalData struct {
 
 type WPA2EnterpriseData struct {
 	WPA2Common           `json:,inline`
-	NasID                string `json:"nas_id"`
-	PMKCaching           bool   `json:"pmk_caching"`
-	RadiusAuthentication []UUID `json:"radius_auth"`
+	NasID                string `json:"nasid"`
+	PMKCaching           bool   `json:"pmkcaching"`
+	RadiusAuthentication []UUID `json:"radiusauthentication"`
 }
 
 type SecuritySettings interface {
@@ -75,10 +75,10 @@ type WiFiData struct {
 	Name      string  `json:"name,omitempty"`
 	Mac       string  `json:"mac,omitempty"`
 	Frequency float32 `json:"frequency,omitempty"`
-	BandMode  string  `json:"band_mode,omitempty"`
+	BandMode  string  `json:"bandmode,omitempty"`
 	Bandwidth string  `json:"bandwidth,omitempty"`
 	Channel   string  `json:"channel,omitempty"`
-	TxPower   int     `json:"tx_power,omitempty"`
+	TxPower   int     `json:"txpower,omitempty"`
 	WLANs     []UUID  `json:"wlans,omitempty"`
 }
 
