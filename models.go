@@ -240,7 +240,7 @@ type Stat struct {
 	ProcActive   uint64  `json:"processes_active"`
 	ProcSleeping uint64  `json:"processes_sleeping"`
 	Interfaces   map[string]struct {
-		Name string  `json:"name"`
+		Type string  `json:"type"`
 		Tx   float64 `json:"tx"`
 		Rx   float64 `json:"rx"`
 	} `json:"interfaces"`
