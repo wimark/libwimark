@@ -105,7 +105,7 @@ func TestCPE(t *testing.T) {
                         "frequency": 2.4,
                         "bandmode": "n",
                         "bandwidth": "20",
-                        "channel": "5",
+                        "channel": 5,
                         "txpower": 100,
                         "wlans": ["WLAN001", "WLAN002"]
                     }
@@ -120,7 +120,7 @@ func TestCPE(t *testing.T) {
 	d.Frequency = 2.4
 	d.BandMode = "n"
 	d.Bandwidth = "20"
-	d.Channel = "5"
+	d.Channel = 5
 	d.TxPower = 100
 	d.WLANs = []UUID{"WLAN001", "WLAN002"}
 

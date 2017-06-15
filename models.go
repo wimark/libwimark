@@ -77,7 +77,7 @@ type WiFiData struct {
 	Frequency float32 `json:"frequency,omitempty"`
 	BandMode  string  `json:"bandmode,omitempty"`
 	Bandwidth string  `json:"bandwidth,omitempty"`
-	Channel   string  `json:"channel,omitempty"`
+	Channel   int     `json:"channel,omitempty"`
 	TxPower   int     `json:"txpower,omitempty"`
 	WLANs     []UUID  `json:"wlans,omitempty"`
 }
