@@ -300,14 +300,16 @@ type SimpleMask struct {
 	UUID []UUID `json:"uuid"`
 }
 
-type EventSimpleMask struct {
+type TimestampMask struct {
 	UUID  []UUID `json:"uuid"`
 	Start *int64 `json:"start"`
 	Stop  *int64 `json:"stop"`
 }
 
+type EventSimpleMask TimestampMask
+
 type EventStatRuleViolationMask struct {
-	EventSimpleMask
+	TimestampMask
 	CPEUUID  []UUID `json:"cpe_uuid"`
 	RuleUUID []UUID `json:"rule_uuid"`
 }
