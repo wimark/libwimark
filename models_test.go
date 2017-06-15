@@ -103,10 +103,10 @@ func TestCPE(t *testing.T) {
                         "name": "WLAN Interface 0",
                         "mac": "macaddr1",
                         "frequency": 2.4,
-                        "band_mode": "n",
+                        "bandmode": "n",
                         "bandwidth": "20",
                         "channel": "5",
-                        "tx_power": 100,
+                        "txpower": 100,
                         "wlans": ["WLAN001", "WLAN002"]
                     }
                 }
