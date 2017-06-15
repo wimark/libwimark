@@ -319,6 +319,12 @@ type EventCPEStatusMask struct {
 	CPEUUID []UUID `json:"cpe_uuid"`
 }
 
+type ClientStatMask struct {
+	TimestampMask
+	CPE              []UUID
+	CallingStationId []string
+}
+
 type CPEMask struct {
 	UUID      []UUID `json:"uuid"`
 	HasWLANs  []UUID `json:"has_wlans"`
