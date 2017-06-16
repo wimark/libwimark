@@ -32,12 +32,12 @@ type WPA2Common struct {
 }
 
 type WPA2PersonalData struct {
-	WPA2Common `json:,inline`
+	WPA2Common
 	PSK        string `json:"psk"`
 }
 
 type WPA2EnterpriseData struct {
-	WPA2Common           `json:,inline`
+	WPA2Common
 	NasID                string `json:"nasid"`
 	PMKCaching           bool   `json:"pmkcaching"`
 	RadiusAuthentication []UUID `json:"radiusauthentication"`
