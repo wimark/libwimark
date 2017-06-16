@@ -3,6 +3,7 @@ package libwimark
 import (
 	"encoding/json"
 	"errors"
+
 	"github.com/vorot93/goutil"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -287,6 +288,14 @@ type EventStatRuleViolation struct {
 	RuleUUID UUID  `json:"rule_uuid"`
 }
 
+type EventCPEStatus struct {
+	EventSimple
+	Cpe         UUID   `json:"cpeid"`
+	Connected   bool   `json:"connected"`
+	Error       bool   `json:"error"`
+	Description string `json:"description"`
+}
+
 type SimpleMask struct {
 	UUID []UUID `json:"uuid"`
 }
@@ -301,6 +310,11 @@ type EventStatRuleViolationMask struct {
 	EventSimpleMask
 	CPEUUID  []UUID `json:"cpe_uuid"`
 	RuleUUID []UUID `json:"rule_uuid"`
+}
+
+type EventCPEStatusMask struct {
+	EventSimpleMask
+	CPEUUID []UUID `json:"cpe_uuid"`
 }
 
 type CPEMask struct {

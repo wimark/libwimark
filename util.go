@@ -275,6 +275,7 @@ type DBDataObj struct {
 	ClientStats               map[UUID]ClientStat             `json:"client-stat,omitempty"`
 	EventsStatRuleViolation   map[UUID]EventStatRuleViolation `json:"event-stat-rule-violation,omitempty"`
 	EventsStatSettingsChanged map[UUID]EventSimple            `json:"event-stat-settings-changed,omitempty"`
+	EventsCPEStatus           map[UUID]EventCPEStatus         `json:"event-cpe-status,omitempty"`
 	StatEventRules            map[UUID]StatEventRule          `json:"stat-event-rule,omitempty"`
 	PollCPE                   map[UUID]CPEPollSettings        `json:"poll-cpe,omitempty"`
 	Radius                    map[UUID]Radius                 `json:"radius,omitempty"`
@@ -291,6 +292,7 @@ type DBDataUUID struct {
 	ClientStats               []UUID `json:"client-stat,omitempty"`
 	EventsStatRuleViolation   []UUID `json:"event-stat-rule-violation,omitempty"`
 	EventsStatSettingsChanged []UUID `json:"event-stat-settings-changed,omitempty"`
+	EventsCPEStatus           []UUID `json:"event-cpe-status,omitempty"`
 	StatEventRules            []UUID `json:"stat-event-rule,omitempty"`
 	PollCPE                   []UUID `json:"poll-cpe,omitempty"`
 	Radius                    []UUID `json:"radius,omitempty"`
@@ -307,6 +309,7 @@ type DBDataMasks struct {
 	ClientStats               *SimpleMask                 `json:"client-stat,omitempty"`
 	EventsStatRuleViolation   *EventStatRuleViolationMask `json:"event-stat-rule-violation,omitempty"`
 	EventsStatSettingsChanged *EventSimpleMask            `json:"event-stat-settings-changed,omitempty"`
+	EventsCPEStatus           *EventCPEStatusMask         `json:"event-cpe-status,omitempty"`
 	StatEventRules            *SimpleMask                 `json:"stat-event-rule,omitempty"`
 	PollCPE                   *SimpleMask                 `json:"poll-cpe,omitempty"`
 	Radius                    *SimpleMask                 `json:"radius,omitempty"`
