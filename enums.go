@@ -511,7 +511,7 @@ func (EventTypeStatRulesChanged) EventTypeIfaceFunc() {}
 func (self *EventType) String() string {
 	switch self.EventTypeIface.(type) {
 	case EventTypeCPEStatus:
-		return "CPE_CONNECT"
+		return "CPE_STATUS"
 	case EventTypeStatRuleViolation:
 		return "STAT_RULE_VIOLATION"
 	case EventTypeStatRulesChanged:
@@ -524,7 +524,7 @@ func (self *EventType) String() string {
 func (self EventType) MarshalJSON() ([]byte, error) {
 	switch self.Value().(type) {
 	case EventTypeCPEStatus:
-		return json.Marshal("CPE_CONNECT")
+		return json.Marshal("CPE_STATUS")
 	case EventTypeStatRuleViolation:
 		return json.Marshal("STAT_RULE_VIOLATION")
 	case EventTypeStatRulesChanged:
@@ -541,7 +541,7 @@ func (self EventType) GetBSON() (interface{}, error) {
 	}
 	switch v.(type) {
 	case EventTypeCPEStatus:
-		return "CPE_CONNECT", nil
+		return "CPE_STATUS", nil
 	case EventTypeStatRuleViolation:
 		return "STAT_RULE_VIOLATION", nil
 	case EventTypeStatRulesChanged:
@@ -557,7 +557,7 @@ func (self *EventType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "CPE_CONNECT":
+	case "CPE_STATUS":
 		self.EventTypeIface = EventTypeCPEStatus{}
 		return nil
 	case "STAT_RULE_VIOLATION":
@@ -578,7 +578,7 @@ func (self *EventType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "CPE_CONNECT":
+	case "CPE_STATUS":
 		self.EventTypeIface = EventTypeCPEStatus{}
 		return nil
 	case "STAT_RULE_VIOLATION":
@@ -771,6 +771,10 @@ type OperationAny struct{}
 
 func (OperationAny) OperationIfaceFunc() {}
 
+type OperationCPEStatus struct{}
+
+func (OperationCPEStatus) OperationIfaceFunc() {}
+
 type OperationCreate struct{}
 
 func (OperationCreate) OperationIfaceFunc() {}
@@ -798,6 +802,8 @@ func (self *Operation) String() string {
 	switch self.OperationIface.(type) {
 	case OperationAny:
 		return "+"
+	case OperationCPEStatus:
+		return "STATUS"
 	case OperationCreate:
 		return "C"
 	case OperationDelete:
@@ -819,6 +825,8 @@ func (self Operation) MarshalJSON() ([]byte, error) {
 	switch self.Value().(type) {
 	case OperationAny:
 		return json.Marshal("+")
+	case OperationCPEStatus:
+		return json.Marshal("STATUS")
 	case OperationCreate:
 		return json.Marshal("C")
 	case OperationDelete:
@@ -844,6 +852,8 @@ func (self Operation) GetBSON() (interface{}, error) {
 	switch v.(type) {
 	case OperationAny:
 		return "+", nil
+	case OperationCPEStatus:
+		return "STATUS", nil
 	case OperationCreate:
 		return "C", nil
 	case OperationDelete:
@@ -869,6 +879,9 @@ func (self *Operation) UnmarshalJSON(b []byte) error {
 	switch s {
 	case "+":
 		self.OperationIface = OperationAny{}
+		return nil
+	case "STATUS":
+		self.OperationIface = OperationCPEStatus{}
 		return nil
 	case "C":
 		self.OperationIface = OperationCreate{}
@@ -902,6 +915,9 @@ func (self *Operation) SetBSON(v bson.Raw) error {
 	switch s {
 	case "+":
 		self.OperationIface = OperationAny{}
+		return nil
+	case "STATUS":
+		self.OperationIface = OperationCPEStatus{}
 		return nil
 	case "C":
 		self.OperationIface = OperationCreate{}
