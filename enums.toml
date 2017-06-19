@@ -27,13 +27,14 @@ Monitor = { string = "MONITOR" }
 [Operation]
 prefix = "Operation"
 [Operation.variants]
-Any       = { string = "+"   }
-Create    = { string = "C"   }
-Delete    = { string = "D"   }
-Read      = { string = "R"   }
-Update    = { string = "U"   }
-LuaScript = { string = "LUA" }
-SHScript  = { string = "SH"  }
+Any       = { string = "+"      }
+Create    = { string = "C"      }
+Delete    = { string = "D"      }
+Read      = { string = "R"      }
+Update    = { string = "U"      }
+LuaScript = { string = "LUA"    }
+SHScript  = { string = "SH"     }
+CPEStatus = { string = "STATUS" }
 
 [EventType]
 prefix = "EventType"
