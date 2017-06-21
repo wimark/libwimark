@@ -10,6 +10,109 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+type BandwidthTypeIface interface {
+	BandwidthTypeIfaceFunc()
+}
+type BandwidthType struct{ BandwidthTypeIface }
+
+func (self *BandwidthType) Value() BandwidthTypeIface { return self.BandwidthTypeIface }
+
+type Bandwidth20 struct{}
+
+func (Bandwidth20) BandwidthTypeIfaceFunc() {}
+
+type BandwidthHT40Plus struct{}
+
+func (BandwidthHT40Plus) BandwidthTypeIfaceFunc() {}
+
+type BandwidthVHT80 struct{}
+
+func (BandwidthVHT80) BandwidthTypeIfaceFunc() {}
+func (self *BandwidthType) String() string {
+	switch self.BandwidthTypeIface.(type) {
+	case Bandwidth20:
+		return "20"
+	case BandwidthHT40Plus:
+		return "HT40+"
+	case BandwidthVHT80:
+		return "VHT80"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self BandwidthType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
+	case Bandwidth20:
+		return json.Marshal("20")
+	case BandwidthHT40Plus:
+		return json.Marshal("HT40+")
+	case BandwidthVHT80:
+		return json.Marshal("VHT80")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self BandwidthType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("BandwidthType cannot be nil")
+	}
+	switch v.(type) {
+	case Bandwidth20:
+		return "20", nil
+	case BandwidthHT40Plus:
+		return "HT40+", nil
+	case BandwidthVHT80:
+		return "VHT80", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *BandwidthType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "20":
+		self.BandwidthTypeIface = Bandwidth20{}
+		return nil
+	case "HT40+":
+		self.BandwidthTypeIface = BandwidthHT40Plus{}
+		return nil
+	case "VHT80":
+		self.BandwidthTypeIface = BandwidthVHT80{}
+		return nil
+
+	}
+	return errors.New("Unknown BandwidthType")
+
+}
+
+func (self *BandwidthType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "20":
+		self.BandwidthTypeIface = Bandwidth20{}
+		return nil
+	case "HT40+":
+		self.BandwidthTypeIface = BandwidthHT40Plus{}
+		return nil
+	case "VHT80":
+		self.BandwidthTypeIface = BandwidthVHT80{}
+		return nil
+
+	}
+	return errors.New("Unknown BandwidthType")
+
+}
+
 type CPEAgentStatusTypeIface interface {
 	CPEAgentStatusTypeIfaceFunc()
 }

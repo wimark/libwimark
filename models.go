@@ -85,7 +85,8 @@ type WiFiData struct {
 
 type CPEInterface struct {
 	CPEInterfaceInfo
-	Addr string
+	Addr         string
+	Capabilities Capabilities
 }
 
 func (self CPEInterface) MarshalJSON() ([]byte, error) {
@@ -108,12 +109,13 @@ func (self CPEInterface) MarshalJSON() ([]byte, error) {
 	}
 
 	doc["addr"] = self.Addr
+	doc["capabilities"] = self.Capabilities
 
 	return json.Marshal(doc)
 }
 
 func (self *CPEInterface) UnmarshalJSON(b []byte) error {
-	var doc Document
+	var doc map[string]json.RawMessage
 	var err = json.Unmarshal(b, &doc)
 	if err != nil {
 		return err
@@ -123,17 +125,31 @@ func (self *CPEInterface) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 
-	var addrErased, addrExists = doc["addr"]
+	var addrRaw, addrExists = doc["addr"]
 	if addrExists {
-		var addr, addrOk = addrErased.(string)
-		if addrOk {
+		var addr string
+		var addrErr = json.Unmarshal(addrRaw, &addr)
+		if addrErr == nil {
 			self.Addr = addr
 		} else {
-			return errors.New("Address must be a string")
+			return addrErr
 		}
 	}
 
 	delete(doc, "addr")
+
+	var capsRaw, capsExists = doc["capabilities"]
+	if capsExists {
+		var caps Capabilities
+		var capsErr = json.Unmarshal(capsRaw, &caps)
+		if capsErr == nil {
+			self.Capabilities = caps
+		} else {
+			return capsErr
+		}
+	}
+
+	delete(doc, "capabilities")
 
 	var v, _ = json.Marshal(doc)
 
@@ -263,6 +279,19 @@ type ClientStat struct {
 	AcctInputPackets    *int                 `json:"Acct-Input-Packets"`
 	AcctOutputPackets   *int                 `json:"Acct-Output-Packets"`
 	Timestamp           int                  `json:"Timestamp"`
+}
+
+type ChannelCapabilities struct {
+	Channel        int32           `json:"channel"`
+	Frequency      int64           `json:"frequency"`
+	Bandwidth      []BandwidthType `json:"bandwidth"`
+	Mode           string          `json:"mode"`
+	RadarDetection bool            `json:"radardetection"`
+	MaxTxPower     int             `json:"maxtxpower"`
+}
+
+type Capabilities struct {
+	Channels []ChannelCapabilities `json:"channels"`
 }
 
 type CPEAgentResponse struct {

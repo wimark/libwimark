@@ -82,3 +82,10 @@ Off     = { string = "Accounting-Off" }
 Start   = { string = "Start" }
 Stop    = { string = "Stop" }
 Interim = { string = "Interim-Update" }
+
+[BandwidthType]
+prefix = "Bandwidth"
+[BandwidthType.variants]
+20       = { string = "20"    }
+HT40Plus = { string = "HT40+" }
+VHT80    = { string = "VHT80" }

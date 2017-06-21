@@ -98,6 +98,21 @@ func TestCPE(t *testing.T) {
             "interfaces": {
                 "wlan0": {
                     "addr": "macaddr0",
+                    "capabilities":{
+                        "channels":[
+                            {
+                                "channel":1,
+                                "frequency":2417,
+                                "bandwidth":[
+                                    "20",
+                                    "HT40+"
+                                ],
+                                "mode":"b/g/n",
+                                "radardetection":true,
+                                "maxtxpower":23
+                            }
+                        ]
+                    },
                     "type": "wifi",
                     "data": {
                         "name": "WLAN Interface 0",
@@ -128,6 +143,21 @@ func TestCPE(t *testing.T) {
 	i.Addr = "macaddr0"
 	i.T = CPEInterfaceType{InterfaceWiFi{}}
 	i.D = d
+
+	var channel_caps ChannelCapabilities
+	channel_caps.Channel = 1
+	channel_caps.Frequency = 2417
+	channel_caps.Bandwidth = []BandwidthType{
+		BandwidthType{Bandwidth20{}},
+		BandwidthType{BandwidthHT40Plus{}},
+	}
+	channel_caps.Mode = "b/g/n"
+	channel_caps.RadarDetection = true
+	channel_caps.MaxTxPower = 23
+
+	var caps Capabilities
+	caps.Channels = []ChannelCapabilities{channel_caps}
+	i.Capabilities = caps
 
 	var expectation CPE
 	expectation.Name = "mycpe"
