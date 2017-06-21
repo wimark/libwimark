@@ -249,8 +249,9 @@ type Stat struct {
 
 type ClientStat struct {
 	AcctStatusType      ClientStatPacketType `json:"Acct-Status-Type"`
-	CPE                 UUID                 `json:"NAS-Identifier"`
+	CPE                 UUID                 `json:"cpeid"`
 	CallingStationId    string               `json:"Calling-Station-Id"`
+	UserName            string               `json:"User-Name"`
 	AcctDelayTime       int                  `json:"Acct-Delay-Time"`
 	AcctSessionId       string               `json:"Acct-Session-Id"`
 	AcctInputGigawords  *int                 `json:"Acct-Input-Gigawords"`
