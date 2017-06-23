@@ -48,7 +48,7 @@ type MQTTMessage interface {
 
 type MQTTDocumentMessage struct {
 	T Topic
-	D map[string]interface{}
+	D interface{}
 	R bool
 }
 
