@@ -3,6 +3,7 @@ package libwimark
 import (
 	"encoding/json"
 	"errors"
+	"sort"
 
 	"github.com/vorot93/goutil"
 	"gopkg.in/mgo.v2/bson"
@@ -144,7 +145,13 @@ type CPEInterfaces map[string]CPEInterface
 
 func (self CPEInterfaces) GetBSON() (interface{}, error) {
 	var out = []bson.M{}
-	for k, v := range self {
+	var keys = []string{}
+	for k, _ := range self {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, k := range keys {
+		v := self[k]
 		var b []byte
 		{
 			var err error
