@@ -333,6 +333,34 @@ type EventCPEStatus struct {
 	Description string `json:"description"`
 }
 
+type LBSClientDataInterface struct {
+	Clients map[string]float64 `json:"clients"`
+}
+
+type LBSClientData struct {
+	Timestamp  int64                             `json:"timestamp"`
+	CPE        UUID                              `json:"cpe"`
+	Interfaces map[string]LBSClientDataInterface `json:"interfaces"`
+}
+
+type LBSCPEInfo struct {
+	Group UUID    `json:"group"`
+	CPE   UUID    `json:"cpe"`
+	Name  string  `json:"name"`
+	X     float64 `json:"x"`
+	Y     float64 `json:"y"`
+	Z     float64 `json:"z"`
+}
+
+type LBSClientCoords struct {
+	Timestamp int64   `json:"timestamp"`
+	Group     UUID    `json:"group"`
+	Mac       string  `json:"mac"`
+	X         float64 `json:"x"`
+	Y         float64 `json:"y"`
+	Z         float64 `json:"z"`
+}
+
 type SimpleMask struct {
 	UUID []UUID `json:"uuid"`
 }

@@ -279,6 +279,9 @@ type DBDataObj struct {
 	StatEventRules            map[UUID]StatEventRule          `json:"stat-event-rule,omitempty"`
 	PollCPE                   map[UUID]CPEPollSettings        `json:"poll-cpe,omitempty"`
 	Radius                    map[UUID]Radius                 `json:"radius,omitempty"`
+	LBSCPEInfo                map[UUID]LBSCPEInfo             `json:"lbs-cpe-info,omitempty"`
+	LBSClientData             map[UUID]LBSClientData          `json:"lbs-client-data,omitempty"`
+	LBSClientCoords           map[UUID]LBSClientCoords        `json:"lbs-client-coords,omitempty"`
 }
 
 func (self *DBDataObj) Reset() {
@@ -296,6 +299,9 @@ type DBDataUUID struct {
 	StatEventRules            []UUID `json:"stat-event-rule,omitempty"`
 	PollCPE                   []UUID `json:"poll-cpe,omitempty"`
 	Radius                    []UUID `json:"radius,omitempty"`
+	LBSCPEInfo                []UUID `json:"lbs-cpe-info,omitempty"`
+	LBSClientData             []UUID `json:"lbs-client-data,omitempty"`
+	LBSClientCoords           []UUID `json:"lbs-client-coords,omitempty"`
 }
 
 func (self *DBDataUUID) Reset() {
@@ -313,6 +319,9 @@ type DBDataMasks struct {
 	StatEventRules            *SimpleMask                 `json:"stat-event-rule,omitempty"`
 	PollCPE                   *SimpleMask                 `json:"poll-cpe,omitempty"`
 	Radius                    *SimpleMask                 `json:"radius,omitempty"`
+	LBSCPEInfo                *SimpleMask                 `json:"lbs-cpe-info,omitempty"`
+	LBSClientData             *TimestampMask              `json:"lbs-client-data,omitempty"`
+	LBSClientCoords           *TimestampMask              `json:"lbs-client-coords,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {

@@ -23,6 +23,7 @@ Config  = { string = "CONFIG"  }
 DB      = { string = "DB"      }
 Stat    = { string = "STAT"    }
 Monitor = { string = "MONITOR" }
+LBS     = { string = "LBS"     }
 
 [Operation]
 prefix = "Operation"

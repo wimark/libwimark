@@ -723,6 +723,10 @@ type ModuleDB struct{}
 
 func (ModuleDB) ModuleIfaceFunc() {}
 
+type ModuleLBS struct{}
+
+func (ModuleLBS) ModuleIfaceFunc() {}
+
 type ModuleMonitor struct{}
 
 func (ModuleMonitor) ModuleIfaceFunc() {}
@@ -742,6 +746,8 @@ func (self *Module) String() string {
 		return "CONFIG"
 	case ModuleDB:
 		return "DB"
+	case ModuleLBS:
+		return "LBS"
 	case ModuleMonitor:
 		return "MONITOR"
 	case ModuleStat:
@@ -763,6 +769,8 @@ func (self Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("CONFIG")
 	case ModuleDB:
 		return json.Marshal("DB")
+	case ModuleLBS:
+		return json.Marshal("LBS")
 	case ModuleMonitor:
 		return json.Marshal("MONITOR")
 	case ModuleStat:
@@ -788,6 +796,8 @@ func (self Module) GetBSON() (interface{}, error) {
 		return "CONFIG", nil
 	case ModuleDB:
 		return "DB", nil
+	case ModuleLBS:
+		return "LBS", nil
 	case ModuleMonitor:
 		return "MONITOR", nil
 	case ModuleStat:
@@ -817,6 +827,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DB":
 		self.ModuleIface = ModuleDB{}
+		return nil
+	case "LBS":
+		self.ModuleIface = ModuleLBS{}
 		return nil
 	case "MONITOR":
 		self.ModuleIface = ModuleMonitor{}
@@ -850,6 +863,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "DB":
 		self.ModuleIface = ModuleDB{}
+		return nil
+	case "LBS":
+		self.ModuleIface = ModuleLBS{}
 		return nil
 	case "MONITOR":
 		self.ModuleIface = ModuleMonitor{}
