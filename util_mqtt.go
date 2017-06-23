@@ -16,6 +16,15 @@ func MQTTConnectSyncOpts(opts *mqtt.ClientOptions) (mqtt.Client, error) {
 	return client, token.Error()
 }
 
+func MQTTMustConnectSyncOpts(opts *mqtt.ClientOptions) mqtt.Client {
+	var client, err = MQTTConnectSyncOpts(opts)
+	if err != nil {
+		panic(err)
+	}
+
+	return client
+}
+
 func MQTTConnectSync(addr string) (mqtt.Client, error) {
 	var opts = mqtt.NewClientOptions()
 	opts.AddBroker(addr)
