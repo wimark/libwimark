@@ -73,14 +73,14 @@ type WiredData struct {
 }
 
 type WiFiData struct {
-	Name      string  `json:"name,omitempty"`
-	Mac       string  `json:"mac,omitempty"`
-	Frequency float32 `json:"frequency,omitempty"`
-	BandMode  string  `json:"bandmode,omitempty"`
-	Bandwidth string  `json:"bandwidth,omitempty"`
-	Channel   int     `json:"channel,omitempty"`
-	TxPower   int     `json:"txpower,omitempty"`
-	WLANs     []UUID  `json:"wlans,omitempty"`
+	Name      string `json:"name,omitempty"`
+	Mac       string `json:"mac,omitempty"`
+	Frequency string `json:"frequency,omitempty"`
+	BandMode  string `json:"bandmode,omitempty"`
+	Bandwidth string `json:"bandwidth,omitempty"`
+	Channel   string `json:"channel,omitempty"`
+	TxPower   string `json:"txpower,omitempty"`
+	WLANs     []UUID `json:"wlans,omitempty"`
 }
 
 type CPEInterface struct {
