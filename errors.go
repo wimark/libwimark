@@ -15,6 +15,7 @@ const (
 	ErrorCPEException
 	ErrorCPESyntax
 	ErrorCPEUndefined
+	ErrorReqCheckFailed
 )
 
 type ModelError struct {
