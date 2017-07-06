@@ -87,6 +87,11 @@ Interim = { string = "Interim-Update" }
 [BandwidthType]
 prefix = "Bandwidth"
 [BandwidthType.variants]
-20       = { string = "20"    }
-HT40Plus = { string = "HT40+" }
-VHT80    = { string = "VHT80" }
+HT20      = { string = "HT20"   }
+HT40      = { string = "HT40"   }
+HT40Plus  = { string = "HT40+"  }
+HT40Minus = { string = "HT40-"  }
+VHT20     = { string = "VHT20"  }
+VHT40     = { string = "VHT40"  }
+VHT80     = { string = "VHT80"  }
+VHT160    = { string = "VHT160" }

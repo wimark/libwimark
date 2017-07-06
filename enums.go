@@ -17,23 +17,53 @@ type BandwidthType struct{ BandwidthTypeIface }
 
 func (self *BandwidthType) Value() BandwidthTypeIface { return self.BandwidthTypeIface }
 
-type Bandwidth20 struct{}
+type BandwidthHT20 struct{}
 
-func (Bandwidth20) BandwidthTypeIfaceFunc() {}
+func (BandwidthHT20) BandwidthTypeIfaceFunc() {}
+
+type BandwidthHT40 struct{}
+
+func (BandwidthHT40) BandwidthTypeIfaceFunc() {}
+
+type BandwidthHT40Minus struct{}
+
+func (BandwidthHT40Minus) BandwidthTypeIfaceFunc() {}
 
 type BandwidthHT40Plus struct{}
 
 func (BandwidthHT40Plus) BandwidthTypeIfaceFunc() {}
+
+type BandwidthVHT160 struct{}
+
+func (BandwidthVHT160) BandwidthTypeIfaceFunc() {}
+
+type BandwidthVHT20 struct{}
+
+func (BandwidthVHT20) BandwidthTypeIfaceFunc() {}
+
+type BandwidthVHT40 struct{}
+
+func (BandwidthVHT40) BandwidthTypeIfaceFunc() {}
 
 type BandwidthVHT80 struct{}
 
 func (BandwidthVHT80) BandwidthTypeIfaceFunc() {}
 func (self *BandwidthType) String() string {
 	switch self.BandwidthTypeIface.(type) {
-	case Bandwidth20:
-		return "20"
+	case BandwidthHT20:
+		return "HT20"
+	case BandwidthHT40:
+		return "HT40"
+	case BandwidthHT40Minus:
+		return "HT40-"
 	case BandwidthHT40Plus:
 		return "HT40+"
+	case BandwidthVHT160:
+		return "VHT160"
+	case BandwidthVHT20:
+		return "VHT20"
+	case BandwidthVHT40:
+		return "VHT40"
 	case BandwidthVHT80:
 		return "VHT80"
 
@@ -43,10 +73,20 @@ func (self *BandwidthType) String() string {
 }
 func (self BandwidthType) MarshalJSON() ([]byte, error) {
 	switch self.Value().(type) {
-	case Bandwidth20:
-		return json.Marshal("20")
+	case BandwidthHT20:
+		return json.Marshal("HT20")
+	case BandwidthHT40:
+		return json.Marshal("HT40")
+	case BandwidthHT40Minus:
+		return json.Marshal("HT40-")
 	case BandwidthHT40Plus:
 		return json.Marshal("HT40+")
+	case BandwidthVHT160:
+		return json.Marshal("VHT160")
+	case BandwidthVHT20:
+		return json.Marshal("VHT20")
+	case BandwidthVHT40:
+		return json.Marshal("VHT40")
 	case BandwidthVHT80:
 		return json.Marshal("VHT80")
 
@@ -60,10 +100,20 @@ func (self BandwidthType) GetBSON() (interface{}, error) {
 		return nil, errors.New("BandwidthType cannot be nil")
 	}
 	switch v.(type) {
-	case Bandwidth20:
-		return "20", nil
+	case BandwidthHT20:
+		return "HT20", nil
+	case BandwidthHT40:
+		return "HT40", nil
+	case BandwidthHT40Minus:
+		return "HT40-", nil
 	case BandwidthHT40Plus:
 		return "HT40+", nil
+	case BandwidthVHT160:
+		return "VHT160", nil
+	case BandwidthVHT20:
+		return "VHT20", nil
+	case BandwidthVHT40:
+		return "VHT40", nil
 	case BandwidthVHT80:
 		return "VHT80", nil
 
@@ -77,11 +127,26 @@ func (self *BandwidthType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "20":
-		self.BandwidthTypeIface = Bandwidth20{}
+	case "HT20":
+		self.BandwidthTypeIface = BandwidthHT20{}
+		return nil
+	case "HT40":
+		self.BandwidthTypeIface = BandwidthHT40{}
+		return nil
+	case "HT40-":
+		self.BandwidthTypeIface = BandwidthHT40Minus{}
 		return nil
 	case "HT40+":
 		self.BandwidthTypeIface = BandwidthHT40Plus{}
+		return nil
+	case "VHT160":
+		self.BandwidthTypeIface = BandwidthVHT160{}
+		return nil
+	case "VHT20":
+		self.BandwidthTypeIface = BandwidthVHT20{}
+		return nil
+	case "VHT40":
+		self.BandwidthTypeIface = BandwidthVHT40{}
 		return nil
 	case "VHT80":
 		self.BandwidthTypeIface = BandwidthVHT80{}
@@ -98,11 +163,26 @@ func (self *BandwidthType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "20":
-		self.BandwidthTypeIface = Bandwidth20{}
+	case "HT20":
+		self.BandwidthTypeIface = BandwidthHT20{}
+		return nil
+	case "HT40":
+		self.BandwidthTypeIface = BandwidthHT40{}
+		return nil
+	case "HT40-":
+		self.BandwidthTypeIface = BandwidthHT40Minus{}
 		return nil
 	case "HT40+":
 		self.BandwidthTypeIface = BandwidthHT40Plus{}
+		return nil
+	case "VHT160":
+		self.BandwidthTypeIface = BandwidthVHT160{}
+		return nil
+	case "VHT20":
+		self.BandwidthTypeIface = BandwidthVHT20{}
+		return nil
+	case "VHT40":
+		self.BandwidthTypeIface = BandwidthVHT40{}
 		return nil
 	case "VHT80":
 		self.BandwidthTypeIface = BandwidthVHT80{}

@@ -2,8 +2,9 @@ package libwimark
 
 import (
 	"encoding/json"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCompare(t *testing.T) {
@@ -99,19 +100,46 @@ func TestCPE(t *testing.T) {
                 "wlan0": {
                     "addr": "macaddr0",
                     "capabilities":{
-                        "channels":[
+                        "txpower_offset":0,
+                        "txpwrlist":[
                             {
-                                "channel":1,
-                                "frequency":2417,
-                                "bandwidth":[
-                                    "20",
-                                    "HT40+"
-                                ],
-                                "mode":"b/g/n",
-                                "radardetection":true,
-                                "maxtxpower":23
+                                "dbm":0,
+                                "mw":1
+                            },
+                            {
+                                "dbm":20,
+                                "mw":100
                             }
-                        ]
+                        ],
+                        "htmodelist":{
+                            "HT20":false,
+                            "HT40":true,
+                            "VHT20":true,
+                            "VHT40":true,
+                            "VHT80":true,
+                            "VHT160":false
+                        },
+                        "freqlist":[
+                            {
+                                "restricted":false,
+                                "mhz":2412,
+                                "channel":1,
+                                "max_dbm":12
+                            },
+                            {
+                                "restricted":true,
+                                "mhz":5825,
+                                "channel":165,
+                                "max_dbm":13
+                            }
+                        ],
+                        "hwmodelist":{
+                            "a":false,
+                            "b":true,
+                            "ac":true,
+                            "g":true,
+                            "n":true
+                        }
                     },
                     "type": "wifi",
                     "data": {
@@ -144,19 +172,47 @@ func TestCPE(t *testing.T) {
 	i.T = CPEInterfaceType{InterfaceWiFi{}}
 	i.D = d
 
-	var channel_caps ChannelCapabilities
-	channel_caps.Channel = 1
-	channel_caps.Frequency = 2417
-	channel_caps.Bandwidth = []BandwidthType{
-		BandwidthType{Bandwidth20{}},
-		BandwidthType{BandwidthHT40Plus{}},
-	}
-	channel_caps.Mode = "b/g/n"
-	channel_caps.RadarDetection = true
-	channel_caps.MaxTxPower = 23
-
 	var caps Capabilities
-	caps.Channels = []ChannelCapabilities{channel_caps}
+	caps.Channels = []CapChannel{
+		CapChannel{
+			Restricted: false,
+			Freq:       2412,
+			Channel:    1,
+			MaxPower:   12,
+		},
+		CapChannel{
+			Restricted: true,
+			Freq:       5825,
+			Channel:    165,
+			MaxPower:   13,
+		},
+	}
+	caps.HTModes = map[string]bool{
+		//		BandwidthType{BandwidthHT20{}}:   false,
+		//		BandwidthType{BandwidthHT40{}}:   true,
+		//		BandwidthType{BandwidthVHT20{}}:  true,
+		//		BandwidthType{BandwidthVHT40{}}:  true,
+		//		BandwidthType{BandwidthVHT80{}}:  true,
+		//		BandwidthType{BandwidthVHT160{}}: false,
+		"HT20":   false,
+		"HT40":   true,
+		"VHT20":  true,
+		"VHT40":  true,
+		"VHT80":  true,
+		"VHT160": false,
+	}
+	caps.HWModes = map[string]bool{
+		"a":  false,
+		"b":  true,
+		"ac": true,
+		"g":  true,
+		"n":  true,
+	}
+	caps.TxOffset = 0
+	caps.TxPowers = []CapTxPower{
+		CapTxPower{DBelMw: 0, MilliWatt: 1},
+		CapTxPower{DBelMw: 20, MilliWatt: 100},
+	}
 	i.Capabilities = caps
 
 	var expectation CPE

@@ -288,17 +288,24 @@ type ClientStat struct {
 	Timestamp           int                  `json:"Timestamp"`
 }
 
-type ChannelCapabilities struct {
-	Channel        int32           `json:"channel"`
-	Frequency      int64           `json:"frequency"`
-	Bandwidth      []BandwidthType `json:"bandwidth"`
-	Mode           string          `json:"mode"`
-	RadarDetection bool            `json:"radardetection"`
-	MaxTxPower     int             `json:"maxtxpower"`
+type CapTxPower struct {
+	DBelMw    int `json:"dbm"`
+	MilliWatt int `json:"mw"`
+}
+
+type CapChannel struct {
+	Restricted bool `json:"restricted"`
+	Freq       int  `json:"mhz"`
+	Channel    int  `json:"channel"`
+	MaxPower   int  `json:"max_dbm"`
 }
 
 type Capabilities struct {
-	Channels []ChannelCapabilities `json:"channels"`
+	TxPowers []CapTxPower    `json:"txpwrlist"`
+	HTModes  map[string]bool `json:"htmodelist"`
+	HWModes  map[string]bool `json:"hwmodelist"`
+	Channels []CapChannel    `json:"freqlist"`
+	TxOffset int             `json:"txpower_offset"`
 }
 
 type CPEAgentResponse struct {
