@@ -124,13 +124,19 @@ func TestCPE(t *testing.T) {
                                 "restricted":false,
                                 "mhz":2412,
                                 "channel":1,
-                                "max_dbm":12
+                                "max_txpower":{
+                                    "dbm":20,
+                                    "mw":100
+                                }
                             },
                             {
                                 "restricted":true,
                                 "mhz":5825,
                                 "channel":165,
-                                "max_dbm":13
+                                "max_txpower":{
+                                    "dbm":18,
+                                    "mw":63
+                                }
                             }
                         ],
                         "hwmodelist":{
@@ -178,13 +184,13 @@ func TestCPE(t *testing.T) {
 			Restricted: false,
 			Freq:       2412,
 			Channel:    1,
-			MaxPower:   12,
+			MaxPower:   CapTxPower{DBelMw: 20, MilliWatt: 100},
 		},
 		CapChannel{
 			Restricted: true,
 			Freq:       5825,
 			Channel:    165,
-			MaxPower:   13,
+			MaxPower:   CapTxPower{DBelMw: 18, MilliWatt: 63},
 		},
 	}
 	caps.HTModes = map[string]bool{

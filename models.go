@@ -294,10 +294,10 @@ type CapTxPower struct {
 }
 
 type CapChannel struct {
-	Restricted bool `json:"restricted"`
-	Freq       int  `json:"mhz"`
-	Channel    int  `json:"channel"`
-	MaxPower   int  `json:"max_dbm"`
+	Restricted bool       `json:"restricted"`
+	Freq       int        `json:"mhz"`
+	Channel    int        `json:"channel"`
+	MaxPower   CapTxPower `json:"max_txpower"`
 }
 
 type Capabilities struct {
