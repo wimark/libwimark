@@ -248,6 +248,7 @@ type CPE struct {
 	Model        UUID                `json:"model"`
 	Interfaces   CPEInterfaces       `json:"interfaces"`
 	ConfigStatus ConfigurationStatus `json:"config_status"`
+	LbsConfig    LBSConfig           `json:"lbs_config"`
 }
 
 type Stat struct {
@@ -366,6 +367,13 @@ type LBSClientCoords struct {
 	X         float64 `json:"x"`
 	Y         float64 `json:"y"`
 	Z         float64 `json:"z"`
+}
+
+type LBSConfig struct {
+	Enabled bool `json:"enabled"`
+	// in milliseconds
+	ReportPeriod  int `json:"reportperiod,omitempty"`
+	ClientTimeout int `json:"clienttimeout,omitempty"`
 }
 
 type SimpleMask struct {
