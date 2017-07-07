@@ -341,14 +341,12 @@ type EventCPEStatus struct {
 	Description string `json:"description"`
 }
 
-type LBSClientDataInterface struct {
-	Clients map[string]float64 `json:"clients"`
-}
-
 type LBSClientData struct {
-	Timestamp  int64                             `json:"timestamp"`
-	CPE        UUID                              `json:"cpe"`
-	Interfaces map[string]LBSClientDataInterface `json:"interfaces"`
+	Timestamp int64  `json:"timestamp"`
+	CPE       UUID   `json:"cpe"`
+	Radio     string `json:"radio"`
+	ClientMac string `json:"client_mac"`
+	RSSI      int    `json:"rssi"`
 }
 
 type LBSCPEInfo struct {
