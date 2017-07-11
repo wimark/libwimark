@@ -17,6 +17,7 @@ Future  = { string = "future"  }
 prefix = "Module"
 [Module.variants]
 Any     = { string = "+"       }
+Dummy   = { string = "DUMMY"   }
 Backend = { string = "BACKEND" }
 CPE     = { string = "CPE"     }
 Config  = { string = "CONFIG"  }
