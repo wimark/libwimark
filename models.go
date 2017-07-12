@@ -324,13 +324,13 @@ type CPEPollSettings struct {
 }
 
 type EventSimple struct {
-	Time int64 `json:"time"`
+	Timestamp int64 `json:"timestamp"`
 }
 
 type EventStatRuleViolation struct {
-	Time     int64 `json:"time"`
-	CPEUUID  UUID  `json:"cpe_uuid"`
-	RuleUUID UUID  `json:"rule_uuid"`
+	Timestamp int64 `json:"timestamp"`
+	CPEUUID   UUID  `json:"cpe_uuid"`
+	RuleUUID  UUID  `json:"rule_uuid"`
 }
 
 type EventCPEStatus struct {
