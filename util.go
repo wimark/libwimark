@@ -319,9 +319,9 @@ type DBDataMasks struct {
 	StatEventRules            *SimpleMask                 `json:"stat-event-rule,omitempty"`
 	PollCPE                   *SimpleMask                 `json:"poll-cpe,omitempty"`
 	Radius                    *SimpleMask                 `json:"radius,omitempty"`
-	LBSCPEInfo                *SimpleMask                 `json:"lbs-cpe-info,omitempty"`
-	LBSClientData             *TimestampMask              `json:"lbs-client-data,omitempty"`
-	LBSClientCoords           *TimestampMask              `json:"lbs-client-coords,omitempty"`
+	LBSCPEInfo                *LBSCPEInfoMask             `json:"lbs-cpe-info,omitempty"`
+	LBSClientData             *LBSClientDataMask          `json:"lbs-client-data,omitempty"`
+	LBSClientCoords           *LBSClientCoordsMask        `json:"lbs-client-coords,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {
