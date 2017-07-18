@@ -23,3 +23,9 @@ constraint = "StatEventRuleObjectType"
 [StatEventRuleObject.Variants]
 StatEventFreeRAM = "LimitBetween"
 StatEventCPUload = "LimitBetween"
+
+[WirelessClientObject]
+constraint = "WirelessClientObjectType"
+[WirelessClientObject.Variants]
+CameraClient = "CameraClient"
+OtherClient = "OtherClient"

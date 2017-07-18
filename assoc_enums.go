@@ -218,3 +218,54 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 	return nil
 
 }
+
+type WirelessClientObject struct {
+	T WirelessClientObjectType `json:"type"`
+	D interface{}              `json:"data"`
+}
+
+func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
+	var doc map[string]json.RawMessage
+	if err := json.Unmarshal(b, &doc); err != nil {
+		return err
+	}
+	if doc == nil {
+		return nil
+	}
+	var t_raw, t_found = doc["type"]
+	if !t_found {
+		return nil
+	}
+	var data_raw, data_found = doc["data"]
+	_ = data_found
+	var t WirelessClientObjectType
+	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
+		return t_err
+	}
+	switch t.Value().(type) {
+	case CameraClient:
+		if !data_found {
+			return errors.New("No associated data found for enum WirelessClientObject")
+		}
+		var d CameraClient
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
+	case OtherClient:
+		if !data_found {
+			return errors.New("No associated data found for enum WirelessClientObject")
+		}
+		var d OtherClient
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.D = &d
+
+	}
+	self.T = t
+	return nil
+
+}

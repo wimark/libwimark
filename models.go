@@ -327,6 +327,14 @@ type LimitBetweenOptional struct {
 	Lower *float64 `json:"lower"`
 }
 
+type CameraClient struct {
+	Rtsp_stream string `json:"rtsp_stream"`
+}
+
+type OtherClient struct {
+	Description string `json:"description"`
+}
+
 type CPEPollSettings struct {
 	Rules []UUID `json:"rules"`
 }
@@ -459,4 +467,16 @@ type LBSClientCoordsMask struct {
 	X     LimitBetweenOptional `json:"x"`
 	Y     LimitBetweenOptional `json:"y"`
 	Z     LimitBetweenOptional `json:"z"`
+}
+
+type WirelessClient struct {
+	WirelessClientObject `json:",inline" bson:",inline"`
+	Mac                  string `json:"mac"`
+	Ip                   string `json:"ip"`
+	Net_mask             string `json:"net_mask"`
+	Wlan_id              string `json:"wlan_id"`
+	Cpe_id               string `json:"cpe_id"`
+	Channel              int    `json:"channel"`
+	Rssi                 int    `json:"rssi"`
+	Ts                   int    `json:"ts"`
 }
