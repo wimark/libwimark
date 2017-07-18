@@ -14,11 +14,11 @@ type Document goutil.Document
 type UUID string
 
 type Radius struct {
-	Type     RadiusType `json:"type"`
-	Name     string     `json:"name"`
-	Hostname string     `json:"hostname"`
-	Port     uint16     `json:"port"`
-	Secret   string     `json:"secret"`
+	Name      string `json:"name"`
+	Hostname  string `json:"hostname"`
+	Auth_port string `json:"auth_port"`
+	Acc_port  string `json:"acc_port"`
+	Secret    string `json:"secret"`
 }
 
 type InterfaceType string
