@@ -1521,3 +1521,90 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown StatEventRuleType")
 
 }
+
+type WirelessClientTypeIface interface {
+	WirelessClientTypeIfaceFunc()
+}
+type WirelessClientType struct{ WirelessClientTypeIface }
+
+func (self *WirelessClientType) Value() WirelessClientTypeIface { return self.WirelessClientTypeIface }
+
+type WirelessClientCamera struct{}
+
+func (WirelessClientCamera) WirelessClientTypeIfaceFunc() {}
+
+type WirelessClientOther struct{}
+
+func (WirelessClientOther) WirelessClientTypeIfaceFunc() {}
+func (self *WirelessClientType) String() string {
+	switch self.WirelessClientTypeIface.(type) {
+	case WirelessClientCamera:
+		return "CameraClient"
+	case WirelessClientOther:
+		return "OtherClient"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self WirelessClientType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
+	case WirelessClientCamera:
+		return json.Marshal("CameraClient")
+	case WirelessClientOther:
+		return json.Marshal("OtherClient")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self WirelessClientType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("WirelessClientType cannot be nil")
+	}
+	switch v.(type) {
+	case WirelessClientCamera:
+		return "CameraClient", nil
+	case WirelessClientOther:
+		return "OtherClient", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *WirelessClientType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "CameraClient":
+		self.WirelessClientTypeIface = WirelessClientCamera{}
+		return nil
+	case "OtherClient":
+		self.WirelessClientTypeIface = WirelessClientOther{}
+		return nil
+
+	}
+	return errors.New("Unknown WirelessClientType")
+
+}
+
+func (self *WirelessClientType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "CameraClient":
+		self.WirelessClientTypeIface = WirelessClientCamera{}
+		return nil
+	case "OtherClient":
+		self.WirelessClientTypeIface = WirelessClientOther{}
+		return nil
+
+	}
+	return errors.New("Unknown WirelessClientType")
+
+}

@@ -478,5 +478,5 @@ type WirelessClient struct {
 	Cpe_id               string `json:"cpe_id"`
 	Channel              int    `json:"channel"`
 	Rssi                 int    `json:"rssi"`
-	Ts                   int    `json:"ts"`
+	Timestamp            int    `json:"timestamp"`
 }

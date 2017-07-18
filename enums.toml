@@ -96,3 +96,9 @@ VHT20     = { string = "VHT20"  }
 VHT40     = { string = "VHT40"  }
 VHT80     = { string = "VHT80"  }
 VHT160    = { string = "VHT160" }
+
+[WirelessClientType]
+prefix = "WirelessClient"
+[WirelessClientType.variants]
+Camera = { string = "CameraClient" }
+Other  = { string = "OtherClient" }
