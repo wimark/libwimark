@@ -168,12 +168,12 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 
 }
 
-type StatEventRule struct {
-	T StatEventRuleType `json:"type"`
-	D interface{}       `json:"data"`
+type StatEventRuleObject struct {
+	T StatEventRuleObjectType `json:"type"`
+	D interface{}             `json:"data"`
 }
 
-func (self *StatEventRule) UnmarshalJSON(b []byte) error {
+func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	if err := json.Unmarshal(b, &doc); err != nil {
 		return err
@@ -187,14 +187,14 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 	}
 	var data_raw, data_found = doc["data"]
 	_ = data_found
-	var t StatEventRuleType
+	var t StatEventRuleObjectType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
 	switch t.Value().(type) {
 	case StatEventCPUload:
 		if !data_found {
-			return errors.New("No associated data found for enum StatEventRule")
+			return errors.New("No associated data found for enum StatEventRuleObject")
 		}
 		var d LimitBetween
 		var data_err = json.Unmarshal(data_raw, &d)
@@ -204,7 +204,7 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 		self.D = &d
 	case StatEventFreeRAM:
 		if !data_found {
-			return errors.New("No associated data found for enum StatEventRule")
+			return errors.New("No associated data found for enum StatEventRuleObject")
 		}
 		var d LimitBetween
 		var data_err = json.Unmarshal(data_raw, &d)

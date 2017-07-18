@@ -18,8 +18,8 @@ CPEAgentStatusUndefined   = "string"
 CPEAgentStatusSyntaxError = "string"
 CPEAgentStatusException   = "string"
 
-[StatEventRule]
-constraint = "StatEventRuleType"
-[StatEventRule.Variants]
+[StatEventRuleObject]
+constraint = "StatEventRuleObjectType"
+[StatEventRuleObject.Variants]
 StatEventFreeRAM = "LimitBetween"
 StatEventCPUload = "LimitBetween"

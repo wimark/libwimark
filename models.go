@@ -331,6 +331,11 @@ type CPEPollSettings struct {
 	Rules []UUID `json:"rules"`
 }
 
+type StatEventRule struct {
+	StatEventRuleObject `json:",inline" bson:",inline"`
+	Name                string `json:"name"`
+}
+
 type EventSimple struct {
 	Timestamp int64 `json:"timestamp"`
 }
