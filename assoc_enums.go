@@ -169,8 +169,8 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 }
 
 type StatEventRuleObject struct {
-	T StatEventRuleObjectType `json:"type"`
-	D interface{}             `json:"data"`
+	T StatEventRuleType `json:"type"`
+	D interface{}       `json:"data"`
 }
 
 func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
@@ -187,7 +187,7 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 	}
 	var data_raw, data_found = doc["data"]
 	_ = data_found
-	var t StatEventRuleObjectType
+	var t StatEventRuleType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
