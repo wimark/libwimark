@@ -4,8 +4,8 @@ import "encoding/json"
 import "errors"
 
 type CPEAgentError struct {
-	T CPEAgentStatusType `json:"type"`
-	D interface{}        `json:"data"`
+	Type CPEAgentStatusType `json:"type"`
+	Data interface{}        `json:"data"`
 }
 
 func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
@@ -36,7 +36,7 @@ func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 	case CPEAgentStatusSuccess:
 		break
 	case CPEAgentStatusSyntaxError:
@@ -48,7 +48,7 @@ func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 	case CPEAgentStatusUndefined:
 		if !data_found {
 			return errors.New("No associated data found for enum CPEAgentError")
@@ -58,17 +58,17 @@ func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 
 	}
-	self.T = t
+	self.Type = t
 	return nil
 
 }
 
 type CPEInterfaceInfo struct {
-	T CPEInterfaceType `json:"type"`
-	D interface{}      `json:"data"`
+	Type CPEInterfaceType `json:"type"`
+	Data interface{}      `json:"data"`
 }
 
 func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
@@ -99,7 +99,7 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 	case InterfaceWired:
 		if !data_found {
 			return errors.New("No associated data found for enum CPEInterfaceInfo")
@@ -109,17 +109,17 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 
 	}
-	self.T = t
+	self.Type = t
 	return nil
 
 }
 
 type EnumSecurity struct {
-	T SecurityType `json:"type"`
-	D interface{}  `json:"data"`
+	Type SecurityType `json:"type"`
+	Data interface{}  `json:"data"`
 }
 
 func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
@@ -150,7 +150,7 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 	case WPA2Personal:
 		if !data_found {
 			return errors.New("No associated data found for enum EnumSecurity")
@@ -160,17 +160,17 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 
 	}
-	self.T = t
+	self.Type = t
 	return nil
 
 }
 
 type StatEventRuleObject struct {
-	T StatEventRuleType `json:"type"`
-	D interface{}       `json:"data"`
+	Type StatEventRuleType `json:"type"`
+	Data interface{}       `json:"data"`
 }
 
 func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
@@ -201,7 +201,7 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 	case StatEventFreeRAM:
 		if !data_found {
 			return errors.New("No associated data found for enum StatEventRuleObject")
@@ -211,17 +211,17 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 
 	}
-	self.T = t
+	self.Type = t
 	return nil
 
 }
 
 type WirelessClientObject struct {
-	T WirelessClientType `json:"type"`
-	D interface{}        `json:"data"`
+	Type WirelessClientType `json:"type"`
+	Data interface{}        `json:"data"`
 }
 
 func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
@@ -252,7 +252,7 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 	case WirelessClientOther:
 		if !data_found {
 			return errors.New("No associated data found for enum WirelessClientObject")
@@ -262,10 +262,10 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 		if data_err != nil {
 			return data_err
 		}
-		self.D = &d
+		self.Data = &d
 
 	}
-	self.T = t
+	self.Type = t
 	return nil
 
 }
