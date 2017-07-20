@@ -95,7 +95,10 @@ func TestCPE(t *testing.T) {
             "name": "mycpe",
             "description": "this is my CPE",
             "connected": true,
-            "model": "MODELID001",
+            "model": {
+                "id": "MODELID001",
+                "name": "model 001"
+            },
             "interfaces": {
                 "wlan0": {
                     "addr": "macaddr0",
@@ -225,7 +228,8 @@ func TestCPE(t *testing.T) {
 	expectation.Name = "mycpe"
 	expectation.Description = "this is my CPE"
 	expectation.Connected = true
-	expectation.Model = UUID("MODELID001")
+	expectation.Model.Id = UUID("MODELID001")
+	expectation.Model.Name = "model 001"
 	expectation.Interfaces = map[string]CPEInterface{}
 	expectation.Interfaces["wlan0"] = i
 	expectation.ConfigStatus = ConfigurationStatus{StatusOK{}}
