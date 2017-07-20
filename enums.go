@@ -673,109 +673,6 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 
 }
 
-type EventTypeIface interface {
-	EventTypeIfaceFunc()
-}
-type EventType struct{ EventTypeIface }
-
-func (self *EventType) Value() EventTypeIface { return self.EventTypeIface }
-
-type EventTypeCPEStatus struct{}
-
-func (EventTypeCPEStatus) EventTypeIfaceFunc() {}
-
-type EventTypeStatRuleViolation struct{}
-
-func (EventTypeStatRuleViolation) EventTypeIfaceFunc() {}
-
-type EventTypeStatRulesChanged struct{}
-
-func (EventTypeStatRulesChanged) EventTypeIfaceFunc() {}
-func (self *EventType) String() string {
-	switch self.EventTypeIface.(type) {
-	case EventTypeCPEStatus:
-		return "CPE_STATUS"
-	case EventTypeStatRuleViolation:
-		return "STAT_RULE_VIOLATION"
-	case EventTypeStatRulesChanged:
-		return "STAT_RULES_CHANGED"
-
-	}
-	panic(errors.New("Not implemented"))
-
-}
-func (self EventType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case EventTypeCPEStatus:
-		return json.Marshal("CPE_STATUS")
-	case EventTypeStatRuleViolation:
-		return json.Marshal("STAT_RULE_VIOLATION")
-	case EventTypeStatRulesChanged:
-		return json.Marshal("STAT_RULES_CHANGED")
-
-	}
-	return nil, errors.New("Not implemented")
-
-}
-func (self EventType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("EventType cannot be nil")
-	}
-	switch v.(type) {
-	case EventTypeCPEStatus:
-		return "CPE_STATUS", nil
-	case EventTypeStatRuleViolation:
-		return "STAT_RULE_VIOLATION", nil
-	case EventTypeStatRulesChanged:
-		return "STAT_RULES_CHANGED", nil
-
-	}
-	return nil, errors.New("Not implemented")
-
-}
-func (self *EventType) UnmarshalJSON(b []byte) error {
-	var s string
-	if err := json.Unmarshal(b, &s); err != nil {
-		return err
-	}
-	switch s {
-	case "CPE_STATUS":
-		self.EventTypeIface = EventTypeCPEStatus{}
-		return nil
-	case "STAT_RULE_VIOLATION":
-		self.EventTypeIface = EventTypeStatRuleViolation{}
-		return nil
-	case "STAT_RULES_CHANGED":
-		self.EventTypeIface = EventTypeStatRulesChanged{}
-		return nil
-
-	}
-	return errors.New("Unknown EventType")
-
-}
-
-func (self *EventType) SetBSON(v bson.Raw) error {
-	var s string
-	if err := v.Unmarshal(&s); err != nil {
-		return err
-	}
-	switch s {
-	case "CPE_STATUS":
-		self.EventTypeIface = EventTypeCPEStatus{}
-		return nil
-	case "STAT_RULE_VIOLATION":
-		self.EventTypeIface = EventTypeStatRuleViolation{}
-		return nil
-	case "STAT_RULES_CHANGED":
-		self.EventTypeIface = EventTypeStatRulesChanged{}
-		return nil
-
-	}
-	return errors.New("Unknown EventType")
-
-}
-
 type ModuleIface interface {
 	ModuleIfaceFunc()
 }
@@ -1519,6 +1416,342 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 
 	}
 	return errors.New("Unknown StatEventRuleType")
+
+}
+
+type SystemEventLevelIface interface {
+	SystemEventLevelIfaceFunc()
+}
+type SystemEventLevel struct{ SystemEventLevelIface }
+
+func (self *SystemEventLevel) Value() SystemEventLevelIface { return self.SystemEventLevelIface }
+
+type SystemEventLevelDEBUG struct{}
+
+func (SystemEventLevelDEBUG) SystemEventLevelIfaceFunc() {}
+
+type SystemEventLevelERROR struct{}
+
+func (SystemEventLevelERROR) SystemEventLevelIfaceFunc() {}
+
+type SystemEventLevelINFO struct{}
+
+func (SystemEventLevelINFO) SystemEventLevelIfaceFunc() {}
+
+type SystemEventLevelWARNING struct{}
+
+func (SystemEventLevelWARNING) SystemEventLevelIfaceFunc() {}
+func (self *SystemEventLevel) String() string {
+	switch self.SystemEventLevelIface.(type) {
+	case SystemEventLevelDEBUG:
+		return "DEBUG"
+	case SystemEventLevelERROR:
+		return "ERROR"
+	case SystemEventLevelINFO:
+		return "INFO"
+	case SystemEventLevelWARNING:
+		return "WARNING"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self SystemEventLevel) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
+	case SystemEventLevelDEBUG:
+		return json.Marshal("DEBUG")
+	case SystemEventLevelERROR:
+		return json.Marshal("ERROR")
+	case SystemEventLevelINFO:
+		return json.Marshal("INFO")
+	case SystemEventLevelWARNING:
+		return json.Marshal("WARNING")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self SystemEventLevel) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("SystemEventLevel cannot be nil")
+	}
+	switch v.(type) {
+	case SystemEventLevelDEBUG:
+		return "DEBUG", nil
+	case SystemEventLevelERROR:
+		return "ERROR", nil
+	case SystemEventLevelINFO:
+		return "INFO", nil
+	case SystemEventLevelWARNING:
+		return "WARNING", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *SystemEventLevel) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "DEBUG":
+		self.SystemEventLevelIface = SystemEventLevelDEBUG{}
+		return nil
+	case "ERROR":
+		self.SystemEventLevelIface = SystemEventLevelERROR{}
+		return nil
+	case "INFO":
+		self.SystemEventLevelIface = SystemEventLevelINFO{}
+		return nil
+	case "WARNING":
+		self.SystemEventLevelIface = SystemEventLevelWARNING{}
+		return nil
+
+	}
+	return errors.New("Unknown SystemEventLevel")
+
+}
+
+func (self *SystemEventLevel) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "DEBUG":
+		self.SystemEventLevelIface = SystemEventLevelDEBUG{}
+		return nil
+	case "ERROR":
+		self.SystemEventLevelIface = SystemEventLevelERROR{}
+		return nil
+	case "INFO":
+		self.SystemEventLevelIface = SystemEventLevelINFO{}
+		return nil
+	case "WARNING":
+		self.SystemEventLevelIface = SystemEventLevelWARNING{}
+		return nil
+
+	}
+	return errors.New("Unknown SystemEventLevel")
+
+}
+
+type SystemEventObjectTypeIface interface {
+	SystemEventObjectTypeIfaceFunc()
+}
+type SystemEventObjectType struct{ SystemEventObjectTypeIface }
+
+func (self *SystemEventObjectType) Value() SystemEventObjectTypeIface {
+	return self.SystemEventObjectTypeIface
+}
+
+type SystemEventCPEConfigurationError struct{}
+
+func (SystemEventCPEConfigurationError) SystemEventObjectTypeIfaceFunc() {}
+
+type SystemEventCPEConnected struct{}
+
+func (SystemEventCPEConnected) SystemEventObjectTypeIfaceFunc() {}
+
+type SystemEventCPEDisconnected struct{}
+
+func (SystemEventCPEDisconnected) SystemEventObjectTypeIfaceFunc() {}
+
+type SystemEventClientConnected struct{}
+
+func (SystemEventClientConnected) SystemEventObjectTypeIfaceFunc() {}
+
+type SystemEventClientDisconnected struct{}
+
+func (SystemEventClientDisconnected) SystemEventObjectTypeIfaceFunc() {}
+
+type SystemEventMonitorRuleViolation struct{}
+
+func (SystemEventMonitorRuleViolation) SystemEventObjectTypeIfaceFunc() {}
+
+type SystemEventServiceConnected struct{}
+
+func (SystemEventServiceConnected) SystemEventObjectTypeIfaceFunc() {}
+
+type SystemEventServiceDisconnected struct{}
+
+func (SystemEventServiceDisconnected) SystemEventObjectTypeIfaceFunc() {}
+
+type SystemEventServiceFatalError struct{}
+
+func (SystemEventServiceFatalError) SystemEventObjectTypeIfaceFunc() {}
+
+type SystemEventStatDaemonSettingsChanged struct{}
+
+func (SystemEventStatDaemonSettingsChanged) SystemEventObjectTypeIfaceFunc() {}
+func (self *SystemEventObjectType) String() string {
+	switch self.SystemEventObjectTypeIface.(type) {
+	case SystemEventCPEConfigurationError:
+		return "CPE_CONFIGURATION_ERROR"
+	case SystemEventCPEConnected:
+		return "CPE_CONNECTED"
+	case SystemEventCPEDisconnected:
+		return "CPE_DISCONNECTED"
+	case SystemEventClientConnected:
+		return "CLIENT_CONNECTED"
+	case SystemEventClientDisconnected:
+		return "CLIENT_DISCONNECTED"
+	case SystemEventMonitorRuleViolation:
+		return "MONITOR_RULE_VIOLATION"
+	case SystemEventServiceConnected:
+		return "SERVICE_CONNECTED"
+	case SystemEventServiceDisconnected:
+		return "SERVICE_DISCONNECTED"
+	case SystemEventServiceFatalError:
+		return "SERVICE_FATAL_ERROR"
+	case SystemEventStatDaemonSettingsChanged:
+		return "STAT_DAEMON_SETTINGS_CHANGE"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self SystemEventObjectType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
+	case SystemEventCPEConfigurationError:
+		return json.Marshal("CPE_CONFIGURATION_ERROR")
+	case SystemEventCPEConnected:
+		return json.Marshal("CPE_CONNECTED")
+	case SystemEventCPEDisconnected:
+		return json.Marshal("CPE_DISCONNECTED")
+	case SystemEventClientConnected:
+		return json.Marshal("CLIENT_CONNECTED")
+	case SystemEventClientDisconnected:
+		return json.Marshal("CLIENT_DISCONNECTED")
+	case SystemEventMonitorRuleViolation:
+		return json.Marshal("MONITOR_RULE_VIOLATION")
+	case SystemEventServiceConnected:
+		return json.Marshal("SERVICE_CONNECTED")
+	case SystemEventServiceDisconnected:
+		return json.Marshal("SERVICE_DISCONNECTED")
+	case SystemEventServiceFatalError:
+		return json.Marshal("SERVICE_FATAL_ERROR")
+	case SystemEventStatDaemonSettingsChanged:
+		return json.Marshal("STAT_DAEMON_SETTINGS_CHANGE")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self SystemEventObjectType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("SystemEventObjectType cannot be nil")
+	}
+	switch v.(type) {
+	case SystemEventCPEConfigurationError:
+		return "CPE_CONFIGURATION_ERROR", nil
+	case SystemEventCPEConnected:
+		return "CPE_CONNECTED", nil
+	case SystemEventCPEDisconnected:
+		return "CPE_DISCONNECTED", nil
+	case SystemEventClientConnected:
+		return "CLIENT_CONNECTED", nil
+	case SystemEventClientDisconnected:
+		return "CLIENT_DISCONNECTED", nil
+	case SystemEventMonitorRuleViolation:
+		return "MONITOR_RULE_VIOLATION", nil
+	case SystemEventServiceConnected:
+		return "SERVICE_CONNECTED", nil
+	case SystemEventServiceDisconnected:
+		return "SERVICE_DISCONNECTED", nil
+	case SystemEventServiceFatalError:
+		return "SERVICE_FATAL_ERROR", nil
+	case SystemEventStatDaemonSettingsChanged:
+		return "STAT_DAEMON_SETTINGS_CHANGE", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *SystemEventObjectType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "CPE_CONFIGURATION_ERROR":
+		self.SystemEventObjectTypeIface = SystemEventCPEConfigurationError{}
+		return nil
+	case "CPE_CONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventCPEConnected{}
+		return nil
+	case "CPE_DISCONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventCPEDisconnected{}
+		return nil
+	case "CLIENT_CONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventClientConnected{}
+		return nil
+	case "CLIENT_DISCONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventClientDisconnected{}
+		return nil
+	case "MONITOR_RULE_VIOLATION":
+		self.SystemEventObjectTypeIface = SystemEventMonitorRuleViolation{}
+		return nil
+	case "SERVICE_CONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventServiceConnected{}
+		return nil
+	case "SERVICE_DISCONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventServiceDisconnected{}
+		return nil
+	case "SERVICE_FATAL_ERROR":
+		self.SystemEventObjectTypeIface = SystemEventServiceFatalError{}
+		return nil
+	case "STAT_DAEMON_SETTINGS_CHANGE":
+		self.SystemEventObjectTypeIface = SystemEventStatDaemonSettingsChanged{}
+		return nil
+
+	}
+	return errors.New("Unknown SystemEventObjectType")
+
+}
+
+func (self *SystemEventObjectType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "CPE_CONFIGURATION_ERROR":
+		self.SystemEventObjectTypeIface = SystemEventCPEConfigurationError{}
+		return nil
+	case "CPE_CONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventCPEConnected{}
+		return nil
+	case "CPE_DISCONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventCPEDisconnected{}
+		return nil
+	case "CLIENT_CONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventClientConnected{}
+		return nil
+	case "CLIENT_DISCONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventClientDisconnected{}
+		return nil
+	case "MONITOR_RULE_VIOLATION":
+		self.SystemEventObjectTypeIface = SystemEventMonitorRuleViolation{}
+		return nil
+	case "SERVICE_CONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventServiceConnected{}
+		return nil
+	case "SERVICE_DISCONNECTED":
+		self.SystemEventObjectTypeIface = SystemEventServiceDisconnected{}
+		return nil
+	case "SERVICE_FATAL_ERROR":
+		self.SystemEventObjectTypeIface = SystemEventServiceFatalError{}
+		return nil
+	case "STAT_DAEMON_SETTINGS_CHANGE":
+		self.SystemEventObjectTypeIface = SystemEventStatDaemonSettingsChanged{}
+		return nil
+
+	}
+	return errors.New("Unknown SystemEventObjectType")
 
 }
 

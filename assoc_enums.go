@@ -219,6 +219,113 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 
 }
 
+type SystemEventObject struct {
+	Type SystemEventObjectType `json:"type"`
+	Data interface{}           `json:"data"`
+}
+
+func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
+	var doc map[string]json.RawMessage
+	if err := json.Unmarshal(b, &doc); err != nil {
+		return err
+	}
+	if doc == nil {
+		return nil
+	}
+	var t_raw, t_found = doc["type"]
+	if !t_found {
+		return nil
+	}
+	var data_raw, data_found = doc["data"]
+	_ = data_found
+	var t SystemEventObjectType
+	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
+		return t_err
+	}
+	switch t.Value().(type) {
+	case SystemEventCPEConfigurationError:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d CPEConfigurationErrorData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventCPEConnected:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d CPEConnectedData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventCPEDisconnected:
+		break
+	case SystemEventClientConnected:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d ClientConnectedData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventClientDisconnected:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d ClientDisconnectedData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventMonitorRuleViolation:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d MonitorRuleViolationData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventServiceConnected:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d ServiceConnectedData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventServiceDisconnected:
+		break
+	case SystemEventServiceFatalError:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d ServiceFatalErrorData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventStatDaemonSettingsChanged:
+		break
+
+	}
+	self.Type = t
+	return nil
+
+}
+
 type WirelessClientObject struct {
 	Type WirelessClientType `json:"type"`
 	Data interface{}        `json:"data"`

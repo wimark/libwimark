@@ -18,6 +18,20 @@ CPEAgentStatusUndefined   = "string"
 CPEAgentStatusSyntaxError = "string"
 CPEAgentStatusException   = "string"
 
+[SystemEventObject]
+constraint = "SystemEventObjectType"
+[SystemEventObject.Variants]
+SystemEventCPEConnected              = "CPEConnectedData"
+SystemEventCPEDisconnected           = "null"
+SystemEventMonitorRuleViolation      = "MonitorRuleViolationData"
+SystemEventCPEConfigurationError     = "CPEConfigurationErrorData"
+SystemEventClientConnected           = "ClientConnectedData"
+SystemEventClientDisconnected        = "ClientDisconnectedData"
+SystemEventServiceFatalError         = "ServiceFatalErrorData"
+SystemEventServiceConnected          = "ServiceConnectedData"
+SystemEventServiceDisconnected       = "null"
+SystemEventStatDaemonSettingsChanged = "null"
+
 [StatEventRuleObject]
 constraint = "StatEventRuleType"
 [StatEventRuleObject.Variants]

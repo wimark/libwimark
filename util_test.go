@@ -30,7 +30,7 @@ func TestBroadcast(t *testing.T) {
 }
 
 func TestEvent(t *testing.T) {
-	var fixture = `EVENT/STAT/STAT001/STAT_RULE_VIOLATION`
+	var fixture = `EVENT/STAT/STAT001/MONITOR_RULE_VIOLATION`
 	var expectation = fixture
 	var result = ParseTopicPath(fixture).TopicPath()
 

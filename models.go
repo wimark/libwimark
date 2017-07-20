@@ -344,22 +344,48 @@ type StatEventRule struct {
 	Name                string `json:"name"`
 }
 
-type EventSimple struct {
-	Timestamp int64 `json:"timestamp"`
+// Events
+type SystemEvent struct {
+	SystemEventObject `bson:",inline" json:",inline"`
+	Timestamp         int64            `json:"timestamp"`
+	Subject_id        string           `json:"subject_id"`
+	Level             SystemEventLevel `json:"level"`
 }
 
-type EventStatRuleViolation struct {
-	Timestamp int64 `json:"timestamp"`
-	CPEUUID   UUID  `json:"cpe_uuid"`
-	RuleUUID  UUID  `json:"rule_uuid"`
+type CPEConnectedData struct {
+	Cpeagent_version string `json:"cpeagent_version"`
+	Os_version       string `json:"os_version"`
 }
 
-type EventCPEStatus struct {
-	EventSimple
-	Cpe         UUID   `json:"cpeid"`
-	Connected   bool   `json:"connected"`
-	Error       bool   `json:"error"`
+type MonitorRuleViolationData struct {
+	Cpe_id UUID `json:"cpe_id"`
+}
+
+type ClientConnectedData struct {
+	Mac     string `json:"mac"`
+	Freq    string `json:"freq"`
+	Cpe_id  UUID   `json:"cpe_id"`
+	Wlan_id UUID   `json:"wlan_id"`
+}
+
+type ClientDisconnectedData struct {
+	Mac     string `json:"mac"`
+	Freq    string `json:"freq"`
+	Cpe_id  UUID   `json:"cpe_id"`
+	Wlan_id UUID   `json:"wlan_id"`
+}
+
+type CPEConfigurationErrorData struct {
 	Description string `json:"description"`
+}
+
+type ServiceFatalErrorData struct {
+	Sw_version  string `json:"sw_version"`
+	Description string `json:"description"`
+}
+
+type ServiceConnectedData struct {
+	Sw_version string `json:"sw_version"`
 }
 
 type LBSClientData struct {
@@ -405,17 +431,11 @@ type TimestampMask struct {
 	Stop  *int64 `json:"stop"`
 }
 
-type EventSimpleMask TimestampMask
-
-type EventStatRuleViolationMask struct {
+type EventMask struct {
 	TimestampMask
-	CPEUUID  []UUID `json:"cpe_uuid"`
-	RuleUUID []UUID `json:"rule_uuid"`
-}
-
-type EventCPEStatusMask struct {
-	EventSimpleMask
-	CPEUUID []UUID `json:"cpe_uuid"`
+	Type       []SystemEventObjectType `json:"type"`
+	Subject_id []string                `json:"subject_id"`
+	Level      []SystemEventLevel      `json:"level"`
 }
 
 type ClientStatMask struct {
