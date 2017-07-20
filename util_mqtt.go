@@ -2,9 +2,9 @@ package libwimark
 
 import (
 	"encoding/json"
+	"fmt"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	cache "github.com/patrickmn/go-cache"
-	"log"
 	"time"
 )
 
@@ -86,7 +86,7 @@ func (self MQTTRawMessage) Retained() bool {
 	return self.R
 }
 
-func MQTTMakePublishChan(client mqtt.Client, logger *log.Logger) chan<- MQTTMessage {
+func MQTTMakePublishChan(client mqtt.Client, log_cb func(string)) chan<- MQTTMessage {
 	var publishChan = make(chan MQTTMessage)
 	go func() {
 		for msg := range publishChan {
@@ -94,9 +94,9 @@ func MQTTMakePublishChan(client mqtt.Client, logger *log.Logger) chan<- MQTTMess
 			var payload, pErr = msg.Payload()
 
 			if pErr != nil {
-				logger.Printf("Error marshalling outgoind payload. Topic: %s, Error: %s", topic_str, pErr)
+				log_cb(fmt.Sprintf("Error marshalling outgoind payload. Topic: %s, Error: %s", topic_str, pErr))
 			} else {
-				logger.Printf("Sending message - Topic: %s, Payload: %s\n", topic_str, payload)
+				log_cb(fmt.Sprintf("Sending message - Topic: %s, Payload: %s\n", topic_str, payload))
 				client.Publish(topic_str, 2, msg.Retained(), payload)
 			}
 		}
