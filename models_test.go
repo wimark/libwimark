@@ -36,7 +36,7 @@ func TestEnumSecurity(t *testing.T) {
 	var d = &WPA2PersonalData{}
 	d.Suites = []SecuritySuite{SecuritySuite{TKIP{}}}
 	d.PSK = "qwerty"
-	var expectation = EnumSecurity{T: SecurityType{WPA2Personal{}}, D: d}
+	var expectation = EnumSecurity{Type: SecurityType{WPA2Personal{}}, Data: d}
 	var result EnumSecurity
 	var err = json.Unmarshal(fixture, &result)
 
@@ -73,8 +73,8 @@ func TestWLAN(t *testing.T) {
 		SSID:        "qwertyasdfgh",
 		Description: "This is my pretty little honeypot",
 		Security: &EnumSecurity{
-			T: SecurityType{WPA2Personal{}},
-			D: d,
+			Type: SecurityType{WPA2Personal{}},
+			Data: d,
 		},
 		VLAN: 5,
 	}
@@ -178,8 +178,8 @@ func TestCPE(t *testing.T) {
 
 	var i CPEInterface
 	i.Addr = "macaddr0"
-	i.T = CPEInterfaceType{InterfaceWiFi{}}
-	i.D = d
+	i.Type = CPEInterfaceType{InterfaceWiFi{}}
+	i.Data = d
 
 	var caps Capabilities
 	caps.Channels = []CapChannel{
