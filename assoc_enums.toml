@@ -30,7 +30,7 @@ SystemEventClientDisconnected        = "ClientDisconnectedData"
 SystemEventServiceFatalError         = "ServiceFatalErrorData"
 SystemEventServiceConnected          = "ServiceConnectedData"
 SystemEventServiceDisconnected       = "null"
-SystemEventStatDaemonSettingsChanged = "null"
+SystemEventDaemonSettingsChanged     = "null"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"

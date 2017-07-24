@@ -498,5 +498,10 @@ type WirelessClient struct {
 	Cpe_id               string `json:"cpe_id"`
 	Channel              int    `json:"channel"`
 	Rssi                 int    `json:"rssi"`
-	Timestamp            int    `json:"timestamp"`
+	Timestamp            int64  `json:"timestamp"`
+	In_packets           int64  `json:"in_packets"`
+	Out_packets          int64  `json:"out_packets"`
+	In_kbytes            int64  `json:"in_kbytes"`
+	Out_kbytes           int64  `json:"out_kbytes"`
+	State                WirelessClientState
 }

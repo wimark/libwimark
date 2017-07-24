@@ -49,7 +49,7 @@ SystemEventClientDisconnected        = { string = "CLIENT_DISCONNECTED"  }
 SystemEventServiceFatalError         = { string = "SERVICE_FATAL_ERROR"  }
 SystemEventServiceConnected          = { string = "SERVICE_CONNECTED"  }
 SystemEventServiceDisconnected       = { string = "SERVICE_DISCONNECTED"  }
-SystemEventStatDaemonSettingsChanged = { string = "STAT_DAEMON_SETTINGS_CHANGE"  }
+SystemEventDaemonSettingsChanged = { string = "DAEMON_SETTINGS_CHANGE"  }
 
 [SystemEventLevel]
 prefix = "SystemEventLevel"
@@ -116,3 +116,10 @@ prefix = "WirelessClient"
 [WirelessClientType.variants]
 Camera = { string = "CameraClient" }
 Other  = { string = "OtherClient" }
+
+[WirelessClientState]
+prefix = "WirelessClientState"
+[WirelessClientState.variants]
+CONNECTED     = { string = "CONNECTED" }
+DISCONNECTED  = { string = "DISCONNECTED" }
+

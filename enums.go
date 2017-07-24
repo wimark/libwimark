@@ -1567,6 +1567,10 @@ type SystemEventClientDisconnected struct{}
 
 func (SystemEventClientDisconnected) SystemEventObjectTypeIfaceFunc() {}
 
+type SystemEventDaemonSettingsChanged struct{}
+
+func (SystemEventDaemonSettingsChanged) SystemEventObjectTypeIfaceFunc() {}
+
 type SystemEventMonitorRuleViolation struct{}
 
 func (SystemEventMonitorRuleViolation) SystemEventObjectTypeIfaceFunc() {}
@@ -1582,10 +1586,6 @@ func (SystemEventServiceDisconnected) SystemEventObjectTypeIfaceFunc() {}
 type SystemEventServiceFatalError struct{}
 
 func (SystemEventServiceFatalError) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventStatDaemonSettingsChanged struct{}
-
-func (SystemEventStatDaemonSettingsChanged) SystemEventObjectTypeIfaceFunc() {}
 func (self *SystemEventObjectType) String() string {
 	switch self.SystemEventObjectTypeIface.(type) {
 	case SystemEventCPEConfigurationError:
@@ -1598,6 +1598,8 @@ func (self *SystemEventObjectType) String() string {
 		return "CLIENT_CONNECTED"
 	case SystemEventClientDisconnected:
 		return "CLIENT_DISCONNECTED"
+	case SystemEventDaemonSettingsChanged:
+		return "DAEMON_SETTINGS_CHANGE"
 	case SystemEventMonitorRuleViolation:
 		return "MONITOR_RULE_VIOLATION"
 	case SystemEventServiceConnected:
@@ -1606,8 +1608,6 @@ func (self *SystemEventObjectType) String() string {
 		return "SERVICE_DISCONNECTED"
 	case SystemEventServiceFatalError:
 		return "SERVICE_FATAL_ERROR"
-	case SystemEventStatDaemonSettingsChanged:
-		return "STAT_DAEMON_SETTINGS_CHANGE"
 
 	}
 	panic(errors.New("Not implemented"))
@@ -1625,6 +1625,8 @@ func (self SystemEventObjectType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("CLIENT_CONNECTED")
 	case SystemEventClientDisconnected:
 		return json.Marshal("CLIENT_DISCONNECTED")
+	case SystemEventDaemonSettingsChanged:
+		return json.Marshal("DAEMON_SETTINGS_CHANGE")
 	case SystemEventMonitorRuleViolation:
 		return json.Marshal("MONITOR_RULE_VIOLATION")
 	case SystemEventServiceConnected:
@@ -1633,8 +1635,6 @@ func (self SystemEventObjectType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("SERVICE_DISCONNECTED")
 	case SystemEventServiceFatalError:
 		return json.Marshal("SERVICE_FATAL_ERROR")
-	case SystemEventStatDaemonSettingsChanged:
-		return json.Marshal("STAT_DAEMON_SETTINGS_CHANGE")
 
 	}
 	return nil, errors.New("Not implemented")
@@ -1656,6 +1656,8 @@ func (self SystemEventObjectType) GetBSON() (interface{}, error) {
 		return "CLIENT_CONNECTED", nil
 	case SystemEventClientDisconnected:
 		return "CLIENT_DISCONNECTED", nil
+	case SystemEventDaemonSettingsChanged:
+		return "DAEMON_SETTINGS_CHANGE", nil
 	case SystemEventMonitorRuleViolation:
 		return "MONITOR_RULE_VIOLATION", nil
 	case SystemEventServiceConnected:
@@ -1664,8 +1666,6 @@ func (self SystemEventObjectType) GetBSON() (interface{}, error) {
 		return "SERVICE_DISCONNECTED", nil
 	case SystemEventServiceFatalError:
 		return "SERVICE_FATAL_ERROR", nil
-	case SystemEventStatDaemonSettingsChanged:
-		return "STAT_DAEMON_SETTINGS_CHANGE", nil
 
 	}
 	return nil, errors.New("Not implemented")
@@ -1692,6 +1692,9 @@ func (self *SystemEventObjectType) UnmarshalJSON(b []byte) error {
 	case "CLIENT_DISCONNECTED":
 		self.SystemEventObjectTypeIface = SystemEventClientDisconnected{}
 		return nil
+	case "DAEMON_SETTINGS_CHANGE":
+		self.SystemEventObjectTypeIface = SystemEventDaemonSettingsChanged{}
+		return nil
 	case "MONITOR_RULE_VIOLATION":
 		self.SystemEventObjectTypeIface = SystemEventMonitorRuleViolation{}
 		return nil
@@ -1703,9 +1706,6 @@ func (self *SystemEventObjectType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SERVICE_FATAL_ERROR":
 		self.SystemEventObjectTypeIface = SystemEventServiceFatalError{}
-		return nil
-	case "STAT_DAEMON_SETTINGS_CHANGE":
-		self.SystemEventObjectTypeIface = SystemEventStatDaemonSettingsChanged{}
 		return nil
 
 	}
@@ -1734,6 +1734,9 @@ func (self *SystemEventObjectType) SetBSON(v bson.Raw) error {
 	case "CLIENT_DISCONNECTED":
 		self.SystemEventObjectTypeIface = SystemEventClientDisconnected{}
 		return nil
+	case "DAEMON_SETTINGS_CHANGE":
+		self.SystemEventObjectTypeIface = SystemEventDaemonSettingsChanged{}
+		return nil
 	case "MONITOR_RULE_VIOLATION":
 		self.SystemEventObjectTypeIface = SystemEventMonitorRuleViolation{}
 		return nil
@@ -1746,12 +1749,98 @@ func (self *SystemEventObjectType) SetBSON(v bson.Raw) error {
 	case "SERVICE_FATAL_ERROR":
 		self.SystemEventObjectTypeIface = SystemEventServiceFatalError{}
 		return nil
-	case "STAT_DAEMON_SETTINGS_CHANGE":
-		self.SystemEventObjectTypeIface = SystemEventStatDaemonSettingsChanged{}
-		return nil
 
 	}
 	return errors.New("Unknown SystemEventObjectType")
+
+}
+
+type WirelessClientStateIface interface {
+	WirelessClientStateIfaceFunc()
+}
+type WirelessClientState struct{ WirelessClientStateIface }
+
+func (self *WirelessClientState) Value() WirelessClientStateIface {
+	return self.WirelessClientStateIface
+}
+
+type WirelessClientStateCONNECTED struct{}
+
+func (WirelessClientStateCONNECTED) WirelessClientStateIfaceFunc() {}
+
+type WirelessClientStateDISCONNECTED struct{}
+
+func (WirelessClientStateDISCONNECTED) WirelessClientStateIfaceFunc() {}
+func (self *WirelessClientState) String() string {
+	switch self.WirelessClientStateIface.(type) {
+	case WirelessClientStateCONNECTED:
+		return "CONNECTED"
+	case WirelessClientStateDISCONNECTED:
+		return "DISCONNECTED"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self WirelessClientState) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
+	case WirelessClientStateCONNECTED:
+		return json.Marshal("CONNECTED")
+	case WirelessClientStateDISCONNECTED:
+		return json.Marshal("DISCONNECTED")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self WirelessClientState) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("WirelessClientState cannot be nil")
+	}
+	switch v.(type) {
+	case WirelessClientStateCONNECTED:
+		return "CONNECTED", nil
+	case WirelessClientStateDISCONNECTED:
+		return "DISCONNECTED", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *WirelessClientState) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "CONNECTED":
+		self.WirelessClientStateIface = WirelessClientStateCONNECTED{}
+		return nil
+	case "DISCONNECTED":
+		self.WirelessClientStateIface = WirelessClientStateDISCONNECTED{}
+		return nil
+
+	}
+	return errors.New("Unknown WirelessClientState")
+
+}
+
+func (self *WirelessClientState) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "CONNECTED":
+		self.WirelessClientStateIface = WirelessClientStateCONNECTED{}
+		return nil
+	case "DISCONNECTED":
+		self.WirelessClientStateIface = WirelessClientStateDISCONNECTED{}
+		return nil
+
+	}
+	return errors.New("Unknown WirelessClientState")
 
 }
 
