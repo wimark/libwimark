@@ -57,6 +57,9 @@ type WLAN struct {
 	Hidden            bool          `json:"hidden"`
 	NasID             *string       `json:"nas_id"`
 	RadiusAcctServers []UUID        `json:"radius_acct_servers"`
+	WhiteList         []string      `json:"whitelist"`
+	BlackList         []string      `json:"blacklist"`
+	FilterMode        MacFilterType `json:"filtermode"`
 }
 
 type InterfaceConfiguration struct {

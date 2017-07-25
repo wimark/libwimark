@@ -123,3 +123,9 @@ prefix = "WirelessClientState"
 CONNECTED     = { string = "CONNECTED" }
 DISCONNECTED  = { string = "DISCONNECTED" }
 
+[MacFilterType]
+prefix = "MacFilter"
+[MacFilterType.variants]
+BlackList = { string = "BlackList" }
+WhiteList = { string = "WhiteList" }
+None      = { string = "None"      }

@@ -673,6 +673,109 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 
 }
 
+type MacFilterTypeIface interface {
+	MacFilterTypeIfaceFunc()
+}
+type MacFilterType struct{ MacFilterTypeIface }
+
+func (self *MacFilterType) Value() MacFilterTypeIface { return self.MacFilterTypeIface }
+
+type MacFilterBlackList struct{}
+
+func (MacFilterBlackList) MacFilterTypeIfaceFunc() {}
+
+type MacFilterNone struct{}
+
+func (MacFilterNone) MacFilterTypeIfaceFunc() {}
+
+type MacFilterWhiteList struct{}
+
+func (MacFilterWhiteList) MacFilterTypeIfaceFunc() {}
+func (self *MacFilterType) String() string {
+	switch self.MacFilterTypeIface.(type) {
+	case MacFilterBlackList:
+		return "BlackList"
+	case MacFilterNone:
+		return "None"
+	case MacFilterWhiteList:
+		return "WhiteList"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self MacFilterType) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
+	case MacFilterBlackList:
+		return json.Marshal("BlackList")
+	case MacFilterNone:
+		return json.Marshal("None")
+	case MacFilterWhiteList:
+		return json.Marshal("WhiteList")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self MacFilterType) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("MacFilterType cannot be nil")
+	}
+	switch v.(type) {
+	case MacFilterBlackList:
+		return "BlackList", nil
+	case MacFilterNone:
+		return "None", nil
+	case MacFilterWhiteList:
+		return "WhiteList", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *MacFilterType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "BlackList":
+		self.MacFilterTypeIface = MacFilterBlackList{}
+		return nil
+	case "None":
+		self.MacFilterTypeIface = MacFilterNone{}
+		return nil
+	case "WhiteList":
+		self.MacFilterTypeIface = MacFilterWhiteList{}
+		return nil
+
+	}
+	return errors.New("Unknown MacFilterType")
+
+}
+
+func (self *MacFilterType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "BlackList":
+		self.MacFilterTypeIface = MacFilterBlackList{}
+		return nil
+	case "None":
+		self.MacFilterTypeIface = MacFilterNone{}
+		return nil
+	case "WhiteList":
+		self.MacFilterTypeIface = MacFilterWhiteList{}
+		return nil
+
+	}
+	return errors.New("Unknown MacFilterType")
+
+}
+
 type ModuleIface interface {
 	ModuleIfaceFunc()
 }
