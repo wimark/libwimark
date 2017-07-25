@@ -351,7 +351,7 @@ type StatEventRule struct {
 type SystemEvent struct {
 	SystemEventObject `bson:",inline" json:",inline"`
 	Timestamp         int64            `json:"timestamp"`
-	Subject_id        UUID             `json:"subject_id"`
+	Subject_id        string           `json:"subject_id"`
 	Level             SystemEventLevel `json:"level"`
 }
 
