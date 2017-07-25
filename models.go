@@ -362,17 +362,17 @@ type MonitorRuleViolationData struct {
 }
 
 type ClientConnectedData struct {
-	Mac     string `json:"mac"`
-	Freq    string `json:"freq"`
-	Cpe_id  UUID   `json:"cpe_id"`
-	Wlan_id UUID   `json:"wlan_id"`
+	Session_id string `json:"session_id"`
+	Freq       string `json:"freq"`
+	Cpe_id     UUID   `json:"cpe_id"`
+	Wlan_id    UUID   `json:"wlan_id"`
 }
 
 type ClientDisconnectedData struct {
-	Mac     string `json:"mac"`
-	Freq    string `json:"freq"`
-	Cpe_id  UUID   `json:"cpe_id"`
-	Wlan_id UUID   `json:"wlan_id"`
+	Session_id string `json:"session_id"`
+	Freq       string `json:"freq"`
+	Cpe_id     UUID   `json:"cpe_id"`
+	Wlan_id    UUID   `json:"wlan_id"`
 }
 
 type CPEConfigurationErrorData struct {
