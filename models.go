@@ -349,10 +349,16 @@ type StatEventRule struct {
 
 // Events
 type SystemEvent struct {
-	SystemEventObject `bson:",inline" json:",inline"`
-	Timestamp         int64            `json:"timestamp"`
-	Subject_id        string           `json:"subject_id"`
-	Level             SystemEventLevel `json:"level"`
+	Type       SystemEventObjectType
+	Data       interface{}      `bson:"data" json:"data"`
+	Timestamp  int64            `json:"timestamp"`
+	Subject_id string           `json:"subject_id"`
+	Level      SystemEventLevel `json:"level"`
+}
+
+func (se *SystemEvent) GetEvent() *SystemEventObject {
+	seo := &SystemEventObject{Data: se.Data, Type: se.Type}
+	return seo
 }
 
 type CPEConnectedData struct {
@@ -501,7 +507,8 @@ type WirelessClient struct {
 	Net_mask             string `json:"net_mask"`
 	Wlan_id              string `json:"wlan_id"`
 	Cpe_id               string `json:"cpe_id"`
-	Channel              int    `json:"channel"`
+	Freq                 string `json:"freq"`
+	Radio_id             string `json:"radio_id"`
 	Rssi                 int    `json:"rssi"`
 	Timestamp            int64  `json:"timestamp"`
 	In_packets           int64  `json:"in_packets"`

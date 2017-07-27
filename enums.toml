@@ -16,15 +16,16 @@ Future  = { string = "future"  }
 [Module]
 prefix = "Module"
 [Module.variants]
-Any     = { string = "+"       }
-Dummy   = { string = "DUMMY"   }
-Backend = { string = "BACKEND" }
-CPE     = { string = "CPE"     }
-Config  = { string = "CONFIG"  }
-DB      = { string = "DB"      }
-Stat    = { string = "STAT"    }
-Monitor = { string = "MONITOR" }
-LBS     = { string = "LBS"     }
+Any        = { string = "+"           }
+Dummy      = { string = "DUMMY"       }
+Backend    = { string = "BACKEND"     }
+CPE        = { string = "CPE"         }
+Config     = { string = "CONFIG"      }
+DB         = { string = "DB"          }
+Stat       = { string = "STAT"        }
+Monitor    = { string = "MONITOR"     }
+LBS        = { string = "LBS"         }
+ClientStat = { string = "CLIENT_STAT" }
 
 [Operation]
 prefix = "Operation"

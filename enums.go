@@ -795,6 +795,10 @@ type ModuleCPE struct{}
 
 func (ModuleCPE) ModuleIfaceFunc() {}
 
+type ModuleClientStat struct{}
+
+func (ModuleClientStat) ModuleIfaceFunc() {}
+
 type ModuleConfig struct{}
 
 func (ModuleConfig) ModuleIfaceFunc() {}
@@ -826,6 +830,8 @@ func (self *Module) String() string {
 		return "BACKEND"
 	case ModuleCPE:
 		return "CPE"
+	case ModuleClientStat:
+		return "CLIENT_STAT"
 	case ModuleConfig:
 		return "CONFIG"
 	case ModuleDB:
@@ -851,6 +857,8 @@ func (self Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("BACKEND")
 	case ModuleCPE:
 		return json.Marshal("CPE")
+	case ModuleClientStat:
+		return json.Marshal("CLIENT_STAT")
 	case ModuleConfig:
 		return json.Marshal("CONFIG")
 	case ModuleDB:
@@ -880,6 +888,8 @@ func (self Module) GetBSON() (interface{}, error) {
 		return "BACKEND", nil
 	case ModuleCPE:
 		return "CPE", nil
+	case ModuleClientStat:
+		return "CLIENT_STAT", nil
 	case ModuleConfig:
 		return "CONFIG", nil
 	case ModuleDB:
@@ -911,6 +921,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CPE":
 		self.ModuleIface = ModuleCPE{}
+		return nil
+	case "CLIENT_STAT":
+		self.ModuleIface = ModuleClientStat{}
 		return nil
 	case "CONFIG":
 		self.ModuleIface = ModuleConfig{}
@@ -950,6 +963,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "CPE":
 		self.ModuleIface = ModuleCPE{}
+		return nil
+	case "CLIENT_STAT":
+		self.ModuleIface = ModuleClientStat{}
 		return nil
 	case "CONFIG":
 		self.ModuleIface = ModuleConfig{}
