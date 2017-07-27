@@ -369,6 +369,7 @@ type ClientConnectedData struct {
 	Freq       string `json:"freq"`
 	Cpe_id     UUID   `json:"cpe_id"`
 	Wlan_id    UUID   `json:"wlan_id"`
+	Radio_id   string `json:"radio_id"`
 }
 
 type ClientDisconnectedData struct {
@@ -376,6 +377,7 @@ type ClientDisconnectedData struct {
 	Freq       string `json:"freq"`
 	Cpe_id     UUID   `json:"cpe_id"`
 	Wlan_id    UUID   `json:"wlan_id"`
+	Radio_id   string `json:"radio_id"`
 }
 
 type CPEConfigurationErrorData struct {
@@ -494,7 +496,7 @@ type LBSClientCoordsMask struct {
 
 type WirelessClient struct {
 	WirelessClientObject `json:",inline" bson:",inline"`
-	Mac                  string `json:"mac"`
+	Mac                  string `json:"mac" bson:"_id"`
 	Ip                   string `json:"ip"`
 	Net_mask             string `json:"net_mask"`
 	Wlan_id              string `json:"wlan_id"`
