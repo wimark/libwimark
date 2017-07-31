@@ -343,8 +343,136 @@ type CPEPollSettings struct {
 }
 
 type StatEventRule struct {
-	StatEventRuleObject `json:",inline" bson:",inline"`
-	Name                string `json:"name"`
+	StatEventRuleObject
+	Name string `json:"name"`
+}
+
+func (self *StatEventRule) MarshalJSON() ([]byte, error) {
+	var b []byte
+	{
+		var err error
+		b, err = json.Marshal(self.StatEventRuleObject)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	var doc Document
+	{
+		var err error
+		err = json.Unmarshal(b, &doc)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	doc["name"] = self.Name
+
+	return json.Marshal(doc)
+}
+
+func (self *StatEventRule) UnmarshalJSON(b []byte) error {
+	var doc map[string]json.RawMessage
+	var err = json.Unmarshal(b, &doc)
+	if err != nil {
+		return err
+	}
+
+	if doc == nil {
+		return nil
+	}
+
+	// may be there is a way how to make code more reusable
+	// don't have time to figure out
+
+	var nameRaw, nameExists = doc["name"]
+	if nameExists {
+		var name string
+		var tsErr = json.Unmarshal(nameRaw, &name)
+		if tsErr == nil {
+			self.Name = name
+		} else {
+			return tsErr
+		}
+	}
+
+	delete(doc, "name")
+
+	var v, _ = json.Marshal(doc)
+
+	return self.StatEventRuleObject.UnmarshalJSON(v)
+}
+
+func (self *StatEventRule) GetBSON() (interface{}, error) {
+	var out = bson.M{}
+
+	var obj_b []byte
+	{
+		var err error
+		obj_b, err = bson.Marshal(self.StatEventRuleObject)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	var obj bson.M
+	{
+		var err error
+		err = bson.Unmarshal(obj_b, &obj)
+		if err != nil {
+			return nil, err
+		}
+	}
+	out = obj
+	out["name"] = self.Name
+
+	return out, nil
+}
+
+func (self *StatEventRule) SetBSON(raw bson.Raw) error {
+	var in = bson.M{}
+	{
+		var err error
+		err = raw.Unmarshal(&in)
+		if err != nil {
+			return err
+		}
+	}
+
+	//name
+	var v_name, k_found = in["name"]
+	if !k_found {
+		return errors.New("No name found")
+	}
+
+	var obj_b []byte
+	{
+		var err error
+		obj_b, err = bson.Marshal(v_name)
+		if err != nil {
+			return err
+		}
+	}
+	var err error
+	err = bson.Unmarshal(obj_b, &self.Name)
+	if err != nil {
+		return err
+	}
+	delete(in, "name")
+
+	{
+		var err error
+		obj_b, err = bson.Marshal(in)
+		if err != nil {
+			return err
+		}
+	}
+	err = bson.Unmarshal(obj_b, &self)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // Events
@@ -355,7 +483,7 @@ type SystemEvent struct {
 	Level      SystemEventLevel `json:"level"`
 }
 
-func (self SystemEvent) MarshalJSON() ([]byte, error) {
+func (self *SystemEvent) MarshalJSON() ([]byte, error) {
 	var b []byte
 	{
 		var err error
