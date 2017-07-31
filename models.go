@@ -85,6 +85,7 @@ type WiFiData struct {
 	Channel   string `json:"channel,omitempty"`
 	TxPower   string `json:"txpower,omitempty"`
 	WLANs     []UUID `json:"wlans,omitempty"`
+	ChanList  []int  `json:"chanlist,omitempty"`
 }
 
 type CPEInterface struct {
