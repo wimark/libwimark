@@ -517,19 +517,30 @@ type LBSClientCoordsMask struct {
 }
 
 type WirelessClient struct {
-	WirelessClientObject `json:",inline" bson:",inline"`
-	Mac                  string `json:"mac" bson:"_id"`
-	Ip                   string `json:"ip"`
-	Net_mask             string `json:"net_mask"`
-	Wlan_id              string `json:"wlan_id"`
-	Cpe_id               string `json:"cpe_id"`
-	Freq                 string `json:"freq"`
-	Radio_id             string `json:"radio_id"`
-	Rssi                 int    `json:"rssi"`
-	Timestamp            int64  `json:"timestamp"`
-	In_packets           int64  `json:"in_packets"`
-	Out_packets          int64  `json:"out_packets"`
-	In_kbytes            int64  `json:"in_kbytes"`
-	Out_kbytes           int64  `json:"out_kbytes"`
-	State                WirelessClientState
+	Type        WirelessClientType
+	Data        interface{} `bson:"data" json:"data"`
+	Mac         string      `json:"mac" bson:"_id"`
+	Ip          string      `json:"ip"`
+	Net_mask    string      `json:"net_mask"`
+	Wlan_id     string      `json:"wlan_id"`
+	Cpe_id      string      `json:"cpe_id"`
+	Freq        string      `json:"freq"`
+	Radio_id    string      `json:"radio_id"`
+	Rssi        int         `json:"rssi"`
+	Timestamp   int64       `json:"timestamp"`
+	In_packets  int64       `json:"in_packets"`
+	Out_packets int64       `json:"out_packets"`
+	In_kbytes   int64       `json:"in_kbytes"`
+	Out_kbytes  int64       `json:"out_kbytes"`
+	State       WirelessClientState
+}
+
+func (wc *WirelessClient) GetSpecificWCInfo() *WirelessClientObject {
+	wco := &WirelessClientObject{Data: wc.Data, Type: wc.Type}
+	return wco
+}
+
+func (wc *WirelessClient) SetSpecificWCInfo(wco *WirelessClientObject) {
+	wc.Type = wco.Type
+	wc.Data = wco.Data
 }
