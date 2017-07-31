@@ -361,13 +361,20 @@ func (se *SystemEvent) GetEvent() *SystemEventObject {
 	return seo
 }
 
+func (se *SystemEvent) SetEvent(seo *SystemEventObject) {
+	se.Type = seo.Type
+	se.Data = seo.Data
+}
+
 type CPEConnectedData struct {
-	Cpeagent_version string `json:"cpeagent_version"`
-	Os_version       string `json:"os_version"`
+	Version string `json:"version"`
+	Commit  string `json:"commit"`
+	Build   string `json:"build"`
 }
 
 type MonitorRuleViolationData struct {
-	Cpe_id UUID `json:"cpe_id"`
+	Rule_name string `json:"rule_name"`
+	Cpe_id    UUID   `json:"cpe_id"`
 }
 
 type ClientConnectedData struct {
@@ -387,7 +394,14 @@ type ClientDisconnectedData struct {
 }
 
 type CPEConfigurationErrorData struct {
-	Description string `json:"description"`
+	Wifi        WifiConfigurationError `json:"wifi,omitempty"`
+	Radius      string                 `json:"radius,omitempty"`
+	Description string                 `json:"description,omitempty"`
+}
+
+type WifiConfigurationError struct {
+	Wlan_id  UUID `json:"wlan_id"`
+	Radio_id UUID `json:"radio_id"`
 }
 
 type ServiceFatalErrorData struct {
@@ -396,7 +410,9 @@ type ServiceFatalErrorData struct {
 }
 
 type ServiceConnectedData struct {
-	Sw_version string `json:"sw_version"`
+	Version string `json:"version"`
+	Commit  string `json:"commit"`
+	Build   string `json:"build"`
 }
 
 type LBSClientData struct {
