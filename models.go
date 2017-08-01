@@ -5,7 +5,6 @@ import (
 	"errors"
 	"sort"
 
-	"fmt"
 	"github.com/vorot93/goutil"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -454,7 +453,6 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 	var err error
 	obj_b, err := bson.Marshal(in)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 	err = bson.Unmarshal(obj_b, &self.StatEventRuleObject)
