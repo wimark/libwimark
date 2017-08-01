@@ -5,6 +5,7 @@ import (
 	"errors"
 	"sort"
 
+	"fmt"
 	"github.com/vorot93/goutil"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -441,33 +442,22 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 
 	//name
 	var v_name, k_found = in["name"]
+
 	if !k_found {
 		return errors.New("No name found")
 	}
 
-	var obj_b []byte
-	{
-		var err error
-		obj_b, err = bson.Marshal(v_name)
-		if err != nil {
-			return err
-		}
-	}
-	var err error
-	err = bson.Unmarshal(obj_b, &self.Name)
-	if err != nil {
-		return err
-	}
+	self.Name = v_name.(string)
+
 	delete(in, "name")
 
-	{
-		var err error
-		obj_b, err = bson.Marshal(in)
-		if err != nil {
-			return err
-		}
+	var err error
+	obj_b, err := bson.Marshal(in)
+	if err != nil {
+		fmt.Println(err)
+		return err
 	}
-	err = bson.Unmarshal(obj_b, &self)
+	err = bson.Unmarshal(obj_b, &self.StatEventRuleObject)
 	if err != nil {
 		return err
 	}
@@ -615,20 +605,8 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 	if !k_found {
 		return errors.New("No timestamp found")
 	}
+	self.Timestamp = v_timestamp.(int64)
 
-	var obj_b []byte
-	{
-		var err error
-		obj_b, err = bson.Marshal(v_timestamp)
-		if err != nil {
-			return err
-		}
-	}
-	var err error
-	err = bson.Unmarshal(obj_b, &self.Timestamp)
-	if err != nil {
-		return err
-	}
 	delete(in, "timestamp")
 
 	//subject_id
@@ -637,17 +615,8 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 		return errors.New("No subject found")
 	}
 
-	{
-		var err error
-		obj_b, err = bson.Marshal(v_subj)
-		if err != nil {
-			return err
-		}
-	}
-	err = bson.Unmarshal(obj_b, &self.Subject_id)
-	if err != nil {
-		return err
-	}
+	self.Subject_id = v_subj.(string)
+
 	delete(in, "subject_id")
 
 	//subject_id
@@ -656,12 +625,10 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 		return errors.New("No subject found")
 	}
 
-	{
-		var err error
-		obj_b, err = bson.Marshal(v_level)
-		if err != nil {
-			return err
-		}
+	var err error
+	obj_b, err := bson.Marshal(v_level)
+	if err != nil {
+		return err
 	}
 	err = bson.Unmarshal(obj_b, &self.Level)
 	if err != nil {
@@ -676,7 +643,7 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 			return err
 		}
 	}
-	err = bson.Unmarshal(obj_b, &self)
+	err = bson.Unmarshal(obj_b, &self.SystemEventObject)
 	if err != nil {
 		return err
 	}
