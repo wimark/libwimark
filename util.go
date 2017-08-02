@@ -2,6 +2,7 @@ package libwimark
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"regexp"
 	"strconv"
@@ -22,6 +23,8 @@ const (
 	TOPIC_RSP_REGEXP    = `RSP/(.*)/(.*)/(.*)/(.*)/(.*)`
 )
 
+var parseErr = errors.New("Failed to parse topic")
+
 type Topic interface {
 	TopicPath() string
 }
@@ -31,7 +34,8 @@ type BroadcastTopic struct {
 	SenderID     string
 }
 
-func ParseBroadcastTopic(s string, format string) *BroadcastTopic {
+func ParseBroadcastTopic(s string, format string) (BroadcastTopic, error) {
+	var v BroadcastTopic
 	var r = regexp.MustCompile(format)
 	var ds = r.FindAllStringSubmatch(s, -1)
 	if ds != nil && len(ds) == 1 {
@@ -40,17 +44,16 @@ func ParseBroadcastTopic(s string, format string) *BroadcastTopic {
 			var smodule Module
 			var smodule_err = json.Unmarshal([]byte(strconv.Quote(data[1])), &smodule)
 			if smodule_err == nil {
-				var v BroadcastTopic
 
 				v.SenderModule = smodule
 				v.SenderID = data[2]
 
-				return &v
+				return v, nil
 			}
 		}
 	}
 
-	return nil
+	return v, parseErr
 }
 
 func (self BroadcastTopic) TopicPathGeneric(format string) string {
@@ -61,8 +64,9 @@ func (self BroadcastTopic) TopicPathGeneric(format string) string {
 
 type StatusTopic BroadcastTopic
 
-func ParseStatusTopic(s string) *StatusTopic {
-	return (*StatusTopic)(ParseBroadcastTopic(s, TOPIC_STATUS_REGEXP))
+func ParseStatusTopic(s string) (StatusTopic, error) {
+	var v, err = ParseBroadcastTopic(s, TOPIC_STATUS_REGEXP)
+	return StatusTopic(v), err
 }
 
 func (self StatusTopic) TopicPath() string {
@@ -71,8 +75,9 @@ func (self StatusTopic) TopicPath() string {
 
 type LogTopic BroadcastTopic
 
-func ParseLogTopic(s string) *LogTopic {
-	return (*LogTopic)(ParseBroadcastTopic(s, TOPIC_LOG_REGEXP))
+func ParseLogTopic(s string) (LogTopic, error) {
+	var v, err = ParseBroadcastTopic(s, TOPIC_LOG_REGEXP)
+	return LogTopic(v), err
 }
 
 func (self LogTopic) TopicPath() string {
@@ -85,7 +90,8 @@ type EventTopic struct {
 	Type         SystemEventObjectType
 }
 
-func ParseEventTopic(s string) *EventTopic {
+func ParseEventTopic(s string) (EventTopic, error) {
+	var v EventTopic
 	var r = regexp.MustCompile(TOPIC_EVENT_REGEXP)
 	var ds = r.FindAllStringSubmatch(s, -1)
 	if ds != nil && len(ds) == 1 {
@@ -96,18 +102,16 @@ func ParseEventTopic(s string) *EventTopic {
 			var smodule_err = json.Unmarshal([]byte(strconv.Quote(data[1])), &smodule)
 			var event_type_err = json.Unmarshal([]byte(strconv.Quote(data[3])), &event_type)
 			if smodule_err == nil && event_type_err == nil {
-				var v EventTopic
-
 				v.SenderModule = smodule
 				v.SenderID = data[2]
 				v.Type = event_type
 
-				return &v
+				return v, nil
 			}
 		}
 	}
 
-	return nil
+	return v, parseErr
 }
 
 func (self EventTopic) TopicPath() string {
@@ -149,7 +153,8 @@ func (self RequestTopic) ToResponse() ResponseTopic {
 	}
 }
 
-func ParseRequestTopic(s string) *RequestTopic {
+func ParseRequestTopic(s string) (RequestTopic, error) {
+	var v RequestTopic
 	var r = regexp.MustCompile(TOPIC_REQ_REGEXP)
 	var ds = r.FindAllStringSubmatch(s, -1)
 	if ds != nil && len(ds) == 1 {
@@ -164,7 +169,6 @@ func ParseRequestTopic(s string) *RequestTopic {
 			var op_err = json.Unmarshal([]byte(strconv.Quote(data[6])), &op)
 
 			if smodule_err == nil && rmodule_err == nil && op_err == nil {
-				var v RequestTopic
 
 				v.SenderModule = smodule
 				v.SenderID = data[2]
@@ -173,12 +177,12 @@ func ParseRequestTopic(s string) *RequestTopic {
 				v.RequestID = data[5]
 				v.Operation = op
 
-				return &v
+				return v, nil
 			}
 		}
 	}
 
-	return nil
+	return v, parseErr
 }
 
 type ResponseTopic struct {
@@ -200,7 +204,8 @@ func (self ResponseTopic) TopicPath() string {
 	return fmt.Sprintf(TOPIC_RSP_FORMAT, sm_s, self.SenderID, rm_s, self.ReceiverID, self.RequestID)
 }
 
-func ParseResponseTopic(s string) *ResponseTopic {
+func ParseResponseTopic(s string) (ResponseTopic, error) {
+	var v ResponseTopic
 	var r = regexp.MustCompile(TOPIC_RSP_REGEXP)
 	var ds = r.FindAllStringSubmatch(s, -1)
 	if ds != nil && len(ds) == 1 {
@@ -213,50 +218,48 @@ func ParseResponseTopic(s string) *ResponseTopic {
 			var rmodule_err = json.Unmarshal([]byte(strconv.Quote(data[3])), &rmodule)
 
 			if smodule_err == nil && rmodule_err == nil {
-				var v ResponseTopic
-
 				v.SenderModule = smodule
 				v.SenderID = data[2]
 				v.ReceiverModule = rmodule
 				v.ReceiverID = data[4]
 				v.RequestID = data[5]
 
-				return &v
+				return v, nil
 			}
 		}
 	}
 
-	return nil
+	return v, parseErr
 }
 
 func ParseTopicPath(s string) Topic {
 	{
-		var v = ParseStatusTopic(s)
-		if v != nil {
+		var v, err = ParseStatusTopic(s)
+		if err == nil {
 			return v
 		}
 	}
 	{
-		var v = ParseLogTopic(s)
-		if v != nil {
+		var v, err = ParseLogTopic(s)
+		if err == nil {
 			return v
 		}
 	}
 	{
-		var v = ParseEventTopic(s)
-		if v != nil {
+		var v, err = ParseEventTopic(s)
+		if err == nil {
 			return v
 		}
 	}
 	{
-		var v = ParseRequestTopic(s)
-		if v != nil {
+		var v, err = ParseRequestTopic(s)
+		if err == nil {
 			return v
 		}
 	}
 	{
-		var v = ParseResponseTopic(s)
-		if v != nil {
+		var v, err = ParseResponseTopic(s)
+		if err == nil {
 			return v
 		}
 	}
