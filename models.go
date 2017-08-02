@@ -254,9 +254,10 @@ type CPE struct {
 		Id   UUID   `json:"id"`
 		Name string `json:"name"`
 	} `json:"model"`
-	Interfaces   CPEInterfaces       `json:"interfaces"`
-	ConfigStatus ConfigurationStatus `json:"config_status"`
-	LbsConfig    LBSConfig           `json:"lbs_config"`
+	Interfaces       CPEInterfaces       `json:"interfaces"`
+	ConfigStatus     ConfigurationStatus `json:"config_status"`
+	LbsConfig        LBSConfig           `json:"lbs_config"`
+	StatisticsConfig StatisticsConfig    `json:"stats_config"`
 }
 
 type Stat struct {
@@ -731,6 +732,12 @@ type LBSConfig struct {
 	// in milliseconds
 	ReportPeriod  int `json:"reportperiod,omitempty"`
 	ClientTimeout int `json:"clienttimeout,omitempty"`
+}
+
+type StatisticsConfig struct {
+	Enabled bool `json:"enabled"`
+	// in milliseconds
+	ReportPeriod int `json:"reportperiod,omitempty"`
 }
 
 type SimpleMask struct {
