@@ -60,6 +60,7 @@ type WLAN struct {
 	WhiteList         []string      `json:"whitelist"`
 	BlackList         []string      `json:"blacklist"`
 	FilterMode        MacFilterType `json:"filtermode"`
+	L2Isolate         bool          `json:"l2isolate"`
 }
 
 type InterfaceConfiguration struct {
