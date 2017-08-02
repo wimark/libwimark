@@ -86,19 +86,23 @@ func (self MQTTRawMessage) Retained() bool {
 	return self.R
 }
 
+func MQTTPublishMsg(client mqtt.Client, log_cb func(string), msg MQTTMessage) {
+	var topic_str = msg.Topic().TopicPath()
+	var payload, pErr = msg.Payload()
+
+	if pErr != nil {
+		log_cb(fmt.Sprintf("Error marshalling outgoind payload. Topic: %s, Error: %s", topic_str, pErr))
+	} else {
+		log_cb(fmt.Sprintf("Sending message - Topic: %s, Payload: %s\n", topic_str, payload))
+		client.Publish(topic_str, 2, msg.Retained(), payload)
+	}
+}
+
 func MQTTMakePublishChan(client mqtt.Client, log_cb func(string)) chan<- MQTTMessage {
 	var publishChan = make(chan MQTTMessage)
 	go func() {
 		for msg := range publishChan {
-			var topic_str = msg.Topic().TopicPath()
-			var payload, pErr = msg.Payload()
-
-			if pErr != nil {
-				log_cb(fmt.Sprintf("Error marshalling outgoind payload. Topic: %s, Error: %s", topic_str, pErr))
-			} else {
-				log_cb(fmt.Sprintf("Sending message - Topic: %s, Payload: %s\n", topic_str, payload))
-				client.Publish(topic_str, 2, msg.Retained(), payload)
-			}
+			MQTTPublishMsg(client, log_cb, msg)
 		}
 	}()
 
@@ -107,40 +111,58 @@ func MQTTMakePublishChan(client mqtt.Client, log_cb func(string)) chan<- MQTTMes
 
 type MsgCb func(mqtt.Message)
 
-func MQTTSubscribeSync(client mqtt.Client, topic Topic, cb MsgCb) error {
-	var token = client.Subscribe(topic.TopicPath(), 2, func(_ mqtt.Client, msg mqtt.Message) {
-		cb(msg)
-	})
+func MQTTSubscribeSync(client mqtt.Client, topics []Topic, cb MsgCb) error {
+	if topics != nil {
+		var topiclist = map[string]byte{}
+		for _, t := range topics {
+			if t != nil {
+				topiclist[t.TopicPath()] = 2
+			}
+		}
 
-	token.Wait()
-	var err = token.Error()
-	if err != nil {
-		return err
+		var token = client.SubscribeMultiple(topiclist, func(_ mqtt.Client, msg mqtt.Message) {
+			cb(msg)
+		})
+
+		token.Wait()
+		var err = token.Error()
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
 }
 
-func MQTTMustSubscribeSync(client mqtt.Client, topic Topic, cb MsgCb) {
-	var err = MQTTSubscribeSync(client, topic, cb)
+func MQTTMustSubscribeSync(client mqtt.Client, topics []Topic, cb MsgCb) {
+	var err = MQTTSubscribeSync(client, topics, cb)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func MQTTUnsubscribeSync(client mqtt.Client, topic Topic) error {
-	var token = client.Unsubscribe(topic.TopicPath())
-	token.Wait()
-	var err = token.Error()
-	if err != nil {
-		return err
+func MQTTUnsubscribeSync(client mqtt.Client, topics []Topic) error {
+	var err error
+	if topics != nil {
+		var topiclist = []string{}
+		for _, t := range topics {
+			if t != nil {
+				topiclist = append(topiclist, t.TopicPath())
+			}
+		}
+		var token = client.Unsubscribe(topiclist...)
+		token.Wait()
+		err = token.Error()
+		if err != nil {
+			return err
+		}
 	}
 
 	return err
 }
 
-func MQTTMustUnsubscribeSync(client mqtt.Client, topic Topic) {
-	var err = MQTTUnsubscribeSync(client, topic)
+func MQTTMustUnsubscribeSync(client mqtt.Client, topics []Topic) {
+	var err = MQTTUnsubscribeSync(client, topics)
 	if err != nil {
 		panic(err)
 	}
