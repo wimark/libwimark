@@ -815,6 +815,10 @@ type ModuleLBS struct{}
 
 func (ModuleLBS) ModuleIfaceFunc() {}
 
+type ModuleMQTTLog struct{}
+
+func (ModuleMQTTLog) ModuleIfaceFunc() {}
+
 type ModuleMonitor struct{}
 
 func (ModuleMonitor) ModuleIfaceFunc() {}
@@ -840,6 +844,8 @@ func (self *Module) String() string {
 		return "DUMMY"
 	case ModuleLBS:
 		return "LBS"
+	case ModuleMQTTLog:
+		return "MQTT_LOG"
 	case ModuleMonitor:
 		return "MONITOR"
 	case ModuleStat:
@@ -867,6 +873,8 @@ func (self Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("DUMMY")
 	case ModuleLBS:
 		return json.Marshal("LBS")
+	case ModuleMQTTLog:
+		return json.Marshal("MQTT_LOG")
 	case ModuleMonitor:
 		return json.Marshal("MONITOR")
 	case ModuleStat:
@@ -898,6 +906,8 @@ func (self Module) GetBSON() (interface{}, error) {
 		return "DUMMY", nil
 	case ModuleLBS:
 		return "LBS", nil
+	case ModuleMQTTLog:
+		return "MQTT_LOG", nil
 	case ModuleMonitor:
 		return "MONITOR", nil
 	case ModuleStat:
@@ -936,6 +946,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "LBS":
 		self.ModuleIface = ModuleLBS{}
+		return nil
+	case "MQTT_LOG":
+		self.ModuleIface = ModuleMQTTLog{}
 		return nil
 	case "MONITOR":
 		self.ModuleIface = ModuleMonitor{}
@@ -978,6 +991,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "LBS":
 		self.ModuleIface = ModuleLBS{}
+		return nil
+	case "MQTT_LOG":
+		self.ModuleIface = ModuleMQTTLog{}
 		return nil
 	case "MONITOR":
 		self.ModuleIface = ModuleMonitor{}
