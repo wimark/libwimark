@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"sort"
+	"strconv"
 
 	"github.com/vorot93/goutil"
 	"gopkg.in/mgo.v2/bson"
@@ -698,7 +699,7 @@ type ServiceFatalErrorData struct {
 type ServiceConnectedData struct {
 	Version string `json:"version"`
 	Commit  string `json:"commit"`
-	Build   string `json:"build"`
+	Build   int    `json:"build"`
 }
 
 type LBSClientData struct {
@@ -835,4 +836,21 @@ func (wc *WirelessClient) GetSpecificWCInfo() *WirelessClientObject {
 func (wc *WirelessClient) SetSpecificWCInfo(wco *WirelessClientObject) {
 	wc.Type = wco.Type
 	wc.Data = wco.Data
+}
+
+type Version struct {
+	Version string `json:"version"`
+	Commit  string `json:"commit"`
+	Build   int    `json:"build"`
+}
+
+func MakeVersion(version string, commit string, build string) Version {
+	var self Version
+
+	self.Version = version
+	self.Commit = commit
+	build_num, _ := strconv.Atoi(build)
+	self.Build = build_num
+
+	return self
 }
