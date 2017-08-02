@@ -9,6 +9,7 @@ import (
 )
 
 const MQTT_ANY_WILDCARD = "+"
+const MQTT_MULTILEVEL_WILDCARD = "#"
 
 const (
 	TOPIC_STATUS_FORMAT = `B/%s/%s`
