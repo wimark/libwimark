@@ -262,7 +262,7 @@ type CPE struct {
 
 type Stat struct {
 	CPE       UUID    `json:"cpeid"`
-	Timestamp int64   `json:"time"`
+	Timestamp int64   `json:"timestamp"`
 	CPU       float64 `json:"cpu"`
 	RAM       struct {
 		Total    float64 `json:"total"`
