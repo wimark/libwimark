@@ -26,6 +26,7 @@ Stat       = { string = "STAT"        }
 Monitor    = { string = "MONITOR"     }
 LBS        = { string = "LBS"         }
 ClientStat = { string = "CLIENT_STAT" }
+MQTTLog    = { string = "MQTT_LOG"    }
 
 [Operation]
 prefix = "Operation"
