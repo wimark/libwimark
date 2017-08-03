@@ -42,15 +42,16 @@ CPEStatus = { string = "STATUS" }
 
 [SystemEventObjectType]
 [SystemEventObjectType.variants]
-SystemEventCPEConnected              = { string = "CPE_CONNECTED"  }
-SystemEventCPEDisconnected           = { string = "CPE_DISCONNECTED"  }
-SystemEventMonitorRuleViolation      = { string = "MONITOR_RULE_VIOLATION"  }
-SystemEventCPEConfigurationError     = { string = "CPE_CONFIGURATION_ERROR"  }
-SystemEventClientConnected           = { string = "CLIENT_CONNECTED"  }
-SystemEventClientDisconnected        = { string = "CLIENT_DISCONNECTED"  }
-SystemEventServiceFatalError         = { string = "SERVICE_FATAL_ERROR"  }
-SystemEventServiceConnected          = { string = "SERVICE_CONNECTED"  }
-SystemEventServiceDisconnected       = { string = "SERVICE_DISCONNECTED"  }
+SystemEventAny                   = { string = "+" }
+SystemEventCPEConnected          = { string = "CPE_CONNECTED"  }
+SystemEventCPEDisconnected       = { string = "CPE_DISCONNECTED"  }
+SystemEventMonitorRuleViolation  = { string = "MONITOR_RULE_VIOLATION"  }
+SystemEventCPEConfigurationError = { string = "CPE_CONFIGURATION_ERROR"  }
+SystemEventClientConnected       = { string = "CLIENT_CONNECTED"  }
+SystemEventClientDisconnected    = { string = "CLIENT_DISCONNECTED"  }
+SystemEventServiceFatalError     = { string = "SERVICE_FATAL_ERROR"  }
+SystemEventServiceConnected      = { string = "SERVICE_CONNECTED"  }
+SystemEventServiceDisconnected   = { string = "SERVICE_DISCONNECTED"  }
 SystemEventDaemonSettingsChanged = { string = "DAEMON_SETTINGS_CHANGE"  }
 
 [SystemEventLevel]

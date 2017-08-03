@@ -1682,6 +1682,10 @@ func (self *SystemEventObjectType) Value() SystemEventObjectTypeIface {
 	return self.SystemEventObjectTypeIface
 }
 
+type SystemEventAny struct{}
+
+func (SystemEventAny) SystemEventObjectTypeIfaceFunc() {}
+
 type SystemEventCPEConfigurationError struct{}
 
 func (SystemEventCPEConfigurationError) SystemEventObjectTypeIfaceFunc() {}
@@ -1723,6 +1727,8 @@ type SystemEventServiceFatalError struct{}
 func (SystemEventServiceFatalError) SystemEventObjectTypeIfaceFunc() {}
 func (self *SystemEventObjectType) String() string {
 	switch self.SystemEventObjectTypeIface.(type) {
+	case SystemEventAny:
+		return "+"
 	case SystemEventCPEConfigurationError:
 		return "CPE_CONFIGURATION_ERROR"
 	case SystemEventCPEConnected:
@@ -1750,6 +1756,8 @@ func (self *SystemEventObjectType) String() string {
 }
 func (self SystemEventObjectType) MarshalJSON() ([]byte, error) {
 	switch self.Value().(type) {
+	case SystemEventAny:
+		return json.Marshal("+")
 	case SystemEventCPEConfigurationError:
 		return json.Marshal("CPE_CONFIGURATION_ERROR")
 	case SystemEventCPEConnected:
@@ -1781,6 +1789,8 @@ func (self SystemEventObjectType) GetBSON() (interface{}, error) {
 		return nil, errors.New("SystemEventObjectType cannot be nil")
 	}
 	switch v.(type) {
+	case SystemEventAny:
+		return "+", nil
 	case SystemEventCPEConfigurationError:
 		return "CPE_CONFIGURATION_ERROR", nil
 	case SystemEventCPEConnected:
@@ -1812,6 +1822,9 @@ func (self *SystemEventObjectType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
+	case "+":
+		self.SystemEventObjectTypeIface = SystemEventAny{}
+		return nil
 	case "CPE_CONFIGURATION_ERROR":
 		self.SystemEventObjectTypeIface = SystemEventCPEConfigurationError{}
 		return nil
@@ -1854,6 +1867,9 @@ func (self *SystemEventObjectType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
+	case "+":
+		self.SystemEventObjectTypeIface = SystemEventAny{}
+		return nil
 	case "CPE_CONFIGURATION_ERROR":
 		self.SystemEventObjectTypeIface = SystemEventCPEConfigurationError{}
 		return nil

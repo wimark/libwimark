@@ -1,7 +1,10 @@
 package libwimark
 
-import "encoding/json"
-import "errors"
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+)
 
 type CPEAgentError struct {
 	Type CPEAgentStatusType `json:"type"`
@@ -21,7 +24,9 @@ func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	_ = data_found
+	if bytes.Equal(data_raw, []byte("null")) {
+		data_found = false
+	}
 	var t CPEAgentStatusType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -84,7 +89,9 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	_ = data_found
+	if bytes.Equal(data_raw, []byte("null")) {
+		data_found = false
+	}
 	var t CPEInterfaceType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -135,7 +142,9 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	_ = data_found
+	if bytes.Equal(data_raw, []byte("null")) {
+		data_found = false
+	}
 	var t SecurityType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -186,7 +195,9 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	_ = data_found
+	if bytes.Equal(data_raw, []byte("null")) {
+		data_found = false
+	}
 	var t StatEventRuleType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -237,7 +248,9 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	_ = data_found
+	if bytes.Equal(data_raw, []byte("null")) {
+		data_found = false
+	}
 	var t SystemEventObjectType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -344,7 +357,9 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	_ = data_found
+	if bytes.Equal(data_raw, []byte("null")) {
+		data_found = false
+	}
 	var t WirelessClientType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err

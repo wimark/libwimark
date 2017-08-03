@@ -2,6 +2,7 @@ package libwimark
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	cache "github.com/patrickmn/go-cache"
@@ -38,6 +39,105 @@ func MQTTMustConnectSync(addr string) mqtt.Client {
 	}
 
 	return client
+}
+
+func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.Client, error) {
+	ts := time.Now().Unix()
+
+	// prepare disconnect event for will message
+	var opts = mqtt.NewClientOptions().AddBroker(addr)
+	eventDisconnetTopic := EventTopic{
+		SenderModule: s,
+		SenderID:     "",
+		Type:         SystemEventObjectType{SystemEventServiceDisconnected{}},
+	}
+
+	level := SystemEventLevel{SystemEventLevelINFO{}}
+
+	eventObject := SystemEventObject{
+		Type: SystemEventObjectType{SystemEventServiceDisconnected{}},
+		Data: nil,
+	}
+	eventDisconnetPayload := SystemEvent{
+		Subject_id: s.String(),
+		Timestamp:  ts,
+		Level:      level,
+	}
+	eventDisconnetPayload.SystemEventObject = eventObject
+
+	b, err := json.Marshal(eventDisconnetPayload)
+	if err != nil {
+		return nil, errors.New(fmt.Sprintf("error: (%s) during service start", err.Error()))
+	}
+	opts.SetWill(eventDisconnetTopic.TopicPath(), string(b), 2, false)
+
+	opts.SetClientID(s.String())
+
+	client, err := MQTTConnectSyncOpts(opts)
+	if err != nil {
+		return nil, errors.New(fmt.Sprintf("error: (%s) while connecting to broker", err.Error()))
+	}
+
+	//sending retain status message
+	statusTopic := StatusTopic{
+		SenderModule: s,
+		SenderID:     "",
+	}
+
+	statusPayload := ModuleStatus{
+		Version: v.Version,
+		Commit:  v.Commit,
+		Build:   v.Build,
+		Service: s,
+		Id:      "",
+		State:   SystemEventObjectType{SystemEventServiceConnected{}},
+		Meta:    meta,
+	}
+
+	b, err = json.Marshal(statusPayload)
+	if err != nil {
+		return client, errors.New(fmt.Sprintf("error: (%s) while marshalling to status message ", err.Error()))
+	}
+	err = MQTTPublishRetainedSync(client, statusTopic, b)
+	if err != nil {
+		return client, errors.New(fmt.Sprintf("error: (%s) while publishing retained in service start", err.Error()))
+	}
+
+	// sending connect event
+	eventConnectTopic := EventTopic{
+		SenderModule: s,
+		SenderID:     "",
+		Type:         SystemEventObjectType{SystemEventServiceConnected{}},
+	}
+
+	level = SystemEventLevel{SystemEventLevelINFO{}}
+
+	eventData := ServiceConnectedData{
+		Version: v.Version,
+		Commit:  v.Commit,
+		Build:   v.Build,
+	}
+	eventObject = SystemEventObject{
+		Type: SystemEventObjectType{SystemEventServiceConnected{}},
+		Data: eventData,
+	}
+	eventConnectedPayload := SystemEvent{
+		Subject_id: s.String(),
+		Timestamp:  ts,
+		Level:      level,
+	}
+	eventConnectedPayload.SystemEventObject = eventObject
+
+	b, err = json.Marshal(eventConnectedPayload)
+	if err != nil {
+		return nil, errors.New(fmt.Sprintf("error: (%s) marshalling connected event in service start", err.Error()))
+	}
+
+	err = MQTTPublishSync(client, eventConnectTopic, b)
+	if err != nil {
+		return nil, errors.New(fmt.Sprintf("error: (%s) publishing connected event in service start", err.Error()))
+	}
+	return client, nil
 }
 
 type MQTTMessage interface {
@@ -170,6 +270,13 @@ func MQTTMustUnsubscribeSync(client mqtt.Client, topics []Topic) {
 
 func MQTTPublishSync(client mqtt.Client, topic Topic, payload interface{}) error {
 	var token = client.Publish(topic.TopicPath(), 2, false, payload)
+	token.Wait()
+	var err = token.Error()
+	return err
+}
+
+func MQTTPublishRetainedSync(client mqtt.Client, topic Topic, payload interface{}) error {
+	var token = client.Publish(topic.TopicPath(), 2, true, payload)
 	token.Wait()
 	var err = token.Error()
 	return err

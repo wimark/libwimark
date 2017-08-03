@@ -470,21 +470,25 @@ type ConnectorInfo struct {
 }
 
 type ModuleStatus struct {
-	Version     string      `json:"version"`
-	IsConnected bool        `json:"connected"`
-	Metadata    interface{} `json:"meta,omitempty"`
+	Service Module                `json:"service"`
+	Id      string                `json:"id"`
+	Version string                `json:"version"`
+	Commit  string                `json:"commit"`
+	Build   int                   `json:"build"`
+	State   SystemEventObjectType `json:"state"`
+	Meta    interface{}           `json:"meta,omitempty"`
 }
 
 func (self ModuleStatus) Connected() ModuleStatus {
 	var v = self
-	v.IsConnected = true
+	v.State = SystemEventObjectType{SystemEventServiceConnected{}}
 
 	return v
 }
 
 func (self ModuleStatus) Disconnected() ModuleStatus {
 	var v = self
-	v.IsConnected = false
+	v.State = SystemEventObjectType{SystemEventServiceDisconnected{}}
 
 	return v
 }
