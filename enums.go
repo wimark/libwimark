@@ -1467,6 +1467,109 @@ func (self *SecurityType) SetBSON(v bson.Raw) error {
 
 }
 
+type ServiceStateIface interface {
+	ServiceStateIfaceFunc()
+}
+type ServiceState struct{ ServiceStateIface }
+
+func (self *ServiceState) Value() ServiceStateIface { return self.ServiceStateIface }
+
+type ServiceStateConnected struct{}
+
+func (ServiceStateConnected) ServiceStateIfaceFunc() {}
+
+type ServiceStateDisconnected struct{}
+
+func (ServiceStateDisconnected) ServiceStateIfaceFunc() {}
+
+type ServiceStatePending struct{}
+
+func (ServiceStatePending) ServiceStateIfaceFunc() {}
+func (self *ServiceState) String() string {
+	switch self.ServiceStateIface.(type) {
+	case ServiceStateConnected:
+		return "CONNECTED"
+	case ServiceStateDisconnected:
+		return "DISCONNECTED"
+	case ServiceStatePending:
+		return "PENDING"
+
+	}
+	panic(errors.New("Not implemented"))
+
+}
+func (self ServiceState) MarshalJSON() ([]byte, error) {
+	switch self.Value().(type) {
+	case ServiceStateConnected:
+		return json.Marshal("CONNECTED")
+	case ServiceStateDisconnected:
+		return json.Marshal("DISCONNECTED")
+	case ServiceStatePending:
+		return json.Marshal("PENDING")
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self ServiceState) GetBSON() (interface{}, error) {
+	var v = self.Value()
+	if v == nil {
+		return nil, errors.New("ServiceState cannot be nil")
+	}
+	switch v.(type) {
+	case ServiceStateConnected:
+		return "CONNECTED", nil
+	case ServiceStateDisconnected:
+		return "DISCONNECTED", nil
+	case ServiceStatePending:
+		return "PENDING", nil
+
+	}
+	return nil, errors.New("Not implemented")
+
+}
+func (self *ServiceState) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "CONNECTED":
+		self.ServiceStateIface = ServiceStateConnected{}
+		return nil
+	case "DISCONNECTED":
+		self.ServiceStateIface = ServiceStateDisconnected{}
+		return nil
+	case "PENDING":
+		self.ServiceStateIface = ServiceStatePending{}
+		return nil
+
+	}
+	return errors.New("Unknown ServiceState")
+
+}
+
+func (self *ServiceState) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "CONNECTED":
+		self.ServiceStateIface = ServiceStateConnected{}
+		return nil
+	case "DISCONNECTED":
+		self.ServiceStateIface = ServiceStateDisconnected{}
+		return nil
+	case "PENDING":
+		self.ServiceStateIface = ServiceStatePending{}
+		return nil
+
+	}
+	return errors.New("Unknown ServiceState")
+
+}
+
 type StatEventRuleTypeIface interface {
 	StatEventRuleTypeIfaceFunc()
 }

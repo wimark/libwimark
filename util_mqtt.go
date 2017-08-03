@@ -90,7 +90,7 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 		Build:   v.Build,
 		Service: s,
 		Id:      "",
-		State:   SystemEventObjectType{SystemEventServiceConnected{}},
+		State:   ServiceState{ServiceStateConnected{}},
 		Meta:    meta,
 	}
 
