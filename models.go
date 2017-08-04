@@ -283,7 +283,8 @@ type Stat struct {
 
 type ClientStat struct {
 	AcctStatusType      ClientStatPacketType `json:"Acct-Status-Type"`
-	CPE                 UUID                 `json:"cpeid"`
+	CPE                 UUID                 `json:"cpe_id"`
+	WLAN                UUID                 `json:"wlan_id"`
 	CallingStationId    string               `json:"Calling-Station-Id"`
 	UserName            string               `json:"User-Name"`
 	AcctDelayTime       int                  `json:"Acct-Delay-Time"`
