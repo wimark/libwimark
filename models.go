@@ -50,18 +50,19 @@ type SecuritySettings interface {
 }
 
 type WLAN struct {
-	Name              string        `json:"name"`
-	SSID              string        `json:"ssid"`
-	Description       string        `json:"description"`
-	Security          *EnumSecurity `json:"security"`
-	VLAN              int           `json:"vlan"`
-	Hidden            bool          `json:"hidden"`
-	NasID             *string       `json:"nas_id"`
-	RadiusAcctServers []UUID        `json:"radius_acct_servers"`
-	WhiteList         []string      `json:"whitelist"`
-	BlackList         []string      `json:"blacklist"`
-	FilterMode        MacFilterType `json:"filtermode"`
-	L2Isolate         bool          `json:"l2isolate"`
+	Name               string        `json:"name"`
+	SSID               string        `json:"ssid"`
+	Description        string        `json:"description"`
+	Security           *EnumSecurity `json:"security"`
+	VLAN               int           `json:"vlan"`
+	Hidden             bool          `json:"hidden"`
+	NasID              *string       `json:"nas_id"`
+	RadiusAcctServers  []UUID        `json:"radius_acct_servers"`
+	RadiusAcctInterval int           `json:"radius_acct_interval"`
+	WhiteList          []string      `json:"whitelist"`
+	BlackList          []string      `json:"blacklist"`
+	FilterMode         MacFilterType `json:"filtermode"`
+	L2Isolate          bool          `json:"l2isolate"`
 }
 
 type InterfaceConfiguration struct {
