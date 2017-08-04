@@ -132,3 +132,10 @@ prefix = "MacFilter"
 BlackList = { string = "BlackList" }
 WhiteList = { string = "WhiteList" }
 None      = { string = "None"      }
+
+[ServiceState]
+prefix = "ServiceState"
+[ServiceState.variants]
+Connected    = { string = "CONNECTED"    }
+Disconnected = { string = "DISCONNECTED" }
+Pending      = { string = "PENDING"      }
