@@ -259,6 +259,7 @@ type CPE struct {
 	ConfigStatus     ConfigurationStatus `json:"config_status"`
 	LbsConfig        LBSConfig           `json:"lbs_config"`
 	StatisticsConfig StatisticsConfig    `json:"stats_config"`
+	LogConfig        LogConfig           `json:"log_config"`
 }
 
 type Stat struct {
@@ -731,14 +732,20 @@ type LBSClientCoords struct {
 
 type LBSConfig struct {
 	Enabled bool `json:"enabled"`
-	// in milliseconds
+	// in seconds
 	ReportPeriod  int `json:"reportperiod,omitempty"`
 	ClientTimeout int `json:"clienttimeout,omitempty"`
 }
 
 type StatisticsConfig struct {
 	Enabled bool `json:"enabled"`
-	// in milliseconds
+	// in seconds
+	ReportPeriod int `json:"reportperiod,omitempty"`
+}
+
+type LogConfig struct {
+	Enabled bool `json:"enabled"`
+	// in seconds
 	ReportPeriod int `json:"reportperiod,omitempty"`
 }
 
