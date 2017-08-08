@@ -596,63 +596,60 @@ func (self *SystemEvent) GetBSON() (interface{}, error) {
 }
 
 func (self *SystemEvent) SetBSON(raw bson.Raw) error {
-	var in = bson.M{}
+	var in = map[string]bson.Raw{}
 	{
-		var err error
-		err = raw.Unmarshal(&in)
-		if err != nil {
+		if err := raw.Unmarshal(&in); err != nil {
 			return err
 		}
 	}
 
 	//timestamp
-	var v_timestamp, k_found = in["timestamp"]
-	if !k_found {
-		return errors.New("No timestamp found")
-	}
-	self.Timestamp = v_timestamp.(int64)
-
-	delete(in, "timestamp")
-
-	//subject_id
-	v_subj, k_found := in["subject_id"]
-	if !k_found {
-		return errors.New("No subject found")
-	}
-
-	self.Subject_id = v_subj.(string)
-
-	delete(in, "subject_id")
-
-	//subject_id
-	v_level, k_found := in["level"]
-	if !k_found {
-		return errors.New("No subject found")
-	}
-
-	var err error
-	obj_b, err := bson.Marshal(v_level)
-	if err != nil {
-		return err
-	}
-	err = bson.Unmarshal(obj_b, &self.Level)
-	if err != nil {
-		return err
-	}
-	delete(in, "level")
-
 	{
-		var err error
-		obj_b, err = bson.Marshal(in)
-		if err != nil {
+		var v, k_found = in["timestamp"]
+		if !k_found {
+			return errors.New("No timestamp found")
+		}
+		if err := v.Unmarshal(&self.Timestamp); err != nil {
 			return err
 		}
-	}
-	err = bson.Unmarshal(obj_b, &self.SystemEventObject)
-	if err != nil {
-		return err
+
+		delete(in, "timestamp")
 	}
 
+	//subject_id
+	{
+		var v, k_found = in["subject_id"]
+		if !k_found {
+			return errors.New("No subject_id found")
+		}
+		if err := v.Unmarshal(&self.Subject_id); err != nil {
+			return err
+		}
+
+		delete(in, "subject_id")
+	}
+
+	//subject_id
+	{
+		var v, k_found = in["level"]
+		if !k_found {
+			return errors.New("No subject_id found")
+		}
+		if err := v.Unmarshal(&self.Level); err != nil {
+			return err
+		}
+
+		delete(in, "level")
+	}
+
+	var obj_b, mErr = bson.Marshal(in)
+	if mErr != nil {
+		return mErr
+	}
+
+	if err := bson.Unmarshal(obj_b, &self.SystemEventObject); err != nil {
+		return err
+	}
 	return nil
 }
 
