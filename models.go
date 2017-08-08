@@ -682,9 +682,9 @@ type ClientDisconnectedData struct {
 }
 
 type CPEConfigurationErrorData struct {
-	Wifi        WifiConfigurationError `json:"wifi,omitempty"`
-	Radius      string                 `json:"radius,omitempty"`
-	Description string                 `json:"description,omitempty"`
+	Wifi        []WifiConfigurationError `json:"wifi,omitempty"`
+	Description string                   `json:"description,omitempty"`
+	Metadata    map[string]interface{}   `json:"metadata,omitempty"`
 }
 
 type WifiConfigurationError struct {

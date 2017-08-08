@@ -1548,6 +1548,7 @@ type SystemEventType string
 
 const SystemEventTypeAny SystemEventType = "+"
 const SystemEventTypeCPEConfigurationError SystemEventType = "CPE_CONFIGURATION_ERROR"
+const SystemEventTypeCPEConfigurationSuccess SystemEventType = "CPE_CONFIGURATION_SUCCESS"
 const SystemEventTypeCPEConnected SystemEventType = "CPE_CONNECTED"
 const SystemEventTypeCPEDisconnected SystemEventType = "CPE_DISCONNECTED"
 const SystemEventTypeClientConnected SystemEventType = "CLIENT_CONNECTED"
@@ -1566,6 +1567,8 @@ func (self *SystemEventType) String() string {
 		return "+"
 	case SystemEventTypeCPEConfigurationError:
 		return "CPE_CONFIGURATION_ERROR"
+	case SystemEventTypeCPEConfigurationSuccess:
+		return "CPE_CONFIGURATION_SUCCESS"
 	case SystemEventTypeCPEConnected:
 		return "CPE_CONNECTED"
 	case SystemEventTypeCPEDisconnected:
@@ -1596,6 +1599,8 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("+")
 	case SystemEventTypeCPEConfigurationError:
 		return json.Marshal("CPE_CONFIGURATION_ERROR")
+	case SystemEventTypeCPEConfigurationSuccess:
+		return json.Marshal("CPE_CONFIGURATION_SUCCESS")
 	case SystemEventTypeCPEConnected:
 		return json.Marshal("CPE_CONNECTED")
 	case SystemEventTypeCPEDisconnected:
@@ -1626,6 +1631,8 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 		return "+", nil
 	case SystemEventTypeCPEConfigurationError:
 		return "CPE_CONFIGURATION_ERROR", nil
+	case SystemEventTypeCPEConfigurationSuccess:
+		return "CPE_CONFIGURATION_SUCCESS", nil
 	case SystemEventTypeCPEConnected:
 		return "CPE_CONNECTED", nil
 	case SystemEventTypeCPEDisconnected:
@@ -1660,6 +1667,9 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CPE_CONFIGURATION_ERROR":
 		*self = SystemEventTypeCPEConfigurationError
+		return nil
+	case "CPE_CONFIGURATION_SUCCESS":
+		*self = SystemEventTypeCPEConfigurationSuccess
 		return nil
 	case "CPE_CONNECTED":
 		*self = SystemEventTypeCPEConnected
@@ -1705,6 +1715,9 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "CPE_CONFIGURATION_ERROR":
 		*self = SystemEventTypeCPEConfigurationError
+		return nil
+	case "CPE_CONFIGURATION_SUCCESS":
+		*self = SystemEventTypeCPEConfigurationSuccess
 		return nil
 	case "CPE_CONNECTED":
 		*self = SystemEventTypeCPEConnected
