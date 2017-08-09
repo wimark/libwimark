@@ -153,13 +153,20 @@ func TestCPE(t *testing.T) {
                     "type": "wifi",
                     "data": {
                         "name": "WLAN Interface 0",
-                        "mac": "macaddr1",
-                        "frequency": "2.4",
-                        "bandmode": "n",
-                        "bandwidth": "20",
-                        "channel": "5",
-                        "txpower": "100",
-                        "wlans": ["WLAN001", "WLAN002"]
+                        "config": {
+                            "bandmode": "n",
+                            "txpower": "100",
+                            "channels": [1, 3, 5],
+                            "wlans": ["WLAN001", "WLAN002"]
+                        },
+                        "state": {
+                            "frequency": "2.4",
+                            "bandmode": "n",
+                            "bandwidth": "20",
+                            "channel": "5",
+                            "txpower": "100",
+                            "enabled": true
+                        }
                     }
                 }
             },
@@ -168,13 +175,18 @@ func TestCPE(t *testing.T) {
     `)
 	var d = &WiFiData{}
 	d.Name = "WLAN Interface 0"
-	d.Mac = "macaddr1"
-	d.Frequency = "2.4"
-	d.BandMode = "n"
-	d.Bandwidth = "20"
-	d.Channel = "5"
-	d.TxPower = "100"
-	d.WLANs = []UUID{"WLAN001", "WLAN002"}
+
+	d.State.Frequency = "2.4"
+	d.State.BandMode = "n"
+	d.State.Bandwidth = "20"
+	d.State.Channel = "5"
+	d.State.TxPower = "100"
+	d.State.Enabled = true
+
+	d.Config.BandMode = "n"
+	d.Config.TxPower = "100"
+	d.Config.Channels = []int{1, 3, 5}
+	d.Config.WLANs = []UUID{"WLAN001", "WLAN002"}
 
 	var i CPEInterface
 	i.Addr = "macaddr0"
