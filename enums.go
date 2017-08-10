@@ -2115,9 +2115,9 @@ func (WirelessClientOther) WirelessClientTypeIfaceFunc() {}
 func (self *WirelessClientType) String() string {
 	switch self.WirelessClientTypeIface.(type) {
 	case WirelessClientCamera:
-		return "CameraClient"
+		return "camera"
 	case WirelessClientOther:
-		return "OtherClient"
+		return "other"
 
 	}
 	panic(errors.New("Not implemented"))
@@ -2126,9 +2126,9 @@ func (self *WirelessClientType) String() string {
 func (self WirelessClientType) MarshalJSON() ([]byte, error) {
 	switch self.Value().(type) {
 	case WirelessClientCamera:
-		return json.Marshal("CameraClient")
+		return json.Marshal("camera")
 	case WirelessClientOther:
-		return json.Marshal("OtherClient")
+		return json.Marshal("other")
 
 	}
 	return nil, errors.New("Not implemented")
@@ -2141,9 +2141,9 @@ func (self WirelessClientType) GetBSON() (interface{}, error) {
 	}
 	switch v.(type) {
 	case WirelessClientCamera:
-		return "CameraClient", nil
+		return "camera", nil
 	case WirelessClientOther:
-		return "OtherClient", nil
+		return "other", nil
 
 	}
 	return nil, errors.New("Not implemented")
@@ -2155,10 +2155,10 @@ func (self *WirelessClientType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "CameraClient":
+	case "camera":
 		self.WirelessClientTypeIface = WirelessClientCamera{}
 		return nil
-	case "OtherClient":
+	case "other":
 		self.WirelessClientTypeIface = WirelessClientOther{}
 		return nil
 
@@ -2173,10 +2173,10 @@ func (self *WirelessClientType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "CameraClient":
+	case "camera":
 		self.WirelessClientTypeIface = WirelessClientCamera{}
 		return nil
-	case "OtherClient":
+	case "other":
 		self.WirelessClientTypeIface = WirelessClientOther{}
 		return nil
 

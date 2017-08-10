@@ -369,7 +369,7 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 		if !data_found {
 			return errors.New("No associated data found for enum WirelessClientObject")
 		}
-		var d CameraClient
+		var d CameraClientData
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
@@ -379,7 +379,7 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 		if !data_found {
 			return errors.New("No associated data found for enum WirelessClientObject")
 		}
-		var d OtherClient
+		var d OtherClientData
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err

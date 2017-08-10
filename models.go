@@ -337,11 +337,12 @@ type LimitBetweenOptional struct {
 	Lower *float64 `json:"lower"`
 }
 
-type CameraClient struct {
+type CameraClientData struct {
 	Rtsp_stream string `json:"rtsp_stream"`
+	Description string `json:"description"`
 }
 
-type OtherClient struct {
+type OtherClientData struct {
 	Description string `json:"description"`
 }
 
