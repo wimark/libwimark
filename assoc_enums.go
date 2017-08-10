@@ -1,11 +1,5 @@
 package libwimark
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-)
-
 type CPEAgentError struct {
 	Type CPEAgentStatusType `json:"type"`
 	Data interface{}        `json:"data"`
@@ -24,9 +18,7 @@ func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	if bytes.Equal(data_raw, []byte("null")) {
-		data_found = false
-	}
+	_ = data_found
 	var t CPEAgentStatusType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -89,9 +81,7 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	if bytes.Equal(data_raw, []byte("null")) {
-		data_found = false
-	}
+	_ = data_found
 	var t CPEInterfaceType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -142,9 +132,7 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	if bytes.Equal(data_raw, []byte("null")) {
-		data_found = false
-	}
+	_ = data_found
 	var t SecurityType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -195,9 +183,7 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	if bytes.Equal(data_raw, []byte("null")) {
-		data_found = false
-	}
+	_ = data_found
 	var t StatEventRuleType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -248,9 +234,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	if bytes.Equal(data_raw, []byte("null")) {
-		data_found = false
-	}
+	_ = data_found
 	var t SystemEventObjectType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -357,9 +341,7 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	var data_raw, data_found = doc["data"]
-	if bytes.Equal(data_raw, []byte("null")) {
-		data_found = false
-	}
+	_ = data_found
 	var t WirelessClientType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
@@ -369,7 +351,7 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 		if !data_found {
 			return errors.New("No associated data found for enum WirelessClientObject")
 		}
-		var d CameraClient
+		var d CameraClientData
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
@@ -379,7 +361,7 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 		if !data_found {
 			return errors.New("No associated data found for enum WirelessClientObject")
 		}
-		var d OtherClient
+		var d OtherClientData
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err

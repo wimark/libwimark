@@ -41,5 +41,5 @@ StatEventCPUload = "LimitBetween"
 [WirelessClientObject]
 constraint = "WirelessClientType"
 [WirelessClientObject.Variants]
-WirelessClientCamera = "CameraClient"
-WirelessClientOther = "OtherClient"
+WirelessClientCamera = "CameraClientData"
+WirelessClientOther = "OtherClientData"
