@@ -68,7 +68,7 @@ func (self *BandwidthType) String() string {
 		return "VHT80"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of BandwidthType"))
 
 }
 func (self BandwidthType) MarshalJSON() ([]byte, error) {
@@ -91,7 +91,7 @@ func (self BandwidthType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("VHT80")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of BandwidthType")
 
 }
 func (self BandwidthType) GetBSON() (interface{}, error) {
@@ -118,7 +118,7 @@ func (self BandwidthType) GetBSON() (interface{}, error) {
 		return "VHT80", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of BandwidthType")
 
 }
 func (self *BandwidthType) UnmarshalJSON(b []byte) error {
@@ -227,7 +227,7 @@ func (self *CPEAgentStatusType) String() string {
 		return "undefined"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of CPEAgentStatusType"))
 
 }
 func (self CPEAgentStatusType) MarshalJSON() ([]byte, error) {
@@ -242,7 +242,7 @@ func (self CPEAgentStatusType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("undefined")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of CPEAgentStatusType")
 
 }
 func (self CPEAgentStatusType) GetBSON() (interface{}, error) {
@@ -261,7 +261,7 @@ func (self CPEAgentStatusType) GetBSON() (interface{}, error) {
 		return "undefined", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of CPEAgentStatusType")
 
 }
 func (self *CPEAgentStatusType) UnmarshalJSON(b []byte) error {
@@ -334,7 +334,7 @@ func (self *CPEInterfaceType) String() string {
 		return "wired"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of CPEInterfaceType"))
 
 }
 func (self CPEInterfaceType) MarshalJSON() ([]byte, error) {
@@ -345,7 +345,7 @@ func (self CPEInterfaceType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("wired")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of CPEInterfaceType")
 
 }
 func (self CPEInterfaceType) GetBSON() (interface{}, error) {
@@ -360,7 +360,7 @@ func (self CPEInterfaceType) GetBSON() (interface{}, error) {
 		return "wired", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of CPEInterfaceType")
 
 }
 func (self *CPEInterfaceType) UnmarshalJSON(b []byte) error {
@@ -441,7 +441,7 @@ func (self *ClientStatPacketType) String() string {
 		return "Stop"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of ClientStatPacketType"))
 
 }
 func (self ClientStatPacketType) MarshalJSON() ([]byte, error) {
@@ -458,7 +458,7 @@ func (self ClientStatPacketType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("Stop")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of ClientStatPacketType")
 
 }
 func (self ClientStatPacketType) GetBSON() (interface{}, error) {
@@ -479,7 +479,7 @@ func (self ClientStatPacketType) GetBSON() (interface{}, error) {
 		return "Stop", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of ClientStatPacketType")
 
 }
 func (self *ClientStatPacketType) UnmarshalJSON(b []byte) error {
@@ -578,7 +578,7 @@ func (self *ConfigurationStatus) String() string {
 		return "pending"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of ConfigurationStatus"))
 
 }
 func (self ConfigurationStatus) MarshalJSON() ([]byte, error) {
@@ -595,7 +595,7 @@ func (self ConfigurationStatus) MarshalJSON() ([]byte, error) {
 		return json.Marshal("pending")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of ConfigurationStatus")
 
 }
 func (self ConfigurationStatus) GetBSON() (interface{}, error) {
@@ -616,7 +616,7 @@ func (self ConfigurationStatus) GetBSON() (interface{}, error) {
 		return "pending", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of ConfigurationStatus")
 
 }
 func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
@@ -701,7 +701,7 @@ func (self *MacFilterType) String() string {
 		return "WhiteList"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of MacFilterType"))
 
 }
 func (self MacFilterType) MarshalJSON() ([]byte, error) {
@@ -714,7 +714,7 @@ func (self MacFilterType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("WhiteList")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of MacFilterType")
 
 }
 func (self MacFilterType) GetBSON() (interface{}, error) {
@@ -731,7 +731,7 @@ func (self MacFilterType) GetBSON() (interface{}, error) {
 		return "WhiteList", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of MacFilterType")
 
 }
 func (self *MacFilterType) UnmarshalJSON(b []byte) error {
@@ -852,7 +852,7 @@ func (self *Module) String() string {
 		return "STAT"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of Module"))
 
 }
 func (self Module) MarshalJSON() ([]byte, error) {
@@ -881,7 +881,7 @@ func (self Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("STAT")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of Module")
 
 }
 func (self Module) GetBSON() (interface{}, error) {
@@ -914,7 +914,7 @@ func (self Module) GetBSON() (interface{}, error) {
 		return "STAT", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of Module")
 
 }
 func (self *Module) UnmarshalJSON(b []byte) error {
@@ -1065,7 +1065,7 @@ func (self *Operation) String() string {
 		return "U"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of Operation"))
 
 }
 func (self Operation) MarshalJSON() ([]byte, error) {
@@ -1088,7 +1088,7 @@ func (self Operation) MarshalJSON() ([]byte, error) {
 		return json.Marshal("U")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of Operation")
 
 }
 func (self Operation) GetBSON() (interface{}, error) {
@@ -1115,7 +1115,7 @@ func (self Operation) GetBSON() (interface{}, error) {
 		return "U", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of Operation")
 
 }
 func (self *Operation) UnmarshalJSON(b []byte) error {
@@ -1218,7 +1218,7 @@ func (self *RadiusType) String() string {
 		return "both"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of RadiusType"))
 
 }
 func (self RadiusType) MarshalJSON() ([]byte, error) {
@@ -1231,7 +1231,7 @@ func (self RadiusType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("both")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of RadiusType")
 
 }
 func (self RadiusType) GetBSON() (interface{}, error) {
@@ -1248,7 +1248,7 @@ func (self RadiusType) GetBSON() (interface{}, error) {
 		return "both", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of RadiusType")
 
 }
 func (self *RadiusType) UnmarshalJSON(b []byte) error {
@@ -1315,7 +1315,7 @@ func (self *SecuritySuite) String() string {
 		return "tkip"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of SecuritySuite"))
 
 }
 func (self SecuritySuite) MarshalJSON() ([]byte, error) {
@@ -1326,7 +1326,7 @@ func (self SecuritySuite) MarshalJSON() ([]byte, error) {
 		return json.Marshal("tkip")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of SecuritySuite")
 
 }
 func (self SecuritySuite) GetBSON() (interface{}, error) {
@@ -1341,7 +1341,7 @@ func (self SecuritySuite) GetBSON() (interface{}, error) {
 		return "tkip", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of SecuritySuite")
 
 }
 func (self *SecuritySuite) UnmarshalJSON(b []byte) error {
@@ -1402,7 +1402,7 @@ func (self *SecurityType) String() string {
 		return "wpa2personal"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of SecurityType"))
 
 }
 func (self SecurityType) MarshalJSON() ([]byte, error) {
@@ -1413,7 +1413,7 @@ func (self SecurityType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("wpa2personal")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of SecurityType")
 
 }
 func (self SecurityType) GetBSON() (interface{}, error) {
@@ -1428,7 +1428,7 @@ func (self SecurityType) GetBSON() (interface{}, error) {
 		return "wpa2personal", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of SecurityType")
 
 }
 func (self *SecurityType) UnmarshalJSON(b []byte) error {
@@ -1495,7 +1495,7 @@ func (self *ServiceState) String() string {
 		return "PENDING"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of ServiceState"))
 
 }
 func (self ServiceState) MarshalJSON() ([]byte, error) {
@@ -1508,7 +1508,7 @@ func (self ServiceState) MarshalJSON() ([]byte, error) {
 		return json.Marshal("PENDING")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of ServiceState")
 
 }
 func (self ServiceState) GetBSON() (interface{}, error) {
@@ -1525,7 +1525,7 @@ func (self ServiceState) GetBSON() (interface{}, error) {
 		return "PENDING", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of ServiceState")
 
 }
 func (self *ServiceState) UnmarshalJSON(b []byte) error {
@@ -1592,7 +1592,7 @@ func (self *StatEventRuleType) String() string {
 		return "free_ram"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of StatEventRuleType"))
 
 }
 func (self StatEventRuleType) MarshalJSON() ([]byte, error) {
@@ -1603,7 +1603,7 @@ func (self StatEventRuleType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("free_ram")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of StatEventRuleType")
 
 }
 func (self StatEventRuleType) GetBSON() (interface{}, error) {
@@ -1618,7 +1618,7 @@ func (self StatEventRuleType) GetBSON() (interface{}, error) {
 		return "free_ram", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of StatEventRuleType")
 
 }
 func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
@@ -1691,7 +1691,7 @@ func (self *SystemEventLevel) String() string {
 		return "WARNING"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of SystemEventLevel"))
 
 }
 func (self SystemEventLevel) MarshalJSON() ([]byte, error) {
@@ -1706,7 +1706,7 @@ func (self SystemEventLevel) MarshalJSON() ([]byte, error) {
 		return json.Marshal("WARNING")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of SystemEventLevel")
 
 }
 func (self SystemEventLevel) GetBSON() (interface{}, error) {
@@ -1725,7 +1725,7 @@ func (self SystemEventLevel) GetBSON() (interface{}, error) {
 		return "WARNING", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of SystemEventLevel")
 
 }
 func (self *SystemEventLevel) UnmarshalJSON(b []byte) error {
@@ -1854,7 +1854,7 @@ func (self *SystemEventObjectType) String() string {
 		return "SERVICE_FATAL_ERROR"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of SystemEventObjectType"))
 
 }
 func (self SystemEventObjectType) MarshalJSON() ([]byte, error) {
@@ -1883,7 +1883,7 @@ func (self SystemEventObjectType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("SERVICE_FATAL_ERROR")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of SystemEventObjectType")
 
 }
 func (self SystemEventObjectType) GetBSON() (interface{}, error) {
@@ -1916,7 +1916,7 @@ func (self SystemEventObjectType) GetBSON() (interface{}, error) {
 		return "SERVICE_FATAL_ERROR", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of SystemEventObjectType")
 
 }
 func (self *SystemEventObjectType) UnmarshalJSON(b []byte) error {
@@ -2033,7 +2033,7 @@ func (self *WirelessClientState) String() string {
 		return "DISCONNECTED"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of WirelessClientState"))
 
 }
 func (self WirelessClientState) MarshalJSON() ([]byte, error) {
@@ -2044,7 +2044,7 @@ func (self WirelessClientState) MarshalJSON() ([]byte, error) {
 		return json.Marshal("DISCONNECTED")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of WirelessClientState")
 
 }
 func (self WirelessClientState) GetBSON() (interface{}, error) {
@@ -2059,7 +2059,7 @@ func (self WirelessClientState) GetBSON() (interface{}, error) {
 		return "DISCONNECTED", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of WirelessClientState")
 
 }
 func (self *WirelessClientState) UnmarshalJSON(b []byte) error {
@@ -2120,7 +2120,7 @@ func (self *WirelessClientType) String() string {
 		return "other"
 
 	}
-	panic(errors.New("Not implemented"))
+	panic(errors.New("Invalid value of WirelessClientType"))
 
 }
 func (self WirelessClientType) MarshalJSON() ([]byte, error) {
@@ -2131,7 +2131,7 @@ func (self WirelessClientType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("other")
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of WirelessClientType")
 
 }
 func (self WirelessClientType) GetBSON() (interface{}, error) {
@@ -2146,7 +2146,7 @@ func (self WirelessClientType) GetBSON() (interface{}, error) {
 		return "other", nil
 
 	}
-	return nil, errors.New("Not implemented")
+	return nil, errors.New("Invalid value of WirelessClientType")
 
 }
 func (self *WirelessClientType) UnmarshalJSON(b []byte) error {
