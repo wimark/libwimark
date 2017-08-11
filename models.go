@@ -661,8 +661,7 @@ type CPEConnectedData struct {
 }
 
 type MonitorRuleViolationData struct {
-	Rule_name string `json:"rule_name"`
-	Cpe_id    UUID   `json:"cpe_id"`
+	Cpe_id UUID `json:"cpe_id"`
 }
 
 type ClientConnectedData struct {
