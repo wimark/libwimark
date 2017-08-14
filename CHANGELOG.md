@@ -1,22 +1,16 @@
 # Changelog
-## [v0.0.2] - 17-07-2017
+## [v0.3.0] - 14-08-2017
 ### Added
-* WNE-282, WNE-265: Add capabilities models
-* WNE-276: Add LBS models
-* Add Model::Dummy
-* Add extra MQTT utilities
-
-### Changed
-* WNE-297: Update CPE model for LBS configuration
-* MQTTDocummentMessage.D accepts any type as payload now
-* Change timestamp field name in utils
-
-## [v0.3.0] - 11-08-2017
-### Added
+#### WNE-298
+ - L2 isolation option in WLAN model
+#### WNE-362
+ - List of allowed channels in WifiData
+#### WNE-368
+ - Name in stat rules
 #### WNE-369
- - Add wirelles client model
+ - Wireless client model
 #### WNE-377
- - Add common system event model
+ - Common system event model
  - CPE_CONNECTED
  - CPE_DISCONNECTED
  - SERVICE_CONNECTED
@@ -25,15 +19,61 @@
  - CLIENT_CONNECTED
  - CLIENT_DISCONNECTED
  - SERVICE_SETTINGS_CHANGE
+#### WNE-405
+ - MQTTLog module and multilevel wildcard
+#### WNE-409
+ - Service start function and version object
+#### WNE-413
+ - Statistics settings in CPE
+#### WNE-415
+ - RequestTopicWithTag
+#### WNE-420
+ - SystemEventAny
+#### WNE-421
+ - Log settings in CPE model
+#### WNE-422
+ - Accounting interval in WLAN model
+#### Other
+ - CPE id and WLAN id in accounting stat
+ - MonitorRuleViolationData.Stat_id
 
 ### Changed
-#### WNE-368
- - Add name to stat rules
 #### WNE-367
- - Change radius model to be always accounting and authentication 
+ - Change radius model to be always accounting and authentication
+#### WNE-377
+ - BSON fixes for events
+#### WNE-416
+ - Allow multiple subscription in wrappers
+#### WNE-417
+ - Use 'timestamp' json key
+#### WNE-418
+ - Topic parsers return non-pointer Topic and error
+#### WNE-426
+ - Check if associated data is null in JSON
+#### Other
+ - `cpeid` -> `cpe_id` in JSON
+ - More informative enum serialization errors
 
 ### Removed
-#### WNE-377, 
+#### WNE-377
  - Stat rule violation event
  - CPE Connected
- - CPE Disconnected 
+ - CPE Disconnected
+ - MonitorRuleViolationData.Rule_name
+
+## [v0.0.2] - 17-07-2017
+### Added
+#### WNE-265 / WNE-282
+* Capabilities models
+#### WNE-276
+* LBS models
+#### Other
+* Add Model::Dummy
+* Add extra MQTT utilities
+
+### Changed
+#### WNE-297
+* Update CPE model for LBS configuration
+#### Other
+* MQTTDocummentMessage.D accepts any type as payload now
+* Change timestamp field name in utils
