@@ -8,9 +8,9 @@ import (
 )
 
 func TestCompare(t *testing.T) {
-	var fixture1 = SecuritySuite{TKIP{}}
-	var fixture2 = SecuritySuite{TKIP{}}
-	var fixture3 = SecuritySuite{AES{}}
+	var fixture1 = SecuritySuiteTKIP
+	var fixture2 = SecuritySuiteTKIP
+	var fixture3 = SecuritySuiteAES
 
 	assert.Equal(t, fixture1, fixture2)
 	assert.NotEqual(t, fixture1, fixture3)
@@ -21,7 +21,7 @@ func TestCompare(t *testing.T) {
 
 func TestSecuritySuite(t *testing.T) {
 	var fixture = []byte(`["tkip"]`)
-	var expectation = SecuritySuite{TKIP{}}
+	var expectation = SecuritySuiteTKIP
 	var result []SecuritySuite
 	var err = json.Unmarshal(fixture, &result)
 
@@ -34,9 +34,9 @@ func TestSecuritySuite(t *testing.T) {
 func TestEnumSecurity(t *testing.T) {
 	var fixture = []byte(`{"type": "wpa2personal", "data": {"psk": "qwerty", "suites": ["tkip"]}}`)
 	var d = &WPA2PersonalData{}
-	d.Suites = []SecuritySuite{SecuritySuite{TKIP{}}}
+	d.Suites = []SecuritySuite{SecuritySuiteTKIP}
 	d.PSK = "qwerty"
-	var expectation = EnumSecurity{Type: SecurityType{WPA2Personal{}}, Data: d}
+	var expectation = EnumSecurity{Type: SecurityTypeWPA2Personal, Data: d}
 	var result EnumSecurity
 	var err = json.Unmarshal(fixture, &result)
 
@@ -66,14 +66,14 @@ func TestWLAN(t *testing.T) {
             }
         `)
 	var d = &WPA2PersonalData{}
-	d.Suites = []SecuritySuite{SecuritySuite{AES{}}}
+	d.Suites = []SecuritySuite{SecuritySuiteAES}
 	d.PSK = "qwerty"
 	var expectation = WLAN{
 		Name:        "myhotspot",
 		SSID:        "qwertyasdfgh",
 		Description: "This is my pretty little honeypot",
 		Security: &EnumSecurity{
-			Type: SecurityType{WPA2Personal{}},
+			Type: SecurityTypeWPA2Personal,
 			Data: d,
 		},
 		VLAN: 5,
@@ -178,7 +178,7 @@ func TestCPE(t *testing.T) {
 
 	var i CPEInterface
 	i.Addr = "macaddr0"
-	i.Type = CPEInterfaceType{InterfaceWiFi{}}
+	i.Type = CPEInterfaceTypeWiFi
 	i.Data = d
 
 	var caps Capabilities
@@ -197,12 +197,12 @@ func TestCPE(t *testing.T) {
 		},
 	}
 	caps.HTModes = map[string]bool{
-		//		BandwidthType{BandwidthHT20{}}:   false,
-		//		BandwidthType{BandwidthHT40{}}:   true,
-		//		BandwidthType{BandwidthVHT20{}}:  true,
-		//		BandwidthType{BandwidthVHT40{}}:  true,
-		//		BandwidthType{BandwidthVHT80{}}:  true,
-		//		BandwidthType{BandwidthVHT160{}}: false,
+		//		BandwidthTypeHT20:   false,
+		//		BandwidthTypeHT40:   true,
+		//		BandwidthTypeVHT20:  true,
+		//		BandwidthTypeVHT40:  true,
+		//		BandwidthTypeVHT80:  true,
+		//		BandwidthTypeVHT160: false,
 		"HT20":   false,
 		"HT40":   true,
 		"VHT20":  true,
@@ -232,7 +232,7 @@ func TestCPE(t *testing.T) {
 	expectation.Model.Name = "model 001"
 	expectation.Interfaces = map[string]CPEInterface{}
 	expectation.Interfaces["wlan0"] = i
-	expectation.ConfigStatus = ConfigurationStatus{StatusOK{}}
+	expectation.ConfigStatus = ConfigurationStatusOK
 
 	var result CPE
 	var err = json.Unmarshal(fixture, &result)

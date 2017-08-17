@@ -760,9 +760,9 @@ type TimestampMask struct {
 
 type EventMask struct {
 	TimestampMask
-	Type       []SystemEventObjectType `json:"type"`
-	Subject_id []string                `json:"subject_id"`
-	Level      []SystemEventLevel      `json:"level"`
+	Type       []SystemEventType  `json:"type"`
+	Subject_id []string           `json:"subject_id"`
+	Level      []SystemEventLevel `json:"level"`
 }
 
 type ClientStatMask struct {

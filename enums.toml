@@ -1,141 +1,127 @@
 [CPEInterfaceType]
-prefix = "Interface"
 [CPEInterfaceType.variants]
-WiFi    = { string = "wifi"  }
-Wired   = { string = "wired" }
+WiFi    = "wifi"
+Wired   = "wired"
 
 [ConfigurationStatus]
-prefix = "Status"
 [ConfigurationStatus.variants]
-Empty   = { string = "empty"   }
-Error   = { string = "error"   }
-OK      = { string = "ok"      }
-Pending = { string = "pending" }
-Future  = { string = "future"  }
+Empty   = "empty"
+Error   = "error"
+OK      = "ok"
+Pending = "pending"
+Future  = "future"
 
 [Module]
-prefix = "Module"
 [Module.variants]
-Any        = { string = "+"           }
-Dummy      = { string = "DUMMY"       }
-Backend    = { string = "BACKEND"     }
-CPE        = { string = "CPE"         }
-Config     = { string = "CONFIG"      }
-DB         = { string = "DB"          }
-Stat       = { string = "STAT"        }
-Monitor    = { string = "MONITOR"     }
-LBS        = { string = "LBS"         }
-ClientStat = { string = "CLIENT_STAT" }
-MQTTLog    = { string = "MQTT_LOG"    }
+Any        = "+"
+Dummy      = "DUMMY"
+Backend    = "BACKEND"
+CPE        = "CPE"
+Config     = "CONFIG"
+DB         = "DB"
+Stat       = "STAT"
+Monitor    = "MONITOR"
+LBS        = "LBS"
+ClientStat = "CLIENT_STAT"
+MQTTLog    = "MQTT_LOG"
 
 [Operation]
-prefix = "Operation"
 [Operation.variants]
-Any       = { string = "+"      }
-Create    = { string = "C"      }
-Delete    = { string = "D"      }
-Read      = { string = "R"      }
-Update    = { string = "U"      }
-LuaScript = { string = "LUA"    }
-SHScript  = { string = "SH"     }
-CPEStatus = { string = "STATUS" }
+Any       = "+"
+Create    = "C"
+Delete    = "D"
+Read      = "R"
+Update    = "U"
+LuaScript = "LUA"
+SHScript  = "SH"
+CPEStatus = "STATUS"
 
-[SystemEventObjectType]
-[SystemEventObjectType.variants]
-SystemEventAny                   = { string = "+" }
-SystemEventCPEConnected          = { string = "CPE_CONNECTED"  }
-SystemEventCPEDisconnected       = { string = "CPE_DISCONNECTED"  }
-SystemEventMonitorRuleViolation  = { string = "MONITOR_RULE_VIOLATION"  }
-SystemEventCPEConfigurationError = { string = "CPE_CONFIGURATION_ERROR"  }
-SystemEventClientConnected       = { string = "CLIENT_CONNECTED"  }
-SystemEventClientDisconnected    = { string = "CLIENT_DISCONNECTED"  }
-SystemEventServiceFatalError     = { string = "SERVICE_FATAL_ERROR"  }
-SystemEventServiceConnected      = { string = "SERVICE_CONNECTED"  }
-SystemEventServiceDisconnected   = { string = "SERVICE_DISCONNECTED"  }
-SystemEventDaemonSettingsChanged = { string = "DAEMON_SETTINGS_CHANGE"  }
+[SystemEventType]
+[SystemEventType.variants]
+Any                   = "+"
+CPEConnected          = "CPE_CONNECTED"
+CPEDisconnected       = "CPE_DISCONNECTED"
+MonitorRuleViolation  = "MONITOR_RULE_VIOLATION"
+CPEConfigurationError = "CPE_CONFIGURATION_ERROR"
+ClientConnected       = "CLIENT_CONNECTED"
+ClientDisconnected    = "CLIENT_DISCONNECTED"
+ServiceFatalError     = "SERVICE_FATAL_ERROR"
+ServiceConnected      = "SERVICE_CONNECTED"
+ServiceDisconnected   = "SERVICE_DISCONNECTED"
+DaemonSettingsChanged = "DAEMON_SETTINGS_CHANGE"
 
 [SystemEventLevel]
-prefix = "SystemEventLevel"
 [SystemEventLevel.variants]
-INFO      = { string = "INFO"    }
-DEBUG     = { string = "DEBUG"   }
-ERROR     = { string = "ERROR"   }
-WARNING   = { string = "WARNING" }
+INFO      = "INFO"
+DEBUG     = "DEBUG"
+ERROR     = "ERROR"
+WARNING   = "WARNING"
 
 [RadiusType]
-prefix = "Radius"
 [RadiusType.variants]
-Accounting     = { string = "acct"  }
-Authentication = { string = "auth" }
-Both           = { string = "both" }
+Accounting     = "acct"
+Authentication = "auth"
+Both           = "both"
 
 [SecuritySuite]
 [SecuritySuite.variants]
-AES  = { string = "aes"  }
-TKIP = { string = "tkip" }
+AES  = "aes"
+TKIP = "tkip"
 
 [SecurityType]
 [SecurityType.variants]
-WPA2Enterprise = { string = "wpa2enterprise" }
-WPA2Personal   = { string = "wpa2personal"   }
+WPA2Enterprise = "wpa2enterprise"
+WPA2Personal   = "wpa2personal"
 
 [CPEAgentStatusType]
-prefix = "CPEAgentStatus"
 [CPEAgentStatusType.variants]
-Success     = { string = "success"   }
-Undefined   = { string = "undefined" }
-SyntaxError = { string = "syntax"    }
-Exception   = { string = "exception" }
+Success     = "success"
+Undefined   = "undefined"
+SyntaxError = "syntax"
+Exception   = "exception"
 
 [StatEventRuleType]
-prefix = "StatEvent"
 [StatEventRuleType.variants]
-FreeRAM = { string = "free_ram" }
-CPUload = { string = "cpu_load" }
+FreeRAM = "free_ram"
+CPUload = "cpu_load"
 
 [ClientStatPacketType]
-prefix = "ClientStat"
 [ClientStatPacketType.variants]
-On      = { string = "Accounting-On" }
-Off     = { string = "Accounting-Off" }
-Start   = { string = "Start" }
-Stop    = { string = "Stop" }
-Interim = { string = "Interim-Update" }
+On      = "Accounting-On"
+Off     = "Accounting-Off"
+Start   = "Start"
+Stop    = "Stop"
+Interim = "Interim-Update"
 
 [BandwidthType]
-prefix = "Bandwidth"
 [BandwidthType.variants]
-HT20      = { string = "HT20"   }
-HT40      = { string = "HT40"   }
-HT40Plus  = { string = "HT40+"  }
-HT40Minus = { string = "HT40-"  }
-VHT20     = { string = "VHT20"  }
-VHT40     = { string = "VHT40"  }
-VHT80     = { string = "VHT80"  }
-VHT160    = { string = "VHT160" }
+HT20      = "HT20"
+HT40      = "HT40"
+HT40Plus  = "HT40+"
+HT40Minus = "HT40-"
+VHT20     = "VHT20"
+VHT40     = "VHT40"
+VHT80     = "VHT80"
+VHT160    = "VHT160"
 
 [WirelessClientType]
-prefix = "WirelessClient"
 [WirelessClientType.variants]
-Camera = { string = "camera" }
-Other  = { string = "other" }
+Camera = "camera"
+Other  = "other"
 
 [WirelessClientState]
-prefix = "WirelessClientState"
 [WirelessClientState.variants]
-CONNECTED     = { string = "CONNECTED" }
-DISCONNECTED  = { string = "DISCONNECTED" }
+CONNECTED     = "CONNECTED"
+DISCONNECTED  = "DISCONNECTED"
 
 [MacFilterType]
-prefix = "MacFilter"
 [MacFilterType.variants]
-BlackList = { string = "BlackList" }
-WhiteList = { string = "WhiteList" }
-None      = { string = "None"      }
+BlackList = "BlackList"
+WhiteList = "WhiteList"
+None      = "None"
 
 [ServiceState]
-prefix = "ServiceState"
 [ServiceState.variants]
-Connected    = { string = "CONNECTED"    }
-Disconnected = { string = "DISCONNECTED" }
-Pending      = { string = "PENDING"      }
+Connected    = "CONNECTED"
+Disconnected = "DISCONNECTED"
+Pending      = "PENDING"

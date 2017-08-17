@@ -90,7 +90,7 @@ func (self LogTopic) TopicPath() string {
 type EventTopic struct {
 	SenderModule Module
 	SenderID     string
-	Type         SystemEventObjectType
+	Type         SystemEventType
 }
 
 func ParseEventTopic(s string) (EventTopic, error) {
@@ -101,7 +101,7 @@ func ParseEventTopic(s string) (EventTopic, error) {
 		var data = ds[0]
 		if data != nil && len(data) == 3+1 {
 			var smodule Module
-			var event_type SystemEventObjectType
+			var event_type SystemEventType
 			var smodule_err = json.Unmarshal([]byte(strconv.Quote(data[1])), &smodule)
 			var event_type_err = json.Unmarshal([]byte(strconv.Quote(data[3])), &event_type)
 			if smodule_err == nil && event_type_err == nil {
@@ -481,14 +481,14 @@ type ModuleStatus struct {
 
 func (self ModuleStatus) Connected() ModuleStatus {
 	var v = self
-	v.State = ServiceState{ServiceStateConnected{}}
+	v.State = ServiceStateConnected
 
 	return v
 }
 
 func (self ModuleStatus) Disconnected() ModuleStatus {
 	var v = self
-	v.State = ServiceState{ServiceStateConnected{}}
+	v.State = ServiceStateConnected
 
 	return v
 }

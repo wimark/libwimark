@@ -31,8 +31,8 @@ func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	switch t.Value().(type) {
-	case CPEAgentStatusException:
+	switch t {
+	case CPEAgentStatusTypeException:
 		if !data_found {
 			return errors.New("No associated data found for enum CPEAgentError")
 		}
@@ -42,9 +42,9 @@ func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case CPEAgentStatusSuccess:
+	case CPEAgentStatusTypeSuccess:
 		break
-	case CPEAgentStatusSyntaxError:
+	case CPEAgentStatusTypeSyntaxError:
 		if !data_found {
 			return errors.New("No associated data found for enum CPEAgentError")
 		}
@@ -54,7 +54,7 @@ func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case CPEAgentStatusUndefined:
+	case CPEAgentStatusTypeUndefined:
 		if !data_found {
 			return errors.New("No associated data found for enum CPEAgentError")
 		}
@@ -96,8 +96,8 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	switch t.Value().(type) {
-	case InterfaceWiFi:
+	switch t {
+	case CPEInterfaceTypeWiFi:
 		if !data_found {
 			return errors.New("No associated data found for enum CPEInterfaceInfo")
 		}
@@ -107,7 +107,7 @@ func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case InterfaceWired:
+	case CPEInterfaceTypeWired:
 		if !data_found {
 			return errors.New("No associated data found for enum CPEInterfaceInfo")
 		}
@@ -149,8 +149,8 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	switch t.Value().(type) {
-	case WPA2Enterprise:
+	switch t {
+	case SecurityTypeWPA2Enterprise:
 		if !data_found {
 			return errors.New("No associated data found for enum EnumSecurity")
 		}
@@ -160,7 +160,7 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case WPA2Personal:
+	case SecurityTypeWPA2Personal:
 		if !data_found {
 			return errors.New("No associated data found for enum EnumSecurity")
 		}
@@ -202,8 +202,8 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	switch t.Value().(type) {
-	case StatEventCPUload:
+	switch t {
+	case StatEventRuleTypeCPUload:
 		if !data_found {
 			return errors.New("No associated data found for enum StatEventRuleObject")
 		}
@@ -213,7 +213,7 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case StatEventFreeRAM:
+	case StatEventRuleTypeFreeRAM:
 		if !data_found {
 			return errors.New("No associated data found for enum StatEventRuleObject")
 		}
@@ -231,8 +231,8 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 }
 
 type SystemEventObject struct {
-	Type SystemEventObjectType `json:"type"`
-	Data interface{}           `json:"data"`
+	Type SystemEventType `json:"type"`
+	Data interface{}     `json:"data"`
 }
 
 func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
@@ -251,12 +251,12 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 	if bytes.Equal(data_raw, []byte("null")) {
 		data_found = false
 	}
-	var t SystemEventObjectType
+	var t SystemEventType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	switch t.Value().(type) {
-	case SystemEventCPEConfigurationError:
+	switch t {
+	case SystemEventTypeCPEConfigurationError:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
@@ -266,7 +266,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case SystemEventCPEConnected:
+	case SystemEventTypeCPEConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
@@ -276,9 +276,9 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case SystemEventCPEDisconnected:
+	case SystemEventTypeCPEDisconnected:
 		break
-	case SystemEventClientConnected:
+	case SystemEventTypeClientConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
@@ -288,7 +288,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case SystemEventClientDisconnected:
+	case SystemEventTypeClientDisconnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
@@ -298,9 +298,9 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case SystemEventDaemonSettingsChanged:
+	case SystemEventTypeDaemonSettingsChanged:
 		break
-	case SystemEventMonitorRuleViolation:
+	case SystemEventTypeMonitorRuleViolation:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
@@ -310,7 +310,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case SystemEventServiceConnected:
+	case SystemEventTypeServiceConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
@@ -320,9 +320,9 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case SystemEventServiceDisconnected:
+	case SystemEventTypeServiceDisconnected:
 		break
-	case SystemEventServiceFatalError:
+	case SystemEventTypeServiceFatalError:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
@@ -364,8 +364,8 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
-	switch t.Value().(type) {
-	case WirelessClientCamera:
+	switch t {
+	case WirelessClientTypeCamera:
 		if !data_found {
 			return errors.New("No associated data found for enum WirelessClientObject")
 		}
@@ -375,7 +375,7 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
-	case WirelessClientOther:
+	case WirelessClientTypeOther:
 		if !data_found {
 			return errors.New("No associated data found for enum WirelessClientObject")
 		}

@@ -10,111 +10,84 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type BandwidthTypeIface interface {
-	BandwidthTypeIfaceFunc()
-}
-type BandwidthType struct{ BandwidthTypeIface }
+type BandwidthType string
 
-func (self *BandwidthType) Value() BandwidthTypeIface { return self.BandwidthTypeIface }
+const BandwidthTypeHT20 BandwidthType = "HT20"
+const BandwidthTypeHT40 BandwidthType = "HT40"
+const BandwidthTypeHT40Minus BandwidthType = "HT40-"
+const BandwidthTypeHT40Plus BandwidthType = "HT40+"
+const BandwidthTypeVHT160 BandwidthType = "VHT160"
+const BandwidthTypeVHT20 BandwidthType = "VHT20"
+const BandwidthTypeVHT40 BandwidthType = "VHT40"
+const BandwidthTypeVHT80 BandwidthType = "VHT80"
 
-type BandwidthHT20 struct{}
+func (self BandwidthType) GetPtr() *BandwidthType { var v = self; return &v }
 
-func (BandwidthHT20) BandwidthTypeIfaceFunc() {}
-
-type BandwidthHT40 struct{}
-
-func (BandwidthHT40) BandwidthTypeIfaceFunc() {}
-
-type BandwidthHT40Minus struct{}
-
-func (BandwidthHT40Minus) BandwidthTypeIfaceFunc() {}
-
-type BandwidthHT40Plus struct{}
-
-func (BandwidthHT40Plus) BandwidthTypeIfaceFunc() {}
-
-type BandwidthVHT160 struct{}
-
-func (BandwidthVHT160) BandwidthTypeIfaceFunc() {}
-
-type BandwidthVHT20 struct{}
-
-func (BandwidthVHT20) BandwidthTypeIfaceFunc() {}
-
-type BandwidthVHT40 struct{}
-
-func (BandwidthVHT40) BandwidthTypeIfaceFunc() {}
-
-type BandwidthVHT80 struct{}
-
-func (BandwidthVHT80) BandwidthTypeIfaceFunc() {}
 func (self *BandwidthType) String() string {
-	switch self.BandwidthTypeIface.(type) {
-	case BandwidthHT20:
+	switch *self {
+	case BandwidthTypeHT20:
 		return "HT20"
-	case BandwidthHT40:
+	case BandwidthTypeHT40:
 		return "HT40"
-	case BandwidthHT40Minus:
+	case BandwidthTypeHT40Minus:
 		return "HT40-"
-	case BandwidthHT40Plus:
+	case BandwidthTypeHT40Plus:
 		return "HT40+"
-	case BandwidthVHT160:
+	case BandwidthTypeVHT160:
 		return "VHT160"
-	case BandwidthVHT20:
+	case BandwidthTypeVHT20:
 		return "VHT20"
-	case BandwidthVHT40:
+	case BandwidthTypeVHT40:
 		return "VHT40"
-	case BandwidthVHT80:
+	case BandwidthTypeVHT80:
 		return "VHT80"
 
 	}
 	panic(errors.New("Invalid value of BandwidthType"))
 
 }
-func (self BandwidthType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case BandwidthHT20:
+
+func (self *BandwidthType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case BandwidthTypeHT20:
 		return json.Marshal("HT20")
-	case BandwidthHT40:
+	case BandwidthTypeHT40:
 		return json.Marshal("HT40")
-	case BandwidthHT40Minus:
+	case BandwidthTypeHT40Minus:
 		return json.Marshal("HT40-")
-	case BandwidthHT40Plus:
+	case BandwidthTypeHT40Plus:
 		return json.Marshal("HT40+")
-	case BandwidthVHT160:
+	case BandwidthTypeVHT160:
 		return json.Marshal("VHT160")
-	case BandwidthVHT20:
+	case BandwidthTypeVHT20:
 		return json.Marshal("VHT20")
-	case BandwidthVHT40:
+	case BandwidthTypeVHT40:
 		return json.Marshal("VHT40")
-	case BandwidthVHT80:
+	case BandwidthTypeVHT80:
 		return json.Marshal("VHT80")
 
 	}
 	return nil, errors.New("Invalid value of BandwidthType")
 
 }
-func (self BandwidthType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("BandwidthType cannot be nil")
-	}
-	switch v.(type) {
-	case BandwidthHT20:
+
+func (self *BandwidthType) GetBSON() (interface{}, error) {
+	switch *self {
+	case BandwidthTypeHT20:
 		return "HT20", nil
-	case BandwidthHT40:
+	case BandwidthTypeHT40:
 		return "HT40", nil
-	case BandwidthHT40Minus:
+	case BandwidthTypeHT40Minus:
 		return "HT40-", nil
-	case BandwidthHT40Plus:
+	case BandwidthTypeHT40Plus:
 		return "HT40+", nil
-	case BandwidthVHT160:
+	case BandwidthTypeVHT160:
 		return "VHT160", nil
-	case BandwidthVHT20:
+	case BandwidthTypeVHT20:
 		return "VHT20", nil
-	case BandwidthVHT40:
+	case BandwidthTypeVHT40:
 		return "VHT40", nil
-	case BandwidthVHT80:
+	case BandwidthTypeVHT80:
 		return "VHT80", nil
 
 	}
@@ -128,28 +101,28 @@ func (self *BandwidthType) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "HT20":
-		self.BandwidthTypeIface = BandwidthHT20{}
+		*self = BandwidthTypeHT20
 		return nil
 	case "HT40":
-		self.BandwidthTypeIface = BandwidthHT40{}
+		*self = BandwidthTypeHT40
 		return nil
 	case "HT40-":
-		self.BandwidthTypeIface = BandwidthHT40Minus{}
+		*self = BandwidthTypeHT40Minus
 		return nil
 	case "HT40+":
-		self.BandwidthTypeIface = BandwidthHT40Plus{}
+		*self = BandwidthTypeHT40Plus
 		return nil
 	case "VHT160":
-		self.BandwidthTypeIface = BandwidthVHT160{}
+		*self = BandwidthTypeVHT160
 		return nil
 	case "VHT20":
-		self.BandwidthTypeIface = BandwidthVHT20{}
+		*self = BandwidthTypeVHT20
 		return nil
 	case "VHT40":
-		self.BandwidthTypeIface = BandwidthVHT40{}
+		*self = BandwidthTypeVHT40
 		return nil
 	case "VHT80":
-		self.BandwidthTypeIface = BandwidthVHT80{}
+		*self = BandwidthTypeVHT80
 		return nil
 
 	}
@@ -164,28 +137,28 @@ func (self *BandwidthType) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "HT20":
-		self.BandwidthTypeIface = BandwidthHT20{}
+		*self = BandwidthTypeHT20
 		return nil
 	case "HT40":
-		self.BandwidthTypeIface = BandwidthHT40{}
+		*self = BandwidthTypeHT40
 		return nil
 	case "HT40-":
-		self.BandwidthTypeIface = BandwidthHT40Minus{}
+		*self = BandwidthTypeHT40Minus
 		return nil
 	case "HT40+":
-		self.BandwidthTypeIface = BandwidthHT40Plus{}
+		*self = BandwidthTypeHT40Plus
 		return nil
 	case "VHT160":
-		self.BandwidthTypeIface = BandwidthVHT160{}
+		*self = BandwidthTypeVHT160
 		return nil
 	case "VHT20":
-		self.BandwidthTypeIface = BandwidthVHT20{}
+		*self = BandwidthTypeVHT20
 		return nil
 	case "VHT40":
-		self.BandwidthTypeIface = BandwidthVHT40{}
+		*self = BandwidthTypeVHT40
 		return nil
 	case "VHT80":
-		self.BandwidthTypeIface = BandwidthVHT80{}
+		*self = BandwidthTypeVHT80
 		return nil
 
 	}
@@ -193,71 +166,56 @@ func (self *BandwidthType) SetBSON(v bson.Raw) error {
 
 }
 
-type CPEAgentStatusTypeIface interface {
-	CPEAgentStatusTypeIfaceFunc()
-}
-type CPEAgentStatusType struct{ CPEAgentStatusTypeIface }
+type CPEAgentStatusType string
 
-func (self *CPEAgentStatusType) Value() CPEAgentStatusTypeIface { return self.CPEAgentStatusTypeIface }
+const CPEAgentStatusTypeException CPEAgentStatusType = "exception"
+const CPEAgentStatusTypeSuccess CPEAgentStatusType = "success"
+const CPEAgentStatusTypeSyntaxError CPEAgentStatusType = "syntax"
+const CPEAgentStatusTypeUndefined CPEAgentStatusType = "undefined"
 
-type CPEAgentStatusException struct{}
+func (self CPEAgentStatusType) GetPtr() *CPEAgentStatusType { var v = self; return &v }
 
-func (CPEAgentStatusException) CPEAgentStatusTypeIfaceFunc() {}
-
-type CPEAgentStatusSuccess struct{}
-
-func (CPEAgentStatusSuccess) CPEAgentStatusTypeIfaceFunc() {}
-
-type CPEAgentStatusSyntaxError struct{}
-
-func (CPEAgentStatusSyntaxError) CPEAgentStatusTypeIfaceFunc() {}
-
-type CPEAgentStatusUndefined struct{}
-
-func (CPEAgentStatusUndefined) CPEAgentStatusTypeIfaceFunc() {}
 func (self *CPEAgentStatusType) String() string {
-	switch self.CPEAgentStatusTypeIface.(type) {
-	case CPEAgentStatusException:
+	switch *self {
+	case CPEAgentStatusTypeException:
 		return "exception"
-	case CPEAgentStatusSuccess:
+	case CPEAgentStatusTypeSuccess:
 		return "success"
-	case CPEAgentStatusSyntaxError:
+	case CPEAgentStatusTypeSyntaxError:
 		return "syntax"
-	case CPEAgentStatusUndefined:
+	case CPEAgentStatusTypeUndefined:
 		return "undefined"
 
 	}
 	panic(errors.New("Invalid value of CPEAgentStatusType"))
 
 }
-func (self CPEAgentStatusType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case CPEAgentStatusException:
+
+func (self *CPEAgentStatusType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case CPEAgentStatusTypeException:
 		return json.Marshal("exception")
-	case CPEAgentStatusSuccess:
+	case CPEAgentStatusTypeSuccess:
 		return json.Marshal("success")
-	case CPEAgentStatusSyntaxError:
+	case CPEAgentStatusTypeSyntaxError:
 		return json.Marshal("syntax")
-	case CPEAgentStatusUndefined:
+	case CPEAgentStatusTypeUndefined:
 		return json.Marshal("undefined")
 
 	}
 	return nil, errors.New("Invalid value of CPEAgentStatusType")
 
 }
-func (self CPEAgentStatusType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("CPEAgentStatusType cannot be nil")
-	}
-	switch v.(type) {
-	case CPEAgentStatusException:
+
+func (self *CPEAgentStatusType) GetBSON() (interface{}, error) {
+	switch *self {
+	case CPEAgentStatusTypeException:
 		return "exception", nil
-	case CPEAgentStatusSuccess:
+	case CPEAgentStatusTypeSuccess:
 		return "success", nil
-	case CPEAgentStatusSyntaxError:
+	case CPEAgentStatusTypeSyntaxError:
 		return "syntax", nil
-	case CPEAgentStatusUndefined:
+	case CPEAgentStatusTypeUndefined:
 		return "undefined", nil
 
 	}
@@ -271,16 +229,16 @@ func (self *CPEAgentStatusType) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "exception":
-		self.CPEAgentStatusTypeIface = CPEAgentStatusException{}
+		*self = CPEAgentStatusTypeException
 		return nil
 	case "success":
-		self.CPEAgentStatusTypeIface = CPEAgentStatusSuccess{}
+		*self = CPEAgentStatusTypeSuccess
 		return nil
 	case "syntax":
-		self.CPEAgentStatusTypeIface = CPEAgentStatusSyntaxError{}
+		*self = CPEAgentStatusTypeSyntaxError
 		return nil
 	case "undefined":
-		self.CPEAgentStatusTypeIface = CPEAgentStatusUndefined{}
+		*self = CPEAgentStatusTypeUndefined
 		return nil
 
 	}
@@ -295,16 +253,16 @@ func (self *CPEAgentStatusType) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "exception":
-		self.CPEAgentStatusTypeIface = CPEAgentStatusException{}
+		*self = CPEAgentStatusTypeException
 		return nil
 	case "success":
-		self.CPEAgentStatusTypeIface = CPEAgentStatusSuccess{}
+		*self = CPEAgentStatusTypeSuccess
 		return nil
 	case "syntax":
-		self.CPEAgentStatusTypeIface = CPEAgentStatusSyntaxError{}
+		*self = CPEAgentStatusTypeSyntaxError
 		return nil
 	case "undefined":
-		self.CPEAgentStatusTypeIface = CPEAgentStatusUndefined{}
+		*self = CPEAgentStatusTypeUndefined
 		return nil
 
 	}
@@ -312,51 +270,42 @@ func (self *CPEAgentStatusType) SetBSON(v bson.Raw) error {
 
 }
 
-type CPEInterfaceTypeIface interface {
-	CPEInterfaceTypeIfaceFunc()
-}
-type CPEInterfaceType struct{ CPEInterfaceTypeIface }
+type CPEInterfaceType string
 
-func (self *CPEInterfaceType) Value() CPEInterfaceTypeIface { return self.CPEInterfaceTypeIface }
+const CPEInterfaceTypeWiFi CPEInterfaceType = "wifi"
+const CPEInterfaceTypeWired CPEInterfaceType = "wired"
 
-type InterfaceWiFi struct{}
+func (self CPEInterfaceType) GetPtr() *CPEInterfaceType { var v = self; return &v }
 
-func (InterfaceWiFi) CPEInterfaceTypeIfaceFunc() {}
-
-type InterfaceWired struct{}
-
-func (InterfaceWired) CPEInterfaceTypeIfaceFunc() {}
 func (self *CPEInterfaceType) String() string {
-	switch self.CPEInterfaceTypeIface.(type) {
-	case InterfaceWiFi:
+	switch *self {
+	case CPEInterfaceTypeWiFi:
 		return "wifi"
-	case InterfaceWired:
+	case CPEInterfaceTypeWired:
 		return "wired"
 
 	}
 	panic(errors.New("Invalid value of CPEInterfaceType"))
 
 }
-func (self CPEInterfaceType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case InterfaceWiFi:
+
+func (self *CPEInterfaceType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case CPEInterfaceTypeWiFi:
 		return json.Marshal("wifi")
-	case InterfaceWired:
+	case CPEInterfaceTypeWired:
 		return json.Marshal("wired")
 
 	}
 	return nil, errors.New("Invalid value of CPEInterfaceType")
 
 }
-func (self CPEInterfaceType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("CPEInterfaceType cannot be nil")
-	}
-	switch v.(type) {
-	case InterfaceWiFi:
+
+func (self *CPEInterfaceType) GetBSON() (interface{}, error) {
+	switch *self {
+	case CPEInterfaceTypeWiFi:
 		return "wifi", nil
-	case InterfaceWired:
+	case CPEInterfaceTypeWired:
 		return "wired", nil
 
 	}
@@ -370,10 +319,10 @@ func (self *CPEInterfaceType) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "wifi":
-		self.CPEInterfaceTypeIface = InterfaceWiFi{}
+		*self = CPEInterfaceTypeWiFi
 		return nil
 	case "wired":
-		self.CPEInterfaceTypeIface = InterfaceWired{}
+		*self = CPEInterfaceTypeWired
 		return nil
 
 	}
@@ -388,10 +337,10 @@ func (self *CPEInterfaceType) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "wifi":
-		self.CPEInterfaceTypeIface = InterfaceWiFi{}
+		*self = CPEInterfaceTypeWiFi
 		return nil
 	case "wired":
-		self.CPEInterfaceTypeIface = InterfaceWired{}
+		*self = CPEInterfaceTypeWired
 		return nil
 
 	}
@@ -399,83 +348,63 @@ func (self *CPEInterfaceType) SetBSON(v bson.Raw) error {
 
 }
 
-type ClientStatPacketTypeIface interface {
-	ClientStatPacketTypeIfaceFunc()
-}
-type ClientStatPacketType struct{ ClientStatPacketTypeIface }
+type ClientStatPacketType string
 
-func (self *ClientStatPacketType) Value() ClientStatPacketTypeIface {
-	return self.ClientStatPacketTypeIface
-}
+const ClientStatPacketTypeInterim ClientStatPacketType = "Interim-Update"
+const ClientStatPacketTypeOff ClientStatPacketType = "Accounting-Off"
+const ClientStatPacketTypeOn ClientStatPacketType = "Accounting-On"
+const ClientStatPacketTypeStart ClientStatPacketType = "Start"
+const ClientStatPacketTypeStop ClientStatPacketType = "Stop"
 
-type ClientStatInterim struct{}
+func (self ClientStatPacketType) GetPtr() *ClientStatPacketType { var v = self; return &v }
 
-func (ClientStatInterim) ClientStatPacketTypeIfaceFunc() {}
-
-type ClientStatOff struct{}
-
-func (ClientStatOff) ClientStatPacketTypeIfaceFunc() {}
-
-type ClientStatOn struct{}
-
-func (ClientStatOn) ClientStatPacketTypeIfaceFunc() {}
-
-type ClientStatStart struct{}
-
-func (ClientStatStart) ClientStatPacketTypeIfaceFunc() {}
-
-type ClientStatStop struct{}
-
-func (ClientStatStop) ClientStatPacketTypeIfaceFunc() {}
 func (self *ClientStatPacketType) String() string {
-	switch self.ClientStatPacketTypeIface.(type) {
-	case ClientStatInterim:
+	switch *self {
+	case ClientStatPacketTypeInterim:
 		return "Interim-Update"
-	case ClientStatOff:
+	case ClientStatPacketTypeOff:
 		return "Accounting-Off"
-	case ClientStatOn:
+	case ClientStatPacketTypeOn:
 		return "Accounting-On"
-	case ClientStatStart:
+	case ClientStatPacketTypeStart:
 		return "Start"
-	case ClientStatStop:
+	case ClientStatPacketTypeStop:
 		return "Stop"
 
 	}
 	panic(errors.New("Invalid value of ClientStatPacketType"))
 
 }
-func (self ClientStatPacketType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case ClientStatInterim:
+
+func (self *ClientStatPacketType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case ClientStatPacketTypeInterim:
 		return json.Marshal("Interim-Update")
-	case ClientStatOff:
+	case ClientStatPacketTypeOff:
 		return json.Marshal("Accounting-Off")
-	case ClientStatOn:
+	case ClientStatPacketTypeOn:
 		return json.Marshal("Accounting-On")
-	case ClientStatStart:
+	case ClientStatPacketTypeStart:
 		return json.Marshal("Start")
-	case ClientStatStop:
+	case ClientStatPacketTypeStop:
 		return json.Marshal("Stop")
 
 	}
 	return nil, errors.New("Invalid value of ClientStatPacketType")
 
 }
-func (self ClientStatPacketType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("ClientStatPacketType cannot be nil")
-	}
-	switch v.(type) {
-	case ClientStatInterim:
+
+func (self *ClientStatPacketType) GetBSON() (interface{}, error) {
+	switch *self {
+	case ClientStatPacketTypeInterim:
 		return "Interim-Update", nil
-	case ClientStatOff:
+	case ClientStatPacketTypeOff:
 		return "Accounting-Off", nil
-	case ClientStatOn:
+	case ClientStatPacketTypeOn:
 		return "Accounting-On", nil
-	case ClientStatStart:
+	case ClientStatPacketTypeStart:
 		return "Start", nil
-	case ClientStatStop:
+	case ClientStatPacketTypeStop:
 		return "Stop", nil
 
 	}
@@ -489,19 +418,19 @@ func (self *ClientStatPacketType) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "Interim-Update":
-		self.ClientStatPacketTypeIface = ClientStatInterim{}
+		*self = ClientStatPacketTypeInterim
 		return nil
 	case "Accounting-Off":
-		self.ClientStatPacketTypeIface = ClientStatOff{}
+		*self = ClientStatPacketTypeOff
 		return nil
 	case "Accounting-On":
-		self.ClientStatPacketTypeIface = ClientStatOn{}
+		*self = ClientStatPacketTypeOn
 		return nil
 	case "Start":
-		self.ClientStatPacketTypeIface = ClientStatStart{}
+		*self = ClientStatPacketTypeStart
 		return nil
 	case "Stop":
-		self.ClientStatPacketTypeIface = ClientStatStop{}
+		*self = ClientStatPacketTypeStop
 		return nil
 
 	}
@@ -516,19 +445,19 @@ func (self *ClientStatPacketType) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "Interim-Update":
-		self.ClientStatPacketTypeIface = ClientStatInterim{}
+		*self = ClientStatPacketTypeInterim
 		return nil
 	case "Accounting-Off":
-		self.ClientStatPacketTypeIface = ClientStatOff{}
+		*self = ClientStatPacketTypeOff
 		return nil
 	case "Accounting-On":
-		self.ClientStatPacketTypeIface = ClientStatOn{}
+		*self = ClientStatPacketTypeOn
 		return nil
 	case "Start":
-		self.ClientStatPacketTypeIface = ClientStatStart{}
+		*self = ClientStatPacketTypeStart
 		return nil
 	case "Stop":
-		self.ClientStatPacketTypeIface = ClientStatStop{}
+		*self = ClientStatPacketTypeStop
 		return nil
 
 	}
@@ -536,83 +465,63 @@ func (self *ClientStatPacketType) SetBSON(v bson.Raw) error {
 
 }
 
-type ConfigurationStatusIface interface {
-	ConfigurationStatusIfaceFunc()
-}
-type ConfigurationStatus struct{ ConfigurationStatusIface }
+type ConfigurationStatus string
 
-func (self *ConfigurationStatus) Value() ConfigurationStatusIface {
-	return self.ConfigurationStatusIface
-}
+const ConfigurationStatusEmpty ConfigurationStatus = "empty"
+const ConfigurationStatusError ConfigurationStatus = "error"
+const ConfigurationStatusFuture ConfigurationStatus = "future"
+const ConfigurationStatusOK ConfigurationStatus = "ok"
+const ConfigurationStatusPending ConfigurationStatus = "pending"
 
-type StatusEmpty struct{}
+func (self ConfigurationStatus) GetPtr() *ConfigurationStatus { var v = self; return &v }
 
-func (StatusEmpty) ConfigurationStatusIfaceFunc() {}
-
-type StatusError struct{}
-
-func (StatusError) ConfigurationStatusIfaceFunc() {}
-
-type StatusFuture struct{}
-
-func (StatusFuture) ConfigurationStatusIfaceFunc() {}
-
-type StatusOK struct{}
-
-func (StatusOK) ConfigurationStatusIfaceFunc() {}
-
-type StatusPending struct{}
-
-func (StatusPending) ConfigurationStatusIfaceFunc() {}
 func (self *ConfigurationStatus) String() string {
-	switch self.ConfigurationStatusIface.(type) {
-	case StatusEmpty:
+	switch *self {
+	case ConfigurationStatusEmpty:
 		return "empty"
-	case StatusError:
+	case ConfigurationStatusError:
 		return "error"
-	case StatusFuture:
+	case ConfigurationStatusFuture:
 		return "future"
-	case StatusOK:
+	case ConfigurationStatusOK:
 		return "ok"
-	case StatusPending:
+	case ConfigurationStatusPending:
 		return "pending"
 
 	}
 	panic(errors.New("Invalid value of ConfigurationStatus"))
 
 }
-func (self ConfigurationStatus) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case StatusEmpty:
+
+func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case ConfigurationStatusEmpty:
 		return json.Marshal("empty")
-	case StatusError:
+	case ConfigurationStatusError:
 		return json.Marshal("error")
-	case StatusFuture:
+	case ConfigurationStatusFuture:
 		return json.Marshal("future")
-	case StatusOK:
+	case ConfigurationStatusOK:
 		return json.Marshal("ok")
-	case StatusPending:
+	case ConfigurationStatusPending:
 		return json.Marshal("pending")
 
 	}
 	return nil, errors.New("Invalid value of ConfigurationStatus")
 
 }
-func (self ConfigurationStatus) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("ConfigurationStatus cannot be nil")
-	}
-	switch v.(type) {
-	case StatusEmpty:
+
+func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
+	switch *self {
+	case ConfigurationStatusEmpty:
 		return "empty", nil
-	case StatusError:
+	case ConfigurationStatusError:
 		return "error", nil
-	case StatusFuture:
+	case ConfigurationStatusFuture:
 		return "future", nil
-	case StatusOK:
+	case ConfigurationStatusOK:
 		return "ok", nil
-	case StatusPending:
+	case ConfigurationStatusPending:
 		return "pending", nil
 
 	}
@@ -626,19 +535,19 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "empty":
-		self.ConfigurationStatusIface = StatusEmpty{}
+		*self = ConfigurationStatusEmpty
 		return nil
 	case "error":
-		self.ConfigurationStatusIface = StatusError{}
+		*self = ConfigurationStatusError
 		return nil
 	case "future":
-		self.ConfigurationStatusIface = StatusFuture{}
+		*self = ConfigurationStatusFuture
 		return nil
 	case "ok":
-		self.ConfigurationStatusIface = StatusOK{}
+		*self = ConfigurationStatusOK
 		return nil
 	case "pending":
-		self.ConfigurationStatusIface = StatusPending{}
+		*self = ConfigurationStatusPending
 		return nil
 
 	}
@@ -653,19 +562,19 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "empty":
-		self.ConfigurationStatusIface = StatusEmpty{}
+		*self = ConfigurationStatusEmpty
 		return nil
 	case "error":
-		self.ConfigurationStatusIface = StatusError{}
+		*self = ConfigurationStatusError
 		return nil
 	case "future":
-		self.ConfigurationStatusIface = StatusFuture{}
+		*self = ConfigurationStatusFuture
 		return nil
 	case "ok":
-		self.ConfigurationStatusIface = StatusOK{}
+		*self = ConfigurationStatusOK
 		return nil
 	case "pending":
-		self.ConfigurationStatusIface = StatusPending{}
+		*self = ConfigurationStatusPending
 		return nil
 
 	}
@@ -673,61 +582,49 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 
 }
 
-type MacFilterTypeIface interface {
-	MacFilterTypeIfaceFunc()
-}
-type MacFilterType struct{ MacFilterTypeIface }
+type MacFilterType string
 
-func (self *MacFilterType) Value() MacFilterTypeIface { return self.MacFilterTypeIface }
+const MacFilterTypeBlackList MacFilterType = "BlackList"
+const MacFilterTypeNone MacFilterType = "None"
+const MacFilterTypeWhiteList MacFilterType = "WhiteList"
 
-type MacFilterBlackList struct{}
+func (self MacFilterType) GetPtr() *MacFilterType { var v = self; return &v }
 
-func (MacFilterBlackList) MacFilterTypeIfaceFunc() {}
-
-type MacFilterNone struct{}
-
-func (MacFilterNone) MacFilterTypeIfaceFunc() {}
-
-type MacFilterWhiteList struct{}
-
-func (MacFilterWhiteList) MacFilterTypeIfaceFunc() {}
 func (self *MacFilterType) String() string {
-	switch self.MacFilterTypeIface.(type) {
-	case MacFilterBlackList:
+	switch *self {
+	case MacFilterTypeBlackList:
 		return "BlackList"
-	case MacFilterNone:
+	case MacFilterTypeNone:
 		return "None"
-	case MacFilterWhiteList:
+	case MacFilterTypeWhiteList:
 		return "WhiteList"
 
 	}
 	panic(errors.New("Invalid value of MacFilterType"))
 
 }
-func (self MacFilterType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case MacFilterBlackList:
+
+func (self *MacFilterType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case MacFilterTypeBlackList:
 		return json.Marshal("BlackList")
-	case MacFilterNone:
+	case MacFilterTypeNone:
 		return json.Marshal("None")
-	case MacFilterWhiteList:
+	case MacFilterTypeWhiteList:
 		return json.Marshal("WhiteList")
 
 	}
 	return nil, errors.New("Invalid value of MacFilterType")
 
 }
-func (self MacFilterType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("MacFilterType cannot be nil")
-	}
-	switch v.(type) {
-	case MacFilterBlackList:
+
+func (self *MacFilterType) GetBSON() (interface{}, error) {
+	switch *self {
+	case MacFilterTypeBlackList:
 		return "BlackList", nil
-	case MacFilterNone:
+	case MacFilterTypeNone:
 		return "None", nil
-	case MacFilterWhiteList:
+	case MacFilterTypeWhiteList:
 		return "WhiteList", nil
 
 	}
@@ -741,13 +638,13 @@ func (self *MacFilterType) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "BlackList":
-		self.MacFilterTypeIface = MacFilterBlackList{}
+		*self = MacFilterTypeBlackList
 		return nil
 	case "None":
-		self.MacFilterTypeIface = MacFilterNone{}
+		*self = MacFilterTypeNone
 		return nil
 	case "WhiteList":
-		self.MacFilterTypeIface = MacFilterWhiteList{}
+		*self = MacFilterTypeWhiteList
 		return nil
 
 	}
@@ -762,13 +659,13 @@ func (self *MacFilterType) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "BlackList":
-		self.MacFilterTypeIface = MacFilterBlackList{}
+		*self = MacFilterTypeBlackList
 		return nil
 	case "None":
-		self.MacFilterTypeIface = MacFilterNone{}
+		*self = MacFilterTypeNone
 		return nil
 	case "WhiteList":
-		self.MacFilterTypeIface = MacFilterWhiteList{}
+		*self = MacFilterTypeWhiteList
 		return nil
 
 	}
@@ -776,58 +673,24 @@ func (self *MacFilterType) SetBSON(v bson.Raw) error {
 
 }
 
-type ModuleIface interface {
-	ModuleIfaceFunc()
-}
-type Module struct{ ModuleIface }
+type Module string
 
-func (self *Module) Value() ModuleIface { return self.ModuleIface }
+const ModuleAny Module = "+"
+const ModuleBackend Module = "BACKEND"
+const ModuleCPE Module = "CPE"
+const ModuleClientStat Module = "CLIENT_STAT"
+const ModuleConfig Module = "CONFIG"
+const ModuleDB Module = "DB"
+const ModuleDummy Module = "DUMMY"
+const ModuleLBS Module = "LBS"
+const ModuleMQTTLog Module = "MQTT_LOG"
+const ModuleMonitor Module = "MONITOR"
+const ModuleStat Module = "STAT"
 
-type ModuleAny struct{}
+func (self Module) GetPtr() *Module { var v = self; return &v }
 
-func (ModuleAny) ModuleIfaceFunc() {}
-
-type ModuleBackend struct{}
-
-func (ModuleBackend) ModuleIfaceFunc() {}
-
-type ModuleCPE struct{}
-
-func (ModuleCPE) ModuleIfaceFunc() {}
-
-type ModuleClientStat struct{}
-
-func (ModuleClientStat) ModuleIfaceFunc() {}
-
-type ModuleConfig struct{}
-
-func (ModuleConfig) ModuleIfaceFunc() {}
-
-type ModuleDB struct{}
-
-func (ModuleDB) ModuleIfaceFunc() {}
-
-type ModuleDummy struct{}
-
-func (ModuleDummy) ModuleIfaceFunc() {}
-
-type ModuleLBS struct{}
-
-func (ModuleLBS) ModuleIfaceFunc() {}
-
-type ModuleMQTTLog struct{}
-
-func (ModuleMQTTLog) ModuleIfaceFunc() {}
-
-type ModuleMonitor struct{}
-
-func (ModuleMonitor) ModuleIfaceFunc() {}
-
-type ModuleStat struct{}
-
-func (ModuleStat) ModuleIfaceFunc() {}
 func (self *Module) String() string {
-	switch self.ModuleIface.(type) {
+	switch *self {
 	case ModuleAny:
 		return "+"
 	case ModuleBackend:
@@ -855,8 +718,9 @@ func (self *Module) String() string {
 	panic(errors.New("Invalid value of Module"))
 
 }
-func (self Module) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
+
+func (self *Module) MarshalJSON() ([]byte, error) {
+	switch *self {
 	case ModuleAny:
 		return json.Marshal("+")
 	case ModuleBackend:
@@ -884,12 +748,9 @@ func (self Module) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Invalid value of Module")
 
 }
-func (self Module) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("Module cannot be nil")
-	}
-	switch v.(type) {
+
+func (self *Module) GetBSON() (interface{}, error) {
+	switch *self {
 	case ModuleAny:
 		return "+", nil
 	case ModuleBackend:
@@ -924,37 +785,37 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "+":
-		self.ModuleIface = ModuleAny{}
+		*self = ModuleAny
 		return nil
 	case "BACKEND":
-		self.ModuleIface = ModuleBackend{}
+		*self = ModuleBackend
 		return nil
 	case "CPE":
-		self.ModuleIface = ModuleCPE{}
+		*self = ModuleCPE
 		return nil
 	case "CLIENT_STAT":
-		self.ModuleIface = ModuleClientStat{}
+		*self = ModuleClientStat
 		return nil
 	case "CONFIG":
-		self.ModuleIface = ModuleConfig{}
+		*self = ModuleConfig
 		return nil
 	case "DB":
-		self.ModuleIface = ModuleDB{}
+		*self = ModuleDB
 		return nil
 	case "DUMMY":
-		self.ModuleIface = ModuleDummy{}
+		*self = ModuleDummy
 		return nil
 	case "LBS":
-		self.ModuleIface = ModuleLBS{}
+		*self = ModuleLBS
 		return nil
 	case "MQTT_LOG":
-		self.ModuleIface = ModuleMQTTLog{}
+		*self = ModuleMQTTLog
 		return nil
 	case "MONITOR":
-		self.ModuleIface = ModuleMonitor{}
+		*self = ModuleMonitor
 		return nil
 	case "STAT":
-		self.ModuleIface = ModuleStat{}
+		*self = ModuleStat
 		return nil
 
 	}
@@ -969,37 +830,37 @@ func (self *Module) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "+":
-		self.ModuleIface = ModuleAny{}
+		*self = ModuleAny
 		return nil
 	case "BACKEND":
-		self.ModuleIface = ModuleBackend{}
+		*self = ModuleBackend
 		return nil
 	case "CPE":
-		self.ModuleIface = ModuleCPE{}
+		*self = ModuleCPE
 		return nil
 	case "CLIENT_STAT":
-		self.ModuleIface = ModuleClientStat{}
+		*self = ModuleClientStat
 		return nil
 	case "CONFIG":
-		self.ModuleIface = ModuleConfig{}
+		*self = ModuleConfig
 		return nil
 	case "DB":
-		self.ModuleIface = ModuleDB{}
+		*self = ModuleDB
 		return nil
 	case "DUMMY":
-		self.ModuleIface = ModuleDummy{}
+		*self = ModuleDummy
 		return nil
 	case "LBS":
-		self.ModuleIface = ModuleLBS{}
+		*self = ModuleLBS
 		return nil
 	case "MQTT_LOG":
-		self.ModuleIface = ModuleMQTTLog{}
+		*self = ModuleMQTTLog
 		return nil
 	case "MONITOR":
-		self.ModuleIface = ModuleMonitor{}
+		*self = ModuleMonitor
 		return nil
 	case "STAT":
-		self.ModuleIface = ModuleStat{}
+		*self = ModuleStat
 		return nil
 
 	}
@@ -1007,46 +868,21 @@ func (self *Module) SetBSON(v bson.Raw) error {
 
 }
 
-type OperationIface interface {
-	OperationIfaceFunc()
-}
-type Operation struct{ OperationIface }
+type Operation string
 
-func (self *Operation) Value() OperationIface { return self.OperationIface }
+const OperationAny Operation = "+"
+const OperationCPEStatus Operation = "STATUS"
+const OperationCreate Operation = "C"
+const OperationDelete Operation = "D"
+const OperationLuaScript Operation = "LUA"
+const OperationRead Operation = "R"
+const OperationSHScript Operation = "SH"
+const OperationUpdate Operation = "U"
 
-type OperationAny struct{}
+func (self Operation) GetPtr() *Operation { var v = self; return &v }
 
-func (OperationAny) OperationIfaceFunc() {}
-
-type OperationCPEStatus struct{}
-
-func (OperationCPEStatus) OperationIfaceFunc() {}
-
-type OperationCreate struct{}
-
-func (OperationCreate) OperationIfaceFunc() {}
-
-type OperationDelete struct{}
-
-func (OperationDelete) OperationIfaceFunc() {}
-
-type OperationLuaScript struct{}
-
-func (OperationLuaScript) OperationIfaceFunc() {}
-
-type OperationRead struct{}
-
-func (OperationRead) OperationIfaceFunc() {}
-
-type OperationSHScript struct{}
-
-func (OperationSHScript) OperationIfaceFunc() {}
-
-type OperationUpdate struct{}
-
-func (OperationUpdate) OperationIfaceFunc() {}
 func (self *Operation) String() string {
-	switch self.OperationIface.(type) {
+	switch *self {
 	case OperationAny:
 		return "+"
 	case OperationCPEStatus:
@@ -1068,8 +904,9 @@ func (self *Operation) String() string {
 	panic(errors.New("Invalid value of Operation"))
 
 }
-func (self Operation) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
+
+func (self *Operation) MarshalJSON() ([]byte, error) {
+	switch *self {
 	case OperationAny:
 		return json.Marshal("+")
 	case OperationCPEStatus:
@@ -1091,12 +928,9 @@ func (self Operation) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Invalid value of Operation")
 
 }
-func (self Operation) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("Operation cannot be nil")
-	}
-	switch v.(type) {
+
+func (self *Operation) GetBSON() (interface{}, error) {
+	switch *self {
 	case OperationAny:
 		return "+", nil
 	case OperationCPEStatus:
@@ -1125,28 +959,28 @@ func (self *Operation) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "+":
-		self.OperationIface = OperationAny{}
+		*self = OperationAny
 		return nil
 	case "STATUS":
-		self.OperationIface = OperationCPEStatus{}
+		*self = OperationCPEStatus
 		return nil
 	case "C":
-		self.OperationIface = OperationCreate{}
+		*self = OperationCreate
 		return nil
 	case "D":
-		self.OperationIface = OperationDelete{}
+		*self = OperationDelete
 		return nil
 	case "LUA":
-		self.OperationIface = OperationLuaScript{}
+		*self = OperationLuaScript
 		return nil
 	case "R":
-		self.OperationIface = OperationRead{}
+		*self = OperationRead
 		return nil
 	case "SH":
-		self.OperationIface = OperationSHScript{}
+		*self = OperationSHScript
 		return nil
 	case "U":
-		self.OperationIface = OperationUpdate{}
+		*self = OperationUpdate
 		return nil
 
 	}
@@ -1161,28 +995,28 @@ func (self *Operation) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "+":
-		self.OperationIface = OperationAny{}
+		*self = OperationAny
 		return nil
 	case "STATUS":
-		self.OperationIface = OperationCPEStatus{}
+		*self = OperationCPEStatus
 		return nil
 	case "C":
-		self.OperationIface = OperationCreate{}
+		*self = OperationCreate
 		return nil
 	case "D":
-		self.OperationIface = OperationDelete{}
+		*self = OperationDelete
 		return nil
 	case "LUA":
-		self.OperationIface = OperationLuaScript{}
+		*self = OperationLuaScript
 		return nil
 	case "R":
-		self.OperationIface = OperationRead{}
+		*self = OperationRead
 		return nil
 	case "SH":
-		self.OperationIface = OperationSHScript{}
+		*self = OperationSHScript
 		return nil
 	case "U":
-		self.OperationIface = OperationUpdate{}
+		*self = OperationUpdate
 		return nil
 
 	}
@@ -1190,61 +1024,49 @@ func (self *Operation) SetBSON(v bson.Raw) error {
 
 }
 
-type RadiusTypeIface interface {
-	RadiusTypeIfaceFunc()
-}
-type RadiusType struct{ RadiusTypeIface }
+type RadiusType string
 
-func (self *RadiusType) Value() RadiusTypeIface { return self.RadiusTypeIface }
+const RadiusTypeAccounting RadiusType = "acct"
+const RadiusTypeAuthentication RadiusType = "auth"
+const RadiusTypeBoth RadiusType = "both"
 
-type RadiusAccounting struct{}
+func (self RadiusType) GetPtr() *RadiusType { var v = self; return &v }
 
-func (RadiusAccounting) RadiusTypeIfaceFunc() {}
-
-type RadiusAuthentication struct{}
-
-func (RadiusAuthentication) RadiusTypeIfaceFunc() {}
-
-type RadiusBoth struct{}
-
-func (RadiusBoth) RadiusTypeIfaceFunc() {}
 func (self *RadiusType) String() string {
-	switch self.RadiusTypeIface.(type) {
-	case RadiusAccounting:
+	switch *self {
+	case RadiusTypeAccounting:
 		return "acct"
-	case RadiusAuthentication:
+	case RadiusTypeAuthentication:
 		return "auth"
-	case RadiusBoth:
+	case RadiusTypeBoth:
 		return "both"
 
 	}
 	panic(errors.New("Invalid value of RadiusType"))
 
 }
-func (self RadiusType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case RadiusAccounting:
+
+func (self *RadiusType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case RadiusTypeAccounting:
 		return json.Marshal("acct")
-	case RadiusAuthentication:
+	case RadiusTypeAuthentication:
 		return json.Marshal("auth")
-	case RadiusBoth:
+	case RadiusTypeBoth:
 		return json.Marshal("both")
 
 	}
 	return nil, errors.New("Invalid value of RadiusType")
 
 }
-func (self RadiusType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("RadiusType cannot be nil")
-	}
-	switch v.(type) {
-	case RadiusAccounting:
+
+func (self *RadiusType) GetBSON() (interface{}, error) {
+	switch *self {
+	case RadiusTypeAccounting:
 		return "acct", nil
-	case RadiusAuthentication:
+	case RadiusTypeAuthentication:
 		return "auth", nil
-	case RadiusBoth:
+	case RadiusTypeBoth:
 		return "both", nil
 
 	}
@@ -1258,13 +1080,13 @@ func (self *RadiusType) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "acct":
-		self.RadiusTypeIface = RadiusAccounting{}
+		*self = RadiusTypeAccounting
 		return nil
 	case "auth":
-		self.RadiusTypeIface = RadiusAuthentication{}
+		*self = RadiusTypeAuthentication
 		return nil
 	case "both":
-		self.RadiusTypeIface = RadiusBoth{}
+		*self = RadiusTypeBoth
 		return nil
 
 	}
@@ -1279,13 +1101,13 @@ func (self *RadiusType) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "acct":
-		self.RadiusTypeIface = RadiusAccounting{}
+		*self = RadiusTypeAccounting
 		return nil
 	case "auth":
-		self.RadiusTypeIface = RadiusAuthentication{}
+		*self = RadiusTypeAuthentication
 		return nil
 	case "both":
-		self.RadiusTypeIface = RadiusBoth{}
+		*self = RadiusTypeBoth
 		return nil
 
 	}
@@ -1293,51 +1115,42 @@ func (self *RadiusType) SetBSON(v bson.Raw) error {
 
 }
 
-type SecuritySuiteIface interface {
-	SecuritySuiteIfaceFunc()
-}
-type SecuritySuite struct{ SecuritySuiteIface }
+type SecuritySuite string
 
-func (self *SecuritySuite) Value() SecuritySuiteIface { return self.SecuritySuiteIface }
+const SecuritySuiteAES SecuritySuite = "aes"
+const SecuritySuiteTKIP SecuritySuite = "tkip"
 
-type AES struct{}
+func (self SecuritySuite) GetPtr() *SecuritySuite { var v = self; return &v }
 
-func (AES) SecuritySuiteIfaceFunc() {}
-
-type TKIP struct{}
-
-func (TKIP) SecuritySuiteIfaceFunc() {}
 func (self *SecuritySuite) String() string {
-	switch self.SecuritySuiteIface.(type) {
-	case AES:
+	switch *self {
+	case SecuritySuiteAES:
 		return "aes"
-	case TKIP:
+	case SecuritySuiteTKIP:
 		return "tkip"
 
 	}
 	panic(errors.New("Invalid value of SecuritySuite"))
 
 }
-func (self SecuritySuite) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case AES:
+
+func (self *SecuritySuite) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case SecuritySuiteAES:
 		return json.Marshal("aes")
-	case TKIP:
+	case SecuritySuiteTKIP:
 		return json.Marshal("tkip")
 
 	}
 	return nil, errors.New("Invalid value of SecuritySuite")
 
 }
-func (self SecuritySuite) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("SecuritySuite cannot be nil")
-	}
-	switch v.(type) {
-	case AES:
+
+func (self *SecuritySuite) GetBSON() (interface{}, error) {
+	switch *self {
+	case SecuritySuiteAES:
 		return "aes", nil
-	case TKIP:
+	case SecuritySuiteTKIP:
 		return "tkip", nil
 
 	}
@@ -1351,10 +1164,10 @@ func (self *SecuritySuite) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "aes":
-		self.SecuritySuiteIface = AES{}
+		*self = SecuritySuiteAES
 		return nil
 	case "tkip":
-		self.SecuritySuiteIface = TKIP{}
+		*self = SecuritySuiteTKIP
 		return nil
 
 	}
@@ -1369,10 +1182,10 @@ func (self *SecuritySuite) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "aes":
-		self.SecuritySuiteIface = AES{}
+		*self = SecuritySuiteAES
 		return nil
 	case "tkip":
-		self.SecuritySuiteIface = TKIP{}
+		*self = SecuritySuiteTKIP
 		return nil
 
 	}
@@ -1380,51 +1193,42 @@ func (self *SecuritySuite) SetBSON(v bson.Raw) error {
 
 }
 
-type SecurityTypeIface interface {
-	SecurityTypeIfaceFunc()
-}
-type SecurityType struct{ SecurityTypeIface }
+type SecurityType string
 
-func (self *SecurityType) Value() SecurityTypeIface { return self.SecurityTypeIface }
+const SecurityTypeWPA2Enterprise SecurityType = "wpa2enterprise"
+const SecurityTypeWPA2Personal SecurityType = "wpa2personal"
 
-type WPA2Enterprise struct{}
+func (self SecurityType) GetPtr() *SecurityType { var v = self; return &v }
 
-func (WPA2Enterprise) SecurityTypeIfaceFunc() {}
-
-type WPA2Personal struct{}
-
-func (WPA2Personal) SecurityTypeIfaceFunc() {}
 func (self *SecurityType) String() string {
-	switch self.SecurityTypeIface.(type) {
-	case WPA2Enterprise:
+	switch *self {
+	case SecurityTypeWPA2Enterprise:
 		return "wpa2enterprise"
-	case WPA2Personal:
+	case SecurityTypeWPA2Personal:
 		return "wpa2personal"
 
 	}
 	panic(errors.New("Invalid value of SecurityType"))
 
 }
-func (self SecurityType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case WPA2Enterprise:
+
+func (self *SecurityType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case SecurityTypeWPA2Enterprise:
 		return json.Marshal("wpa2enterprise")
-	case WPA2Personal:
+	case SecurityTypeWPA2Personal:
 		return json.Marshal("wpa2personal")
 
 	}
 	return nil, errors.New("Invalid value of SecurityType")
 
 }
-func (self SecurityType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("SecurityType cannot be nil")
-	}
-	switch v.(type) {
-	case WPA2Enterprise:
+
+func (self *SecurityType) GetBSON() (interface{}, error) {
+	switch *self {
+	case SecurityTypeWPA2Enterprise:
 		return "wpa2enterprise", nil
-	case WPA2Personal:
+	case SecurityTypeWPA2Personal:
 		return "wpa2personal", nil
 
 	}
@@ -1438,10 +1242,10 @@ func (self *SecurityType) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "wpa2enterprise":
-		self.SecurityTypeIface = WPA2Enterprise{}
+		*self = SecurityTypeWPA2Enterprise
 		return nil
 	case "wpa2personal":
-		self.SecurityTypeIface = WPA2Personal{}
+		*self = SecurityTypeWPA2Personal
 		return nil
 
 	}
@@ -1456,10 +1260,10 @@ func (self *SecurityType) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "wpa2enterprise":
-		self.SecurityTypeIface = WPA2Enterprise{}
+		*self = SecurityTypeWPA2Enterprise
 		return nil
 	case "wpa2personal":
-		self.SecurityTypeIface = WPA2Personal{}
+		*self = SecurityTypeWPA2Personal
 		return nil
 
 	}
@@ -1467,26 +1271,16 @@ func (self *SecurityType) SetBSON(v bson.Raw) error {
 
 }
 
-type ServiceStateIface interface {
-	ServiceStateIfaceFunc()
-}
-type ServiceState struct{ ServiceStateIface }
+type ServiceState string
 
-func (self *ServiceState) Value() ServiceStateIface { return self.ServiceStateIface }
+const ServiceStateConnected ServiceState = "CONNECTED"
+const ServiceStateDisconnected ServiceState = "DISCONNECTED"
+const ServiceStatePending ServiceState = "PENDING"
 
-type ServiceStateConnected struct{}
+func (self ServiceState) GetPtr() *ServiceState { var v = self; return &v }
 
-func (ServiceStateConnected) ServiceStateIfaceFunc() {}
-
-type ServiceStateDisconnected struct{}
-
-func (ServiceStateDisconnected) ServiceStateIfaceFunc() {}
-
-type ServiceStatePending struct{}
-
-func (ServiceStatePending) ServiceStateIfaceFunc() {}
 func (self *ServiceState) String() string {
-	switch self.ServiceStateIface.(type) {
+	switch *self {
 	case ServiceStateConnected:
 		return "CONNECTED"
 	case ServiceStateDisconnected:
@@ -1498,8 +1292,9 @@ func (self *ServiceState) String() string {
 	panic(errors.New("Invalid value of ServiceState"))
 
 }
-func (self ServiceState) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
+
+func (self *ServiceState) MarshalJSON() ([]byte, error) {
+	switch *self {
 	case ServiceStateConnected:
 		return json.Marshal("CONNECTED")
 	case ServiceStateDisconnected:
@@ -1511,12 +1306,9 @@ func (self ServiceState) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Invalid value of ServiceState")
 
 }
-func (self ServiceState) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("ServiceState cannot be nil")
-	}
-	switch v.(type) {
+
+func (self *ServiceState) GetBSON() (interface{}, error) {
+	switch *self {
 	case ServiceStateConnected:
 		return "CONNECTED", nil
 	case ServiceStateDisconnected:
@@ -1535,13 +1327,13 @@ func (self *ServiceState) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "CONNECTED":
-		self.ServiceStateIface = ServiceStateConnected{}
+		*self = ServiceStateConnected
 		return nil
 	case "DISCONNECTED":
-		self.ServiceStateIface = ServiceStateDisconnected{}
+		*self = ServiceStateDisconnected
 		return nil
 	case "PENDING":
-		self.ServiceStateIface = ServiceStatePending{}
+		*self = ServiceStatePending
 		return nil
 
 	}
@@ -1556,13 +1348,13 @@ func (self *ServiceState) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "CONNECTED":
-		self.ServiceStateIface = ServiceStateConnected{}
+		*self = ServiceStateConnected
 		return nil
 	case "DISCONNECTED":
-		self.ServiceStateIface = ServiceStateDisconnected{}
+		*self = ServiceStateDisconnected
 		return nil
 	case "PENDING":
-		self.ServiceStateIface = ServiceStatePending{}
+		*self = ServiceStatePending
 		return nil
 
 	}
@@ -1570,51 +1362,42 @@ func (self *ServiceState) SetBSON(v bson.Raw) error {
 
 }
 
-type StatEventRuleTypeIface interface {
-	StatEventRuleTypeIfaceFunc()
-}
-type StatEventRuleType struct{ StatEventRuleTypeIface }
+type StatEventRuleType string
 
-func (self *StatEventRuleType) Value() StatEventRuleTypeIface { return self.StatEventRuleTypeIface }
+const StatEventRuleTypeCPUload StatEventRuleType = "cpu_load"
+const StatEventRuleTypeFreeRAM StatEventRuleType = "free_ram"
 
-type StatEventCPUload struct{}
+func (self StatEventRuleType) GetPtr() *StatEventRuleType { var v = self; return &v }
 
-func (StatEventCPUload) StatEventRuleTypeIfaceFunc() {}
-
-type StatEventFreeRAM struct{}
-
-func (StatEventFreeRAM) StatEventRuleTypeIfaceFunc() {}
 func (self *StatEventRuleType) String() string {
-	switch self.StatEventRuleTypeIface.(type) {
-	case StatEventCPUload:
+	switch *self {
+	case StatEventRuleTypeCPUload:
 		return "cpu_load"
-	case StatEventFreeRAM:
+	case StatEventRuleTypeFreeRAM:
 		return "free_ram"
 
 	}
 	panic(errors.New("Invalid value of StatEventRuleType"))
 
 }
-func (self StatEventRuleType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case StatEventCPUload:
+
+func (self *StatEventRuleType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case StatEventRuleTypeCPUload:
 		return json.Marshal("cpu_load")
-	case StatEventFreeRAM:
+	case StatEventRuleTypeFreeRAM:
 		return json.Marshal("free_ram")
 
 	}
 	return nil, errors.New("Invalid value of StatEventRuleType")
 
 }
-func (self StatEventRuleType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("StatEventRuleType cannot be nil")
-	}
-	switch v.(type) {
-	case StatEventCPUload:
+
+func (self *StatEventRuleType) GetBSON() (interface{}, error) {
+	switch *self {
+	case StatEventRuleTypeCPUload:
 		return "cpu_load", nil
-	case StatEventFreeRAM:
+	case StatEventRuleTypeFreeRAM:
 		return "free_ram", nil
 
 	}
@@ -1628,10 +1411,10 @@ func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "cpu_load":
-		self.StatEventRuleTypeIface = StatEventCPUload{}
+		*self = StatEventRuleTypeCPUload
 		return nil
 	case "free_ram":
-		self.StatEventRuleTypeIface = StatEventFreeRAM{}
+		*self = StatEventRuleTypeFreeRAM
 		return nil
 
 	}
@@ -1646,10 +1429,10 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "cpu_load":
-		self.StatEventRuleTypeIface = StatEventCPUload{}
+		*self = StatEventRuleTypeCPUload
 		return nil
 	case "free_ram":
-		self.StatEventRuleTypeIface = StatEventFreeRAM{}
+		*self = StatEventRuleTypeFreeRAM
 		return nil
 
 	}
@@ -1657,30 +1440,17 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 
 }
 
-type SystemEventLevelIface interface {
-	SystemEventLevelIfaceFunc()
-}
-type SystemEventLevel struct{ SystemEventLevelIface }
+type SystemEventLevel string
 
-func (self *SystemEventLevel) Value() SystemEventLevelIface { return self.SystemEventLevelIface }
+const SystemEventLevelDEBUG SystemEventLevel = "DEBUG"
+const SystemEventLevelERROR SystemEventLevel = "ERROR"
+const SystemEventLevelINFO SystemEventLevel = "INFO"
+const SystemEventLevelWARNING SystemEventLevel = "WARNING"
 
-type SystemEventLevelDEBUG struct{}
+func (self SystemEventLevel) GetPtr() *SystemEventLevel { var v = self; return &v }
 
-func (SystemEventLevelDEBUG) SystemEventLevelIfaceFunc() {}
-
-type SystemEventLevelERROR struct{}
-
-func (SystemEventLevelERROR) SystemEventLevelIfaceFunc() {}
-
-type SystemEventLevelINFO struct{}
-
-func (SystemEventLevelINFO) SystemEventLevelIfaceFunc() {}
-
-type SystemEventLevelWARNING struct{}
-
-func (SystemEventLevelWARNING) SystemEventLevelIfaceFunc() {}
 func (self *SystemEventLevel) String() string {
-	switch self.SystemEventLevelIface.(type) {
+	switch *self {
 	case SystemEventLevelDEBUG:
 		return "DEBUG"
 	case SystemEventLevelERROR:
@@ -1694,8 +1464,9 @@ func (self *SystemEventLevel) String() string {
 	panic(errors.New("Invalid value of SystemEventLevel"))
 
 }
-func (self SystemEventLevel) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
+
+func (self *SystemEventLevel) MarshalJSON() ([]byte, error) {
+	switch *self {
 	case SystemEventLevelDEBUG:
 		return json.Marshal("DEBUG")
 	case SystemEventLevelERROR:
@@ -1709,12 +1480,9 @@ func (self SystemEventLevel) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Invalid value of SystemEventLevel")
 
 }
-func (self SystemEventLevel) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("SystemEventLevel cannot be nil")
-	}
-	switch v.(type) {
+
+func (self *SystemEventLevel) GetBSON() (interface{}, error) {
+	switch *self {
 	case SystemEventLevelDEBUG:
 		return "DEBUG", nil
 	case SystemEventLevelERROR:
@@ -1735,16 +1503,16 @@ func (self *SystemEventLevel) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "DEBUG":
-		self.SystemEventLevelIface = SystemEventLevelDEBUG{}
+		*self = SystemEventLevelDEBUG
 		return nil
 	case "ERROR":
-		self.SystemEventLevelIface = SystemEventLevelERROR{}
+		*self = SystemEventLevelERROR
 		return nil
 	case "INFO":
-		self.SystemEventLevelIface = SystemEventLevelINFO{}
+		*self = SystemEventLevelINFO
 		return nil
 	case "WARNING":
-		self.SystemEventLevelIface = SystemEventLevelWARNING{}
+		*self = SystemEventLevelWARNING
 		return nil
 
 	}
@@ -1759,16 +1527,16 @@ func (self *SystemEventLevel) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "DEBUG":
-		self.SystemEventLevelIface = SystemEventLevelDEBUG{}
+		*self = SystemEventLevelDEBUG
 		return nil
 	case "ERROR":
-		self.SystemEventLevelIface = SystemEventLevelERROR{}
+		*self = SystemEventLevelERROR
 		return nil
 	case "INFO":
-		self.SystemEventLevelIface = SystemEventLevelINFO{}
+		*self = SystemEventLevelINFO
 		return nil
 	case "WARNING":
-		self.SystemEventLevelIface = SystemEventLevelWARNING{}
+		*self = SystemEventLevelWARNING
 		return nil
 
 	}
@@ -1776,257 +1544,210 @@ func (self *SystemEventLevel) SetBSON(v bson.Raw) error {
 
 }
 
-type SystemEventObjectTypeIface interface {
-	SystemEventObjectTypeIfaceFunc()
-}
-type SystemEventObjectType struct{ SystemEventObjectTypeIface }
+type SystemEventType string
 
-func (self *SystemEventObjectType) Value() SystemEventObjectTypeIface {
-	return self.SystemEventObjectTypeIface
-}
+const SystemEventTypeAny SystemEventType = "+"
+const SystemEventTypeCPEConfigurationError SystemEventType = "CPE_CONFIGURATION_ERROR"
+const SystemEventTypeCPEConnected SystemEventType = "CPE_CONNECTED"
+const SystemEventTypeCPEDisconnected SystemEventType = "CPE_DISCONNECTED"
+const SystemEventTypeClientConnected SystemEventType = "CLIENT_CONNECTED"
+const SystemEventTypeClientDisconnected SystemEventType = "CLIENT_DISCONNECTED"
+const SystemEventTypeDaemonSettingsChanged SystemEventType = "DAEMON_SETTINGS_CHANGE"
+const SystemEventTypeMonitorRuleViolation SystemEventType = "MONITOR_RULE_VIOLATION"
+const SystemEventTypeServiceConnected SystemEventType = "SERVICE_CONNECTED"
+const SystemEventTypeServiceDisconnected SystemEventType = "SERVICE_DISCONNECTED"
+const SystemEventTypeServiceFatalError SystemEventType = "SERVICE_FATAL_ERROR"
 
-type SystemEventAny struct{}
+func (self SystemEventType) GetPtr() *SystemEventType { var v = self; return &v }
 
-func (SystemEventAny) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventCPEConfigurationError struct{}
-
-func (SystemEventCPEConfigurationError) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventCPEConnected struct{}
-
-func (SystemEventCPEConnected) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventCPEDisconnected struct{}
-
-func (SystemEventCPEDisconnected) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventClientConnected struct{}
-
-func (SystemEventClientConnected) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventClientDisconnected struct{}
-
-func (SystemEventClientDisconnected) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventDaemonSettingsChanged struct{}
-
-func (SystemEventDaemonSettingsChanged) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventMonitorRuleViolation struct{}
-
-func (SystemEventMonitorRuleViolation) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventServiceConnected struct{}
-
-func (SystemEventServiceConnected) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventServiceDisconnected struct{}
-
-func (SystemEventServiceDisconnected) SystemEventObjectTypeIfaceFunc() {}
-
-type SystemEventServiceFatalError struct{}
-
-func (SystemEventServiceFatalError) SystemEventObjectTypeIfaceFunc() {}
-func (self *SystemEventObjectType) String() string {
-	switch self.SystemEventObjectTypeIface.(type) {
-	case SystemEventAny:
+func (self *SystemEventType) String() string {
+	switch *self {
+	case SystemEventTypeAny:
 		return "+"
-	case SystemEventCPEConfigurationError:
+	case SystemEventTypeCPEConfigurationError:
 		return "CPE_CONFIGURATION_ERROR"
-	case SystemEventCPEConnected:
+	case SystemEventTypeCPEConnected:
 		return "CPE_CONNECTED"
-	case SystemEventCPEDisconnected:
+	case SystemEventTypeCPEDisconnected:
 		return "CPE_DISCONNECTED"
-	case SystemEventClientConnected:
+	case SystemEventTypeClientConnected:
 		return "CLIENT_CONNECTED"
-	case SystemEventClientDisconnected:
+	case SystemEventTypeClientDisconnected:
 		return "CLIENT_DISCONNECTED"
-	case SystemEventDaemonSettingsChanged:
+	case SystemEventTypeDaemonSettingsChanged:
 		return "DAEMON_SETTINGS_CHANGE"
-	case SystemEventMonitorRuleViolation:
+	case SystemEventTypeMonitorRuleViolation:
 		return "MONITOR_RULE_VIOLATION"
-	case SystemEventServiceConnected:
+	case SystemEventTypeServiceConnected:
 		return "SERVICE_CONNECTED"
-	case SystemEventServiceDisconnected:
+	case SystemEventTypeServiceDisconnected:
 		return "SERVICE_DISCONNECTED"
-	case SystemEventServiceFatalError:
+	case SystemEventTypeServiceFatalError:
 		return "SERVICE_FATAL_ERROR"
 
 	}
-	panic(errors.New("Invalid value of SystemEventObjectType"))
+	panic(errors.New("Invalid value of SystemEventType"))
 
 }
-func (self SystemEventObjectType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case SystemEventAny:
+
+func (self *SystemEventType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case SystemEventTypeAny:
 		return json.Marshal("+")
-	case SystemEventCPEConfigurationError:
+	case SystemEventTypeCPEConfigurationError:
 		return json.Marshal("CPE_CONFIGURATION_ERROR")
-	case SystemEventCPEConnected:
+	case SystemEventTypeCPEConnected:
 		return json.Marshal("CPE_CONNECTED")
-	case SystemEventCPEDisconnected:
+	case SystemEventTypeCPEDisconnected:
 		return json.Marshal("CPE_DISCONNECTED")
-	case SystemEventClientConnected:
+	case SystemEventTypeClientConnected:
 		return json.Marshal("CLIENT_CONNECTED")
-	case SystemEventClientDisconnected:
+	case SystemEventTypeClientDisconnected:
 		return json.Marshal("CLIENT_DISCONNECTED")
-	case SystemEventDaemonSettingsChanged:
+	case SystemEventTypeDaemonSettingsChanged:
 		return json.Marshal("DAEMON_SETTINGS_CHANGE")
-	case SystemEventMonitorRuleViolation:
+	case SystemEventTypeMonitorRuleViolation:
 		return json.Marshal("MONITOR_RULE_VIOLATION")
-	case SystemEventServiceConnected:
+	case SystemEventTypeServiceConnected:
 		return json.Marshal("SERVICE_CONNECTED")
-	case SystemEventServiceDisconnected:
+	case SystemEventTypeServiceDisconnected:
 		return json.Marshal("SERVICE_DISCONNECTED")
-	case SystemEventServiceFatalError:
+	case SystemEventTypeServiceFatalError:
 		return json.Marshal("SERVICE_FATAL_ERROR")
 
 	}
-	return nil, errors.New("Invalid value of SystemEventObjectType")
+	return nil, errors.New("Invalid value of SystemEventType")
 
 }
-func (self SystemEventObjectType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("SystemEventObjectType cannot be nil")
-	}
-	switch v.(type) {
-	case SystemEventAny:
+
+func (self *SystemEventType) GetBSON() (interface{}, error) {
+	switch *self {
+	case SystemEventTypeAny:
 		return "+", nil
-	case SystemEventCPEConfigurationError:
+	case SystemEventTypeCPEConfigurationError:
 		return "CPE_CONFIGURATION_ERROR", nil
-	case SystemEventCPEConnected:
+	case SystemEventTypeCPEConnected:
 		return "CPE_CONNECTED", nil
-	case SystemEventCPEDisconnected:
+	case SystemEventTypeCPEDisconnected:
 		return "CPE_DISCONNECTED", nil
-	case SystemEventClientConnected:
+	case SystemEventTypeClientConnected:
 		return "CLIENT_CONNECTED", nil
-	case SystemEventClientDisconnected:
+	case SystemEventTypeClientDisconnected:
 		return "CLIENT_DISCONNECTED", nil
-	case SystemEventDaemonSettingsChanged:
+	case SystemEventTypeDaemonSettingsChanged:
 		return "DAEMON_SETTINGS_CHANGE", nil
-	case SystemEventMonitorRuleViolation:
+	case SystemEventTypeMonitorRuleViolation:
 		return "MONITOR_RULE_VIOLATION", nil
-	case SystemEventServiceConnected:
+	case SystemEventTypeServiceConnected:
 		return "SERVICE_CONNECTED", nil
-	case SystemEventServiceDisconnected:
+	case SystemEventTypeServiceDisconnected:
 		return "SERVICE_DISCONNECTED", nil
-	case SystemEventServiceFatalError:
+	case SystemEventTypeServiceFatalError:
 		return "SERVICE_FATAL_ERROR", nil
 
 	}
-	return nil, errors.New("Invalid value of SystemEventObjectType")
+	return nil, errors.New("Invalid value of SystemEventType")
 
 }
-func (self *SystemEventObjectType) UnmarshalJSON(b []byte) error {
+func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
 		return err
 	}
 	switch s {
 	case "+":
-		self.SystemEventObjectTypeIface = SystemEventAny{}
+		*self = SystemEventTypeAny
 		return nil
 	case "CPE_CONFIGURATION_ERROR":
-		self.SystemEventObjectTypeIface = SystemEventCPEConfigurationError{}
+		*self = SystemEventTypeCPEConfigurationError
 		return nil
 	case "CPE_CONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventCPEConnected{}
+		*self = SystemEventTypeCPEConnected
 		return nil
 	case "CPE_DISCONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventCPEDisconnected{}
+		*self = SystemEventTypeCPEDisconnected
 		return nil
 	case "CLIENT_CONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventClientConnected{}
+		*self = SystemEventTypeClientConnected
 		return nil
 	case "CLIENT_DISCONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventClientDisconnected{}
+		*self = SystemEventTypeClientDisconnected
 		return nil
 	case "DAEMON_SETTINGS_CHANGE":
-		self.SystemEventObjectTypeIface = SystemEventDaemonSettingsChanged{}
+		*self = SystemEventTypeDaemonSettingsChanged
 		return nil
 	case "MONITOR_RULE_VIOLATION":
-		self.SystemEventObjectTypeIface = SystemEventMonitorRuleViolation{}
+		*self = SystemEventTypeMonitorRuleViolation
 		return nil
 	case "SERVICE_CONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventServiceConnected{}
+		*self = SystemEventTypeServiceConnected
 		return nil
 	case "SERVICE_DISCONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventServiceDisconnected{}
+		*self = SystemEventTypeServiceDisconnected
 		return nil
 	case "SERVICE_FATAL_ERROR":
-		self.SystemEventObjectTypeIface = SystemEventServiceFatalError{}
+		*self = SystemEventTypeServiceFatalError
 		return nil
 
 	}
-	return errors.New("Unknown SystemEventObjectType")
+	return errors.New("Unknown SystemEventType")
 
 }
 
-func (self *SystemEventObjectType) SetBSON(v bson.Raw) error {
+func (self *SystemEventType) SetBSON(v bson.Raw) error {
 	var s string
 	if err := v.Unmarshal(&s); err != nil {
 		return err
 	}
 	switch s {
 	case "+":
-		self.SystemEventObjectTypeIface = SystemEventAny{}
+		*self = SystemEventTypeAny
 		return nil
 	case "CPE_CONFIGURATION_ERROR":
-		self.SystemEventObjectTypeIface = SystemEventCPEConfigurationError{}
+		*self = SystemEventTypeCPEConfigurationError
 		return nil
 	case "CPE_CONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventCPEConnected{}
+		*self = SystemEventTypeCPEConnected
 		return nil
 	case "CPE_DISCONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventCPEDisconnected{}
+		*self = SystemEventTypeCPEDisconnected
 		return nil
 	case "CLIENT_CONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventClientConnected{}
+		*self = SystemEventTypeClientConnected
 		return nil
 	case "CLIENT_DISCONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventClientDisconnected{}
+		*self = SystemEventTypeClientDisconnected
 		return nil
 	case "DAEMON_SETTINGS_CHANGE":
-		self.SystemEventObjectTypeIface = SystemEventDaemonSettingsChanged{}
+		*self = SystemEventTypeDaemonSettingsChanged
 		return nil
 	case "MONITOR_RULE_VIOLATION":
-		self.SystemEventObjectTypeIface = SystemEventMonitorRuleViolation{}
+		*self = SystemEventTypeMonitorRuleViolation
 		return nil
 	case "SERVICE_CONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventServiceConnected{}
+		*self = SystemEventTypeServiceConnected
 		return nil
 	case "SERVICE_DISCONNECTED":
-		self.SystemEventObjectTypeIface = SystemEventServiceDisconnected{}
+		*self = SystemEventTypeServiceDisconnected
 		return nil
 	case "SERVICE_FATAL_ERROR":
-		self.SystemEventObjectTypeIface = SystemEventServiceFatalError{}
+		*self = SystemEventTypeServiceFatalError
 		return nil
 
 	}
-	return errors.New("Unknown SystemEventObjectType")
+	return errors.New("Unknown SystemEventType")
 
 }
 
-type WirelessClientStateIface interface {
-	WirelessClientStateIfaceFunc()
-}
-type WirelessClientState struct{ WirelessClientStateIface }
+type WirelessClientState string
 
-func (self *WirelessClientState) Value() WirelessClientStateIface {
-	return self.WirelessClientStateIface
-}
+const WirelessClientStateCONNECTED WirelessClientState = "CONNECTED"
+const WirelessClientStateDISCONNECTED WirelessClientState = "DISCONNECTED"
 
-type WirelessClientStateCONNECTED struct{}
+func (self WirelessClientState) GetPtr() *WirelessClientState { var v = self; return &v }
 
-func (WirelessClientStateCONNECTED) WirelessClientStateIfaceFunc() {}
-
-type WirelessClientStateDISCONNECTED struct{}
-
-func (WirelessClientStateDISCONNECTED) WirelessClientStateIfaceFunc() {}
 func (self *WirelessClientState) String() string {
-	switch self.WirelessClientStateIface.(type) {
+	switch *self {
 	case WirelessClientStateCONNECTED:
 		return "CONNECTED"
 	case WirelessClientStateDISCONNECTED:
@@ -2036,8 +1757,9 @@ func (self *WirelessClientState) String() string {
 	panic(errors.New("Invalid value of WirelessClientState"))
 
 }
-func (self WirelessClientState) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
+
+func (self *WirelessClientState) MarshalJSON() ([]byte, error) {
+	switch *self {
 	case WirelessClientStateCONNECTED:
 		return json.Marshal("CONNECTED")
 	case WirelessClientStateDISCONNECTED:
@@ -2047,12 +1769,9 @@ func (self WirelessClientState) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("Invalid value of WirelessClientState")
 
 }
-func (self WirelessClientState) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("WirelessClientState cannot be nil")
-	}
-	switch v.(type) {
+
+func (self *WirelessClientState) GetBSON() (interface{}, error) {
+	switch *self {
 	case WirelessClientStateCONNECTED:
 		return "CONNECTED", nil
 	case WirelessClientStateDISCONNECTED:
@@ -2069,10 +1788,10 @@ func (self *WirelessClientState) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "CONNECTED":
-		self.WirelessClientStateIface = WirelessClientStateCONNECTED{}
+		*self = WirelessClientStateCONNECTED
 		return nil
 	case "DISCONNECTED":
-		self.WirelessClientStateIface = WirelessClientStateDISCONNECTED{}
+		*self = WirelessClientStateDISCONNECTED
 		return nil
 
 	}
@@ -2087,10 +1806,10 @@ func (self *WirelessClientState) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "CONNECTED":
-		self.WirelessClientStateIface = WirelessClientStateCONNECTED{}
+		*self = WirelessClientStateCONNECTED
 		return nil
 	case "DISCONNECTED":
-		self.WirelessClientStateIface = WirelessClientStateDISCONNECTED{}
+		*self = WirelessClientStateDISCONNECTED
 		return nil
 
 	}
@@ -2098,51 +1817,42 @@ func (self *WirelessClientState) SetBSON(v bson.Raw) error {
 
 }
 
-type WirelessClientTypeIface interface {
-	WirelessClientTypeIfaceFunc()
-}
-type WirelessClientType struct{ WirelessClientTypeIface }
+type WirelessClientType string
 
-func (self *WirelessClientType) Value() WirelessClientTypeIface { return self.WirelessClientTypeIface }
+const WirelessClientTypeCamera WirelessClientType = "camera"
+const WirelessClientTypeOther WirelessClientType = "other"
 
-type WirelessClientCamera struct{}
+func (self WirelessClientType) GetPtr() *WirelessClientType { var v = self; return &v }
 
-func (WirelessClientCamera) WirelessClientTypeIfaceFunc() {}
-
-type WirelessClientOther struct{}
-
-func (WirelessClientOther) WirelessClientTypeIfaceFunc() {}
 func (self *WirelessClientType) String() string {
-	switch self.WirelessClientTypeIface.(type) {
-	case WirelessClientCamera:
+	switch *self {
+	case WirelessClientTypeCamera:
 		return "camera"
-	case WirelessClientOther:
+	case WirelessClientTypeOther:
 		return "other"
 
 	}
 	panic(errors.New("Invalid value of WirelessClientType"))
 
 }
-func (self WirelessClientType) MarshalJSON() ([]byte, error) {
-	switch self.Value().(type) {
-	case WirelessClientCamera:
+
+func (self *WirelessClientType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case WirelessClientTypeCamera:
 		return json.Marshal("camera")
-	case WirelessClientOther:
+	case WirelessClientTypeOther:
 		return json.Marshal("other")
 
 	}
 	return nil, errors.New("Invalid value of WirelessClientType")
 
 }
-func (self WirelessClientType) GetBSON() (interface{}, error) {
-	var v = self.Value()
-	if v == nil {
-		return nil, errors.New("WirelessClientType cannot be nil")
-	}
-	switch v.(type) {
-	case WirelessClientCamera:
+
+func (self *WirelessClientType) GetBSON() (interface{}, error) {
+	switch *self {
+	case WirelessClientTypeCamera:
 		return "camera", nil
-	case WirelessClientOther:
+	case WirelessClientTypeOther:
 		return "other", nil
 
 	}
@@ -2156,10 +1866,10 @@ func (self *WirelessClientType) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "camera":
-		self.WirelessClientTypeIface = WirelessClientCamera{}
+		*self = WirelessClientTypeCamera
 		return nil
 	case "other":
-		self.WirelessClientTypeIface = WirelessClientOther{}
+		*self = WirelessClientTypeOther
 		return nil
 
 	}
@@ -2174,10 +1884,10 @@ func (self *WirelessClientType) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "camera":
-		self.WirelessClientTypeIface = WirelessClientCamera{}
+		*self = WirelessClientTypeCamera
 		return nil
 	case "other":
-		self.WirelessClientTypeIface = WirelessClientOther{}
+		*self = WirelessClientTypeOther
 		return nil
 
 	}

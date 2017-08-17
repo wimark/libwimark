@@ -49,13 +49,13 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 	eventDisconnetTopic := EventTopic{
 		SenderModule: s,
 		SenderID:     "",
-		Type:         SystemEventObjectType{SystemEventServiceDisconnected{}},
+		Type:         SystemEventTypeServiceDisconnected,
 	}
 
-	level := SystemEventLevel{SystemEventLevelINFO{}}
+	level := SystemEventLevelINFO
 
 	eventObject := SystemEventObject{
-		Type: SystemEventObjectType{SystemEventServiceDisconnected{}},
+		Type: SystemEventTypeServiceDisconnected,
 		Data: nil,
 	}
 	eventDisconnetPayload := SystemEvent{
@@ -90,7 +90,7 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 		Build:   v.Build,
 		Service: s,
 		Id:      "",
-		State:   ServiceState{ServiceStateConnected{}},
+		State:   ServiceStateConnected,
 		Meta:    meta,
 	}
 
@@ -107,10 +107,10 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 	eventConnectTopic := EventTopic{
 		SenderModule: s,
 		SenderID:     "",
-		Type:         SystemEventObjectType{SystemEventServiceConnected{}},
+		Type:         SystemEventTypeServiceConnected,
 	}
 
-	level = SystemEventLevel{SystemEventLevelINFO{}}
+	level = SystemEventLevelINFO
 
 	eventData := ServiceConnectedData{
 		Version: v.Version,
@@ -118,7 +118,7 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 		Build:   v.Build,
 	}
 	eventObject = SystemEventObject{
-		Type: SystemEventObjectType{SystemEventServiceConnected{}},
+		Type: SystemEventTypeServiceConnected,
 		Data: eventData,
 	}
 	eventConnectedPayload := SystemEvent{
