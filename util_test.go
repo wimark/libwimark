@@ -6,7 +6,7 @@ import (
 )
 
 func TestRequest(t *testing.T) {
-	var fixture = `REQ/CONFIG/A001/DB/B002/G45134513/R`
+	var fixture = `REQ/CONFIG/A001/DB/B002/G45134513/R/TAG`
 	var expectation = fixture
 	var result = ParseTopicPath(fixture).TopicPath()
 

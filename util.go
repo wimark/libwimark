@@ -18,10 +18,8 @@ const (
 	TOPIC_LOG_REGEXP    = `LOG/(.*)/(.*)`
 	TOPIC_EVENT_FORMAT  = `EVENT/%s/%s/%s`
 	TOPIC_EVENT_REGEXP  = `EVENT/(.*)/(.*)/(.*)`
-	TOPIC_REQ_FORMAT    = `REQ/%s/%s/%s/%s/%s/%s`
-	TOPIC_REQT_REGEXP   = `REQ/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)`
-	TOPIC_REQT_FORMAT   = `REQ/%s/%s/%s/%s/%s/%s/%s`
-	TOPIC_REQ_REGEXP    = `REQ/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)`
+	TOPIC_REQ_FORMAT    = `REQ/%s/%s/%s/%s/%s/%s/%s`
+	TOPIC_REQ_REGEXP    = `REQ/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)`
 	TOPIC_RSP_FORMAT    = `RSP/%s/%s/%s/%s/%s`
 	TOPIC_RSP_REGEXP    = `RSP/(.*)/(.*)/(.*)/(.*)/(.*)`
 )
@@ -132,6 +130,7 @@ type RequestTopic struct {
 	ReceiverID     string
 	RequestID      string
 	Operation      Operation
+	Tag            string
 }
 
 func (self RequestTopic) TopicPath() string {
@@ -143,7 +142,7 @@ func (self RequestTopic) TopicPath() string {
 	var rm_s, _ = u(string(rm))
 	var op, _ = self.Operation.MarshalJSON()
 	var op_s, _ = u(string(op))
-	return fmt.Sprintf(TOPIC_REQ_FORMAT, sm_s, self.SenderID, rm_s, self.ReceiverID, self.RequestID, op_s)
+	return fmt.Sprintf(TOPIC_REQ_FORMAT, sm_s, self.SenderID, rm_s, self.ReceiverID, self.RequestID, op_s, self.Tag)
 }
 
 func (self RequestTopic) ToResponse() ResponseTopic {
@@ -159,69 +158,6 @@ func (self RequestTopic) ToResponse() ResponseTopic {
 func ParseRequestTopic(s string) (RequestTopic, error) {
 	var v RequestTopic
 	var r = regexp.MustCompile(TOPIC_REQ_REGEXP)
-	var ds = r.FindAllStringSubmatch(s, -1)
-	if ds != nil && len(ds) == 1 {
-		var data = ds[0]
-		if data != nil && len(data) == 6+1 {
-			var smodule Module
-			var rmodule Module
-			var op Operation
-
-			var smodule_err = json.Unmarshal([]byte(strconv.Quote(data[1])), &smodule)
-			var rmodule_err = json.Unmarshal([]byte(strconv.Quote(data[3])), &rmodule)
-			var op_err = json.Unmarshal([]byte(strconv.Quote(data[6])), &op)
-
-			if smodule_err == nil && rmodule_err == nil && op_err == nil {
-				v.SenderModule = smodule
-				v.SenderID = data[2]
-				v.ReceiverModule = rmodule
-				v.ReceiverID = data[4]
-				v.RequestID = data[5]
-				v.Operation = op
-
-				return v, nil
-			}
-		}
-	}
-
-	return v, parseErr
-}
-
-type RequestTopicWithTag struct {
-	SenderModule   Module
-	SenderID       string
-	ReceiverModule Module
-	ReceiverID     string
-	RequestID      string
-	Operation      Operation
-	Tag            string
-}
-
-func (self RequestTopicWithTag) TopicPath() string {
-	var u = strconv.Unquote
-
-	var sm, _ = self.SenderModule.MarshalJSON()
-	var sm_s, _ = u(string(sm))
-	var rm, _ = self.ReceiverModule.MarshalJSON()
-	var rm_s, _ = u(string(rm))
-	var op, _ = self.Operation.MarshalJSON()
-	var op_s, _ = u(string(op))
-	return fmt.Sprintf(TOPIC_REQT_FORMAT, sm_s, self.SenderID, rm_s, self.ReceiverID, self.RequestID, op_s, self.Tag)
-}
-
-func (self RequestTopicWithTag) ToResponse() ResponseTopic {
-	return ResponseTopic{
-		SenderModule:   self.ReceiverModule,
-		SenderID:       self.ReceiverID,
-		ReceiverModule: self.SenderModule,
-		ReceiverID:     self.SenderID,
-		RequestID:      self.RequestID,
-	}
-}
-
-func ParseRequestTopicWithTag(s string) (RequestTopicWithTag, error) {
-	var v RequestTopicWithTag
-	var r = regexp.MustCompile(TOPIC_REQT_REGEXP)
 	var ds = r.FindAllStringSubmatch(s, -1)
 	if ds != nil && len(ds) == 1 {
 		var data = ds[0]
@@ -249,10 +185,6 @@ func ParseRequestTopicWithTag(s string) (RequestTopicWithTag, error) {
 	}
 
 	return v, parseErr
-}
-
-type ResponsableTopic interface {
-	ToResponse() ResponseTopic
 }
 
 type ResponseTopic struct {
