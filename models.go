@@ -724,6 +724,7 @@ type LBSClientCoords struct {
 	Timestamp int64   `json:"timestamp"`
 	Group     UUID    `json:"group"`
 	Mac       string  `json:"mac"`
+	BestCPE   UUID    `json:"bestcpe"`
 	X         float64 `json:"x"`
 	Y         float64 `json:"y"`
 	Z         float64 `json:"z"`
