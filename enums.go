@@ -678,6 +678,7 @@ type Module string
 const ModuleAny Module = "+"
 const ModuleBackend Module = "BACKEND"
 const ModuleCPE Module = "CPE"
+const ModuleCPEStat Module = "CPE_STAT"
 const ModuleClientStat Module = "CLIENT_STAT"
 const ModuleConfig Module = "CONFIG"
 const ModuleDB Module = "DB"
@@ -697,6 +698,8 @@ func (self *Module) String() string {
 		return "BACKEND"
 	case ModuleCPE:
 		return "CPE"
+	case ModuleCPEStat:
+		return "CPE_STAT"
 	case ModuleClientStat:
 		return "CLIENT_STAT"
 	case ModuleConfig:
@@ -727,6 +730,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("BACKEND")
 	case ModuleCPE:
 		return json.Marshal("CPE")
+	case ModuleCPEStat:
+		return json.Marshal("CPE_STAT")
 	case ModuleClientStat:
 		return json.Marshal("CLIENT_STAT")
 	case ModuleConfig:
@@ -757,6 +762,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "BACKEND", nil
 	case ModuleCPE:
 		return "CPE", nil
+	case ModuleCPEStat:
+		return "CPE_STAT", nil
 	case ModuleClientStat:
 		return "CLIENT_STAT", nil
 	case ModuleConfig:
@@ -792,6 +799,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CPE":
 		*self = ModuleCPE
+		return nil
+	case "CPE_STAT":
+		*self = ModuleCPEStat
 		return nil
 	case "CLIENT_STAT":
 		*self = ModuleClientStat
@@ -837,6 +847,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "CPE":
 		*self = ModuleCPE
+		return nil
+	case "CPE_STAT":
+		*self = ModuleCPEStat
 		return nil
 	case "CLIENT_STAT":
 		*self = ModuleClientStat
