@@ -5,11 +5,11 @@ Wired   = "wired"
 
 [ConfigurationStatus]
 [ConfigurationStatus.variants]
-Empty   = "empty"
-Error   = "error"
-OK      = "ok"
-Pending = "pending"
-Future  = "future"
+Empty    = "empty"
+Error    = "error"
+OK       = "ok"
+Pending  = "pending"
+Updating = "updating"
 
 [Module]
 [Module.variants]

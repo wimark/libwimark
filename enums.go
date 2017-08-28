@@ -469,9 +469,9 @@ type ConfigurationStatus string
 
 const ConfigurationStatusEmpty ConfigurationStatus = "empty"
 const ConfigurationStatusError ConfigurationStatus = "error"
-const ConfigurationStatusFuture ConfigurationStatus = "future"
 const ConfigurationStatusOK ConfigurationStatus = "ok"
 const ConfigurationStatusPending ConfigurationStatus = "pending"
+const ConfigurationStatusUpdating ConfigurationStatus = "updating"
 
 func (self ConfigurationStatus) GetPtr() *ConfigurationStatus { var v = self; return &v }
 
@@ -481,12 +481,12 @@ func (self *ConfigurationStatus) String() string {
 		return "empty"
 	case ConfigurationStatusError:
 		return "error"
-	case ConfigurationStatusFuture:
-		return "future"
 	case ConfigurationStatusOK:
 		return "ok"
 	case ConfigurationStatusPending:
 		return "pending"
+	case ConfigurationStatusUpdating:
+		return "updating"
 
 	}
 	panic(errors.New("Invalid value of ConfigurationStatus"))
@@ -499,12 +499,12 @@ func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 		return json.Marshal("empty")
 	case ConfigurationStatusError:
 		return json.Marshal("error")
-	case ConfigurationStatusFuture:
-		return json.Marshal("future")
 	case ConfigurationStatusOK:
 		return json.Marshal("ok")
 	case ConfigurationStatusPending:
 		return json.Marshal("pending")
+	case ConfigurationStatusUpdating:
+		return json.Marshal("updating")
 
 	}
 	return nil, errors.New("Invalid value of ConfigurationStatus")
@@ -517,12 +517,12 @@ func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
 		return "empty", nil
 	case ConfigurationStatusError:
 		return "error", nil
-	case ConfigurationStatusFuture:
-		return "future", nil
 	case ConfigurationStatusOK:
 		return "ok", nil
 	case ConfigurationStatusPending:
 		return "pending", nil
+	case ConfigurationStatusUpdating:
+		return "updating", nil
 
 	}
 	return nil, errors.New("Invalid value of ConfigurationStatus")
@@ -540,14 +540,14 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 	case "error":
 		*self = ConfigurationStatusError
 		return nil
-	case "future":
-		*self = ConfigurationStatusFuture
-		return nil
 	case "ok":
 		*self = ConfigurationStatusOK
 		return nil
 	case "pending":
 		*self = ConfigurationStatusPending
+		return nil
+	case "updating":
+		*self = ConfigurationStatusUpdating
 		return nil
 
 	}
@@ -567,14 +567,14 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 	case "error":
 		*self = ConfigurationStatusError
 		return nil
-	case "future":
-		*self = ConfigurationStatusFuture
-		return nil
 	case "ok":
 		*self = ConfigurationStatusOK
 		return nil
 	case "pending":
 		*self = ConfigurationStatusPending
+		return nil
+	case "updating":
+		*self = ConfigurationStatusUpdating
 		return nil
 
 	}
