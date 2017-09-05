@@ -827,7 +827,7 @@ type CPEStatInfo struct {
 	LastRxBytes      int64     `json:"last_rx_bytes" bson:"last_rx_bytes"`
 	LastTxBytes      int64     `json:"last_tx_bytes" bson:"last_tx_bytes"`
 	DeltaTxBytes     int64     `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
-	DeltaRxBytes     int64     `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
+	DeltaRxBytes     int64     `json:"delta_rx_bytes" bson:"delta_tx_bytes"`
 	ConnectedClients []string  `json:"connected_clients" bson:"connected_clients"`
 }
 
@@ -838,7 +838,7 @@ type WLANStatInfo struct {
 	TotalRxBytes     int64    `json:"total_rx_bytes" bson:"total_rx_bytes"`
 	TotalTxBytes     int64    `json:"total_tx_bytes" bson:"total_tx_bytes"`
 	DeltaTxBytes     int64    `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
-	DeltaRxBytes     int64    `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
+	DeltaRxBytes     int64    `json:"delta_rx_bytes" bson:"delta_rx_bytes"`
 	ConnectedClients []string `json:"connected_clients" bson:"connected_clients"`
 }
 
