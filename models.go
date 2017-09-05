@@ -819,15 +819,15 @@ type LBSClientCoordsMask struct {
 }
 
 type CPEStatInfo struct {
-	ID              string    `json:"id" bson:"_id"`
-	CPE             string    `json:"cpe_id" bson:"cpe_id"`
-	Timestamp       time.Time `json:"timestamp" bson:"timestamp"`
-	TotalRxBytes    int64     `json:"total_rx_bytes" bson:"total_rx_bytes"`
-	TotalTxBytes    int64     `json:"total_tx_bytes" bson:"total_tx_bytes"`
-	LastRxBytes     int64     `json:"last_rx_bytes" bson:"last_rx_bytes"`
-	LastTxBytes     int64     `json:"last_tx_bytes" bson:"last_tx_bytes"`
-	AssignedWLANs   []string  `json:"assigned_wlans" bson:"assigned_wlans"`
-	ConnecedClients []string  `json:"connected_clients" bson:"connected_clients"`
+	ID               string    `json:"id" bson:"_id"`
+	CPE              string    `json:"cpe_id" bson:"cpe_id"`
+	Timestamp        time.Time `json:"timestamp" bson:"timestamp"`
+	TotalRxBytes     int64     `json:"total_rx_bytes" bson:"total_rx_bytes"`
+	TotalTxBytes     int64     `json:"total_tx_bytes" bson:"total_tx_bytes"`
+	LastRxBytes      int64     `json:"last_rx_bytes" bson:"last_rx_bytes"`
+	LastTxBytes      int64     `json:"last_tx_bytes" bson:"last_tx_bytes"`
+	AssignedWLANs    []string  `json:"assigned_wlans" bson:"assigned_wlans"`
+	ConnectedClients []string  `json:"connected_clients" bson:"connected_clients"`
 }
 
 type WirelessClient struct {
