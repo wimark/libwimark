@@ -395,6 +395,15 @@ func (self *DBResponseD) UnmarshalJSON(b []byte) error {
 	return json.Unmarshal(b, (*DBResponseUUID)(self))
 }
 
+type ConfigResponce struct {
+	Status ConfigurationStatus `json:"status"`
+	Errors []ModelError        `json:"errors,omitempty"`
+	Data   map[UUID]struct {
+		Status ConfigurationStatus `json:"status"`
+		Errors []ModelError        `json:"errors,omitempty"`
+	} `json:"data,omitempty"`
+}
+
 type ConnectorInfo struct {
 	DbType    string   `json:"db_type"`
 	DbServers []string `json:"db_servers"`
