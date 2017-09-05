@@ -400,7 +400,7 @@ type ConfigResponce struct {
 	Errors []ModelError        `json:"errors,omitempty"`
 	Data   map[UUID]struct {
 		Status ConfigurationStatus `json:"status"`
-		Errors []ModelError        `json:"errors,omitempty"`
+		Errors []string            `json:"errors,omitempty"`
 	} `json:"data,omitempty"`
 }
 
