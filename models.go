@@ -923,8 +923,9 @@ type DHCPOptions struct {
 }
 
 type DHCPPackage struct {
-	Header  DHCPHeader  `json:"header"`
-	Options DHCPOptions `json:"options"`
+	Header      DHCPHeader  `json:"header"`
+	Options     DHCPOptions `json:"options"`
+	Fingerprint []int       `json:"fingerprint"`
 }
 
 type ClientAddr struct {
