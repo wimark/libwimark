@@ -25,6 +25,7 @@ LBS        = "LBS"
 ClientStat = "CLIENT_STAT"
 MQTTLog    = "MQTT_LOG"
 CPEStat    = "CPE_STAT"
+AC         = "AC"
 
 [Operation]
 [Operation.variants]
