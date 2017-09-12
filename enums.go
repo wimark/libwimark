@@ -21,6 +21,8 @@ const BandwidthTypeVHT20 BandwidthType = "VHT20"
 const BandwidthTypeVHT40 BandwidthType = "VHT40"
 const BandwidthTypeVHT80 BandwidthType = "VHT80"
 
+func (self BandwidthType) GetPtr() *BandwidthType { var v = self; return &v }
+
 func (self *BandwidthType) String() string {
 	switch *self {
 	case BandwidthTypeHT20:
@@ -171,6 +173,8 @@ const CPEAgentStatusTypeSuccess CPEAgentStatusType = "success"
 const CPEAgentStatusTypeSyntaxError CPEAgentStatusType = "syntax"
 const CPEAgentStatusTypeUndefined CPEAgentStatusType = "undefined"
 
+func (self CPEAgentStatusType) GetPtr() *CPEAgentStatusType { var v = self; return &v }
+
 func (self *CPEAgentStatusType) String() string {
 	switch *self {
 	case CPEAgentStatusTypeException:
@@ -271,6 +275,8 @@ type CPEInterfaceType string
 const CPEInterfaceTypeWiFi CPEInterfaceType = "wifi"
 const CPEInterfaceTypeWired CPEInterfaceType = "wired"
 
+func (self CPEInterfaceType) GetPtr() *CPEInterfaceType { var v = self; return &v }
+
 func (self *CPEInterfaceType) String() string {
 	switch *self {
 	case CPEInterfaceTypeWiFi:
@@ -349,6 +355,8 @@ const ClientStatPacketTypeOff ClientStatPacketType = "Accounting-Off"
 const ClientStatPacketTypeOn ClientStatPacketType = "Accounting-On"
 const ClientStatPacketTypeStart ClientStatPacketType = "Start"
 const ClientStatPacketTypeStop ClientStatPacketType = "Stop"
+
+func (self ClientStatPacketType) GetPtr() *ClientStatPacketType { var v = self; return &v }
 
 func (self *ClientStatPacketType) String() string {
 	switch *self {
@@ -465,6 +473,8 @@ const ConfigurationStatusOK ConfigurationStatus = "ok"
 const ConfigurationStatusPending ConfigurationStatus = "pending"
 const ConfigurationStatusUpdating ConfigurationStatus = "updating"
 
+func (self ConfigurationStatus) GetPtr() *ConfigurationStatus { var v = self; return &v }
+
 func (self *ConfigurationStatus) String() string {
 	switch *self {
 	case ConfigurationStatusEmpty:
@@ -578,6 +588,8 @@ const MacFilterTypeBlackList MacFilterType = "BlackList"
 const MacFilterTypeNone MacFilterType = "None"
 const MacFilterTypeWhiteList MacFilterType = "WhiteList"
 
+func (self MacFilterType) GetPtr() *MacFilterType { var v = self; return &v }
+
 func (self *MacFilterType) String() string {
 	switch *self {
 	case MacFilterTypeBlackList:
@@ -676,6 +688,8 @@ const ModuleLBS Module = "LBS"
 const ModuleMQTTLog Module = "MQTT_LOG"
 const ModuleMonitor Module = "MONITOR"
 const ModuleStat Module = "STAT"
+
+func (self Module) GetPtr() *Module { var v = self; return &v }
 
 func (self *Module) String() string {
 	switch *self {
@@ -891,6 +905,8 @@ const OperationRead Operation = "R"
 const OperationSHScript Operation = "SH"
 const OperationUpdate Operation = "U"
 
+func (self Operation) GetPtr() *Operation { var v = self; return &v }
+
 func (self *Operation) String() string {
 	switch *self {
 	case OperationAny:
@@ -1040,6 +1056,8 @@ const RadiusTypeAccounting RadiusType = "acct"
 const RadiusTypeAuthentication RadiusType = "auth"
 const RadiusTypeBoth RadiusType = "both"
 
+func (self RadiusType) GetPtr() *RadiusType { var v = self; return &v }
+
 func (self *RadiusType) String() string {
 	switch *self {
 	case RadiusTypeAccounting:
@@ -1128,6 +1146,8 @@ type SecuritySuite string
 const SecuritySuiteAES SecuritySuite = "aes"
 const SecuritySuiteTKIP SecuritySuite = "tkip"
 
+func (self SecuritySuite) GetPtr() *SecuritySuite { var v = self; return &v }
+
 func (self *SecuritySuite) String() string {
 	switch *self {
 	case SecuritySuiteAES:
@@ -1205,6 +1225,8 @@ const SecurityTypeWPA2Enterprise SecurityType = "wpa2enterprise"
 const SecurityTypeWPA2Personal SecurityType = "wpa2personal"
 const SecurityTypeWPAEnterprise SecurityType = "wpaenterprise"
 const SecurityTypeWPAPersonal SecurityType = "wpapersonal"
+
+func (self SecurityType) GetPtr() *SecurityType { var v = self; return &v }
 
 func (self *SecurityType) String() string {
 	switch *self {
@@ -1307,6 +1329,8 @@ const ServiceStateConnected ServiceState = "CONNECTED"
 const ServiceStateDisconnected ServiceState = "DISCONNECTED"
 const ServiceStatePending ServiceState = "PENDING"
 
+func (self ServiceState) GetPtr() *ServiceState { var v = self; return &v }
+
 func (self *ServiceState) String() string {
 	switch *self {
 	case ServiceStateConnected:
@@ -1395,6 +1419,8 @@ type StatEventRuleType string
 const StatEventRuleTypeCPUload StatEventRuleType = "cpu_load"
 const StatEventRuleTypeFreeRAM StatEventRuleType = "free_ram"
 
+func (self StatEventRuleType) GetPtr() *StatEventRuleType { var v = self; return &v }
+
 func (self *StatEventRuleType) String() string {
 	switch *self {
 	case StatEventRuleTypeCPUload:
@@ -1472,6 +1498,8 @@ const SystemEventLevelDEBUG SystemEventLevel = "DEBUG"
 const SystemEventLevelERROR SystemEventLevel = "ERROR"
 const SystemEventLevelINFO SystemEventLevel = "INFO"
 const SystemEventLevelWARNING SystemEventLevel = "WARNING"
+
+func (self SystemEventLevel) GetPtr() *SystemEventLevel { var v = self; return &v }
 
 func (self *SystemEventLevel) String() string {
 	switch *self {
@@ -1582,6 +1610,8 @@ const SystemEventTypeMonitorRuleViolation SystemEventType = "MONITOR_RULE_VIOLAT
 const SystemEventTypeServiceConnected SystemEventType = "SERVICE_CONNECTED"
 const SystemEventTypeServiceDisconnected SystemEventType = "SERVICE_DISCONNECTED"
 const SystemEventTypeServiceFatalError SystemEventType = "SERVICE_FATAL_ERROR"
+
+func (self SystemEventType) GetPtr() *SystemEventType { var v = self; return &v }
 
 func (self *SystemEventType) String() string {
 	switch *self {
@@ -1779,6 +1809,8 @@ type WirelessClientState string
 const WirelessClientStateCONNECTED WirelessClientState = "CONNECTED"
 const WirelessClientStateDISCONNECTED WirelessClientState = "DISCONNECTED"
 
+func (self WirelessClientState) GetPtr() *WirelessClientState { var v = self; return &v }
+
 func (self *WirelessClientState) String() string {
 	switch *self {
 	case WirelessClientStateCONNECTED:
@@ -1854,6 +1886,8 @@ type WirelessClientType string
 
 const WirelessClientTypeCamera WirelessClientType = "camera"
 const WirelessClientTypeOther WirelessClientType = "other"
+
+func (self WirelessClientType) GetPtr() *WirelessClientType { var v = self; return &v }
 
 func (self *WirelessClientType) String() string {
 	switch *self {
