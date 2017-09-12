@@ -96,6 +96,7 @@ type WiFiConfig struct {
 	TxPower   string `json:"txpower,omitempty"`
 	WLANs     []UUID `json:"wlans,omitempty"`
 	Channels  []int  `json:"channels,omitempty"`
+	Country   string `json:"country,omitempty"`
 }
 
 type WiFiState struct {
