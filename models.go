@@ -78,30 +78,39 @@ type WLAN struct {
 	L2Isolate          bool          `json:"l2isolate"`
 }
 
-type InterfaceConfiguration struct {
-	WLANs []UUID
+type WiredConfig struct {
 }
 
-type Configuration struct {
-	IfaceConfigs map[InterfaceType]InterfaceConfiguration
+type WiredState struct {
 }
 
 type WiredData struct {
-	Name string `json:"name"`
-	Mac  string `json:"mac"`
-	VLAN int    `json:"vlan"`
+	Name   string      `json:"name"`
+	Config WiredConfig `json:"config,omitempty"`
+	State  WiredState  `json:"state,omitempty"`
 }
 
-type WiFiData struct {
-	Name      string `json:"name,omitempty"`
-	Mac       string `json:"mac,omitempty"`
+type WiFiConfig struct {
+	BandMode  string `json:"bandmode,omitempty"`
+	Bandwidth string `json:"bandwidth,omitempty"`
+	TxPower   string `json:"txpower,omitempty"`
+	WLANs     []UUID `json:"wlans,omitempty"`
+	Channels  []int  `json:"channels,omitempty"`
+}
+
+type WiFiState struct {
 	Frequency string `json:"frequency,omitempty"`
 	BandMode  string `json:"bandmode,omitempty"`
 	Bandwidth string `json:"bandwidth,omitempty"`
 	Channel   string `json:"channel,omitempty"`
 	TxPower   string `json:"txpower,omitempty"`
-	WLANs     []UUID `json:"wlans,omitempty"`
-	ChanList  []int  `json:"chanlist,omitempty"`
+	Enabled   bool   `json:"enabled,omitempty"`
+}
+
+type WiFiData struct {
+	Name   string     `json:"name,omitempty"`
+	Config WiFiConfig `json:"config,omitempty"`
+	State  WiFiState  `json:"state,omitempty"`
 }
 
 type CPEInterface struct {
