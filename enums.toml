@@ -74,6 +74,8 @@ TKIP = "tkip"
 [SecurityType.variants]
 WPA2Enterprise = "wpa2enterprise"
 WPA2Personal   = "wpa2personal"
+WPAEnterprise = "wpaenterprise"
+WPAPersonal   = "wpapersonal"
 
 [CPEAgentStatusType]
 [CPEAgentStatusType.variants]

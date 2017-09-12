@@ -30,17 +30,29 @@ const (
 	I5_0 = InterfaceType("5.0")
 )
 
-type WPA2Common struct {
+type WPACommon struct {
 	Suites []SecuritySuite `json:"suites"`
 }
 
 type WPA2PersonalData struct {
-	WPA2Common `bson:",inline"`
-	PSK        string `json:"psk"`
+	WPACommon `bson:",inline"`
+	PSK       string `json:"psk"`
 }
 
 type WPA2EnterpriseData struct {
-	WPA2Common           `bson:",inline"`
+	WPACommon            `bson:",inline"`
+	NasID                string `json:"nasid"`
+	PMKCaching           bool   `json:"pmkcaching"`
+	RadiusAuthentication []UUID `json:"radiusauthentication"`
+}
+
+type WPAPersonalData struct {
+	WPACommon `bson:",inline"`
+	PSK       string `json:"psk"`
+}
+
+type WPAEnterpriseData struct {
+	WPACommon            `bson:",inline"`
 	NasID                string `json:"nasid"`
 	PMKCaching           bool   `json:"pmkcaching"`
 	RadiusAuthentication []UUID `json:"radiusauthentication"`

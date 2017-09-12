@@ -170,6 +170,26 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
+	case SecurityTypeWPAEnterprise:
+		if !data_found {
+			return errors.New("No associated data found for enum EnumSecurity")
+		}
+		var d WPAEnterpriseData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SecurityTypeWPAPersonal:
+		if !data_found {
+			return errors.New("No associated data found for enum EnumSecurity")
+		}
+		var d WPAPersonalData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
 
 	}
 	self.Type = t

@@ -1210,6 +1210,8 @@ type SecurityType string
 
 const SecurityTypeWPA2Enterprise SecurityType = "wpa2enterprise"
 const SecurityTypeWPA2Personal SecurityType = "wpa2personal"
+const SecurityTypeWPAEnterprise SecurityType = "wpaenterprise"
+const SecurityTypeWPAPersonal SecurityType = "wpapersonal"
 
 func (self SecurityType) GetPtr() *SecurityType { var v = self; return &v }
 
@@ -1219,6 +1221,10 @@ func (self *SecurityType) String() string {
 		return "wpa2enterprise"
 	case SecurityTypeWPA2Personal:
 		return "wpa2personal"
+	case SecurityTypeWPAEnterprise:
+		return "wpaenterprise"
+	case SecurityTypeWPAPersonal:
+		return "wpapersonal"
 
 	}
 	panic(errors.New("Invalid value of SecurityType"))
@@ -1231,6 +1237,10 @@ func (self *SecurityType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("wpa2enterprise")
 	case SecurityTypeWPA2Personal:
 		return json.Marshal("wpa2personal")
+	case SecurityTypeWPAEnterprise:
+		return json.Marshal("wpaenterprise")
+	case SecurityTypeWPAPersonal:
+		return json.Marshal("wpapersonal")
 
 	}
 	return nil, errors.New("Invalid value of SecurityType")
@@ -1243,6 +1253,10 @@ func (self *SecurityType) GetBSON() (interface{}, error) {
 		return "wpa2enterprise", nil
 	case SecurityTypeWPA2Personal:
 		return "wpa2personal", nil
+	case SecurityTypeWPAEnterprise:
+		return "wpaenterprise", nil
+	case SecurityTypeWPAPersonal:
+		return "wpapersonal", nil
 
 	}
 	return nil, errors.New("Invalid value of SecurityType")
@@ -1259,6 +1273,12 @@ func (self *SecurityType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "wpa2personal":
 		*self = SecurityTypeWPA2Personal
+		return nil
+	case "wpaenterprise":
+		*self = SecurityTypeWPAEnterprise
+		return nil
+	case "wpapersonal":
+		*self = SecurityTypeWPAPersonal
 		return nil
 
 	}
@@ -1277,6 +1297,12 @@ func (self *SecurityType) SetBSON(v bson.Raw) error {
 		return nil
 	case "wpa2personal":
 		*self = SecurityTypeWPA2Personal
+		return nil
+	case "wpaenterprise":
+		*self = SecurityTypeWPAEnterprise
+		return nil
+	case "wpapersonal":
+		*self = SecurityTypeWPAPersonal
 		return nil
 
 	}
