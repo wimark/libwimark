@@ -711,8 +711,8 @@ type CPEConfigurationErrorData struct {
 }
 
 type WLANCentrAccChangeData struct {
-	IsUp     bool   `json:"is_up"`
-	Radiuses []UUID `json:"radiuses"`
+	IsDeleted bool   `json:"is_deleted"`
+	Radiuses  []UUID `json:"radiuses"`
 }
 
 type WifiConfigurationError struct {
