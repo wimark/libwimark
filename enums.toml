@@ -52,6 +52,7 @@ ServiceFatalError       = "SERVICE_FATAL_ERROR"
 ServiceConnected        = "SERVICE_CONNECTED"
 ServiceDisconnected     = "SERVICE_DISCONNECTED"
 DaemonSettingsChanged   = "DAEMON_SETTINGS_CHANGE"
+WLANCentrAccChanged     = "WLAN_CENTR_ACC_CHANGE"
 
 [SystemEventLevel]
 [SystemEventLevel.variants]

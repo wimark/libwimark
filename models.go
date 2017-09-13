@@ -710,6 +710,11 @@ type CPEConfigurationErrorData struct {
 	Metadata    map[string]interface{}   `json:"metadata,omitempty"`
 }
 
+type WLANCentrAccChangeData struct {
+	IsUp     bool   `json:"is_up"`
+	Radiuses []UUID `json:"radiuses"`
+}
+
 type WifiConfigurationError struct {
 	Wlan_id  UUID `json:"wlan_id"`
 	Radio_id UUID `json:"radio_id"`

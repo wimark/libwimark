@@ -1610,6 +1610,7 @@ const SystemEventTypeMonitorRuleViolation SystemEventType = "MONITOR_RULE_VIOLAT
 const SystemEventTypeServiceConnected SystemEventType = "SERVICE_CONNECTED"
 const SystemEventTypeServiceDisconnected SystemEventType = "SERVICE_DISCONNECTED"
 const SystemEventTypeServiceFatalError SystemEventType = "SERVICE_FATAL_ERROR"
+const SystemEventTypeWLANCentrAccChanged SystemEventType = "WLAN_CENTR_ACC_CHANGE"
 
 func (self SystemEventType) GetPtr() *SystemEventType { var v = self; return &v }
 
@@ -1639,6 +1640,8 @@ func (self *SystemEventType) String() string {
 		return "SERVICE_DISCONNECTED"
 	case SystemEventTypeServiceFatalError:
 		return "SERVICE_FATAL_ERROR"
+	case SystemEventTypeWLANCentrAccChanged:
+		return "WLAN_CENTR_ACC_CHANGE"
 
 	}
 	panic(errors.New("Invalid value of SystemEventType"))
@@ -1671,6 +1674,8 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("SERVICE_DISCONNECTED")
 	case SystemEventTypeServiceFatalError:
 		return json.Marshal("SERVICE_FATAL_ERROR")
+	case SystemEventTypeWLANCentrAccChanged:
+		return json.Marshal("WLAN_CENTR_ACC_CHANGE")
 
 	}
 	return nil, errors.New("Invalid value of SystemEventType")
@@ -1703,6 +1708,8 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 		return "SERVICE_DISCONNECTED", nil
 	case SystemEventTypeServiceFatalError:
 		return "SERVICE_FATAL_ERROR", nil
+	case SystemEventTypeWLANCentrAccChanged:
+		return "WLAN_CENTR_ACC_CHANGE", nil
 
 	}
 	return nil, errors.New("Invalid value of SystemEventType")
@@ -1749,6 +1756,9 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SERVICE_FATAL_ERROR":
 		*self = SystemEventTypeServiceFatalError
+		return nil
+	case "WLAN_CENTR_ACC_CHANGE":
+		*self = SystemEventTypeWLANCentrAccChanged
 		return nil
 
 	}
@@ -1797,6 +1807,9 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "SERVICE_FATAL_ERROR":
 		*self = SystemEventTypeServiceFatalError
+		return nil
+	case "WLAN_CENTR_ACC_CHANGE":
+		*self = SystemEventTypeWLANCentrAccChanged
 		return nil
 
 	}
