@@ -21,6 +21,7 @@ type Radius struct {
 	Auth_port string `json:"auth_port"`
 	Acc_port  string `json:"acc_port"`
 	Secret    string `json:"secret"`
+	IsLocal   bool   `json:"is_local"`
 }
 
 type InterfaceType string
@@ -713,6 +714,11 @@ type CPEConfigurationErrorData struct {
 	Wifi        []WifiConfigurationError `json:"wifi,omitempty"`
 	Description string                   `json:"description,omitempty"`
 	Metadata    map[string]interface{}   `json:"metadata,omitempty"`
+}
+
+type WLANCentrAccChangeData struct {
+	IsDeleted bool   `json:"is_deleted"`
+	Radiuses  []UUID `json:"radiuses"`
 }
 
 type WifiConfigurationError struct {
