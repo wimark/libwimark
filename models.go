@@ -275,6 +275,10 @@ type CPE struct {
 	Name        string `json:"name"`
 	Connected   bool   `json:"connected"`
 	Description string `json:"description"`
+	IPAddr      string `json:"ipaddr"`
+	MACAddr     string `json:"macaddr"`
+	NetMask     string `json:"netmask"`
+	Gateway     string `json:"gateway"`
 	Model       struct {
 		Id   UUID   `json:"id"`
 		Name string `json:"name"`
