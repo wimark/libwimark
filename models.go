@@ -289,6 +289,7 @@ type CPE struct {
 	LbsConfig        LBSConfig           `json:"lbs_config"`
 	StatisticsConfig StatisticsConfig    `json:"stats_config"`
 	LogConfig        LogConfig           `json:"log_config"`
+	DHCPCapConfig    DHCPCapConfig       `json:"dhcpcap_config"`
 }
 
 type Stat struct {
@@ -781,6 +782,11 @@ type LogConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
 	ReportPeriod int `json:"reportperiod,omitempty"`
+}
+
+type DHCPCapConfig struct {
+	Enabled       bool     `json:"enabled"`
+	MsgTypeFilter []string `json:"msgtypefilter"`
 }
 
 type SimpleMask struct {
