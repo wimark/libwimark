@@ -21,7 +21,7 @@ type Radius struct {
 	Auth_port string `json:"auth_port"`
 	Acc_port  string `json:"acc_port"`
 	Secret    string `json:"secret"`
-	IsLocal   bool   `json:"is_local"`
+	Is_local  bool   `json:"is_local"`
 }
 
 type InterfaceType string
