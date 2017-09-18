@@ -907,8 +907,8 @@ type IPHeader struct {
 }
 
 type UDPHeader struct {
-	SourcePort  int    `json:"src_port"`
-	Destination string `json:"dst_port"`
+	SourcePort      int `json:"src_port"`
+	DestinationPort int `json:"dst_port"`
 }
 
 type DHCPHeader struct {
