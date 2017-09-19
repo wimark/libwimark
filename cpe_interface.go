@@ -4,11 +4,6 @@ import (
 	"encoding/json"
 )
 
-type CPEAgentError struct {
-	Type CPEAgentStatusType `json:"type"`
-	Data string             `json:"data"`
-}
-
 type CPEAgentResponse struct {
 	Result json.RawMessage `json:"result"`
 	Status CPEAgentError   `json:"error"`
