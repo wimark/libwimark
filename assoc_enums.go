@@ -354,6 +354,8 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
+	case SystemEventTypeSystemTimeChanged:
+		break
 	case SystemEventTypeWLANCentrAccChanged:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")

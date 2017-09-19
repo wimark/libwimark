@@ -53,6 +53,7 @@ ServiceConnected        = "SERVICE_CONNECTED"
 ServiceDisconnected     = "SERVICE_DISCONNECTED"
 DaemonSettingsChanged   = "DAEMON_SETTINGS_CHANGE"
 WLANCentrAccChanged     = "WLAN_CENTR_ACC_CHANGE"
+SystemTimeChanged       = "SYSTEM_TIME_CHANGE"
 
 [SystemEventLevel]
 [SystemEventLevel.variants]

@@ -35,6 +35,7 @@ ServiceConnected        = "ServiceConnectedData"
 ServiceDisconnected     = "null"
 DaemonSettingsChanged   = "null"
 WLANCentrAccChanged     = "WLANCentrAccChangeData"
+SystemTimeChanged       = "null"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"
