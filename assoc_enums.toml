@@ -12,14 +12,6 @@ constraint = "CPEInterfaceType"
 Wired = "WiredData"
 WiFi  = "WiFiData"
 
-[CPEAgentError]
-constraint = "CPEAgentStatusType"
-[CPEAgentError.Variants]
-Success     = "null"
-Undefined   = "string"
-SyntaxError = "string"
-Exception   = "string"
-
 [SystemEventObject]
 constraint = "SystemEventType"
 [SystemEventObject.Variants]
@@ -36,6 +28,7 @@ ServiceDisconnected     = "null"
 DaemonSettingsChanged   = "null"
 WLANCentrAccChanged     = "WLANCentrAccChangeData"
 SystemTimeChanged       = "null"
+CPEInterfaceState       = "CPEInterfaceStateData"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"

@@ -98,13 +98,18 @@ type WiFiConfig struct {
 	Country   string `json:"country,omitempty"`
 }
 
+type WlanState struct {
+	State CPEInterfaceState `json:"state,omitempty"`
+}
+
 type WiFiState struct {
-	Frequency string `json:"frequency,omitempty"`
-	BandMode  string `json:"bandmode,omitempty"`
-	Bandwidth string `json:"bandwidth,omitempty"`
-	Channel   string `json:"channel,omitempty"`
-	TxPower   string `json:"txpower,omitempty"`
-	Enabled   bool   `json:"enabled,omitempty"`
+	Frequency string             `json:"frequency,omitempty"`
+	BandMode  string             `json:"bandmode,omitempty"`
+	Bandwidth string             `json:"bandwidth,omitempty"`
+	Channel   string             `json:"channel,omitempty"`
+	TxPower   string             `json:"txpower,omitempty"`
+	Enabled   bool               `json:"enabled,omitempty"`
+	WLANs     map[UUID]WlanState `json:"wlanstates,omitempty"`
 }
 
 type WiFiData struct {

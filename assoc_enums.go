@@ -6,71 +6,6 @@ import (
 	"errors"
 )
 
-type CPEAgentError struct {
-	Type CPEAgentStatusType `json:"type"`
-	Data interface{}        `json:"data"`
-}
-
-func (self *CPEAgentError) UnmarshalJSON(b []byte) error {
-	var doc map[string]json.RawMessage
-	if err := json.Unmarshal(b, &doc); err != nil {
-		return err
-	}
-	if doc == nil {
-		return nil
-	}
-	var t_raw, t_found = doc["type"]
-	if !t_found {
-		return nil
-	}
-	var data_raw, data_found = doc["data"]
-	if bytes.Equal(data_raw, []byte("null")) {
-		data_found = false
-	}
-	var t CPEAgentStatusType
-	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
-		return t_err
-	}
-	switch t {
-	case CPEAgentStatusTypeException:
-		if !data_found {
-			return errors.New("No associated data found for enum CPEAgentError")
-		}
-		var d string
-		var data_err = json.Unmarshal(data_raw, &d)
-		if data_err != nil {
-			return data_err
-		}
-		self.Data = &d
-	case CPEAgentStatusTypeSuccess:
-		break
-	case CPEAgentStatusTypeSyntaxError:
-		if !data_found {
-			return errors.New("No associated data found for enum CPEAgentError")
-		}
-		var d string
-		var data_err = json.Unmarshal(data_raw, &d)
-		if data_err != nil {
-			return data_err
-		}
-		self.Data = &d
-	case CPEAgentStatusTypeUndefined:
-		if !data_found {
-			return errors.New("No associated data found for enum CPEAgentError")
-		}
-		var d string
-		var data_err = json.Unmarshal(data_raw, &d)
-		if data_err != nil {
-			return data_err
-		}
-		self.Data = &d
-
-	}
-	self.Type = t
-	return nil
-
-}
-
 type CPEInterfaceInfo struct {
 	Type CPEInterfaceType `json:"type"`
 	Data interface{}      `json:"data"`
@@ -300,6 +235,16 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		self.Data = &d
 	case SystemEventTypeCPEDisconnected:
 		break
+	case SystemEventTypeCPEInterfaceState:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d CPEInterfaceStateData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
 	case SystemEventTypeClientConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")

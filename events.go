@@ -222,6 +222,14 @@ type CPEConfigurationErrorData struct {
 	Metadata    map[string]interface{}   `json:"metadata,omitempty"`
 }
 
+type CPEInterfaceStateData struct {
+	Interface string            `json:"radio_id"`
+	WLAN      string            `json:"wlan_id"`
+	EventName string            `json:"event_name"`
+	EventType string            `json:"event_type"`
+	State     CPEInterfaceState `json:"state"`
+}
+
 type WLANCentrAccChangeData struct {
 	IsDeleted bool   `json:"is_deleted"`
 	Radiuses  []UUID `json:"radiuses"`

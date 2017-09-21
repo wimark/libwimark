@@ -270,6 +270,123 @@ func (self *CPEAgentStatusType) SetBSON(v bson.Raw) error {
 
 }
 
+type CPEInterfaceState string
+
+const CPEInterfaceStateACS CPEInterfaceState = "ACS"
+const CPEInterfaceStateCountryUpdate CPEInterfaceState = "CONTRY_UPDATE"
+const CPEInterfaceStateDFS CPEInterfaceState = "DFS"
+const CPEInterfaceStateDisabled CPEInterfaceState = "DISABLED"
+const CPEInterfaceStateEnabled CPEInterfaceState = "ENABLED"
+
+func (self CPEInterfaceState) GetPtr() *CPEInterfaceState { var v = self; return &v }
+
+func (self *CPEInterfaceState) String() string {
+	switch *self {
+	case CPEInterfaceStateACS:
+		return "ACS"
+	case CPEInterfaceStateCountryUpdate:
+		return "CONTRY_UPDATE"
+	case CPEInterfaceStateDFS:
+		return "DFS"
+	case CPEInterfaceStateDisabled:
+		return "DISABLED"
+	case CPEInterfaceStateEnabled:
+		return "ENABLED"
+
+	}
+	panic(errors.New("Invalid value of CPEInterfaceState"))
+
+}
+
+func (self *CPEInterfaceState) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case CPEInterfaceStateACS:
+		return json.Marshal("ACS")
+	case CPEInterfaceStateCountryUpdate:
+		return json.Marshal("CONTRY_UPDATE")
+	case CPEInterfaceStateDFS:
+		return json.Marshal("DFS")
+	case CPEInterfaceStateDisabled:
+		return json.Marshal("DISABLED")
+	case CPEInterfaceStateEnabled:
+		return json.Marshal("ENABLED")
+
+	}
+	return nil, errors.New("Invalid value of CPEInterfaceState")
+
+}
+
+func (self *CPEInterfaceState) GetBSON() (interface{}, error) {
+	switch *self {
+	case CPEInterfaceStateACS:
+		return "ACS", nil
+	case CPEInterfaceStateCountryUpdate:
+		return "CONTRY_UPDATE", nil
+	case CPEInterfaceStateDFS:
+		return "DFS", nil
+	case CPEInterfaceStateDisabled:
+		return "DISABLED", nil
+	case CPEInterfaceStateEnabled:
+		return "ENABLED", nil
+
+	}
+	return nil, errors.New("Invalid value of CPEInterfaceState")
+
+}
+func (self *CPEInterfaceState) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "ACS":
+		*self = CPEInterfaceStateACS
+		return nil
+	case "CONTRY_UPDATE":
+		*self = CPEInterfaceStateCountryUpdate
+		return nil
+	case "DFS":
+		*self = CPEInterfaceStateDFS
+		return nil
+	case "DISABLED":
+		*self = CPEInterfaceStateDisabled
+		return nil
+	case "ENABLED":
+		*self = CPEInterfaceStateEnabled
+		return nil
+
+	}
+	return errors.New("Unknown CPEInterfaceState")
+
+}
+
+func (self *CPEInterfaceState) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "ACS":
+		*self = CPEInterfaceStateACS
+		return nil
+	case "CONTRY_UPDATE":
+		*self = CPEInterfaceStateCountryUpdate
+		return nil
+	case "DFS":
+		*self = CPEInterfaceStateDFS
+		return nil
+	case "DISABLED":
+		*self = CPEInterfaceStateDisabled
+		return nil
+	case "ENABLED":
+		*self = CPEInterfaceStateEnabled
+		return nil
+
+	}
+	return errors.New("Unknown CPEInterfaceState")
+
+}
+
 type CPEInterfaceType string
 
 const CPEInterfaceTypeWiFi CPEInterfaceType = "wifi"
@@ -1603,6 +1720,7 @@ const SystemEventTypeCPEConfigurationError SystemEventType = "CPE_CONFIGURATION_
 const SystemEventTypeCPEConfigurationSuccess SystemEventType = "CPE_CONFIGURATION_SUCCESS"
 const SystemEventTypeCPEConnected SystemEventType = "CPE_CONNECTED"
 const SystemEventTypeCPEDisconnected SystemEventType = "CPE_DISCONNECTED"
+const SystemEventTypeCPEInterfaceState SystemEventType = "CPE_INTERFACE_STATE"
 const SystemEventTypeClientConnected SystemEventType = "CLIENT_CONNECTED"
 const SystemEventTypeClientDisconnected SystemEventType = "CLIENT_DISCONNECTED"
 const SystemEventTypeDaemonSettingsChanged SystemEventType = "DAEMON_SETTINGS_CHANGE"
@@ -1627,6 +1745,8 @@ func (self *SystemEventType) String() string {
 		return "CPE_CONNECTED"
 	case SystemEventTypeCPEDisconnected:
 		return "CPE_DISCONNECTED"
+	case SystemEventTypeCPEInterfaceState:
+		return "CPE_INTERFACE_STATE"
 	case SystemEventTypeClientConnected:
 		return "CLIENT_CONNECTED"
 	case SystemEventTypeClientDisconnected:
@@ -1663,6 +1783,8 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("CPE_CONNECTED")
 	case SystemEventTypeCPEDisconnected:
 		return json.Marshal("CPE_DISCONNECTED")
+	case SystemEventTypeCPEInterfaceState:
+		return json.Marshal("CPE_INTERFACE_STATE")
 	case SystemEventTypeClientConnected:
 		return json.Marshal("CLIENT_CONNECTED")
 	case SystemEventTypeClientDisconnected:
@@ -1699,6 +1821,8 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 		return "CPE_CONNECTED", nil
 	case SystemEventTypeCPEDisconnected:
 		return "CPE_DISCONNECTED", nil
+	case SystemEventTypeCPEInterfaceState:
+		return "CPE_INTERFACE_STATE", nil
 	case SystemEventTypeClientConnected:
 		return "CLIENT_CONNECTED", nil
 	case SystemEventTypeClientDisconnected:
@@ -1742,6 +1866,9 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CPE_DISCONNECTED":
 		*self = SystemEventTypeCPEDisconnected
+		return nil
+	case "CPE_INTERFACE_STATE":
+		*self = SystemEventTypeCPEInterfaceState
 		return nil
 	case "CLIENT_CONNECTED":
 		*self = SystemEventTypeClientConnected
@@ -1796,6 +1923,9 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "CPE_DISCONNECTED":
 		*self = SystemEventTypeCPEDisconnected
+		return nil
+	case "CPE_INTERFACE_STATE":
+		*self = SystemEventTypeCPEInterfaceState
 		return nil
 	case "CLIENT_CONNECTED":
 		*self = SystemEventTypeClientConnected

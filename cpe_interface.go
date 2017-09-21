@@ -4,18 +4,20 @@ import (
 	"encoding/json"
 )
 
+// CPE responce for scripts request
 type CPEAgentResponse struct {
 	Result json.RawMessage `json:"result"`
-	Status CPEAgentError   `json:"error"`
+	Status struct {
+		Type CPEAgentStatusType `json:"type"`
+		Data string             `json:"data"`
+	} `json:"error"`
 }
 
-type ConfigResponceCpeMap map[UUID]struct {
-	Status ConfigurationStatus `json:"status"`
-	Errors []string            `json:"errors,omitempty"`
-}
-
-type ConfigResponce struct {
-	Status ConfigurationStatus  `json:"status"`
-	Errors []ModelError         `json:"errors,omitempty"`
-	Data   ConfigResponceCpeMap `json:"data,omitempty"`
+// CPE STATUS request
+type CPEResult struct {
+	Type      SystemEventType  `json:"type"`
+	Id        UUID             `json:"subject_id"`
+	Level     SystemEventLevel `json:"level"`
+	Timestamp int64            `json:"timestamp"`
+	Data      json.RawMessage  `json:"data"`
 }
