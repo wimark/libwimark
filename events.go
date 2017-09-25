@@ -217,9 +217,8 @@ type ClientDisconnectedData struct {
 }
 
 type CPEConfigurationErrorData struct {
-	Wifi        []WifiConfigurationError `json:"wifi,omitempty"`
-	Description string                   `json:"description,omitempty"`
-	Metadata    map[string]interface{}   `json:"metadata,omitempty"`
+	Wifi   map[string]WifiConfigurationError `json:"wifi,omitempty"`
+	Radius string                            `json:"radius,omitempty"`
 }
 
 type CPEInterfaceStateData struct {
@@ -236,8 +235,8 @@ type WLANCentrAccChangeData struct {
 }
 
 type WifiConfigurationError struct {
-	Wlan_id  UUID `json:"wlan_id"`
-	Radio_id UUID `json:"radio_id"`
+	Config interface{}            `json:"config"`
+	Wlans  map[string]interface{} `json:"wlans"`
 }
 
 type ServiceFatalErrorData struct {
