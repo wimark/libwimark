@@ -108,7 +108,7 @@ type WiFiState struct {
 	Bandwidth string             `json:"bandwidth,omitempty"`
 	Channel   string             `json:"channel,omitempty"`
 	TxPower   string             `json:"txpower,omitempty"`
-	Enabled   bool               `json:"enabled,omitempty"`
+	Enabled   bool               `json:"enabled"`
 	WLANs     map[UUID]WlanState `json:"wlanstates,omitempty"`
 }
 
