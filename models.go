@@ -103,13 +103,13 @@ type WlanState struct {
 }
 
 type WiFiState struct {
-	Frequency string             `json:"frequency,omitempty"`
-	BandMode  string             `json:"bandmode,omitempty"`
-	Bandwidth string             `json:"bandwidth,omitempty"`
-	Channel   string             `json:"channel,omitempty"`
-	TxPower   string             `json:"txpower,omitempty"`
-	Enabled   bool               `json:"enabled"`
-	WLANs     map[UUID]WlanState `json:"wlanstates,omitempty"`
+	Frequency  string             `json:"frequency,omitempty"`
+	BandMode   string             `json:"bandmode,omitempty"`
+	Bandwidth  string             `json:"bandwidth,omitempty"`
+	Channel    string             `json:"channel,omitempty"`
+	TxPower    string             `json:"txpower,omitempty"`
+	Enabled    bool               `json:"enabled"`
+	WLANStates map[UUID]WlanState `json:"wlanstates,omitempty"`
 }
 
 type WiFiData struct {
