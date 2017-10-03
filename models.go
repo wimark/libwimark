@@ -191,6 +191,78 @@ func (self *CPEInterface) UnmarshalJSON(b []byte) error {
 	return self.CPEInterfaceInfo.UnmarshalJSON(v)
 }
 
+func (self *CPEInterface) GetBSON() (interface{}, error) {
+	var out = bson.M{}
+
+	var obj_b []byte
+	{
+		var err error
+		obj_b, err = bson.Marshal(self.CPEInterfaceInfo)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	var obj bson.M
+	{
+		var err error
+		err = bson.Unmarshal(obj_b, &obj)
+		if err != nil {
+			return nil, err
+		}
+	}
+	out = obj
+	out["capabilities"] = self.Capabilities
+	out["addr"] = self.Addr
+
+	return out, nil
+}
+
+func (self *CPEInterface) SetBSON(raw bson.Raw) error {
+	var in = map[string]bson.Raw{}
+	{
+		if err := raw.Unmarshal(&in); err != nil {
+			return err
+		}
+	}
+
+	//addr
+	{
+		var v, k_found = in["addr"]
+		if !k_found {
+			return errors.New("No addr found")
+		}
+		if err := v.Unmarshal(&self.Addr); err != nil {
+			return err
+		}
+
+		delete(in, "addr")
+	}
+
+	//capabilities
+	{
+		var v, k_found = in["capabilities"]
+		if !k_found {
+			return errors.New("No subject_id found")
+		}
+		if err := v.Unmarshal(&self.Capabilities); err != nil {
+			return err
+		}
+
+		delete(in, "capabilities")
+	}
+
+	var obj_b, mErr = bson.Marshal(in)
+	if mErr != nil {
+		return mErr
+	}
+
+	if err := bson.Unmarshal(obj_b, &self.CPEInterfaceInfo); err != nil {
+		return err
+	}
+	return nil
+}
+
 type CPEInterfaces map[string]CPEInterface
 
 func (self CPEInterfaces) GetBSON() (interface{}, error) {
@@ -202,26 +274,12 @@ func (self CPEInterfaces) GetBSON() (interface{}, error) {
 	sort.Strings(keys)
 	for _, k := range keys {
 		v := self[k]
-		var b []byte
-		{
-			var err error
-			b, err = bson.Marshal(v)
-			if err != nil {
-				return nil, err
-			}
+		obj_m, err := v.GetBSON()
+		if err != nil {
+			return nil, err
 		}
-
-		var obj_m bson.M
-		{
-			var err error
-			err = bson.Unmarshal(b, &obj_m)
-			if err != nil {
-				return nil, err
-			}
-		}
-
-		obj_m["_id"] = k
-		out = append(out, obj_m)
+		obj_m.(bson.M)["_id"] = k
+		out = append(out, obj_m.(bson.M))
 	}
 
 	return out, nil
