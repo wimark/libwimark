@@ -18,6 +18,7 @@ type Stat struct {
 		Shared   float64 `json:"shared"`
 		Free     float64 `json:"free"`
 	} `json:"memory"`
+	Uptime       int64   `json:"uptime"`
 	Storage      float64 `json:"storage"`
 	ProcActive   uint64  `json:"processes_active"`
 	ProcSleeping uint64  `json:"processes_sleeping"`
@@ -205,6 +206,9 @@ type CPEStatInfo struct {
 	ID               string    `json:"id" bson:"_id"`
 	CPE              string    `json:"cpe_id" bson:"cpe_id"`
 	Timestamp        time.Time `json:"timestamp" bson:"timestamp"`
+	CPULoad          float64   `json:"cpu_load" bson:"cpu_load"`
+	MemoryFree       int       `json:"memory_free" bson:"memory_free"`
+	MemoryTotal      int       `json:"memory_total" bson:"memory_total"`
 	TotalRxBytes     int64     `json:"total_rx_bytes" bson:"total_rx_bytes"`
 	TotalTxBytes     int64     `json:"total_tx_bytes" bson:"total_tx_bytes"`
 	LastRxBytes      int64     `json:"last_rx_bytes" bson:"last_rx_bytes"`
