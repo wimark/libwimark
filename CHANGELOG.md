@@ -1,4 +1,33 @@
 # Changelog
+## [v0.5.0] - 09-10-2017
+### Added 
+#### WNE-510-CPE-Stats
+ - Add model for collect "cpe_stat_info"
+ - Add model for collect "wlan_stat_info"
+#### WNE-511-new-config-rsp
+ - Add struct for smart CPE/Config response with statuses
+#### WNE-531-access-controller
+ - Add Radius state isLocal - for Beeline intergation
+ - Add Event for changing WLAN status at radius changing
+ - Access control module
+#### WNE-519-wpa1
+ - Add WPA1 security inda WLAN
+#### WNE-521-reg-domain
+ - Add radio country to model
+#### WNE-528-cpe-addresses
+ - IP/MAC adresses to CPE model
+#### WNE-527-radio-to-acct
+ - Radio ID/ Freq to client statistics
+#### WNE-484-netpacket-structs
+ - Add models for DHCP packets send
+
+### Changed
+#### WNE-307-cpe-config-and-state
+ - Separate config from state in CPE model
+#### Other
+ - Refuctoring of models
+ - Bugofixes and improvements of BSON marshallers
+
 ## [v0.4.0] - 11-09-2017
 ### Added
 #### WNE-470-request-topics
