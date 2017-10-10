@@ -24,6 +24,8 @@
 ### Changed
 #### WNE-307-cpe-config-and-state
  - Separate config from state in CPE model
+#### WNE-564-stat-daemon-growth
+ - Changed model for WirelessClient
 #### Other
  - Refuctoring of models
  - Bugofixes and improvements of BSON marshallers

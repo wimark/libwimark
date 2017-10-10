@@ -18,6 +18,7 @@ type Stat struct {
 		Shared   float64 `json:"shared"`
 		Free     float64 `json:"free"`
 	} `json:"memory"`
+	Uptime       int64   `json:"uptime"`
 	Storage      float64 `json:"storage"`
 	ProcActive   uint64  `json:"processes_active"`
 	ProcSleeping uint64  `json:"processes_sleeping"`
@@ -205,6 +206,9 @@ type CPEStatInfo struct {
 	ID               string    `json:"id" bson:"_id"`
 	CPE              string    `json:"cpe_id" bson:"cpe_id"`
 	Timestamp        time.Time `json:"timestamp" bson:"timestamp"`
+	CPULoad          float64   `json:"cpu_load" bson:"cpu_load"`
+	MemoryFree       int       `json:"memory_free" bson:"memory_free"`
+	MemoryTotal      int       `json:"memory_total" bson:"memory_total"`
 	TotalRxBytes     int64     `json:"total_rx_bytes" bson:"total_rx_bytes"`
 	TotalTxBytes     int64     `json:"total_tx_bytes" bson:"total_tx_bytes"`
 	LastRxBytes      int64     `json:"last_rx_bytes" bson:"last_rx_bytes"`
@@ -256,22 +260,26 @@ type ClientStatInfo struct {
 }
 
 type WirelessClient struct {
-	Type        WirelessClientType
-	Data        interface{} `bson:"data" json:"data"`
-	Mac         string      `json:"mac" bson:"_id"`
-	Ip          string      `json:"ip"`
-	Net_mask    string      `json:"net_mask"`
-	Wlan_id     string      `json:"wlan_id"`
-	Cpe_id      string      `json:"cpe_id"`
-	Freq        string      `json:"freq"`
-	Radio_id    string      `json:"radio_id"`
-	Rssi        int         `json:"rssi"`
-	Timestamp   int64       `json:"timestamp"`
-	In_packets  int64       `json:"in_packets"`
-	Out_packets int64       `json:"out_packets"`
-	In_kbytes   int64       `json:"in_kbytes"`
-	Out_kbytes  int64       `json:"out_kbytes"`
-	State       WirelessClientState
+	MAC       string `json:"mac" bson:"_id"`
+	Timestamp int64  `json:"timestamp"`
+
+	Type  WirelessClientType
+	State WirelessClientState
+	Data  interface{} `bson:"data" json:"data"`
+
+	WLAN    string `json:"wlan_id" bson:"wlan_id"`
+	CPE     string `json:"cpe_id" bson:"cpe_id"`
+	Radio   string `json:"radio_id" bson:"radio_id"`
+	Freq    string `json:"freq"`
+	Channel string `json:"channel"`
+	Rssi    int    `json:"rssi"`
+
+	InPackets  int64 `json:"in_packets" bson:"in_packets"`
+	OutPackets int64 `json:"out_packets" bson:"out_packets"`
+	InKBytes   int64 `json:"in_kbytes" bson:"in_kbytes"`
+	OutKBytes  int64 `json:"out_kbytes" bson:"out_kbytes"`
+
+	Ip string `json:"ip"`
 }
 
 func (wc *WirelessClient) GetSpecificWCInfo() *WirelessClientObject {
