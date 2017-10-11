@@ -1,4 +1,9 @@
 # Changelog
+## [v0.6.0]
+### Added 
+#### WNE-568-session-info
+ - Add model for collect cpe_session_info
+
 ## [v0.5.0] - 09-10-2017
 ### Added 
 #### WNE-510-CPE-Stats
