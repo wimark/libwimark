@@ -376,8 +376,11 @@ type Capabilities struct {
 type LBSConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
-	ReportPeriod  int `json:"reportperiod,omitempty"`
-	ClientTimeout int `json:"clienttimeout,omitempty"`
+	ReportPeriod  int           `json:"reportperiod,omitempty"`
+	ClientTimeout int           `json:"clienttimeout,omitempty"`
+	WhiteList     []string      `json:"whitelist"`
+	BlackList     []string      `json:"blacklist"`
+	FilterMode    MacFilterType `json:"filtermode"`
 }
 
 type StatisticsConfig struct {
