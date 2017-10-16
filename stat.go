@@ -298,3 +298,13 @@ type CPESessionInfo struct {
 	Start int64  `json:"start" bson:"start"`
 	Stop  int64  `json:"stop" bson:"stop"`
 }
+
+type ClientSessionInfo struct {
+	ID    string `json:"id" bson:"_id"`
+	MAC   string `json:"mac" baon:"mac"`
+	WLAN  string `json:"wlan_id" bson:"wlan_id"`
+	CPE   string `json:"cpe_id" bson:"cpe_id"`
+	Radio string `json:"radio_id" bson:"radio_id"`
+	Start int64  `json:"start" bson:"start"`
+	Stop  int64  `json:"stop" bson:"stop"`
+}
