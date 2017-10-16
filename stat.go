@@ -280,6 +280,9 @@ type WirelessClient struct {
 	OutKBytes  int64 `json:"out_kbytes" bson:"out_kbytes"`
 
 	Ip string `json:"ip"`
+
+	FirstConnect int64 `json:"first_connect" bson:"first_connect"`
+	LastConnect  int64 `json:"last_connect" bson:"last_connect"`
 }
 
 func (wc *WirelessClient) GetSpecificWCInfo() *WirelessClientObject {
