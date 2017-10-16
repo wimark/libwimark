@@ -3,6 +3,7 @@
 ### Added 
 #### WNE-568-session-info
  - Add model for collect cpe_session_info
+ - Add model for collect client_session_info
 
 ## [v0.5.0] - 09-10-2017
 ### Added 
