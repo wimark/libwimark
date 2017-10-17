@@ -26,6 +26,7 @@ ClientStat = "CLIENT_STAT"
 MQTTLog    = "MQTT_LOG"
 CPEStat    = "CPE_STAT"
 AC         = "AC"
+TunManager = "TUN_MANAGER"
 
 [Operation]
 [Operation.variants]
@@ -37,6 +38,7 @@ Update    = "U"
 LuaScript = "LUA"
 SHScript  = "SH"
 CPEStatus = "STATUS"
+JSONRPC   = "JSONRPC"
 
 [SystemEventType]
 [SystemEventType.variants]

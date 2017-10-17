@@ -805,6 +805,7 @@ const ModuleLBS Module = "LBS"
 const ModuleMQTTLog Module = "MQTT_LOG"
 const ModuleMonitor Module = "MONITOR"
 const ModuleStat Module = "STAT"
+const ModuleTunManager Module = "TUN_MANAGER"
 
 func (self Module) GetPtr() *Module { var v = self; return &v }
 
@@ -836,6 +837,8 @@ func (self *Module) String() string {
 		return "MONITOR"
 	case ModuleStat:
 		return "STAT"
+	case ModuleTunManager:
+		return "TUN_MANAGER"
 
 	}
 	panic(errors.New("Invalid value of Module"))
@@ -870,6 +873,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("MONITOR")
 	case ModuleStat:
 		return json.Marshal("STAT")
+	case ModuleTunManager:
+		return json.Marshal("TUN_MANAGER")
 
 	}
 	return nil, errors.New("Invalid value of Module")
@@ -904,6 +909,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "MONITOR", nil
 	case ModuleStat:
 		return "STAT", nil
+	case ModuleTunManager:
+		return "TUN_MANAGER", nil
 
 	}
 	return nil, errors.New("Invalid value of Module")
@@ -953,6 +960,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "STAT":
 		*self = ModuleStat
+		return nil
+	case "TUN_MANAGER":
+		*self = ModuleTunManager
 		return nil
 
 	}
@@ -1005,6 +1015,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 	case "STAT":
 		*self = ModuleStat
 		return nil
+	case "TUN_MANAGER":
+		*self = ModuleTunManager
+		return nil
 
 	}
 	return errors.New("Unknown Module")
@@ -1017,6 +1030,7 @@ const OperationAny Operation = "+"
 const OperationCPEStatus Operation = "STATUS"
 const OperationCreate Operation = "C"
 const OperationDelete Operation = "D"
+const OperationJSONRPC Operation = "JSONRPC"
 const OperationLuaScript Operation = "LUA"
 const OperationRead Operation = "R"
 const OperationSHScript Operation = "SH"
@@ -1034,6 +1048,8 @@ func (self *Operation) String() string {
 		return "C"
 	case OperationDelete:
 		return "D"
+	case OperationJSONRPC:
+		return "JSONRPC"
 	case OperationLuaScript:
 		return "LUA"
 	case OperationRead:
@@ -1058,6 +1074,8 @@ func (self *Operation) MarshalJSON() ([]byte, error) {
 		return json.Marshal("C")
 	case OperationDelete:
 		return json.Marshal("D")
+	case OperationJSONRPC:
+		return json.Marshal("JSONRPC")
 	case OperationLuaScript:
 		return json.Marshal("LUA")
 	case OperationRead:
@@ -1082,6 +1100,8 @@ func (self *Operation) GetBSON() (interface{}, error) {
 		return "C", nil
 	case OperationDelete:
 		return "D", nil
+	case OperationJSONRPC:
+		return "JSONRPC", nil
 	case OperationLuaScript:
 		return "LUA", nil
 	case OperationRead:
@@ -1112,6 +1132,9 @@ func (self *Operation) UnmarshalJSON(b []byte) error {
 		return nil
 	case "D":
 		*self = OperationDelete
+		return nil
+	case "JSONRPC":
+		*self = OperationJSONRPC
 		return nil
 	case "LUA":
 		*self = OperationLuaScript
@@ -1148,6 +1171,9 @@ func (self *Operation) SetBSON(v bson.Raw) error {
 		return nil
 	case "D":
 		*self = OperationDelete
+		return nil
+	case "JSONRPC":
+		*self = OperationJSONRPC
 		return nil
 	case "LUA":
 		*self = OperationLuaScript
