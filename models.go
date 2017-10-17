@@ -90,12 +90,13 @@ type WiredData struct {
 }
 
 type WiFiConfig struct {
-	BandMode  string `json:"bandmode,omitempty"`
-	Bandwidth string `json:"bandwidth,omitempty"`
-	TxPower   string `json:"txpower,omitempty"`
-	WLANs     []UUID `json:"wlans,omitempty"`
-	Channels  []int  `json:"channels,omitempty"`
-	Country   string `json:"country,omitempty"`
+	BandMode   string `json:"bandmode,omitempty"`
+	Bandwidth  string `json:"bandwidth,omitempty"`
+	TxPower    string `json:"txpower,omitempty"`
+	WLANs      []UUID `json:"wlans,omitempty"`
+	Channels   []int  `json:"channels,omitempty"`
+	Country    string `json:"country,omitempty"`
+	MaxClients int    `json:"maxclients,omitempty"`
 }
 
 type WlanState struct {
