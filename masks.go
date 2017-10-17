@@ -77,3 +77,9 @@ type LBSClientCoordsMask struct {
 	Y     LimitBetweenOptional `json:"y"`
 	Z     LimitBetweenOptional `json:"z"`
 }
+
+type TunnelMask struct {
+	UUID  []UUID `json:"uuid"`
+	Hosts []UUID `json:"has_cpes"`
+	CPEs  []UUID `json:"has_hosts"`
+}
