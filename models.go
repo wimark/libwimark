@@ -53,7 +53,6 @@ type WPAPersonalData struct {
 type WPAEnterpriseData struct {
 	WPACommon            `bson:",inline"`
 	NasID                string `json:"nasid"`
-	PMKCaching           bool   `json:"pmkcaching"`
 	RadiusAuthentication []UUID `json:"radiusauthentication"`
 }
 
@@ -75,6 +74,8 @@ type WLAN struct {
 	BlackList          []string      `json:"blacklist"`
 	FilterMode         MacFilterType `json:"filtermode"`
 	L2Isolate          bool          `json:"l2isolate"`
+	PMKCaching         bool          `json:"pmkcaching"`
+	Roaming80211r      bool          `json:"roam80211r"`
 }
 
 type WiredConfig struct {
