@@ -8,7 +8,7 @@ import (
 const JSON_RPC_VERSION = "2.0"
 
 // clientRequest represents a JSON-RPC request sent by a client.
-type clientRequest struct {
+type ClientRequest struct {
 	// JSON-RPC protocol.
 	Version string `json:"jsonrpc"`
 	// A String containing the name of the method to be invoked.
@@ -22,7 +22,10 @@ type clientRequest struct {
 
 // clientResponse represents a JSON-RPC response returned to a client.
 type ClientResponse struct {
-	Result interface{}   `json:"result"`
+	// JSON-RPC protocol.
+	Version string `json:"jsonrpc"`
+
+	Result interface{}   `json:"result,omitempty"`
 	Error  JSONRPC_Error `json:"error,omitempty"`
 	Id     uint64        `json:"id"`
 }
@@ -50,7 +53,7 @@ const (
 
 // EncodeClientRequest encodes parameters for a JSON-RPC client request.
 func EncodeRPCRequest(method string, args interface{}) ([]byte, error) {
-	c := &clientRequest{
+	c := &ClientRequest{
 		Version: JSON_RPC_VERSION,
 		Method:  method,
 		Params:  args,
