@@ -9,17 +9,19 @@ type DBResponseBase struct {
 }
 
 type DBDataObj struct {
-	WLANs           map[UUID]WLAN            `json:"wlan,omitempty"`
-	CPEs            map[UUID]CPE             `json:"cpe,omitempty"`
-	Stats           map[UUID]Stat            `json:"stat,omitempty"`
-	ClientStats     map[UUID]ClientStat      `json:"client-stat,omitempty"`
-	Events          map[UUID]SystemEvent     `json:"event,omitempty"`
-	StatEventRules  map[UUID]StatEventRule   `json:"stat-event-rule,omitempty"`
-	PollCPE         map[UUID]CPEPollSettings `json:"poll-cpe,omitempty"`
-	Radius          map[UUID]Radius          `json:"radius,omitempty"`
-	LBSCPEInfo      map[UUID]LBSCPEInfo      `json:"lbs-cpe-info,omitempty"`
-	LBSClientData   map[UUID]LBSClientData   `json:"lbs-client-data,omitempty"`
-	LBSClientCoords map[UUID]LBSClientCoords `json:"lbs-client-coords,omitempty"`
+	WLANs             map[UUID]WLAN              `json:"wlan,omitempty"`
+	CPEs              map[UUID]CPE               `json:"cpe,omitempty"`
+	Stats             map[UUID]Stat              `json:"stat,omitempty"`
+	ClientStats       map[UUID]ClientStat        `json:"client-stat,omitempty"`
+	Events            map[UUID]SystemEvent       `json:"event,omitempty"`
+	StatEventRules    map[UUID]StatEventRule     `json:"stat-event-rule,omitempty"`
+	PollCPE           map[UUID]CPEPollSettings   `json:"poll-cpe,omitempty"`
+	Radius            map[UUID]Radius            `json:"radius,omitempty"`
+	LBSCPEInfo        map[UUID]LBSCPEInfo        `json:"lbs-cpe-info,omitempty"`
+	LBSClientData     map[UUID]LBSClientData     `json:"lbs-client-data,omitempty"`
+	LBSClientCoords   map[UUID]LBSClientCoords   `json:"lbs-client-coords,omitempty"`
+	VPNHosts          map[UUID]VPNHost           `json:"vpn-host,omitempty"`
+	L2TPTunnelSession map[UUID]L2TPTunnelSession `json:"tunnels,omitempty"`
 }
 
 func (self *DBDataObj) Reset() {
@@ -27,17 +29,19 @@ func (self *DBDataObj) Reset() {
 }
 
 type DBDataUUID struct {
-	WLANs           []UUID `json:"wlan,omitempty"`
-	CPEs            []UUID `json:"cpe,omitempty"`
-	Stats           []UUID `json:"stat,omitempty"`
-	ClientStats     []UUID `json:"client-stat,omitempty"`
-	Events          []UUID `json:"event,omitempty"`
-	StatEventRules  []UUID `json:"stat-event-rule,omitempty"`
-	PollCPE         []UUID `json:"poll-cpe,omitempty"`
-	Radius          []UUID `json:"radius,omitempty"`
-	LBSCPEInfo      []UUID `json:"lbs-cpe-info,omitempty"`
-	LBSClientData   []UUID `json:"lbs-client-data,omitempty"`
-	LBSClientCoords []UUID `json:"lbs-client-coords,omitempty"`
+	WLANs             []UUID `json:"wlan,omitempty"`
+	CPEs              []UUID `json:"cpe,omitempty"`
+	Stats             []UUID `json:"stat,omitempty"`
+	ClientStats       []UUID `json:"client-stat,omitempty"`
+	Events            []UUID `json:"event,omitempty"`
+	StatEventRules    []UUID `json:"stat-event-rule,omitempty"`
+	PollCPE           []UUID `json:"poll-cpe,omitempty"`
+	Radius            []UUID `json:"radius,omitempty"`
+	LBSCPEInfo        []UUID `json:"lbs-cpe-info,omitempty"`
+	LBSClientData     []UUID `json:"lbs-client-data,omitempty"`
+	LBSClientCoords   []UUID `json:"lbs-client-coords,omitempty"`
+	VPNHosts          []UUID `json:"vpn-host,omitempty"`
+	L2TPTunnelSession []UUID `json:"tunnels,omitempty"`
 }
 
 func (self *DBDataUUID) Reset() {
@@ -45,17 +49,19 @@ func (self *DBDataUUID) Reset() {
 }
 
 type DBDataMasks struct {
-	WLANs           *WLANMask            `json:"wlan,omitempty"`
-	CPEs            *CPEMask             `json:"cpe,omitempty"`
-	Stats           *StatsMask           `json:"stat,omitempty"`
-	ClientStats     *SimpleMask          `json:"client-stat,omitempty"`
-	Events          *EventMask           `json:"event,omitempty"`
-	StatEventRules  *SimpleMask          `json:"stat-event-rule,omitempty"`
-	PollCPE         *SimpleMask          `json:"poll-cpe,omitempty"`
-	Radius          *SimpleMask          `json:"radius,omitempty"`
-	LBSCPEInfo      *LBSCPEInfoMask      `json:"lbs-cpe-info,omitempty"`
-	LBSClientData   *LBSClientDataMask   `json:"lbs-client-data,omitempty"`
-	LBSClientCoords *LBSClientCoordsMask `json:"lbs-client-coords,omitempty"`
+	WLANs             *WLANMask            `json:"wlan,omitempty"`
+	CPEs              *CPEMask             `json:"cpe,omitempty"`
+	Stats             *StatsMask           `json:"stat,omitempty"`
+	ClientStats       *SimpleMask          `json:"client-stat,omitempty"`
+	Events            *EventMask           `json:"event,omitempty"`
+	StatEventRules    *SimpleMask          `json:"stat-event-rule,omitempty"`
+	PollCPE           *SimpleMask          `json:"poll-cpe,omitempty"`
+	Radius            *SimpleMask          `json:"radius,omitempty"`
+	LBSCPEInfo        *LBSCPEInfoMask      `json:"lbs-cpe-info,omitempty"`
+	LBSClientData     *LBSClientDataMask   `json:"lbs-client-data,omitempty"`
+	LBSClientCoords   *LBSClientCoordsMask `json:"lbs-client-coords,omitempty"`
+	VPNHosts          *SimpleMask          `json:"vpn-host,omitempty"`
+	L2TPTunnelSession *TunnelMask          `json:"tunnels,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {
