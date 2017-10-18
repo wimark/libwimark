@@ -401,3 +401,11 @@ type DHCPCapConfig struct {
 	Enabled       bool     `json:"enabled"`
 	MsgTypeFilter []string `json:"msgtypefilter"`
 }
+
+type L2TPTunnel struct {
+	Host     UUID   `json:"host"`
+	CPE      UUID   `json:"cpe"`
+	HostIP   string `json:"hostip"`
+	CPEIP    string `json:"cpeip"`
+	TunnelId int    `json:"tunid"`
+}
