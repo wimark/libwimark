@@ -90,14 +90,19 @@ type WiredData struct {
 	State  WiredState  `json:"state,omitempty"`
 }
 
+type WlanConfig struct {
+	L2TPSession *UUID `json:"l2tpsession"`
+}
+
 type WiFiConfig struct {
-	BandMode   string `json:"bandmode,omitempty"`
-	Bandwidth  string `json:"bandwidth,omitempty"`
-	TxPower    string `json:"txpower,omitempty"`
-	WLANs      []UUID `json:"wlans,omitempty"`
-	Channels   []int  `json:"channels,omitempty"`
-	Country    string `json:"country,omitempty"`
-	MaxClients int    `json:"maxclients,omitempty"`
+	BandMode   string              `json:"bandmode,omitempty"`
+	Bandwidth  string              `json:"bandwidth,omitempty"`
+	TxPower    string              `json:"txpower,omitempty"`
+	WLANs      []UUID              `json:"wlans,omitempty"`
+	WLANConfig map[UUID]WlanConfig `json:"wlanconfig,omitempty"`
+	Channels   []int               `json:"channels,omitempty"`
+	Country    string              `json:"country,omitempty"`
+	MaxClients int                 `json:"maxclients,omitempty"`
 }
 
 type WlanState struct {
@@ -353,6 +358,7 @@ type CPE struct {
 	StatisticsConfig StatisticsConfig    `json:"stats_config"`
 	LogConfig        LogConfig           `json:"log_config"`
 	DHCPCapConfig    DHCPCapConfig       `json:"dhcpcap_config"`
+	L2TPConfig       L2TPConfig          `json:"l2tp_config"`
 }
 
 type CapTxPower struct {
@@ -400,4 +406,27 @@ type LogConfig struct {
 type DHCPCapConfig struct {
 	Enabled       bool     `json:"enabled"`
 	MsgTypeFilter []string `json:"msgtypefilter"`
+}
+
+type L2TPConfig struct {
+	VPNHost         UUID   `json:"host"`
+	LocalVPNAddress string `json:"local_vpn_addr"`
+	HostTunnelId    int    `json:"host_tunnel"`
+	LocalTunnelId   int    `json:"local_tunnel"`
+}
+
+// L2TP objects
+
+type VPNHost struct {
+	HostName   string   `json:"hostname"`
+	IpAddr     string   `json:"ipaddr"`
+	Interfaces []string `json:"interfaces"`
+}
+
+type L2TPTunnelSession struct {
+	CPE               UUID   `json:"cpe_id"`
+	CPESessionId      string `json:"cpe_session_id"`
+	Host              UUID   `json:"host_id"`
+	HostSessionId     string `json:"host_session_id"`
+	HostInterfaceName string `json:"host_interface_name"`
 }
