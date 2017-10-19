@@ -25,9 +25,9 @@ type JSONRPCClientResponse struct {
 	// JSON-RPC protocol.
 	Version string `json:"jsonrpc"`
 
-	Result interface{}   `json:"result,omitempty"`
-	Error  JSONRPC_Error `json:"error,omitempty"`
-	Id     uint64        `json:"id"`
+	Result interface{}    `json:"result,omitempty"`
+	Error  *JSONRPC_Error `json:"error,omitempty"`
+	Id     uint64         `json:"id"`
 }
 
 type JSONRPC_ErrorCode int
