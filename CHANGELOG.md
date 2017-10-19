@@ -8,6 +8,7 @@
  - Add JSON RPC primitives
  - Add Tunnel Manager support
  - Tunnel Manager broadcast meta
+ - Add RPC structures for Tunnel Manager
 
 ## [v0.5.0] - 09-10-2017
 ### Added 
