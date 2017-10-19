@@ -419,6 +419,7 @@ type L2TPConfig struct {
 
 type VPNHost struct {
 	HostName   string   `json:"hostname"`
+	OSUUID     string   `json:"os_uuid"`
 	IpAddr     string   `json:"ipaddr"`
 	Interfaces []string `json:"interfaces"`
 }
@@ -429,4 +430,25 @@ type L2TPTunnelSession struct {
 	Host              UUID   `json:"host_id"`
 	HostSessionId     string `json:"host_session_id"`
 	HostInterfaceName string `json:"host_interface_name"`
+}
+
+// Tun Manager
+
+type TunManagerBroadcastMeta struct {
+	Hostname       string                 `json:"hostname"`
+	HostUUID       string                 `json:"host_uuid"`
+	HostIP         string                 `json:"host_ip"`
+	HostInterfaces []LinkDescriptor       `json:"active_out_interfaces"`
+	HostTunnels    []CPETunnelDescription `json:"active_cpe_tunnels"`
+}
+
+type LinkDescriptor struct {
+	LinkName   string `json:"name"`
+	LinkType   string `json:"type"`
+	LinkHWAddr string `json:"hw_addr"`
+}
+
+type CPETunnelDescription struct {
+	TunnelID           int      `json:"tunnel_id"`
+	InterfacesAttached []string `json:"interfaces_attached"`
 }
