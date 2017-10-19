@@ -7,7 +7,7 @@
 #### WNE-603-JSON-RPC-primitives
  - Add JSON RPC primitives
  - Add Tunnel Manager support
- - Tunnel manages broadcast meta
+ - Tunnel Manager broadcast meta
 
 ## [v0.5.0] - 09-10-2017
 ### Added 
