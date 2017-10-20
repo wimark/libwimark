@@ -12,10 +12,17 @@ type BackScanModelRaw struct {
 		Enabled      bool     `json:"enabled" bson:"enabled"`
 		AuthAlgs     []string `json:"auth_algs" bson:"auth_algs"`
 		Description  string   `json:"description" bson:"description"`
-		WEP          bool     `json:"" bson:""`
+		WEP          bool     `json:"wep" bson:"wep"`
 		WPA          int      `json:"wpa" bson:"wep"`
 		AuthSuites   []string `json:"auth_suites" bson:"auth_suites"`
 		PairCiphers  []string `json:"pair_ciphers" bson:"pair_ciphers"`
 		GroupCiphers []string `json:"group_ciphers" bson:"group_ciphers"`
 	} `json:"encryption" bson:"encryption"`
+}
+
+type CPEScanData struct {
+	CPE       UUID                        `json:"cpe" bson:"cpe"`
+	Radio     string                      `json:"radio" bson:"radio"`
+	Timestamp int64                       `json:"timestamp" bson:"timestamp"`
+	Scanlist  map[string]BackScanModelRaw `json:"scanlist" bson:"scanlist"`
 }
