@@ -374,11 +374,12 @@ type CapChannel struct {
 }
 
 type Capabilities struct {
-	TxPowers []CapTxPower    `json:"txpwrlist"`
-	HTModes  map[string]bool `json:"htmodelist"`
-	HWModes  map[string]bool `json:"hwmodelist"`
-	Channels []CapChannel    `json:"freqlist"`
-	TxOffset int             `json:"txpower_offset"`
+	TxPowers  []CapTxPower    `json:"txpwrlist"`
+	HTModes   map[string]bool `json:"htmodelist"`
+	HWModes   map[string]bool `json:"hwmodelist"`
+	Channels  []CapChannel    `json:"freqlist"`
+	TxOffset  int             `json:"txpower_offset"`
+	Frequency string          `json:"frequency"`
 }
 
 type LBSConfig struct {
