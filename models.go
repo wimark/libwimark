@@ -76,6 +76,8 @@ type WLAN struct {
 	L2Isolate          bool          `json:"l2isolate"`
 	PMKCaching         bool          `json:"pmkcaching"`
 	Roaming80211r      bool          `json:"roam80211r"`
+	Tunneling          bool          `json:"tunneling"`
+	DefaultTunnel      string        `json:"default_tunnel"`
 }
 
 type WiredConfig struct {
