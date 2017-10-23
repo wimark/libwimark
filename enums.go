@@ -1988,21 +1988,15 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 
 type TunManagerRPC string
 
-const TunManagerRPCCreateL2Tunnel TunManagerRPC = "CreateL2Tunnel"
 const TunManagerRPCCreateL2TunnelSession TunManagerRPC = "CreateL2TunnelSession"
-const TunManagerRPCDeleteL2Tunnel TunManagerRPC = "DeleteL2Tunnel"
 const TunManagerRPCDeleteL2TunnelSession TunManagerRPC = "DeleteL2TunnelSession"
 
 func (self TunManagerRPC) GetPtr() *TunManagerRPC { var v = self; return &v }
 
 func (self *TunManagerRPC) String() string {
 	switch *self {
-	case TunManagerRPCCreateL2Tunnel:
-		return "CreateL2Tunnel"
 	case TunManagerRPCCreateL2TunnelSession:
 		return "CreateL2TunnelSession"
-	case TunManagerRPCDeleteL2Tunnel:
-		return "DeleteL2Tunnel"
 	case TunManagerRPCDeleteL2TunnelSession:
 		return "DeleteL2TunnelSession"
 
@@ -2013,12 +2007,8 @@ func (self *TunManagerRPC) String() string {
 
 func (self *TunManagerRPC) MarshalJSON() ([]byte, error) {
 	switch *self {
-	case TunManagerRPCCreateL2Tunnel:
-		return json.Marshal("CreateL2Tunnel")
 	case TunManagerRPCCreateL2TunnelSession:
 		return json.Marshal("CreateL2TunnelSession")
-	case TunManagerRPCDeleteL2Tunnel:
-		return json.Marshal("DeleteL2Tunnel")
 	case TunManagerRPCDeleteL2TunnelSession:
 		return json.Marshal("DeleteL2TunnelSession")
 
@@ -2029,12 +2019,8 @@ func (self *TunManagerRPC) MarshalJSON() ([]byte, error) {
 
 func (self *TunManagerRPC) GetBSON() (interface{}, error) {
 	switch *self {
-	case TunManagerRPCCreateL2Tunnel:
-		return "CreateL2Tunnel", nil
 	case TunManagerRPCCreateL2TunnelSession:
 		return "CreateL2TunnelSession", nil
-	case TunManagerRPCDeleteL2Tunnel:
-		return "DeleteL2Tunnel", nil
 	case TunManagerRPCDeleteL2TunnelSession:
 		return "DeleteL2TunnelSession", nil
 
@@ -2048,14 +2034,8 @@ func (self *TunManagerRPC) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "CreateL2Tunnel":
-		*self = TunManagerRPCCreateL2Tunnel
-		return nil
 	case "CreateL2TunnelSession":
 		*self = TunManagerRPCCreateL2TunnelSession
-		return nil
-	case "DeleteL2Tunnel":
-		*self = TunManagerRPCDeleteL2Tunnel
 		return nil
 	case "DeleteL2TunnelSession":
 		*self = TunManagerRPCDeleteL2TunnelSession
@@ -2072,14 +2052,8 @@ func (self *TunManagerRPC) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "CreateL2Tunnel":
-		*self = TunManagerRPCCreateL2Tunnel
-		return nil
 	case "CreateL2TunnelSession":
 		*self = TunManagerRPCCreateL2TunnelSession
-		return nil
-	case "DeleteL2Tunnel":
-		*self = TunManagerRPCDeleteL2Tunnel
 		return nil
 	case "DeleteL2TunnelSession":
 		*self = TunManagerRPCDeleteL2TunnelSession
