@@ -21,33 +21,34 @@ type CPETunnelDescription struct {
 	InterfacesAttached []string `json:"interfaces_attached"`
 }
 
-// CreateL2Tunnel
+// // CreateL2Tunnel
 
-type CreateL2TunnelParams struct {
-	CPETunnelID int    `json:"cpe_tunnel_id"`
-	CPEIP       string `json:"cpe_ip"`
-}
+// type CreateL2TunnelParams struct {
+// 	CPETunnelID int    `json:"cpe_tunnel_id"`
+// 	CPEIP       string `json:"cpe_ip"`
+// }
 
-type CreateL2TunnelResult struct {
-	WasCreated   bool `json:"was_created"`
-	HostTunnelID int  `json:"host_tunnel_id"`
-}
+// type CreateL2TunnelResult struct {
+// 	WasCreated   bool `json:"was_created"`
+// 	HostTunnelID int  `json:"host_tunnel_id"`
+// }
 
-// DeleteL2Tunnel
+// // DeleteL2Tunnel
 
-type DeleteL2TunnelParams struct {
-	HostTunnelID int `json:"host_tunnel_id"`
-}
+// type DeleteL2TunnelParams struct {
+// 	HostTunnelID int `json:"host_tunnel_id"`
+// }
 
-type DeleteL2TunnelResult struct {
-	WasDeleted bool `json:"was_deleted"`
-}
+// type DeleteL2TunnelResult struct {
+// 	WasDeleted bool `json:"was_deleted"`
+// }
 
 // CreateL2TunnelSession
 
 type CreateL2TunnelSessionParams struct {
-	HostTunnelID             int    `json:"host_tunnel_id"`
+	CPEIP                    string `json:"cpe_ip"`
 	CPESessionID             int    `json:"cpe_session_id"`
+	CPETunnelID              int    `json:"cpe_tunnel_id"`
 	CommutationInterfaceName string `json:"commutation_interface"`
 }
 
@@ -60,7 +61,6 @@ type CreateL2TunnelSessionResult struct {
 // DeleteL2TunnelSession
 
 type DeleteL2TunnelSessionParams struct {
-	HostTunnelID      int    `json:"host_tunnel_id"`
 	HostSessionID     int    `json:"host_session_id"`
 	HostInterfaceName string `json:"host_l2_interface"`
 }

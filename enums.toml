@@ -147,7 +147,5 @@ CountryUpdate = "CONTRY_UPDATE"
 
 [TunManagerRPC]
 [TunManagerRPC.variants]
-CreateL2Tunnel        = "CreateL2Tunnel"
-DeleteL2Tunnel        = "DeleteL2Tunnel"
 CreateL2TunnelSession = "CreateL2TunnelSession"
 DeleteL2TunnelSession = "DeleteL2TunnelSession"
