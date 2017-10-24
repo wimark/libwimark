@@ -432,6 +432,7 @@ type L2TPTunnelSession struct {
 	CPE                 UUID   `json:"cpe_id"`
 	CPETunnelId         int    `json:"cpe_tunnel_id"`
 	CPESessionId        int    `json:"cpe_session_id"`
+	CPEInterfaceName    string `json:"cpe_interface_name"`
 	Host                UUID   `json:"host_id"`
 	HostTunnelId        int    `json:"host_tunnel_id"`
 	HostSessionId       int    `json:"host_session_id"`
