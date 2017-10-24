@@ -1986,6 +1986,84 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 
 }
 
+type TunManagerRPC string
+
+const TunManagerRPCCreateL2TunnelSession TunManagerRPC = "CreateL2TunnelSession"
+const TunManagerRPCDeleteL2TunnelSession TunManagerRPC = "DeleteL2TunnelSession"
+
+func (self TunManagerRPC) GetPtr() *TunManagerRPC { var v = self; return &v }
+
+func (self *TunManagerRPC) String() string {
+	switch *self {
+	case TunManagerRPCCreateL2TunnelSession:
+		return "CreateL2TunnelSession"
+	case TunManagerRPCDeleteL2TunnelSession:
+		return "DeleteL2TunnelSession"
+
+	}
+	panic(errors.New("Invalid value of TunManagerRPC"))
+
+}
+
+func (self *TunManagerRPC) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case TunManagerRPCCreateL2TunnelSession:
+		return json.Marshal("CreateL2TunnelSession")
+	case TunManagerRPCDeleteL2TunnelSession:
+		return json.Marshal("DeleteL2TunnelSession")
+
+	}
+	return nil, errors.New("Invalid value of TunManagerRPC")
+
+}
+
+func (self *TunManagerRPC) GetBSON() (interface{}, error) {
+	switch *self {
+	case TunManagerRPCCreateL2TunnelSession:
+		return "CreateL2TunnelSession", nil
+	case TunManagerRPCDeleteL2TunnelSession:
+		return "DeleteL2TunnelSession", nil
+
+	}
+	return nil, errors.New("Invalid value of TunManagerRPC")
+
+}
+func (self *TunManagerRPC) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "CreateL2TunnelSession":
+		*self = TunManagerRPCCreateL2TunnelSession
+		return nil
+	case "DeleteL2TunnelSession":
+		*self = TunManagerRPCDeleteL2TunnelSession
+		return nil
+
+	}
+	return errors.New("Unknown TunManagerRPC")
+
+}
+
+func (self *TunManagerRPC) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "CreateL2TunnelSession":
+		*self = TunManagerRPCCreateL2TunnelSession
+		return nil
+	case "DeleteL2TunnelSession":
+		*self = TunManagerRPCDeleteL2TunnelSession
+		return nil
+
+	}
+	return errors.New("Unknown TunManagerRPC")
+
+}
+
 type WirelessClientState string
 
 const WirelessClientStateCONNECTED WirelessClientState = "CONNECTED"

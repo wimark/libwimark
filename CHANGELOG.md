@@ -4,6 +4,11 @@
 #### WNE-568-session-info
  - Add model for collect cpe_session_info
  - Add model for collect client_session_info
+#### WNE-603-JSON-RPC-primitives
+ - Add JSON RPC primitives
+ - Add Tunnel Manager support
+ - Tunnel Manager broadcast meta
+ - Add RPC structures for Tunnel Manager
 
 ## [v0.5.0] - 09-10-2017
 ### Added 
