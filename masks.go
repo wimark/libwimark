@@ -80,6 +80,6 @@ type LBSClientCoordsMask struct {
 
 type TunnelMask struct {
 	UUID  []UUID `json:"uuid"`
-	Hosts []UUID `json:"has_cpes"`
-	CPEs  []UUID `json:"has_hosts"`
+	Hosts []UUID `json:"has_hosts"`
+	CPEs  []UUID `json:"has_cpes"`
 }
