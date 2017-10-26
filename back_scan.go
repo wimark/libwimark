@@ -13,7 +13,7 @@ type BackScanModelRaw struct {
 		AuthAlgs     []string `json:"auth_algs" bson:"auth_algs"`
 		Description  string   `json:"description" bson:"description"`
 		WEP          bool     `json:"wep" bson:"wep"`
-		WPA          int      `json:"wpa" bson:"wep"`
+		WPA          int      `json:"wpa" bson:"wpa"`
 		AuthSuites   []string `json:"auth_suites" bson:"auth_suites"`
 		PairCiphers  []string `json:"pair_ciphers" bson:"pair_ciphers"`
 		GroupCiphers []string `json:"group_ciphers" bson:"group_ciphers"`
