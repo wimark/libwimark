@@ -55,6 +55,7 @@ type CreateL2TunnelSessionParams struct {
 type CreateL2TunnelSessionResult struct {
 	WasCreated          bool   `json:"was_created"`
 	HostSessionID       int    `json:"host_session_id"`
+	HostTunnelID        int    `json:"host_tunnel_id"`
 	HostL2InterfaceName string `json:"host_l2_interface"`
 }
 
@@ -66,5 +67,6 @@ type DeleteL2TunnelSessionParams struct {
 }
 
 type DeleteL2TunnelSessionResult struct {
-	WasDeleted bool `json:"was_deleted"`
+	WasDeleted       bool `json:"was_deleted"`
+	WasTunnelDeleted bool `json:"was_deleted"`
 }
