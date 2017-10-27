@@ -68,5 +68,5 @@ type DeleteL2TunnelSessionParams struct {
 
 type DeleteL2TunnelSessionResult struct {
 	WasDeleted       bool `json:"was_deleted"`
-	WasTunnelDeleted bool `json:"was_deleted"`
+	WasTunnelDeleted bool `json:"was_tunnel_deleted"`
 }
