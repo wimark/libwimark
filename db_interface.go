@@ -22,6 +22,7 @@ type DBDataObj struct {
 	LBSClientCoords   map[UUID]LBSClientCoords   `json:"lbs-client-coords,omitempty"`
 	VPNHosts          map[UUID]VPNHost           `json:"vpn-host,omitempty"`
 	L2TPTunnelSession map[UUID]L2TPTunnelSession `json:"tunnels,omitempty"`
+	CPEScanData       map[UUID]CPEScanData       `json:"cpe-scan-data,omitempty"`
 }
 
 func (self *DBDataObj) Reset() {
@@ -42,6 +43,7 @@ type DBDataUUID struct {
 	LBSClientCoords   []UUID `json:"lbs-client-coords,omitempty"`
 	VPNHosts          []UUID `json:"vpn-host,omitempty"`
 	L2TPTunnelSession []UUID `json:"tunnels,omitempty"`
+	CPEScanData       []UUID `json:"cpe-scan-data,omitempty"`
 }
 
 func (self *DBDataUUID) Reset() {
@@ -62,6 +64,7 @@ type DBDataMasks struct {
 	LBSClientCoords   *LBSClientCoordsMask `json:"lbs-client-coords,omitempty"`
 	VPNHosts          *SimpleMask          `json:"vpn-host,omitempty"`
 	L2TPTunnelSession *TunnelMask          `json:"tunnels,omitempty"`
+	CPEScanData       *SimpleMask          `json:"cpe-scan-data,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {

@@ -76,6 +76,8 @@ type WLAN struct {
 	L2Isolate          bool          `json:"l2isolate"`
 	PMKCaching         bool          `json:"pmkcaching"`
 	Roaming80211r      bool          `json:"roam80211r"`
+	Tunneling          bool          `json:"tunneling"`
+	DefaultTunnel      string        `json:"default_tunnel"`
 }
 
 type WiredConfig struct {
@@ -374,11 +376,12 @@ type CapChannel struct {
 }
 
 type Capabilities struct {
-	TxPowers []CapTxPower    `json:"txpwrlist"`
-	HTModes  map[string]bool `json:"htmodelist"`
-	HWModes  map[string]bool `json:"hwmodelist"`
-	Channels []CapChannel    `json:"freqlist"`
-	TxOffset int             `json:"txpower_offset"`
+	TxPowers  []CapTxPower    `json:"txpwrlist"`
+	HTModes   map[string]bool `json:"htmodelist"`
+	HWModes   map[string]bool `json:"hwmodelist"`
+	Channels  []CapChannel    `json:"freqlist"`
+	TxOffset  int             `json:"txpower_offset"`
+	Frequency string          `json:"frequency"`
 }
 
 type LBSConfig struct {
@@ -409,25 +412,31 @@ type DHCPCapConfig struct {
 }
 
 type L2TPConfig struct {
-	VPNHost         UUID   `json:"host"`
-	LocalVPNAddress string `json:"local_vpn_addr"`
-	HostTunnelId    int    `json:"host_tunnel"`
-	LocalTunnelId   int    `json:"local_tunnel"`
+	Enabled         bool   `json:"enabled"`
+	VPNHost         UUID   `json:"host,omitempty"`
+	LocalVPNAddress string `json:"local_vpn_addr,omitempty"`
+	HostTunnelId    int    `json:"host_tunnel,omitempty"`
+	LocalTunnelId   int    `json:"local_tunnel,omitempty"`
 }
 
 // L2TP objects
 
 type VPNHost struct {
-	HostName   string   `json:"hostname"`
-	OSUUID     string   `json:"os_uuid"`
-	IpAddr     string   `json:"ipaddr"`
-	Interfaces []string `json:"interfaces"`
+	HostName   string       `json:"hostname"`
+	OSUUID     UUID         `json:"os_uuid"`
+	IpAddr     string       `json:"ipaddr"`
+	Interfaces []string     `json:"interfaces"`
+	State      ServiceState `json:"state"`
 }
 
 type L2TPTunnelSession struct {
-	CPE               UUID   `json:"cpe_id"`
-	CPESessionId      string `json:"cpe_session_id"`
-	Host              UUID   `json:"host_id"`
-	HostSessionId     string `json:"host_session_id"`
-	HostInterfaceName string `json:"host_interface_name"`
+	CPE                 UUID   `json:"cpe"`
+	CPETunnelId         int    `json:"cpe_tunnel_id"`
+	CPESessionId        int    `json:"cpe_session_id"`
+	CPEInterfaceName    string `json:"cpe_interface_name"`
+	Host                UUID   `json:"host"`
+	HostTunnelId        int    `json:"host_tunnel_id"`
+	HostSessionId       int    `json:"host_session_id"`
+	HostInterfaceName   string `json:"host_interface_name"`
+	HostL2InterfaceName string `json:"host_l2interface_name"`
 }
