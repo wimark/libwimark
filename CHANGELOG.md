@@ -1,6 +1,20 @@
 # Changelog
 ## [v0.6.0]
 ### Added 
+#### WNE-601-lbs-maclists
+ - Add MAC-filters for LBS
+#### WNE-604-clients-unique
+ - Add fields for connection to WirelessClient
+#### WNE-584-maxclients
+ - Add ClientSessionInfo struct
+#### WNE-583-roaming-settings
+ - PMK caching and 802.11r settings
+#### WNE-591-back-scan-table
+ - Add BackScanModelRaw for handle data from CPE
+#### capability-band
+ - Frequency band added to capabilities
+#### WNE-607-l2tp-tunnels
+ - Add Models for L2TP tunnels and corresponding CPE settings
 #### WNE-568-session-info
  - Add model for collect cpe_session_info
  - Add model for collect client_session_info
@@ -14,6 +28,8 @@
 #### WNE-630-Add-new-fields-to-client-model
  - Add channel parameters (rssi, noise, inactive, mode) to Client and Client Info 
  - Add channel paramters and client hw modes to ClientStat
+#### Fix-Backgound-Scanning-JSON
+ - Model fixes for BackScanModelRaw
 
 ## [v0.5.0] - 09-10-2017
 ### Added 
