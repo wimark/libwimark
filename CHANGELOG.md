@@ -10,6 +10,11 @@
  - Tunnel Manager broadcast meta
  - Add RPC structures for Tunnel Manager
 
+### Changed
+#### WNE-630-Add-new-fields-to-client-model
+ - Add channel parameters (rssi, noise, inactive, mode) to Client and Client Info 
+ - Add channel paramters and client hw modes to ClientStat
+
 ## [v0.5.0] - 09-10-2017
 ### Added 
 #### WNE-510-CPE-Stats

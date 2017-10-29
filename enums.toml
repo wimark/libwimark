@@ -124,6 +124,12 @@ Other  = "other"
 CONNECTED     = "CONNECTED"
 DISCONNECTED  = "DISCONNECTED"
 
+[ConnectionModeType]
+[ConnectionModeType.variants]
+ModeAC      = "ac"
+ModeN       = "n"
+ModeLegacy  = "legacy"
+
 [MacFilterType]
 [MacFilterType.variants]
 BlackList = "BlackList"

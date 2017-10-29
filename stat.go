@@ -47,6 +47,20 @@ type ClientStat struct {
 	AcctInputPackets    *int                 `json:"Acct-Input-Packets"`
 	AcctOutputPackets   *int                 `json:"Acct-Output-Packets"`
 	Timestamp           int                  `json:"Timestamp"`
+
+	// newly added fields
+	Tx_ht     bool   `json:"tx_ht"`
+	Rx_ht     bool   `json:"rx_ht"`
+	Noise     int    `json:"noise, omitempty"`
+	Tx_rate   int    `json:"tx_rate, omitempty"`
+	Inactive  int    `json:"inactive"`
+	Rx_rate   int    `json:"rx_rate, omitempty"`
+	Rx_vht    bool   `json:"rx_vht"`
+	Rx_mhz    bool   `json:"rx_mhz, omitempty"`
+	Tx_mhz    bool   `json:"tx_mhz, omitempty"`
+	Tx_vht    bool   `json:"tx_vht"`
+	Signal    int    `json:"signal, omitempty"`
+	Frequency string `json:"frecuency, omitempty"`
 }
 
 type CameraClientData struct {
@@ -243,20 +257,26 @@ type BSSStatInfo struct {
 }
 
 type ClientStatInfo struct {
-	ID           string `json:"id" bson:"_id"`
-	MAC          string `json:"mac" bson: "mac"`
-	WLAN         string `json:"wlan_id" bson:"wlan_id"`
-	CPE          string `json:"cpe_id" bson:"cpe_id"`
-	Radio        string `json:"radio" bson:"radio"`
-	Channel      string `json:"channel" bson:"channel"`
-	Frequence    string `json:"freq" bson:"freq"`
-	Timestamp    int64  `json:"timestamp" bson:"timestamp"`
-	TotalRxBytes int64  `json:"total_rx_bytes" bson:"total_rx_bytes"`
-	TotalTxBytes int64  `json:"total_tx_bytes" bson:"total_tx_bytes"`
-	DeltaTxBytes int64  `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
-	DeltaRxBytes int64  `json:"delta_rx_bytes" bson:"delta_rx_bytes"`
-	LastRxBytes  int64  `json:"last_rx_bytes" bson:"last_rx_bytes"`
-	LastTxBytes  int64  `json:"last_tx_bytes" bson:"last_tx_bytes"`
+	ID      string `json:"id" bson:"_id"`
+	MAC     string `json:"mac" bson: "mac"`
+	WLAN    string `json:"wlan_id" bson:"wlan_id"`
+	CPE     string `json:"cpe_id" bson:"cpe_id"`
+	Radio   string `json:"radio" bson:"radio"`
+	Channel string `json:"channel" bson:"channel"`
+	// wrong spelling
+	Frequence string             `json:"freq" bson:"freq"`
+	Noise     int                `json:"noise" bson:"noise"`
+	RSSI      int                `json:"rssi" bson:"rssi"`
+	Inactive  int                `json:"inactive" bson:"inactive"`
+	Mode      ConnectionModeType `json:"mode" bson:"mode"`
+
+	Timestamp    int64 `json:"timestamp" bson:"timestamp"`
+	TotalRxBytes int64 `json:"total_rx_bytes" bson:"total_rx_bytes"`
+	TotalTxBytes int64 `json:"total_tx_bytes" bson:"total_tx_bytes"`
+	DeltaTxBytes int64 `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
+	DeltaRxBytes int64 `json:"delta_rx_bytes" bson:"delta_rx_bytes"`
+	LastRxBytes  int64 `json:"last_rx_bytes" bson:"last_rx_bytes"`
+	LastTxBytes  int64 `json:"last_tx_bytes" bson:"last_tx_bytes"`
 }
 
 type WirelessClient struct {
@@ -267,12 +287,15 @@ type WirelessClient struct {
 	State WirelessClientState
 	Data  interface{} `bson:"data" json:"data"`
 
-	WLAN    string `json:"wlan_id" bson:"wlan_id"`
-	CPE     string `json:"cpe_id" bson:"cpe_id"`
-	Radio   string `json:"radio_id" bson:"radio_id"`
-	Freq    string `json:"freq"`
-	Channel string `json:"channel"`
-	Rssi    int    `json:"rssi"`
+	WLAN     string             `json:"wlan_id" bson:"wlan_id"`
+	CPE      string             `json:"cpe_id" bson:"cpe_id"`
+	Radio    string             `json:"radio_id" bson:"radio_id"`
+	Freq     string             `json:"freq"`
+	Channel  string             `json:"channel"`
+	Rssi     int                `json:"rssi"`
+	Noise    int                `json:"noise"`
+	Mode     ConnectionModeType `json:"mode"`
+	Inactive int                `json:"inactive"`
 
 	InPackets  int64 `json:"in_packets" bson:"in_packets"`
 	OutPackets int64 `json:"out_packets" bson:"out_packets"`

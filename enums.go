@@ -699,6 +699,97 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 
 }
 
+type ConnectionModeType string
+
+const ConnectionModeTypeModeAC ConnectionModeType = "ac"
+const ConnectionModeTypeModeLegacy ConnectionModeType = "legacy"
+const ConnectionModeTypeModeN ConnectionModeType = "n"
+
+func (self ConnectionModeType) GetPtr() *ConnectionModeType { var v = self; return &v }
+
+func (self *ConnectionModeType) String() string {
+	switch *self {
+	case ConnectionModeTypeModeAC:
+		return "ac"
+	case ConnectionModeTypeModeLegacy:
+		return "legacy"
+	case ConnectionModeTypeModeN:
+		return "n"
+
+	}
+	panic(errors.New("Invalid value of ConnectionModeType"))
+
+}
+
+func (self *ConnectionModeType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case ConnectionModeTypeModeAC:
+		return json.Marshal("ac")
+	case ConnectionModeTypeModeLegacy:
+		return json.Marshal("legacy")
+	case ConnectionModeTypeModeN:
+		return json.Marshal("n")
+
+	}
+	return nil, errors.New("Invalid value of ConnectionModeType")
+
+}
+
+func (self *ConnectionModeType) GetBSON() (interface{}, error) {
+	switch *self {
+	case ConnectionModeTypeModeAC:
+		return "ac", nil
+	case ConnectionModeTypeModeLegacy:
+		return "legacy", nil
+	case ConnectionModeTypeModeN:
+		return "n", nil
+
+	}
+	return nil, errors.New("Invalid value of ConnectionModeType")
+
+}
+func (self *ConnectionModeType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "ac":
+		*self = ConnectionModeTypeModeAC
+		return nil
+	case "legacy":
+		*self = ConnectionModeTypeModeLegacy
+		return nil
+	case "n":
+		*self = ConnectionModeTypeModeN
+		return nil
+
+	}
+	return errors.New("Unknown ConnectionModeType")
+
+}
+
+func (self *ConnectionModeType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "ac":
+		*self = ConnectionModeTypeModeAC
+		return nil
+	case "legacy":
+		*self = ConnectionModeTypeModeLegacy
+		return nil
+	case "n":
+		*self = ConnectionModeTypeModeN
+		return nil
+
+	}
+	return errors.New("Unknown ConnectionModeType")
+
+}
+
 type MacFilterType string
 
 const MacFilterTypeBlackList MacFilterType = "BlackList"
