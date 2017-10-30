@@ -49,18 +49,18 @@ type ClientStat struct {
 	Timestamp           int                  `json:"Timestamp"`
 
 	// newly added fields
-	Tx_ht     bool   `json:"tx_ht"`
-	Rx_ht     bool   `json:"rx_ht"`
-	Noise     int    `json:"noise, omitempty"`
-	Tx_rate   int    `json:"tx_rate, omitempty"`
-	Inactive  int    `json:"inactive"`
-	Rx_rate   int    `json:"rx_rate, omitempty"`
-	Rx_vht    bool   `json:"rx_vht"`
-	Rx_mhz    bool   `json:"rx_mhz, omitempty"`
-	Tx_mhz    bool   `json:"tx_mhz, omitempty"`
-	Tx_vht    bool   `json:"tx_vht"`
-	Signal    int    `json:"signal, omitempty"`
-	Frequency string `json:"frecuency, omitempty"`
+	Inactive  int  `json:"inactive"`
+	Tx_ht     bool `json:"tx_ht"`
+	Rx_ht     bool `json:"rx_ht"`
+	Tx_rate   int  `json:"tx_rate, omitempty"`
+	Rx_rate   int  `json:"rx_rate, omitempty"`
+	Rx_vht    bool `json:"rx_vht"`
+	Tx_vht    bool `json:"tx_vht"`
+	Rx_mhz    int  `json:"rx_mhz, omitempty"`
+	Tx_mhz    int  `json:"tx_mhz, omitempty"`
+	Signal    int  `json:"signal, omitempty"`
+	Noise     int  `json:"noise, omitempty"`
+	Frequency int  `json:"frequency, omitempty"`
 }
 
 type CameraClientData struct {
