@@ -327,10 +327,22 @@ type CPESessionInfo struct {
 
 type ClientSessionInfo struct {
 	ID    string `json:"id" bson:"_id"`
-	MAC   string `json:"mac" baon:"mac"`
+	MAC   string `json:"mac" bson:"mac"`
 	WLAN  string `json:"wlan_id" bson:"wlan_id"`
 	CPE   string `json:"cpe_id" bson:"cpe_id"`
 	Radio string `json:"radio_id" bson:"radio_id"`
-	Start int64  `json:"start" bson:"start"`
-	Stop  int64  `json:"stop" bson:"stop"`
+	Freq  string `json:"freq" bson:"freq"`
+	Mode  string `json:"mode" bson:"mode"`
+
+	Start int64 `json:"start" bson:"start"`
+	Stop  int64 `json:"stop" bson:"stop"`
+
+	StartNoise int `json:"start_noise" bson:"start_noise"`
+	StopNoise  int `json:"stop_noise" bson:"stop_noise"`
+
+	StartRSSI int `json:"start_rssi" bson:"start_rssi"`
+	StopRSSI  int `json:"stop_rssi" bson:"stop_rssi"`
+
+	RxBytes int64 `json:"rx_bytes" bson:"rx_bytes"`
+	TxBytes int64 `json:"tx_bytes" bson:"tx_bytes"`
 }
