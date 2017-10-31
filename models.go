@@ -412,11 +412,12 @@ type DHCPCapConfig struct {
 }
 
 type L2TPConfig struct {
-	Enabled         bool   `json:"enabled"`
-	VPNHost         UUID   `json:"host,omitempty"`
-	LocalVPNAddress string `json:"local_vpn_addr,omitempty"`
-	HostTunnelId    int    `json:"host_tunnel,omitempty"`
-	LocalTunnelId   int    `json:"local_tunnel,omitempty"`
+	Enabled           bool   `json:"enabled"`
+	VPNHost           UUID   `json:"host,omitempty"`
+	LocalVPNAddress   string `json:"local_vpn_addr,omitempty"`
+	LocalVPNInterface string `json:"local_vpn_iface,omitempty"`
+	HostTunnelId      int    `json:"host_tunnel,omitempty"`
+	LocalTunnelId     int    `json:"local_tunnel,omitempty"`
 }
 
 // L2TP objects
