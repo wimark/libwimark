@@ -96,6 +96,14 @@ type WlanConfig struct {
 	L2TPSession *UUID `json:"l2tpsession"`
 }
 
+type ScanConfig struct {
+	Enabled bool `json:"enabled"`
+	// in seconds
+	ReportPeriod int `json:"reportperiod,omitempty"`
+	ScanTimeout  int `json:"scantimeout,omitempty"`
+	ScanNumber   int `json:"scannumber,omitempty"`
+}
+
 type WiFiConfig struct {
 	BandMode   string              `json:"bandmode,omitempty"`
 	Bandwidth  string              `json:"bandwidth,omitempty"`
@@ -105,6 +113,7 @@ type WiFiConfig struct {
 	Channels   []int               `json:"channels,omitempty"`
 	Country    string              `json:"country,omitempty"`
 	MaxClients int                 `json:"maxclients,omitempty"`
+	ScanConfig ScanConfig          `json:"scanningconfig,omitempty"`
 }
 
 type WlanState struct {
