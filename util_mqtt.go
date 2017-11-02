@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"reflect"
+	"time"
+
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	cache "github.com/patrickmn/go-cache"
-	"time"
 )
 
 func MQTTConnectSyncOpts(opts *mqtt.ClientOptions) (mqtt.Client, error) {
@@ -292,4 +294,89 @@ func CacheGetRequest(c *cache.Cache, id string) MQTTMessage {
 		return nil
 	}
 	return v.(MQTTMessage)
+}
+
+func MarshalInline(val interface{}) (b []byte, e error) {
+	var err error
+	var bytes []byte
+	bytes, err = json.Marshal(val)
+	if err != nil {
+		return nil, err
+	}
+	var t = reflect.TypeOf(val)
+	var v = reflect.ValueOf(val)
+	if t.Kind() != reflect.Struct {
+		return bytes, nil
+	}
+
+	var m = map[string]json.RawMessage{}
+	err = json.Unmarshal(bytes, &m)
+
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		tag := field.Tag.Get("inline")
+		if len(tag) != 0 {
+			msg, e := json.Marshal(v.Field(i).Interface())
+			if e != nil {
+				return nil, e
+			}
+			var f = map[string]json.RawMessage{}
+			e = json.Unmarshal(msg, &f)
+			if e != nil {
+				return nil, e
+			}
+			for n, v := range f {
+				m[n] = v
+			}
+		}
+	}
+
+	return json.Marshal(m)
+}
+
+func UnmarshalInline(b []byte, val interface{}, tmpl interface{}) error {
+
+	var doc map[string]json.RawMessage
+	var err error
+	if err = json.Unmarshal(b, &doc); err != nil {
+		return err
+	}
+	if doc == nil {
+		return nil
+	}
+	if err = json.Unmarshal(b, val); err != nil {
+		return err
+	}
+	// if 'val' is not a ptr, we'll be kicked out by json.Unmarshal
+	var v = reflect.ValueOf(val).Elem()
+	if v.Kind() != reflect.Struct {
+		return nil
+	}
+
+	var ind = -1
+	for i := 0; i < v.NumField(); i++ {
+		field := v.Type().Field(i)
+		tag := field.Tag.Get("inline")
+		if len(tag) == 0 {
+			delete(doc, field.Name)
+		} else {
+			ind = i
+		}
+	}
+	if ind < 0 {
+		return nil
+	}
+	var bb []byte
+	bb, err = json.Marshal(doc)
+	var f = v.Field(ind)
+	var tv = reflect.ValueOf(tmpl).Elem()
+	if f.Kind() != tv.Kind() {
+		return errors.New("Inline template is not equal to inline field")
+	}
+	if err = json.Unmarshal(bb, &tmpl); err != nil {
+		return err
+	}
+	f.Set(tv)
+
+	return nil
 }
