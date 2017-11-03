@@ -23,6 +23,8 @@
  - Add Tunnel Manager support
  - Tunnel Manager broadcast meta
  - Add RPC structures for Tunnel Manager
+#### WNE-614-client-history
+ - Extend WirelessClient model to collect RSSI/mode/etc
 
 ### Changed
 #### WNE-630-Add-new-fields-to-client-model
