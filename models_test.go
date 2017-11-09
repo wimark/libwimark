@@ -72,7 +72,7 @@ func TestWLAN(t *testing.T) {
 		Name:        "myhotspot",
 		SSID:        "qwertyasdfgh",
 		Description: "This is my pretty little honeypot",
-		Security: &EnumSecurity{
+		Security: EnumSecurity{
 			Type: SecurityTypeWPA2Personal,
 			Data: d,
 		},

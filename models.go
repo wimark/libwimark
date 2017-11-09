@@ -56,15 +56,11 @@ type WPAEnterpriseData struct {
 	RadiusAuthentication []UUID `json:"radiusauthentication"`
 }
 
-type SecuritySettings interface {
-	is_security_settings()
-}
-
 type WLAN struct {
 	Name               string        `json:"name"`
 	SSID               string        `json:"ssid"`
 	Description        string        `json:"description"`
-	Security           *EnumSecurity `json:"security"`
+	Security           EnumSecurity  `json:"security"`
 	VLAN               int           `json:"vlan"`
 	Hidden             bool          `json:"hidden"`
 	NasID              *string       `json:"nas_id"`
