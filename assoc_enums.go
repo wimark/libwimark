@@ -130,6 +130,8 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 		return t_err
 	}
 	switch t {
+	case SecurityTypeNone:
+		break
 	case SecurityTypeWPA2Enterprise:
 		if !data_found {
 			return errors.New("No associated data found for enum EnumSecurity")
@@ -196,6 +198,8 @@ func (self *EnumSecurity) SetBSON(v bson.Raw) error {
 		return t_err
 	}
 	switch t {
+	case SecurityTypeNone:
+		break
 	case SecurityTypeWPA2Enterprise:
 		if !data_found {
 			return errors.New("No associated data found for enum EnumSecurity")

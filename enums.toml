@@ -77,11 +77,13 @@ AES  = "aes"
 TKIP = "tkip"
 
 [SecurityType]
+default = "None"
 [SecurityType.variants]
 WPA2Enterprise = "wpa2enterprise"
 WPA2Personal   = "wpa2personal"
-WPAEnterprise = "wpaenterprise"
-WPAPersonal   = "wpapersonal"
+WPAEnterprise  = "wpaenterprise"
+WPAPersonal    = "wpapersonal"
+None           = "open"
 
 [CPEAgentStatusType]
 [CPEAgentStatusType.variants]

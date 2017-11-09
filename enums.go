@@ -1343,6 +1343,7 @@ func (self *SecuritySuite) SetBSON(v bson.Raw) error {
 
 type SecurityType string
 
+const SecurityTypeNone SecurityType = "open"
 const SecurityTypeWPA2Enterprise SecurityType = "wpa2enterprise"
 const SecurityTypeWPA2Personal SecurityType = "wpa2personal"
 const SecurityTypeWPAEnterprise SecurityType = "wpaenterprise"
@@ -1352,6 +1353,8 @@ func (self SecurityType) GetPtr() *SecurityType { var v = self; return &v }
 
 func (self *SecurityType) String() string {
 	switch *self {
+	case SecurityTypeNone:
+		return "open"
 	case SecurityTypeWPA2Enterprise:
 		return "wpa2enterprise"
 	case SecurityTypeWPA2Personal:
@@ -1361,11 +1364,16 @@ func (self *SecurityType) String() string {
 	case SecurityTypeWPAPersonal:
 		return "wpapersonal"
 	}
+	if len(*self) == 0 {
+		return "open"
+	}
 	panic(errors.New("Invalid value of SecurityType"))
 }
 
 func (self *SecurityType) MarshalJSON() ([]byte, error) {
 	switch *self {
+	case SecurityTypeNone:
+		return json.Marshal("open")
 	case SecurityTypeWPA2Enterprise:
 		return json.Marshal("wpa2enterprise")
 	case SecurityTypeWPA2Personal:
@@ -1375,11 +1383,16 @@ func (self *SecurityType) MarshalJSON() ([]byte, error) {
 	case SecurityTypeWPAPersonal:
 		return json.Marshal("wpapersonal")
 	}
+	if len(*self) == 0 {
+		return json.Marshal("open")
+	}
 	return nil, errors.New("Invalid value of SecurityType")
 }
 
 func (self *SecurityType) GetBSON() (interface{}, error) {
 	switch *self {
+	case SecurityTypeNone:
+		return "open", nil
 	case SecurityTypeWPA2Enterprise:
 		return "wpa2enterprise", nil
 	case SecurityTypeWPA2Personal:
@@ -1388,6 +1401,9 @@ func (self *SecurityType) GetBSON() (interface{}, error) {
 		return "wpaenterprise", nil
 	case SecurityTypeWPAPersonal:
 		return "wpapersonal", nil
+	}
+	if len(*self) == 0 {
+		return "open", nil
 	}
 	return nil, errors.New("Invalid value of SecurityType")
 }
@@ -1398,6 +1414,9 @@ func (self *SecurityType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
+	case "open":
+		*self = SecurityTypeNone
+		return nil
 	case "wpa2enterprise":
 		*self = SecurityTypeWPA2Enterprise
 		return nil
@@ -1409,6 +1428,10 @@ func (self *SecurityType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "wpapersonal":
 		*self = SecurityTypeWPAPersonal
+		return nil
+	}
+	if len(s) == 0 {
+		*self = SecurityTypeNone
 		return nil
 	}
 	return errors.New("Unknown SecurityType")
@@ -1420,6 +1443,9 @@ func (self *SecurityType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
+	case "open":
+		*self = SecurityTypeNone
+		return nil
 	case "wpa2enterprise":
 		*self = SecurityTypeWPA2Enterprise
 		return nil
@@ -1431,6 +1457,10 @@ func (self *SecurityType) SetBSON(v bson.Raw) error {
 		return nil
 	case "wpapersonal":
 		*self = SecurityTypeWPAPersonal
+		return nil
+	}
+	if len(s) == 0 {
+		*self = SecurityTypeNone
 		return nil
 	}
 	return errors.New("Unknown SecurityType")

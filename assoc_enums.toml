@@ -5,6 +5,7 @@ WPA2Personal   = "WPA2PersonalData"
 WPA2Enterprise = "WPA2EnterpriseData"
 WPAPersonal    = "WPAPersonalData"
 WPAEnterprise  = "WPAEnterpriseData"
+None           = "null"
 
 [CPEInterfaceInfo]
 constraint = "CPEInterfaceType"
