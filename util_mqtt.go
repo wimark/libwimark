@@ -303,17 +303,19 @@ func MarshalInline(val interface{}) (b []byte, e error) {
 	if err != nil {
 		return nil, err
 	}
-	var t = reflect.TypeOf(val)
 	var v = reflect.ValueOf(val)
-	if t.Kind() != reflect.Struct {
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+	if v.Kind() != reflect.Struct {
 		return bytes, nil
 	}
 
 	var m = map[string]json.RawMessage{}
 	err = json.Unmarshal(bytes, &m)
 
-	for i := 0; i < t.NumField(); i++ {
-		field := t.Field(i)
+	for i := 0; i < v.NumField(); i++ {
+		field := v.Type().Field(i)
 		tag := field.Tag.Get("inline")
 		if len(tag) != 0 {
 			msg, e := json.Marshal(v.Field(i).Interface())
