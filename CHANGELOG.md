@@ -1,5 +1,6 @@
 # Changelog
-## [v0.6.0]
+
+## [v0.6.0] - 03-11-2017
 ### Added 
 #### WNE-601-lbs-maclists
  - Add MAC-filters for LBS
@@ -25,6 +26,8 @@
  - Add RPC structures for Tunnel Manager
 #### WNE-614-client-history
  - Extend WirelessClient model to collect RSSI/mode/etc
+#### WNE-628-scanning-config
+ - Add background scanning config to CPE model
 
 ### Changed
 #### WNE-630-Add-new-fields-to-client-model
