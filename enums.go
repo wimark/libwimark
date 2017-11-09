@@ -556,6 +556,9 @@ func (self *ConfigurationStatus) String() string {
 	case ConfigurationStatusUpdating:
 		return "updating"
 	}
+	if len(*self) == 0 {
+		return "empty"
+	}
 	panic(errors.New("Invalid value of ConfigurationStatus"))
 }
 
@@ -572,6 +575,9 @@ func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 	case ConfigurationStatusUpdating:
 		return json.Marshal("updating")
 	}
+	if len(*self) == 0 {
+		return json.Marshal("empty")
+	}
 	return nil, errors.New("Invalid value of ConfigurationStatus")
 }
 
@@ -587,6 +593,9 @@ func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
 		return "pending", nil
 	case ConfigurationStatusUpdating:
 		return "updating", nil
+	}
+	if len(*self) == 0 {
+		return "empty", nil
 	}
 	return nil, errors.New("Invalid value of ConfigurationStatus")
 }
@@ -613,6 +622,10 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 		*self = ConfigurationStatusUpdating
 		return nil
 	}
+	if len(s) == 0 {
+		*self = ConfigurationStatusEmpty
+		return nil
+	}
 	return errors.New("Unknown ConfigurationStatus")
 }
 
@@ -636,6 +649,10 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 		return nil
 	case "updating":
 		*self = ConfigurationStatusUpdating
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ConfigurationStatusEmpty
 		return nil
 	}
 	return errors.New("Unknown ConfigurationStatus")
@@ -740,6 +757,9 @@ func (self *MacFilterType) String() string {
 	case MacFilterTypeWhiteList:
 		return "WhiteList"
 	}
+	if len(*self) == 0 {
+		return "None"
+	}
 	panic(errors.New("Invalid value of MacFilterType"))
 }
 
@@ -752,6 +772,9 @@ func (self *MacFilterType) MarshalJSON() ([]byte, error) {
 	case MacFilterTypeWhiteList:
 		return json.Marshal("WhiteList")
 	}
+	if len(*self) == 0 {
+		return json.Marshal("None")
+	}
 	return nil, errors.New("Invalid value of MacFilterType")
 }
 
@@ -763,6 +786,9 @@ func (self *MacFilterType) GetBSON() (interface{}, error) {
 		return "None", nil
 	case MacFilterTypeWhiteList:
 		return "WhiteList", nil
+	}
+	if len(*self) == 0 {
+		return "None", nil
 	}
 	return nil, errors.New("Invalid value of MacFilterType")
 }
@@ -783,6 +809,10 @@ func (self *MacFilterType) UnmarshalJSON(b []byte) error {
 		*self = MacFilterTypeWhiteList
 		return nil
 	}
+	if len(s) == 0 {
+		*self = MacFilterTypeNone
+		return nil
+	}
 	return errors.New("Unknown MacFilterType")
 }
 
@@ -800,6 +830,10 @@ func (self *MacFilterType) SetBSON(v bson.Raw) error {
 		return nil
 	case "WhiteList":
 		*self = MacFilterTypeWhiteList
+		return nil
+	}
+	if len(s) == 0 {
+		*self = MacFilterTypeNone
 		return nil
 	}
 	return errors.New("Unknown MacFilterType")

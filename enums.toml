@@ -4,6 +4,7 @@ WiFi    = "wifi"
 Wired   = "wired"
 
 [ConfigurationStatus]
+default = "Empty"
 [ConfigurationStatus.variants]
 Empty    = "empty"
 Error    = "error"
@@ -133,6 +134,7 @@ ModeN       = "n"
 ModeLegacy  = "legacy"
 
 [MacFilterType]
+default = "None"
 [MacFilterType.variants]
 BlackList = "BlackList"
 WhiteList = "WhiteList"
