@@ -88,8 +88,8 @@ type WiredState struct {
 
 type WiredData struct {
 	Name   string      `json:"name"`
-	Config WiredConfig `json:"config,omitempty"`
-	State  WiredState  `json:"state,omitempty"`
+	Config WiredConfig `json:"config"`
+	State  WiredState  `json:"state"`
 }
 
 type WlanConfig struct {
@@ -99,41 +99,41 @@ type WlanConfig struct {
 type ScanConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
-	ReportPeriod int `json:"reportperiod,omitempty"`
-	ScanTimeout  int `json:"scantimeout,omitempty"`
-	ScanNumber   int `json:"scannumber,omitempty"`
+	ReportPeriod int `json:"reportperiod"`
+	ScanTimeout  int `json:"scantimeout"`
+	ScanNumber   int `json:"scannumber"`
 }
 
 type WiFiConfig struct {
-	BandMode   string              `json:"bandmode,omitempty"`
-	Bandwidth  string              `json:"bandwidth,omitempty"`
-	TxPower    string              `json:"txpower,omitempty"`
-	WLANs      []UUID              `json:"wlans,omitempty"`
-	WLANConfig map[UUID]WlanConfig `json:"wlanconfig,omitempty"`
-	Channels   []int               `json:"channels,omitempty"`
-	Country    string              `json:"country,omitempty"`
-	MaxClients int                 `json:"maxclients,omitempty"`
-	ScanConfig ScanConfig          `json:"scanningconfig,omitempty"`
+	BandMode   string              `json:"bandmode"`
+	Bandwidth  string              `json:"bandwidth"`
+	TxPower    string              `json:"txpower"`
+	WLANs      []UUID              `json:"wlans"`
+	WLANConfig map[UUID]WlanConfig `json:"wlanconfig"`
+	Channels   []int               `json:"channels"`
+	Country    string              `json:"country"`
+	MaxClients int                 `json:"maxclients"`
+	ScanConfig ScanConfig          `json:"scanningconfig"`
 }
 
 type WlanState struct {
-	State CPEInterfaceState `json:"state,omitempty"`
+	State CPEInterfaceState `json:"state"`
 }
 
 type WiFiState struct {
-	Frequency  string             `json:"frequency,omitempty"`
-	BandMode   string             `json:"bandmode,omitempty"`
-	Bandwidth  string             `json:"bandwidth,omitempty"`
-	Channel    string             `json:"channel,omitempty"`
-	TxPower    string             `json:"txpower,omitempty"`
+	Frequency  string             `json:"frequency"`
+	BandMode   string             `json:"bandmode"`
+	Bandwidth  string             `json:"bandwidth"`
+	Channel    string             `json:"channel"`
+	TxPower    string             `json:"txpower"`
 	Enabled    bool               `json:"enabled"`
-	WLANStates map[UUID]WlanState `json:"wlanstates,omitempty"`
+	WLANStates map[UUID]WlanState `json:"wlanstates"`
 }
 
 type WiFiData struct {
-	Name   string     `json:"name,omitempty"`
-	Config WiFiConfig `json:"config,omitempty"`
-	State  WiFiState  `json:"state,omitempty"`
+	Name   string     `json:"name"`
+	Config WiFiConfig `json:"config"`
+	State  WiFiState  `json:"state"`
 }
 
 type CPEInterface struct {
@@ -396,8 +396,8 @@ type Capabilities struct {
 type LBSConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
-	ReportPeriod  int           `json:"reportperiod,omitempty"`
-	ClientTimeout int           `json:"clienttimeout,omitempty"`
+	ReportPeriod  int           `json:"reportperiod"`
+	ClientTimeout int           `json:"clienttimeout"`
 	WhiteList     []string      `json:"whitelist"`
 	BlackList     []string      `json:"blacklist"`
 	FilterMode    MacFilterType `json:"filtermode"`
@@ -406,13 +406,13 @@ type LBSConfig struct {
 type StatisticsConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
-	ReportPeriod int `json:"reportperiod,omitempty"`
+	ReportPeriod int `json:"reportperiod"`
 }
 
 type LogConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
-	ReportPeriod int `json:"reportperiod,omitempty"`
+	ReportPeriod int `json:"reportperiod"`
 }
 
 type DHCPCapConfig struct {
@@ -422,11 +422,11 @@ type DHCPCapConfig struct {
 
 type L2TPConfig struct {
 	Enabled           bool   `json:"enabled"`
-	VPNHost           UUID   `json:"host,omitempty"`
-	LocalVPNAddress   string `json:"local_vpn_addr,omitempty"`
-	LocalVPNInterface string `json:"local_vpn_iface,omitempty"`
-	HostTunnelId      int    `json:"host_tunnel,omitempty"`
-	LocalTunnelId     int    `json:"local_tunnel,omitempty"`
+	VPNHost           UUID   `json:"host"`
+	LocalVPNAddress   string `json:"local_vpn_addr"`
+	LocalVPNInterface string `json:"local_vpn_iface"`
+	HostTunnelId      int    `json:"host_tunnel"`
+	LocalTunnelId     int    `json:"local_tunnel"`
 }
 
 // L2TP objects
