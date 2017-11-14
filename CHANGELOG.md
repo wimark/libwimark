@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.7.0] - 01-12-2017
+### Added
+#### WNE-640-split-caps
+ - Add config templates
+ - Add config rules
+
+### Changed 
+#### WNE-640-split-caps 
+ - Separate capabilities from CPE model
+
 ## [v0.6.0] - 03-11-2017
 ### Added 
 #### WNE-601-lbs-maclists

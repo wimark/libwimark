@@ -83,3 +83,14 @@ type TunnelMask struct {
 	Hosts []UUID `json:"has_hosts"`
 	CPEs  []UUID `json:"has_cpes"`
 }
+
+type CPEModelMask struct {
+	UUID  []UUID   `json:"uuid"`
+	Names []string `json:"names"`
+}
+
+type ConfigRuleMask struct {
+	UUID   []UUID `json:"uuid"`
+	CPEs   []UUID `json:"has_cpes"`
+	Models []UUID `json:"has_models"`
+}

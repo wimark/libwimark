@@ -389,6 +389,8 @@ type Capabilities struct {
 	Frequency string          `json:"frequency"`
 }
 
+type CPECapabilities map[string]Capabilities
+
 type LBSConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
@@ -445,4 +447,31 @@ type L2TPTunnelSession struct {
 	HostSessionId       int    `json:"host_session_id"`
 	HostInterfaceName   string `json:"host_interface_name"`
 	HostL2InterfaceName string `json:"host_l2interface_name"`
+}
+
+// CPE models
+
+type CPEConfigTemplate struct {
+	Wifi             map[string]WiFiConfig `json:"wifi"`
+	LbsConfig        LBSConfig             `json:"lbs_config"`
+	StatisticsConfig StatisticsConfig      `json:"stats_config"`
+	LogConfig        LogConfig             `json:"log_config"`
+	DHCPCapConfig    DHCPCapConfig         `json:"dhcpcap_config"`
+	L2TPConfig       L2TPConfig            `json:"l2tp_config"`
+}
+
+type CPEModel struct {
+	Name         string          `json:"name"`
+	Capabilities CPECapabilities `json:"capabilities"`
+}
+
+type ConfigRule struct {
+	Model    UUID   `json:"model"`
+	CPEs     []UUID `json:"cpes"`
+	Template struct {
+		WLANs     []UUID            `json:"wlans"`
+		CpeConfig CPEConfigTemplate `json:"cpe_config_template"`
+		Tag       string            `json:"tag"`
+		Location  string            `json:"location"`
+	} `json:"template"`
 }
