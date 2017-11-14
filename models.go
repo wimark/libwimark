@@ -476,4 +476,6 @@ type ConfigRule struct {
 		WLANs     []UUID            `json:"wlans"`
 		CpeConfig CPEConfigTemplate `json:"cpe_config_template"`
 	} `json:"config"`
+	Tag      string `json:"tag"`
+	Location string `json:"location"`
 }
