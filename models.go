@@ -470,12 +470,12 @@ type CPEModel struct {
 }
 
 type ConfigRule struct {
-	Model  UUID   `json:"model"`
-	CPEs   []UUID `json:"cpes"`
-	Config struct {
+	Model    UUID   `json:"model"`
+	CPEs     []UUID `json:"cpes"`
+	Template struct {
 		WLANs     []UUID            `json:"wlans"`
 		CpeConfig CPEConfigTemplate `json:"cpe_config_template"`
-	} `json:"config"`
-	Tag      string `json:"tag"`
-	Location string `json:"location"`
+		Tag       string            `json:"tag"`
+		Location  string            `json:"location"`
+	} `json:"template"`
 }
