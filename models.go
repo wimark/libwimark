@@ -452,26 +452,28 @@ type L2TPTunnelSession struct {
 // CPE models
 
 type CPEConfigTemplate struct {
-	Wifi             map[string]WiFiConfig `json:"wifi"`
-	LbsConfig        LBSConfig             `json:"lbs_config"`
-	StatisticsConfig StatisticsConfig      `json:"stats_config"`
-	LogConfig        LogConfig             `json:"log_config"`
-	DHCPCapConfig    DHCPCapConfig         `json:"dhcpcap_config"`
-	L2TPConfig       L2TPConfig            `json:"l2tp_config"`
+	Wifi             map[string]WiFiConfig `json:"wifi" bson:"wifi"`
+	LbsConfig        LBSConfig             `json:"lbs_config" bson:"lbs_config"`
+	StatisticsConfig StatisticsConfig      `json:"stats_config" bson:"stats_config"`
+	LogConfig        LogConfig             `json:"log_config" bson:"log_config"`
+	DHCPCapConfig    DHCPCapConfig         `json:"dhcpcap_config" bson:"dhcpcap_config"`
+	L2TPConfig       L2TPConfig            `json:"l2tp_config" bson:"l2tp_config"`
 }
 
 type CPEModel struct {
-	Name         string          `json:"name"`
-	Capabilities CPECapabilities `json:"capabilities"`
+	Name         string          `json:"name" bson:"name"`
+	Capabilities CPECapabilities `json:"capabilities" bson:"capabilities"`
 }
 
 type ConfigRule struct {
-	Model    UUID   `json:"model"`
-	CPEs     []UUID `json:"cpes"`
+	Model    UUID   `json:"model" bson:"model"`
+	CPEs     []UUID `json:"cpes" bson:"cpes"`
 	Template struct {
-		WLANs     []UUID            `json:"wlans"`
-		CpeConfig CPEConfigTemplate `json:"cpe_config_template"`
-		Tag       string            `json:"tag"`
-		Location  string            `json:"location"`
-	} `json:"template"`
+		WLANs     []UUID            `json:"wlans" bson:"wlans"`
+		CpeConfig CPEConfigTemplate `json:"cpe_config_template" bson:"cpe_config_template"`
+		Tag       string            `json:"tag" bson:"tag"`
+		Location  string            `json:"location" bson:"location"`
+	} `json:"template" bson:"template"`
+
+	Is_auto bool `json:"is_auto" bson:"is_auto"`
 }
