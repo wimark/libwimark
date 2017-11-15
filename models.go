@@ -467,6 +467,7 @@ type CPEConfigTemplate struct {
 
 type CPEModel struct {
 	Name         string          `json:"name" bson:"name"`
+	Description  string          `json:"description" bson:"description"`
 	Capabilities CPECapabilities `json:"capabilities" bson:"capabilities"`
 }
 
