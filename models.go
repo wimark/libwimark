@@ -456,6 +456,7 @@ type L2TPTunnelSession struct {
 // CPE models
 
 type CPEConfigTemplate struct {
+	Description      string                `json:"description" bson:"description"`
 	Wifi             map[string]WiFiConfig `json:"wifi" bson:"wifi"`
 	LbsConfig        LBSConfig             `json:"lbs_config" bson:"lbs_config"`
 	StatisticsConfig StatisticsConfig      `json:"stats_config" bson:"stats_config"`
@@ -470,6 +471,7 @@ type CPEModel struct {
 }
 
 type ConfigRule struct {
+	Name     string `json:"name" bson:"name"`
 	Model    UUID   `json:"model" bson:"model"`
 	CPEs     []UUID `json:"cpes" bson:"cpes"`
 	Template struct {
