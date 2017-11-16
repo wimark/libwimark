@@ -12,7 +12,7 @@ type JSONRPCClientRequest struct {
 	// JSON-RPC protocol.
 	Version string `json:"jsonrpc"`
 	// A String containing the name of the method to be invoked.
-	Method TunManagerRPC `json:"method"`
+	Method string `json:"method"`
 	// Object to pass as request parameter to the method.
 	Params interface{} `json:"params,omitempty"`
 	// The request id. This can be of any type. It is used to match the
@@ -52,7 +52,7 @@ const (
 )
 
 // EncodeClientRequest encodes parameters for a JSON-RPC client request.
-func EncodeRPCRequest(method TunManagerRPC, args interface{}) ([]byte, error) {
+func EncodeRPCRequest(method string, args interface{}) ([]byte, error) {
 	c := &JSONRPCClientRequest{
 		Version: JSON_RPC_VERSION,
 		Method:  method,
