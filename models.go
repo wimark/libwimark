@@ -474,8 +474,8 @@ type ConfigRule struct {
 	Template struct {
 		WLANs     []UUID            `json:"wlans" bson:"wlans"`
 		CpeConfig CPEConfigTemplate `json:"cpe_config_template" bson:"cpe_config_template"`
-		Tag       string            `json:"tag" bson:"tag"`
-		Location  string            `json:"location" bson:"location"`
+		Tags      []string          `json:"tags" bson:"tags"`
+		Location  UUID              `json:"location" bson:"location"`
 	} `json:"template" bson:"template"`
 
 	Is_auto bool `json:"is_auto" bson:"is_auto"`
