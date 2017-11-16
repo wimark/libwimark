@@ -593,6 +593,105 @@ func (self *ConnectionModeType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown ConnectionModeType")
 }
 
+type MCSRequire string
+
+const MCSRequireHT MCSRequire = "ht"
+const MCSRequireOff MCSRequire = "off"
+const MCSRequireVHT MCSRequire = "vht"
+
+func (self MCSRequire) GetPtr() *MCSRequire { var v = self; return &v }
+
+func (self *MCSRequire) String() string {
+	switch *self {
+	case MCSRequireHT:
+		return "ht"
+	case MCSRequireOff:
+		return "off"
+	case MCSRequireVHT:
+		return "vht"
+	}
+	if len(*self) == 0 {
+		return "off"
+	}
+	panic(errors.New("Invalid value of MCSRequire"))
+}
+
+func (self *MCSRequire) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case MCSRequireHT:
+		return json.Marshal("ht")
+	case MCSRequireOff:
+		return json.Marshal("off")
+	case MCSRequireVHT:
+		return json.Marshal("vht")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("off")
+	}
+	return nil, errors.New("Invalid value of MCSRequire")
+}
+
+func (self *MCSRequire) GetBSON() (interface{}, error) {
+	switch *self {
+	case MCSRequireHT:
+		return "ht", nil
+	case MCSRequireOff:
+		return "off", nil
+	case MCSRequireVHT:
+		return "vht", nil
+	}
+	if len(*self) == 0 {
+		return "off", nil
+	}
+	return nil, errors.New("Invalid value of MCSRequire")
+}
+
+func (self *MCSRequire) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "ht":
+		*self = MCSRequireHT
+		return nil
+	case "off":
+		*self = MCSRequireOff
+		return nil
+	case "vht":
+		*self = MCSRequireVHT
+		return nil
+	}
+	if len(s) == 0 {
+		*self = MCSRequireOff
+		return nil
+	}
+	return errors.New("Unknown MCSRequire")
+}
+
+func (self *MCSRequire) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "ht":
+		*self = MCSRequireHT
+		return nil
+	case "off":
+		*self = MCSRequireOff
+		return nil
+	case "vht":
+		*self = MCSRequireVHT
+		return nil
+	}
+	if len(s) == 0 {
+		*self = MCSRequireOff
+		return nil
+	}
+	return errors.New("Unknown MCSRequire")
+}
+
 type MacFilterType string
 
 const MacFilterTypeBlackList MacFilterType = "BlackList"
