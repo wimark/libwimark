@@ -101,15 +101,16 @@ type ScanConfig struct {
 }
 
 type WiFiConfig struct {
-	BandMode   string              `json:"bandmode"`
-	Bandwidth  string              `json:"bandwidth"`
-	TxPower    string              `json:"txpower"`
-	WLANs      []UUID              `json:"wlans"`
-	WLANConfig map[UUID]WlanConfig `json:"wlanconfig"`
-	Channels   []int               `json:"channels"`
-	Country    string              `json:"country"`
-	MaxClients int                 `json:"maxclients"`
-	ScanConfig ScanConfig          `json:"scanningconfig"`
+	BandMode    string              `json:"bandmode"`
+	Bandwidth   string              `json:"bandwidth"`
+	TxPower     string              `json:"txpower"`
+	WLANs       []UUID              `json:"wlans"`
+	WLANConfig  map[UUID]WlanConfig `json:"wlanconfig"`
+	Channels    []int               `json:"channels"`
+	Country     string              `json:"country"`
+	MaxClients  int                 `json:"maxclients"`
+	ScanConfig  ScanConfig          `json:"scanningconfig"`
+	RequireMode MCSRequire          `json:"require_mode"`
 }
 
 type WlanState struct {
