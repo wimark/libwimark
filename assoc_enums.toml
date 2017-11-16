@@ -6,12 +6,6 @@ WPA2Enterprise = "WPA2EnterpriseData"
 WPAPersonal    = "WPAPersonalData"
 WPAEnterprise  = "WPAEnterpriseData"
 
-[CPEInterfaceInfo]
-constraint = "CPEInterfaceType"
-[CPEInterfaceInfo.Variants]
-Wired = "WiredData"
-WiFi  = "WiFiData"
-
 [SystemEventObject]
 constraint = "SystemEventType"
 [SystemEventObject.Variants]

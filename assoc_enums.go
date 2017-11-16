@@ -6,59 +6,6 @@ import (
 	"errors"
 )
 
-type CPEInterfaceInfo struct {
-	Type CPEInterfaceType `json:"type"`
-	Data interface{}      `json:"data"`
-}
-
-func (self *CPEInterfaceInfo) UnmarshalJSON(b []byte) error {
-	var doc map[string]json.RawMessage
-	if err := json.Unmarshal(b, &doc); err != nil {
-		return err
-	}
-	if doc == nil {
-		return nil
-	}
-	var t_raw, t_found = doc["type"]
-	if !t_found {
-		return nil
-	}
-	var data_raw, data_found = doc["data"]
-	if bytes.Equal(data_raw, []byte("null")) {
-		data_found = false
-	}
-	var t CPEInterfaceType
-	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
-		return t_err
-	}
-	switch t {
-	case CPEInterfaceTypeWiFi:
-		if !data_found {
-			return errors.New("No associated data found for enum CPEInterfaceInfo")
-		}
-		var d WiFiData
-		var data_err = json.Unmarshal(data_raw, &d)
-		if data_err != nil {
-			return data_err
-		}
-		self.Data = &d
-	case CPEInterfaceTypeWired:
-		if !data_found {
-			return errors.New("No associated data found for enum CPEInterfaceInfo")
-		}
-		var d WiredData
-		var data_err = json.Unmarshal(data_raw, &d)
-		if data_err != nil {
-			return data_err
-		}
-		self.Data = &d
-
-	}
-	self.Type = t
-	return nil
-
-}
-
 type EnumSecurity struct {
 	Type SecurityType `json:"type"`
 	Data interface{}  `json:"data"`
