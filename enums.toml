@@ -1,4 +1,5 @@
 [ConfigurationStatus]
+default = "Empty"
 [ConfigurationStatus.variants]
 Empty    = "empty"
 Error    = "error"
@@ -60,23 +61,19 @@ DEBUG     = "DEBUG"
 ERROR     = "ERROR"
 WARNING   = "WARNING"
 
-[RadiusType]
-[RadiusType.variants]
-Accounting     = "acct"
-Authentication = "auth"
-Both           = "both"
-
 [SecuritySuite]
 [SecuritySuite.variants]
 AES  = "aes"
 TKIP = "tkip"
 
 [SecurityType]
+default = "None"
 [SecurityType.variants]
 WPA2Enterprise = "wpa2enterprise"
 WPA2Personal   = "wpa2personal"
-WPAEnterprise = "wpaenterprise"
-WPAPersonal   = "wpapersonal"
+WPAEnterprise  = "wpaenterprise"
+WPAPersonal    = "wpapersonal"
+None           = "open"
 
 [CPEAgentStatusType]
 [CPEAgentStatusType.variants]
@@ -98,17 +95,6 @@ Start   = "Start"
 Stop    = "Stop"
 Interim = "Interim-Update"
 
-[BandwidthType]
-[BandwidthType.variants]
-HT20      = "HT20"
-HT40      = "HT40"
-HT40Plus  = "HT40+"
-HT40Minus = "HT40-"
-VHT20     = "VHT20"
-VHT40     = "VHT40"
-VHT80     = "VHT80"
-VHT160    = "VHT160"
-
 [WirelessClientType]
 [WirelessClientType.variants]
 Camera = "camera"
@@ -126,6 +112,7 @@ ModeN       = "n"
 ModeLegacy  = "legacy"
 
 [MacFilterType]
+default = "None"
 [MacFilterType.variants]
 BlackList = "BlackList"
 WhiteList = "WhiteList"
@@ -145,8 +132,14 @@ ACS           = "ACS"
 DFS           = "DFS"
 CountryUpdate = "CONTRY_UPDATE"
 
-
 [TunManagerRPC]
 [TunManagerRPC.variants]
 CreateL2TunnelSession = "CreateL2TunnelSession"
 DeleteL2TunnelSession = "DeleteL2TunnelSession"
+
+[MCSRequire]
+default = "Off"
+[MCSRequire.variants]
+Off = "off"
+HT  = "ht"
+VHT = "vht"
