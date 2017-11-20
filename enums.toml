@@ -143,3 +143,39 @@ default = "Off"
 Off = "off"
 HT  = "ht"
 VHT = "vht"
+
+[FirewallPolicy]
+default = "Accept"
+[FirewallPolicy.variants]
+Empty  = "EMPTY"
+Drop   = "DROP"
+Accept = "ACCEPT"
+
+[FirewallProtocol]
+default = "Empty"
+[FirewallProtocol.variants]
+Empty = "EMPTY"
+IP    = "ip"
+IPv4  = "ipv4"
+IPv6  = "ipv6"
+
+[FirewallIPProtocol]
+default = "Empty"
+[FirewallIPProtocol.variants]
+Empty = "EMPTY"
+TCP   = "TCP"
+UDP   = "UDP"
+
+[FirewallJump]
+default = "Accept"
+[FirewallJump.variants]
+Accept = "ACCEPT"
+DROP   = "DROP"
+
+
+[FirewallDirection]
+default = "Any"
+[FirewallDirection.variants]
+Any = "ANY"
+In  = "IN"
+Out = "OUT"
