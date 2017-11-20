@@ -61,3 +61,12 @@ func EncodeRPCRequest(method string, args interface{}) ([]byte, error) {
 	}
 	return json.Marshal(c)
 }
+
+func NewJSONRPCRequest(method string, args interface{}) JSONRPCClientRequest {
+	return JSONRPCClientRequest{
+		Version: JSON_RPC_VERSION,
+		Method:  method,
+		Params:  args,
+		Id:      uint64(rand.Int63()),
+	}
+}
