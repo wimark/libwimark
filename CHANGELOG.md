@@ -5,6 +5,7 @@
 #### WNE-640-split-caps
  - Add config templates
  - Add config rules
+ - Add L2ACL models
 
 ### Changed 
 #### WNE-640-split-caps 
