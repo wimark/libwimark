@@ -52,7 +52,7 @@ type WPAEnterpriseData struct {
 }
 
 type FireWallSettings struct {
-	L2Chains []string `json:"wifi" bson:"wifi"`
+	L2Chain string `json:"l2_chain" bson:"l2_chain"`
 }
 
 type WLAN struct {
@@ -134,7 +134,6 @@ type CPE struct {
 	Config       CPEConfigTemplate   `json:"config"`
 	State        CPEState            `json:"state"`
 	ConfigStatus ConfigurationStatus `json:"config_status"`
-	Firewall     FireWallSettings    `json:"firewall"`
 }
 
 type CapTxPower struct {
@@ -227,6 +226,7 @@ type CPEConfigTemplate struct {
 	LogConfig        LogConfig             `json:"log_config" bson:"log_config"`
 	DHCPCapConfig    DHCPCapConfig         `json:"dhcpcap_config" bson:"dhcpcap_config"`
 	L2TPConfig       L2TPConfig            `json:"l2tp_config" bson:"l2tp_config"`
+	Firewall         FireWallSettings      `json:"firewall" bson:"firewall"`
 }
 
 type CPEModel struct {
