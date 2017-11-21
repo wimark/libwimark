@@ -151,17 +151,17 @@ Empty  = "EMPTY"
 Drop   = "DROP"
 Accept = "ACCEPT"
 
-[FirewallProtocol]
+[L3Protocol]
 default = "Empty"
-[FirewallProtocol.variants]
+[L3Protocol.variants]
 Empty = "EMPTY"
 IP    = "ip"
 IPv4  = "ipv4"
 IPv6  = "ipv6"
 
-[FirewallIPProtocol]
+[L4Protocol]
 default = "Empty"
-[FirewallIPProtocol.variants]
+[L4Protocol.variants]
 Empty = "EMPTY"
 TCP   = "TCP"
 UDP   = "UDP"

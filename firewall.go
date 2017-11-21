@@ -8,13 +8,13 @@ type L2Chain struct {
 }
 
 type L2Rule struct {
-	Protocol  FirewallProtocol   `json:"protocol" bson:"protocol"`
-	SrcMAC    []string           `json:"source" bson:"source"`
-	DstMAC    []string           `json:"destination" bson:"destination"`
-	SrcIP     []string           `json:"ip-source" bson:"ip-source"`
-	DstIP     []string           `json:"ip-destination" bson:"ip-destination"`
-	IPProto   FirewallIPProtocol `json:"ip-protocol" bson:"ip-protocol"`
-	IPSrcPort []string           `json:"ip-source-port" bson:"ip-source-port"`
-	IPDstPort []string           `json:"ip-destination-port" bson:"ip-destination-port"`
-	Jump      FirewallJump       `json:"jump" bson:"jump"`
+	Protocol L3Protocol   `json:"protocol" bson:"protocol"`
+	SrcMAC   []string     `json:"source" bson:"source"`
+	DstMAC   []string     `json:"destination" bson:"destination"`
+	SrcIP    []string     `json:"ip-source" bson:"ip-source"`
+	DstIP    []string     `json:"ip-destination" bson:"ip-destination"`
+	IPProto  L4Protocol   `json:"ip-protocol" bson:"ip-protocol"`
+	SrcPort  []string     `json:"ip-source-port" bson:"ip-source-port"`
+	DstPort  []string     `json:"ip-destination-port" bson:"ip-destination-port"`
+	Jump     FirewallJump `json:"jump" bson:"jump"`
 }

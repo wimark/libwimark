@@ -623,105 +623,6 @@ func (self *FirewallDirection) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown FirewallDirection")
 }
 
-type FirewallIPProtocol string
-
-const FirewallIPProtocolEmpty FirewallIPProtocol = "EMPTY"
-const FirewallIPProtocolTCP FirewallIPProtocol = "TCP"
-const FirewallIPProtocolUDP FirewallIPProtocol = "UDP"
-
-func (self FirewallIPProtocol) GetPtr() *FirewallIPProtocol { var v = self; return &v }
-
-func (self *FirewallIPProtocol) String() string {
-	switch *self {
-	case FirewallIPProtocolEmpty:
-		return "EMPTY"
-	case FirewallIPProtocolTCP:
-		return "TCP"
-	case FirewallIPProtocolUDP:
-		return "UDP"
-	}
-	if len(*self) == 0 {
-		return "EMPTY"
-	}
-	panic(errors.New("Invalid value of FirewallIPProtocol"))
-}
-
-func (self *FirewallIPProtocol) MarshalJSON() ([]byte, error) {
-	switch *self {
-	case FirewallIPProtocolEmpty:
-		return json.Marshal("EMPTY")
-	case FirewallIPProtocolTCP:
-		return json.Marshal("TCP")
-	case FirewallIPProtocolUDP:
-		return json.Marshal("UDP")
-	}
-	if len(*self) == 0 {
-		return json.Marshal("EMPTY")
-	}
-	return nil, errors.New("Invalid value of FirewallIPProtocol")
-}
-
-func (self *FirewallIPProtocol) GetBSON() (interface{}, error) {
-	switch *self {
-	case FirewallIPProtocolEmpty:
-		return "EMPTY", nil
-	case FirewallIPProtocolTCP:
-		return "TCP", nil
-	case FirewallIPProtocolUDP:
-		return "UDP", nil
-	}
-	if len(*self) == 0 {
-		return "EMPTY", nil
-	}
-	return nil, errors.New("Invalid value of FirewallIPProtocol")
-}
-
-func (self *FirewallIPProtocol) UnmarshalJSON(b []byte) error {
-	var s string
-	if err := json.Unmarshal(b, &s); err != nil {
-		return err
-	}
-	switch s {
-	case "EMPTY":
-		*self = FirewallIPProtocolEmpty
-		return nil
-	case "TCP":
-		*self = FirewallIPProtocolTCP
-		return nil
-	case "UDP":
-		*self = FirewallIPProtocolUDP
-		return nil
-	}
-	if len(s) == 0 {
-		*self = FirewallIPProtocolEmpty
-		return nil
-	}
-	return errors.New("Unknown FirewallIPProtocol")
-}
-
-func (self *FirewallIPProtocol) SetBSON(v bson.Raw) error {
-	var s string
-	if err := v.Unmarshal(&s); err != nil {
-		return err
-	}
-	switch s {
-	case "EMPTY":
-		*self = FirewallIPProtocolEmpty
-		return nil
-	case "TCP":
-		*self = FirewallIPProtocolTCP
-		return nil
-	case "UDP":
-		*self = FirewallIPProtocolUDP
-		return nil
-	}
-	if len(s) == 0 {
-		*self = FirewallIPProtocolEmpty
-		return nil
-	}
-	return errors.New("Unknown FirewallIPProtocol")
-}
-
 type FirewallJump string
 
 const FirewallJumpAccept FirewallJump = "ACCEPT"
@@ -907,116 +808,215 @@ func (self *FirewallPolicy) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown FirewallPolicy")
 }
 
-type FirewallProtocol string
+type L3Protocol string
 
-const FirewallProtocolEmpty FirewallProtocol = "EMPTY"
-const FirewallProtocolIP FirewallProtocol = "ip"
-const FirewallProtocolIPv4 FirewallProtocol = "ipv4"
-const FirewallProtocolIPv6 FirewallProtocol = "ipv6"
+const L3ProtocolEmpty L3Protocol = "EMPTY"
+const L3ProtocolIP L3Protocol = "ip"
+const L3ProtocolIPv4 L3Protocol = "ipv4"
+const L3ProtocolIPv6 L3Protocol = "ipv6"
 
-func (self FirewallProtocol) GetPtr() *FirewallProtocol { var v = self; return &v }
+func (self L3Protocol) GetPtr() *L3Protocol { var v = self; return &v }
 
-func (self *FirewallProtocol) String() string {
+func (self *L3Protocol) String() string {
 	switch *self {
-	case FirewallProtocolEmpty:
+	case L3ProtocolEmpty:
 		return "EMPTY"
-	case FirewallProtocolIP:
+	case L3ProtocolIP:
 		return "ip"
-	case FirewallProtocolIPv4:
+	case L3ProtocolIPv4:
 		return "ipv4"
-	case FirewallProtocolIPv6:
+	case L3ProtocolIPv6:
 		return "ipv6"
 	}
 	if len(*self) == 0 {
 		return "EMPTY"
 	}
-	panic(errors.New("Invalid value of FirewallProtocol"))
+	panic(errors.New("Invalid value of L3Protocol"))
 }
 
-func (self *FirewallProtocol) MarshalJSON() ([]byte, error) {
+func (self *L3Protocol) MarshalJSON() ([]byte, error) {
 	switch *self {
-	case FirewallProtocolEmpty:
+	case L3ProtocolEmpty:
 		return json.Marshal("EMPTY")
-	case FirewallProtocolIP:
+	case L3ProtocolIP:
 		return json.Marshal("ip")
-	case FirewallProtocolIPv4:
+	case L3ProtocolIPv4:
 		return json.Marshal("ipv4")
-	case FirewallProtocolIPv6:
+	case L3ProtocolIPv6:
 		return json.Marshal("ipv6")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("EMPTY")
 	}
-	return nil, errors.New("Invalid value of FirewallProtocol")
+	return nil, errors.New("Invalid value of L3Protocol")
 }
 
-func (self *FirewallProtocol) GetBSON() (interface{}, error) {
+func (self *L3Protocol) GetBSON() (interface{}, error) {
 	switch *self {
-	case FirewallProtocolEmpty:
+	case L3ProtocolEmpty:
 		return "EMPTY", nil
-	case FirewallProtocolIP:
+	case L3ProtocolIP:
 		return "ip", nil
-	case FirewallProtocolIPv4:
+	case L3ProtocolIPv4:
 		return "ipv4", nil
-	case FirewallProtocolIPv6:
+	case L3ProtocolIPv6:
 		return "ipv6", nil
 	}
 	if len(*self) == 0 {
 		return "EMPTY", nil
 	}
-	return nil, errors.New("Invalid value of FirewallProtocol")
+	return nil, errors.New("Invalid value of L3Protocol")
 }
 
-func (self *FirewallProtocol) UnmarshalJSON(b []byte) error {
+func (self *L3Protocol) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
 		return err
 	}
 	switch s {
 	case "EMPTY":
-		*self = FirewallProtocolEmpty
+		*self = L3ProtocolEmpty
 		return nil
 	case "ip":
-		*self = FirewallProtocolIP
+		*self = L3ProtocolIP
 		return nil
 	case "ipv4":
-		*self = FirewallProtocolIPv4
+		*self = L3ProtocolIPv4
 		return nil
 	case "ipv6":
-		*self = FirewallProtocolIPv6
+		*self = L3ProtocolIPv6
 		return nil
 	}
 	if len(s) == 0 {
-		*self = FirewallProtocolEmpty
+		*self = L3ProtocolEmpty
 		return nil
 	}
-	return errors.New("Unknown FirewallProtocol")
+	return errors.New("Unknown L3Protocol")
 }
 
-func (self *FirewallProtocol) SetBSON(v bson.Raw) error {
+func (self *L3Protocol) SetBSON(v bson.Raw) error {
 	var s string
 	if err := v.Unmarshal(&s); err != nil {
 		return err
 	}
 	switch s {
 	case "EMPTY":
-		*self = FirewallProtocolEmpty
+		*self = L3ProtocolEmpty
 		return nil
 	case "ip":
-		*self = FirewallProtocolIP
+		*self = L3ProtocolIP
 		return nil
 	case "ipv4":
-		*self = FirewallProtocolIPv4
+		*self = L3ProtocolIPv4
 		return nil
 	case "ipv6":
-		*self = FirewallProtocolIPv6
+		*self = L3ProtocolIPv6
 		return nil
 	}
 	if len(s) == 0 {
-		*self = FirewallProtocolEmpty
+		*self = L3ProtocolEmpty
 		return nil
 	}
-	return errors.New("Unknown FirewallProtocol")
+	return errors.New("Unknown L3Protocol")
+}
+
+type L4Protocol string
+
+const L4ProtocolEmpty L4Protocol = "EMPTY"
+const L4ProtocolTCP L4Protocol = "TCP"
+const L4ProtocolUDP L4Protocol = "UDP"
+
+func (self L4Protocol) GetPtr() *L4Protocol { var v = self; return &v }
+
+func (self *L4Protocol) String() string {
+	switch *self {
+	case L4ProtocolEmpty:
+		return "EMPTY"
+	case L4ProtocolTCP:
+		return "TCP"
+	case L4ProtocolUDP:
+		return "UDP"
+	}
+	if len(*self) == 0 {
+		return "EMPTY"
+	}
+	panic(errors.New("Invalid value of L4Protocol"))
+}
+
+func (self *L4Protocol) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case L4ProtocolEmpty:
+		return json.Marshal("EMPTY")
+	case L4ProtocolTCP:
+		return json.Marshal("TCP")
+	case L4ProtocolUDP:
+		return json.Marshal("UDP")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("EMPTY")
+	}
+	return nil, errors.New("Invalid value of L4Protocol")
+}
+
+func (self *L4Protocol) GetBSON() (interface{}, error) {
+	switch *self {
+	case L4ProtocolEmpty:
+		return "EMPTY", nil
+	case L4ProtocolTCP:
+		return "TCP", nil
+	case L4ProtocolUDP:
+		return "UDP", nil
+	}
+	if len(*self) == 0 {
+		return "EMPTY", nil
+	}
+	return nil, errors.New("Invalid value of L4Protocol")
+}
+
+func (self *L4Protocol) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "EMPTY":
+		*self = L4ProtocolEmpty
+		return nil
+	case "TCP":
+		*self = L4ProtocolTCP
+		return nil
+	case "UDP":
+		*self = L4ProtocolUDP
+		return nil
+	}
+	if len(s) == 0 {
+		*self = L4ProtocolEmpty
+		return nil
+	}
+	return errors.New("Unknown L4Protocol")
+}
+
+func (self *L4Protocol) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "EMPTY":
+		*self = L4ProtocolEmpty
+		return nil
+	case "TCP":
+		*self = L4ProtocolTCP
+		return nil
+	case "UDP":
+		*self = L4ProtocolUDP
+		return nil
+	}
+	if len(s) == 0 {
+		*self = L4ProtocolEmpty
+		return nil
+	}
+	return errors.New("Unknown L4Protocol")
 }
 
 type MCSRequire string
