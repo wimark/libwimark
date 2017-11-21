@@ -1,5 +1,10 @@
 package libwimark
 
+// JSONRPC functions from CPE for CPEAGENT
+const (
+	JSONRPC_CPE_CPEAGENT_PROCESS_REQ = "cpeagent:process_request"
+)
+
 // JSONRPC functions from CPE for UCI
 const (
 	JSONRPC_CPE_UCI_SET     = "uci:set"
@@ -38,7 +43,7 @@ const (
 	JSONRPC_CPE_GET_SYSTEM       = "get:system"
 	JSONRPC_CPE_GET_NETWORK      = "get:network"
 	JSONRPC_CPE_GET_WIFI         = "get:wifi"
-	JSONRPC_CPE_GET_CAPABILITIES = "get:capapbilities"
+	JSONRPC_CPE_GET_CAPABILITIES = "get:capabilities"
 	JSONRPC_CPE_GET_MODEL        = "get:model"
 )
 
