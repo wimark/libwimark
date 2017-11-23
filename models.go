@@ -1,9 +1,7 @@
 package libwimark
 
 import (
-	"encoding/json"
 	"errors"
-	"sort"
 
 	"github.com/vorot93/goutil"
 	"gopkg.in/mgo.v2/bson"
@@ -133,162 +131,19 @@ type WiFiData struct {
 	State  WiFiState  `json:"state"`
 }
 
-type CPEInterface struct {
-	CPEInterfaceInfo
-	Addr         string
-	Capabilities Capabilities
-}
-
-func (self CPEInterface) MarshalJSON() ([]byte, error) {
-	var b []byte
-	{
-		var err error
-		b, err = json.Marshal(self.CPEInterfaceInfo)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	var doc Document
-	{
-		var err error
-		err = json.Unmarshal(b, &doc)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	doc["addr"] = self.Addr
-	doc["capabilities"] = self.Capabilities
-
-	return json.Marshal(doc)
-}
-
-func (self *CPEInterface) UnmarshalJSON(b []byte) error {
-	var doc map[string]json.RawMessage
-	var err = json.Unmarshal(b, &doc)
-	if err != nil {
-		return err
-	}
-
-	if doc == nil {
-		return nil
-	}
-
-	var addrRaw, addrExists = doc["addr"]
-	if addrExists {
-		var addr string
-		var addrErr = json.Unmarshal(addrRaw, &addr)
-		if addrErr == nil {
-			self.Addr = addr
-		} else {
-			return addrErr
-		}
-	}
-
-	delete(doc, "addr")
-
-	var capsRaw, capsExists = doc["capabilities"]
-	if capsExists {
-		var caps Capabilities
-		var capsErr = json.Unmarshal(capsRaw, &caps)
-		if capsErr == nil {
-			self.Capabilities = caps
-		} else {
-			return capsErr
-		}
-	}
-
-	delete(doc, "capabilities")
-
-	var v, _ = json.Marshal(doc)
-
-	return self.CPEInterfaceInfo.UnmarshalJSON(v)
-}
-
-func (self *CPEInterface) GetBSON() (interface{}, error) {
-	var out = bson.M{}
-
-	var obj_b []byte
-	{
-		var err error
-		obj_b, err = bson.Marshal(self.CPEInterfaceInfo)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	var obj bson.M
-	{
-		var err error
-		err = bson.Unmarshal(obj_b, &obj)
-		if err != nil {
-			return nil, err
-		}
-	}
-	out = obj
-	out["capabilities"] = self.Capabilities
-	out["addr"] = self.Addr
-
-	return out, nil
-}
-
-func (self *CPEInterface) SetBSON(raw bson.Raw) error {
-	var in = map[string]bson.Raw{}
-	{
-		if err := raw.Unmarshal(&in); err != nil {
-			return err
-		}
-	}
-
-	//addr
-	{
-		if v, k_found := in["addr"]; k_found {
-			if err := v.Unmarshal(&self.Addr); err != nil {
-				return err
-			}
-			delete(in, "addr")
-		}
-	}
-
-	//capabilities
-	{
-		if v, k_found := in["capabilities"]; k_found {
-			if err := v.Unmarshal(&self.Capabilities); err != nil {
-				return err
-			}
-			delete(in, "capabilities")
-		}
-	}
-
-	var obj_b, mErr = bson.Marshal(in)
-	if mErr != nil {
-		return mErr
-	}
-
-	if err := bson.Unmarshal(obj_b, &self.CPEInterfaceInfo); err != nil {
-		return err
-	}
-	return nil
-}
-
-type CPEInterfaces map[string]CPEInterface
+type CPEInterfaces map[string]CPEInterfaceInfo
 
 func (self CPEInterfaces) GetBSON() (interface{}, error) {
-	var out = []bson.M{}
-	var keys = []string{}
-	for k, _ := range self {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	for _, k := range keys {
-		v := self[k]
-		obj_m, err := v.GetBSON()
-		if err != nil {
-			return nil, err
-		}
-		obj_m.(bson.M)["_id"] = k
-		out = append(out, obj_m.(bson.M))
+
+	out := []bson.M{}
+
+	for k, v := range self {
+		obj_m := bson.M{}
+
+		obj_m["_id"] = k
+		obj_m["type"] = v.Type
+		obj_m["data"] = v.Data
+		out = append(out, obj_m)
 	}
 
 	return out, nil
@@ -316,7 +171,7 @@ func (self *CPEInterfaces) SetBSON(raw bson.Raw) error {
 			}
 		}
 
-		var obj CPEInterface
+		var obj CPEInterfaceInfo
 		{
 			var err error
 			err = bson.Unmarshal(obj_b, &obj)
