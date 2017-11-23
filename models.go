@@ -246,28 +246,22 @@ func (self *CPEInterface) SetBSON(raw bson.Raw) error {
 
 	//addr
 	{
-		var v, k_found = in["addr"]
-		if !k_found {
-			return errors.New("No addr found")
+		if v, k_found := in["addr"]; k_found {
+			if err := v.Unmarshal(&self.Addr); err != nil {
+				return err
+			}
+			delete(in, "addr")
 		}
-		if err := v.Unmarshal(&self.Addr); err != nil {
-			return err
-		}
-
-		delete(in, "addr")
 	}
 
 	//capabilities
 	{
-		var v, k_found = in["capabilities"]
-		if !k_found {
-			return errors.New("No subject_id found")
+		if v, k_found := in["capabilities"]; k_found {
+			if err := v.Unmarshal(&self.Capabilities); err != nil {
+				return err
+			}
+			delete(in, "capabilities")
 		}
-		if err := v.Unmarshal(&self.Capabilities); err != nil {
-			return err
-		}
-
-		delete(in, "capabilities")
 	}
 
 	var obj_b, mErr = bson.Marshal(in)
