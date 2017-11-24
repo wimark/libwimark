@@ -197,6 +197,10 @@ func (self *CPEInterfaces) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
+type CPEState struct {
+	Wifi map[string]WiFiState `json:"wifi,omitempty"`
+}
+
 type CPE struct {
 	Name        string `json:"name"`
 	Connected   bool   `json:"connected"`
@@ -216,6 +220,9 @@ type CPE struct {
 	LogConfig        LogConfig           `json:"log_config"`
 	DHCPCapConfig    DHCPCapConfig       `json:"dhcpcap_config"`
 	L2TPConfig       L2TPConfig          `json:"l2tp_config"`
+
+	Config CPEConfigTemplate `json:"config"`
+	State  CPEState          `json:"state"`
 }
 
 type CapTxPower struct {
