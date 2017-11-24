@@ -23,6 +23,8 @@ type DBDataObj struct {
 	VPNHosts          map[UUID]VPNHost           `json:"vpn-host,omitempty"`
 	L2TPTunnelSession map[UUID]L2TPTunnelSession `json:"tunnels,omitempty"`
 	CPEScanData       map[UUID]CPEScanData       `json:"cpe-scan-data,omitempty"`
+	CPEModel          map[UUID]CPEModel          `json:"cpe-model,omitempty"`
+	ConfigRule        map[UUID]ConfigRule        `json:"config-rule,omitempty"`
 }
 
 func (self *DBDataObj) Reset() {
@@ -44,6 +46,8 @@ type DBDataUUID struct {
 	VPNHosts          []UUID `json:"vpn-host,omitempty"`
 	L2TPTunnelSession []UUID `json:"tunnels,omitempty"`
 	CPEScanData       []UUID `json:"cpe-scan-data,omitempty"`
+	CPEModel          []UUID `json:"cpe-model,omitempty"`
+	ConfigRule        []UUID `json:"config-rule,omitempty"`
 }
 
 func (self *DBDataUUID) Reset() {
@@ -65,6 +69,8 @@ type DBDataMasks struct {
 	VPNHosts          *SimpleMask          `json:"vpn-host,omitempty"`
 	L2TPTunnelSession *TunnelMask          `json:"tunnels,omitempty"`
 	CPEScanData       *SimpleMask          `json:"cpe-scan-data,omitempty"`
+	CPEModel          *CPEModelMask        `json:"cpe-model,omitempty"`
+	ConfigRule        *ConfigRuleMask      `json:"config-rule,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {
