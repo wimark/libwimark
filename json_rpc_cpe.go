@@ -9,7 +9,8 @@ const (
 const (
 	JSONRPC_CPE_UCI_SET     = "uci:set"
 	JSONRPC_CPE_UCI_GET     = "uci:get"
-	JSONRPC_CPE_UCI_APPLY   = "uci:apply"
+	JSONRPC_CPE_UCI_OPEN    = "uci:open_config"
+	JSONRPC_CPE_UCI_APPLY   = "uci:apply_config"
 	JSONRPC_CPE_UCI_CHANGES = "uci:changes"
 	JSONRPC_CPE_UCI_COMMIT  = "uci:commit"
 	JSONRPC_CPE_UCI_FINISH  = "uci:finish"
