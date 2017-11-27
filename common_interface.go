@@ -6,13 +6,14 @@ import (
 )
 
 type ModuleStatus struct {
-	Service Module       `json:"service"`
-	Id      string       `json:"id"`
-	Version string       `json:"version"`
-	Commit  string       `json:"commit"`
-	Build   int          `json:"build"`
-	State   ServiceState `json:"state"`
-	Meta    interface{}  `json:"meta,omitempty"`
+	Service Module             `json:"service"`
+	Id      string             `json:"id"`
+	Version string             `json:"version"`
+	Commit  string             `json:"commit"`
+	Build   int                `json:"build"`
+	State   ServiceState       `json:"state"`
+	Meta    interface{}        `json:"meta,omitempty"`
+	Statics map[string]Version `json:"statics,omitempty"`
 }
 
 func (self ModuleStatus) Connected() ModuleStatus {
