@@ -201,18 +201,20 @@ type CPEState struct {
 	Wifi map[string]WiFiState `json:"wifi,omitempty"`
 }
 
+type CPEModelLink struct {
+	Id   UUID   `json:"id"`
+	Name string `json:"name"`
+}
+
 type CPE struct {
-	Name        string `json:"name"`
-	Connected   bool   `json:"connected"`
-	Description string `json:"description"`
-	IPAddr      string `json:"ipaddr"`
-	MACAddr     string `json:"macaddr"`
-	NetMask     string `json:"netmask"`
-	Gateway     string `json:"gateway"`
-	Model       struct {
-		Id   UUID   `json:"id"`
-		Name string `json:"name"`
-	} `json:"model"`
+	Name             string              `json:"name"`
+	Connected        bool                `json:"connected"`
+	Description      string              `json:"description"`
+	IPAddr           string              `json:"ipaddr"`
+	MACAddr          string              `json:"macaddr"`
+	NetMask          string              `json:"netmask"`
+	Gateway          string              `json:"gateway"`
+	Model            CPEModelLink        `json:"model"`
 	Interfaces       CPEInterfaces       `json:"interfaces"`
 	ConfigStatus     ConfigurationStatus `json:"config_status"`
 	LbsConfig        LBSConfig           `json:"lbs_config"`
