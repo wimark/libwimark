@@ -30,6 +30,7 @@ DaemonSettingsChanged   = "null"
 WLANCentrAccChanged     = "WLANCentrAccChangeData"
 SystemTimeChanged       = "null"
 CPEInterfaceState       = "CPEInterfaceStateData"
+RRMStatus               = "RRMStatusData"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"

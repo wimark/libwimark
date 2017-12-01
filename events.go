@@ -257,3 +257,13 @@ type LBSClientData struct {
 	ClientMac string `json:"client_mac"`
 	RSSI      int    `json:"rssi"`
 }
+
+type RRMStatusData struct {
+	Cpes []RRMCpeStatus `json:"cpes"`
+}
+
+type RRMCpeStatus struct {
+	CpeID   string `json:"cpe_id"`
+	Channel int    `json:"channel"`
+	Dbm     int    `json:"dbm"`
+}

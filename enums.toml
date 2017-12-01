@@ -58,6 +58,7 @@ ServiceDisconnected     = "SERVICE_DISCONNECTED"
 DaemonSettingsChanged   = "DAEMON_SETTINGS_CHANGE"
 WLANCentrAccChanged     = "WLAN_CENTR_ACC_CHANGE"
 SystemTimeChanged       = "SYSTEM_TIME_CHANGE"
+RRMStatus               = "RRM_STATUS_DATA"
 
 [SystemEventLevel]
 [SystemEventLevel.variants]

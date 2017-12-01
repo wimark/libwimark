@@ -1628,6 +1628,7 @@ const SystemEventTypeClientConnected SystemEventType = "CLIENT_CONNECTED"
 const SystemEventTypeClientDisconnected SystemEventType = "CLIENT_DISCONNECTED"
 const SystemEventTypeDaemonSettingsChanged SystemEventType = "DAEMON_SETTINGS_CHANGE"
 const SystemEventTypeMonitorRuleViolation SystemEventType = "MONITOR_RULE_VIOLATION"
+const SystemEventTypeRRMStatus SystemEventType = "RRM_STATUS_DATA"
 const SystemEventTypeServiceConnected SystemEventType = "SERVICE_CONNECTED"
 const SystemEventTypeServiceDisconnected SystemEventType = "SERVICE_DISCONNECTED"
 const SystemEventTypeServiceFatalError SystemEventType = "SERVICE_FATAL_ERROR"
@@ -1658,6 +1659,8 @@ func (self *SystemEventType) String() string {
 		return "DAEMON_SETTINGS_CHANGE"
 	case SystemEventTypeMonitorRuleViolation:
 		return "MONITOR_RULE_VIOLATION"
+	case SystemEventTypeRRMStatus:
+		return "RRM_STATUS_DATA"
 	case SystemEventTypeServiceConnected:
 		return "SERVICE_CONNECTED"
 	case SystemEventTypeServiceDisconnected:
@@ -1694,6 +1697,8 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("DAEMON_SETTINGS_CHANGE")
 	case SystemEventTypeMonitorRuleViolation:
 		return json.Marshal("MONITOR_RULE_VIOLATION")
+	case SystemEventTypeRRMStatus:
+		return json.Marshal("RRM_STATUS_DATA")
 	case SystemEventTypeServiceConnected:
 		return json.Marshal("SERVICE_CONNECTED")
 	case SystemEventTypeServiceDisconnected:
@@ -1730,6 +1735,8 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 		return "DAEMON_SETTINGS_CHANGE", nil
 	case SystemEventTypeMonitorRuleViolation:
 		return "MONITOR_RULE_VIOLATION", nil
+	case SystemEventTypeRRMStatus:
+		return "RRM_STATUS_DATA", nil
 	case SystemEventTypeServiceConnected:
 		return "SERVICE_CONNECTED", nil
 	case SystemEventTypeServiceDisconnected:
@@ -1779,6 +1786,9 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MONITOR_RULE_VIOLATION":
 		*self = SystemEventTypeMonitorRuleViolation
+		return nil
+	case "RRM_STATUS_DATA":
+		*self = SystemEventTypeRRMStatus
 		return nil
 	case "SERVICE_CONNECTED":
 		*self = SystemEventTypeServiceConnected
@@ -1834,6 +1844,9 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "MONITOR_RULE_VIOLATION":
 		*self = SystemEventTypeMonitorRuleViolation
+		return nil
+	case "RRM_STATUS_DATA":
+		*self = SystemEventTypeRRMStatus
 		return nil
 	case "SERVICE_CONNECTED":
 		*self = SystemEventTypeServiceConnected
