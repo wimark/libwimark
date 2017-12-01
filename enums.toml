@@ -136,6 +136,10 @@ Disabled      = "DISABLED"
 ACS           = "ACS"
 DFS           = "DFS"
 CountryUpdate = "CONTRY_UPDATE"
+HtScan        = "HT_SCAN"
+Unknown       = "UNKNOWN"
+Uninitialized = "UNINITIALIZED"
+Terminated    = "TERMINATED"
 
 
 [TunManagerRPC]
