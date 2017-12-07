@@ -1,8 +1,6 @@
 package libwimark
 
 import (
-	"errors"
-
 	"github.com/vorot93/goutil"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -165,11 +163,6 @@ func (self *WiFiConfigs) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
-// ---- Wired config ----
-
-type WiredConfig struct {
-}
-
 // ---- CPE config ----
 
 type CPEConfig struct {
@@ -224,95 +217,10 @@ func (self *WiFiStates) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
-// ---- Wired state ----
-
-type WiredState struct {
-}
-
 // ---- CPE state ----
 
 type CPEState struct {
 	Wifi WiFiStates `json:"wifi,omitempty"`
-}
-
-// ---- Interfaces ----
-
-type WiredData struct {
-	Name   string      `json:"name"`
-	Config WiredConfig `json:"config"`
-	State  WiredState  `json:"state"`
-}
-
-type WiFiData struct {
-	Name   string     `json:"name"`
-	Config WiFiConfig `json:"config"`
-	State  WiFiState  `json:"state"`
-}
-
-type CPEInterfaces map[string]CPEInterfaceInfo
-
-func (self CPEInterfaces) GetBSON() (interface{}, error) {
-
-	out := []bson.M{}
-
-	for k, v := range self {
-		obj_m := bson.M{}
-
-		obj_m["_id"] = k
-		obj_m["type"] = v.Type
-		obj_m["data"] = v.Data
-		out = append(out, obj_m)
-	}
-
-	return out, nil
-}
-
-func (self *CPEInterfaces) SetBSON(raw bson.Raw) error {
-	var in = []bson.M{}
-	{
-		var err error
-		err = raw.Unmarshal(&in)
-		if err != nil {
-			return err
-		}
-	}
-
-	var out = CPEInterfaces{}
-
-	for _, v := range in {
-		var obj_b []byte
-		{
-			var err error
-			obj_b, err = bson.Marshal(v)
-			if err != nil {
-				return err
-			}
-		}
-
-		var obj CPEInterfaceInfo
-		{
-			var err error
-			err = bson.Unmarshal(obj_b, &obj)
-			if err != nil {
-				return err
-			}
-		}
-		var k_any, k_found = v["_id"]
-		if !k_found {
-			return errors.New("No ID found")
-		}
-
-		var k, k_correct = k_any.(string)
-		if !k_correct {
-			return errors.New("Invalid key type")
-		}
-
-		out[k] = obj
-	}
-
-	*self = out
-
-	return nil
 }
 
 // ---- CPE itself ----
@@ -323,21 +231,15 @@ type CPEModelLink struct {
 }
 
 type CPE struct {
-	Name             string              `json:"name"`
-	Connected        bool                `json:"connected"`
-	Description      string              `json:"description"`
-	IPAddr           string              `json:"ipaddr"`
-	MACAddr          string              `json:"macaddr"`
-	NetMask          string              `json:"netmask"`
-	Gateway          string              `json:"gateway"`
-	Model            CPEModelLink        `json:"model"`
-	Interfaces       CPEInterfaces       `json:"interfaces"`
-	ConfigStatus     ConfigurationStatus `json:"config_status"`
-	LbsConfig        LBSConfig           `json:"lbs_config"`
-	StatisticsConfig StatisticsConfig    `json:"stats_config"`
-	LogConfig        LogConfig           `json:"log_config"`
-	DHCPCapConfig    DHCPCapConfig       `json:"dhcpcap_config"`
-	L2TPConfig       L2TPConfig          `json:"l2tp_config"`
+	Name         string              `json:"name"`
+	Connected    bool                `json:"connected"`
+	Description  string              `json:"description"`
+	IPAddr       string              `json:"ipaddr"`
+	MACAddr      string              `json:"macaddr"`
+	NetMask      string              `json:"netmask"`
+	Gateway      string              `json:"gateway"`
+	Model        CPEModelLink        `json:"model"`
+	ConfigStatus ConfigurationStatus `json:"config_status"`
 
 	Config CPEConfig `json:"config"`
 	State  CPEState  `json:"state"`

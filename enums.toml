@@ -1,8 +1,3 @@
-[CPEInterfaceType]
-[CPEInterfaceType.variants]
-WiFi    = "wifi"
-Wired   = "wired"
-
 [ConfigurationStatus]
 default = "Empty"
 [ConfigurationStatus.variants]
