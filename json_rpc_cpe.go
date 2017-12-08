@@ -3,6 +3,8 @@ package libwimark
 // JSONRPC functions from CPE for CPEAGENT
 const (
 	JSONRPC_CPE_CPEAGENT_PROCESS_REQ = "cpeagent:process_request"
+	JSONRPC_CPE_CPEAGENT_GET_STATICS = "cpeagent:get_statics"
+	JSONRPC_CPE_CPEAGENT_GET_METHODS = "cpeagent:get_methods"
 )
 
 // JSONRPC functions from CPE for UCI
@@ -27,10 +29,11 @@ const (
 
 // JSONRPC functions from CPE for NETWORK
 const (
-	JSONRPC_CPE_NETWORK_GET_BOARD = "network:get_boardinfo"
-	JSONRPC_CPE_NETWORK_RELOAD    = "network:reload"
-	JSONRPC_CPE_NETWORK_L2AP      = "network:l2ap"
-	JSONRPC_CPE_NETWORK_VLAN      = "network:vlan"
+	JSONRPC_CPE_NETWORK_GET_BOARD  = "network:get_boardinfo"
+	JSONRPC_CPE_NETWORK_RELOAD     = "network:reload"
+	JSONRPC_CPE_NETWORK_L2AP       = "network:l2ap"
+	JSONRPC_CPE_NETWORK_VLAN       = "network:vlan"
+	JSONRPC_CPE_NETWORK_CLEAN_L2TP = "network:clean_l2tp"
 )
 
 // JSONRPC functions from CPE for LBS
