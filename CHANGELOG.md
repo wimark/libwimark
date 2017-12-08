@@ -2,13 +2,25 @@
 
 ## [v0.7.0] - 01-12-2017
 ### Added
-#### WNE-640-split-caps
+#### WNE-640-templates
  - Add config templates
  - Add config rules
+#### WNE-640-split-caps
+ - Add cpe model
+#### inline-json
+ - Add functions for inline support in json marshal/unmarshal
+#### WNE-585-mcs-management
+ - Add fields for MCS config
 
 ### Changed 
-#### WNE-640-split-caps 
+#### WNE-640-templates
  - Separate capabilities from CPE model
+#### new-enums
+ - New enum-generator is used
+ - Generated enum code updated
+ - Removed obsolete enums
+#### no-omitemply
+ - 'omitempty' tags removed from models
 
 ## [v0.6.0] - 03-11-2017
 ### Added 
