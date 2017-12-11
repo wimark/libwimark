@@ -23,6 +23,7 @@ MQTTLog    = "MQTT_LOG"
 CPEStat    = "CPE_STAT"
 AC         = "AC"
 TunManager = "TUN_MANAGER"
+RRM         = "RRM"
 
 [Operation]
 [Operation.variants]
