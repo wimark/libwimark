@@ -1,19 +1,18 @@
-package libwimark
 
+package libwimark
 import (
 	"encoding/json"
+"gopkg.in/mgo.v2/bson"
 	"errors"
-	"gopkg.in/mgo.v2/bson"
 )
 
 type CPEAgentStatusType string
-
 const CPEAgentStatusTypeException CPEAgentStatusType = "exception"
 const CPEAgentStatusTypeSuccess CPEAgentStatusType = "success"
 const CPEAgentStatusTypeSyntaxError CPEAgentStatusType = "syntax"
 const CPEAgentStatusTypeUndefined CPEAgentStatusType = "undefined"
 
-func (self CPEAgentStatusType) GetPtr() *CPEAgentStatusType { var v = self; return &v }
+func (self CPEAgentStatusType) GetPtr() *CPEAgentStatusType { var v = self; return &v; }
 
 func (self *CPEAgentStatusType) String() string {
 	switch *self {
@@ -102,14 +101,17 @@ func (self *CPEAgentStatusType) SetBSON(v bson.Raw) error {
 }
 
 type CPEInterfaceState string
-
 const CPEInterfaceStateACS CPEInterfaceState = "ACS"
 const CPEInterfaceStateCountryUpdate CPEInterfaceState = "CONTRY_UPDATE"
 const CPEInterfaceStateDFS CPEInterfaceState = "DFS"
 const CPEInterfaceStateDisabled CPEInterfaceState = "DISABLED"
 const CPEInterfaceStateEnabled CPEInterfaceState = "ENABLED"
+const CPEInterfaceStateHtScan CPEInterfaceState = "HT_SCAN"
+const CPEInterfaceStateTerminated CPEInterfaceState = "TERMINATED"
+const CPEInterfaceStateUninitialized CPEInterfaceState = "UNINITIALIZED"
+const CPEInterfaceStateUnknown CPEInterfaceState = "UNKNOWN"
 
-func (self CPEInterfaceState) GetPtr() *CPEInterfaceState { var v = self; return &v }
+func (self CPEInterfaceState) GetPtr() *CPEInterfaceState { var v = self; return &v; }
 
 func (self *CPEInterfaceState) String() string {
 	switch *self {
@@ -123,6 +125,14 @@ func (self *CPEInterfaceState) String() string {
 		return "DISABLED"
 	case CPEInterfaceStateEnabled:
 		return "ENABLED"
+	case CPEInterfaceStateHtScan:
+		return "HT_SCAN"
+	case CPEInterfaceStateTerminated:
+		return "TERMINATED"
+	case CPEInterfaceStateUninitialized:
+		return "UNINITIALIZED"
+	case CPEInterfaceStateUnknown:
+		return "UNKNOWN"
 	}
 	panic(errors.New("Invalid value of CPEInterfaceState"))
 }
@@ -139,6 +149,14 @@ func (self *CPEInterfaceState) MarshalJSON() ([]byte, error) {
 		return json.Marshal("DISABLED")
 	case CPEInterfaceStateEnabled:
 		return json.Marshal("ENABLED")
+	case CPEInterfaceStateHtScan:
+		return json.Marshal("HT_SCAN")
+	case CPEInterfaceStateTerminated:
+		return json.Marshal("TERMINATED")
+	case CPEInterfaceStateUninitialized:
+		return json.Marshal("UNINITIALIZED")
+	case CPEInterfaceStateUnknown:
+		return json.Marshal("UNKNOWN")
 	}
 	return nil, errors.New("Invalid value of CPEInterfaceState")
 }
@@ -155,6 +173,14 @@ func (self *CPEInterfaceState) GetBSON() (interface{}, error) {
 		return "DISABLED", nil
 	case CPEInterfaceStateEnabled:
 		return "ENABLED", nil
+	case CPEInterfaceStateHtScan:
+		return "HT_SCAN", nil
+	case CPEInterfaceStateTerminated:
+		return "TERMINATED", nil
+	case CPEInterfaceStateUninitialized:
+		return "UNINITIALIZED", nil
+	case CPEInterfaceStateUnknown:
+		return "UNKNOWN", nil
 	}
 	return nil, errors.New("Invalid value of CPEInterfaceState")
 }
@@ -179,6 +205,18 @@ func (self *CPEInterfaceState) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ENABLED":
 		*self = CPEInterfaceStateEnabled
+		return nil
+	case "HT_SCAN":
+		*self = CPEInterfaceStateHtScan
+		return nil
+	case "TERMINATED":
+		*self = CPEInterfaceStateTerminated
+		return nil
+	case "UNINITIALIZED":
+		*self = CPEInterfaceStateUninitialized
+		return nil
+	case "UNKNOWN":
+		*self = CPEInterfaceStateUnknown
 		return nil
 	}
 	return errors.New("Unknown CPEInterfaceState")
@@ -205,19 +243,30 @@ func (self *CPEInterfaceState) SetBSON(v bson.Raw) error {
 	case "ENABLED":
 		*self = CPEInterfaceStateEnabled
 		return nil
+	case "HT_SCAN":
+		*self = CPEInterfaceStateHtScan
+		return nil
+	case "TERMINATED":
+		*self = CPEInterfaceStateTerminated
+		return nil
+	case "UNINITIALIZED":
+		*self = CPEInterfaceStateUninitialized
+		return nil
+	case "UNKNOWN":
+		*self = CPEInterfaceStateUnknown
+		return nil
 	}
 	return errors.New("Unknown CPEInterfaceState")
 }
 
 type ClientStatPacketType string
-
 const ClientStatPacketTypeInterim ClientStatPacketType = "Interim-Update"
 const ClientStatPacketTypeOff ClientStatPacketType = "Accounting-Off"
 const ClientStatPacketTypeOn ClientStatPacketType = "Accounting-On"
 const ClientStatPacketTypeStart ClientStatPacketType = "Start"
 const ClientStatPacketTypeStop ClientStatPacketType = "Stop"
 
-func (self ClientStatPacketType) GetPtr() *ClientStatPacketType { var v = self; return &v }
+func (self ClientStatPacketType) GetPtr() *ClientStatPacketType { var v = self; return &v; }
 
 func (self *ClientStatPacketType) String() string {
 	switch *self {
@@ -318,14 +367,13 @@ func (self *ClientStatPacketType) SetBSON(v bson.Raw) error {
 }
 
 type ConfigurationStatus string
-
 const ConfigurationStatusEmpty ConfigurationStatus = "empty"
 const ConfigurationStatusError ConfigurationStatus = "error"
 const ConfigurationStatusOK ConfigurationStatus = "ok"
 const ConfigurationStatusPending ConfigurationStatus = "pending"
 const ConfigurationStatusUpdating ConfigurationStatus = "updating"
 
-func (self ConfigurationStatus) GetPtr() *ConfigurationStatus { var v = self; return &v }
+func (self ConfigurationStatus) GetPtr() *ConfigurationStatus { var v = self; return &v; }
 
 func (self *ConfigurationStatus) String() string {
 	switch *self {
@@ -340,9 +388,7 @@ func (self *ConfigurationStatus) String() string {
 	case ConfigurationStatusUpdating:
 		return "updating"
 	}
-	if len(*self) == 0 {
-		return "empty"
-	}
+	if len(*self) == 0 { return "empty" }
 	panic(errors.New("Invalid value of ConfigurationStatus"))
 }
 
@@ -359,9 +405,7 @@ func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 	case ConfigurationStatusUpdating:
 		return json.Marshal("updating")
 	}
-	if len(*self) == 0 {
-		return json.Marshal("empty")
-	}
+	if len(*self) == 0 { return json.Marshal("empty") }
 	return nil, errors.New("Invalid value of ConfigurationStatus")
 }
 
@@ -378,9 +422,7 @@ func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
 	case ConfigurationStatusUpdating:
 		return "updating", nil
 	}
-	if len(*self) == 0 {
-		return "empty", nil
-	}
+	if len(*self) == 0 { return "empty", nil }
 	return nil, errors.New("Invalid value of ConfigurationStatus")
 }
 
@@ -443,12 +485,11 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 }
 
 type ConnectionModeType string
-
 const ConnectionModeTypeModeAC ConnectionModeType = "ac"
 const ConnectionModeTypeModeLegacy ConnectionModeType = "legacy"
 const ConnectionModeTypeModeN ConnectionModeType = "n"
 
-func (self ConnectionModeType) GetPtr() *ConnectionModeType { var v = self; return &v }
+func (self ConnectionModeType) GetPtr() *ConnectionModeType { var v = self; return &v; }
 
 func (self *ConnectionModeType) String() string {
 	switch *self {
@@ -525,12 +566,11 @@ func (self *ConnectionModeType) SetBSON(v bson.Raw) error {
 }
 
 type FirewallDirection string
-
 const FirewallDirectionAny FirewallDirection = "ANY"
 const FirewallDirectionIn FirewallDirection = "IN"
 const FirewallDirectionOut FirewallDirection = "OUT"
 
-func (self FirewallDirection) GetPtr() *FirewallDirection { var v = self; return &v }
+func (self FirewallDirection) GetPtr() *FirewallDirection { var v = self; return &v; }
 
 func (self *FirewallDirection) String() string {
 	switch *self {
@@ -541,9 +581,7 @@ func (self *FirewallDirection) String() string {
 	case FirewallDirectionOut:
 		return "OUT"
 	}
-	if len(*self) == 0 {
-		return "ANY"
-	}
+	if len(*self) == 0 { return "ANY" }
 	panic(errors.New("Invalid value of FirewallDirection"))
 }
 
@@ -556,9 +594,7 @@ func (self *FirewallDirection) MarshalJSON() ([]byte, error) {
 	case FirewallDirectionOut:
 		return json.Marshal("OUT")
 	}
-	if len(*self) == 0 {
-		return json.Marshal("ANY")
-	}
+	if len(*self) == 0 { return json.Marshal("ANY") }
 	return nil, errors.New("Invalid value of FirewallDirection")
 }
 
@@ -571,9 +607,7 @@ func (self *FirewallDirection) GetBSON() (interface{}, error) {
 	case FirewallDirectionOut:
 		return "OUT", nil
 	}
-	if len(*self) == 0 {
-		return "ANY", nil
-	}
+	if len(*self) == 0 { return "ANY", nil }
 	return nil, errors.New("Invalid value of FirewallDirection")
 }
 
@@ -624,11 +658,10 @@ func (self *FirewallDirection) SetBSON(v bson.Raw) error {
 }
 
 type FirewallJump string
-
 const FirewallJumpAccept FirewallJump = "ACCEPT"
 const FirewallJumpDROP FirewallJump = "DROP"
 
-func (self FirewallJump) GetPtr() *FirewallJump { var v = self; return &v }
+func (self FirewallJump) GetPtr() *FirewallJump { var v = self; return &v; }
 
 func (self *FirewallJump) String() string {
 	switch *self {
@@ -637,9 +670,7 @@ func (self *FirewallJump) String() string {
 	case FirewallJumpDROP:
 		return "DROP"
 	}
-	if len(*self) == 0 {
-		return "ACCEPT"
-	}
+	if len(*self) == 0 { return "ACCEPT" }
 	panic(errors.New("Invalid value of FirewallJump"))
 }
 
@@ -650,9 +681,7 @@ func (self *FirewallJump) MarshalJSON() ([]byte, error) {
 	case FirewallJumpDROP:
 		return json.Marshal("DROP")
 	}
-	if len(*self) == 0 {
-		return json.Marshal("ACCEPT")
-	}
+	if len(*self) == 0 { return json.Marshal("ACCEPT") }
 	return nil, errors.New("Invalid value of FirewallJump")
 }
 
@@ -663,9 +692,7 @@ func (self *FirewallJump) GetBSON() (interface{}, error) {
 	case FirewallJumpDROP:
 		return "DROP", nil
 	}
-	if len(*self) == 0 {
-		return "ACCEPT", nil
-	}
+	if len(*self) == 0 { return "ACCEPT", nil }
 	return nil, errors.New("Invalid value of FirewallJump")
 }
 
@@ -710,12 +737,11 @@ func (self *FirewallJump) SetBSON(v bson.Raw) error {
 }
 
 type FirewallPolicy string
-
 const FirewallPolicyAccept FirewallPolicy = "ACCEPT"
 const FirewallPolicyDrop FirewallPolicy = "DROP"
 const FirewallPolicyEmpty FirewallPolicy = "EMPTY"
 
-func (self FirewallPolicy) GetPtr() *FirewallPolicy { var v = self; return &v }
+func (self FirewallPolicy) GetPtr() *FirewallPolicy { var v = self; return &v; }
 
 func (self *FirewallPolicy) String() string {
 	switch *self {
@@ -726,9 +752,7 @@ func (self *FirewallPolicy) String() string {
 	case FirewallPolicyEmpty:
 		return "EMPTY"
 	}
-	if len(*self) == 0 {
-		return "ACCEPT"
-	}
+	if len(*self) == 0 { return "ACCEPT" }
 	panic(errors.New("Invalid value of FirewallPolicy"))
 }
 
@@ -741,9 +765,7 @@ func (self *FirewallPolicy) MarshalJSON() ([]byte, error) {
 	case FirewallPolicyEmpty:
 		return json.Marshal("EMPTY")
 	}
-	if len(*self) == 0 {
-		return json.Marshal("ACCEPT")
-	}
+	if len(*self) == 0 { return json.Marshal("ACCEPT") }
 	return nil, errors.New("Invalid value of FirewallPolicy")
 }
 
@@ -756,9 +778,7 @@ func (self *FirewallPolicy) GetBSON() (interface{}, error) {
 	case FirewallPolicyEmpty:
 		return "EMPTY", nil
 	}
-	if len(*self) == 0 {
-		return "ACCEPT", nil
-	}
+	if len(*self) == 0 { return "ACCEPT", nil }
 	return nil, errors.New("Invalid value of FirewallPolicy")
 }
 
@@ -809,13 +829,12 @@ func (self *FirewallPolicy) SetBSON(v bson.Raw) error {
 }
 
 type L3Protocol string
-
 const L3ProtocolEmpty L3Protocol = "EMPTY"
 const L3ProtocolIP L3Protocol = "ip"
 const L3ProtocolIPv4 L3Protocol = "ipv4"
 const L3ProtocolIPv6 L3Protocol = "ipv6"
 
-func (self L3Protocol) GetPtr() *L3Protocol { var v = self; return &v }
+func (self L3Protocol) GetPtr() *L3Protocol { var v = self; return &v; }
 
 func (self *L3Protocol) String() string {
 	switch *self {
@@ -828,9 +847,7 @@ func (self *L3Protocol) String() string {
 	case L3ProtocolIPv6:
 		return "ipv6"
 	}
-	if len(*self) == 0 {
-		return "EMPTY"
-	}
+	if len(*self) == 0 { return "EMPTY" }
 	panic(errors.New("Invalid value of L3Protocol"))
 }
 
@@ -845,9 +862,7 @@ func (self *L3Protocol) MarshalJSON() ([]byte, error) {
 	case L3ProtocolIPv6:
 		return json.Marshal("ipv6")
 	}
-	if len(*self) == 0 {
-		return json.Marshal("EMPTY")
-	}
+	if len(*self) == 0 { return json.Marshal("EMPTY") }
 	return nil, errors.New("Invalid value of L3Protocol")
 }
 
@@ -862,9 +877,7 @@ func (self *L3Protocol) GetBSON() (interface{}, error) {
 	case L3ProtocolIPv6:
 		return "ipv6", nil
 	}
-	if len(*self) == 0 {
-		return "EMPTY", nil
-	}
+	if len(*self) == 0 { return "EMPTY", nil }
 	return nil, errors.New("Invalid value of L3Protocol")
 }
 
@@ -921,12 +934,11 @@ func (self *L3Protocol) SetBSON(v bson.Raw) error {
 }
 
 type L4Protocol string
-
 const L4ProtocolEmpty L4Protocol = "EMPTY"
 const L4ProtocolTCP L4Protocol = "TCP"
 const L4ProtocolUDP L4Protocol = "UDP"
 
-func (self L4Protocol) GetPtr() *L4Protocol { var v = self; return &v }
+func (self L4Protocol) GetPtr() *L4Protocol { var v = self; return &v; }
 
 func (self *L4Protocol) String() string {
 	switch *self {
@@ -937,9 +949,7 @@ func (self *L4Protocol) String() string {
 	case L4ProtocolUDP:
 		return "UDP"
 	}
-	if len(*self) == 0 {
-		return "EMPTY"
-	}
+	if len(*self) == 0 { return "EMPTY" }
 	panic(errors.New("Invalid value of L4Protocol"))
 }
 
@@ -952,9 +962,7 @@ func (self *L4Protocol) MarshalJSON() ([]byte, error) {
 	case L4ProtocolUDP:
 		return json.Marshal("UDP")
 	}
-	if len(*self) == 0 {
-		return json.Marshal("EMPTY")
-	}
+	if len(*self) == 0 { return json.Marshal("EMPTY") }
 	return nil, errors.New("Invalid value of L4Protocol")
 }
 
@@ -967,9 +975,7 @@ func (self *L4Protocol) GetBSON() (interface{}, error) {
 	case L4ProtocolUDP:
 		return "UDP", nil
 	}
-	if len(*self) == 0 {
-		return "EMPTY", nil
-	}
+	if len(*self) == 0 { return "EMPTY", nil }
 	return nil, errors.New("Invalid value of L4Protocol")
 }
 
@@ -1020,12 +1026,11 @@ func (self *L4Protocol) SetBSON(v bson.Raw) error {
 }
 
 type MCSRequire string
-
 const MCSRequireHT MCSRequire = "ht"
 const MCSRequireOff MCSRequire = "off"
 const MCSRequireVHT MCSRequire = "vht"
 
-func (self MCSRequire) GetPtr() *MCSRequire { var v = self; return &v }
+func (self MCSRequire) GetPtr() *MCSRequire { var v = self; return &v; }
 
 func (self *MCSRequire) String() string {
 	switch *self {
@@ -1036,9 +1041,7 @@ func (self *MCSRequire) String() string {
 	case MCSRequireVHT:
 		return "vht"
 	}
-	if len(*self) == 0 {
-		return "off"
-	}
+	if len(*self) == 0 { return "off" }
 	panic(errors.New("Invalid value of MCSRequire"))
 }
 
@@ -1051,9 +1054,7 @@ func (self *MCSRequire) MarshalJSON() ([]byte, error) {
 	case MCSRequireVHT:
 		return json.Marshal("vht")
 	}
-	if len(*self) == 0 {
-		return json.Marshal("off")
-	}
+	if len(*self) == 0 { return json.Marshal("off") }
 	return nil, errors.New("Invalid value of MCSRequire")
 }
 
@@ -1066,9 +1067,7 @@ func (self *MCSRequire) GetBSON() (interface{}, error) {
 	case MCSRequireVHT:
 		return "vht", nil
 	}
-	if len(*self) == 0 {
-		return "off", nil
-	}
+	if len(*self) == 0 { return "off", nil }
 	return nil, errors.New("Invalid value of MCSRequire")
 }
 
@@ -1119,12 +1118,11 @@ func (self *MCSRequire) SetBSON(v bson.Raw) error {
 }
 
 type MacFilterType string
-
 const MacFilterTypeBlackList MacFilterType = "BlackList"
 const MacFilterTypeNone MacFilterType = "None"
 const MacFilterTypeWhiteList MacFilterType = "WhiteList"
 
-func (self MacFilterType) GetPtr() *MacFilterType { var v = self; return &v }
+func (self MacFilterType) GetPtr() *MacFilterType { var v = self; return &v; }
 
 func (self *MacFilterType) String() string {
 	switch *self {
@@ -1135,9 +1133,7 @@ func (self *MacFilterType) String() string {
 	case MacFilterTypeWhiteList:
 		return "WhiteList"
 	}
-	if len(*self) == 0 {
-		return "None"
-	}
+	if len(*self) == 0 { return "None" }
 	panic(errors.New("Invalid value of MacFilterType"))
 }
 
@@ -1150,9 +1146,7 @@ func (self *MacFilterType) MarshalJSON() ([]byte, error) {
 	case MacFilterTypeWhiteList:
 		return json.Marshal("WhiteList")
 	}
-	if len(*self) == 0 {
-		return json.Marshal("None")
-	}
+	if len(*self) == 0 { return json.Marshal("None") }
 	return nil, errors.New("Invalid value of MacFilterType")
 }
 
@@ -1165,9 +1159,7 @@ func (self *MacFilterType) GetBSON() (interface{}, error) {
 	case MacFilterTypeWhiteList:
 		return "WhiteList", nil
 	}
-	if len(*self) == 0 {
-		return "None", nil
-	}
+	if len(*self) == 0 { return "None", nil }
 	return nil, errors.New("Invalid value of MacFilterType")
 }
 
@@ -1218,7 +1210,6 @@ func (self *MacFilterType) SetBSON(v bson.Raw) error {
 }
 
 type Module string
-
 const ModuleAC Module = "AC"
 const ModuleAny Module = "+"
 const ModuleBackend Module = "BACKEND"
@@ -1234,7 +1225,7 @@ const ModuleMonitor Module = "MONITOR"
 const ModuleStat Module = "STAT"
 const ModuleTunManager Module = "TUN_MANAGER"
 
-func (self Module) GetPtr() *Module { var v = self; return &v }
+func (self Module) GetPtr() *Module { var v = self; return &v; }
 
 func (self *Module) String() string {
 	switch *self {
@@ -1443,7 +1434,6 @@ func (self *Module) SetBSON(v bson.Raw) error {
 }
 
 type Operation string
-
 const OperationAny Operation = "+"
 const OperationCPEStatus Operation = "STATUS"
 const OperationCreate Operation = "C"
@@ -1454,7 +1444,7 @@ const OperationRead Operation = "R"
 const OperationSHScript Operation = "SH"
 const OperationUpdate Operation = "U"
 
-func (self Operation) GetPtr() *Operation { var v = self; return &v }
+func (self Operation) GetPtr() *Operation { var v = self; return &v; }
 
 func (self *Operation) String() string {
 	switch *self {
@@ -1603,11 +1593,10 @@ func (self *Operation) SetBSON(v bson.Raw) error {
 }
 
 type SecuritySuite string
-
 const SecuritySuiteAES SecuritySuite = "aes"
 const SecuritySuiteTKIP SecuritySuite = "tkip"
 
-func (self SecuritySuite) GetPtr() *SecuritySuite { var v = self; return &v }
+func (self SecuritySuite) GetPtr() *SecuritySuite { var v = self; return &v; }
 
 func (self *SecuritySuite) String() string {
 	switch *self {
@@ -1672,14 +1661,13 @@ func (self *SecuritySuite) SetBSON(v bson.Raw) error {
 }
 
 type SecurityType string
-
 const SecurityTypeNone SecurityType = "open"
 const SecurityTypeWPA2Enterprise SecurityType = "wpa2enterprise"
 const SecurityTypeWPA2Personal SecurityType = "wpa2personal"
 const SecurityTypeWPAEnterprise SecurityType = "wpaenterprise"
 const SecurityTypeWPAPersonal SecurityType = "wpapersonal"
 
-func (self SecurityType) GetPtr() *SecurityType { var v = self; return &v }
+func (self SecurityType) GetPtr() *SecurityType { var v = self; return &v; }
 
 func (self *SecurityType) String() string {
 	switch *self {
@@ -1694,9 +1682,7 @@ func (self *SecurityType) String() string {
 	case SecurityTypeWPAPersonal:
 		return "wpapersonal"
 	}
-	if len(*self) == 0 {
-		return "open"
-	}
+	if len(*self) == 0 { return "open" }
 	panic(errors.New("Invalid value of SecurityType"))
 }
 
@@ -1713,9 +1699,7 @@ func (self *SecurityType) MarshalJSON() ([]byte, error) {
 	case SecurityTypeWPAPersonal:
 		return json.Marshal("wpapersonal")
 	}
-	if len(*self) == 0 {
-		return json.Marshal("open")
-	}
+	if len(*self) == 0 { return json.Marshal("open") }
 	return nil, errors.New("Invalid value of SecurityType")
 }
 
@@ -1732,9 +1716,7 @@ func (self *SecurityType) GetBSON() (interface{}, error) {
 	case SecurityTypeWPAPersonal:
 		return "wpapersonal", nil
 	}
-	if len(*self) == 0 {
-		return "open", nil
-	}
+	if len(*self) == 0 { return "open", nil }
 	return nil, errors.New("Invalid value of SecurityType")
 }
 
@@ -1797,12 +1779,11 @@ func (self *SecurityType) SetBSON(v bson.Raw) error {
 }
 
 type ServiceState string
-
 const ServiceStateConnected ServiceState = "CONNECTED"
 const ServiceStateDisconnected ServiceState = "DISCONNECTED"
 const ServiceStatePending ServiceState = "PENDING"
 
-func (self ServiceState) GetPtr() *ServiceState { var v = self; return &v }
+func (self ServiceState) GetPtr() *ServiceState { var v = self; return &v; }
 
 func (self *ServiceState) String() string {
 	switch *self {
@@ -1879,11 +1860,10 @@ func (self *ServiceState) SetBSON(v bson.Raw) error {
 }
 
 type StatEventRuleType string
-
 const StatEventRuleTypeCPUload StatEventRuleType = "cpu_load"
 const StatEventRuleTypeFreeRAM StatEventRuleType = "free_ram"
 
-func (self StatEventRuleType) GetPtr() *StatEventRuleType { var v = self; return &v }
+func (self StatEventRuleType) GetPtr() *StatEventRuleType { var v = self; return &v; }
 
 func (self *StatEventRuleType) String() string {
 	switch *self {
@@ -1948,13 +1928,12 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 }
 
 type SystemEventLevel string
-
 const SystemEventLevelDEBUG SystemEventLevel = "DEBUG"
 const SystemEventLevelERROR SystemEventLevel = "ERROR"
 const SystemEventLevelINFO SystemEventLevel = "INFO"
 const SystemEventLevelWARNING SystemEventLevel = "WARNING"
 
-func (self SystemEventLevel) GetPtr() *SystemEventLevel { var v = self; return &v }
+func (self SystemEventLevel) GetPtr() *SystemEventLevel { var v = self; return &v; }
 
 func (self *SystemEventLevel) String() string {
 	switch *self {
@@ -2043,7 +2022,6 @@ func (self *SystemEventLevel) SetBSON(v bson.Raw) error {
 }
 
 type SystemEventType string
-
 const SystemEventTypeAny SystemEventType = "+"
 const SystemEventTypeCPEConfigurationError SystemEventType = "CPE_CONFIGURATION_ERROR"
 const SystemEventTypeCPEConfigurationSuccess SystemEventType = "CPE_CONFIGURATION_SUCCESS"
@@ -2060,7 +2038,7 @@ const SystemEventTypeServiceFatalError SystemEventType = "SERVICE_FATAL_ERROR"
 const SystemEventTypeSystemTimeChanged SystemEventType = "SYSTEM_TIME_CHANGE"
 const SystemEventTypeWLANCentrAccChanged SystemEventType = "WLAN_CENTR_ACC_CHANGE"
 
-func (self SystemEventType) GetPtr() *SystemEventType { var v = self; return &v }
+func (self SystemEventType) GetPtr() *SystemEventType { var v = self; return &v; }
 
 func (self *SystemEventType) String() string {
 	switch *self {
@@ -2281,11 +2259,10 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 }
 
 type TunManagerRPC string
-
 const TunManagerRPCCreateL2TunnelSession TunManagerRPC = "CreateL2TunnelSession"
 const TunManagerRPCDeleteL2TunnelSession TunManagerRPC = "DeleteL2TunnelSession"
 
-func (self TunManagerRPC) GetPtr() *TunManagerRPC { var v = self; return &v }
+func (self TunManagerRPC) GetPtr() *TunManagerRPC { var v = self; return &v; }
 
 func (self *TunManagerRPC) String() string {
 	switch *self {
@@ -2350,11 +2327,10 @@ func (self *TunManagerRPC) SetBSON(v bson.Raw) error {
 }
 
 type WirelessClientState string
-
 const WirelessClientStateCONNECTED WirelessClientState = "CONNECTED"
 const WirelessClientStateDISCONNECTED WirelessClientState = "DISCONNECTED"
 
-func (self WirelessClientState) GetPtr() *WirelessClientState { var v = self; return &v }
+func (self WirelessClientState) GetPtr() *WirelessClientState { var v = self; return &v; }
 
 func (self *WirelessClientState) String() string {
 	switch *self {
@@ -2419,11 +2395,10 @@ func (self *WirelessClientState) SetBSON(v bson.Raw) error {
 }
 
 type WirelessClientType string
-
 const WirelessClientTypeCamera WirelessClientType = "camera"
 const WirelessClientTypeOther WirelessClientType = "other"
 
-func (self WirelessClientType) GetPtr() *WirelessClientType { var v = self; return &v }
+func (self WirelessClientType) GetPtr() *WirelessClientType { var v = self; return &v; }
 
 func (self *WirelessClientType) String() string {
 	switch *self {

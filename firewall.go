@@ -1,5 +1,9 @@
 package libwimark
 
+type FireWallSettings struct {
+	L2Chain string `json:"l2_chain" bson:"l2_chain"`
+}
+
 type L2Chain struct {
 	Name      string            `json:"name" bson:"name"`
 	Policy    FirewallPolicy    `json:"policy" bson:"policy"`

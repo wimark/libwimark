@@ -12,12 +12,12 @@ type JSONRPCClientRequest struct {
 	// JSON-RPC protocol.
 	Version string `json:"jsonrpc"`
 	// A String containing the name of the method to be invoked.
-	Method TunManagerRPC `json:"method"`
+	Method string `json:"method"`
 	// Object to pass as request parameter to the method.
 	Params interface{} `json:"params,omitempty"`
 	// The request id. This can be of any type. It is used to match the
 	// response with the request that it is replying to.
-	Id uint64 `json:"id,omitempty"`
+	Id int `json:"id,omitempty"`
 }
 
 // clientResponse represents a JSON-RPC response returned to a client.
@@ -27,7 +27,7 @@ type JSONRPCClientResponse struct {
 
 	Result interface{}    `json:"result,omitempty"`
 	Error  *JSONRPC_Error `json:"error,omitempty"`
-	Id     uint64         `json:"id"`
+	Id     int            `json:"id"`
 }
 
 type JSONRPC_ErrorCode int
@@ -52,12 +52,21 @@ const (
 )
 
 // EncodeClientRequest encodes parameters for a JSON-RPC client request.
-func EncodeRPCRequest(method TunManagerRPC, args interface{}) ([]byte, error) {
+func EncodeRPCRequest(method string, args interface{}) ([]byte, error) {
 	c := &JSONRPCClientRequest{
 		Version: JSON_RPC_VERSION,
 		Method:  method,
 		Params:  args,
-		Id:      uint64(rand.Int63()),
+		Id:      rand.Int(),
 	}
 	return json.Marshal(c)
+}
+
+func NewJSONRPCRequest(method string, args interface{}) JSONRPCClientRequest {
+	return JSONRPCClientRequest{
+		Version: JSON_RPC_VERSION,
+		Method:  method,
+		Params:  args,
+		Id:      rand.Int(),
+	}
 }

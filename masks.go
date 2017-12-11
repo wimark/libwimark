@@ -93,5 +93,6 @@ type ConfigRuleMask struct {
 	UUID   []UUID `json:"uuid"`
 	CPEs   []UUID `json:"has_cpes"`
 	Models []UUID `json:"has_models"`
+	WLANs  []UUID `json:"has_wlans"`
 	Auto   *bool  `json:"is_auto"`
 }
