@@ -108,6 +108,10 @@ const CPEInterfaceStateCountryUpdate CPEInterfaceState = "CONTRY_UPDATE"
 const CPEInterfaceStateDFS CPEInterfaceState = "DFS"
 const CPEInterfaceStateDisabled CPEInterfaceState = "DISABLED"
 const CPEInterfaceStateEnabled CPEInterfaceState = "ENABLED"
+const CPEInterfaceStateHtScan CPEInterfaceState = "HT_SCAN"
+const CPEInterfaceStateTerminated CPEInterfaceState = "TERMINATED"
+const CPEInterfaceStateUninitialized CPEInterfaceState = "UNINITIALIZED"
+const CPEInterfaceStateUnknown CPEInterfaceState = "UNKNOWN"
 
 func (self CPEInterfaceState) GetPtr() *CPEInterfaceState { var v = self; return &v }
 
@@ -123,6 +127,14 @@ func (self *CPEInterfaceState) String() string {
 		return "DISABLED"
 	case CPEInterfaceStateEnabled:
 		return "ENABLED"
+	case CPEInterfaceStateHtScan:
+		return "HT_SCAN"
+	case CPEInterfaceStateTerminated:
+		return "TERMINATED"
+	case CPEInterfaceStateUninitialized:
+		return "UNINITIALIZED"
+	case CPEInterfaceStateUnknown:
+		return "UNKNOWN"
 	}
 	panic(errors.New("Invalid value of CPEInterfaceState"))
 }
@@ -139,6 +151,14 @@ func (self *CPEInterfaceState) MarshalJSON() ([]byte, error) {
 		return json.Marshal("DISABLED")
 	case CPEInterfaceStateEnabled:
 		return json.Marshal("ENABLED")
+	case CPEInterfaceStateHtScan:
+		return json.Marshal("HT_SCAN")
+	case CPEInterfaceStateTerminated:
+		return json.Marshal("TERMINATED")
+	case CPEInterfaceStateUninitialized:
+		return json.Marshal("UNINITIALIZED")
+	case CPEInterfaceStateUnknown:
+		return json.Marshal("UNKNOWN")
 	}
 	return nil, errors.New("Invalid value of CPEInterfaceState")
 }
@@ -155,6 +175,14 @@ func (self *CPEInterfaceState) GetBSON() (interface{}, error) {
 		return "DISABLED", nil
 	case CPEInterfaceStateEnabled:
 		return "ENABLED", nil
+	case CPEInterfaceStateHtScan:
+		return "HT_SCAN", nil
+	case CPEInterfaceStateTerminated:
+		return "TERMINATED", nil
+	case CPEInterfaceStateUninitialized:
+		return "UNINITIALIZED", nil
+	case CPEInterfaceStateUnknown:
+		return "UNKNOWN", nil
 	}
 	return nil, errors.New("Invalid value of CPEInterfaceState")
 }
@@ -179,6 +207,18 @@ func (self *CPEInterfaceState) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ENABLED":
 		*self = CPEInterfaceStateEnabled
+		return nil
+	case "HT_SCAN":
+		*self = CPEInterfaceStateHtScan
+		return nil
+	case "TERMINATED":
+		*self = CPEInterfaceStateTerminated
+		return nil
+	case "UNINITIALIZED":
+		*self = CPEInterfaceStateUninitialized
+		return nil
+	case "UNKNOWN":
+		*self = CPEInterfaceStateUnknown
 		return nil
 	}
 	return errors.New("Unknown CPEInterfaceState")
@@ -205,77 +245,20 @@ func (self *CPEInterfaceState) SetBSON(v bson.Raw) error {
 	case "ENABLED":
 		*self = CPEInterfaceStateEnabled
 		return nil
+	case "HT_SCAN":
+		*self = CPEInterfaceStateHtScan
+		return nil
+	case "TERMINATED":
+		*self = CPEInterfaceStateTerminated
+		return nil
+	case "UNINITIALIZED":
+		*self = CPEInterfaceStateUninitialized
+		return nil
+	case "UNKNOWN":
+		*self = CPEInterfaceStateUnknown
+		return nil
 	}
 	return errors.New("Unknown CPEInterfaceState")
-}
-
-type CPEInterfaceType string
-
-const CPEInterfaceTypeWiFi CPEInterfaceType = "wifi"
-const CPEInterfaceTypeWired CPEInterfaceType = "wired"
-
-func (self CPEInterfaceType) GetPtr() *CPEInterfaceType { var v = self; return &v }
-
-func (self *CPEInterfaceType) String() string {
-	switch *self {
-	case CPEInterfaceTypeWiFi:
-		return "wifi"
-	case CPEInterfaceTypeWired:
-		return "wired"
-	}
-	panic(errors.New("Invalid value of CPEInterfaceType"))
-}
-
-func (self *CPEInterfaceType) MarshalJSON() ([]byte, error) {
-	switch *self {
-	case CPEInterfaceTypeWiFi:
-		return json.Marshal("wifi")
-	case CPEInterfaceTypeWired:
-		return json.Marshal("wired")
-	}
-	return nil, errors.New("Invalid value of CPEInterfaceType")
-}
-
-func (self *CPEInterfaceType) GetBSON() (interface{}, error) {
-	switch *self {
-	case CPEInterfaceTypeWiFi:
-		return "wifi", nil
-	case CPEInterfaceTypeWired:
-		return "wired", nil
-	}
-	return nil, errors.New("Invalid value of CPEInterfaceType")
-}
-
-func (self *CPEInterfaceType) UnmarshalJSON(b []byte) error {
-	var s string
-	if err := json.Unmarshal(b, &s); err != nil {
-		return err
-	}
-	switch s {
-	case "wifi":
-		*self = CPEInterfaceTypeWiFi
-		return nil
-	case "wired":
-		*self = CPEInterfaceTypeWired
-		return nil
-	}
-	return errors.New("Unknown CPEInterfaceType")
-}
-
-func (self *CPEInterfaceType) SetBSON(v bson.Raw) error {
-	var s string
-	if err := v.Unmarshal(&s); err != nil {
-		return err
-	}
-	switch s {
-	case "wifi":
-		*self = CPEInterfaceTypeWiFi
-		return nil
-	case "wired":
-		*self = CPEInterfaceTypeWired
-		return nil
-	}
-	return errors.New("Unknown CPEInterfaceType")
 }
 
 type ClientStatPacketType string
