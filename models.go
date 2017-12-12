@@ -2,6 +2,7 @@ package libwimark
 
 import (
 	"github.com/vorot93/goutil"
+
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -50,23 +51,24 @@ type WPAEnterpriseData struct {
 }
 
 type WLAN struct {
-	Name               string        `json:"name"`
-	SSID               string        `json:"ssid"`
-	Description        string        `json:"description"`
-	Security           EnumSecurity  `json:"security"`
-	VLAN               int           `json:"vlan"`
-	Hidden             bool          `json:"hidden"`
-	NasID              *string       `json:"nas_id"`
-	RadiusAcctServers  []UUID        `json:"radius_acct_servers"`
-	RadiusAcctInterval int           `json:"radius_acct_interval"`
-	WhiteList          []string      `json:"whitelist"`
-	BlackList          []string      `json:"blacklist"`
-	FilterMode         MacFilterType `json:"filtermode"`
-	L2Isolate          bool          `json:"l2isolate"`
-	PMKCaching         bool          `json:"pmkcaching"`
-	Roaming80211r      bool          `json:"roam80211r"`
-	Tunneling          bool          `json:"tunneling"`
-	DefaultTunnel      string        `json:"default_tunnel"`
+	Name               string           `json:"name"`
+	SSID               string           `json:"ssid"`
+	Description        string           `json:"description"`
+	Security           EnumSecurity     `json:"security"`
+	VLAN               int              `json:"vlan"`
+	Hidden             bool             `json:"hidden"`
+	NasID              *string          `json:"nas_id"`
+	RadiusAcctServers  []UUID           `json:"radius_acct_servers"`
+	RadiusAcctInterval int              `json:"radius_acct_interval"`
+	WhiteList          []string         `json:"whitelist"`
+	BlackList          []string         `json:"blacklist"`
+	FilterMode         MacFilterType    `json:"filtermode"`
+	L2Isolate          bool             `json:"l2isolate"`
+	PMKCaching         bool             `json:"pmkcaching"`
+	Roaming80211r      bool             `json:"roam80211r"`
+	Tunneling          bool             `json:"tunneling"`
+	DefaultTunnel      string           `json:"default_tunnel"`
+	Firewall           FireWallSettings `json:"firewall"`
 }
 
 // ==== CPE ====
@@ -172,6 +174,7 @@ type CPEConfig struct {
 	LogConfig        LogConfig        `json:"log_config" bson:"log_config"`
 	DHCPCapConfig    DHCPCapConfig    `json:"dhcpcap_config" bson:"dhcpcap_config"`
 	L2TPConfig       L2TPConfig       `json:"l2tp_config" bson:"l2tp_config"`
+	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
 }
 
 // ---- Wifi state ----
