@@ -263,7 +263,8 @@ type RRMStatusData struct {
 }
 
 type RRMCpeStatus struct {
-	CpeID   string `json:"cpe_id"`
+	CpeID   UUID   `json:"cpe_id"`
+	Radio   string `json:"radio"`
 	Channel int    `json:"channel"`
 	Dbm     int    `json:"dbm"`
 }
