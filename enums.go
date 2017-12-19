@@ -1280,6 +1280,7 @@ const ModuleClientStat Module = "CLIENT_STAT"
 const ModuleConfig Module = "CONFIG"
 const ModuleDB Module = "DB"
 const ModuleDummy Module = "DUMMY"
+const ModuleFW Module = "FW"
 const ModuleLBS Module = "LBS"
 const ModuleMQTTLog Module = "MQTT_LOG"
 const ModuleMonitor Module = "MONITOR"
@@ -1309,6 +1310,8 @@ func (self *Module) String() string {
 		return "DB"
 	case ModuleDummy:
 		return "DUMMY"
+	case ModuleFW:
+		return "FW"
 	case ModuleLBS:
 		return "LBS"
 	case ModuleMQTTLog:
@@ -1345,6 +1348,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("DB")
 	case ModuleDummy:
 		return json.Marshal("DUMMY")
+	case ModuleFW:
+		return json.Marshal("FW")
 	case ModuleLBS:
 		return json.Marshal("LBS")
 	case ModuleMQTTLog:
@@ -1381,6 +1386,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "DB", nil
 	case ModuleDummy:
 		return "DUMMY", nil
+	case ModuleFW:
+		return "FW", nil
 	case ModuleLBS:
 		return "LBS", nil
 	case ModuleMQTTLog:
@@ -1429,6 +1436,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DUMMY":
 		*self = ModuleDummy
+		return nil
+	case "FW":
+		*self = ModuleFW
 		return nil
 	case "LBS":
 		*self = ModuleLBS
@@ -1484,6 +1494,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "DUMMY":
 		*self = ModuleDummy
+		return nil
+	case "FW":
+		*self = ModuleFW
 		return nil
 	case "LBS":
 		*self = ModuleLBS

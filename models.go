@@ -301,6 +301,7 @@ type CPEModel struct {
 	Name         string          `json:"name" bson:"name"`
 	Description  string          `json:"description" bson:"description"`
 	Capabilities CPECapabilities `json:"capabilities" bson:"capabilities"`
+	Firmwares    []CPEFirmware   `json:"firmwares" bson:"firmwares"`
 }
 
 // ==== Config template ====
@@ -318,4 +319,12 @@ type ConfigRule struct {
 	} `json:"template" bson:"template"`
 
 	Is_auto bool `json:"is_auto" bson:"is_auto"`
+}
+
+// ==== CPE firmware ====
+
+type CPEFirmware struct {
+	Name    string `json:"name" bson:"name"`
+	Version string `json:"version" bson:"version"`
+	URL     string `json:"url" bson:"url"`
 }
