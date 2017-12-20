@@ -322,6 +322,8 @@ type ConfigRule struct {
 
 // ==== RRM template ====
 
+const COLLECTION_RRM_GROUPS = "rrm_groups"
+
 type RRMGroup struct {
 	Id       string   `json:"id" bson:"_id"`
 	CPEs     []string `json:"cpes" bson:"cpes"`
