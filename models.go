@@ -319,3 +319,12 @@ type ConfigRule struct {
 
 	Is_auto bool `json:"is_auto" bson:"is_auto"`
 }
+
+// ==== RRM template ====
+
+type RRMGroup struct {
+	Id       string   `json:"id" bson:"_id"`
+	CPEs     []string `json:"cpes" bson:"cpes"`
+	Algo     string   `json:"algo" bson:"algo"`
+	AlgoMeta string   `json:"algo_meta" bson:"algo_meta"`
+}

@@ -4,6 +4,8 @@
 ### Added
 #### L2Rules-Template
  - Add L2ACL models
+#### WNE-657
+ - Add RRM JSON RPC models
 
 ## [v0.7.0] - 01-12-2017
 ### Added
