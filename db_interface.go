@@ -49,7 +49,7 @@ type DBDataUUID struct {
 	CPEScanData       []UUID `json:"cpe-scan-data,omitempty"`
 	CPEModel          []UUID `json:"cpe-model,omitempty"`
 	ConfigRule        []UUID `json:"config-rule,omitempty"`
-	L2Chain           []UUID `json:"l2-chain,ompitempty"`
+	L2Chain           []UUID `json:"l2-chain,omitempty"`
 }
 
 func (self *DBDataUUID) Reset() {
