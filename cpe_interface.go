@@ -72,3 +72,14 @@ const (
 const (
 	JSONRPC_CPE_STATISTIC_CONFIGURE = "statistic:configure"
 )
+
+// JSONRPC functions from CPE for ACL
+const (
+	JSONRPC_CPE_ACL_L2           = "acl:l2"
+	JSONRPC_CPE_ACL_L2_CLEAR     = "acl:l2_clear"
+	JSONRPC_CPE_ACL_L2_FROM_UCI  = "acl:l2_from_uci"
+	JSONRPC_CPE_ACL_L2_TO_UCI    = "acl:l2_to_uci"
+	JSONRPC_CPE_ACL_L2_CLEAR_UCI = "acl:l2_clear_uci"
+	JSONRPC_CPE_ACL_L3           = "acl:l3"
+	JSONRPC_CPE_ACL_L3_RELOAD    = "acl:l3_reload"
+)
