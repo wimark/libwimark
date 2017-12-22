@@ -186,3 +186,10 @@ default = "Any"
 Any = "ANY"
 In  = "IN"
 Out = "OUT"
+
+[FirmwareUpdateMode]
+default = "On"
+[FirmwareUpdateMode.variants]
+On    = "on"
+Off   = "off"
+Check = "check"

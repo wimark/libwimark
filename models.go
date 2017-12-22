@@ -119,6 +119,14 @@ type ScanConfig struct {
 	ScanNumber   int `json:"scannumber"`
 }
 
+type FirmwareConfig struct {
+	FileUrl      string             `json:"file"`
+	StorageUrl   string             `json:"storage"`
+	ChecksumUrl  string             `json:"checksum"`
+	CheckTimeout int                `json:"timeout"`
+	Mode         FirmwareUpdateMode `json:"mode"`
+}
+
 // ---- Wifi config ----
 
 type WlanConfig struct {
@@ -175,6 +183,13 @@ type CPEConfig struct {
 	DHCPCapConfig    DHCPCapConfig    `json:"dhcpcap_config" bson:"dhcpcap_config"`
 	L2TPConfig       L2TPConfig       `json:"l2tp_config" bson:"l2tp_config"`
 	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
+	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
+}
+
+// ---- Service states ----
+
+type FirmwareState struct {
+	HasUpdate bool `json:"has_update"`
 }
 
 // ---- Wifi state ----
@@ -223,7 +238,8 @@ func (self *WiFiStates) SetBSON(raw bson.Raw) error {
 // ---- CPE state ----
 
 type CPEState struct {
-	Wifi WiFiStates `json:"wifi,omitempty"`
+	Wifi     WiFiStates    `json:"wifi,omitempty"`
+	Firmware FirmwareState `json:"firmware,omitempty"`
 }
 
 // ---- CPE itself ----

@@ -860,6 +860,105 @@ func (self *FirewallPolicy) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown FirewallPolicy")
 }
 
+type FirmwareUpdateMode string
+
+const FirmwareUpdateModeCheck FirmwareUpdateMode = "check"
+const FirmwareUpdateModeOff FirmwareUpdateMode = "off"
+const FirmwareUpdateModeOn FirmwareUpdateMode = "on"
+
+func (self FirmwareUpdateMode) GetPtr() *FirmwareUpdateMode { var v = self; return &v }
+
+func (self *FirmwareUpdateMode) String() string {
+	switch *self {
+	case FirmwareUpdateModeCheck:
+		return "check"
+	case FirmwareUpdateModeOff:
+		return "off"
+	case FirmwareUpdateModeOn:
+		return "on"
+	}
+	if len(*self) == 0 {
+		return "on"
+	}
+	panic(errors.New("Invalid value of FirmwareUpdateMode"))
+}
+
+func (self *FirmwareUpdateMode) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case FirmwareUpdateModeCheck:
+		return json.Marshal("check")
+	case FirmwareUpdateModeOff:
+		return json.Marshal("off")
+	case FirmwareUpdateModeOn:
+		return json.Marshal("on")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("on")
+	}
+	return nil, errors.New("Invalid value of FirmwareUpdateMode")
+}
+
+func (self *FirmwareUpdateMode) GetBSON() (interface{}, error) {
+	switch *self {
+	case FirmwareUpdateModeCheck:
+		return "check", nil
+	case FirmwareUpdateModeOff:
+		return "off", nil
+	case FirmwareUpdateModeOn:
+		return "on", nil
+	}
+	if len(*self) == 0 {
+		return "on", nil
+	}
+	return nil, errors.New("Invalid value of FirmwareUpdateMode")
+}
+
+func (self *FirmwareUpdateMode) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "check":
+		*self = FirmwareUpdateModeCheck
+		return nil
+	case "off":
+		*self = FirmwareUpdateModeOff
+		return nil
+	case "on":
+		*self = FirmwareUpdateModeOn
+		return nil
+	}
+	if len(s) == 0 {
+		*self = FirmwareUpdateModeOn
+		return nil
+	}
+	return errors.New("Unknown FirmwareUpdateMode")
+}
+
+func (self *FirmwareUpdateMode) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "check":
+		*self = FirmwareUpdateModeCheck
+		return nil
+	case "off":
+		*self = FirmwareUpdateModeOff
+		return nil
+	case "on":
+		*self = FirmwareUpdateModeOn
+		return nil
+	}
+	if len(s) == 0 {
+		*self = FirmwareUpdateModeOn
+		return nil
+	}
+	return errors.New("Unknown FirmwareUpdateMode")
+}
+
 type L3Protocol string
 
 const L3ProtocolEmpty L3Protocol = "EMPTY"
