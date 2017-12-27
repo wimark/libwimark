@@ -120,11 +120,11 @@ type ScanConfig struct {
 }
 
 type FirmwareConfig struct {
-	FileUrl      string             `json:"file"`
-	StorageUrl   string             `json:"storage"`
-	ChecksumUrl  string             `json:"checksum"`
-	CheckTimeout int                `json:"timeout"`
-	Mode         FirmwareUpdateMode `json:"mode"`
+	FileUrl      string             `json:"file" bson:"file"`
+	StorageUrl   string             `json:"storage" bson:"storage"`
+	ChecksumUrl  string             `json:"checksum" bson:"checksum"`
+	CheckTimeout int                `json:"timeout" bson:"timeout"`
+	Mode         FirmwareUpdateMode `json:"mode" bson:"mode"`
 }
 
 // ---- Wifi config ----
@@ -189,7 +189,7 @@ type CPEConfig struct {
 // ---- Service states ----
 
 type FirmwareState struct {
-	HasUpdate bool `json:"has_update"`
+	HasUpdate bool `json:"has_update" bson:"has_update"`
 }
 
 // ---- Wifi state ----
