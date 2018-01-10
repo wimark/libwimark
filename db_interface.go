@@ -25,6 +25,7 @@ type DBDataObj struct {
 	CPEScanData       map[UUID]CPEScanData       `json:"cpe-scan-data,omitempty"`
 	CPEModel          map[UUID]CPEModel          `json:"cpe-model,omitempty"`
 	ConfigRule        map[UUID]ConfigRule        `json:"config-rule,omitempty"`
+	L2Chain           map[UUID]L2Chain           `json:"l2-chain,ompitempty"`
 }
 
 func (self *DBDataObj) Reset() {
@@ -48,6 +49,7 @@ type DBDataUUID struct {
 	CPEScanData       []UUID `json:"cpe-scan-data,omitempty"`
 	CPEModel          []UUID `json:"cpe-model,omitempty"`
 	ConfigRule        []UUID `json:"config-rule,omitempty"`
+	L2Chain           []UUID `json:"l2-chain,omitempty"`
 }
 
 func (self *DBDataUUID) Reset() {
@@ -71,6 +73,7 @@ type DBDataMasks struct {
 	CPEScanData       *SimpleMask          `json:"cpe-scan-data,omitempty"`
 	CPEModel          *CPEModelMask        `json:"cpe-model,omitempty"`
 	ConfigRule        *ConfigRuleMask      `json:"config-rule,omitempty"`
+	L2Chain           *SimpleMask          `json:"l2-chain,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {

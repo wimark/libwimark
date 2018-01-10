@@ -23,7 +23,8 @@ MQTTLog    = "MQTT_LOG"
 CPEStat    = "CPE_STAT"
 AC         = "AC"
 TunManager = "TUN_MANAGER"
-RRM         = "RRM"
+RRM        = "RRM"
+FW         = "FW"
 
 [Operation]
 [Operation.variants]
@@ -149,3 +150,46 @@ default = "Off"
 Off = "off"
 HT  = "ht"
 VHT = "vht"
+
+[FirewallPolicy]
+default = "Accept"
+[FirewallPolicy.variants]
+Empty  = "EMPTY"
+Drop   = "DROP"
+Accept = "ACCEPT"
+
+[L3Protocol]
+default = "Empty"
+[L3Protocol.variants]
+Empty = "EMPTY"
+IP    = "ip"
+IPv4  = "ipv4"
+IPv6  = "ipv6"
+
+[L4Protocol]
+default = "Empty"
+[L4Protocol.variants]
+Empty = "EMPTY"
+TCP   = "TCP"
+UDP   = "UDP"
+
+[FirewallJump]
+default = "Accept"
+[FirewallJump.variants]
+Accept = "ACCEPT"
+DROP   = "DROP"
+
+
+[FirewallDirection]
+default = "Any"
+[FirewallDirection.variants]
+Any = "ANY"
+In  = "IN"
+Out = "OUT"
+
+[FirmwareUpdateMode]
+default = "On"
+[FirmwareUpdateMode.variants]
+On    = "on"
+Off   = "off"
+Check = "check"

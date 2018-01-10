@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.8.0] - 29-12-2017
+### Added
+#### L2Rules-Template
+ - Add L2ACL models
+
 ## [v0.7.0] - 01-12-2017
 ### Added
 #### WNE-640-templates

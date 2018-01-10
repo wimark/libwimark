@@ -2,6 +2,7 @@ package libwimark
 
 import (
 	"github.com/vorot93/goutil"
+
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -50,23 +51,24 @@ type WPAEnterpriseData struct {
 }
 
 type WLAN struct {
-	Name               string        `json:"name"`
-	SSID               string        `json:"ssid"`
-	Description        string        `json:"description"`
-	Security           EnumSecurity  `json:"security"`
-	VLAN               int           `json:"vlan"`
-	Hidden             bool          `json:"hidden"`
-	NasID              *string       `json:"nas_id"`
-	RadiusAcctServers  []UUID        `json:"radius_acct_servers"`
-	RadiusAcctInterval int           `json:"radius_acct_interval"`
-	WhiteList          []string      `json:"whitelist"`
-	BlackList          []string      `json:"blacklist"`
-	FilterMode         MacFilterType `json:"filtermode"`
-	L2Isolate          bool          `json:"l2isolate"`
-	PMKCaching         bool          `json:"pmkcaching"`
-	Roaming80211r      bool          `json:"roam80211r"`
-	Tunneling          bool          `json:"tunneling"`
-	DefaultTunnel      string        `json:"default_tunnel"`
+	Name               string           `json:"name"`
+	SSID               string           `json:"ssid"`
+	Description        string           `json:"description"`
+	Security           EnumSecurity     `json:"security"`
+	VLAN               int              `json:"vlan"`
+	Hidden             bool             `json:"hidden"`
+	NasID              *string          `json:"nas_id"`
+	RadiusAcctServers  []UUID           `json:"radius_acct_servers"`
+	RadiusAcctInterval int              `json:"radius_acct_interval"`
+	WhiteList          []string         `json:"whitelist"`
+	BlackList          []string         `json:"blacklist"`
+	FilterMode         MacFilterType    `json:"filtermode"`
+	L2Isolate          bool             `json:"l2isolate"`
+	PMKCaching         bool             `json:"pmkcaching"`
+	Roaming80211r      bool             `json:"roam80211r"`
+	Tunneling          bool             `json:"tunneling"`
+	DefaultTunnel      string           `json:"default_tunnel"`
+	Firewall           FireWallSettings `json:"firewall"`
 }
 
 // ==== CPE ====
@@ -115,6 +117,14 @@ type ScanConfig struct {
 	ReportPeriod int `json:"reportperiod"`
 	ScanTimeout  int `json:"scantimeout"`
 	ScanNumber   int `json:"scannumber"`
+}
+
+type FirmwareConfig struct {
+	FileUrl      string             `json:"file" bson:"file"`
+	StorageUrl   string             `json:"storage" bson:"storage"`
+	ChecksumUrl  string             `json:"checksum" bson:"checksum"`
+	CheckTimeout int                `json:"timeout" bson:"timeout"`
+	Mode         FirmwareUpdateMode `json:"mode" bson:"mode"`
 }
 
 // ---- Wifi config ----
@@ -172,6 +182,14 @@ type CPEConfig struct {
 	LogConfig        LogConfig        `json:"log_config" bson:"log_config"`
 	DHCPCapConfig    DHCPCapConfig    `json:"dhcpcap_config" bson:"dhcpcap_config"`
 	L2TPConfig       L2TPConfig       `json:"l2tp_config" bson:"l2tp_config"`
+	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
+	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
+}
+
+// ---- Service states ----
+
+type FirmwareState struct {
+	HasUpdate bool `json:"has_update" bson:"has_update"`
 }
 
 // ---- Wifi state ----
@@ -220,7 +238,8 @@ func (self *WiFiStates) SetBSON(raw bson.Raw) error {
 // ---- CPE state ----
 
 type CPEState struct {
-	Wifi WiFiStates `json:"wifi,omitempty"`
+	Wifi     WiFiStates    `json:"wifi,omitempty"`
+	Firmware FirmwareState `json:"firmware,omitempty"`
 }
 
 // ---- CPE itself ----
@@ -298,6 +317,7 @@ type CPEModel struct {
 	Name         string          `json:"name" bson:"name"`
 	Description  string          `json:"description" bson:"description"`
 	Capabilities CPECapabilities `json:"capabilities" bson:"capabilities"`
+	Firmwares    []CPEFirmware   `json:"firmwares" bson:"firmwares"`
 }
 
 // ==== Config template ====
@@ -315,4 +335,12 @@ type ConfigRule struct {
 	} `json:"template" bson:"template"`
 
 	Is_auto bool `json:"is_auto" bson:"is_auto"`
+}
+
+// ==== CPE firmware ====
+
+type CPEFirmware struct {
+	Name    string `json:"name" bson:"name"`
+	Version string `json:"version" bson:"version"`
+	URL     string `json:"url" bson:"url"`
 }
