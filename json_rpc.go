@@ -38,7 +38,7 @@ type JSONRPC_Error struct {
 	// code of the error
 	Code JSONRPC_ErrorCode `json:"code"`
 	// description of the error
-	Message string `json:"messsage"`
+	Message string `json:"message"`
 	// optional data to attach
 	Data interface{} `json:"data,omitempty"`
 }
