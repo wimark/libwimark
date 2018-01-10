@@ -25,7 +25,7 @@ type DBDataObj struct {
 	CPEScanData       map[UUID]CPEScanData       `json:"cpe-scan-data,omitempty"`
 	CPEModel          map[UUID]CPEModel          `json:"cpe-model,omitempty"`
 	ConfigRule        map[UUID]ConfigRule        `json:"config-rule,omitempty"`
-	L2Chain           map[UUID]L2Chain           `json:"l2-chain,ompitempty"`
+	L2Chain           map[UUID]L2Chain           `json:"l2-chain,omitempty"`
 }
 
 func (self *DBDataObj) Reset() {
