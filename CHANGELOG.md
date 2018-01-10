@@ -1,9 +1,25 @@
 # Changelog
 
-## [v0.8.0] - 29-12-2017
+## [v0.8.0] - 15-01-2018
 ### Added
 #### L2Rules-Template
  - Add L2ACL models
+#### WNE-644-jsonrpc-set
+ - Support for CPE JSONRPC interface
+#### WNE-645-RRM-event
+ - Add RRM module
+ - Add RRM event
+#### WNE-696-firmware-config
+ - Add FW sections to CPE state&config
+#### WNE-705-fw-update
+ - Add FW module
+ - Add CPEFirmware struct
+#### WNE-709-templatemask-wlan
+ - Add mask for template having WLAN
+
+### Removed
+#### remove-old-cfg
+ - Removed old CPE config/state
 
 ## [v0.7.0] - 01-12-2017
 ### Added
