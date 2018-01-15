@@ -776,7 +776,7 @@ func (self *FirewallPolicy) String() string {
 	case FirewallPolicyDrop:
 		return "DROP"
 	case FirewallPolicyEmpty:
-		return "Empty"
+		return ""
 	}
 	if len(*self) == 0 {
 		return ""
@@ -791,7 +791,7 @@ func (self *FirewallPolicy) MarshalJSON() ([]byte, error) {
 	case FirewallPolicyDrop:
 		return json.Marshal("DROP")
 	case FirewallPolicyEmpty:
-		return json.Marshal("Empty")
+		return json.Marshal("")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("")
@@ -806,7 +806,7 @@ func (self *FirewallPolicy) GetBSON() (interface{}, error) {
 	case FirewallPolicyDrop:
 		return "DROP", nil
 	case FirewallPolicyEmpty:
-		return "Empty", nil
+		return "", nil
 	}
 	if len(*self) == 0 {
 		return "", nil
@@ -826,7 +826,7 @@ func (self *FirewallPolicy) UnmarshalJSON(b []byte) error {
 	case "DROP":
 		*self = FirewallPolicyDrop
 		return nil
-	case "Empty":
+	case "":
 		*self = FirewallPolicyEmpty
 		return nil
 	}
@@ -849,7 +849,7 @@ func (self *FirewallPolicy) SetBSON(v bson.Raw) error {
 	case "DROP":
 		*self = FirewallPolicyDrop
 		return nil
-	case "Empty":
+	case "":
 		*self = FirewallPolicyEmpty
 		return nil
 	}
@@ -971,7 +971,7 @@ func (self L3Protocol) GetPtr() *L3Protocol { var v = self; return &v }
 func (self *L3Protocol) String() string {
 	switch *self {
 	case L3ProtocolEmpty:
-		return "Empty"
+		return ""
 	case L3ProtocolIP:
 		return "ip"
 	case L3ProtocolIPv4:
@@ -988,7 +988,7 @@ func (self *L3Protocol) String() string {
 func (self *L3Protocol) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case L3ProtocolEmpty:
-		return json.Marshal("Empty")
+		return json.Marshal("")
 	case L3ProtocolIP:
 		return json.Marshal("ip")
 	case L3ProtocolIPv4:
@@ -1005,7 +1005,7 @@ func (self *L3Protocol) MarshalJSON() ([]byte, error) {
 func (self *L3Protocol) GetBSON() (interface{}, error) {
 	switch *self {
 	case L3ProtocolEmpty:
-		return "Empty", nil
+		return "", nil
 	case L3ProtocolIP:
 		return "ip", nil
 	case L3ProtocolIPv4:
@@ -1025,7 +1025,7 @@ func (self *L3Protocol) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "Empty":
+	case "":
 		*self = L3ProtocolEmpty
 		return nil
 	case "ip":
@@ -1051,7 +1051,7 @@ func (self *L3Protocol) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "Empty":
+	case "":
 		*self = L3ProtocolEmpty
 		return nil
 	case "ip":
@@ -1082,7 +1082,7 @@ func (self L4Protocol) GetPtr() *L4Protocol { var v = self; return &v }
 func (self *L4Protocol) String() string {
 	switch *self {
 	case L4ProtocolEmpty:
-		return "Empty"
+		return ""
 	case L4ProtocolTCP:
 		return "TCP"
 	case L4ProtocolUDP:
@@ -1097,7 +1097,7 @@ func (self *L4Protocol) String() string {
 func (self *L4Protocol) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case L4ProtocolEmpty:
-		return json.Marshal("Empty")
+		return json.Marshal("")
 	case L4ProtocolTCP:
 		return json.Marshal("TCP")
 	case L4ProtocolUDP:
@@ -1112,7 +1112,7 @@ func (self *L4Protocol) MarshalJSON() ([]byte, error) {
 func (self *L4Protocol) GetBSON() (interface{}, error) {
 	switch *self {
 	case L4ProtocolEmpty:
-		return "Empty", nil
+		return "", nil
 	case L4ProtocolTCP:
 		return "TCP", nil
 	case L4ProtocolUDP:
@@ -1130,7 +1130,7 @@ func (self *L4Protocol) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "Empty":
+	case "":
 		*self = L4ProtocolEmpty
 		return nil
 	case "TCP":
@@ -1153,7 +1153,7 @@ func (self *L4Protocol) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "Empty":
+	case "":
 		*self = L4ProtocolEmpty
 		return nil
 	case "TCP":
