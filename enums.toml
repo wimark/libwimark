@@ -149,16 +149,16 @@ HT  = "ht"
 VHT = "vht"
 
 [FirewallPolicy]
-default = "Accept"
+default = "Empty"
 [FirewallPolicy.variants]
-Empty  = "EMPTY"
+Empty  = ""
 Drop   = "DROP"
 Accept = "ACCEPT"
 
 [L3Protocol]
 default = "Empty"
 [L3Protocol.variants]
-Empty = "EMPTY"
+Empty = ""
 IP    = "ip"
 IPv4  = "ipv4"
 IPv6  = "ipv6"
@@ -166,7 +166,7 @@ IPv6  = "ipv6"
 [L4Protocol]
 default = "Empty"
 [L4Protocol.variants]
-Empty = "EMPTY"
+Empty = ""
 TCP   = "TCP"
 UDP   = "UDP"
 

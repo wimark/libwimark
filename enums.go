@@ -765,7 +765,7 @@ type FirewallPolicy string
 
 const FirewallPolicyAccept FirewallPolicy = "ACCEPT"
 const FirewallPolicyDrop FirewallPolicy = "DROP"
-const FirewallPolicyEmpty FirewallPolicy = "EMPTY"
+const FirewallPolicyEmpty FirewallPolicy = ""
 
 func (self FirewallPolicy) GetPtr() *FirewallPolicy { var v = self; return &v }
 
@@ -776,10 +776,10 @@ func (self *FirewallPolicy) String() string {
 	case FirewallPolicyDrop:
 		return "DROP"
 	case FirewallPolicyEmpty:
-		return "EMPTY"
+		return "Empty"
 	}
 	if len(*self) == 0 {
-		return "ACCEPT"
+		return ""
 	}
 	panic(errors.New("Invalid value of FirewallPolicy"))
 }
@@ -791,10 +791,10 @@ func (self *FirewallPolicy) MarshalJSON() ([]byte, error) {
 	case FirewallPolicyDrop:
 		return json.Marshal("DROP")
 	case FirewallPolicyEmpty:
-		return json.Marshal("EMPTY")
+		return json.Marshal("Empty")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("ACCEPT")
+		return json.Marshal("")
 	}
 	return nil, errors.New("Invalid value of FirewallPolicy")
 }
@@ -806,10 +806,10 @@ func (self *FirewallPolicy) GetBSON() (interface{}, error) {
 	case FirewallPolicyDrop:
 		return "DROP", nil
 	case FirewallPolicyEmpty:
-		return "EMPTY", nil
+		return "Empty", nil
 	}
 	if len(*self) == 0 {
-		return "ACCEPT", nil
+		return "", nil
 	}
 	return nil, errors.New("Invalid value of FirewallPolicy")
 }
@@ -826,12 +826,12 @@ func (self *FirewallPolicy) UnmarshalJSON(b []byte) error {
 	case "DROP":
 		*self = FirewallPolicyDrop
 		return nil
-	case "EMPTY":
+	case "Empty":
 		*self = FirewallPolicyEmpty
 		return nil
 	}
 	if len(s) == 0 {
-		*self = FirewallPolicyAccept
+		*self = FirewallPolicyEmpty
 		return nil
 	}
 	return errors.New("Unknown FirewallPolicy")
@@ -849,12 +849,12 @@ func (self *FirewallPolicy) SetBSON(v bson.Raw) error {
 	case "DROP":
 		*self = FirewallPolicyDrop
 		return nil
-	case "EMPTY":
+	case "Empty":
 		*self = FirewallPolicyEmpty
 		return nil
 	}
 	if len(s) == 0 {
-		*self = FirewallPolicyAccept
+		*self = FirewallPolicyEmpty
 		return nil
 	}
 	return errors.New("Unknown FirewallPolicy")
@@ -862,7 +862,7 @@ func (self *FirewallPolicy) SetBSON(v bson.Raw) error {
 
 type L3Protocol string
 
-const L3ProtocolEmpty L3Protocol = "EMPTY"
+const L3ProtocolEmpty L3Protocol = ""
 const L3ProtocolIP L3Protocol = "ip"
 const L3ProtocolIPv4 L3Protocol = "ipv4"
 const L3ProtocolIPv6 L3Protocol = "ipv6"
@@ -872,7 +872,7 @@ func (self L3Protocol) GetPtr() *L3Protocol { var v = self; return &v }
 func (self *L3Protocol) String() string {
 	switch *self {
 	case L3ProtocolEmpty:
-		return "EMPTY"
+		return "Empty"
 	case L3ProtocolIP:
 		return "ip"
 	case L3ProtocolIPv4:
@@ -881,7 +881,7 @@ func (self *L3Protocol) String() string {
 		return "ipv6"
 	}
 	if len(*self) == 0 {
-		return "EMPTY"
+		return ""
 	}
 	panic(errors.New("Invalid value of L3Protocol"))
 }
@@ -889,7 +889,7 @@ func (self *L3Protocol) String() string {
 func (self *L3Protocol) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case L3ProtocolEmpty:
-		return json.Marshal("EMPTY")
+		return json.Marshal("Empty")
 	case L3ProtocolIP:
 		return json.Marshal("ip")
 	case L3ProtocolIPv4:
@@ -898,7 +898,7 @@ func (self *L3Protocol) MarshalJSON() ([]byte, error) {
 		return json.Marshal("ipv6")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("EMPTY")
+		return json.Marshal("")
 	}
 	return nil, errors.New("Invalid value of L3Protocol")
 }
@@ -906,7 +906,7 @@ func (self *L3Protocol) MarshalJSON() ([]byte, error) {
 func (self *L3Protocol) GetBSON() (interface{}, error) {
 	switch *self {
 	case L3ProtocolEmpty:
-		return "EMPTY", nil
+		return "Empty", nil
 	case L3ProtocolIP:
 		return "ip", nil
 	case L3ProtocolIPv4:
@@ -915,7 +915,7 @@ func (self *L3Protocol) GetBSON() (interface{}, error) {
 		return "ipv6", nil
 	}
 	if len(*self) == 0 {
-		return "EMPTY", nil
+		return "", nil
 	}
 	return nil, errors.New("Invalid value of L3Protocol")
 }
@@ -926,7 +926,7 @@ func (self *L3Protocol) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "EMPTY":
+	case "Empty":
 		*self = L3ProtocolEmpty
 		return nil
 	case "ip":
@@ -952,7 +952,7 @@ func (self *L3Protocol) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "EMPTY":
+	case "Empty":
 		*self = L3ProtocolEmpty
 		return nil
 	case "ip":
@@ -974,7 +974,7 @@ func (self *L3Protocol) SetBSON(v bson.Raw) error {
 
 type L4Protocol string
 
-const L4ProtocolEmpty L4Protocol = "EMPTY"
+const L4ProtocolEmpty L4Protocol = ""
 const L4ProtocolTCP L4Protocol = "TCP"
 const L4ProtocolUDP L4Protocol = "UDP"
 
@@ -983,14 +983,14 @@ func (self L4Protocol) GetPtr() *L4Protocol { var v = self; return &v }
 func (self *L4Protocol) String() string {
 	switch *self {
 	case L4ProtocolEmpty:
-		return "EMPTY"
+		return "Empty"
 	case L4ProtocolTCP:
 		return "TCP"
 	case L4ProtocolUDP:
 		return "UDP"
 	}
 	if len(*self) == 0 {
-		return "EMPTY"
+		return ""
 	}
 	panic(errors.New("Invalid value of L4Protocol"))
 }
@@ -998,14 +998,14 @@ func (self *L4Protocol) String() string {
 func (self *L4Protocol) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case L4ProtocolEmpty:
-		return json.Marshal("EMPTY")
+		return json.Marshal("Empty")
 	case L4ProtocolTCP:
 		return json.Marshal("TCP")
 	case L4ProtocolUDP:
 		return json.Marshal("UDP")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("EMPTY")
+		return json.Marshal("")
 	}
 	return nil, errors.New("Invalid value of L4Protocol")
 }
@@ -1013,14 +1013,14 @@ func (self *L4Protocol) MarshalJSON() ([]byte, error) {
 func (self *L4Protocol) GetBSON() (interface{}, error) {
 	switch *self {
 	case L4ProtocolEmpty:
-		return "EMPTY", nil
+		return "Empty", nil
 	case L4ProtocolTCP:
 		return "TCP", nil
 	case L4ProtocolUDP:
 		return "UDP", nil
 	}
 	if len(*self) == 0 {
-		return "EMPTY", nil
+		return "", nil
 	}
 	return nil, errors.New("Invalid value of L4Protocol")
 }
@@ -1031,7 +1031,7 @@ func (self *L4Protocol) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "EMPTY":
+	case "Empty":
 		*self = L4ProtocolEmpty
 		return nil
 	case "TCP":
@@ -1054,7 +1054,7 @@ func (self *L4Protocol) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "EMPTY":
+	case "Empty":
 		*self = L4ProtocolEmpty
 		return nil
 	case "TCP":
