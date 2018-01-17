@@ -130,7 +130,14 @@ type FirmwareConfig struct {
 // ---- Wifi config ----
 
 type WlanConfig struct {
-	L2TPSession *UUID `json:"l2tpsession"`
+	L2TPEnabled         bool   `json:"l2tp_enabled"`
+	CPETunnelId         int    `json:"cpe_tunnel_id"`
+	CPESessionId        int    `json:"cpe_session_id"`
+	CPEInterfaceName    string `json:"cpe_interface_name"`
+	HostTunnelId        int    `json:"host_tunnel_id"`
+	HostSessionId       int    `json:"host_session_id"`
+	HostInterfaceName   string `json:"host_interface_name"`
+	HostL2InterfaceName string `json:"host_l2interface_name"`
 }
 
 type WiFiConfig struct {
@@ -297,18 +304,6 @@ type VPNHost struct {
 	IpAddr     string       `json:"ipaddr"`
 	Interfaces []string     `json:"interfaces"`
 	State      ServiceState `json:"state"`
-}
-
-type L2TPTunnelSession struct {
-	CPE                 UUID   `json:"cpe"`
-	CPETunnelId         int    `json:"cpe_tunnel_id"`
-	CPESessionId        int    `json:"cpe_session_id"`
-	CPEInterfaceName    string `json:"cpe_interface_name"`
-	Host                UUID   `json:"host"`
-	HostTunnelId        int    `json:"host_tunnel_id"`
-	HostSessionId       int    `json:"host_session_id"`
-	HostInterfaceName   string `json:"host_interface_name"`
-	HostL2InterfaceName string `json:"host_l2interface_name"`
 }
 
 // ==== CPE model ====
