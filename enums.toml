@@ -58,6 +58,7 @@ SystemTimeChanged       = "SYSTEM_TIME_CHANGE"
 RRMStatus               = "RRM_STATUS_DATA"
 
 [SystemEventLevel]
+default = "DEBUG"
 [SystemEventLevel.variants]
 INFO      = "INFO"
 DEBUG     = "DEBUG"
@@ -79,6 +80,7 @@ WPAPersonal    = "wpapersonal"
 None           = "open"
 
 [CPEAgentStatusType]
+default = "Undefined"
 [CPEAgentStatusType.variants]
 Success     = "success"
 Undefined   = "undefined"
@@ -99,6 +101,7 @@ Stop    = "Stop"
 Interim = "Interim-Update"
 
 [WirelessClientType]
+default = "Other"
 [WirelessClientType.variants]
 Camera = "camera"
 Other  = "other"
@@ -109,6 +112,7 @@ CONNECTED     = "CONNECTED"
 DISCONNECTED  = "DISCONNECTED"
 
 [ConnectionModeType]
+default = "ModeLegacy"
 [ConnectionModeType.variants]
 ModeAC      = "ac"
 ModeN       = "n"

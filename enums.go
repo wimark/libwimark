@@ -26,6 +26,9 @@ func (self *CPEAgentStatusType) String() string {
 	case CPEAgentStatusTypeUndefined:
 		return "undefined"
 	}
+	if len(*self) == 0 {
+		return "undefined"
+	}
 	panic(errors.New("Invalid value of CPEAgentStatusType"))
 }
 
@@ -40,6 +43,9 @@ func (self *CPEAgentStatusType) MarshalJSON() ([]byte, error) {
 	case CPEAgentStatusTypeUndefined:
 		return json.Marshal("undefined")
 	}
+	if len(*self) == 0 {
+		return json.Marshal("undefined")
+	}
 	return nil, errors.New("Invalid value of CPEAgentStatusType")
 }
 
@@ -52,6 +58,9 @@ func (self *CPEAgentStatusType) GetBSON() (interface{}, error) {
 	case CPEAgentStatusTypeSyntaxError:
 		return "syntax", nil
 	case CPEAgentStatusTypeUndefined:
+		return "undefined", nil
+	}
+	if len(*self) == 0 {
 		return "undefined", nil
 	}
 	return nil, errors.New("Invalid value of CPEAgentStatusType")
@@ -76,6 +85,10 @@ func (self *CPEAgentStatusType) UnmarshalJSON(b []byte) error {
 		*self = CPEAgentStatusTypeUndefined
 		return nil
 	}
+	if len(s) == 0 {
+		*self = CPEAgentStatusTypeUndefined
+		return nil
+	}
 	return errors.New("Unknown CPEAgentStatusType")
 }
 
@@ -95,6 +108,10 @@ func (self *CPEAgentStatusType) SetBSON(v bson.Raw) error {
 		*self = CPEAgentStatusTypeSyntaxError
 		return nil
 	case "undefined":
+		*self = CPEAgentStatusTypeUndefined
+		return nil
+	}
+	if len(s) == 0 {
 		*self = CPEAgentStatusTypeUndefined
 		return nil
 	}
@@ -511,6 +528,9 @@ func (self *ConnectionModeType) String() string {
 	case ConnectionModeTypeModeN:
 		return "n"
 	}
+	if len(*self) == 0 {
+		return "legacy"
+	}
 	panic(errors.New("Invalid value of ConnectionModeType"))
 }
 
@@ -523,6 +543,9 @@ func (self *ConnectionModeType) MarshalJSON() ([]byte, error) {
 	case ConnectionModeTypeModeN:
 		return json.Marshal("n")
 	}
+	if len(*self) == 0 {
+		return json.Marshal("legacy")
+	}
 	return nil, errors.New("Invalid value of ConnectionModeType")
 }
 
@@ -534,6 +557,9 @@ func (self *ConnectionModeType) GetBSON() (interface{}, error) {
 		return "legacy", nil
 	case ConnectionModeTypeModeN:
 		return "n", nil
+	}
+	if len(*self) == 0 {
+		return "legacy", nil
 	}
 	return nil, errors.New("Invalid value of ConnectionModeType")
 }
@@ -554,6 +580,10 @@ func (self *ConnectionModeType) UnmarshalJSON(b []byte) error {
 		*self = ConnectionModeTypeModeN
 		return nil
 	}
+	if len(s) == 0 {
+		*self = ConnectionModeTypeModeLegacy
+		return nil
+	}
 	return errors.New("Unknown ConnectionModeType")
 }
 
@@ -571,6 +601,10 @@ func (self *ConnectionModeType) SetBSON(v bson.Raw) error {
 		return nil
 	case "n":
 		*self = ConnectionModeTypeModeN
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ConnectionModeTypeModeLegacy
 		return nil
 	}
 	return errors.New("Unknown ConnectionModeType")
@@ -2144,6 +2178,9 @@ func (self *SystemEventLevel) String() string {
 	case SystemEventLevelWARNING:
 		return "WARNING"
 	}
+	if len(*self) == 0 {
+		return "DEBUG"
+	}
 	panic(errors.New("Invalid value of SystemEventLevel"))
 }
 
@@ -2158,6 +2195,9 @@ func (self *SystemEventLevel) MarshalJSON() ([]byte, error) {
 	case SystemEventLevelWARNING:
 		return json.Marshal("WARNING")
 	}
+	if len(*self) == 0 {
+		return json.Marshal("DEBUG")
+	}
 	return nil, errors.New("Invalid value of SystemEventLevel")
 }
 
@@ -2171,6 +2211,9 @@ func (self *SystemEventLevel) GetBSON() (interface{}, error) {
 		return "INFO", nil
 	case SystemEventLevelWARNING:
 		return "WARNING", nil
+	}
+	if len(*self) == 0 {
+		return "DEBUG", nil
 	}
 	return nil, errors.New("Invalid value of SystemEventLevel")
 }
@@ -2194,6 +2237,10 @@ func (self *SystemEventLevel) UnmarshalJSON(b []byte) error {
 		*self = SystemEventLevelWARNING
 		return nil
 	}
+	if len(s) == 0 {
+		*self = SystemEventLevelDEBUG
+		return nil
+	}
 	return errors.New("Unknown SystemEventLevel")
 }
 
@@ -2214,6 +2261,10 @@ func (self *SystemEventLevel) SetBSON(v bson.Raw) error {
 		return nil
 	case "WARNING":
 		*self = SystemEventLevelWARNING
+		return nil
+	}
+	if len(s) == 0 {
+		*self = SystemEventLevelDEBUG
 		return nil
 	}
 	return errors.New("Unknown SystemEventLevel")
@@ -2622,6 +2673,9 @@ func (self *WirelessClientType) String() string {
 	case WirelessClientTypeOther:
 		return "other"
 	}
+	if len(*self) == 0 {
+		return "other"
+	}
 	panic(errors.New("Invalid value of WirelessClientType"))
 }
 
@@ -2632,6 +2686,9 @@ func (self *WirelessClientType) MarshalJSON() ([]byte, error) {
 	case WirelessClientTypeOther:
 		return json.Marshal("other")
 	}
+	if len(*self) == 0 {
+		return json.Marshal("other")
+	}
 	return nil, errors.New("Invalid value of WirelessClientType")
 }
 
@@ -2640,6 +2697,9 @@ func (self *WirelessClientType) GetBSON() (interface{}, error) {
 	case WirelessClientTypeCamera:
 		return "camera", nil
 	case WirelessClientTypeOther:
+		return "other", nil
+	}
+	if len(*self) == 0 {
 		return "other", nil
 	}
 	return nil, errors.New("Invalid value of WirelessClientType")
@@ -2658,6 +2718,10 @@ func (self *WirelessClientType) UnmarshalJSON(b []byte) error {
 		*self = WirelessClientTypeOther
 		return nil
 	}
+	if len(s) == 0 {
+		*self = WirelessClientTypeOther
+		return nil
+	}
 	return errors.New("Unknown WirelessClientType")
 }
 
@@ -2671,6 +2735,10 @@ func (self *WirelessClientType) SetBSON(v bson.Raw) error {
 		*self = WirelessClientTypeCamera
 		return nil
 	case "other":
+		*self = WirelessClientTypeOther
+		return nil
+	}
+	if len(s) == 0 {
 		*self = WirelessClientTypeOther
 		return nil
 	}
