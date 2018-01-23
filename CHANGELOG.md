@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.8.0] - 15-01-2018
+## [v0.8.0] - 23-01-2018
 ### Added
 #### L2Rules-Template
  - Add L2ACL models
@@ -16,6 +16,11 @@
  - Add CPEFirmware struct
 #### WNE-709-templatemask-wlan
  - Add mask for template having WLAN
+
+### Changed
+#### hotfix0.8.0
+ - Tag misprints fixed
+ - Defaults for enums
 
 ### Removed
 #### remove-old-cfg
