@@ -1,12 +1,10 @@
 package libwimark
 
 import (
-	"github.com/vorot93/goutil"
-
 	"gopkg.in/mgo.v2/bson"
 )
 
-type Document goutil.Document
+type Document map[string]interface{}
 
 type UUID string
 
