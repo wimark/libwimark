@@ -1813,6 +1813,131 @@ func (self *Operation) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown Operation")
 }
 
+type PortalAuthType string
+
+const PortalAuthTypeExternal PortalAuthType = "external"
+const PortalAuthTypeNone PortalAuthType = ""
+const PortalAuthTypeOAuth2 PortalAuthType = "oauth2"
+const PortalAuthTypeRADIUS PortalAuthType = "radius"
+const PortalAuthTypeSMS PortalAuthType = "sms"
+
+func (self PortalAuthType) GetPtr() *PortalAuthType { var v = self; return &v }
+
+func (self *PortalAuthType) String() string {
+	switch *self {
+	case PortalAuthTypeExternal:
+		return "external"
+	case PortalAuthTypeNone:
+		return ""
+	case PortalAuthTypeOAuth2:
+		return "oauth2"
+	case PortalAuthTypeRADIUS:
+		return "radius"
+	case PortalAuthTypeSMS:
+		return "sms"
+	}
+	if len(*self) == 0 {
+		return ""
+	}
+	panic(errors.New("Invalid value of PortalAuthType"))
+}
+
+func (self *PortalAuthType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case PortalAuthTypeExternal:
+		return json.Marshal("external")
+	case PortalAuthTypeNone:
+		return json.Marshal("")
+	case PortalAuthTypeOAuth2:
+		return json.Marshal("oauth2")
+	case PortalAuthTypeRADIUS:
+		return json.Marshal("radius")
+	case PortalAuthTypeSMS:
+		return json.Marshal("sms")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("")
+	}
+	return nil, errors.New("Invalid value of PortalAuthType")
+}
+
+func (self *PortalAuthType) GetBSON() (interface{}, error) {
+	switch *self {
+	case PortalAuthTypeExternal:
+		return "external", nil
+	case PortalAuthTypeNone:
+		return "", nil
+	case PortalAuthTypeOAuth2:
+		return "oauth2", nil
+	case PortalAuthTypeRADIUS:
+		return "radius", nil
+	case PortalAuthTypeSMS:
+		return "sms", nil
+	}
+	if len(*self) == 0 {
+		return "", nil
+	}
+	return nil, errors.New("Invalid value of PortalAuthType")
+}
+
+func (self *PortalAuthType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "external":
+		*self = PortalAuthTypeExternal
+		return nil
+	case "":
+		*self = PortalAuthTypeNone
+		return nil
+	case "oauth2":
+		*self = PortalAuthTypeOAuth2
+		return nil
+	case "radius":
+		*self = PortalAuthTypeRADIUS
+		return nil
+	case "sms":
+		*self = PortalAuthTypeSMS
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalAuthTypeNone
+		return nil
+	}
+	return errors.New("Unknown PortalAuthType")
+}
+
+func (self *PortalAuthType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "external":
+		*self = PortalAuthTypeExternal
+		return nil
+	case "":
+		*self = PortalAuthTypeNone
+		return nil
+	case "oauth2":
+		*self = PortalAuthTypeOAuth2
+		return nil
+	case "radius":
+		*self = PortalAuthTypeRADIUS
+		return nil
+	case "sms":
+		*self = PortalAuthTypeSMS
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalAuthTypeNone
+		return nil
+	}
+	return errors.New("Unknown PortalAuthType")
+}
+
 type SecuritySuite string
 
 const SecuritySuiteAES SecuritySuite = "aes"
