@@ -41,9 +41,10 @@ type CPEMask struct {
 }
 
 type WLANMask struct {
-	UUID        []UUID `json:"uuid"`
-	HasRadius   []UUID `json:"has_radius"`
-	HasL2Chains []UUID `json:"has_l2chains"`
+	UUID                []UUID `json:"uuid"`
+	HasRadius           []UUID `json:"has_radius"`
+	HasL2Chains         []UUID `json:"has_l2chains"`
+	HasCaptiveRedirects []UUID `json:"has_redirects"`
 }
 
 type StatsMask struct {

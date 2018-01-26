@@ -25,6 +25,7 @@ AC         = "AC"
 TunManager = "TUN_MANAGER"
 RRM        = "RRM"
 FW         = "FW"
+Redirect   = "REDIRECT"
 
 [Operation]
 [Operation.variants]
