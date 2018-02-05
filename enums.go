@@ -393,6 +393,7 @@ const ConfigurationStatusError ConfigurationStatus = "error"
 const ConfigurationStatusOK ConfigurationStatus = "ok"
 const ConfigurationStatusPending ConfigurationStatus = "pending"
 const ConfigurationStatusUpdating ConfigurationStatus = "updating"
+const ConfigurationStatusUpgrading ConfigurationStatus = "upgrading"
 
 func (self ConfigurationStatus) GetPtr() *ConfigurationStatus { var v = self; return &v }
 
@@ -408,6 +409,8 @@ func (self *ConfigurationStatus) String() string {
 		return "pending"
 	case ConfigurationStatusUpdating:
 		return "updating"
+	case ConfigurationStatusUpgrading:
+		return "upgrading"
 	}
 	if len(*self) == 0 {
 		return "empty"
@@ -427,6 +430,8 @@ func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 		return json.Marshal("pending")
 	case ConfigurationStatusUpdating:
 		return json.Marshal("updating")
+	case ConfigurationStatusUpgrading:
+		return json.Marshal("upgrading")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("empty")
@@ -446,6 +451,8 @@ func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
 		return "pending", nil
 	case ConfigurationStatusUpdating:
 		return "updating", nil
+	case ConfigurationStatusUpgrading:
+		return "upgrading", nil
 	}
 	if len(*self) == 0 {
 		return "empty", nil
@@ -473,6 +480,9 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 		return nil
 	case "updating":
 		*self = ConfigurationStatusUpdating
+		return nil
+	case "upgrading":
+		*self = ConfigurationStatusUpgrading
 		return nil
 	}
 	if len(s) == 0 {
@@ -502,6 +512,9 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 		return nil
 	case "updating":
 		*self = ConfigurationStatusUpdating
+		return nil
+	case "upgrading":
+		*self = ConfigurationStatusUpgrading
 		return nil
 	}
 	if len(s) == 0 {
