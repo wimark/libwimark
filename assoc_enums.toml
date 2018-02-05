@@ -25,6 +25,7 @@ WLANCentrAccChanged     = "WLANCentrAccChangeData"
 SystemTimeChanged       = "null"
 CPEInterfaceState       = "CPEInterfaceStateData"
 RRMStatus               = "RRMStatusData"
+FirmwareUploaded        = "FirmwareUploadedData"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"

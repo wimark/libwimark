@@ -260,3 +260,8 @@ type RRMCpeStatus struct {
 	Channel int    `json:"channel"`
 	Dbm     int    `json:"dbm"`
 }
+
+type FirmwareUploadedData struct {
+	CpeIDs []UUID `json:"cpe_ids"`
+	Url    string `json:"url"`
+}
