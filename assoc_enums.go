@@ -325,6 +325,16 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
+	case SystemEventTypeCpeFirmwareAvailable:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d CpeFirmwareData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
 	case SystemEventTypeDaemonSettingsChanged:
 		break
 	case SystemEventTypeFirmwareUploaded:
@@ -466,6 +476,16 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
 		var d ClientDisconnectedData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventTypeCpeFirmwareAvailable:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d CpeFirmwareData
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err

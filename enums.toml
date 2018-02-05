@@ -57,6 +57,7 @@ WLANCentrAccChanged     = "WLAN_CENTR_ACC_CHANGE"
 SystemTimeChanged       = "SYSTEM_TIME_CHANGE"
 RRMStatus               = "RRM_STATUS_DATA"
 FirmwareUploaded        = "FIRMWARE_UPLOADED"
+CpeFirmwareAvailable    = "CPE_FIRMWARE_AVAILABLE"
 
 [SystemEventLevel]
 default = "DEBUG"

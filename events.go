@@ -265,3 +265,10 @@ type FirmwareUploadedData struct {
 	CpeIDs []UUID `json:"cpe_ids"`
 	Url    string `json:"url"`
 }
+
+type CpeFirmwareData struct {
+	AvailableMd5  string `json:"available_md5"`
+	CurrentMd5    string `json:"current_md5"`
+	NewFirmware   bool   `json:"new_firmware"`
+	GoingToUpdate bool   `json:"going_to_update"`
+}

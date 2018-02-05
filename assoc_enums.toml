@@ -26,6 +26,7 @@ SystemTimeChanged       = "null"
 CPEInterfaceState       = "CPEInterfaceStateData"
 RRMStatus               = "RRMStatusData"
 FirmwareUploaded        = "FirmwareUploadedData"
+CpeFirmwareAvailable    = "CpeFirmwareData"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"
