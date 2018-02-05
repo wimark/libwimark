@@ -393,6 +393,7 @@ const ConfigurationStatusError ConfigurationStatus = "error"
 const ConfigurationStatusOK ConfigurationStatus = "ok"
 const ConfigurationStatusPending ConfigurationStatus = "pending"
 const ConfigurationStatusUpdating ConfigurationStatus = "updating"
+const ConfigurationStatusUpgrading ConfigurationStatus = "upgrading"
 
 func (self ConfigurationStatus) GetPtr() *ConfigurationStatus { var v = self; return &v }
 
@@ -408,6 +409,8 @@ func (self *ConfigurationStatus) String() string {
 		return "pending"
 	case ConfigurationStatusUpdating:
 		return "updating"
+	case ConfigurationStatusUpgrading:
+		return "upgrading"
 	}
 	if len(*self) == 0 {
 		return "empty"
@@ -427,6 +430,8 @@ func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 		return json.Marshal("pending")
 	case ConfigurationStatusUpdating:
 		return json.Marshal("updating")
+	case ConfigurationStatusUpgrading:
+		return json.Marshal("upgrading")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("empty")
@@ -446,6 +451,8 @@ func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
 		return "pending", nil
 	case ConfigurationStatusUpdating:
 		return "updating", nil
+	case ConfigurationStatusUpgrading:
+		return "upgrading", nil
 	}
 	if len(*self) == 0 {
 		return "empty", nil
@@ -473,6 +480,9 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 		return nil
 	case "updating":
 		*self = ConfigurationStatusUpdating
+		return nil
+	case "upgrading":
+		*self = ConfigurationStatusUpgrading
 		return nil
 	}
 	if len(s) == 0 {
@@ -502,6 +512,9 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 		return nil
 	case "updating":
 		*self = ConfigurationStatusUpdating
+		return nil
+	case "upgrading":
+		*self = ConfigurationStatusUpgrading
 		return nil
 	}
 	if len(s) == 0 {
@@ -2418,6 +2431,7 @@ const SystemEventTypeCPEDisconnected SystemEventType = "CPE_DISCONNECTED"
 const SystemEventTypeCPEInterfaceState SystemEventType = "CPE_INTERFACE_STATE"
 const SystemEventTypeClientConnected SystemEventType = "CLIENT_CONNECTED"
 const SystemEventTypeClientDisconnected SystemEventType = "CLIENT_DISCONNECTED"
+const SystemEventTypeCpeFirmwareAvailable SystemEventType = "CPE_FIRMWARE_AVAILABLE"
 const SystemEventTypeDaemonSettingsChanged SystemEventType = "DAEMON_SETTINGS_CHANGE"
 const SystemEventTypeFirmwareUploaded SystemEventType = "FIRMWARE_UPLOADED"
 const SystemEventTypeMonitorRuleViolation SystemEventType = "MONITOR_RULE_VIOLATION"
@@ -2448,6 +2462,8 @@ func (self *SystemEventType) String() string {
 		return "CLIENT_CONNECTED"
 	case SystemEventTypeClientDisconnected:
 		return "CLIENT_DISCONNECTED"
+	case SystemEventTypeCpeFirmwareAvailable:
+		return "CPE_FIRMWARE_AVAILABLE"
 	case SystemEventTypeDaemonSettingsChanged:
 		return "DAEMON_SETTINGS_CHANGE"
 	case SystemEventTypeFirmwareUploaded:
@@ -2488,6 +2504,8 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("CLIENT_CONNECTED")
 	case SystemEventTypeClientDisconnected:
 		return json.Marshal("CLIENT_DISCONNECTED")
+	case SystemEventTypeCpeFirmwareAvailable:
+		return json.Marshal("CPE_FIRMWARE_AVAILABLE")
 	case SystemEventTypeDaemonSettingsChanged:
 		return json.Marshal("DAEMON_SETTINGS_CHANGE")
 	case SystemEventTypeFirmwareUploaded:
@@ -2528,6 +2546,8 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 		return "CLIENT_CONNECTED", nil
 	case SystemEventTypeClientDisconnected:
 		return "CLIENT_DISCONNECTED", nil
+	case SystemEventTypeCpeFirmwareAvailable:
+		return "CPE_FIRMWARE_AVAILABLE", nil
 	case SystemEventTypeDaemonSettingsChanged:
 		return "DAEMON_SETTINGS_CHANGE", nil
 	case SystemEventTypeFirmwareUploaded:
@@ -2579,6 +2599,9 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CLIENT_DISCONNECTED":
 		*self = SystemEventTypeClientDisconnected
+		return nil
+	case "CPE_FIRMWARE_AVAILABLE":
+		*self = SystemEventTypeCpeFirmwareAvailable
 		return nil
 	case "DAEMON_SETTINGS_CHANGE":
 		*self = SystemEventTypeDaemonSettingsChanged
@@ -2640,6 +2663,9 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "CLIENT_DISCONNECTED":
 		*self = SystemEventTypeClientDisconnected
+		return nil
+	case "CPE_FIRMWARE_AVAILABLE":
+		*self = SystemEventTypeCpeFirmwareAvailable
 		return nil
 	case "DAEMON_SETTINGS_CHANGE":
 		*self = SystemEventTypeDaemonSettingsChanged
