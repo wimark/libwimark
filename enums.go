@@ -2419,6 +2419,7 @@ const SystemEventTypeCPEInterfaceState SystemEventType = "CPE_INTERFACE_STATE"
 const SystemEventTypeClientConnected SystemEventType = "CLIENT_CONNECTED"
 const SystemEventTypeClientDisconnected SystemEventType = "CLIENT_DISCONNECTED"
 const SystemEventTypeDaemonSettingsChanged SystemEventType = "DAEMON_SETTINGS_CHANGE"
+const SystemEventTypeFirmwareUploaded SystemEventType = "FIRMWARE_UPLOADED"
 const SystemEventTypeMonitorRuleViolation SystemEventType = "MONITOR_RULE_VIOLATION"
 const SystemEventTypeRRMStatus SystemEventType = "RRM_STATUS_DATA"
 const SystemEventTypeServiceConnected SystemEventType = "SERVICE_CONNECTED"
@@ -2449,6 +2450,8 @@ func (self *SystemEventType) String() string {
 		return "CLIENT_DISCONNECTED"
 	case SystemEventTypeDaemonSettingsChanged:
 		return "DAEMON_SETTINGS_CHANGE"
+	case SystemEventTypeFirmwareUploaded:
+		return "FIRMWARE_UPLOADED"
 	case SystemEventTypeMonitorRuleViolation:
 		return "MONITOR_RULE_VIOLATION"
 	case SystemEventTypeRRMStatus:
@@ -2487,6 +2490,8 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("CLIENT_DISCONNECTED")
 	case SystemEventTypeDaemonSettingsChanged:
 		return json.Marshal("DAEMON_SETTINGS_CHANGE")
+	case SystemEventTypeFirmwareUploaded:
+		return json.Marshal("FIRMWARE_UPLOADED")
 	case SystemEventTypeMonitorRuleViolation:
 		return json.Marshal("MONITOR_RULE_VIOLATION")
 	case SystemEventTypeRRMStatus:
@@ -2525,6 +2530,8 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 		return "CLIENT_DISCONNECTED", nil
 	case SystemEventTypeDaemonSettingsChanged:
 		return "DAEMON_SETTINGS_CHANGE", nil
+	case SystemEventTypeFirmwareUploaded:
+		return "FIRMWARE_UPLOADED", nil
 	case SystemEventTypeMonitorRuleViolation:
 		return "MONITOR_RULE_VIOLATION", nil
 	case SystemEventTypeRRMStatus:
@@ -2575,6 +2582,9 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "DAEMON_SETTINGS_CHANGE":
 		*self = SystemEventTypeDaemonSettingsChanged
+		return nil
+	case "FIRMWARE_UPLOADED":
+		*self = SystemEventTypeFirmwareUploaded
 		return nil
 	case "MONITOR_RULE_VIOLATION":
 		*self = SystemEventTypeMonitorRuleViolation
@@ -2633,6 +2643,9 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "DAEMON_SETTINGS_CHANGE":
 		*self = SystemEventTypeDaemonSettingsChanged
+		return nil
+	case "FIRMWARE_UPLOADED":
+		*self = SystemEventTypeFirmwareUploaded
 		return nil
 	case "MONITOR_RULE_VIOLATION":
 		*self = SystemEventTypeMonitorRuleViolation

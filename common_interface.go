@@ -40,9 +40,9 @@ func (self ModuleStatus) String() string {
 }
 
 type Version struct {
-	Version string `json:"version"`
-	Commit  string `json:"commit"`
-	Build   int    `json:"build"`
+	Version string `json:"version" bson:"version"`
+	Commit  string `json:"commit" bson:"commit"`
+	Build   int    `json:"build" bson:"build"`
 }
 
 func MakeVersion(version string, commit string, build string) Version {
