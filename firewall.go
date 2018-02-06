@@ -1,7 +1,7 @@
 package libwimark
 
 type FireWallSettings struct {
-	L2Chain string `json:"l2_chain" bson:"l2_chain"`
+	L2Chain UUID `json:"l2_chain" bson:"l2_chain"`
 }
 
 type L2Chain struct {
@@ -12,13 +12,13 @@ type L2Chain struct {
 }
 
 type L2Rule struct {
-	Protocol L3Protocol   `json:"protocol" bson:"protocol"`
-	SrcMAC   []string     `json:"source" bson:"source"`
-	DstMAC   []string     `json:"destination" bson:"destination"`
-	SrcIP    []string     `json:"ip-source" bson:"ip-source"`
-	DstIP    []string     `json:"ip-destination" bson:"ip-destination"`
-	IPProto  L4Protocol   `json:"ip-protocol" bson:"ip-protocol"`
-	SrcPort  []string     `json:"ip-source-port" bson:"ip-source-port"`
-	DstPort  []string     `json:"ip-destination-port" bson:"ip-destination-port"`
-	Jump     FirewallJump `json:"jump" bson:"jump"`
+	Protocol string   `json:"protocol" bson:"protocol"`
+	SrcMAC   []string `json:"source" bson:"source"`
+	DstMAC   []string `json:"destination" bson:"destination"`
+	SrcIP    []string `json:"ip_source" bson:"ip_source"`
+	DstIP    []string `json:"ip_destination" bson:"ip_destination"`
+	IPProto  string   `json:"ip_protocol" bson:"ip_protocol"`
+	SrcPort  []string `json:"ip_source_port" bson:"ip_source_port"`
+	DstPort  []string `json:"ip_destination_port" bson:"ip_destination_port"`
+	Jump     string   `json:"jump" bson:"jump"`
 }

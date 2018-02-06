@@ -41,9 +41,10 @@ type CPEMask struct {
 }
 
 type WLANMask struct {
-	UUID        []UUID `json:"uuid"`
-	HasRadius   []UUID `json:"has_radius"`
-	HasL2Chains []UUID `json:"has_l2chains"`
+	UUID                []UUID `json:"uuid"`
+	HasRadius           []UUID `json:"has_radius"`
+	HasL2Chains         []UUID `json:"has_l2chains"`
+	HasCaptiveRedirects []UUID `json:"has_redirects"`
 }
 
 type StatsMask struct {
@@ -80,21 +81,16 @@ type LBSClientCoordsMask struct {
 	Z     LimitBetweenOptional `json:"z"`
 }
 
-type TunnelMask struct {
-	UUID  []UUID `json:"uuid"`
-	Hosts []UUID `json:"has_hosts"`
-	CPEs  []UUID `json:"has_cpes"`
-}
-
 type CPEModelMask struct {
 	UUID  []UUID   `json:"uuid"`
 	Names []string `json:"names"`
 }
 
 type ConfigRuleMask struct {
-	UUID   []UUID `json:"uuid"`
-	CPEs   []UUID `json:"has_cpes"`
-	Models []UUID `json:"has_models"`
-	WLANs  []UUID `json:"has_wlans"`
-	Auto   *bool  `json:"is_auto"`
+	UUID        []UUID `json:"uuid"`
+	CPEs        []UUID `json:"has_cpes"`
+	Models      []UUID `json:"has_models"`
+	WLANs       []UUID `json:"has_wlans"`
+	HasL2Chains []UUID `json:"has_l2chains"`
+	Auto        *bool  `json:"is_auto"`
 }

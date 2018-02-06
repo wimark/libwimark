@@ -1,11 +1,12 @@
 [ConfigurationStatus]
 default = "Empty"
 [ConfigurationStatus.variants]
-Empty    = "empty"
-Error    = "error"
-OK       = "ok"
-Pending  = "pending"
-Updating = "updating"
+Empty     = "empty"
+Error     = "error"
+OK        = "ok"
+Pending   = "pending"
+Updating  = "updating"
+Upgrading = "upgrading"
 
 [Module]
 [Module.variants]
@@ -23,7 +24,9 @@ MQTTLog    = "MQTT_LOG"
 CPEStat    = "CPE_STAT"
 AC         = "AC"
 TunManager = "TUN_MANAGER"
-RRM         = "RRM"
+RRM        = "RRM"
+FW         = "FW"
+Redirect   = "REDIRECT"
 
 [Operation]
 [Operation.variants]
@@ -55,8 +58,11 @@ DaemonSettingsChanged   = "DAEMON_SETTINGS_CHANGE"
 WLANCentrAccChanged     = "WLAN_CENTR_ACC_CHANGE"
 SystemTimeChanged       = "SYSTEM_TIME_CHANGE"
 RRMStatus               = "RRM_STATUS_DATA"
+FirmwareUploaded        = "FIRMWARE_UPLOADED"
+CpeFirmwareAvailable    = "CPE_FIRMWARE_AVAILABLE"
 
 [SystemEventLevel]
+default = "DEBUG"
 [SystemEventLevel.variants]
 INFO      = "INFO"
 DEBUG     = "DEBUG"
@@ -78,6 +84,7 @@ WPAPersonal    = "wpapersonal"
 None           = "open"
 
 [CPEAgentStatusType]
+default = "Undefined"
 [CPEAgentStatusType.variants]
 Success     = "success"
 Undefined   = "undefined"
@@ -98,6 +105,7 @@ Stop    = "Stop"
 Interim = "Interim-Update"
 
 [WirelessClientType]
+default = "Other"
 [WirelessClientType.variants]
 Camera = "camera"
 Other  = "other"
@@ -108,6 +116,7 @@ CONNECTED     = "CONNECTED"
 DISCONNECTED  = "DISCONNECTED"
 
 [ConnectionModeType]
+default = "ModeLegacy"
 [ConnectionModeType.variants]
 ModeAC      = "ac"
 ModeN       = "n"
@@ -151,16 +160,16 @@ HT  = "ht"
 VHT = "vht"
 
 [FirewallPolicy]
-default = "Accept"
+default = "Empty"
 [FirewallPolicy.variants]
-Empty  = "EMPTY"
+Empty  = ""
 Drop   = "DROP"
 Accept = "ACCEPT"
 
 [L3Protocol]
 default = "Empty"
 [L3Protocol.variants]
-Empty = "EMPTY"
+Empty = ""
 IP    = "ip"
 IPv4  = "ipv4"
 IPv6  = "ipv6"
@@ -168,7 +177,7 @@ IPv6  = "ipv6"
 [L4Protocol]
 default = "Empty"
 [L4Protocol.variants]
-Empty = "EMPTY"
+Empty = ""
 TCP   = "TCP"
 UDP   = "UDP"
 
@@ -185,3 +194,19 @@ default = "Any"
 Any = "ANY"
 In  = "IN"
 Out = "OUT"
+
+[FirmwareUpdateMode]
+default = "On"
+[FirmwareUpdateMode.variants]
+On    = "on"
+Off   = "off"
+Check = "check"
+
+[PortalAuthType]
+default = "None"
+[PortalAuthType.variants]
+None     = ""
+RADIUS   = "radius"
+SMS      = "sms"
+OAuth2   = "oauth2"
+External = "external"

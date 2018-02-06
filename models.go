@@ -1,12 +1,10 @@
 package libwimark
 
 import (
-	"github.com/vorot93/goutil"
-
 	"gopkg.in/mgo.v2/bson"
 )
 
-type Document goutil.Document
+type Document map[string]interface{}
 
 type UUID string
 
@@ -51,24 +49,25 @@ type WPAEnterpriseData struct {
 }
 
 type WLAN struct {
-	Name               string           `json:"name"`
-	SSID               string           `json:"ssid"`
-	Description        string           `json:"description"`
-	Security           EnumSecurity     `json:"security"`
-	VLAN               int              `json:"vlan"`
-	Hidden             bool             `json:"hidden"`
-	NasID              *string          `json:"nas_id"`
-	RadiusAcctServers  []UUID           `json:"radius_acct_servers"`
-	RadiusAcctInterval int              `json:"radius_acct_interval"`
-	WhiteList          []string         `json:"whitelist"`
-	BlackList          []string         `json:"blacklist"`
-	FilterMode         MacFilterType    `json:"filtermode"`
-	L2Isolate          bool             `json:"l2isolate"`
-	PMKCaching         bool             `json:"pmkcaching"`
-	Roaming80211r      bool             `json:"roam80211r"`
-	Tunneling          bool             `json:"tunneling"`
-	DefaultTunnel      string           `json:"default_tunnel"`
-	Firewall           FireWallSettings `json:"firewall"`
+	Name               string               `json:"name"`
+	SSID               string               `json:"ssid"`
+	Description        string               `json:"description"`
+	Security           EnumSecurity         `json:"security"`
+	VLAN               int                  `json:"vlan"`
+	Hidden             bool                 `json:"hidden"`
+	NasID              *string              `json:"nas_id"`
+	RadiusAcctServers  []UUID               `json:"radius_acct_servers"`
+	RadiusAcctInterval int                  `json:"radius_acct_interval"`
+	WhiteList          []string             `json:"whitelist"`
+	BlackList          []string             `json:"blacklist"`
+	FilterMode         MacFilterType        `json:"filtermode"`
+	L2Isolate          bool                 `json:"l2isolate"`
+	PMKCaching         bool                 `json:"pmkcaching"`
+	Roaming80211r      bool                 `json:"roam80211r"`
+	Tunneling          bool                 `json:"tunneling"`
+	DefaultTunnel      string               `json:"default_tunnel"`
+	Firewall           FireWallSettings     `json:"firewall"`
+	GuestControl       GuestControlSettings `json:"guest_control"`
 }
 
 // ==== CPE ====
@@ -119,10 +118,25 @@ type ScanConfig struct {
 	ScanNumber   int `json:"scannumber"`
 }
 
+type FirmwareConfig struct {
+	FileUrl      string             `json:"file" bson:"file"`
+	StorageUrl   string             `json:"storage" bson:"storage"`
+	ChecksumUrl  string             `json:"checksum" bson:"checksum"`
+	CheckTimeout int                `json:"timeout" bson:"timeout"`
+	Mode         FirmwareUpdateMode `json:"mode" bson:"mode"`
+}
+
 // ---- Wifi config ----
 
 type WlanConfig struct {
-	L2TPSession *UUID `json:"l2tpsession"`
+	L2TPEnabled         bool   `json:"l2tp_enabled"`
+	CPETunnelId         int    `json:"cpe_tunnel_id"`
+	CPESessionId        int    `json:"cpe_session_id"`
+	CPEInterfaceName    string `json:"cpe_interface_name"`
+	HostTunnelId        int    `json:"host_tunnel_id"`
+	HostSessionId       int    `json:"host_session_id"`
+	HostInterfaceName   string `json:"host_interface_name"`
+	HostL2InterfaceName string `json:"host_l2interface_name"`
 }
 
 type WiFiConfig struct {
@@ -175,6 +189,14 @@ type CPEConfig struct {
 	DHCPCapConfig    DHCPCapConfig    `json:"dhcpcap_config" bson:"dhcpcap_config"`
 	L2TPConfig       L2TPConfig       `json:"l2tp_config" bson:"l2tp_config"`
 	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
+	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
+}
+
+// ---- Service states ----
+
+type FirmwareState struct {
+	HasUpdate bool    `json:"has_update" bson:"has_update"`
+	Version   Version `json:"version" bson:"version"`
 }
 
 // ---- Wifi state ----
@@ -223,7 +245,8 @@ func (self *WiFiStates) SetBSON(raw bson.Raw) error {
 // ---- CPE state ----
 
 type CPEState struct {
-	Wifi WiFiStates `json:"wifi,omitempty"`
+	Wifi     WiFiStates    `json:"wifi,omitempty"`
+	Firmware FirmwareState `json:"firmware,omitempty"`
 }
 
 // ---- CPE itself ----
@@ -283,24 +306,13 @@ type VPNHost struct {
 	State      ServiceState `json:"state"`
 }
 
-type L2TPTunnelSession struct {
-	CPE                 UUID   `json:"cpe"`
-	CPETunnelId         int    `json:"cpe_tunnel_id"`
-	CPESessionId        int    `json:"cpe_session_id"`
-	CPEInterfaceName    string `json:"cpe_interface_name"`
-	Host                UUID   `json:"host"`
-	HostTunnelId        int    `json:"host_tunnel_id"`
-	HostSessionId       int    `json:"host_session_id"`
-	HostInterfaceName   string `json:"host_interface_name"`
-	HostL2InterfaceName string `json:"host_l2interface_name"`
-}
-
 // ==== CPE model ====
 
 type CPEModel struct {
 	Name         string          `json:"name" bson:"name"`
 	Description  string          `json:"description" bson:"description"`
 	Capabilities CPECapabilities `json:"capabilities" bson:"capabilities"`
+	Firmwares    []CPEFirmware   `json:"firmwares" bson:"firmwares"`
 }
 
 // ==== Config template ====
@@ -318,6 +330,14 @@ type ConfigRule struct {
 	} `json:"template" bson:"template"`
 
 	Is_auto bool `json:"is_auto" bson:"is_auto"`
+}
+
+// ==== CPE firmware ====
+
+type CPEFirmware struct {
+	Name    string `json:"name" bson:"name"`
+	Version string `json:"version" bson:"version"`
+	URL     string `json:"url" bson:"url"`
 }
 
 // ==== RRM template ====

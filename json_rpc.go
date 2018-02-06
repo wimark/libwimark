@@ -21,6 +21,7 @@ type JSONRPCClientRequest struct {
 	// response with the request that it is replying to.
 	Id int `json:"id,omitempty"`
 }
+type JSONRPCClientRequestList []JSONRPCClientRequest
 
 // clientResponse represents a JSON-RPC response returned to a client.
 type JSONRPCClientResponse struct {
@@ -31,6 +32,7 @@ type JSONRPCClientResponse struct {
 	Error  *JSONRPC_Error `json:"error,omitempty"`
 	Id     int            `json:"id"`
 }
+type JSONRPCClientResponseList []JSONRPCClientResponse
 
 type JSONRPC_ErrorCode int
 
@@ -38,7 +40,7 @@ type JSONRPC_Error struct {
 	// code of the error
 	Code JSONRPC_ErrorCode `json:"code"`
 	// description of the error
-	Message string `json:"messsage"`
+	Message string `json:"message"`
 	// optional data to attach
 	Data interface{} `json:"data,omitempty"`
 }
@@ -64,12 +66,12 @@ func EncodeRPCRequest(method string, args interface{}) ([]byte, error) {
 	return json.Marshal(c)
 }
 
-func NewJSONRPCRequest(method string, args interface{}) JSONRPCClientRequest {
+func NewJSONRPCRequest(method string, args interface{}, id int) JSONRPCClientRequest {
 	return JSONRPCClientRequest{
 		Version: JSON_RPC_VERSION,
 		Method:  method,
 		Params:  args,
-		Id:      rand.Int(),
+		Id:      id,
 	}
 }
 
