@@ -3,6 +3,8 @@ package libwimark
 import (
 	"encoding/json"
 	"math/rand"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
 const JSON_RPC_VERSION = "2.0"
@@ -69,4 +71,38 @@ func NewJSONRPCRequest(method string, args interface{}) JSONRPCClientRequest {
 		Params:  args,
 		Id:      rand.Int(),
 	}
+}
+
+func MakeRPCError(code JSONRPC_ErrorCode, description string,
+	id int, data interface{}) *JSONRPCClientResponse {
+	return &JSONRPCClientResponse{
+		Id:      id,
+		Version: JSON_RPC_VERSION,
+		Error: &JSONRPC_Error{
+			Code:    code,
+			Message: description,
+			Data:    data,
+		},
+	}
+}
+
+func MakeRPCSuccessResponse(id int, payload interface{}) *JSONRPCClientResponse {
+	return &JSONRPCClientResponse{
+		Id:      id,
+		Version: JSON_RPC_VERSION,
+		Result:  payload,
+	}
+}
+
+func SendRPCResponse(client mqtt.Client, topic ResponseTopic,
+	response interface{}) error {
+	payload, err := json.Marshal(response)
+	if err != nil {
+		return err
+	}
+	err = MQTTPublishSync(client, topic, payload)
+	if err != nil {
+		return err
+	}
+	return nil
 }

@@ -325,8 +325,8 @@ type ConfigRule struct {
 const COLLECTION_RRM_GROUPS = "rrm_groups"
 
 type RRMGroup struct {
-	Id       string   `json:"id" bson:"_id"`
-	CPEs     []string `json:"cpes" bson:"cpes"`
-	Algo     string   `json:"algo" bson:"algo"`
-	AlgoMeta string   `json:"algo_meta" bson:"algo_meta"`
+	Id       string      `json:"id" bson:"_id"`
+	CPEs     []string    `json:"cpes" bson:"cpes"`
+	Algo     string      `json:"algo" bson:"algo"`
+	AlgoMeta interface{} `json:"algo_meta" bson:"algo_meta"`
 }
