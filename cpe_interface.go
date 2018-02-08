@@ -83,3 +83,31 @@ const (
 	JSONRPC_CPE_ACL_L3           = "acl:l3"
 	JSONRPC_CPE_ACL_L3_RELOAD    = "acl:l3_reload"
 )
+
+// JSONRPC functions from CPE for FW upgrade
+const (
+	JSONRPC_CPE_FW_CONFIG  = "firmware:config"
+	JSONRPC_CPE_FW_CHECK   = "firmware:check"
+	JSONRPC_CPE_FW_UPGRADE = "firmware:upgrade"
+)
+
+// JSONRPC parameters
+
+// for firmware:*
+type CPEFirmwareUpgradeParams struct {
+	Config       CPEFirmwareConfig `json:"config"`
+	FastResponce bool              `json:"fast_responce"`
+}
+type CPEFirmwareConfig struct {
+	FileUrl      string             `json:"file"`
+	StorageUrl   string             `json:"storage"`
+	Md5SumsUrl   string             `json:"md5sums"`
+	CheckTimeout int                `json:"timeout"`
+	Mode         FirmwareUpdateMode `json:"mode"`
+	AvailableMd5 string             `json:"available_md5"`
+	ForceUpdate  bool               `json:"force_update"`
+}
+type CPEFirmwareConfigResponse struct {
+	Action string `json:"action"`
+	CpeFirmwareData
+}

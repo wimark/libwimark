@@ -189,11 +189,7 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
-type CPEConnectedData struct {
-	Version string `json:"version"`
-	Commit  string `json:"commit"`
-	Build   string `json:"build"`
-}
+type CPEConnectedData Version
 
 type MonitorRuleViolationData struct {
 	Cpe_id  UUID `json:"cpe_id"`
@@ -244,11 +240,7 @@ type ServiceFatalErrorData struct {
 	Description string `json:"description"`
 }
 
-type ServiceConnectedData struct {
-	Version string `json:"version"`
-	Commit  string `json:"commit"`
-	Build   int    `json:"build"`
-}
+type ServiceConnectedData Version
 
 type LBSClientData struct {
 	Timestamp int64  `json:"timestamp"`
@@ -267,4 +259,16 @@ type RRMCpeStatus struct {
 	Radio   string `json:"radio"`
 	Channel int    `json:"channel"`
 	Dbm     int    `json:"dbm"`
+}
+
+type FirmwareUploadedData struct {
+	CpeIDs []UUID `json:"cpe_ids"`
+	Url    string `json:"url"`
+}
+
+type CpeFirmwareData struct {
+	AvailableMd5  string `json:"available_md5"`
+	CurrentMd5    string `json:"current_md5"`
+	NewFirmware   bool   `json:"new_firmware"`
+	GoingToUpdate bool   `json:"going_to_update"`
 }

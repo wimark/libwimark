@@ -1,11 +1,12 @@
 [ConfigurationStatus]
 default = "Empty"
 [ConfigurationStatus.variants]
-Empty    = "empty"
-Error    = "error"
-OK       = "ok"
-Pending  = "pending"
-Updating = "updating"
+Empty     = "empty"
+Error     = "error"
+OK        = "ok"
+Pending   = "pending"
+Updating  = "updating"
+Upgrading = "upgrading"
 
 [Module]
 [Module.variants]
@@ -56,6 +57,8 @@ DaemonSettingsChanged   = "DAEMON_SETTINGS_CHANGE"
 WLANCentrAccChanged     = "WLAN_CENTR_ACC_CHANGE"
 SystemTimeChanged       = "SYSTEM_TIME_CHANGE"
 RRMStatus               = "RRM_STATUS_DATA"
+FirmwareUploaded        = "FIRMWARE_UPLOADED"
+CpeFirmwareAvailable    = "CPE_FIRMWARE_AVAILABLE"
 
 [SystemEventLevel]
 default = "DEBUG"
