@@ -271,4 +271,5 @@ type CpeFirmwareData struct {
 	CurrentMd5    string `json:"current_md5"`
 	NewFirmware   bool   `json:"new_firmware"`
 	GoingToUpdate bool   `json:"going_to_update"`
+	Error         string `json:"error"`
 }
