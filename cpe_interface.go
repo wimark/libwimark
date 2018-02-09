@@ -99,12 +99,12 @@ type CPEFirmwareUpgradeParams struct {
 	FastResponce bool              `json:"fast_responce"`
 }
 type CPEFirmwareConfig struct {
-	FileUrl      string             `json:"file"`
-	StorageUrl   string             `json:"storage"`
-	Md5SumsUrl   string             `json:"md5sums"`
-	CheckTimeout int                `json:"timeout"`
+	FileUrl      string             `json:"file,omitempty"`
+	StorageUrl   string             `json:"storage,omitempty"`
+	Md5SumsUrl   string             `json:"md5sums,omitempty"`
+	CheckTimeout int                `json:"timeout,omitempty"`
 	Mode         FirmwareUpdateMode `json:"mode"`
-	AvailableMd5 string             `json:"available_md5"`
+	AvailableMd5 string             `json:"available_md5,omitempty"`
 	ForceUpdate  bool               `json:"force_update"`
 }
 type CPEFirmwareConfigResponse struct {
