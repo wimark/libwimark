@@ -264,6 +264,7 @@ type RRMCpeStatus struct {
 type FirmwareUploadedData struct {
 	CpeIDs []UUID `json:"cpe_ids"`
 	Url    string `json:"url"`
+	Md5Sum string `json:"md5sum"`
 }
 
 type CpeFirmwareData struct {
