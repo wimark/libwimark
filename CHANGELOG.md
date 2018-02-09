@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.9.XX] - 09-02-2018
+
+### Added
+#### WNE-696-fwupdate-event
+ - Add events for FW update feature
+#### l2chain-template-mask
+ - Add l2chain link to mask for config templates
+
+### Changed
+#### WNE-744-no-separate-tunnels
+ - Tunnel sessions moved from separate coll to CPE model
+
 ## [v0.8.0] - 23-01-2018
 ### Added
 #### L2Rules-Template
