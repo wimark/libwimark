@@ -105,7 +105,7 @@ type CPEFirmwareConfig struct {
 	CheckTimeout int                `json:"timeout,omitempty"`
 	Mode         FirmwareUpdateMode `json:"mode"`
 	AvailableMd5 string             `json:"available_md5,omitempty"`
-	ForceUpdate  bool               `json:"force_update"`
+	ForceUpgrade bool               `json:"force_upgrade"`
 }
 type CPEFirmwareConfigResponse struct {
 	Action string `json:"action"`

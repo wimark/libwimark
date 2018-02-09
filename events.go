@@ -268,9 +268,9 @@ type FirmwareUploadedData struct {
 }
 
 type CpeFirmwareData struct {
-	AvailableMd5  string `json:"available_md5"`
-	CurrentMd5    string `json:"current_md5"`
-	NewFirmware   bool   `json:"new_firmware"`
-	GoingToUpdate bool   `json:"going_to_update"`
-	Error         string `json:"error"`
+	AvailableMd5   string `json:"available_md5"`
+	CurrentMd5     string `json:"current_md5"`
+	NewFirmware    bool   `json:"new_firmware"`
+	GoingToUpgrade bool   `json:"going_to_upgrade"`
+	Error          string `json:"error"`
 }
