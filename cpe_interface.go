@@ -96,7 +96,7 @@ const (
 // for firmware:*
 type CPEFirmwareUpgradeParams struct {
 	Config       CPEFirmwareConfig `json:"config"`
-	FastResponce bool              `json:"fast_responce"`
+	FastResponce bool              `json:"fast_response"`
 }
 type CPEFirmwareConfig struct {
 	FileUrl      string             `json:"file,omitempty"`
