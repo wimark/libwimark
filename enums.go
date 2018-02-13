@@ -925,7 +925,7 @@ func (self *FirmwareUpdateMode) String() string {
 		return "on"
 	}
 	if len(*self) == 0 {
-		return "on"
+		return "check"
 	}
 	panic(errors.New("Invalid value of FirmwareUpdateMode"))
 }
@@ -940,7 +940,7 @@ func (self *FirmwareUpdateMode) MarshalJSON() ([]byte, error) {
 		return json.Marshal("on")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("on")
+		return json.Marshal("check")
 	}
 	return nil, errors.New("Invalid value of FirmwareUpdateMode")
 }
@@ -955,7 +955,7 @@ func (self *FirmwareUpdateMode) GetBSON() (interface{}, error) {
 		return "on", nil
 	}
 	if len(*self) == 0 {
-		return "on", nil
+		return "check", nil
 	}
 	return nil, errors.New("Invalid value of FirmwareUpdateMode")
 }
@@ -977,7 +977,7 @@ func (self *FirmwareUpdateMode) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	if len(s) == 0 {
-		*self = FirmwareUpdateModeOn
+		*self = FirmwareUpdateModeCheck
 		return nil
 	}
 	return errors.New("Unknown FirmwareUpdateMode")
@@ -1000,7 +1000,7 @@ func (self *FirmwareUpdateMode) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	if len(s) == 0 {
-		*self = FirmwareUpdateModeOn
+		*self = FirmwareUpdateModeCheck
 		return nil
 	}
 	return errors.New("Unknown FirmwareUpdateMode")
