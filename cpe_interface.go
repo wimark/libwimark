@@ -49,6 +49,7 @@ const (
 	JSONRPC_CPE_GET_WIFI         = "get:wifi"
 	JSONRPC_CPE_GET_CAPABILITIES = "get:capabilities"
 	JSONRPC_CPE_GET_MODEL        = "get:model"
+	JSONRPC_CPE_GET_VERSION      = "get:version"
 )
 
 // JSONRPC functions from CPE for LOGGING
