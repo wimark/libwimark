@@ -195,7 +195,7 @@ In  = "IN"
 Out = "OUT"
 
 [FirmwareUpdateMode]
-default = "On"
+default = "Check"
 [FirmwareUpdateMode.variants]
 On    = "on"
 Off   = "off"
