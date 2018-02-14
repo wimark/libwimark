@@ -249,6 +249,10 @@ type CPEModelLink struct {
 	Name string `json:"name"`
 }
 
+type IPAddress struct {
+	Addr    string `json:"ipaddr"`
+	NetMask string `json:"netmask"`
+}
 type CPE struct {
 	Name         string              `json:"name"`
 	Connected    bool                `json:"connected"`
@@ -256,6 +260,7 @@ type CPE struct {
 	IPAddr       string              `json:"ipaddr"`
 	MACAddr      string              `json:"macaddr"`
 	NetMask      string              `json:"netmask"`
+	IPAddrs      []IPAddress         `json:"ipaddrs"`
 	Gateway      string              `json:"gateway"`
 	Model        CPEModelLink        `json:"model"`
 	ConfigStatus ConfigurationStatus `json:"config_status"`
