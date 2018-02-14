@@ -189,8 +189,9 @@ type CPEConfig struct {
 // ---- Service states ----
 
 type FirmwareState struct {
-	HasUpdate bool    `json:"has_update" bson:"has_update"`
-	Version   Version `json:"version" bson:"version"`
+	HasUpdate  bool    `json:"has_update" bson:"has_update"`
+	CurrentMd5 string  `json:"current_md5" bson:"current_md5"`
+	Version    Version `json:"version" bson:"version"`
 }
 
 // ---- Wifi state ----
