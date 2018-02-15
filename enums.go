@@ -722,97 +722,12 @@ func (self *FirewallDirection) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown FirewallDirection")
 }
 
-type FirewallJump string
-
-const FirewallJumpAccept FirewallJump = "ACCEPT"
-const FirewallJumpDROP FirewallJump = "DROP"
-
-func (self FirewallJump) GetPtr() *FirewallJump { var v = self; return &v }
-
-func (self *FirewallJump) String() string {
-	switch *self {
-	case FirewallJumpAccept:
-		return "ACCEPT"
-	case FirewallJumpDROP:
-		return "DROP"
-	}
-	if len(*self) == 0 {
-		return "ACCEPT"
-	}
-	panic(errors.New("Invalid value of FirewallJump"))
-}
-
-func (self *FirewallJump) MarshalJSON() ([]byte, error) {
-	switch *self {
-	case FirewallJumpAccept:
-		return json.Marshal("ACCEPT")
-	case FirewallJumpDROP:
-		return json.Marshal("DROP")
-	}
-	if len(*self) == 0 {
-		return json.Marshal("ACCEPT")
-	}
-	return nil, errors.New("Invalid value of FirewallJump")
-}
-
-func (self *FirewallJump) GetBSON() (interface{}, error) {
-	switch *self {
-	case FirewallJumpAccept:
-		return "ACCEPT", nil
-	case FirewallJumpDROP:
-		return "DROP", nil
-	}
-	if len(*self) == 0 {
-		return "ACCEPT", nil
-	}
-	return nil, errors.New("Invalid value of FirewallJump")
-}
-
-func (self *FirewallJump) UnmarshalJSON(b []byte) error {
-	var s string
-	if err := json.Unmarshal(b, &s); err != nil {
-		return err
-	}
-	switch s {
-	case "ACCEPT":
-		*self = FirewallJumpAccept
-		return nil
-	case "DROP":
-		*self = FirewallJumpDROP
-		return nil
-	}
-	if len(s) == 0 {
-		*self = FirewallJumpAccept
-		return nil
-	}
-	return errors.New("Unknown FirewallJump")
-}
-
-func (self *FirewallJump) SetBSON(v bson.Raw) error {
-	var s string
-	if err := v.Unmarshal(&s); err != nil {
-		return err
-	}
-	switch s {
-	case "ACCEPT":
-		*self = FirewallJumpAccept
-		return nil
-	case "DROP":
-		*self = FirewallJumpDROP
-		return nil
-	}
-	if len(s) == 0 {
-		*self = FirewallJumpAccept
-		return nil
-	}
-	return errors.New("Unknown FirewallJump")
-}
-
 type FirewallPolicy string
 
 const FirewallPolicyAccept FirewallPolicy = "ACCEPT"
 const FirewallPolicyDrop FirewallPolicy = "DROP"
 const FirewallPolicyEmpty FirewallPolicy = ""
+const FirewallPolicyReturn FirewallPolicy = "RETURN"
 
 func (self FirewallPolicy) GetPtr() *FirewallPolicy { var v = self; return &v }
 
@@ -824,6 +739,8 @@ func (self *FirewallPolicy) String() string {
 		return "DROP"
 	case FirewallPolicyEmpty:
 		return ""
+	case FirewallPolicyReturn:
+		return "RETURN"
 	}
 	if len(*self) == 0 {
 		return ""
@@ -839,6 +756,8 @@ func (self *FirewallPolicy) MarshalJSON() ([]byte, error) {
 		return json.Marshal("DROP")
 	case FirewallPolicyEmpty:
 		return json.Marshal("")
+	case FirewallPolicyReturn:
+		return json.Marshal("RETURN")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("")
@@ -854,6 +773,8 @@ func (self *FirewallPolicy) GetBSON() (interface{}, error) {
 		return "DROP", nil
 	case FirewallPolicyEmpty:
 		return "", nil
+	case FirewallPolicyReturn:
+		return "RETURN", nil
 	}
 	if len(*self) == 0 {
 		return "", nil
@@ -875,6 +796,9 @@ func (self *FirewallPolicy) UnmarshalJSON(b []byte) error {
 		return nil
 	case "":
 		*self = FirewallPolicyEmpty
+		return nil
+	case "RETURN":
+		*self = FirewallPolicyReturn
 		return nil
 	}
 	if len(s) == 0 {
@@ -898,6 +822,9 @@ func (self *FirewallPolicy) SetBSON(v bson.Raw) error {
 		return nil
 	case "":
 		*self = FirewallPolicyEmpty
+		return nil
+	case "RETURN":
+		*self = FirewallPolicyReturn
 		return nil
 	}
 	if len(s) == 0 {

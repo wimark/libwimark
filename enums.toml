@@ -164,6 +164,7 @@ default = "Empty"
 Empty  = ""
 Drop   = "DROP"
 Accept = "ACCEPT"
+Return = "RETURN"
 
 [L3Protocol]
 default = "Empty"
@@ -179,13 +180,6 @@ default = "Empty"
 Empty = ""
 TCP   = "TCP"
 UDP   = "UDP"
-
-[FirewallJump]
-default = "Accept"
-[FirewallJump.variants]
-Accept = "ACCEPT"
-DROP   = "DROP"
-
 
 [FirewallDirection]
 default = "Any"
