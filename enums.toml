@@ -26,6 +26,7 @@ AC         = "AC"
 TunManager = "TUN_MANAGER"
 RRM        = "RRM"
 FW         = "FW"
+Redirect   = "REDIRECT"
 
 [Operation]
 [Operation.variants]
@@ -194,3 +195,12 @@ default = "Check"
 On    = "on"
 Off   = "off"
 Check = "check"
+
+[PortalAuthType]
+default = "None"
+[PortalAuthType.variants]
+None     = ""
+RADIUS   = "radius"
+SMS      = "sms"
+OAuth2   = "oauth2"
+External = "external"
