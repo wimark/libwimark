@@ -90,9 +90,11 @@ type StatisticsConfig struct {
 }
 
 type LogConfig struct {
-	Enabled bool `json:"enabled"`
-	// in seconds
-	ReportPeriod int `json:"reportperiod"`
+	LogIP     string `json:"log_ip" bson:"log_ip"`
+	LogPrefix string `json:"log_prefix" bson:"log_prefix"`
+	LogProto  string `json:"log_proto" bson:"log_proto"`
+	LogRemote string `json:"log_remote" bson:"log_remote"`
+	LogPort   string `json:"log_port" bson:"log_port"`
 }
 
 type DHCPCapConfig struct {
