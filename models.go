@@ -95,8 +95,8 @@ type LogConfig struct {
 	LogIP     string `json:"log_ip" bson:"log_ip"`
 	LogPrefix string `json:"log_prefix" bson:"log_prefix"`
 	LogProto  string `json:"log_proto" bson:"log_proto"`
-	LogRemote string `json:"log_remote" bson:"log_remote"`
-	LogPort   string `json:"log_port" bson:"log_port"`
+	LogRemote bool   `json:"log_remote" bson:"log_remote"`
+	LogPort   int    `json:"log_port" bson:"log_port"`
 }
 
 type DHCPCapConfig struct {
