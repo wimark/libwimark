@@ -1417,6 +1417,7 @@ const ModuleFW Module = "FW"
 const ModuleLBS Module = "LBS"
 const ModuleMQTTLog Module = "MQTT_LOG"
 const ModuleMonitor Module = "MONITOR"
+const ModulePortalBack Module = "PORTAL_BACKEND"
 const ModuleRRM Module = "RRM"
 const ModuleRedirect Module = "REDIRECT"
 const ModuleStat Module = "STAT"
@@ -1452,6 +1453,8 @@ func (self *Module) String() string {
 		return "MQTT_LOG"
 	case ModuleMonitor:
 		return "MONITOR"
+	case ModulePortalBack:
+		return "PORTAL_BACKEND"
 	case ModuleRRM:
 		return "RRM"
 	case ModuleRedirect:
@@ -1492,6 +1495,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("MQTT_LOG")
 	case ModuleMonitor:
 		return json.Marshal("MONITOR")
+	case ModulePortalBack:
+		return json.Marshal("PORTAL_BACKEND")
 	case ModuleRRM:
 		return json.Marshal("RRM")
 	case ModuleRedirect:
@@ -1532,6 +1537,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "MQTT_LOG", nil
 	case ModuleMonitor:
 		return "MONITOR", nil
+	case ModulePortalBack:
+		return "PORTAL_BACKEND", nil
 	case ModuleRRM:
 		return "RRM", nil
 	case ModuleRedirect:
@@ -1588,6 +1595,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MONITOR":
 		*self = ModuleMonitor
+		return nil
+	case "PORTAL_BACKEND":
+		*self = ModulePortalBack
 		return nil
 	case "RRM":
 		*self = ModuleRRM
@@ -1649,6 +1659,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "MONITOR":
 		*self = ModuleMonitor
+		return nil
+	case "PORTAL_BACKEND":
+		*self = ModulePortalBack
 		return nil
 	case "RRM":
 		*self = ModuleRRM
