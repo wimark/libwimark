@@ -335,11 +335,14 @@ func parseInlineTag(tag string) inlineTag {
 }
 
 func mapDecode(from interface{}) (map[string]interface{}, error) {
-	var m = map[string]interface{}{}
-	var dc = ms.DecoderConfig{TagName: "json", Result: &m}
-	var dec *ms.Decoder
-	dec, _ = ms.NewDecoder(&dc)
-	var err = dec.Decode(from)
+	// wont use mapstructure,
+	// just because it ignores 'omitempty' and such json tags
+	var m map[string]interface{}
+	b, err := json.Marshal(from)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(b, &m)
 	return m, err
 }
 
