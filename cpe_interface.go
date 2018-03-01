@@ -83,3 +83,9 @@ const (
 	JSONRPC_CPE_ACL_L3           = "acl:l3"
 	JSONRPC_CPE_ACL_L3_RELOAD    = "acl:l3_reload"
 )
+
+// JSONRPC functions from CPE for l2portal
+const (
+	JSONRPC_CPE_L2PORTAL_WHITELIST_ADD    = "l2portal:whitelist_add"
+	JSONRPC_CPE_L2PORTAL_WHITELIST_REMOVE = "l2portal:whitelist_remove"
+)
