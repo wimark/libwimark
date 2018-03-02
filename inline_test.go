@@ -18,6 +18,13 @@ type Embedded2 struct {
 	A1   string `json:"a1"`
 	A2   int    `json:"a2"`
 	Type string `json:"type"`
+	Num  string `json:"num"`
+}
+
+type Embedded3 struct {
+	S    string `json:"s"`
+	Type string `json:"type"`
+	Num  string `json:"num"`
 }
 
 type EmbeddedUni struct {
@@ -35,7 +42,8 @@ type GeneralStruct struct {
 	I  int                     `json:"i"`
 	S  string                  `json:"s"`
 	E1 map[string]Embedded1    `json:"-" inline:"yes,type:a"`
-	E2 map[string]Embedded2    `json:"-" inline:"yes,type:b"`
+	E2 map[string]Embedded2    `json:"-" inline:"yes,type:b,num:2"`
+	E3 map[string]Embedded3    `json:"-" inline:"yes,type:b,num:3"`
 	E  map[string]EmbeddedFull `json:"-" inline:"yes"`
 	U  EmbeddedUni             `json:"-" inline:"yes,unique,u,type:u"`
 }
@@ -51,10 +59,18 @@ var SampleStruct = GeneralStruct{
 		},
 	},
 	E2: map[string]Embedded2{
-		"B": Embedded2{
+		"B2": Embedded2{
 			A1:   "24",
 			A2:   42,
 			Type: "b",
+			Num:  "2",
+		},
+	},
+	E3: map[string]Embedded3{
+		"B3": Embedded3{
+			S:    "sss",
+			Type: "b",
+			Num:  "3",
 		},
 	},
 	E: map[string]EmbeddedFull{
@@ -77,9 +93,15 @@ var SampleString = `
 		"a2": "24",
 		"type": "a"
 	},
-	"B": {
+	"B2": {
 		"a1": "24",
 		"a2": 42,
+		"num": "2",
+		"type": "b"
+	},
+	"B3": {
+		"num": "3",
+		"s": "sss",
 		"type": "b"
 	},
 	"E": {
@@ -110,10 +132,11 @@ func TestMarshal(t *testing.T) {
 func TestUnmarshal(t *testing.T) {
 	var f GeneralStruct = SampleStruct
 	var fld = map[string]interface{}{
-		"type:a": &map[string]Embedded1{},
-		"type:b": &map[string]Embedded2{},
-		"type:u": &EmbeddedUni{},
-		"":       &map[string]EmbeddedFull{},
+		"type:a":       &map[string]Embedded1{},
+		"type:b,num:2": &map[string]Embedded2{},
+		"type:b,num:3": &map[string]Embedded3{},
+		"type:u":       &EmbeddedUni{},
+		"":             &map[string]EmbeddedFull{},
 	}
 	e := UnmarshalInline([]byte(SampleString), &f, fld)
 	assert.True(t, e == nil, fmt.Sprint(e))
