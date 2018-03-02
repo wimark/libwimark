@@ -353,6 +353,7 @@ type CPEModel struct {
 	Description  string        `json:"description" bson:"description"`
 	Capabilities Capabilities  `json:"capabilities" bson:"capabilities"`
 	Firmwares    []CPEFirmware `json:"firmwares" bson:"firmwares"`
+	Version      Version       `json:"version" bson:"version"`
 }
 
 // ==== Config template ====
