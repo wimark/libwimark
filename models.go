@@ -127,28 +127,16 @@ type FirmwareConfig struct {
 
 // ---- Wifi config ----
 
-type WlanConfig struct {
-	L2TPEnabled         bool   `json:"l2tp_enabled"`
-	CPETunnelId         int    `json:"cpe_tunnel_id"`
-	CPESessionId        int    `json:"cpe_session_id"`
-	CPEInterfaceName    string `json:"cpe_interface_name"`
-	HostTunnelId        int    `json:"host_tunnel_id"`
-	HostSessionId       int    `json:"host_session_id"`
-	HostInterfaceName   string `json:"host_interface_name"`
-	HostL2InterfaceName string `json:"host_l2interface_name"`
-}
-
 type WiFiConfig struct {
-	BandMode    string              `json:"bandmode"`
-	Bandwidth   string              `json:"bandwidth"`
-	TxPower     string              `json:"txpower"`
-	WLANs       []UUID              `json:"wlans"`
-	WLANConfig  map[UUID]WlanConfig `json:"wlanconfig"`
-	Channels    []int               `json:"channels"`
-	Country     string              `json:"country"`
-	MaxClients  int                 `json:"maxclients"`
-	ScanConfig  ScanConfig          `json:"scanningconfig"`
-	RequireMode MCSRequire          `json:"require_mode"`
+	BandMode    string     `json:"bandmode"`
+	Bandwidth   string     `json:"bandwidth"`
+	TxPower     string     `json:"txpower"`
+	WLANs       []UUID     `json:"wlans"`
+	Channels    []int      `json:"channels"`
+	Country     string     `json:"country"`
+	MaxClients  int        `json:"maxclients"`
+	ScanConfig  ScanConfig `json:"scanningconfig"`
+	RequireMode MCSRequire `json:"require_mode"`
 }
 
 type WiFiConfigs map[string]WiFiConfig
