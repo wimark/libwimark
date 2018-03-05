@@ -181,6 +181,19 @@ func (self *WiFiConfigs) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
+// ---- Tunnel config ----
+
+type TunnelConfig struct {
+	CPETunnelId         int    `json:"cpe_tunnel_id"`
+	CPESessionId        int    `json:"cpe_session_id"`
+	CPEInterfaceName    string `json:"cpe_interface_name"`
+	HostTunnelId        int    `json:"host_tunnel_id"`
+	HostSessionId       int    `json:"host_session_id"`
+	HostInterfaceName   string `json:"host_interface_name"`
+	HostL2InterfaceName string `json:"host_l2interface_name"`
+}
+type TunnelConfigs map[string]TunnelConfig
+
 // ---- CPE config ----
 
 type CPEConfig struct {
@@ -192,6 +205,7 @@ type CPEConfig struct {
 	L2TPConfig       L2TPConfig       `json:"l2tp_config" bson:"l2tp_config"`
 	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
 	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
+	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
 }
 
 // ---- Service states ----
