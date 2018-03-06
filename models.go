@@ -182,10 +182,23 @@ type TunnelConfig struct {
 }
 type TunnelConfigs map[string]TunnelConfig
 
+// ---- Wired switch config ----
+
+type WiredVlanConfig struct {
+	Vlan   int      `json:"vlan" bson:"vlan"`
+	Ports  []string `json:"ports" bson:"ports"`
+	Tunnel string   `json:"tunnel" bson:"tunnel"`
+}
+type WiredConfig struct {
+	Vlans []WiredVlanConfig `json:"vlans" bson:"vlans"`
+}
+type WiredConfigs map[string]WiredConfig
+
 // ---- CPE config ----
 
 type CPEConfig struct {
 	Wifi             WiFiConfigs      `json:"wifi" bson:"wifi"`
+	Wired            WiredConfigs     `json:"wired" bson:"wired"`
 	LbsConfig        LBSConfig        `json:"lbs_config" bson:"lbs_config"`
 	StatisticsConfig StatisticsConfig `json:"stats_config" bson:"stats_config"`
 	LogConfig        LogConfig        `json:"log_config" bson:"log_config"`
@@ -247,10 +260,18 @@ func (self *WiFiStates) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
+// ---- Wired state ----
+
+type WiredStates map[string]WiredState
+type WiredState struct {
+	CableIn bool `json:"cable_in" json:"cable_in"`
+}
+
 // ---- CPE state ----
 
 type CPEState struct {
 	Wifi     WiFiStates    `json:"wifi,omitempty"`
+	Wired    WiredStates   `json:"wired,omitempty"`
 	Firmware FirmwareState `json:"firmware,omitempty"`
 }
 
@@ -283,6 +304,17 @@ type CPE struct {
 
 // ==== Capabilities ====
 
+type WiredPortCaps struct {
+	Index  string `json:"index" bson:"index"`
+	Number int    `json:"num" bson:"num"`
+	Role   string `json:"role" bson:"role"`
+	Type   string `json:"type" bson:"type"`
+}
+type WiredCapabilities struct {
+	Switch string          `json:"switch" bson:"switch"`
+	Ports  []WiredPortCaps `json:"ports" bson:"ports"`
+}
+
 type CapTxPower struct {
 	DBelMw    int `json:"dbm"`
 	MilliWatt int `json:"mw"`
@@ -295,7 +327,7 @@ type CapChannel struct {
 	MaxPower   CapTxPower `json:"max_txpower"`
 }
 
-type Capabilities struct {
+type WifiCapabilities struct {
 	TxPowers  []CapTxPower    `json:"txpwrlist"`
 	HTModes   map[string]bool `json:"htmodelist"`
 	HWModes   map[string]bool `json:"hwmodelist"`
@@ -304,7 +336,14 @@ type Capabilities struct {
 	Frequency string          `json:"frequency"`
 }
 
-type CPECapabilities map[string]Capabilities
+type Capabilities struct {
+	Wifi  map[string]WifiCapabilities  `json:"wifi" bson:"wifi"`
+	Wired map[string]WiredCapabilities `json:"wired" bson:"wired"`
+}
+
+// ==== OBSOLETE Capabilities ====
+
+type CPECapabilities map[string]WifiCapabilities
 
 // ==== L2TP objects ====
 
@@ -322,7 +361,9 @@ type CPEModel struct {
 	Name         string          `json:"name" bson:"name"`
 	Description  string          `json:"description" bson:"description"`
 	Capabilities CPECapabilities `json:"capabilities" bson:"capabilities"`
+	Caps         Capabilities    `json:"caps" bson:"caps"`
 	Firmwares    []CPEFirmware   `json:"firmwares" bson:"firmwares"`
+	Version      Version         `json:"version" bson:"version"`
 }
 
 // ==== Config template ====
