@@ -48,6 +48,7 @@ type DBDataUUID struct {
 	CPEModel        []UUID `json:"cpe-model,omitempty"`
 	ConfigRule      []UUID `json:"config-rule,omitempty"`
 	L2Chain         []UUID `json:"l2-chain,omitempty"`
+	CaptiveRedirect []UUID `json:"captive-redirect,omitempty"`
 }
 
 func (self *DBDataUUID) Reset() {
@@ -71,6 +72,7 @@ type DBDataMasks struct {
 	CPEModel        *CPEModelMask        `json:"cpe-model,omitempty"`
 	ConfigRule      *ConfigRuleMask      `json:"config-rule,omitempty"`
 	L2Chain         *SimpleMask          `json:"l2-chain,omitempty"`
+	CaptiveRedirect *SimpleMask          `json:"captive-redirect,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {
