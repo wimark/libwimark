@@ -39,12 +39,3 @@ constraint = "WirelessClientType"
 [WirelessClientObject.Variants]
 Camera = "CameraClientData"
 Other = "OtherClientData"
-
-[PortalAuthObject]
-constraint = "PortalAuthType"
-[PortalAuthObject.Variants]
-None     = "null"
-RADIUS   = "PortalAuthRADIUS"
-SMS      = "PortalAuthSMS"
-OAuth2   = "PortalAuthOAuth2"
-External = "PortalAuthExternal"

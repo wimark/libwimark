@@ -92,6 +92,12 @@ const (
 	JSONRPC_CPE_FW_UPGRADE = "firmware:upgrade"
 )
 
+// JSONRPC functions from CPE for l2portal
+const (
+	JSONRPC_CPE_L2PORTAL_WHITELIST_ADD    = "l2portal:whitelist_add"
+	JSONRPC_CPE_L2PORTAL_WHITELIST_REMOVE = "l2portal:whitelist_remove"
+)
+
 // JSONRPC parameters
 
 // for firmware:*

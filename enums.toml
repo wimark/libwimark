@@ -27,6 +27,7 @@ TunManager = "TUN_MANAGER"
 RRM        = "RRM"
 FW         = "FW"
 Redirect   = "REDIRECT"
+PortalBack = "PORTAL_BACKEND"
 
 [Operation]
 [Operation.variants]
