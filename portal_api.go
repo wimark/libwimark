@@ -63,4 +63,14 @@ type PortalClientSession struct {
 	TxBytes     int64 `json:"tx_bytes" bson:"tx_bytes"`
 	RxBytesLast int64 `json:"rx_bytes_last" bson:"rx_bytes_last"`
 	TxBytesLast int64 `json:"tx_bytes_last" bson:"tx_bytes_last"`
+
+	// data from acct start
+	CallingStationId string `json:"Calling-Station-Id"`
+	CalledStationId  string `json:"Called-Station-Id"`
+	NasPortType      string `json:"NAS-Port-Type"`
+	NasPort          string `json:"NAS-Port"`
+	NasIdentifier    string `json:"NAS-Identifier"`
+	NasIPAddress     string `json:"NAS-IP-Address"`
+	FramedIPAddress  string `json:"Framed-IP-Address"`
+	UserName         string `json:"User-Name"`
 }

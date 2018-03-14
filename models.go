@@ -17,6 +17,7 @@ type Radius struct {
 	Acc_port  string `json:"acc_port"`
 	Secret    string `json:"secret"`
 	Is_local  bool   `json:"is_local"`
+	IsPortal  bool   `json:"is_portal"`
 }
 
 // ==== WLANs ====

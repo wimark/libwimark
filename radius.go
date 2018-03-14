@@ -33,13 +33,12 @@ type RadiusAccountingStart struct {
 	CallingStationId    string `json:"Calling-Station-Id"`
 	CalledStationId     string `json:"Called-Station-Id"`
 	NasPortType         string `json:"NAS-Port-Type"`
-	NasPortId           string `json:"NAS-Port-Id"`
-	NasPort             int    `json:"NAS-Port"`
+	NasPort             string `json:"NAS-Port"`
 	NasIdentifier       string `json:"NAS-Identifier"`
 	NasIPAddress        string `json:"NAS-IP-Address"`
 	FramedIPAddress     string `json:"Framed-IP-Address"`
 	UserName            string `json:"User-Name"`
-	Timestamp           int    `json:"Timestamp"`
+	Timestamp           int64  `json:"Timestamp"`
 	EventTimestamp      string `json:"Event-Timestamp"`
 	AcctDelayTime       int    `json:"Acct-Delay-Time"`
 	AcctSessionId       string `json:"Acct-Session-Id"`
@@ -71,12 +70,12 @@ type RadiusAccountingInterim struct {
 	CalledStationId     string `json:"Called-Station-Id"`
 	NasPortType         string `json:"NAS-Port-Type"`
 	NasPortId           string `json:"NAS-Port-Id"`
-	NasPort             int    `json:"NAS-Port"`
+	NasPort             string `json:"NAS-Port"`
 	NasIdentifier       string `json:"NAS-Identifier"`
 	NasIPAddress        string `json:"NAS-IP-Address"`
 	FramedIPAddress     string `json:"Framed-IP-Address"`
 	UserName            string `json:"User-Name"`
-	Timestamp           int    `json:"Timestamp"`
+	Timestamp           int64  `json:"Timestamp"`
 	EventTimestamp      string `json:"Event-Timestamp"`
 	AcctDelayTime       int    `json:"Acct-Delay-Time"`
 	AcctSessionId       string `json:"Acct-Session-Id"`
@@ -95,21 +94,22 @@ type RadiusAccountingStop struct {
 	CalledStationId     string `json:"Called-Station-Id"`
 	NasPortType         string `json:"NAS-Port-Type"`
 	NasPortId           string `json:"NAS-Port-Id"`
-	NasPort             int    `json:"NAS-Port"`
+	NasPort             string `json:"NAS-Port"`
 	NasIdentifier       string `json:"NAS-Identifier"`
 	NasIPAddress        string `json:"NAS-IP-Address"`
 	FramedIPAddress     string `json:"Framed-IP-Address"`
 	UserName            string `json:"User-Name"`
-	Timestamp           int    `json:"Timestamp"`
+	Timestamp           int64  `json:"Timestamp"`
 	EventTimestamp      string `json:"Event-Timestamp"`
 	AcctSessionId       string `json:"Acct-Session-Id"`
 	AcctUniqueSessionId string `json:"Acct-Unique-Session-Id"`
-	AcctSessionTime     int    `json:"Acct-Session-Time"`
-	AcctDelayTime       int    `json:"Acct-Delay-Time"`
-	AcctInputGigawords  int    `json:"Acct-Input-Gigawords"`
-	AcctOutputGigawords int    `json:"Acct-Output-Gigawords"`
-	AcctInputOctets     int    `json:"Acct-Input-Octets"`
-	AcctOutputOctets    int    `json:"Acct-Output-Octets"`
-	AcctInputPackets    int    `json:"Acct-Input-Packets"`
-	AcctOutputPackets   int    `json:"Acct-Output-Packets"`
+	AcctSessionTime     int64  `json:"Acct-Session-Time"`
+
+	AcctDelayTime       int `json:"Acct-Delay-Time"`
+	AcctInputGigawords  int `json:"Acct-Input-Gigawords"`
+	AcctOutputGigawords int `json:"Acct-Output-Gigawords"`
+	AcctInputOctets     int `json:"Acct-Input-Octets"`
+	AcctOutputOctets    int `json:"Acct-Output-Octets"`
+	AcctInputPackets    int `json:"Acct-Input-Packets"`
+	AcctOutputPackets   int `json:"Acct-Output-Packets"`
 }

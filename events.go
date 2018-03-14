@@ -277,7 +277,6 @@ type CpeFirmwareData struct {
 }
 
 type RadiusAccountingSendData struct {
-	NasId     string                 `json:"nas_id"`
-	RadiusIDs []UUID                 `json:"radius_ids"`
-	Message   RadiusAccountingObject `json:"message"`
+	RadiusList []Radius               `json:"radius_list"`
+	Message    RadiusAccountingObject `json:"message"`
 }
