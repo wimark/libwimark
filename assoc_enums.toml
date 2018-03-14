@@ -39,3 +39,12 @@ constraint = "WirelessClientType"
 [WirelessClientObject.Variants]
 Camera = "CameraClientData"
 Other = "OtherClientData"
+
+[RadiusAccountingObject]
+constraint = "ClientStatPacketType"
+[RadiusAccountingObject.variants]
+Start   = "RadiusAccountingStart"
+Stop    = "RadiusAccountingStop"
+Interim = "RadiusAccountingInterim"
+On      = "null"
+Off     = "null"

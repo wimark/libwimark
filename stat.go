@@ -35,18 +35,22 @@ type ClientStat struct {
 	WLAN                UUID                 `json:"wlan_id"`
 	RadioId             string               `json:"radio_id"`
 	CallingStationId    string               `json:"Calling-Station-Id"`
+	CalledStationId     string               `json:"Called-Station-Id"`
 	UserName            string               `json:"User-Name"`
 	AcctDelayTime       int                  `json:"Acct-Delay-Time"`
 	AcctSessionId       string               `json:"Acct-Session-Id"`
 	AcctInputGigawords  *int                 `json:"Acct-Input-Gigawords"`
-	CalledStationId     string               `json:"Called-Station-Id"`
 	AcctOutputGigawords *int                 `json:"Acct-Output-Gigawords"`
 	AcctOutputOctets    *int                 `json:"Acct-Output-Octets"`
 	AcctInputOctets     *int                 `json:"Acct-Input-Octets"`
-	AcctSessionTime     *int                 `json:"Acct-Session-Time"`
 	AcctInputPackets    *int                 `json:"Acct-Input-Packets"`
 	AcctOutputPackets   *int                 `json:"Acct-Output-Packets"`
+	AcctSessionTime     *int                 `json:"Acct-Session-Time"`
 	Timestamp           int                  `json:"Timestamp"`
+	ConnectInfo         string               `json:"Connect-Info"`
+	NasIPAddress        string               `json:"NAS-IP-Address"`
+	NasPortType         string               `json:"NAS-Port-Type"`
+	NasPort             string               `json:"NAS-Port"`
 
 	// newly added fields
 	Inactive  int  `json:"inactive"`

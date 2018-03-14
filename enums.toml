@@ -61,6 +61,7 @@ SystemTimeChanged       = "SYSTEM_TIME_CHANGE"
 RRMStatus               = "RRM_STATUS_DATA"
 FirmwareUploaded        = "FIRMWARE_UPLOADED"
 CpeFirmwareAvailable    = "CPE_FIRMWARE_AVAILABLE"
+RadiusAccountingSend    = "RADIUS_ACCOUNTING_SEND"
 
 [SystemEventLevel]
 default = "DEBUG"
