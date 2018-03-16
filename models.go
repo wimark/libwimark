@@ -187,7 +187,8 @@ type WiredVlanConfig struct {
 	FakeWlan UUID     `json:"fake_wlan" bson:"fake_wlan"`
 }
 type WiredConfig struct {
-	Vlans []WiredVlanConfig `json:"vlans" bson:"vlans"`
+	PrimaryVlan int               `json:"primary_vlan" bson:"primary_vlan"`
+	Vlans       []WiredVlanConfig `json:"vlans" bson:"vlans"`
 }
 type WiredConfigs map[string]WiredConfig
 
