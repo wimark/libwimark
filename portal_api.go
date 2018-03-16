@@ -47,30 +47,31 @@ type HTTPResponseObject struct {
 type PortalClientSession struct {
 	ID string `json:"id" bson:"_id"`
 
+	Session  string `json:"session_id" bson:"session_id"`
 	MAC      string `json:"mac" bson:"mac"`
 	WLAN     string `json:"wlan_id" bson:"wlan_id"`
 	CPE      string `json:"cpe_id" bson:"cpe_id"`
 	Redirect string `json:"redirect_id" bson:"redirect_id"`
-	Session  string `json:"session_id" bson:"session_id"`
 
 	AcctStart int64 `json:"acct_start" bson:"acct_start"`
-	AcctStop  int64 `json:"acct_stop" bson:"acct_stop"`
 	AuthStart int64 `json:"auth_start" bson:"auth_start"`
 	AuthStop  int64 `json:"auth_stop" bson:"auth_stop"`
 	Timeout   int64 `json:"timeout" bson:"timeout"`
 
-	RxBytes     int64 `json:"rx_bytes" bson:"rx_bytes"`
-	TxBytes     int64 `json:"tx_bytes" bson:"tx_bytes"`
-	RxBytesLast int64 `json:"rx_bytes_last" bson:"rx_bytes_last"`
-	TxBytesLast int64 `json:"tx_bytes_last" bson:"tx_bytes_last"`
-
 	// data from acct start
 	CallingStationId string `json:"Calling-Station-Id"`
 	CalledStationId  string `json:"Called-Station-Id"`
-	NasPortType      string `json:"NAS-Port-Type"`
-	NasPort          string `json:"NAS-Port"`
 	NasIdentifier    string `json:"NAS-Identifier"`
 	NasIPAddress     string `json:"NAS-IP-Address"`
 	FramedIPAddress  string `json:"Framed-IP-Address"`
 	UserName         string `json:"User-Name"`
+
+	// data for interim update and acct stop
+
+	AcctInputGigawords  int `json:"Acct-Input-Gigawords"`
+	AcctOutputGigawords int `json:"Acct-Output-Gigawords"`
+	AcctInputOctets     int `json:"Acct-Input-Octets"`
+	AcctOutputOctets    int `json:"Acct-Output-Octets"`
+	AcctInputPackets    int `json:"Acct-Input-Packets"`
+	AcctOutputPackets   int `json:"Acct-Output-Packets"`
 }

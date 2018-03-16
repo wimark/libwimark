@@ -277,6 +277,6 @@ type CpeFirmwareData struct {
 }
 
 type RadiusAccountingSendData struct {
-	RadiusList []Radius               `json:"radius_list"`
-	Message    RadiusAccountingObject `json:"message"`
+	RadiusList []Radius            `json:"radius_list"`
+	Message    RadiusMessageObject `json:"message"`
 }

@@ -148,12 +148,12 @@ func (self *EnumSecurity) SetBSON(v bson.Raw) error {
 	return nil
 }
 
-type RadiusAccountingObject struct {
-	Type ClientStatPacketType "json:\"type\""
-	Data interface{}          "json:\"data\""
+type RadiusMessageObject struct {
+	Type RadiusMessageType "json:\"type\""
+	Data interface{}       "json:\"data\""
 }
 
-func (self *RadiusAccountingObject) UnmarshalJSON(b []byte) error {
+func (self *RadiusMessageObject) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	if err := json.Unmarshal(b, &doc); err != nil {
 		return err
@@ -169,40 +169,46 @@ func (self *RadiusAccountingObject) UnmarshalJSON(b []byte) error {
 	if bytes.Equal(data_raw, []byte("null")) {
 		data_found = false
 	}
-	var t ClientStatPacketType
+	var t RadiusMessageType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
 	switch t {
-	case ClientStatPacketTypeInterim:
+	case RadiusMessageTypeAccessAccept:
 		if !data_found {
-			return errors.New("No associated data found for enum RadiusAccountingObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d RadiusAccountingInterim
+		var d RadiusAccessAccept
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
 		}
 		self.Data = &d
-	case ClientStatPacketTypeOff:
-		break
-	case ClientStatPacketTypeOn:
-		break
-	case ClientStatPacketTypeStart:
+	case RadiusMessageTypeAccessReject:
 		if !data_found {
-			return errors.New("No associated data found for enum RadiusAccountingObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d RadiusAccountingStart
+		var d RadiusAccessReject
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
 		}
 		self.Data = &d
-	case ClientStatPacketTypeStop:
+	case RadiusMessageTypeAccessRequest:
 		if !data_found {
-			return errors.New("No associated data found for enum RadiusAccountingObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d RadiusAccountingStop
+		var d RadiusAccessRequest
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case RadiusMessageTypeAccountingRequest:
+		if !data_found {
+			return errors.New("No associated data found for enum RadiusMessageObject")
+		}
+		var d RadiusAccountingRequest
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
@@ -213,7 +219,7 @@ func (self *RadiusAccountingObject) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func (self *RadiusAccountingObject) SetBSON(v bson.Raw) error {
+func (self *RadiusMessageObject) SetBSON(v bson.Raw) error {
 	var in = map[string]bson.Raw{}
 	if err := v.Unmarshal(&in); err != nil {
 		return err
@@ -229,40 +235,46 @@ func (self *RadiusAccountingObject) SetBSON(v bson.Raw) error {
 	if bytes.Equal(data_raw.Data, []byte("null")) {
 		data_found = false
 	}
-	var t ClientStatPacketType
+	var t RadiusMessageType
 	if t_err := t_raw.Unmarshal(&t); t_err != nil {
 		return t_err
 	}
 	switch t {
-	case ClientStatPacketTypeInterim:
+	case RadiusMessageTypeAccessAccept:
 		if !data_found {
-			return errors.New("No associated data found for enum RadiusAccountingObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d RadiusAccountingInterim
+		var d RadiusAccessAccept
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err
 		}
 		self.Data = &d
-	case ClientStatPacketTypeOff:
-		break
-	case ClientStatPacketTypeOn:
-		break
-	case ClientStatPacketTypeStart:
+	case RadiusMessageTypeAccessReject:
 		if !data_found {
-			return errors.New("No associated data found for enum RadiusAccountingObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d RadiusAccountingStart
+		var d RadiusAccessReject
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err
 		}
 		self.Data = &d
-	case ClientStatPacketTypeStop:
+	case RadiusMessageTypeAccessRequest:
 		if !data_found {
-			return errors.New("No associated data found for enum RadiusAccountingObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d RadiusAccountingStop
+		var d RadiusAccessRequest
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case RadiusMessageTypeAccountingRequest:
+		if !data_found {
+			return errors.New("No associated data found for enum RadiusMessageObject")
+		}
+		var d RadiusAccountingRequest
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err
@@ -492,6 +504,16 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
+	case SystemEventTypeRadiusAccountingSend:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d RadiusAccountingSendData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
 	case SystemEventTypeServiceConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -643,6 +665,16 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
 		var d RRMStatusData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventTypeRadiusAccountingSend:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d RadiusAccountingSendData
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err

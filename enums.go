@@ -1359,6 +1359,7 @@ const ModuleMQTTLog Module = "MQTT_LOG"
 const ModuleMonitor Module = "MONITOR"
 const ModulePortalBack Module = "PORTAL_BACKEND"
 const ModuleRRM Module = "RRM"
+const ModuleRadiusGw Module = "RADIUS_GATEWAY"
 const ModuleRedirect Module = "REDIRECT"
 const ModuleStat Module = "STAT"
 const ModuleTunManager Module = "TUN_MANAGER"
@@ -1397,6 +1398,8 @@ func (self *Module) String() string {
 		return "PORTAL_BACKEND"
 	case ModuleRRM:
 		return "RRM"
+	case ModuleRadiusGw:
+		return "RADIUS_GATEWAY"
 	case ModuleRedirect:
 		return "REDIRECT"
 	case ModuleStat:
@@ -1439,6 +1442,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("PORTAL_BACKEND")
 	case ModuleRRM:
 		return json.Marshal("RRM")
+	case ModuleRadiusGw:
+		return json.Marshal("RADIUS_GATEWAY")
 	case ModuleRedirect:
 		return json.Marshal("REDIRECT")
 	case ModuleStat:
@@ -1481,6 +1486,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "PORTAL_BACKEND", nil
 	case ModuleRRM:
 		return "RRM", nil
+	case ModuleRadiusGw:
+		return "RADIUS_GATEWAY", nil
 	case ModuleRedirect:
 		return "REDIRECT", nil
 	case ModuleStat:
@@ -1541,6 +1548,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "RRM":
 		*self = ModuleRRM
+		return nil
+	case "RADIUS_GATEWAY":
+		*self = ModuleRadiusGw
 		return nil
 	case "REDIRECT":
 		*self = ModuleRedirect
@@ -1605,6 +1615,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "RRM":
 		*self = ModuleRRM
+		return nil
+	case "RADIUS_GATEWAY":
+		*self = ModuleRadiusGw
 		return nil
 	case "REDIRECT":
 		*self = ModuleRedirect
@@ -1902,6 +1915,118 @@ func (self *PortalAuthType) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	return errors.New("Unknown PortalAuthType")
+}
+
+type RadiusMessageType string
+
+const RadiusMessageTypeAccessAccept RadiusMessageType = "access-accept"
+const RadiusMessageTypeAccessReject RadiusMessageType = "access-reject"
+const RadiusMessageTypeAccessRequest RadiusMessageType = "access-request"
+const RadiusMessageTypeAccountingRequest RadiusMessageType = "accounting"
+
+func (self RadiusMessageType) GetPtr() *RadiusMessageType { var v = self; return &v }
+
+func (self *RadiusMessageType) String() string {
+	switch *self {
+	case RadiusMessageTypeAccessAccept:
+		return "access-accept"
+	case RadiusMessageTypeAccessReject:
+		return "access-reject"
+	case RadiusMessageTypeAccessRequest:
+		return "access-request"
+	case RadiusMessageTypeAccountingRequest:
+		return "accounting"
+	}
+	if len(*self) == 0 {
+		return "accounting"
+	}
+	panic(errors.New("Invalid value of RadiusMessageType"))
+}
+
+func (self *RadiusMessageType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case RadiusMessageTypeAccessAccept:
+		return json.Marshal("access-accept")
+	case RadiusMessageTypeAccessReject:
+		return json.Marshal("access-reject")
+	case RadiusMessageTypeAccessRequest:
+		return json.Marshal("access-request")
+	case RadiusMessageTypeAccountingRequest:
+		return json.Marshal("accounting")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("accounting")
+	}
+	return nil, errors.New("Invalid value of RadiusMessageType")
+}
+
+func (self *RadiusMessageType) GetBSON() (interface{}, error) {
+	switch *self {
+	case RadiusMessageTypeAccessAccept:
+		return "access-accept", nil
+	case RadiusMessageTypeAccessReject:
+		return "access-reject", nil
+	case RadiusMessageTypeAccessRequest:
+		return "access-request", nil
+	case RadiusMessageTypeAccountingRequest:
+		return "accounting", nil
+	}
+	if len(*self) == 0 {
+		return "accounting", nil
+	}
+	return nil, errors.New("Invalid value of RadiusMessageType")
+}
+
+func (self *RadiusMessageType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "access-accept":
+		*self = RadiusMessageTypeAccessAccept
+		return nil
+	case "access-reject":
+		*self = RadiusMessageTypeAccessReject
+		return nil
+	case "access-request":
+		*self = RadiusMessageTypeAccessRequest
+		return nil
+	case "accounting":
+		*self = RadiusMessageTypeAccountingRequest
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadiusMessageTypeAccountingRequest
+		return nil
+	}
+	return errors.New("Unknown RadiusMessageType")
+}
+
+func (self *RadiusMessageType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "access-accept":
+		*self = RadiusMessageTypeAccessAccept
+		return nil
+	case "access-reject":
+		*self = RadiusMessageTypeAccessReject
+		return nil
+	case "access-request":
+		*self = RadiusMessageTypeAccessRequest
+		return nil
+	case "accounting":
+		*self = RadiusMessageTypeAccountingRequest
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadiusMessageTypeAccountingRequest
+		return nil
+	}
+	return errors.New("Unknown RadiusMessageType")
 }
 
 type SecuritySuite string

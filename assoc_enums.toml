@@ -27,6 +27,7 @@ CPEInterfaceState       = "CPEInterfaceStateData"
 RRMStatus               = "RRMStatusData"
 FirmwareUploaded        = "FirmwareUploadedData"
 CpeFirmwareAvailable    = "CpeFirmwareData"
+RadiusAccountingSend    = "RadiusAccountingSendData"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"
@@ -40,11 +41,10 @@ constraint = "WirelessClientType"
 Camera = "CameraClientData"
 Other = "OtherClientData"
 
-[RadiusAccountingObject]
-constraint = "ClientStatPacketType"
-[RadiusAccountingObject.variants]
-Start   = "RadiusAccountingStart"
-Stop    = "RadiusAccountingStop"
-Interim = "RadiusAccountingInterim"
-On      = "null"
-Off     = "null"
+[RadiusMessageObject]
+constraint = "RadiusMessageType"
+[RadiusMessageObject.variants]
+AccountingRequest = "RadiusAccountingRequest"
+AccessRequest     = "RadiusAccessRequest"
+AccessAccept      = "RadiusAccessAccept"
+AccessReject      = "RadiusAccessReject"
