@@ -14,7 +14,7 @@ type RedirectRequestObject struct {
 	CPE  string `json:"cpe_id" bson:"cpe_id" form:"cpe_id" query:"cpe_id" validate:"uuid"`
 	WLAN string `json:"wlan_id" bson:"wlan_id" form:"wlan_id" query:"wlan_id" validate:"uuid"`
 
-	Timeout int64 `json:"client_timeout,omitempty" bson:"client_timeout" form:"client_timeout" query:"client_timeout" validate:"-"`
+	Timeout int64 `json:"session-timeout,omitempty" bson:"session-timeout" form:"session-timeout" query:"session-timeout" validate:"-"`
 }
 
 // Struct for request payload from webui
