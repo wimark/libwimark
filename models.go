@@ -181,10 +181,11 @@ func (self *WiFiConfigs) SetBSON(raw bson.Raw) error {
 // ---- Wired switch config ----
 
 type WiredVlanConfig struct {
-	Vlan     int      `json:"vlan" bson:"vlan"`
-	Ports    []string `json:"ports" bson:"ports"`
-	Tunnel   string   `json:"tunnel" bson:"tunnel"`
-	FakeWlan UUID     `json:"fake_wlan" bson:"fake_wlan"`
+	Vlan       int      `json:"vlan" bson:"vlan"`
+	Ports      []string `json:"ports" bson:"ports"`
+	Tunnel     string   `json:"tunnel" bson:"tunnel"`
+	FakeWlan   UUID     `json:"fake_wlan" bson:"fake_wlan"`
+	Accounting bool     `json:"acct" bson:"acct"`
 }
 type WiredConfig struct {
 	PrimaryVlan int               `json:"primary_vlan" bson:"primary_vlan"`
