@@ -25,9 +25,11 @@ type PortalRequestObject struct {
 	Username string `json:"username,omitempty" bson:"username" form:"username" query:"username" validate:"-"`
 	Password string `json:"password,omitempty" bson:"password" form:"password" query:"password" validate:"-"`
 
-	MAC  string `json:"mac" bson:"mac" form:"mac" query:"mac" validate:"required,mac"`
-	CPE  string `json:"cpe_id" bson:"cpe_id" form:"cpe_id" query:"cpe_id" validate:"required,uuid"`
-	WLAN string `json:"wlan_id" bson:"wlan_id" form:"wlan_id" query:"wlan_id" validate:"required,uuid"`
+	MAC       string `json:"mac" bson:"mac" form:"mac" query:"mac" validate:"required,mac"`
+	CPE       string `json:"cpe_id" bson:"cpe_id" form:"cpe_id" query:"cpe_id" validate:"required,uuid"`
+	WLAN      string `json:"wlan_id" bson:"wlan_id" form:"wlan_id" query:"wlan_id" validate:"required,uuid"`
+	Useragent string `json:"useragent"  bson:"useragent" form:"useragent" query:"useragent" validate:"-"`
+	Timeout   int64  `json:"-" validate:"-"`
 }
 
 type Validator struct {
@@ -74,4 +76,27 @@ type RedirectClientSession struct {
 	AcctOutputOctets    int `json:"Acct-Output-Octets"`
 	AcctInputPackets    int `json:"Acct-Input-Packets"`
 	AcctOutputPackets   int `json:"Acct-Output-Packets"`
+}
+
+type PortalAuthObject struct {
+	Timestamp int64  `json:"timestamp" bson:"timestamp"`
+	Type      string `json:"type" bson:"type"`
+	CPE       string `json:"cpe_id" bson:"cpe_id"`
+	Useragent string `json:"useragent" bson:"useragent"`
+}
+
+type PortalClientSession struct {
+	Id string `json:"id" bson:"_id"`
+
+	MAC  string `json:"mac" bson:"mac"`
+	WLAN string `json:"wlan_id" bson:"wlan_id"`
+
+	Username string `json:"username" bson:"username"`
+	Password string `json:"password" bson:"password"`
+
+	CreateAt       int64              `json:"create_at" bson:"create_at"`
+	StopAt         int64              `json:"stop_at" bson:"stop_at"`
+	Timeout        int64              `json:"timeout" bson:"timeout"`
+	SessionTimeout int64              `json:"session_timeout" bson:"session_timeout"`
+	Auth           []PortalAuthObject `json:"auth" bson:"auth"`
 }
