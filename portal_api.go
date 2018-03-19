@@ -44,7 +44,7 @@ type HTTPResponseObject struct {
 	Code        string `json:"code,omitempty"`
 }
 
-type PortalClientSession struct {
+type RedirectClientSession struct {
 	ID string `json:"id" bson:"_id"`
 
 	Session  string `json:"session_id" bson:"session_id"`
