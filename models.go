@@ -196,6 +196,31 @@ type WiredConfig struct {
 	Vlans       []WiredVlanConfig `json:"vlans" bson:"vlans"`
 }
 type WiredConfigs map[string]WiredConfig
+type wiredCfg struct {
+	Id       string      `bson:"_id"`
+	Contents WiredConfig `bson:",inline"`
+}
+
+func (self WiredConfigs) GetBSON() (interface{}, error) {
+	out := []wiredCfg{}
+	for k, v := range self {
+		out = append(out, wiredCfg{k, v})
+	}
+	return out, nil
+}
+
+func (self *WiredConfigs) SetBSON(raw bson.Raw) error {
+	var in = []wiredCfg{}
+	var out = WiredConfigs{}
+	if err := raw.Unmarshal(&in); err != nil {
+		return err
+	}
+	for _, v := range in {
+		out[v.Id] = v.Contents
+	}
+	*self = out
+	return nil
+}
 
 // ---- CPE config ----
 
