@@ -44,6 +44,10 @@ func MQTTMustConnectSync(addr string) mqtt.Client {
 }
 
 func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.Client, error) {
+	return MQTTServiceStartWithId(addr, s, v, "", meta)
+}
+
+func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta interface{}) (mqtt.Client, error) {
 	ts := time.Now().Unix()
 
 	// prepare disconnect event for will message
@@ -83,7 +87,7 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 	//sending retain status message
 	statusTopic := StatusTopic{
 		SenderModule: s,
-		SenderID:     "",
+		SenderID:     id,
 	}
 
 	statusPayload := ModuleStatus{
@@ -91,7 +95,7 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 		Commit:  v.Commit,
 		Build:   v.Build,
 		Service: s,
-		Id:      "",
+		Id:      id,
 		State:   ServiceStateConnected,
 		Meta:    meta,
 	}
@@ -108,7 +112,7 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 	// sending connect event
 	eventConnectTopic := EventTopic{
 		SenderModule: s,
-		SenderID:     "",
+		SenderID:     id,
 		Type:         SystemEventTypeServiceConnected,
 	}
 
