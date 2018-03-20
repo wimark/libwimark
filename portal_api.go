@@ -41,9 +41,10 @@ func (cv *Validator) Validate(i interface{}) error {
 }
 
 type HTTPResponseObject struct {
-	Status      string `json:"status,omitempty"`
-	Description string `json:"description,omitempty"`
-	Code        string `json:"code,omitempty"`
+	Status      string      `json:"status,omitempty"`
+	Description string      `json:"description,omitempty"`
+	Code        string      `json:"code,omitempty"`
+	Data        interface{} `json:"data,omitempty"`
 }
 
 type RedirectClientSession struct {
@@ -69,7 +70,7 @@ type RedirectClientSession struct {
 	UserName         string `json:"User-Name"`
 
 	// data for interim update and acct stop
-
+	AcctSessionTime     int `json:"Acct-Session-Time"`
 	AcctInputGigawords  int `json:"Acct-Input-Gigawords"`
 	AcctOutputGigawords int `json:"Acct-Output-Gigawords"`
 	AcctInputOctets     int `json:"Acct-Input-Octets"`

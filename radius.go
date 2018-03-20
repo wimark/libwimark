@@ -41,6 +41,7 @@ type RadiusAccountingRequest struct {
 	NasIdentifier      string `json:"NAS-Identifier"`
 	NasIPAddress       string `json:"NAS-IP-Address"`
 	AcctDelayTime      int    `json:"Acct-Delay-Time"`
+	AcctSessionTime    int    `json:"Acct-Session-Time"`
 	AcctSessionId      string `json:"Acct-Session-Id"`
 	AcctTerminateCause string `json:"Acct-Terminate-Cause,omitempty"`
 
