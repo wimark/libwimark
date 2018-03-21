@@ -14,14 +14,13 @@ type RedirectRequestObject struct {
 	CPE  string `json:"cpe_id" bson:"cpe_id" form:"cpe_id" query:"cpe_id" validate:"uuid"`
 	WLAN string `json:"wlan_id" bson:"wlan_id" form:"wlan_id" query:"wlan_id" validate:"uuid"`
 
-	Timeout int64 `json:"session-timeout,omitempty" bson:"session-timeout" form:"session-timeout" query:"session-timeout" validate:"-"`
+	Timeout int64  `json:"session-timeout,omitempty" bson:"session-timeout" form:"session-timeout" query:"session-timeout" validate:"-"`
+	NasId   string `json:"nas-id,omitempty" bson:"nas-id" form:"nas-id" query:"nas-id" validate:"-"`
 }
 
 // Struct for request payload from webui
 
 type PortalRequestObject struct {
-	Type string `json:"type,omitempty" bson:"type" form:"type" query:"type" validate:"-"`
-
 	Username string `json:"username,omitempty" bson:"username" form:"username" query:"username" validate:"-"`
 	Password string `json:"password,omitempty" bson:"password" form:"password" query:"password" validate:"-"`
 
@@ -81,7 +80,6 @@ type RedirectClientSession struct {
 
 type PortalAuthObject struct {
 	Timestamp int64  `json:"timestamp" bson:"timestamp"`
-	Type      string `json:"type" bson:"type"`
 	CPE       string `json:"cpe_id" bson:"cpe_id"`
 	Useragent string `json:"useragent" bson:"useragent"`
 }
@@ -92,6 +90,7 @@ type PortalClientSession struct {
 	MAC  string `json:"mac" bson:"mac"`
 	WLAN string `json:"wlan_id" bson:"wlan_id"`
 
+	Status   string `json:"status" bson:"status"`
 	Username string `json:"username" bson:"username"`
 	Password string `json:"password" bson:"password"`
 
