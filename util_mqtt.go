@@ -43,6 +43,11 @@ func MQTTMustConnectSync(addr string) mqtt.Client {
 	return client
 }
 
+func onDisconnect(client mqtt.Client, err error) {
+	time.Sleep(time.Second * 1)
+	panic("MQTT broker connection lost")
+}
+
 func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.Client, error) {
 	ts := time.Now().Unix()
 
@@ -74,6 +79,8 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 	opts.SetWill(eventDisconnetTopic.TopicPath(), string(b), 2, false)
 
 	opts.SetClientID(s.String())
+
+	opts.SetConnectionLostHandler(onDisconnect)
 
 	client, err := MQTTConnectSyncOpts(opts)
 	if err != nil {
