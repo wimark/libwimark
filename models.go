@@ -202,7 +202,8 @@ type FirmwareState struct {
 // ---- Wifi state ----
 
 type WlanState struct {
-	State CPEInterfaceState `json:"state"`
+	State        CPEInterfaceState `json:"state"`
+	VirtualIface string            `json:"virtual_iface" bson:"virtual_iface"`
 }
 
 type WiFiState struct {
