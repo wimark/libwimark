@@ -2,7 +2,11 @@ package libwimark
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"math/rand"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
 const JSON_RPC_VERSION = "2.0"
@@ -71,4 +75,68 @@ func NewJSONRPCRequest(method string, args interface{}, id int) JSONRPCClientReq
 		Params:  args,
 		Id:      id,
 	}
+}
+
+func MakeRPCError(code JSONRPC_ErrorCode, description string,
+	id int, data interface{}) *JSONRPCClientResponse {
+	return &JSONRPCClientResponse{
+		Id:      id,
+		Version: JSON_RPC_VERSION,
+		Error: &JSONRPC_Error{
+			Code:    code,
+			Message: description,
+			Data:    data,
+		},
+	}
+}
+
+func MakeRPCSuccessResponse(id int, payload interface{}) *JSONRPCClientResponse {
+	return &JSONRPCClientResponse{
+		Id:      id,
+		Version: JSON_RPC_VERSION,
+		Result:  payload,
+	}
+}
+
+type JSONRPCProcedure interface {
+	ProcedureExecute(JSONRPCClientRequest) *JSONRPCClientResponse
+}
+
+type RPCServer struct {
+	// for some reason does not work as below
+	// RPCs map[TunManagerRPC]Procedure
+	RPCs map[string]JSONRPCProcedure
+}
+
+func (server *RPCServer) ExecuteRPC(req JSONRPCClientRequest) *JSONRPCClientResponse {
+	p, ok := server.RPCs[req.Method]
+	if !ok {
+		err := errors.New("There is no such method")
+		return MakeRPCError(E_NO_METHOD, err.Error(), req.Id, nil)
+	}
+	return p.ProcedureExecute(req)
+}
+
+func ProcessJSONRPCMessage(msg mqtt.Message, server *RPCServer) (JSONRPCClientResponseList, error) {
+	var err error
+	// get topic in common structure
+	_, err = ParseRequestTopic(msg.Topic())
+	if err != nil {
+		return nil, errors.New(fmt.Sprintf("Topic is not supported err := (%s), topic := (%s)",
+			err.Error(), msg.Topic()))
+	}
+	var in []JSONRPCClientRequest
+	// parse incoming rpcs
+	err = json.Unmarshal(msg.Payload(), &in)
+	if err != nil {
+		response := MakeRPCError(E_PARSE, err.Error(), 0, nil)
+		return JSONRPCClientResponseList{*response}, err
+	}
+
+	rsp := JSONRPCClientResponseList{}
+	for i := range in {
+		rsp = append(rsp, *server.ExecuteRPC(in[i]))
+	}
+
+	return rsp, nil
 }
