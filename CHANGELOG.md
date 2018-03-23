@@ -1,5 +1,28 @@
 # Changelog
 
+## [v0.10] - ??-03-2018
+
+### Added
+#### marshal-inline
+ - Support for multiple inline fields
+ - Support for "unique" inline field with constraints
+#### WNE-762-portal
+#### WNE-802-wired-model
+ - Config, state(stub) and capabilities for wired interfaces
+#### WNE-831-accounting-rubic
+#### jsonrpc-funcs
+ - JSONRPC support functions (moved from tunnel-manager)
+#### WNE-838-broker-reconnect
+#### WNE-832-sms-gw
+#### wlan-virtual-iface
+ - Field for WLAN virtual interface on CPE
+
+### Changed
+#### WNE-731-remote-syslog
+ - CPE logging config changed
+#### tunnel-config
+ - Separate config for tunnels
+
 ## [v0.9] - 15-02-2018
 
 ### Added
