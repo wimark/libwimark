@@ -6,14 +6,26 @@
 #### marshal-inline
  - Support for multiple inline fields
  - Support for "unique" inline field with constraints
+
 #### WNE-762-portal
+ - Models for redirect and redirect API
+ - CapriveRedirect / RedirectClientSession / etc
+
 #### WNE-802-wired-model
  - Config, state(stub) and capabilities for wired interfaces
+
 #### WNE-831-accounting-rubic
+ - Change API for redirect HTTP requests for RubicPro
+
 #### jsonrpc-funcs
  - JSONRPC support functions (moved from tunnel-manager)
+
 #### WNE-838-broker-reconnect
+ - Add onDisconnect function with panic to MQTT util
+
 #### WNE-832-sms-gw
+ - Add portal API (status of session, type of authorization)
+
 #### wlan-virtual-iface
  - Field for WLAN virtual interface on CPE
 
