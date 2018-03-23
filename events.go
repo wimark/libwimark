@@ -275,3 +275,8 @@ type CpeFirmwareData struct {
 	GoingToUpgrade bool   `json:"going_to_upgrade"`
 	Error          string `json:"error"`
 }
+
+type RadiusAccountingSendData struct {
+	RadiusList []Radius            `json:"radius_list"`
+	Message    RadiusMessageObject `json:"message"`
+}

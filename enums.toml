@@ -28,6 +28,7 @@ RRM        = "RRM"
 FW         = "FW"
 Redirect   = "REDIRECT"
 PortalBack = "PORTAL_BACKEND"
+RadiusGw   = "RADIUS_GATEWAY"
 
 [Operation]
 [Operation.variants]
@@ -61,6 +62,7 @@ SystemTimeChanged       = "SYSTEM_TIME_CHANGE"
 RRMStatus               = "RRM_STATUS_DATA"
 FirmwareUploaded        = "FIRMWARE_UPLOADED"
 CpeFirmwareAvailable    = "CPE_FIRMWARE_AVAILABLE"
+RadiusAccountingSend    = "RADIUS_ACCOUNTING_SEND"
 
 [SystemEventLevel]
 default = "DEBUG"
@@ -205,3 +207,11 @@ RADIUS   = "radius"
 SMS      = "sms"
 OAuth2   = "oauth2"
 External = "external"
+
+[RadiusMessageType]
+default = "AccountingRequest"
+[RadiusMessageType.variants]
+AccountingRequest = "accounting"
+AccessRequest     = "access-request"
+AccessAccept      = "access-accept"
+AccessReject      = "access-reject"
