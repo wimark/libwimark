@@ -1357,7 +1357,9 @@ const ModuleFW Module = "FW"
 const ModuleLBS Module = "LBS"
 const ModuleMQTTLog Module = "MQTT_LOG"
 const ModuleMonitor Module = "MONITOR"
+const ModulePortalBack Module = "PORTAL_BACKEND"
 const ModuleRRM Module = "RRM"
+const ModuleRedirect Module = "REDIRECT"
 const ModuleStat Module = "STAT"
 const ModuleTunManager Module = "TUN_MANAGER"
 
@@ -1391,8 +1393,12 @@ func (self *Module) String() string {
 		return "MQTT_LOG"
 	case ModuleMonitor:
 		return "MONITOR"
+	case ModulePortalBack:
+		return "PORTAL_BACKEND"
 	case ModuleRRM:
 		return "RRM"
+	case ModuleRedirect:
+		return "REDIRECT"
 	case ModuleStat:
 		return "STAT"
 	case ModuleTunManager:
@@ -1429,8 +1435,12 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("MQTT_LOG")
 	case ModuleMonitor:
 		return json.Marshal("MONITOR")
+	case ModulePortalBack:
+		return json.Marshal("PORTAL_BACKEND")
 	case ModuleRRM:
 		return json.Marshal("RRM")
+	case ModuleRedirect:
+		return json.Marshal("REDIRECT")
 	case ModuleStat:
 		return json.Marshal("STAT")
 	case ModuleTunManager:
@@ -1467,8 +1477,12 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "MQTT_LOG", nil
 	case ModuleMonitor:
 		return "MONITOR", nil
+	case ModulePortalBack:
+		return "PORTAL_BACKEND", nil
 	case ModuleRRM:
 		return "RRM", nil
+	case ModuleRedirect:
+		return "REDIRECT", nil
 	case ModuleStat:
 		return "STAT", nil
 	case ModuleTunManager:
@@ -1522,8 +1536,14 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 	case "MONITOR":
 		*self = ModuleMonitor
 		return nil
+	case "PORTAL_BACKEND":
+		*self = ModulePortalBack
+		return nil
 	case "RRM":
 		*self = ModuleRRM
+		return nil
+	case "REDIRECT":
+		*self = ModuleRedirect
 		return nil
 	case "STAT":
 		*self = ModuleStat
@@ -1580,8 +1600,14 @@ func (self *Module) SetBSON(v bson.Raw) error {
 	case "MONITOR":
 		*self = ModuleMonitor
 		return nil
+	case "PORTAL_BACKEND":
+		*self = ModulePortalBack
+		return nil
 	case "RRM":
 		*self = ModuleRRM
+		return nil
+	case "REDIRECT":
+		*self = ModuleRedirect
 		return nil
 	case "STAT":
 		*self = ModuleStat
@@ -1751,6 +1777,131 @@ func (self *Operation) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	return errors.New("Unknown Operation")
+}
+
+type PortalAuthType string
+
+const PortalAuthTypeExternal PortalAuthType = "external"
+const PortalAuthTypeNone PortalAuthType = ""
+const PortalAuthTypeOAuth2 PortalAuthType = "oauth2"
+const PortalAuthTypeRADIUS PortalAuthType = "radius"
+const PortalAuthTypeSMS PortalAuthType = "sms"
+
+func (self PortalAuthType) GetPtr() *PortalAuthType { var v = self; return &v }
+
+func (self *PortalAuthType) String() string {
+	switch *self {
+	case PortalAuthTypeExternal:
+		return "external"
+	case PortalAuthTypeNone:
+		return ""
+	case PortalAuthTypeOAuth2:
+		return "oauth2"
+	case PortalAuthTypeRADIUS:
+		return "radius"
+	case PortalAuthTypeSMS:
+		return "sms"
+	}
+	if len(*self) == 0 {
+		return ""
+	}
+	panic(errors.New("Invalid value of PortalAuthType"))
+}
+
+func (self *PortalAuthType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case PortalAuthTypeExternal:
+		return json.Marshal("external")
+	case PortalAuthTypeNone:
+		return json.Marshal("")
+	case PortalAuthTypeOAuth2:
+		return json.Marshal("oauth2")
+	case PortalAuthTypeRADIUS:
+		return json.Marshal("radius")
+	case PortalAuthTypeSMS:
+		return json.Marshal("sms")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("")
+	}
+	return nil, errors.New("Invalid value of PortalAuthType")
+}
+
+func (self *PortalAuthType) GetBSON() (interface{}, error) {
+	switch *self {
+	case PortalAuthTypeExternal:
+		return "external", nil
+	case PortalAuthTypeNone:
+		return "", nil
+	case PortalAuthTypeOAuth2:
+		return "oauth2", nil
+	case PortalAuthTypeRADIUS:
+		return "radius", nil
+	case PortalAuthTypeSMS:
+		return "sms", nil
+	}
+	if len(*self) == 0 {
+		return "", nil
+	}
+	return nil, errors.New("Invalid value of PortalAuthType")
+}
+
+func (self *PortalAuthType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "external":
+		*self = PortalAuthTypeExternal
+		return nil
+	case "":
+		*self = PortalAuthTypeNone
+		return nil
+	case "oauth2":
+		*self = PortalAuthTypeOAuth2
+		return nil
+	case "radius":
+		*self = PortalAuthTypeRADIUS
+		return nil
+	case "sms":
+		*self = PortalAuthTypeSMS
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalAuthTypeNone
+		return nil
+	}
+	return errors.New("Unknown PortalAuthType")
+}
+
+func (self *PortalAuthType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "external":
+		*self = PortalAuthTypeExternal
+		return nil
+	case "":
+		*self = PortalAuthTypeNone
+		return nil
+	case "oauth2":
+		*self = PortalAuthTypeOAuth2
+		return nil
+	case "radius":
+		*self = PortalAuthTypeRADIUS
+		return nil
+	case "sms":
+		*self = PortalAuthTypeSMS
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalAuthTypeNone
+		return nil
+	}
+	return errors.New("Unknown PortalAuthType")
 }
 
 type SecuritySuite string
