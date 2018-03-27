@@ -6,6 +6,7 @@ type TunManagerBroadcastMeta struct {
 	Hostname       string                 `json:"hostname"`
 	HostUUID       string                 `json:"host_uuid"`
 	HostIP         string                 `json:"host_ip"`
+	HostIPSecIP    string                 `json:"host_ipsec_ip"`
 	HostInterfaces []LinkDescriptor       `json:"active_out_interfaces"`
 	HostTunnels    []CPETunnelDescription `json:"active_cpe_tunnels"`
 }
