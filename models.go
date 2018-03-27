@@ -107,6 +107,7 @@ type DHCPCapConfig struct {
 type L2TPConfig struct {
 	Enabled           bool   `json:"enabled"`
 	VPNHost           UUID   `json:"host"`
+	VPNType           string `json:"vpntype"`
 	LocalVPNAddress   string `json:"local_vpn_addr"`
 	LocalVPNInterface string `json:"local_vpn_iface"`
 	HostTunnelId      int    `json:"host_tunnel"`
