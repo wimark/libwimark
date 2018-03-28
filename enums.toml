@@ -108,6 +108,7 @@ default = "Other"
 [WirelessClientType.variants]
 Camera = "camera"
 Other  = "other"
+Wired  = "wired"
 
 [WirelessClientState]
 [WirelessClientState.variants]

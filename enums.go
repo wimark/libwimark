@@ -2629,6 +2629,7 @@ type WirelessClientType string
 
 const WirelessClientTypeCamera WirelessClientType = "camera"
 const WirelessClientTypeOther WirelessClientType = "other"
+const WirelessClientTypeWired WirelessClientType = "wired"
 
 func (self WirelessClientType) GetPtr() *WirelessClientType { var v = self; return &v }
 
@@ -2638,6 +2639,8 @@ func (self *WirelessClientType) String() string {
 		return "camera"
 	case WirelessClientTypeOther:
 		return "other"
+	case WirelessClientTypeWired:
+		return "wired"
 	}
 	if len(*self) == 0 {
 		return "other"
@@ -2651,6 +2654,8 @@ func (self *WirelessClientType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("camera")
 	case WirelessClientTypeOther:
 		return json.Marshal("other")
+	case WirelessClientTypeWired:
+		return json.Marshal("wired")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("other")
@@ -2664,6 +2669,8 @@ func (self *WirelessClientType) GetBSON() (interface{}, error) {
 		return "camera", nil
 	case WirelessClientTypeOther:
 		return "other", nil
+	case WirelessClientTypeWired:
+		return "wired", nil
 	}
 	if len(*self) == 0 {
 		return "other", nil
@@ -2682,6 +2689,9 @@ func (self *WirelessClientType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "other":
 		*self = WirelessClientTypeOther
+		return nil
+	case "wired":
+		*self = WirelessClientTypeWired
 		return nil
 	}
 	if len(s) == 0 {
@@ -2702,6 +2712,9 @@ func (self *WirelessClientType) SetBSON(v bson.Raw) error {
 		return nil
 	case "other":
 		*self = WirelessClientTypeOther
+		return nil
+	case "wired":
+		*self = WirelessClientTypeWired
 		return nil
 	}
 	if len(s) == 0 {
