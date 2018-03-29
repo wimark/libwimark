@@ -186,6 +186,7 @@ type WiredVlanConfig struct {
 	Tunnel     string   `json:"tunnel" bson:"tunnel"`
 	FakeWlan   UUID     `json:"fake_wlan" bson:"fake_wlan"`
 	Accounting bool     `json:"acct" bson:"acct"`
+	Interface  string   `json:"interface" bson:"interface"`
 }
 type WiredConfig struct {
 	PrimaryVlan int               `json:"primary_vlan" bson:"primary_vlan"`
