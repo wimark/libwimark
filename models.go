@@ -263,7 +263,14 @@ func (self *WiFiStates) SetBSON(raw bson.Raw) error {
 
 type WiredStates map[string]WiredState
 type WiredState struct {
-	CableIn bool `json:"cable_in" json:"cable_in"`
+	CableIn     bool        `json:"cable_in" json:"cable_in"`
+	SwitchVlans []VlanState `json:"vlans" json:"vlans"`
+}
+type VlanState struct {
+	Vid    int      `json:"vid" bson:"vid"`
+	Vlan   int      `json:"vlan" bson:"vlan"`
+	Ports  []string `json:"ports" bson:"ports"`
+	System bool     `json:"system" bson:"system"`
 }
 
 // ---- CPE state ----
