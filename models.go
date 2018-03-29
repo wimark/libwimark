@@ -101,12 +101,14 @@ type DHCPCapConfig struct {
 }
 
 type L2TPConfig struct {
-	Enabled           bool   `json:"enabled"`
-	VPNHost           UUID   `json:"host"`
-	LocalVPNAddress   string `json:"local_vpn_addr"`
-	LocalVPNInterface string `json:"local_vpn_iface"`
-	HostTunnelId      int    `json:"host_tunnel"`
-	LocalTunnelId     int    `json:"local_tunnel"`
+	Enabled        bool   `json:"enabled" bson:"enabled"`
+	HostId         UUID   `json:"host_id" bson:"host_id"`
+	HostAddr       string `json:"host_addr" bson:"host_addr"`
+	HostTunnelId   int    `json:"host_tunnel" bson:"host_tunnel"`
+	TunnelType     string `json:"tunnel_type" bson:"tunnel_type"`
+	LocalAddr      string `json:"local_addr" bson:"local_addr"`
+	LocalInterface string `json:"local_iface" bson:"local_iface"`
+	LocalTunnelId  int    `json:"local_tunnel" bson:"local_tunnel"`
 }
 
 type ScanConfig struct {
