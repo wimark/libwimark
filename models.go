@@ -106,7 +106,7 @@ type DHCPCapConfig struct {
 
 type L2TPConfig struct {
 	Enabled        bool   `json:"enabled" bson:"enabled"`
-	HostId         UUID   `json:"host_id" bson:"host_id"`
+	HostId         UUID   `json:"host" bson:"host"`
 	HostAddr       string `json:"host_addr" bson:"host_addr"`
 	HostTunnelId   int    `json:"host_tunnel" bson:"host_tunnel"`
 	TunnelType     string `json:"tunnel_type" bson:"tunnel_type"`
