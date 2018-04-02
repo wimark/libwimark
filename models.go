@@ -310,7 +310,8 @@ type CPECapabilities map[string]Capabilities
 type VPNHost struct {
 	HostName   string       `json:"hostname"`
 	OSUUID     UUID         `json:"os_uuid"`
-	IpAddr     string       `json:"ipaddr"`
+	OvpnAddr   string       `json:"ipaddr"`
+	IpSecAddr  string       `json:"ipsecaddr"`
 	Interfaces []string     `json:"interfaces"`
 	State      ServiceState `json:"state"`
 }
