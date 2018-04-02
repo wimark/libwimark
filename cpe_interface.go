@@ -5,6 +5,8 @@ const (
 	JSONRPC_CPE_CPEAGENT_PROCESS_REQ = "cpeagent:process_request"
 	JSONRPC_CPE_CPEAGENT_GET_STATICS = "cpeagent:get_statics"
 	JSONRPC_CPE_CPEAGENT_GET_METHODS = "cpeagent:get_methods"
+	JSONRPC_CPE_CPEAGENT_GET_METHODS = "cpeagent:status"
+	JSONRPC_CPE_CPEAGENT_GET_METHODS = "cpeagent:opkg"
 )
 
 // JSONRPC functions from CPE for UCI
@@ -99,6 +101,20 @@ const (
 )
 
 // JSONRPC parameters
+
+// for cpeagent:*
+type CPEAgentStatusBroker struct {
+	Host string `json:"host"`
+	Port string `json:"port"`
+}
+type CPEAgentStatus struct {
+	State        string               `json:"state"`
+	Broker       CPEAgentStatusBroker `json:"broker"`
+	TunnelBroker CPEAgentStatusBroker `json:"tunnel_broker"`
+	TunnelType   string               `json:"tunnel"`
+}
+
+type CPEAgentPackages map[string]string
 
 // for firmware:*
 type CPEFirmwareUpgradeParams struct {
