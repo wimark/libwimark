@@ -50,6 +50,7 @@ type CreateL2TunnelSessionParams struct {
 	CPETunnelID              int    `json:"cpe_tunnel_id"`
 	HostIP                   string `json:"host_ip"`
 	CommutationInterfaceName string `json:"commutation_interface"`
+	CommutationInterfaceVlan int    `json:"commutation_vlan,omitempty"`
 }
 
 type CreateL2TunnelSessionResult struct {
