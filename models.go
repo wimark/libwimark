@@ -67,6 +67,7 @@ type WLAN struct {
 	Roaming80211r      bool                 `json:"roam80211r"`
 	Tunneling          bool                 `json:"tunneling"`
 	DefaultTunnel      string               `json:"default_tunnel"`
+	DefaultTunnelVlan  int                  `json:"default_tunnel_vlan"`
 	Firewall           FireWallSettings     `json:"firewall"`
 	GuestControl       GuestControlSettings `json:"guest_control"`
 }
