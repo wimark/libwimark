@@ -1,33 +1,39 @@
 # Changelog
 
-## [v0.10] - ??-03-2018
+## [v0.10] - 09-04-2018
 
 ### Added
 #### marshal-inline
  - Support for multiple inline fields
  - Support for "unique" inline field with constraints
-
 #### WNE-762-portal
  - Models for redirect and redirect API
  - CapriveRedirect / RedirectClientSession / etc
-
 #### WNE-802-wired-model
- - Config, state(stub) and capabilities for wired interfaces
-
+ - Config, state and capabilities for wired interfaces
+ - Interface name for vlan
+ - Version for CPEModel
 #### WNE-831-accounting-rubic
  - Change API for redirect HTTP requests for RubicPro
-
 #### jsonrpc-funcs
  - JSONRPC support functions (moved from tunnel-manager)
-
 #### WNE-838-broker-reconnect
  - Add onDisconnect function with panic to MQTT util
-
 #### WNE-832-sms-gw
  - Add portal API (status of session, type of authorization)
-
 #### wlan-virtual-iface
  - Field for WLAN virtual interface on CPE
+#### cpeagent_jsonrpc
+ - New CPEAgent jsonrpc functions
+#### wired-client-enum-type
+ - Add wired type for WirelessClient
+#### IPSec-IP-For-Tun
+ - IpSec addr in vpnhost model
+ - Add VPN type - openvpn or ipsec
+ - add ipsec ip to broadcast
+#### jsonrpc-funcs
+ - Service start routine with ServiceID support
+ - Routines for JSONRPC support
 
 ### Changed
 #### WNE-731-remote-syslog
