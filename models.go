@@ -198,6 +198,7 @@ type FirmwareState struct {
 	CurrentMd5 string             `json:"current_md5" bson:"current_md5"`
 	Version    Version            `json:"version" bson:"version"`
 	Packages   map[string]Version `json:"packages" bson:"packages"`
+	Statics    map[string]Version `json:"statics" bson:"statics"`
 }
 
 // ---- Wifi state ----
