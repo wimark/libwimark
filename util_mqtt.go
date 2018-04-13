@@ -338,7 +338,12 @@ func DefaultLoggedEvent(msg LogMsg) MQTTMessage {
 			Level:     msg.Level,
 			SystemEventObject: SystemEventObject{
 				Type: SystemEventTypeLoggedError,
-				Data: msg.Message,
+				Data: ModelError{
+					Module:      msg.Module,
+					ModuleId:    msg.ModuleId,
+					Type:        WimarkErrorCodeOther,
+					Description: msg.Message,
+				},
 			},
 		},
 	}
