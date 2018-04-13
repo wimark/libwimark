@@ -63,6 +63,7 @@ RRMStatus               = "RRM_STATUS_DATA"
 FirmwareUploaded        = "FIRMWARE_UPLOADED"
 CpeFirmwareAvailable    = "CPE_FIRMWARE_AVAILABLE"
 RadiusAccountingSend    = "RADIUS_ACCOUNTING_SEND"
+LoggedError             = "LOGGED_ERROR"
 
 [SystemEventLevel]
 default = "DEBUG"

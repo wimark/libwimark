@@ -484,6 +484,16 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
+	case SystemEventTypeLoggedError:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d string
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
 	case SystemEventTypeMonitorRuleViolation:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -645,6 +655,16 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
 		var d FirmwareUploadedData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventTypeLoggedError:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d string
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err
