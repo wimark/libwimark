@@ -305,3 +305,54 @@ func CacheGetRequest(c *cache.Cache, id string) MQTTMessage {
 	}
 	return v.(MQTTMessage)
 }
+
+type LogMsg struct {
+	Timestamp time.Time        `json:"timestamp"`
+	Level     SystemEventLevel `json:"level"`
+	Message   string           `json:"message"`
+	Module    Module           `json:"service"`
+	ModuleId  UUID             `json:"service_id,omitempty"`
+}
+
+type EventWriter struct {
+	ch      chan<- MQTTMessage
+	makeMsg func(msg LogMsg) MQTTMessage
+}
+
+func NewEventWriter(c mqtt.Client, makeMsg func(msg LogMsg) MQTTMessage) EventWriter {
+	return EventWriter{ch: MQTTMakePublishChan(c, func(string) {}), makeMsg: makeMsg}
+}
+
+func DefaultLoggedEvent(msg LogMsg) MQTTMessage {
+	if msg.Level != SystemEventLevelERROR {
+		return nil
+	}
+	return MQTTDocumentMessage{
+		T: EventTopic{
+			SenderModule: msg.Module,
+			SenderID:     string(msg.ModuleId),
+			Type:         SystemEventTypeLoggedError,
+		},
+		D: SystemEvent{
+			Timestamp: msg.Timestamp.Unix(),
+			Level:     msg.Level,
+			SystemEventObject: SystemEventObject{
+				Type: SystemEventTypeLoggedError,
+				Data: msg.Message,
+			},
+		},
+	}
+}
+
+func (w EventWriter) Write(p []byte) (n int, err error) {
+	var msg LogMsg
+	var e = json.Unmarshal(p, &msg)
+	if e != nil {
+		return 0, e
+	}
+	var mqttMsg = w.makeMsg(msg)
+	if mqttMsg != nil {
+		go func() { w.ch <- mqttMsg }()
+	}
+	return len(p), nil
+}
