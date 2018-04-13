@@ -107,11 +107,21 @@ type CPEAgentStatusBroker struct {
 	Host string `json:"host"`
 	Port string `json:"port"`
 }
+type CPEAgentStatusConnHost struct {
+	Proto string `json:"family"`
+	Host  string `json:"address"`
+	Port  string `json:"port"`
+}
+type CPEAgentStatusConnInfo struct {
+	Remote CPEAgentStatusConnHost `json:"remote"`
+	Local  CPEAgentStatusConnHost `json:"local"`
+}
 type CPEAgentStatus struct {
-	State        string               `json:"state"`
-	Broker       CPEAgentStatusBroker `json:"broker"`
-	TunnelBroker CPEAgentStatusBroker `json:"tunnel_broker"`
-	TunnelType   string               `json:"tunnel"`
+	State        string                 `json:"state"`
+	Connection   CPEAgentStatusConnInfo `json:"conninfo"`
+	Broker       CPEAgentStatusBroker   `json:"broker"`
+	TunnelBroker CPEAgentStatusBroker   `json:"tunnel_broker"`
+	TunnelType   string                 `json:"tunnel"`
 }
 
 type CPEAgentPackages map[string]string
