@@ -307,6 +307,7 @@ type VlanState struct {
 	Vlan   int      `json:"vlan" bson:"vlan"`
 	Ports  []string `json:"ports" bson:"ports"`
 	System bool     `json:"system" bson:"system"`
+	Switch string   `json:"device" bson:"device"`
 }
 
 // ---- CPE state ----
