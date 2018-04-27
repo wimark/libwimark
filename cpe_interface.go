@@ -105,12 +105,9 @@ const (
 // for cpeagent:*
 type CPEAgentStatusBroker struct {
 	Host string `json:"host"`
-	Port string `json:"port"`
 }
 type CPEAgentStatusConnHost struct {
-	Proto string `json:"family"`
-	Host  string `json:"address"`
-	Port  string `json:"port"`
+	Host string `json:"address"`
 }
 type CPEAgentStatusConnInfo struct {
 	Remote CPEAgentStatusConnHost `json:"remote"`
