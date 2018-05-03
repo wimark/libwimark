@@ -9,9 +9,10 @@ import (
 
 type SystemEvent struct {
 	SystemEventObject
-	Timestamp  int64            `json:"timestamp"`
-	Subject_id string           `json:"subject_id"`
-	Level      SystemEventLevel `json:"level"`
+	Timestamp   int64            `json:"timestamp"`
+	Subject_id  string           `json:"subject_id"`
+	Level       SystemEventLevel `json:"level"`
+	Description string           `json:"description"`
 }
 
 func (self *SystemEvent) MarshalJSON() ([]byte, error) {
@@ -36,6 +37,7 @@ func (self *SystemEvent) MarshalJSON() ([]byte, error) {
 	doc["timestamp"] = self.Timestamp
 	doc["subject_id"] = self.Subject_id
 	doc["level"] = self.Level
+	doc["description"] = self.Description
 
 	return json.Marshal(doc)
 }
@@ -93,6 +95,19 @@ func (self *SystemEvent) UnmarshalJSON(b []byte) error {
 
 	delete(doc, "level")
 
+	var descRaw, descExists = doc["description"]
+	if descExists {
+		var desc string
+		var desErr = json.Unmarshal(descRaw, &desc)
+		if desErr == nil {
+			self.Description = desc
+		} else {
+			return desErr
+		}
+	}
+
+	delete(doc, "description")
+
 	var v, _ = json.Marshal(doc)
 
 	return self.SystemEventObject.UnmarshalJSON(v)
@@ -127,6 +142,7 @@ func (self *SystemEvent) GetBSON() (interface{}, error) {
 	out["timestamp"] = self.Timestamp
 	out["subject_id"] = self.Subject_id
 	out["level"] = levelBson
+	out["description"] = self.Description
 
 	return out, nil
 }
@@ -176,6 +192,19 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 		}
 
 		delete(in, "level")
+	}
+
+	//description
+	{
+		var v, k_found = in["description"]
+		if k_found {
+			if err := v.Unmarshal(&self.Description); err != nil {
+				return err
+			}
+
+			delete(in, "description")
+		}
+
 	}
 
 	var obj_b, mErr = bson.Marshal(in)
