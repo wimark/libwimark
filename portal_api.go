@@ -29,6 +29,8 @@ type PortalRequestObject struct {
 	WLAN      string `json:"wlan_id" bson:"wlan_id" form:"wlan_id" query:"wlan_id" validate:"required,uuid"`
 	Useragent string `json:"useragent"  bson:"useragent" form:"useragent" query:"useragent" validate:"-"`
 	Timeout   int64  `json:"-" validate:"-"`
+
+	SwitchURL string `json:"switch_url" validate:"-"`
 }
 
 type Validator struct {
