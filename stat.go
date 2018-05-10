@@ -201,6 +201,14 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
+type LBSClientData struct {
+	Timestamp int64  `json:"timestamp"`
+	CPE       UUID   `json:"cpe"`
+	Radio     string `json:"radio"`
+	ClientMac string `json:"client_mac"`
+	RSSI      int    `json:"rssi"`
+}
+
 type LBSCPEInfo struct {
 	Group UUID    `json:"group"`
 	CPE   UUID    `json:"cpe"`
@@ -292,6 +300,7 @@ type WirelessClient struct {
 	Data  interface{} `bson:"data" json:"data"`
 
 	WLAN     string             `json:"wlan_id" bson:"wlan_id"`
+	SSID     string             `json:"wlan_ssid" bson:"wlan_ssid"`
 	CPE      string             `json:"cpe_id" bson:"cpe_id"`
 	Radio    string             `json:"radio_id" bson:"radio_id"`
 	Freq     string             `json:"freq"`
