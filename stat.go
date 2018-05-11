@@ -367,7 +367,7 @@ type ClientAssocData struct {
 	CPE     string `json:"cpe_id" bson:"cpe_id"`
 	Radio   string `json:"radio_id" bson:"radio_id"`
 	Freq    string `json:"freq" bson:"freq"`
-	Channel string `json:"channel" bson:"freq"`
+	Channel string `json:"channel" bson:"channel"`
 }
 
 type ClientProbeData struct {
@@ -377,5 +377,6 @@ type ClientProbeData struct {
 	CPE       string          `json:"cpe" bson:"cpe"`
 	Radio     string          `json:"radio" bson:"radio"`
 	Frequency int             `json:"freq" bson:"freq"`
+	RSSI      int             `json:"rssi" bson:"rssi"`
 	AssocData ClientAssocData `json:"assoc_data,omitempty" bson:"assoc_data"`
 }
