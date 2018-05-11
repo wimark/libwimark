@@ -28,6 +28,7 @@ RRMStatus               = "RRMStatusData"
 FirmwareUploaded        = "FirmwareUploadedData"
 CpeFirmwareAvailable    = "CpeFirmwareData"
 RadiusAccountingSend    = "RadiusAccountingSendData"
+LoggedError             = "ModelError"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"
