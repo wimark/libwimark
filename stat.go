@@ -295,9 +295,10 @@ type WirelessClient struct {
 	MAC       string `json:"mac" bson:"_id"`
 	Timestamp int64  `json:"timestamp"`
 
-	Type  WirelessClientType
-	State WirelessClientState
-	Data  interface{} `bson:"data" json:"data"`
+	Type         WirelessClientType
+	State        WirelessClientState
+	Data         interface{} `bson:"data" json:"data"`
+	Manufacturer string      `json:"manufacturer" bson:"manufacturer"`
 
 	WLAN     string             `json:"wlan_id" bson:"wlan_id"`
 	SSID     string             `json:"wlan_ssid" bson:"wlan_ssid"`
@@ -371,12 +372,13 @@ type ClientAssocData struct {
 }
 
 type ClientProbeData struct {
-	Id        string          `json:"id" bson:"_id"`
-	Timestamp int64           `json:"timestamp" bson:"timestamp"`
-	MAC       string          `json:"mac" bson:"mac"`
-	CPE       string          `json:"cpe" bson:"cpe"`
-	Radio     string          `json:"radio" bson:"radio"`
-	Frequency int             `json:"freq" bson:"freq"`
-	RSSI      int             `json:"rssi" bson:"rssi"`
-	AssocData ClientAssocData `json:"assoc_data,omitempty" bson:"assoc_data"`
+	Id           string          `json:"id" bson:"_id"`
+	Timestamp    int64           `json:"timestamp" bson:"timestamp"`
+	MAC          string          `json:"mac" bson:"mac"`
+	CPE          string          `json:"cpe" bson:"cpe"`
+	Radio        string          `json:"radio" bson:"radio"`
+	Frequency    int             `json:"freq" bson:"freq"`
+	RSSI         int             `json:"rssi" bson:"rssi"`
+	Manufacturer string          `json:"manufacturer" bson:"manufacturer"`
+	AssocData    ClientAssocData `json:"assoc_data,omitempty" bson:"assoc_data"`
 }
