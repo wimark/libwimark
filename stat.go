@@ -365,6 +365,7 @@ type ClientSessionInfo struct {
 type ClientAssocData struct {
 	WLAN    string `json:"wlan_id" bson:"wlan_id"`
 	SSID    string `json:"wlan_ssid" bson:"wlan_ssid"`
+	Desc    string `json:"wlan_desc" bson:"wlan_desc"`
 	CPE     string `json:"cpe_id" bson:"cpe_id"`
 	Radio   string `json:"radio_id" bson:"radio_id"`
 	Freq    string `json:"freq" bson:"freq"`
@@ -376,6 +377,8 @@ type ClientProbeData struct {
 	Timestamp    int64           `json:"timestamp" bson:"timestamp"`
 	MAC          string          `json:"mac" bson:"mac"`
 	CPE          string          `json:"cpe" bson:"cpe"`
+	CPEName      string          `json:"cpe_name" bson:"cpe_name"`
+	CPEMAC       string          `json:"cpe_mac" bson:"cpe_mac"`
 	Radio        string          `json:"radio" bson:"radio"`
 	Frequency    int             `json:"freq" bson:"freq"`
 	RSSI         int             `json:"rssi" bson:"rssi"`
