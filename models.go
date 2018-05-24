@@ -383,10 +383,6 @@ type Capabilities struct {
 	Wired map[string]WiredCapabilities `json:"wired" bson:"wired"`
 }
 
-// ==== OBSOLETE Capabilities ====
-
-type CPECapabilities map[string]WifiCapabilities
-
 // ==== L2TP objects ====
 
 type VPNHost struct {
@@ -399,12 +395,11 @@ type VPNHost struct {
 // ==== CPE model ====
 
 type CPEModel struct {
-	Name         string          `json:"name" bson:"name"`
-	Description  string          `json:"description" bson:"description"`
-	Capabilities CPECapabilities `json:"capabilities" bson:"capabilities"`
-	Caps         Capabilities    `json:"caps" bson:"caps"`
-	Firmwares    []CPEFirmware   `json:"firmwares" bson:"firmwares"`
-	Version      Version         `json:"version" bson:"version"`
+	Name        string        `json:"name" bson:"name"`
+	Description string        `json:"description" bson:"description"`
+	Caps        Capabilities  `json:"caps" bson:"caps"`
+	Firmwares   []CPEFirmware `json:"firmwares" bson:"firmwares"`
+	Version     Version       `json:"version" bson:"version"`
 }
 
 // ==== Config template ====
