@@ -69,6 +69,7 @@ type WLAN struct {
 	DefaultTunnel      string               `json:"default_tunnel"`
 	Firewall           FireWallSettings     `json:"firewall"`
 	GuestControl       GuestControlSettings `json:"guest_control"`
+	NAT                bool                 `json:"nat" bson:"nat"`
 }
 
 // ==== CPE ====
