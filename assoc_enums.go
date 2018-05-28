@@ -741,6 +741,16 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
+	case WirelessClientTypeWired:
+		if !data_found {
+			return errors.New("No associated data found for enum WirelessClientObject")
+		}
+		var d OtherClientData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
 	}
 	self.Type = t
 	return nil
@@ -778,6 +788,16 @@ func (self *WirelessClientObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case WirelessClientTypeOther:
+		if !data_found {
+			return errors.New("No associated data found for enum WirelessClientObject")
+		}
+		var d OtherClientData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case WirelessClientTypeWired:
 		if !data_found {
 			return errors.New("No associated data found for enum WirelessClientObject")
 		}

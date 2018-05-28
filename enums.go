@@ -280,25 +280,34 @@ func (self *CPEInterfaceState) SetBSON(v bson.Raw) error {
 
 type ClientStatPacketType string
 
-const ClientStatPacketTypeInterim ClientStatPacketType = "Interim-Update"
-const ClientStatPacketTypeOff ClientStatPacketType = "Accounting-Off"
-const ClientStatPacketTypeOn ClientStatPacketType = "Accounting-On"
-const ClientStatPacketTypeStart ClientStatPacketType = "Start"
-const ClientStatPacketTypeStop ClientStatPacketType = "Stop"
+const ClientStatPacketTypeInterim ClientStatPacketType = "interim"
+const ClientStatPacketTypeInterimOld ClientStatPacketType = "Interim-Update"
+const ClientStatPacketTypeOffOld ClientStatPacketType = "Accounting-Off"
+const ClientStatPacketTypeOnOld ClientStatPacketType = "Accounting-On"
+const ClientStatPacketTypeStart ClientStatPacketType = "start"
+const ClientStatPacketTypeStartOld ClientStatPacketType = "Start"
+const ClientStatPacketTypeStop ClientStatPacketType = "stop"
+const ClientStatPacketTypeStopOld ClientStatPacketType = "Stop"
 
 func (self ClientStatPacketType) GetPtr() *ClientStatPacketType { var v = self; return &v }
 
 func (self *ClientStatPacketType) String() string {
 	switch *self {
 	case ClientStatPacketTypeInterim:
+		return "interim"
+	case ClientStatPacketTypeInterimOld:
 		return "Interim-Update"
-	case ClientStatPacketTypeOff:
+	case ClientStatPacketTypeOffOld:
 		return "Accounting-Off"
-	case ClientStatPacketTypeOn:
+	case ClientStatPacketTypeOnOld:
 		return "Accounting-On"
 	case ClientStatPacketTypeStart:
+		return "start"
+	case ClientStatPacketTypeStartOld:
 		return "Start"
 	case ClientStatPacketTypeStop:
+		return "stop"
+	case ClientStatPacketTypeStopOld:
 		return "Stop"
 	}
 	panic(errors.New("Invalid value of ClientStatPacketType"))
@@ -307,14 +316,20 @@ func (self *ClientStatPacketType) String() string {
 func (self *ClientStatPacketType) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case ClientStatPacketTypeInterim:
+		return json.Marshal("interim")
+	case ClientStatPacketTypeInterimOld:
 		return json.Marshal("Interim-Update")
-	case ClientStatPacketTypeOff:
+	case ClientStatPacketTypeOffOld:
 		return json.Marshal("Accounting-Off")
-	case ClientStatPacketTypeOn:
+	case ClientStatPacketTypeOnOld:
 		return json.Marshal("Accounting-On")
 	case ClientStatPacketTypeStart:
+		return json.Marshal("start")
+	case ClientStatPacketTypeStartOld:
 		return json.Marshal("Start")
 	case ClientStatPacketTypeStop:
+		return json.Marshal("stop")
+	case ClientStatPacketTypeStopOld:
 		return json.Marshal("Stop")
 	}
 	return nil, errors.New("Invalid value of ClientStatPacketType")
@@ -323,14 +338,20 @@ func (self *ClientStatPacketType) MarshalJSON() ([]byte, error) {
 func (self *ClientStatPacketType) GetBSON() (interface{}, error) {
 	switch *self {
 	case ClientStatPacketTypeInterim:
+		return "interim", nil
+	case ClientStatPacketTypeInterimOld:
 		return "Interim-Update", nil
-	case ClientStatPacketTypeOff:
+	case ClientStatPacketTypeOffOld:
 		return "Accounting-Off", nil
-	case ClientStatPacketTypeOn:
+	case ClientStatPacketTypeOnOld:
 		return "Accounting-On", nil
 	case ClientStatPacketTypeStart:
+		return "start", nil
+	case ClientStatPacketTypeStartOld:
 		return "Start", nil
 	case ClientStatPacketTypeStop:
+		return "stop", nil
+	case ClientStatPacketTypeStopOld:
 		return "Stop", nil
 	}
 	return nil, errors.New("Invalid value of ClientStatPacketType")
@@ -342,20 +363,29 @@ func (self *ClientStatPacketType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "Interim-Update":
+	case "interim":
 		*self = ClientStatPacketTypeInterim
 		return nil
+	case "Interim-Update":
+		*self = ClientStatPacketTypeInterimOld
+		return nil
 	case "Accounting-Off":
-		*self = ClientStatPacketTypeOff
+		*self = ClientStatPacketTypeOffOld
 		return nil
 	case "Accounting-On":
-		*self = ClientStatPacketTypeOn
+		*self = ClientStatPacketTypeOnOld
 		return nil
-	case "Start":
+	case "start":
 		*self = ClientStatPacketTypeStart
 		return nil
-	case "Stop":
+	case "Start":
+		*self = ClientStatPacketTypeStartOld
+		return nil
+	case "stop":
 		*self = ClientStatPacketTypeStop
+		return nil
+	case "Stop":
+		*self = ClientStatPacketTypeStopOld
 		return nil
 	}
 	return errors.New("Unknown ClientStatPacketType")
@@ -367,20 +397,29 @@ func (self *ClientStatPacketType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "Interim-Update":
+	case "interim":
 		*self = ClientStatPacketTypeInterim
 		return nil
+	case "Interim-Update":
+		*self = ClientStatPacketTypeInterimOld
+		return nil
 	case "Accounting-Off":
-		*self = ClientStatPacketTypeOff
+		*self = ClientStatPacketTypeOffOld
 		return nil
 	case "Accounting-On":
-		*self = ClientStatPacketTypeOn
+		*self = ClientStatPacketTypeOnOld
 		return nil
-	case "Start":
+	case "start":
 		*self = ClientStatPacketTypeStart
 		return nil
-	case "Stop":
+	case "Start":
+		*self = ClientStatPacketTypeStartOld
+		return nil
+	case "stop":
 		*self = ClientStatPacketTypeStop
+		return nil
+	case "Stop":
+		*self = ClientStatPacketTypeStopOld
 		return nil
 	}
 	return errors.New("Unknown ClientStatPacketType")
@@ -2821,16 +2860,16 @@ func (self *TunManagerRPC) SetBSON(v bson.Raw) error {
 
 type WirelessClientState string
 
-const WirelessClientStateCONNECTED WirelessClientState = "CONNECTED"
-const WirelessClientStateDISCONNECTED WirelessClientState = "DISCONNECTED"
+const WirelessClientStateConnected WirelessClientState = "CONNECTED"
+const WirelessClientStateDisconnected WirelessClientState = "DISCONNECTED"
 
 func (self WirelessClientState) GetPtr() *WirelessClientState { var v = self; return &v }
 
 func (self *WirelessClientState) String() string {
 	switch *self {
-	case WirelessClientStateCONNECTED:
+	case WirelessClientStateConnected:
 		return "CONNECTED"
-	case WirelessClientStateDISCONNECTED:
+	case WirelessClientStateDisconnected:
 		return "DISCONNECTED"
 	}
 	panic(errors.New("Invalid value of WirelessClientState"))
@@ -2838,9 +2877,9 @@ func (self *WirelessClientState) String() string {
 
 func (self *WirelessClientState) MarshalJSON() ([]byte, error) {
 	switch *self {
-	case WirelessClientStateCONNECTED:
+	case WirelessClientStateConnected:
 		return json.Marshal("CONNECTED")
-	case WirelessClientStateDISCONNECTED:
+	case WirelessClientStateDisconnected:
 		return json.Marshal("DISCONNECTED")
 	}
 	return nil, errors.New("Invalid value of WirelessClientState")
@@ -2848,9 +2887,9 @@ func (self *WirelessClientState) MarshalJSON() ([]byte, error) {
 
 func (self *WirelessClientState) GetBSON() (interface{}, error) {
 	switch *self {
-	case WirelessClientStateCONNECTED:
+	case WirelessClientStateConnected:
 		return "CONNECTED", nil
-	case WirelessClientStateDISCONNECTED:
+	case WirelessClientStateDisconnected:
 		return "DISCONNECTED", nil
 	}
 	return nil, errors.New("Invalid value of WirelessClientState")
@@ -2863,10 +2902,10 @@ func (self *WirelessClientState) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "CONNECTED":
-		*self = WirelessClientStateCONNECTED
+		*self = WirelessClientStateConnected
 		return nil
 	case "DISCONNECTED":
-		*self = WirelessClientStateDISCONNECTED
+		*self = WirelessClientStateDisconnected
 		return nil
 	}
 	return errors.New("Unknown WirelessClientState")
@@ -2879,10 +2918,10 @@ func (self *WirelessClientState) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "CONNECTED":
-		*self = WirelessClientStateCONNECTED
+		*self = WirelessClientStateConnected
 		return nil
 	case "DISCONNECTED":
-		*self = WirelessClientStateDISCONNECTED
+		*self = WirelessClientStateDisconnected
 		return nil
 	}
 	return errors.New("Unknown WirelessClientState")

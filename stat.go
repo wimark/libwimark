@@ -29,7 +29,7 @@ type Stat struct {
 	} `json:"interfaces"`
 }
 
-type ClientStat struct {
+type ClientStatOld struct {
 	AcctStatusType      ClientStatPacketType `json:"Acct-Status-Type"`
 	CPE                 UUID                 `json:"cpe_id"`
 	WLAN                UUID                 `json:"wlan_id"`
@@ -65,6 +65,52 @@ type ClientStat struct {
 	Signal    int  `json:"signal, omitempty"`
 	Noise     int  `json:"noise, omitempty"`
 	Frequency int  `json:"frequency, omitempty"`
+}
+
+type AccountingStat struct {
+	RxBytes   int64 `json:"rx_bytes" `
+	TxBytes   int64 `json:"tx_bytes"`
+	RxPackets int64 `json:"rx_packets"`
+	TxPackets int64 `json:"tx_packets"`
+}
+
+type AccountingRadioStat struct {
+	Signal   int `json:"signal"`
+	Noise    int `json:"noise"`
+	Inactive int `json:"inactive"`
+
+	RxMhz  int  `json:"rx_mhz"`
+	TxMhz  int  `json:"tx_mhz"`
+	TxRate int  `json:"tx_rate"`
+	RxRate int  `json:"rx_rate"`
+	TxHt   bool `json:"tx_ht"`
+	RxHt   bool `json:"rx_ht"`
+	RxVht  bool `json:"rx_vht"`
+	TxVht  bool `json:"tx_vht"`
+
+	TxMcs     int  `json:"tx_mcs"`
+	Tx40Mhz   bool `json:"tx_40mhz"`
+	TxShortGi bool `json:"tx_short_gi"`
+}
+
+type ClientStat struct {
+	AcctStatusType ClientStatPacketType `json:"type"`
+
+	MAC       string `json:"macaddr"`
+	SSID      string `json:"ssid"`
+	WLAN      UUID   `json:"wlan_id"`
+	CPE       UUID   `json:"cpe_id"`
+	RadioId   string `json:"radio_id"`
+	BSSID     string `json:"bssid"`
+	Frequency int    `json:"frequency, omitempty"`
+
+	Username    string `json:"identity"`
+	SessionId   string `json:"session_id"`
+	SessionTime int    `json:"session_time"`
+
+	Timestamp  int64               `json:"timestamp"`
+	Accounting AccountingStat      `json:"accounting"`
+	Radio      AccountingRadioStat `json:"rf"`
 }
 
 type CameraClientData struct {
@@ -239,6 +285,7 @@ type CPEStatInfo struct {
 type WLANStatInfo struct {
 	ID               string   `json:"id" bson:"_id"`
 	WLAN             string   `json:"wlan_id" bson:"wlan_id"`
+	SSID             string   `json:"ssid" bson:"ssid"`
 	Timestamp        int64    `json:"timestamp" bson:"timestamp"`
 	TotalRxBytes     int64    `json:"total_rx_bytes" bson:"total_rx_bytes"`
 	TotalTxBytes     int64    `json:"total_tx_bytes" bson:"total_tx_bytes"`
@@ -250,6 +297,7 @@ type WLANStatInfo struct {
 type BSSStatInfo struct {
 	ID               string   `json:"id" bson:"_id"`
 	WLAN             string   `json:"wlan_id" bson:"wlan_id"`
+	SSID             string   `json:"ssid" bson:"ssid"`
 	CPE              string   `json:"cpe_id" bson:"cpe_id"`
 	Radio            string   `json:"radio" bson:"radio"`
 	Timestamp        int64    `json:"timestamp" bson:"timestamp"`
@@ -264,14 +312,14 @@ type ClientStatInfo struct {
 	ID      string `json:"id" bson:"_id"`
 	MAC     string `json:"mac" bson: "mac"`
 	WLAN    string `json:"wlan_id" bson:"wlan_id"`
+	SSID    string `json:"ssid" bson:"ssid"`
 	CPE     string `json:"cpe_id" bson:"cpe_id"`
 	Radio   string `json:"radio" bson:"radio"`
 	Channel string `json:"channel" bson:"channel"`
-	// wrong spelling
+
 	Frequence string             `json:"freq" bson:"freq"`
 	Noise     int                `json:"noise" bson:"noise"`
 	RSSI      int                `json:"rssi" bson:"rssi"`
-	Inactive  int                `json:"inactive" bson:"inactive"`
 	Mode      ConnectionModeType `json:"mode" bson:"mode"`
 
 	Timestamp    int64 `json:"timestamp" bson:"timestamp"`
@@ -287,19 +335,18 @@ type WirelessClient struct {
 	MAC       string `json:"mac" bson:"_id"`
 	Timestamp int64  `json:"timestamp"`
 
-	Type  WirelessClientType
 	State WirelessClientState
+	Type  WirelessClientType
 	Data  interface{} `bson:"data" json:"data"`
 
-	WLAN     string             `json:"wlan_id" bson:"wlan_id"`
-	CPE      string             `json:"cpe_id" bson:"cpe_id"`
-	Radio    string             `json:"radio_id" bson:"radio_id"`
-	Freq     string             `json:"freq"`
-	Channel  string             `json:"channel"`
-	Rssi     int                `json:"rssi"`
-	Noise    int                `json:"noise"`
-	Mode     ConnectionModeType `json:"mode"`
-	Inactive int                `json:"inactive"`
+	WLAN    string             `json:"wlan_id" bson:"wlan_id"`
+	CPE     string             `json:"cpe_id" bson:"cpe_id"`
+	Radio   string             `json:"radio_id" bson:"radio_id"`
+	Freq    string             `json:"freq"`
+	Channel string             `json:"channel"`
+	Rssi    int                `json:"rssi"`
+	Noise   int                `json:"noise"`
+	Mode    ConnectionModeType `json:"mode"`
 
 	InPackets  int64 `json:"in_packets" bson:"in_packets"`
 	OutPackets int64 `json:"out_packets" bson:"out_packets"`
@@ -333,6 +380,7 @@ type ClientSessionInfo struct {
 	ID    string `json:"id" bson:"_id"`
 	MAC   string `json:"mac" bson:"mac"`
 	WLAN  string `json:"wlan_id" bson:"wlan_id"`
+	SSID  string `json:"ssid" bson:"ssid"`
 	CPE   string `json:"cpe_id" bson:"cpe_id"`
 	Radio string `json:"radio_id" bson:"radio_id"`
 	Freq  string `json:"freq" bson:"freq"`

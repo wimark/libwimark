@@ -37,7 +37,8 @@ CPUload = "LimitBetween"
 constraint = "WirelessClientType"
 [WirelessClientObject.Variants]
 Camera = "CameraClientData"
-Other = "OtherClientData"
+Wired  = "OtherClientData"
+Other  = "OtherClientData"
 
 [RadiusMessageObject]
 constraint = "RadiusMessageType"
