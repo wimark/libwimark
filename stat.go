@@ -67,14 +67,14 @@ type ClientStatOld struct {
 	Frequency int  `json:"frequency, omitempty"`
 }
 
-type AccountingStat struct {
+type AccountingData struct {
 	RxBytes   int64 `json:"rx_bytes" `
 	TxBytes   int64 `json:"tx_bytes"`
 	RxPackets int64 `json:"rx_packets"`
 	TxPackets int64 `json:"tx_packets"`
 }
 
-type AccountingRadioStat struct {
+type AccountingRadio struct {
 	Signal   int `json:"signal"`
 	Noise    int `json:"noise"`
 	Inactive int `json:"inactive"`
@@ -94,7 +94,7 @@ type AccountingRadioStat struct {
 }
 
 type ClientStat struct {
-	AcctStatusType ClientStatPacketType `json:"type"`
+	Type ClientStatPacketType `json:"type"`
 
 	MAC       string `json:"macaddr"`
 	SSID      string `json:"ssid"`
@@ -108,9 +108,9 @@ type ClientStat struct {
 	SessionId   string `json:"session_id"`
 	SessionTime int    `json:"session_time"`
 
-	Timestamp  int64               `json:"timestamp"`
-	Accounting AccountingStat      `json:"accounting"`
-	Radio      AccountingRadioStat `json:"rf"`
+	Timestamp  int64           `json:"timestamp"`
+	Accounting AccountingData  `json:"accounting"`
+	Radio      AccountingRadio `json:"rf"`
 }
 
 type CameraClientData struct {
@@ -309,14 +309,14 @@ type BSSStatInfo struct {
 }
 
 type ClientStatInfo struct {
-	ID      string `json:"id" bson:"_id"`
-	MAC     string `json:"mac" bson: "mac"`
-	WLAN    string `json:"wlan_id" bson:"wlan_id"`
-	SSID    string `json:"ssid" bson:"ssid"`
-	CPE     string `json:"cpe_id" bson:"cpe_id"`
-	Radio   string `json:"radio" bson:"radio"`
-	Channel string `json:"channel" bson:"channel"`
+	ID    string `json:"id" bson:"_id"`
+	MAC   string `json:"mac" bson: "mac"`
+	WLAN  string `json:"wlan_id" bson:"wlan_id"`
+	SSID  string `json:"ssid" bson:"ssid"`
+	CPE   string `json:"cpe_id" bson:"cpe_id"`
+	Radio string `json:"radio" bson:"radio"`
 
+	Channel   string             `json:"channel" bson:"channel"`
 	Frequence string             `json:"freq" bson:"freq"`
 	Noise     int                `json:"noise" bson:"noise"`
 	RSSI      int                `json:"rssi" bson:"rssi"`
