@@ -1,7 +1,8 @@
 package libwimark
 
 type FireWallSettings struct {
-	L2Chain UUID `json:"l2_chain" bson:"l2_chain"`
+	L2Chain        UUID `json:"l2_chain" bson:"l2_chain"`
+	WanAccessBlock bool `json:"wan_access_block" bson:"wan_access_block"`
 }
 
 type L2Chain struct {
