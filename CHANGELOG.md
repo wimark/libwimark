@@ -1,5 +1,55 @@
 # Changelog
 
+## [v0.11] - ??-06-2018
+
+### Added
+#### WNE-981-NAT-for-WLAN
+ - Additional NAT-related parameters
+ - CPE NAT functions
+ - NAT flag for WLAN
+#### WNE-938-lbs-clients-with-assoc
+ - Add fields to save cpe/wlan names in ClientProbe
+ - Add manufacturer to client data
+ - Fix forgot rssi in struct for lbs
+ - Add struct for work with LBS Probe data coll
+ - Move LBS objects to stat, add ssid to client obj
+#### WNE-882-portal-switch-url
+ - Add SwitchURL to portal request object
+#### dual-band-support
+ - Add frequency (band) to config for frontend needs
+#### WNE-794-events-desc
+ - Add Description field to SystemEvent
+#### WNE-870-redirect-radio-id
+ - Add radio id to redirect sessio object
+#### cpe-resolved-host
+ - Remove unused fields from CPE status
+ - Struct for CPE info about broker connection
+#### WNE-901-L3ACL
+ - Add L3 ACL filter
+#### WNE-754-WMM
+ - Add DisableWMM flag (so WMM is on by default)
+
+### Changed
+#### WNE-983-accounting-refactor
+ - Name changing in accounting refactor
+ - Change in acct models from cpe
+ - CPE-related events refac: one cut short, two sawn off
+ - Enums reformatted with nil data in no-value assoc enums
+#### WNE-963-cpe-events-refac
+ - CPE-related events refac: one cut short, two sawn off
+ - Enums reformatted with nil data in no-value assoc enums
+#### nil-value-assoc-enum
+ - Enums reformatted with nil data in no-value assoc enums
+#### WNE-910-error-refac
+ - Error struct refac
+ - Utility to send logged messages to MQTT
+ - Event type for LoggedError
+ - JSON inline utilities moved to separate src
+
+### Removed
+#### remove-obsolete-caps
+ - Remove obsolete capabilities
+
 ## [v0.10] - 09-04-2018
 
 ### Added
