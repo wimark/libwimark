@@ -36,6 +36,8 @@ const (
 	JSONRPC_CPE_NETWORK_L2AP       = "network:l2ap"
 	JSONRPC_CPE_NETWORK_VLAN       = "network:vlan"
 	JSONRPC_CPE_NETWORK_CLEAN_L2TP = "network:clean_l2tp"
+	JSONRPC_CPE_NETWORK_ADD_NAT    = "network:add_nat"
+	JSONRPC_CPE_NETWORK_WAN_ACCESS = "network:wan_access"
 )
 
 // JSONRPC functions from CPE for LBS

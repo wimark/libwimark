@@ -70,6 +70,8 @@ type WLAN struct {
 	Firewall           FireWallSettings     `json:"firewall"`
 	GuestControl       GuestControlSettings `json:"guest_control"`
 	DisableWMM         bool                 `json:"disable_wmm" bson:"disable_wmm"`
+	NAT                bool                 `json:"nat" bson:"nat"`
+	NATNetwork         IPAddress            `json:"nat_network" bson:"nat_network"`
 }
 
 // ==== CPE ====
