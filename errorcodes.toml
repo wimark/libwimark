@@ -1,0 +1,16 @@
+[WimarkErrorCode]
+default = "NoError"
+[WimarkErrorCode.variants]
+NoError        = ""
+Other          = "ERROR_OTHER"
+BadEnvironment = "ERROR_BAD_ENV"
+Json           = "ERROR_JSON"
+Mqtt           = "ERROR_MQTT"
+ModuleOffline  = "ERROR_MODULE_OFFLINE"
+CPE            = "ERROR_CPE"
+DB             = "ERROR_DB"
+JsonRpc        = "ERROR_JSONRPC"
+RspTimeout     = "ERROR_RSP_TIMEOUT"
+ObjectNotExist = "ERROR_OBJECT_NOT_EXIST"
+Protocol       = "ERROR_PROTOCOL"
+RequestCheck   = "ERROR_REQUEST_CHECK"
