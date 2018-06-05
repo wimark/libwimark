@@ -54,6 +54,7 @@ type RedirectClientSession struct {
 	WLAN     string `json:"wlan_id" bson:"wlan_id"`
 	CPE      string `json:"cpe_id" bson:"cpe_id"`
 	Redirect string `json:"redirect_id" bson:"redirect_id"`
+	Radio    string `json:"radio_id" bson:"radio_id"`
 
 	AcctStart int64 `json:"acct_start" bson:"acct_start"`
 	AuthStart int64 `json:"auth_start" bson:"auth_start"`
