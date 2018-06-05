@@ -144,6 +144,7 @@ type WiFiConfig struct {
 	MaxClients  int        `json:"maxclients"`
 	ScanConfig  ScanConfig `json:"scanningconfig"`
 	RequireMode MCSRequire `json:"require_mode"`
+	Frequency   string     `json:"frequency"`
 }
 
 type WiFiConfigs map[string]WiFiConfig
