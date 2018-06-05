@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.11] - ??-06-2018
+## [v0.11.1] - 05-06-2018
 
 ### Added
 #### WNE-981-NAT-for-WLAN
@@ -49,6 +49,26 @@
 ### Removed
 #### remove-obsolete-caps
  - Remove obsolete capabilities
+
+## [v0.10.17] - 27-04-2018
+
+### Added
+#### vlan-option-switch
+ - Switch param for VLAN state
+#### WNE-864-cpe-package-version
+ - Static script versions in CPE state
+ - Package versions in CPE firmware state
+#### wired-interfaces-to-array-in-db
+ - add set get bson to wired interfaces
+#### WNE-802-wired-model
+ - Switch vlan state
+
+### Changed
+#### tunnel-config
+ - Reuse Wlan.VLAN for host vlans
+ - Added tunnel vlan to wlan model & jsonrpc req
+ - HostIP for tunnel manager jsonrpc param
+ - HostId tag restored
 
 ## [v0.10] - 09-04-2018
 
