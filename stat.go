@@ -201,6 +201,14 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
+type LBSClientData struct {
+	Timestamp int64  `json:"timestamp"`
+	CPE       UUID   `json:"cpe"`
+	Radio     string `json:"radio"`
+	ClientMac string `json:"client_mac"`
+	RSSI      int    `json:"rssi"`
+}
+
 type LBSCPEInfo struct {
 	Group UUID    `json:"group"`
 	CPE   UUID    `json:"cpe"`
@@ -287,11 +295,13 @@ type WirelessClient struct {
 	MAC       string `json:"mac" bson:"_id"`
 	Timestamp int64  `json:"timestamp"`
 
-	Type  WirelessClientType
-	State WirelessClientState
-	Data  interface{} `bson:"data" json:"data"`
+	Type         WirelessClientType
+	State        WirelessClientState
+	Data         interface{} `bson:"data" json:"data"`
+	Manufacturer string      `json:"manufacturer" bson:"manufacturer"`
 
 	WLAN     string             `json:"wlan_id" bson:"wlan_id"`
+	SSID     string             `json:"wlan_ssid" bson:"wlan_ssid"`
 	CPE      string             `json:"cpe_id" bson:"cpe_id"`
 	Radio    string             `json:"radio_id" bson:"radio_id"`
 	Freq     string             `json:"freq"`
@@ -349,4 +359,29 @@ type ClientSessionInfo struct {
 
 	RxBytes int64 `json:"rx_bytes" bson:"rx_bytes"`
 	TxBytes int64 `json:"tx_bytes" bson:"tx_bytes"`
+}
+
+// for new storing lbs probe data collection
+type ClientAssocData struct {
+	WLAN    string `json:"wlan_id" bson:"wlan_id"`
+	SSID    string `json:"wlan_ssid" bson:"wlan_ssid"`
+	Desc    string `json:"wlan_desc" bson:"wlan_desc"`
+	CPE     string `json:"cpe_id" bson:"cpe_id"`
+	Radio   string `json:"radio_id" bson:"radio_id"`
+	Freq    string `json:"freq" bson:"freq"`
+	Channel string `json:"channel" bson:"channel"`
+}
+
+type ClientProbeData struct {
+	Id           string          `json:"id" bson:"_id"`
+	Timestamp    int64           `json:"timestamp" bson:"timestamp"`
+	MAC          string          `json:"mac" bson:"mac"`
+	CPE          string          `json:"cpe" bson:"cpe"`
+	CPEName      string          `json:"cpe_name" bson:"cpe_name"`
+	CPEMAC       string          `json:"cpe_mac" bson:"cpe_mac"`
+	Radio        string          `json:"radio" bson:"radio"`
+	Frequency    int             `json:"freq" bson:"freq"`
+	RSSI         int             `json:"rssi" bson:"rssi"`
+	Manufacturer string          `json:"manufacturer" bson:"manufacturer"`
+	AssocData    ClientAssocData `json:"assoc_data,omitempty" bson:"assoc_data"`
 }

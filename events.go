@@ -271,14 +271,6 @@ type ServiceFatalErrorData struct {
 
 type ServiceConnectedData Version
 
-type LBSClientData struct {
-	Timestamp int64  `json:"timestamp"`
-	CPE       UUID   `json:"cpe"`
-	Radio     string `json:"radio"`
-	ClientMac string `json:"client_mac"`
-	RSSI      int    `json:"rssi"`
-}
-
 type RRMStatusData struct {
 	Cpes []RRMCpeStatus `json:"cpes"`
 }
