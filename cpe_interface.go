@@ -105,13 +105,20 @@ const (
 // for cpeagent:*
 type CPEAgentStatusBroker struct {
 	Host string `json:"host"`
-	Port string `json:"port"`
+}
+type CPEAgentStatusConnHost struct {
+	Host string `json:"address"`
+}
+type CPEAgentStatusConnInfo struct {
+	Remote CPEAgentStatusConnHost `json:"remote"`
+	Local  CPEAgentStatusConnHost `json:"local"`
 }
 type CPEAgentStatus struct {
-	State        string               `json:"state"`
-	Broker       CPEAgentStatusBroker `json:"broker"`
-	TunnelBroker CPEAgentStatusBroker `json:"tunnel_broker"`
-	TunnelType   string               `json:"tunnel"`
+	State        string                 `json:"state"`
+	Connection   CPEAgentStatusConnInfo `json:"conninfo"`
+	Broker       CPEAgentStatusBroker   `json:"broker"`
+	TunnelBroker CPEAgentStatusBroker   `json:"tunnel_broker"`
+	TunnelType   string                 `json:"tunnel"`
 }
 
 type CPEAgentPackages map[string]string
