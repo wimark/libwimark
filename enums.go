@@ -2489,8 +2489,6 @@ func (self *SystemEventLevel) SetBSON(v bson.Raw) error {
 type SystemEventType string
 
 const SystemEventTypeAny SystemEventType = "+"
-const SystemEventTypeCPEConfigurationError SystemEventType = "CPE_CONFIGURATION_ERROR"
-const SystemEventTypeCPEConfigurationSuccess SystemEventType = "CPE_CONFIGURATION_SUCCESS"
 const SystemEventTypeCPEConnected SystemEventType = "CPE_CONNECTED"
 const SystemEventTypeCPEDisconnected SystemEventType = "CPE_DISCONNECTED"
 const SystemEventTypeCPEInterfaceState SystemEventType = "CPE_INTERFACE_STATE"
@@ -2515,10 +2513,6 @@ func (self *SystemEventType) String() string {
 	switch *self {
 	case SystemEventTypeAny:
 		return "+"
-	case SystemEventTypeCPEConfigurationError:
-		return "CPE_CONFIGURATION_ERROR"
-	case SystemEventTypeCPEConfigurationSuccess:
-		return "CPE_CONFIGURATION_SUCCESS"
 	case SystemEventTypeCPEConnected:
 		return "CPE_CONNECTED"
 	case SystemEventTypeCPEDisconnected:
@@ -2561,10 +2555,6 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case SystemEventTypeAny:
 		return json.Marshal("+")
-	case SystemEventTypeCPEConfigurationError:
-		return json.Marshal("CPE_CONFIGURATION_ERROR")
-	case SystemEventTypeCPEConfigurationSuccess:
-		return json.Marshal("CPE_CONFIGURATION_SUCCESS")
 	case SystemEventTypeCPEConnected:
 		return json.Marshal("CPE_CONNECTED")
 	case SystemEventTypeCPEDisconnected:
@@ -2607,10 +2597,6 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 	switch *self {
 	case SystemEventTypeAny:
 		return "+", nil
-	case SystemEventTypeCPEConfigurationError:
-		return "CPE_CONFIGURATION_ERROR", nil
-	case SystemEventTypeCPEConfigurationSuccess:
-		return "CPE_CONFIGURATION_SUCCESS", nil
 	case SystemEventTypeCPEConnected:
 		return "CPE_CONNECTED", nil
 	case SystemEventTypeCPEDisconnected:
@@ -2657,12 +2643,6 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 	switch s {
 	case "+":
 		*self = SystemEventTypeAny
-		return nil
-	case "CPE_CONFIGURATION_ERROR":
-		*self = SystemEventTypeCPEConfigurationError
-		return nil
-	case "CPE_CONFIGURATION_SUCCESS":
-		*self = SystemEventTypeCPEConfigurationSuccess
 		return nil
 	case "CPE_CONNECTED":
 		*self = SystemEventTypeCPEConnected
@@ -2727,12 +2707,6 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 	switch s {
 	case "+":
 		*self = SystemEventTypeAny
-		return nil
-	case "CPE_CONFIGURATION_ERROR":
-		*self = SystemEventTypeCPEConfigurationError
-		return nil
-	case "CPE_CONFIGURATION_SUCCESS":
-		*self = SystemEventTypeCPEConfigurationSuccess
 		return nil
 	case "CPE_CONNECTED":
 		*self = SystemEventTypeCPEConnected

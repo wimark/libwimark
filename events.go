@@ -241,27 +241,14 @@ type ClientDisconnectedData struct {
 	Radio_id   string `json:"radio_id"`
 }
 
-type CPEConfigurationErrorData struct {
-	Wifi   map[string]WifiConfigurationError `json:"wifi,omitempty"`
-	Radius string                            `json:"radius,omitempty"`
-}
-
 type CPEInterfaceStateData struct {
 	Interface string            `json:"radio_id"`
-	WLAN      string            `json:"wlan_id"`
-	EventName string            `json:"event_name"`
-	EventType string            `json:"event_type"`
 	State     CPEInterfaceState `json:"state"`
 }
 
 type WLANCentrAccChangeData struct {
 	IsDeleted bool   `json:"is_deleted"`
 	Radiuses  []UUID `json:"radiuses"`
-}
-
-type WifiConfigurationError struct {
-	Config interface{}            `json:"config"`
-	Wlans  map[string]interface{} `json:"wlans"`
 }
 
 type ServiceFatalErrorData struct {

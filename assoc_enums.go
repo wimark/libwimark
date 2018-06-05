@@ -408,18 +408,6 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		return t_err
 	}
 	switch t {
-	case SystemEventTypeCPEConfigurationError:
-		if !data_found {
-			return errors.New("No associated data found for enum SystemEventObject")
-		}
-		var d CPEConfigurationErrorData
-		var data_err = json.Unmarshal(data_raw, &d)
-		if data_err != nil {
-			return data_err
-		}
-		self.Data = &d
-	case SystemEventTypeCPEConfigurationSuccess:
-		self.Data = nil
 	case SystemEventTypeCPEConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -584,18 +572,6 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		return t_err
 	}
 	switch t {
-	case SystemEventTypeCPEConfigurationError:
-		if !data_found {
-			return errors.New("No associated data found for enum SystemEventObject")
-		}
-		var d CPEConfigurationErrorData
-		var data_err = data_raw.Unmarshal(&d)
-		if data_err != nil {
-			return data_err
-		}
-		self.Data = &d
-	case SystemEventTypeCPEConfigurationSuccess:
-		self.Data = nil
 	case SystemEventTypeCPEConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
