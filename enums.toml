@@ -100,11 +100,14 @@ CPUload = "cpu_load"
 
 [ClientStatPacketType]
 [ClientStatPacketType.variants]
-On      = "Accounting-On"
-Off     = "Accounting-Off"
-Start   = "Start"
-Stop    = "Stop"
-Interim = "Interim-Update"
+OnOld      = "Accounting-On"
+OffOld     = "Accounting-Off"
+StartOld   = "Start"
+StopOld    = "Stop"
+InterimOld = "Interim-Update"
+Start      = "start"
+Stop       = "stop"
+Interim    = "interim"
 
 [WirelessClientType]
 default = "Other"
@@ -115,8 +118,8 @@ Wired  = "wired"
 
 [WirelessClientState]
 [WirelessClientState.variants]
-CONNECTED     = "CONNECTED"
-DISCONNECTED  = "DISCONNECTED"
+Connected     = "CONNECTED"
+Disconnected  = "DISCONNECTED"
 
 [ConnectionModeType]
 default = "ModeLegacy"
