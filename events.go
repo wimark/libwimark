@@ -230,18 +230,18 @@ type MonitorRuleViolationData struct {
 
 type ClientConnectedData struct {
 	Session_id string `json:"session_id"`
-	Freq       string `json:"freq"`
 	Cpe_id     UUID   `json:"cpe_id"`
 	Wlan_id    UUID   `json:"wlan_id"`
 	Radio_id   string `json:"radio_id"`
+	//Freq       string `json:"freq"`
 }
 
 type ClientDisconnectedData struct {
 	Session_id string `json:"session_id"`
-	Freq       string `json:"freq"`
 	Cpe_id     UUID   `json:"cpe_id"`
 	Wlan_id    UUID   `json:"wlan_id"`
 	Radio_id   string `json:"radio_id"`
+	//Freq       string `json:"freq"`
 }
 
 type CPEInterfaceStateData struct {
