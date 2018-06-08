@@ -34,7 +34,7 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 	}
 	switch t {
 	case SecurityTypeNone:
-		break
+		self.Data = nil
 	case SecurityTypeWPA2Enterprise:
 		if !data_found {
 			return errors.New("No associated data found for enum EnumSecurity")
@@ -102,7 +102,7 @@ func (self *EnumSecurity) SetBSON(v bson.Raw) error {
 	}
 	switch t {
 	case SecurityTypeNone:
-		break
+		self.Data = nil
 	case SecurityTypeWPA2Enterprise:
 		if !data_found {
 			return errors.New("No associated data found for enum EnumSecurity")
@@ -419,7 +419,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		}
 		self.Data = &d
 	case SystemEventTypeCPEConfigurationSuccess:
-		break
+		self.Data = nil
 	case SystemEventTypeCPEConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -431,7 +431,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		}
 		self.Data = &d
 	case SystemEventTypeCPEDisconnected:
-		break
+		self.Data = nil
 	case SystemEventTypeCPEInterfaceState:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -473,7 +473,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		}
 		self.Data = &d
 	case SystemEventTypeDaemonSettingsChanged:
-		break
+		self.Data = nil
 	case SystemEventTypeFirmwareUploaded:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -525,7 +525,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		}
 		self.Data = &d
 	case SystemEventTypeServiceDisconnected:
-		break
+		self.Data = nil
 	case SystemEventTypeServiceFatalError:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -537,7 +537,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		}
 		self.Data = &d
 	case SystemEventTypeSystemTimeChanged:
-		break
+		self.Data = nil
 	case SystemEventTypeWLANCentrAccChanged:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -585,7 +585,7 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case SystemEventTypeCPEConfigurationSuccess:
-		break
+		self.Data = nil
 	case SystemEventTypeCPEConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -597,7 +597,7 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case SystemEventTypeCPEDisconnected:
-		break
+		self.Data = nil
 	case SystemEventTypeCPEInterfaceState:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -639,7 +639,7 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case SystemEventTypeDaemonSettingsChanged:
-		break
+		self.Data = nil
 	case SystemEventTypeFirmwareUploaded:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -691,7 +691,7 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case SystemEventTypeServiceDisconnected:
-		break
+		self.Data = nil
 	case SystemEventTypeServiceFatalError:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -703,7 +703,7 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case SystemEventTypeSystemTimeChanged:
-		break
+		self.Data = nil
 	case SystemEventTypeWLANCentrAccChanged:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
