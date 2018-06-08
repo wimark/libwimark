@@ -218,7 +218,10 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
-type CPEConnectedData Version
+type CPEConnectedData struct {
+	Version
+	Template UUID `json:"template, omitempty"`
+}
 
 type MonitorRuleViolationData struct {
 	Cpe_id  UUID `json:"cpe_id"`
