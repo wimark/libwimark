@@ -29,7 +29,7 @@ func (self *CPEAgentStatusType) String() string {
 	if len(*self) == 0 {
 		return "undefined"
 	}
-	panic(errors.New("Invalid value of CPEAgentStatusType"))
+	panic(errors.New("Invalid value of CPEAgentStatusType: " + string(*self)))
 }
 
 func (self *CPEAgentStatusType) MarshalJSON() ([]byte, error) {
@@ -46,7 +46,7 @@ func (self *CPEAgentStatusType) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("undefined")
 	}
-	return nil, errors.New("Invalid value of CPEAgentStatusType")
+	return nil, errors.New("Invalid value of CPEAgentStatusType: " + string(*self))
 }
 
 func (self *CPEAgentStatusType) GetBSON() (interface{}, error) {
@@ -63,7 +63,7 @@ func (self *CPEAgentStatusType) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "undefined", nil
 	}
-	return nil, errors.New("Invalid value of CPEAgentStatusType")
+	return nil, errors.New("Invalid value of CPEAgentStatusType: " + string(*self))
 }
 
 func (self *CPEAgentStatusType) UnmarshalJSON(b []byte) error {
@@ -89,7 +89,7 @@ func (self *CPEAgentStatusType) UnmarshalJSON(b []byte) error {
 		*self = CPEAgentStatusTypeUndefined
 		return nil
 	}
-	return errors.New("Unknown CPEAgentStatusType")
+	return errors.New("Unknown CPEAgentStatusType: " + s)
 }
 
 func (self *CPEAgentStatusType) SetBSON(v bson.Raw) error {
@@ -115,7 +115,7 @@ func (self *CPEAgentStatusType) SetBSON(v bson.Raw) error {
 		*self = CPEAgentStatusTypeUndefined
 		return nil
 	}
-	return errors.New("Unknown CPEAgentStatusType")
+	return errors.New("Unknown CPEAgentStatusType: " + s)
 }
 
 type CPEInterfaceState string
@@ -153,7 +153,7 @@ func (self *CPEInterfaceState) String() string {
 	case CPEInterfaceStateUnknown:
 		return "UNKNOWN"
 	}
-	panic(errors.New("Invalid value of CPEInterfaceState"))
+	panic(errors.New("Invalid value of CPEInterfaceState: " + string(*self)))
 }
 
 func (self *CPEInterfaceState) MarshalJSON() ([]byte, error) {
@@ -177,7 +177,7 @@ func (self *CPEInterfaceState) MarshalJSON() ([]byte, error) {
 	case CPEInterfaceStateUnknown:
 		return json.Marshal("UNKNOWN")
 	}
-	return nil, errors.New("Invalid value of CPEInterfaceState")
+	return nil, errors.New("Invalid value of CPEInterfaceState: " + string(*self))
 }
 
 func (self *CPEInterfaceState) GetBSON() (interface{}, error) {
@@ -201,7 +201,7 @@ func (self *CPEInterfaceState) GetBSON() (interface{}, error) {
 	case CPEInterfaceStateUnknown:
 		return "UNKNOWN", nil
 	}
-	return nil, errors.New("Invalid value of CPEInterfaceState")
+	return nil, errors.New("Invalid value of CPEInterfaceState: " + string(*self))
 }
 
 func (self *CPEInterfaceState) UnmarshalJSON(b []byte) error {
@@ -238,7 +238,7 @@ func (self *CPEInterfaceState) UnmarshalJSON(b []byte) error {
 		*self = CPEInterfaceStateUnknown
 		return nil
 	}
-	return errors.New("Unknown CPEInterfaceState")
+	return errors.New("Unknown CPEInterfaceState: " + s)
 }
 
 func (self *CPEInterfaceState) SetBSON(v bson.Raw) error {
@@ -275,7 +275,7 @@ func (self *CPEInterfaceState) SetBSON(v bson.Raw) error {
 		*self = CPEInterfaceStateUnknown
 		return nil
 	}
-	return errors.New("Unknown CPEInterfaceState")
+	return errors.New("Unknown CPEInterfaceState: " + s)
 }
 
 type ClientStatPacketType string
@@ -310,7 +310,7 @@ func (self *ClientStatPacketType) String() string {
 	case ClientStatPacketTypeStopOld:
 		return "Stop"
 	}
-	panic(errors.New("Invalid value of ClientStatPacketType"))
+	panic(errors.New("Invalid value of ClientStatPacketType: " + string(*self)))
 }
 
 func (self *ClientStatPacketType) MarshalJSON() ([]byte, error) {
@@ -332,7 +332,7 @@ func (self *ClientStatPacketType) MarshalJSON() ([]byte, error) {
 	case ClientStatPacketTypeStopOld:
 		return json.Marshal("Stop")
 	}
-	return nil, errors.New("Invalid value of ClientStatPacketType")
+	return nil, errors.New("Invalid value of ClientStatPacketType: " + string(*self))
 }
 
 func (self *ClientStatPacketType) GetBSON() (interface{}, error) {
@@ -354,7 +354,7 @@ func (self *ClientStatPacketType) GetBSON() (interface{}, error) {
 	case ClientStatPacketTypeStopOld:
 		return "Stop", nil
 	}
-	return nil, errors.New("Invalid value of ClientStatPacketType")
+	return nil, errors.New("Invalid value of ClientStatPacketType: " + string(*self))
 }
 
 func (self *ClientStatPacketType) UnmarshalJSON(b []byte) error {
@@ -388,7 +388,7 @@ func (self *ClientStatPacketType) UnmarshalJSON(b []byte) error {
 		*self = ClientStatPacketTypeStopOld
 		return nil
 	}
-	return errors.New("Unknown ClientStatPacketType")
+	return errors.New("Unknown ClientStatPacketType: " + s)
 }
 
 func (self *ClientStatPacketType) SetBSON(v bson.Raw) error {
@@ -422,7 +422,7 @@ func (self *ClientStatPacketType) SetBSON(v bson.Raw) error {
 		*self = ClientStatPacketTypeStopOld
 		return nil
 	}
-	return errors.New("Unknown ClientStatPacketType")
+	return errors.New("Unknown ClientStatPacketType: " + s)
 }
 
 type ConfigurationStatus string
@@ -454,7 +454,7 @@ func (self *ConfigurationStatus) String() string {
 	if len(*self) == 0 {
 		return "empty"
 	}
-	panic(errors.New("Invalid value of ConfigurationStatus"))
+	panic(errors.New("Invalid value of ConfigurationStatus: " + string(*self)))
 }
 
 func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
@@ -475,7 +475,7 @@ func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("empty")
 	}
-	return nil, errors.New("Invalid value of ConfigurationStatus")
+	return nil, errors.New("Invalid value of ConfigurationStatus: " + string(*self))
 }
 
 func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
@@ -496,7 +496,7 @@ func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "empty", nil
 	}
-	return nil, errors.New("Invalid value of ConfigurationStatus")
+	return nil, errors.New("Invalid value of ConfigurationStatus: " + string(*self))
 }
 
 func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
@@ -528,7 +528,7 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 		*self = ConfigurationStatusEmpty
 		return nil
 	}
-	return errors.New("Unknown ConfigurationStatus")
+	return errors.New("Unknown ConfigurationStatus: " + s)
 }
 
 func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
@@ -560,7 +560,7 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 		*self = ConfigurationStatusEmpty
 		return nil
 	}
-	return errors.New("Unknown ConfigurationStatus")
+	return errors.New("Unknown ConfigurationStatus: " + s)
 }
 
 type ConnectionModeType string
@@ -583,7 +583,7 @@ func (self *ConnectionModeType) String() string {
 	if len(*self) == 0 {
 		return "legacy"
 	}
-	panic(errors.New("Invalid value of ConnectionModeType"))
+	panic(errors.New("Invalid value of ConnectionModeType: " + string(*self)))
 }
 
 func (self *ConnectionModeType) MarshalJSON() ([]byte, error) {
@@ -598,7 +598,7 @@ func (self *ConnectionModeType) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("legacy")
 	}
-	return nil, errors.New("Invalid value of ConnectionModeType")
+	return nil, errors.New("Invalid value of ConnectionModeType: " + string(*self))
 }
 
 func (self *ConnectionModeType) GetBSON() (interface{}, error) {
@@ -613,7 +613,7 @@ func (self *ConnectionModeType) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "legacy", nil
 	}
-	return nil, errors.New("Invalid value of ConnectionModeType")
+	return nil, errors.New("Invalid value of ConnectionModeType: " + string(*self))
 }
 
 func (self *ConnectionModeType) UnmarshalJSON(b []byte) error {
@@ -636,7 +636,7 @@ func (self *ConnectionModeType) UnmarshalJSON(b []byte) error {
 		*self = ConnectionModeTypeModeLegacy
 		return nil
 	}
-	return errors.New("Unknown ConnectionModeType")
+	return errors.New("Unknown ConnectionModeType: " + s)
 }
 
 func (self *ConnectionModeType) SetBSON(v bson.Raw) error {
@@ -659,7 +659,7 @@ func (self *ConnectionModeType) SetBSON(v bson.Raw) error {
 		*self = ConnectionModeTypeModeLegacy
 		return nil
 	}
-	return errors.New("Unknown ConnectionModeType")
+	return errors.New("Unknown ConnectionModeType: " + s)
 }
 
 type FirewallDirection string
@@ -682,7 +682,7 @@ func (self *FirewallDirection) String() string {
 	if len(*self) == 0 {
 		return "ANY"
 	}
-	panic(errors.New("Invalid value of FirewallDirection"))
+	panic(errors.New("Invalid value of FirewallDirection: " + string(*self)))
 }
 
 func (self *FirewallDirection) MarshalJSON() ([]byte, error) {
@@ -697,7 +697,7 @@ func (self *FirewallDirection) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("ANY")
 	}
-	return nil, errors.New("Invalid value of FirewallDirection")
+	return nil, errors.New("Invalid value of FirewallDirection: " + string(*self))
 }
 
 func (self *FirewallDirection) GetBSON() (interface{}, error) {
@@ -712,7 +712,7 @@ func (self *FirewallDirection) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "ANY", nil
 	}
-	return nil, errors.New("Invalid value of FirewallDirection")
+	return nil, errors.New("Invalid value of FirewallDirection: " + string(*self))
 }
 
 func (self *FirewallDirection) UnmarshalJSON(b []byte) error {
@@ -735,7 +735,7 @@ func (self *FirewallDirection) UnmarshalJSON(b []byte) error {
 		*self = FirewallDirectionAny
 		return nil
 	}
-	return errors.New("Unknown FirewallDirection")
+	return errors.New("Unknown FirewallDirection: " + s)
 }
 
 func (self *FirewallDirection) SetBSON(v bson.Raw) error {
@@ -758,7 +758,7 @@ func (self *FirewallDirection) SetBSON(v bson.Raw) error {
 		*self = FirewallDirectionAny
 		return nil
 	}
-	return errors.New("Unknown FirewallDirection")
+	return errors.New("Unknown FirewallDirection: " + s)
 }
 
 type FirewallPolicy string
@@ -784,7 +784,7 @@ func (self *FirewallPolicy) String() string {
 	if len(*self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of FirewallPolicy"))
+	panic(errors.New("Invalid value of FirewallPolicy: " + string(*self)))
 }
 
 func (self *FirewallPolicy) MarshalJSON() ([]byte, error) {
@@ -801,7 +801,7 @@ func (self *FirewallPolicy) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("")
 	}
-	return nil, errors.New("Invalid value of FirewallPolicy")
+	return nil, errors.New("Invalid value of FirewallPolicy: " + string(*self))
 }
 
 func (self *FirewallPolicy) GetBSON() (interface{}, error) {
@@ -818,7 +818,7 @@ func (self *FirewallPolicy) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "", nil
 	}
-	return nil, errors.New("Invalid value of FirewallPolicy")
+	return nil, errors.New("Invalid value of FirewallPolicy: " + string(*self))
 }
 
 func (self *FirewallPolicy) UnmarshalJSON(b []byte) error {
@@ -844,7 +844,7 @@ func (self *FirewallPolicy) UnmarshalJSON(b []byte) error {
 		*self = FirewallPolicyEmpty
 		return nil
 	}
-	return errors.New("Unknown FirewallPolicy")
+	return errors.New("Unknown FirewallPolicy: " + s)
 }
 
 func (self *FirewallPolicy) SetBSON(v bson.Raw) error {
@@ -870,7 +870,7 @@ func (self *FirewallPolicy) SetBSON(v bson.Raw) error {
 		*self = FirewallPolicyEmpty
 		return nil
 	}
-	return errors.New("Unknown FirewallPolicy")
+	return errors.New("Unknown FirewallPolicy: " + s)
 }
 
 type FirmwareUpdateMode string
@@ -893,7 +893,7 @@ func (self *FirmwareUpdateMode) String() string {
 	if len(*self) == 0 {
 		return "check"
 	}
-	panic(errors.New("Invalid value of FirmwareUpdateMode"))
+	panic(errors.New("Invalid value of FirmwareUpdateMode: " + string(*self)))
 }
 
 func (self *FirmwareUpdateMode) MarshalJSON() ([]byte, error) {
@@ -908,7 +908,7 @@ func (self *FirmwareUpdateMode) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("check")
 	}
-	return nil, errors.New("Invalid value of FirmwareUpdateMode")
+	return nil, errors.New("Invalid value of FirmwareUpdateMode: " + string(*self))
 }
 
 func (self *FirmwareUpdateMode) GetBSON() (interface{}, error) {
@@ -923,7 +923,7 @@ func (self *FirmwareUpdateMode) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "check", nil
 	}
-	return nil, errors.New("Invalid value of FirmwareUpdateMode")
+	return nil, errors.New("Invalid value of FirmwareUpdateMode: " + string(*self))
 }
 
 func (self *FirmwareUpdateMode) UnmarshalJSON(b []byte) error {
@@ -946,7 +946,7 @@ func (self *FirmwareUpdateMode) UnmarshalJSON(b []byte) error {
 		*self = FirmwareUpdateModeCheck
 		return nil
 	}
-	return errors.New("Unknown FirmwareUpdateMode")
+	return errors.New("Unknown FirmwareUpdateMode: " + s)
 }
 
 func (self *FirmwareUpdateMode) SetBSON(v bson.Raw) error {
@@ -969,7 +969,7 @@ func (self *FirmwareUpdateMode) SetBSON(v bson.Raw) error {
 		*self = FirmwareUpdateModeCheck
 		return nil
 	}
-	return errors.New("Unknown FirmwareUpdateMode")
+	return errors.New("Unknown FirmwareUpdateMode: " + s)
 }
 
 type L3Protocol string
@@ -995,7 +995,7 @@ func (self *L3Protocol) String() string {
 	if len(*self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of L3Protocol"))
+	panic(errors.New("Invalid value of L3Protocol: " + string(*self)))
 }
 
 func (self *L3Protocol) MarshalJSON() ([]byte, error) {
@@ -1012,7 +1012,7 @@ func (self *L3Protocol) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("")
 	}
-	return nil, errors.New("Invalid value of L3Protocol")
+	return nil, errors.New("Invalid value of L3Protocol: " + string(*self))
 }
 
 func (self *L3Protocol) GetBSON() (interface{}, error) {
@@ -1029,7 +1029,7 @@ func (self *L3Protocol) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "", nil
 	}
-	return nil, errors.New("Invalid value of L3Protocol")
+	return nil, errors.New("Invalid value of L3Protocol: " + string(*self))
 }
 
 func (self *L3Protocol) UnmarshalJSON(b []byte) error {
@@ -1055,7 +1055,7 @@ func (self *L3Protocol) UnmarshalJSON(b []byte) error {
 		*self = L3ProtocolEmpty
 		return nil
 	}
-	return errors.New("Unknown L3Protocol")
+	return errors.New("Unknown L3Protocol: " + s)
 }
 
 func (self *L3Protocol) SetBSON(v bson.Raw) error {
@@ -1081,7 +1081,7 @@ func (self *L3Protocol) SetBSON(v bson.Raw) error {
 		*self = L3ProtocolEmpty
 		return nil
 	}
-	return errors.New("Unknown L3Protocol")
+	return errors.New("Unknown L3Protocol: " + s)
 }
 
 type L4Protocol string
@@ -1104,7 +1104,7 @@ func (self *L4Protocol) String() string {
 	if len(*self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of L4Protocol"))
+	panic(errors.New("Invalid value of L4Protocol: " + string(*self)))
 }
 
 func (self *L4Protocol) MarshalJSON() ([]byte, error) {
@@ -1119,7 +1119,7 @@ func (self *L4Protocol) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("")
 	}
-	return nil, errors.New("Invalid value of L4Protocol")
+	return nil, errors.New("Invalid value of L4Protocol: " + string(*self))
 }
 
 func (self *L4Protocol) GetBSON() (interface{}, error) {
@@ -1134,7 +1134,7 @@ func (self *L4Protocol) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "", nil
 	}
-	return nil, errors.New("Invalid value of L4Protocol")
+	return nil, errors.New("Invalid value of L4Protocol: " + string(*self))
 }
 
 func (self *L4Protocol) UnmarshalJSON(b []byte) error {
@@ -1157,7 +1157,7 @@ func (self *L4Protocol) UnmarshalJSON(b []byte) error {
 		*self = L4ProtocolEmpty
 		return nil
 	}
-	return errors.New("Unknown L4Protocol")
+	return errors.New("Unknown L4Protocol: " + s)
 }
 
 func (self *L4Protocol) SetBSON(v bson.Raw) error {
@@ -1180,7 +1180,7 @@ func (self *L4Protocol) SetBSON(v bson.Raw) error {
 		*self = L4ProtocolEmpty
 		return nil
 	}
-	return errors.New("Unknown L4Protocol")
+	return errors.New("Unknown L4Protocol: " + s)
 }
 
 type MCSRequire string
@@ -1203,7 +1203,7 @@ func (self *MCSRequire) String() string {
 	if len(*self) == 0 {
 		return "off"
 	}
-	panic(errors.New("Invalid value of MCSRequire"))
+	panic(errors.New("Invalid value of MCSRequire: " + string(*self)))
 }
 
 func (self *MCSRequire) MarshalJSON() ([]byte, error) {
@@ -1218,7 +1218,7 @@ func (self *MCSRequire) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("off")
 	}
-	return nil, errors.New("Invalid value of MCSRequire")
+	return nil, errors.New("Invalid value of MCSRequire: " + string(*self))
 }
 
 func (self *MCSRequire) GetBSON() (interface{}, error) {
@@ -1233,7 +1233,7 @@ func (self *MCSRequire) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "off", nil
 	}
-	return nil, errors.New("Invalid value of MCSRequire")
+	return nil, errors.New("Invalid value of MCSRequire: " + string(*self))
 }
 
 func (self *MCSRequire) UnmarshalJSON(b []byte) error {
@@ -1256,7 +1256,7 @@ func (self *MCSRequire) UnmarshalJSON(b []byte) error {
 		*self = MCSRequireOff
 		return nil
 	}
-	return errors.New("Unknown MCSRequire")
+	return errors.New("Unknown MCSRequire: " + s)
 }
 
 func (self *MCSRequire) SetBSON(v bson.Raw) error {
@@ -1279,7 +1279,7 @@ func (self *MCSRequire) SetBSON(v bson.Raw) error {
 		*self = MCSRequireOff
 		return nil
 	}
-	return errors.New("Unknown MCSRequire")
+	return errors.New("Unknown MCSRequire: " + s)
 }
 
 type MacFilterType string
@@ -1302,7 +1302,7 @@ func (self *MacFilterType) String() string {
 	if len(*self) == 0 {
 		return "None"
 	}
-	panic(errors.New("Invalid value of MacFilterType"))
+	panic(errors.New("Invalid value of MacFilterType: " + string(*self)))
 }
 
 func (self *MacFilterType) MarshalJSON() ([]byte, error) {
@@ -1317,7 +1317,7 @@ func (self *MacFilterType) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("None")
 	}
-	return nil, errors.New("Invalid value of MacFilterType")
+	return nil, errors.New("Invalid value of MacFilterType: " + string(*self))
 }
 
 func (self *MacFilterType) GetBSON() (interface{}, error) {
@@ -1332,7 +1332,7 @@ func (self *MacFilterType) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "None", nil
 	}
-	return nil, errors.New("Invalid value of MacFilterType")
+	return nil, errors.New("Invalid value of MacFilterType: " + string(*self))
 }
 
 func (self *MacFilterType) UnmarshalJSON(b []byte) error {
@@ -1355,7 +1355,7 @@ func (self *MacFilterType) UnmarshalJSON(b []byte) error {
 		*self = MacFilterTypeNone
 		return nil
 	}
-	return errors.New("Unknown MacFilterType")
+	return errors.New("Unknown MacFilterType: " + s)
 }
 
 func (self *MacFilterType) SetBSON(v bson.Raw) error {
@@ -1378,7 +1378,7 @@ func (self *MacFilterType) SetBSON(v bson.Raw) error {
 		*self = MacFilterTypeNone
 		return nil
 	}
-	return errors.New("Unknown MacFilterType")
+	return errors.New("Unknown MacFilterType: " + s)
 }
 
 type Module string
@@ -1446,7 +1446,7 @@ func (self *Module) String() string {
 	case ModuleTunManager:
 		return "TUN_MANAGER"
 	}
-	panic(errors.New("Invalid value of Module"))
+	panic(errors.New("Invalid value of Module: " + string(*self)))
 }
 
 func (self *Module) MarshalJSON() ([]byte, error) {
@@ -1490,7 +1490,7 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 	case ModuleTunManager:
 		return json.Marshal("TUN_MANAGER")
 	}
-	return nil, errors.New("Invalid value of Module")
+	return nil, errors.New("Invalid value of Module: " + string(*self))
 }
 
 func (self *Module) GetBSON() (interface{}, error) {
@@ -1534,7 +1534,7 @@ func (self *Module) GetBSON() (interface{}, error) {
 	case ModuleTunManager:
 		return "TUN_MANAGER", nil
 	}
-	return nil, errors.New("Invalid value of Module")
+	return nil, errors.New("Invalid value of Module: " + string(*self))
 }
 
 func (self *Module) UnmarshalJSON(b []byte) error {
@@ -1601,7 +1601,7 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		*self = ModuleTunManager
 		return nil
 	}
-	return errors.New("Unknown Module")
+	return errors.New("Unknown Module: " + s)
 }
 
 func (self *Module) SetBSON(v bson.Raw) error {
@@ -1668,7 +1668,7 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		*self = ModuleTunManager
 		return nil
 	}
-	return errors.New("Unknown Module")
+	return errors.New("Unknown Module: " + s)
 }
 
 type Operation string
@@ -1706,7 +1706,7 @@ func (self *Operation) String() string {
 	case OperationUpdate:
 		return "U"
 	}
-	panic(errors.New("Invalid value of Operation"))
+	panic(errors.New("Invalid value of Operation: " + string(*self)))
 }
 
 func (self *Operation) MarshalJSON() ([]byte, error) {
@@ -1730,7 +1730,7 @@ func (self *Operation) MarshalJSON() ([]byte, error) {
 	case OperationUpdate:
 		return json.Marshal("U")
 	}
-	return nil, errors.New("Invalid value of Operation")
+	return nil, errors.New("Invalid value of Operation: " + string(*self))
 }
 
 func (self *Operation) GetBSON() (interface{}, error) {
@@ -1754,7 +1754,7 @@ func (self *Operation) GetBSON() (interface{}, error) {
 	case OperationUpdate:
 		return "U", nil
 	}
-	return nil, errors.New("Invalid value of Operation")
+	return nil, errors.New("Invalid value of Operation: " + string(*self))
 }
 
 func (self *Operation) UnmarshalJSON(b []byte) error {
@@ -1791,7 +1791,7 @@ func (self *Operation) UnmarshalJSON(b []byte) error {
 		*self = OperationUpdate
 		return nil
 	}
-	return errors.New("Unknown Operation")
+	return errors.New("Unknown Operation: " + s)
 }
 
 func (self *Operation) SetBSON(v bson.Raw) error {
@@ -1828,7 +1828,7 @@ func (self *Operation) SetBSON(v bson.Raw) error {
 		*self = OperationUpdate
 		return nil
 	}
-	return errors.New("Unknown Operation")
+	return errors.New("Unknown Operation: " + s)
 }
 
 type PortalAuthType string
@@ -1857,7 +1857,7 @@ func (self *PortalAuthType) String() string {
 	if len(*self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of PortalAuthType"))
+	panic(errors.New("Invalid value of PortalAuthType: " + string(*self)))
 }
 
 func (self *PortalAuthType) MarshalJSON() ([]byte, error) {
@@ -1876,7 +1876,7 @@ func (self *PortalAuthType) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("")
 	}
-	return nil, errors.New("Invalid value of PortalAuthType")
+	return nil, errors.New("Invalid value of PortalAuthType: " + string(*self))
 }
 
 func (self *PortalAuthType) GetBSON() (interface{}, error) {
@@ -1895,7 +1895,7 @@ func (self *PortalAuthType) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "", nil
 	}
-	return nil, errors.New("Invalid value of PortalAuthType")
+	return nil, errors.New("Invalid value of PortalAuthType: " + string(*self))
 }
 
 func (self *PortalAuthType) UnmarshalJSON(b []byte) error {
@@ -1924,7 +1924,7 @@ func (self *PortalAuthType) UnmarshalJSON(b []byte) error {
 		*self = PortalAuthTypeNone
 		return nil
 	}
-	return errors.New("Unknown PortalAuthType")
+	return errors.New("Unknown PortalAuthType: " + s)
 }
 
 func (self *PortalAuthType) SetBSON(v bson.Raw) error {
@@ -1953,7 +1953,7 @@ func (self *PortalAuthType) SetBSON(v bson.Raw) error {
 		*self = PortalAuthTypeNone
 		return nil
 	}
-	return errors.New("Unknown PortalAuthType")
+	return errors.New("Unknown PortalAuthType: " + s)
 }
 
 type RadiusMessageType string
@@ -1979,7 +1979,7 @@ func (self *RadiusMessageType) String() string {
 	if len(*self) == 0 {
 		return "accounting"
 	}
-	panic(errors.New("Invalid value of RadiusMessageType"))
+	panic(errors.New("Invalid value of RadiusMessageType: " + string(*self)))
 }
 
 func (self *RadiusMessageType) MarshalJSON() ([]byte, error) {
@@ -1996,7 +1996,7 @@ func (self *RadiusMessageType) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("accounting")
 	}
-	return nil, errors.New("Invalid value of RadiusMessageType")
+	return nil, errors.New("Invalid value of RadiusMessageType: " + string(*self))
 }
 
 func (self *RadiusMessageType) GetBSON() (interface{}, error) {
@@ -2013,7 +2013,7 @@ func (self *RadiusMessageType) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "accounting", nil
 	}
-	return nil, errors.New("Invalid value of RadiusMessageType")
+	return nil, errors.New("Invalid value of RadiusMessageType: " + string(*self))
 }
 
 func (self *RadiusMessageType) UnmarshalJSON(b []byte) error {
@@ -2039,7 +2039,7 @@ func (self *RadiusMessageType) UnmarshalJSON(b []byte) error {
 		*self = RadiusMessageTypeAccountingRequest
 		return nil
 	}
-	return errors.New("Unknown RadiusMessageType")
+	return errors.New("Unknown RadiusMessageType: " + s)
 }
 
 func (self *RadiusMessageType) SetBSON(v bson.Raw) error {
@@ -2065,7 +2065,7 @@ func (self *RadiusMessageType) SetBSON(v bson.Raw) error {
 		*self = RadiusMessageTypeAccountingRequest
 		return nil
 	}
-	return errors.New("Unknown RadiusMessageType")
+	return errors.New("Unknown RadiusMessageType: " + s)
 }
 
 type SecuritySuite string
@@ -2082,7 +2082,7 @@ func (self *SecuritySuite) String() string {
 	case SecuritySuiteTKIP:
 		return "tkip"
 	}
-	panic(errors.New("Invalid value of SecuritySuite"))
+	panic(errors.New("Invalid value of SecuritySuite: " + string(*self)))
 }
 
 func (self *SecuritySuite) MarshalJSON() ([]byte, error) {
@@ -2092,7 +2092,7 @@ func (self *SecuritySuite) MarshalJSON() ([]byte, error) {
 	case SecuritySuiteTKIP:
 		return json.Marshal("tkip")
 	}
-	return nil, errors.New("Invalid value of SecuritySuite")
+	return nil, errors.New("Invalid value of SecuritySuite: " + string(*self))
 }
 
 func (self *SecuritySuite) GetBSON() (interface{}, error) {
@@ -2102,7 +2102,7 @@ func (self *SecuritySuite) GetBSON() (interface{}, error) {
 	case SecuritySuiteTKIP:
 		return "tkip", nil
 	}
-	return nil, errors.New("Invalid value of SecuritySuite")
+	return nil, errors.New("Invalid value of SecuritySuite: " + string(*self))
 }
 
 func (self *SecuritySuite) UnmarshalJSON(b []byte) error {
@@ -2118,7 +2118,7 @@ func (self *SecuritySuite) UnmarshalJSON(b []byte) error {
 		*self = SecuritySuiteTKIP
 		return nil
 	}
-	return errors.New("Unknown SecuritySuite")
+	return errors.New("Unknown SecuritySuite: " + s)
 }
 
 func (self *SecuritySuite) SetBSON(v bson.Raw) error {
@@ -2134,7 +2134,7 @@ func (self *SecuritySuite) SetBSON(v bson.Raw) error {
 		*self = SecuritySuiteTKIP
 		return nil
 	}
-	return errors.New("Unknown SecuritySuite")
+	return errors.New("Unknown SecuritySuite: " + s)
 }
 
 type SecurityType string
@@ -2163,7 +2163,7 @@ func (self *SecurityType) String() string {
 	if len(*self) == 0 {
 		return "open"
 	}
-	panic(errors.New("Invalid value of SecurityType"))
+	panic(errors.New("Invalid value of SecurityType: " + string(*self)))
 }
 
 func (self *SecurityType) MarshalJSON() ([]byte, error) {
@@ -2182,7 +2182,7 @@ func (self *SecurityType) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("open")
 	}
-	return nil, errors.New("Invalid value of SecurityType")
+	return nil, errors.New("Invalid value of SecurityType: " + string(*self))
 }
 
 func (self *SecurityType) GetBSON() (interface{}, error) {
@@ -2201,7 +2201,7 @@ func (self *SecurityType) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "open", nil
 	}
-	return nil, errors.New("Invalid value of SecurityType")
+	return nil, errors.New("Invalid value of SecurityType: " + string(*self))
 }
 
 func (self *SecurityType) UnmarshalJSON(b []byte) error {
@@ -2230,7 +2230,7 @@ func (self *SecurityType) UnmarshalJSON(b []byte) error {
 		*self = SecurityTypeNone
 		return nil
 	}
-	return errors.New("Unknown SecurityType")
+	return errors.New("Unknown SecurityType: " + s)
 }
 
 func (self *SecurityType) SetBSON(v bson.Raw) error {
@@ -2259,7 +2259,7 @@ func (self *SecurityType) SetBSON(v bson.Raw) error {
 		*self = SecurityTypeNone
 		return nil
 	}
-	return errors.New("Unknown SecurityType")
+	return errors.New("Unknown SecurityType: " + s)
 }
 
 type ServiceState string
@@ -2279,7 +2279,7 @@ func (self *ServiceState) String() string {
 	case ServiceStatePending:
 		return "PENDING"
 	}
-	panic(errors.New("Invalid value of ServiceState"))
+	panic(errors.New("Invalid value of ServiceState: " + string(*self)))
 }
 
 func (self *ServiceState) MarshalJSON() ([]byte, error) {
@@ -2291,7 +2291,7 @@ func (self *ServiceState) MarshalJSON() ([]byte, error) {
 	case ServiceStatePending:
 		return json.Marshal("PENDING")
 	}
-	return nil, errors.New("Invalid value of ServiceState")
+	return nil, errors.New("Invalid value of ServiceState: " + string(*self))
 }
 
 func (self *ServiceState) GetBSON() (interface{}, error) {
@@ -2303,7 +2303,7 @@ func (self *ServiceState) GetBSON() (interface{}, error) {
 	case ServiceStatePending:
 		return "PENDING", nil
 	}
-	return nil, errors.New("Invalid value of ServiceState")
+	return nil, errors.New("Invalid value of ServiceState: " + string(*self))
 }
 
 func (self *ServiceState) UnmarshalJSON(b []byte) error {
@@ -2322,7 +2322,7 @@ func (self *ServiceState) UnmarshalJSON(b []byte) error {
 		*self = ServiceStatePending
 		return nil
 	}
-	return errors.New("Unknown ServiceState")
+	return errors.New("Unknown ServiceState: " + s)
 }
 
 func (self *ServiceState) SetBSON(v bson.Raw) error {
@@ -2341,7 +2341,7 @@ func (self *ServiceState) SetBSON(v bson.Raw) error {
 		*self = ServiceStatePending
 		return nil
 	}
-	return errors.New("Unknown ServiceState")
+	return errors.New("Unknown ServiceState: " + s)
 }
 
 type StatEventRuleType string
@@ -2358,7 +2358,7 @@ func (self *StatEventRuleType) String() string {
 	case StatEventRuleTypeFreeRAM:
 		return "free_ram"
 	}
-	panic(errors.New("Invalid value of StatEventRuleType"))
+	panic(errors.New("Invalid value of StatEventRuleType: " + string(*self)))
 }
 
 func (self *StatEventRuleType) MarshalJSON() ([]byte, error) {
@@ -2368,7 +2368,7 @@ func (self *StatEventRuleType) MarshalJSON() ([]byte, error) {
 	case StatEventRuleTypeFreeRAM:
 		return json.Marshal("free_ram")
 	}
-	return nil, errors.New("Invalid value of StatEventRuleType")
+	return nil, errors.New("Invalid value of StatEventRuleType: " + string(*self))
 }
 
 func (self *StatEventRuleType) GetBSON() (interface{}, error) {
@@ -2378,7 +2378,7 @@ func (self *StatEventRuleType) GetBSON() (interface{}, error) {
 	case StatEventRuleTypeFreeRAM:
 		return "free_ram", nil
 	}
-	return nil, errors.New("Invalid value of StatEventRuleType")
+	return nil, errors.New("Invalid value of StatEventRuleType: " + string(*self))
 }
 
 func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
@@ -2394,7 +2394,7 @@ func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
 		*self = StatEventRuleTypeFreeRAM
 		return nil
 	}
-	return errors.New("Unknown StatEventRuleType")
+	return errors.New("Unknown StatEventRuleType: " + s)
 }
 
 func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
@@ -2410,7 +2410,7 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 		*self = StatEventRuleTypeFreeRAM
 		return nil
 	}
-	return errors.New("Unknown StatEventRuleType")
+	return errors.New("Unknown StatEventRuleType: " + s)
 }
 
 type SystemEventLevel string
@@ -2436,7 +2436,7 @@ func (self *SystemEventLevel) String() string {
 	if len(*self) == 0 {
 		return "DEBUG"
 	}
-	panic(errors.New("Invalid value of SystemEventLevel"))
+	panic(errors.New("Invalid value of SystemEventLevel: " + string(*self)))
 }
 
 func (self *SystemEventLevel) MarshalJSON() ([]byte, error) {
@@ -2453,7 +2453,7 @@ func (self *SystemEventLevel) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("DEBUG")
 	}
-	return nil, errors.New("Invalid value of SystemEventLevel")
+	return nil, errors.New("Invalid value of SystemEventLevel: " + string(*self))
 }
 
 func (self *SystemEventLevel) GetBSON() (interface{}, error) {
@@ -2470,7 +2470,7 @@ func (self *SystemEventLevel) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "DEBUG", nil
 	}
-	return nil, errors.New("Invalid value of SystemEventLevel")
+	return nil, errors.New("Invalid value of SystemEventLevel: " + string(*self))
 }
 
 func (self *SystemEventLevel) UnmarshalJSON(b []byte) error {
@@ -2496,7 +2496,7 @@ func (self *SystemEventLevel) UnmarshalJSON(b []byte) error {
 		*self = SystemEventLevelDEBUG
 		return nil
 	}
-	return errors.New("Unknown SystemEventLevel")
+	return errors.New("Unknown SystemEventLevel: " + s)
 }
 
 func (self *SystemEventLevel) SetBSON(v bson.Raw) error {
@@ -2522,7 +2522,7 @@ func (self *SystemEventLevel) SetBSON(v bson.Raw) error {
 		*self = SystemEventLevelDEBUG
 		return nil
 	}
-	return errors.New("Unknown SystemEventLevel")
+	return errors.New("Unknown SystemEventLevel: " + s)
 }
 
 type SystemEventType string
@@ -2587,7 +2587,7 @@ func (self *SystemEventType) String() string {
 	case SystemEventTypeWLANCentrAccChanged:
 		return "WLAN_CENTR_ACC_CHANGE"
 	}
-	panic(errors.New("Invalid value of SystemEventType"))
+	panic(errors.New("Invalid value of SystemEventType: " + string(*self)))
 }
 
 func (self *SystemEventType) MarshalJSON() ([]byte, error) {
@@ -2629,7 +2629,7 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 	case SystemEventTypeWLANCentrAccChanged:
 		return json.Marshal("WLAN_CENTR_ACC_CHANGE")
 	}
-	return nil, errors.New("Invalid value of SystemEventType")
+	return nil, errors.New("Invalid value of SystemEventType: " + string(*self))
 }
 
 func (self *SystemEventType) GetBSON() (interface{}, error) {
@@ -2671,7 +2671,7 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 	case SystemEventTypeWLANCentrAccChanged:
 		return "WLAN_CENTR_ACC_CHANGE", nil
 	}
-	return nil, errors.New("Invalid value of SystemEventType")
+	return nil, errors.New("Invalid value of SystemEventType: " + string(*self))
 }
 
 func (self *SystemEventType) UnmarshalJSON(b []byte) error {
@@ -2735,7 +2735,7 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 		*self = SystemEventTypeWLANCentrAccChanged
 		return nil
 	}
-	return errors.New("Unknown SystemEventType")
+	return errors.New("Unknown SystemEventType: " + s)
 }
 
 func (self *SystemEventType) SetBSON(v bson.Raw) error {
@@ -2799,7 +2799,7 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 		*self = SystemEventTypeWLANCentrAccChanged
 		return nil
 	}
-	return errors.New("Unknown SystemEventType")
+	return errors.New("Unknown SystemEventType: " + s)
 }
 
 type TunManagerRPC string
@@ -2816,7 +2816,7 @@ func (self *TunManagerRPC) String() string {
 	case TunManagerRPCDeleteL2TunnelSession:
 		return "DeleteL2TunnelSession"
 	}
-	panic(errors.New("Invalid value of TunManagerRPC"))
+	panic(errors.New("Invalid value of TunManagerRPC: " + string(*self)))
 }
 
 func (self *TunManagerRPC) MarshalJSON() ([]byte, error) {
@@ -2826,7 +2826,7 @@ func (self *TunManagerRPC) MarshalJSON() ([]byte, error) {
 	case TunManagerRPCDeleteL2TunnelSession:
 		return json.Marshal("DeleteL2TunnelSession")
 	}
-	return nil, errors.New("Invalid value of TunManagerRPC")
+	return nil, errors.New("Invalid value of TunManagerRPC: " + string(*self))
 }
 
 func (self *TunManagerRPC) GetBSON() (interface{}, error) {
@@ -2836,7 +2836,7 @@ func (self *TunManagerRPC) GetBSON() (interface{}, error) {
 	case TunManagerRPCDeleteL2TunnelSession:
 		return "DeleteL2TunnelSession", nil
 	}
-	return nil, errors.New("Invalid value of TunManagerRPC")
+	return nil, errors.New("Invalid value of TunManagerRPC: " + string(*self))
 }
 
 func (self *TunManagerRPC) UnmarshalJSON(b []byte) error {
@@ -2852,7 +2852,7 @@ func (self *TunManagerRPC) UnmarshalJSON(b []byte) error {
 		*self = TunManagerRPCDeleteL2TunnelSession
 		return nil
 	}
-	return errors.New("Unknown TunManagerRPC")
+	return errors.New("Unknown TunManagerRPC: " + s)
 }
 
 func (self *TunManagerRPC) SetBSON(v bson.Raw) error {
@@ -2868,7 +2868,7 @@ func (self *TunManagerRPC) SetBSON(v bson.Raw) error {
 		*self = TunManagerRPCDeleteL2TunnelSession
 		return nil
 	}
-	return errors.New("Unknown TunManagerRPC")
+	return errors.New("Unknown TunManagerRPC: " + s)
 }
 
 type WirelessClientState string
@@ -2885,7 +2885,7 @@ func (self *WirelessClientState) String() string {
 	case WirelessClientStateDisconnected:
 		return "DISCONNECTED"
 	}
-	panic(errors.New("Invalid value of WirelessClientState"))
+	panic(errors.New("Invalid value of WirelessClientState: " + string(*self)))
 }
 
 func (self *WirelessClientState) MarshalJSON() ([]byte, error) {
@@ -2895,7 +2895,7 @@ func (self *WirelessClientState) MarshalJSON() ([]byte, error) {
 	case WirelessClientStateDisconnected:
 		return json.Marshal("DISCONNECTED")
 	}
-	return nil, errors.New("Invalid value of WirelessClientState")
+	return nil, errors.New("Invalid value of WirelessClientState: " + string(*self))
 }
 
 func (self *WirelessClientState) GetBSON() (interface{}, error) {
@@ -2905,7 +2905,7 @@ func (self *WirelessClientState) GetBSON() (interface{}, error) {
 	case WirelessClientStateDisconnected:
 		return "DISCONNECTED", nil
 	}
-	return nil, errors.New("Invalid value of WirelessClientState")
+	return nil, errors.New("Invalid value of WirelessClientState: " + string(*self))
 }
 
 func (self *WirelessClientState) UnmarshalJSON(b []byte) error {
@@ -2921,7 +2921,7 @@ func (self *WirelessClientState) UnmarshalJSON(b []byte) error {
 		*self = WirelessClientStateDisconnected
 		return nil
 	}
-	return errors.New("Unknown WirelessClientState")
+	return errors.New("Unknown WirelessClientState: " + s)
 }
 
 func (self *WirelessClientState) SetBSON(v bson.Raw) error {
@@ -2937,7 +2937,7 @@ func (self *WirelessClientState) SetBSON(v bson.Raw) error {
 		*self = WirelessClientStateDisconnected
 		return nil
 	}
-	return errors.New("Unknown WirelessClientState")
+	return errors.New("Unknown WirelessClientState: " + s)
 }
 
 type WirelessClientType string
@@ -2960,7 +2960,7 @@ func (self *WirelessClientType) String() string {
 	if len(*self) == 0 {
 		return "other"
 	}
-	panic(errors.New("Invalid value of WirelessClientType"))
+	panic(errors.New("Invalid value of WirelessClientType: " + string(*self)))
 }
 
 func (self *WirelessClientType) MarshalJSON() ([]byte, error) {
@@ -2975,7 +2975,7 @@ func (self *WirelessClientType) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("other")
 	}
-	return nil, errors.New("Invalid value of WirelessClientType")
+	return nil, errors.New("Invalid value of WirelessClientType: " + string(*self))
 }
 
 func (self *WirelessClientType) GetBSON() (interface{}, error) {
@@ -2990,7 +2990,7 @@ func (self *WirelessClientType) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "other", nil
 	}
-	return nil, errors.New("Invalid value of WirelessClientType")
+	return nil, errors.New("Invalid value of WirelessClientType: " + string(*self))
 }
 
 func (self *WirelessClientType) UnmarshalJSON(b []byte) error {
@@ -3013,7 +3013,7 @@ func (self *WirelessClientType) UnmarshalJSON(b []byte) error {
 		*self = WirelessClientTypeOther
 		return nil
 	}
-	return errors.New("Unknown WirelessClientType")
+	return errors.New("Unknown WirelessClientType: " + s)
 }
 
 func (self *WirelessClientType) SetBSON(v bson.Raw) error {
@@ -3036,5 +3036,5 @@ func (self *WirelessClientType) SetBSON(v bson.Raw) error {
 		*self = WirelessClientTypeOther
 		return nil
 	}
-	return errors.New("Unknown WirelessClientType")
+	return errors.New("Unknown WirelessClientType: " + s)
 }

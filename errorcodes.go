@@ -56,7 +56,7 @@ func (self *WimarkErrorCode) String() string {
 	if len(*self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of WimarkErrorCode"))
+	panic(errors.New("Invalid value of WimarkErrorCode: " + string(*self)))
 }
 
 func (self *WimarkErrorCode) MarshalJSON() ([]byte, error) {
@@ -91,7 +91,7 @@ func (self *WimarkErrorCode) MarshalJSON() ([]byte, error) {
 	if len(*self) == 0 {
 		return json.Marshal("")
 	}
-	return nil, errors.New("Invalid value of WimarkErrorCode")
+	return nil, errors.New("Invalid value of WimarkErrorCode: " + string(*self))
 }
 
 func (self *WimarkErrorCode) GetBSON() (interface{}, error) {
@@ -126,7 +126,7 @@ func (self *WimarkErrorCode) GetBSON() (interface{}, error) {
 	if len(*self) == 0 {
 		return "", nil
 	}
-	return nil, errors.New("Invalid value of WimarkErrorCode")
+	return nil, errors.New("Invalid value of WimarkErrorCode: " + string(*self))
 }
 
 func (self *WimarkErrorCode) UnmarshalJSON(b []byte) error {
@@ -179,7 +179,7 @@ func (self *WimarkErrorCode) UnmarshalJSON(b []byte) error {
 		*self = WimarkErrorCodeNoError
 		return nil
 	}
-	return errors.New("Unknown WimarkErrorCode")
+	return errors.New("Unknown WimarkErrorCode: " + s)
 }
 
 func (self *WimarkErrorCode) SetBSON(v bson.Raw) error {
@@ -232,5 +232,5 @@ func (self *WimarkErrorCode) SetBSON(v bson.Raw) error {
 		*self = WimarkErrorCodeNoError
 		return nil
 	}
-	return errors.New("Unknown WimarkErrorCode")
+	return errors.New("Unknown WimarkErrorCode: " + s)
 }

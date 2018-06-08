@@ -1,10 +1,12 @@
 # Changelog
 
-## [v0.11.2] - 08-06-2018
+## [v0.11.3] - 08-06-2018
 
 ### Changed
 #### template-in-event
  - Add template UUID to CPE connect event
+#### enum-verbose
+ - Enum errors more verbose
 
 ## [v0.11.1] - 05-06-2018
 
