@@ -121,7 +121,7 @@ func (self *CPEAgentStatusType) SetBSON(v bson.Raw) error {
 type CPEInterfaceState string
 
 const CPEInterfaceStateACS CPEInterfaceState = "ACS"
-const CPEInterfaceStateCountryUpdate CPEInterfaceState = "CONTRY_UPDATE"
+const CPEInterfaceStateCountryUpdate CPEInterfaceState = "COUNTRY_UPDATE"
 const CPEInterfaceStateDFS CPEInterfaceState = "DFS"
 const CPEInterfaceStateDisabled CPEInterfaceState = "DISABLED"
 const CPEInterfaceStateEnabled CPEInterfaceState = "ENABLED"
@@ -137,7 +137,7 @@ func (self *CPEInterfaceState) String() string {
 	case CPEInterfaceStateACS:
 		return "ACS"
 	case CPEInterfaceStateCountryUpdate:
-		return "CONTRY_UPDATE"
+		return "COUNTRY_UPDATE"
 	case CPEInterfaceStateDFS:
 		return "DFS"
 	case CPEInterfaceStateDisabled:
@@ -161,7 +161,7 @@ func (self *CPEInterfaceState) MarshalJSON() ([]byte, error) {
 	case CPEInterfaceStateACS:
 		return json.Marshal("ACS")
 	case CPEInterfaceStateCountryUpdate:
-		return json.Marshal("CONTRY_UPDATE")
+		return json.Marshal("COUNTRY_UPDATE")
 	case CPEInterfaceStateDFS:
 		return json.Marshal("DFS")
 	case CPEInterfaceStateDisabled:
@@ -185,7 +185,7 @@ func (self *CPEInterfaceState) GetBSON() (interface{}, error) {
 	case CPEInterfaceStateACS:
 		return "ACS", nil
 	case CPEInterfaceStateCountryUpdate:
-		return "CONTRY_UPDATE", nil
+		return "COUNTRY_UPDATE", nil
 	case CPEInterfaceStateDFS:
 		return "DFS", nil
 	case CPEInterfaceStateDisabled:
@@ -213,7 +213,7 @@ func (self *CPEInterfaceState) UnmarshalJSON(b []byte) error {
 	case "ACS":
 		*self = CPEInterfaceStateACS
 		return nil
-	case "CONTRY_UPDATE":
+	case "COUNTRY_UPDATE":
 		*self = CPEInterfaceStateCountryUpdate
 		return nil
 	case "DFS":
@@ -250,7 +250,7 @@ func (self *CPEInterfaceState) SetBSON(v bson.Raw) error {
 	case "ACS":
 		*self = CPEInterfaceStateACS
 		return nil
-	case "CONTRY_UPDATE":
+	case "COUNTRY_UPDATE":
 		*self = CPEInterfaceStateCountryUpdate
 		return nil
 	case "DFS":
