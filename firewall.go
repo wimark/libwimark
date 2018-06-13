@@ -4,6 +4,7 @@ type FireWallSettings struct {
 	L2Chain        UUID     `json:"l2_chain" bson:"l2_chain"`
 	L3Filter       L3Filter `json:"l3_filter" bson:"l3_filter"`
 	WanAccessBlock bool     `json:"wan_access_block" bson:"wan_access_block"`
+	NatAccess      bool     `json:"nat_access" bson:"nat_access"`
 }
 
 type L3Filter struct {
