@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.11.7] - 14-06-2018
+
+### Changed
+#### WNE-981-NAT-for-WLAN
+ - Option for access to CPE settings via NAT
+#### del-client-freq
+ - Remove freq from client (dis)connect event data
+
 ## [v0.11.3] - 08-06-2018
 
 ### Changed
