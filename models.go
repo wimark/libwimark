@@ -421,7 +421,8 @@ type ConfigRule struct {
 		Location  UUID      `json:"location" bson:"location"`
 	} `json:"template" bson:"template"`
 
-	Is_auto bool `json:"is_auto" bson:"is_auto"`
+	Is_auto   bool `json:"is_auto" bson:"is_auto"`
+	Is_always bool `json:"is_always" bson:"is_always"`
 }
 
 // ==== CPE firmware ====
