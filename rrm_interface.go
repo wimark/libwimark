@@ -7,6 +7,13 @@ const (
 
 // JSONRPC parameters
 
+type RRMParamUpdateGroup struct {
+	Id    UUID     `json:"id"`
+	Group RRMGroup `json:"group"`
+}
+
+// Algorithms parameters
+
 type RRMTimerParams struct {
 	Timeout int `json:"timeout"`
 }
