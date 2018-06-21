@@ -218,3 +218,9 @@ AccountingRequest = "accounting"
 AccessRequest     = "access-request"
 AccessAccept      = "access-accept"
 AccessReject      = "access-reject"
+
+[RRMAlgoType]
+default = "Blind"
+[RRMAlgoType.variants]
+Dummy = "Dummy"
+Blind = "Blind"

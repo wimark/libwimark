@@ -148,6 +148,103 @@ func (self *EnumSecurity) SetBSON(v bson.Raw) error {
 	return nil
 }
 
+type RRMAlgoObject struct {
+	Type RRMAlgoType "json:\"type\""
+	Data interface{} "json:\"data\""
+}
+
+func (self *RRMAlgoObject) UnmarshalJSON(b []byte) error {
+	var doc map[string]json.RawMessage
+	if err := json.Unmarshal(b, &doc); err != nil {
+		return err
+	}
+	if doc == nil {
+		return nil
+	}
+	var t_raw, t_found = doc["type"]
+	if !t_found {
+		return nil
+	}
+	var data_raw, data_found = doc["data"]
+	if bytes.Equal(data_raw, []byte("null")) {
+		data_found = false
+	}
+	var t RRMAlgoType
+	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
+		return t_err
+	}
+	switch t {
+	case RRMAlgoTypeBlind:
+		if !data_found {
+			return errors.New("No associated data found for enum RRMAlgoObject")
+		}
+		var d RRMTimerParams
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case RRMAlgoTypeDummy:
+		if !data_found {
+			return errors.New("No associated data found for enum RRMAlgoObject")
+		}
+		var d RRMTimerParams
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	}
+	self.Type = t
+	return nil
+}
+
+func (self *RRMAlgoObject) SetBSON(v bson.Raw) error {
+	var in = map[string]bson.Raw{}
+	if err := v.Unmarshal(&in); err != nil {
+		return err
+	}
+	if in == nil {
+		return nil
+	}
+	var t_raw, t_found = in["type"]
+	if !t_found {
+		return nil
+	}
+	var data_raw, data_found = in["data"]
+	if bytes.Equal(data_raw.Data, []byte("null")) {
+		data_found = false
+	}
+	var t RRMAlgoType
+	if t_err := t_raw.Unmarshal(&t); t_err != nil {
+		return t_err
+	}
+	switch t {
+	case RRMAlgoTypeBlind:
+		if !data_found {
+			return errors.New("No associated data found for enum RRMAlgoObject")
+		}
+		var d RRMTimerParams
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case RRMAlgoTypeDummy:
+		if !data_found {
+			return errors.New("No associated data found for enum RRMAlgoObject")
+		}
+		var d RRMTimerParams
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	}
+	self.Type = t
+	return nil
+}
+
 type RadiusMessageObject struct {
 	Type RadiusMessageType "json:\"type\""
 	Data interface{}       "json:\"data\""

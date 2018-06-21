@@ -1956,6 +1956,92 @@ func (self *PortalAuthType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown PortalAuthType: " + s)
 }
 
+type RRMAlgoType string
+
+const RRMAlgoTypeBlind RRMAlgoType = "Blind"
+const RRMAlgoTypeDummy RRMAlgoType = "Dummy"
+
+func (self RRMAlgoType) GetPtr() *RRMAlgoType { var v = self; return &v }
+
+func (self *RRMAlgoType) String() string {
+	switch *self {
+	case RRMAlgoTypeBlind:
+		return "Blind"
+	case RRMAlgoTypeDummy:
+		return "Dummy"
+	}
+	if len(*self) == 0 {
+		return "Blind"
+	}
+	panic(errors.New("Invalid value of RRMAlgoType: " + string(*self)))
+}
+
+func (self *RRMAlgoType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case RRMAlgoTypeBlind:
+		return json.Marshal("Blind")
+	case RRMAlgoTypeDummy:
+		return json.Marshal("Dummy")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("Blind")
+	}
+	return nil, errors.New("Invalid value of RRMAlgoType: " + string(*self))
+}
+
+func (self *RRMAlgoType) GetBSON() (interface{}, error) {
+	switch *self {
+	case RRMAlgoTypeBlind:
+		return "Blind", nil
+	case RRMAlgoTypeDummy:
+		return "Dummy", nil
+	}
+	if len(*self) == 0 {
+		return "Blind", nil
+	}
+	return nil, errors.New("Invalid value of RRMAlgoType: " + string(*self))
+}
+
+func (self *RRMAlgoType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "Blind":
+		*self = RRMAlgoTypeBlind
+		return nil
+	case "Dummy":
+		*self = RRMAlgoTypeDummy
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RRMAlgoTypeBlind
+		return nil
+	}
+	return errors.New("Unknown RRMAlgoType: " + s)
+}
+
+func (self *RRMAlgoType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "Blind":
+		*self = RRMAlgoTypeBlind
+		return nil
+	case "Dummy":
+		*self = RRMAlgoTypeDummy
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RRMAlgoTypeBlind
+		return nil
+	}
+	return errors.New("Unknown RRMAlgoType: " + s)
+}
+
 type RadiusMessageType string
 
 const RadiusMessageTypeAccessAccept RadiusMessageType = "access-accept"
