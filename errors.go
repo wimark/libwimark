@@ -1,26 +1,11 @@
 package libwimark
 
-type ErrorCode int
-
-const (
-	ErrorUnknown = ErrorCode(iota)
-	ErrorJson
-	ErrorDB
-	ErrorNotFound
-	ErrorInvalidRequestModel
-	ErrorInvalidUUID
-	ErrorMQTTSubscribe
-	ErrorMQTTPublish
-	ErrorModuleOffline
-	ErrorCPEException
-	ErrorCPESyntax
-	ErrorCPEUndefined
-	ErrorReqCheckFailed
-)
-
 type ModelError struct {
-	Code        ErrorCode `json:"code"`
-	Description string    `json:"description"`
-	Model       *string   `json:"model"`
-	Id          *UUID     `json:"uuid"`
+	Module      Module          `json:"module"`
+	ModuleId    UUID            `json:"module_id"`
+	Object      string          `json:"object,omitempty"`
+	ObjectId    UUID            `json:"object_id,omitempty"`
+	Type        WimarkErrorCode `json:"type"`
+	Description string          `json:"description"`
+	Data        interface{}     `json:"data,omitempty"`
 }

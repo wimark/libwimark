@@ -17,6 +17,7 @@ type Radius struct {
 	Acc_port  string `json:"acc_port"`
 	Secret    string `json:"secret"`
 	Is_local  bool   `json:"is_local"`
+	IsPortal  bool   `json:"is_portal"`
 }
 
 // ==== WLANs ====
@@ -68,6 +69,9 @@ type WLAN struct {
 	DefaultTunnel      string               `json:"default_tunnel"`
 	Firewall           FireWallSettings     `json:"firewall"`
 	GuestControl       GuestControlSettings `json:"guest_control"`
+	DisableWMM         bool                 `json:"disable_wmm" bson:"disable_wmm"`
+	NAT                bool                 `json:"nat" bson:"nat"`
+	NATNetwork         IPAddress            `json:"nat_network" bson:"nat_network"`
 }
 
 // ==== CPE ====
@@ -91,9 +95,11 @@ type StatisticsConfig struct {
 }
 
 type LogConfig struct {
-	Enabled bool `json:"enabled"`
-	// in seconds
-	ReportPeriod int `json:"reportperiod"`
+	LogIP     string `json:"log_ip" bson:"log_ip"`
+	LogPrefix string `json:"log_prefix" bson:"log_prefix"`
+	LogProto  string `json:"log_proto" bson:"log_proto"`
+	LogRemote bool   `json:"enabled" bson:"log_remote"`
+	LogPort   int    `json:"log_port" bson:"log_port"`
 }
 
 type DHCPCapConfig struct {
@@ -102,12 +108,14 @@ type DHCPCapConfig struct {
 }
 
 type L2TPConfig struct {
-	Enabled           bool   `json:"enabled"`
-	VPNHost           UUID   `json:"host"`
-	LocalVPNAddress   string `json:"local_vpn_addr"`
-	LocalVPNInterface string `json:"local_vpn_iface"`
-	HostTunnelId      int    `json:"host_tunnel"`
-	LocalTunnelId     int    `json:"local_tunnel"`
+	Enabled        bool   `json:"enabled" bson:"enabled"`
+	HostId         UUID   `json:"host" bson:"host"`
+	HostAddr       string `json:"host_addr" bson:"host_addr"`
+	HostTunnelId   int    `json:"host_tunnel" bson:"host_tunnel"`
+	TunnelType     string `json:"tunnel_type" bson:"tunnel_type"`
+	LocalAddr      string `json:"local_addr" bson:"local_addr"`
+	LocalInterface string `json:"local_iface" bson:"local_iface"`
+	LocalTunnelId  int    `json:"local_tunnel" bson:"local_tunnel"`
 }
 
 type ScanConfig struct {
@@ -128,28 +136,17 @@ type FirmwareConfig struct {
 
 // ---- Wifi config ----
 
-type WlanConfig struct {
-	L2TPEnabled         bool   `json:"l2tp_enabled"`
-	CPETunnelId         int    `json:"cpe_tunnel_id"`
-	CPESessionId        int    `json:"cpe_session_id"`
-	CPEInterfaceName    string `json:"cpe_interface_name"`
-	HostTunnelId        int    `json:"host_tunnel_id"`
-	HostSessionId       int    `json:"host_session_id"`
-	HostInterfaceName   string `json:"host_interface_name"`
-	HostL2InterfaceName string `json:"host_l2interface_name"`
-}
-
 type WiFiConfig struct {
-	BandMode    string              `json:"bandmode"`
-	Bandwidth   string              `json:"bandwidth"`
-	TxPower     string              `json:"txpower"`
-	WLANs       []UUID              `json:"wlans"`
-	WLANConfig  map[UUID]WlanConfig `json:"wlanconfig"`
-	Channels    []int               `json:"channels"`
-	Country     string              `json:"country"`
-	MaxClients  int                 `json:"maxclients"`
-	ScanConfig  ScanConfig          `json:"scanningconfig"`
-	RequireMode MCSRequire          `json:"require_mode"`
+	BandMode    string     `json:"bandmode"`
+	Bandwidth   string     `json:"bandwidth"`
+	TxPower     string     `json:"txpower"`
+	WLANs       []UUID     `json:"wlans"`
+	Channels    []int      `json:"channels"`
+	Country     string     `json:"country"`
+	MaxClients  int        `json:"maxclients"`
+	ScanConfig  ScanConfig `json:"scanningconfig"`
+	RequireMode MCSRequire `json:"require_mode"`
+	Frequency   string     `json:"frequency"`
 }
 
 type WiFiConfigs map[string]WiFiConfig
@@ -179,10 +176,65 @@ func (self *WiFiConfigs) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
+// ---- Tunnel config ----
+
+type TunnelConfig struct {
+	CPETunnelId         int    `json:"cpe_tunnel_id"`
+	CPESessionId        int    `json:"cpe_session_id"`
+	CPEInterfaceName    string `json:"cpe_interface_name"`
+	HostTunnelId        int    `json:"host_tunnel_id"`
+	HostSessionId       int    `json:"host_session_id"`
+	HostInterfaceName   string `json:"host_interface_name"`
+	HostL2InterfaceName string `json:"host_l2interface_name"`
+}
+type TunnelConfigs map[string]TunnelConfig
+
+// ---- Wired switch config ----
+
+type WiredVlanConfig struct {
+	Vlan       int      `json:"vlan" bson:"vlan"`
+	Ports      []string `json:"ports" bson:"ports"`
+	Tunnel     string   `json:"tunnel" bson:"tunnel"`
+	FakeWlan   UUID     `json:"fake_wlan" bson:"fake_wlan"`
+	Accounting bool     `json:"acct" bson:"acct"`
+	Interface  string   `json:"interface" bson:"interface"`
+}
+type WiredConfig struct {
+	PrimaryVlan int               `json:"primary_vlan" bson:"primary_vlan"`
+	Vlans       []WiredVlanConfig `json:"vlans" bson:"vlans"`
+}
+type WiredConfigs map[string]WiredConfig
+type wiredCfg struct {
+	Id       string      `bson:"_id"`
+	Contents WiredConfig `bson:",inline"`
+}
+
+func (self WiredConfigs) GetBSON() (interface{}, error) {
+	out := []wiredCfg{}
+	for k, v := range self {
+		out = append(out, wiredCfg{k, v})
+	}
+	return out, nil
+}
+
+func (self *WiredConfigs) SetBSON(raw bson.Raw) error {
+	var in = []wiredCfg{}
+	var out = WiredConfigs{}
+	if err := raw.Unmarshal(&in); err != nil {
+		return err
+	}
+	for _, v := range in {
+		out[v.Id] = v.Contents
+	}
+	*self = out
+	return nil
+}
+
 // ---- CPE config ----
 
 type CPEConfig struct {
 	Wifi             WiFiConfigs      `json:"wifi" bson:"wifi"`
+	Wired            WiredConfigs     `json:"wired" bson:"wired"`
 	LbsConfig        LBSConfig        `json:"lbs_config" bson:"lbs_config"`
 	StatisticsConfig StatisticsConfig `json:"stats_config" bson:"stats_config"`
 	LogConfig        LogConfig        `json:"log_config" bson:"log_config"`
@@ -190,19 +242,24 @@ type CPEConfig struct {
 	L2TPConfig       L2TPConfig       `json:"l2tp_config" bson:"l2tp_config"`
 	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
 	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
+	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
 }
 
 // ---- Service states ----
 
 type FirmwareState struct {
-	HasUpdate bool    `json:"has_update" bson:"has_update"`
-	Version   Version `json:"version" bson:"version"`
+	HasUpdate  bool               `json:"has_update" bson:"has_update"`
+	CurrentMd5 string             `json:"current_md5" bson:"current_md5"`
+	Version    Version            `json:"version" bson:"version"`
+	Packages   map[string]Version `json:"packages" bson:"packages"`
+	Statics    map[string]Version `json:"statics" bson:"statics"`
 }
 
 // ---- Wifi state ----
 
 type WlanState struct {
-	State CPEInterfaceState `json:"state"`
+	State        CPEInterfaceState `json:"state"`
+	VirtualIface string            `json:"virtual_iface" bson:"virtual_iface"`
 }
 
 type WiFiState struct {
@@ -242,10 +299,26 @@ func (self *WiFiStates) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
+// ---- Wired state ----
+
+type WiredStates map[string]WiredState
+type WiredState struct {
+	CableIn     bool        `json:"cable_in" json:"cable_in"`
+	SwitchVlans []VlanState `json:"vlans" json:"vlans"`
+}
+type VlanState struct {
+	Vid    int      `json:"vid" bson:"vid"`
+	Vlan   int      `json:"vlan" bson:"vlan"`
+	Ports  []string `json:"ports" bson:"ports"`
+	System bool     `json:"system" bson:"system"`
+	Switch string   `json:"device" bson:"device"`
+}
+
 // ---- CPE state ----
 
 type CPEState struct {
 	Wifi     WiFiStates    `json:"wifi,omitempty"`
+	Wired    WiredStates   `json:"wired,omitempty"`
 	Firmware FirmwareState `json:"firmware,omitempty"`
 }
 
@@ -256,6 +329,10 @@ type CPEModelLink struct {
 	Name string `json:"name"`
 }
 
+type IPAddress struct {
+	Addr    string `json:"ipaddr"`
+	NetMask string `json:"netmask"`
+}
 type CPE struct {
 	Name         string              `json:"name"`
 	Connected    bool                `json:"connected"`
@@ -263,6 +340,7 @@ type CPE struct {
 	IPAddr       string              `json:"ipaddr"`
 	MACAddr      string              `json:"macaddr"`
 	NetMask      string              `json:"netmask"`
+	IPAddrs      []IPAddress         `json:"ipaddrs"`
 	Gateway      string              `json:"gateway"`
 	Model        CPEModelLink        `json:"model"`
 	ConfigStatus ConfigurationStatus `json:"config_status"`
@@ -272,6 +350,17 @@ type CPE struct {
 }
 
 // ==== Capabilities ====
+
+type WiredPortCaps struct {
+	Index  string `json:"index" bson:"index"`
+	Number int    `json:"num" bson:"num"`
+	Role   string `json:"role" bson:"role"`
+	Type   string `json:"type" bson:"type"`
+}
+type WiredCapabilities struct {
+	Switch string          `json:"switch" bson:"switch"`
+	Ports  []WiredPortCaps `json:"ports" bson:"ports"`
+}
 
 type CapTxPower struct {
 	DBelMw    int `json:"dbm"`
@@ -285,7 +374,7 @@ type CapChannel struct {
 	MaxPower   CapTxPower `json:"max_txpower"`
 }
 
-type Capabilities struct {
+type WifiCapabilities struct {
 	TxPowers  []CapTxPower    `json:"txpwrlist"`
 	HTModes   map[string]bool `json:"htmodelist"`
 	HWModes   map[string]bool `json:"hwmodelist"`
@@ -294,14 +383,16 @@ type Capabilities struct {
 	Frequency string          `json:"frequency"`
 }
 
-type CPECapabilities map[string]Capabilities
+type Capabilities struct {
+	Wifi  map[string]WifiCapabilities  `json:"wifi" bson:"wifi"`
+	Wired map[string]WiredCapabilities `json:"wired" bson:"wired"`
+}
 
 // ==== L2TP objects ====
 
 type VPNHost struct {
 	HostName   string       `json:"hostname"`
 	OSUUID     UUID         `json:"os_uuid"`
-	IpAddr     string       `json:"ipaddr"`
 	Interfaces []string     `json:"interfaces"`
 	State      ServiceState `json:"state"`
 }
@@ -309,10 +400,11 @@ type VPNHost struct {
 // ==== CPE model ====
 
 type CPEModel struct {
-	Name         string          `json:"name" bson:"name"`
-	Description  string          `json:"description" bson:"description"`
-	Capabilities CPECapabilities `json:"capabilities" bson:"capabilities"`
-	Firmwares    []CPEFirmware   `json:"firmwares" bson:"firmwares"`
+	Name        string        `json:"name" bson:"name"`
+	Description string        `json:"description" bson:"description"`
+	Caps        Capabilities  `json:"caps" bson:"caps"`
+	Firmwares   []CPEFirmware `json:"firmwares" bson:"firmwares"`
+	Version     Version       `json:"version" bson:"version"`
 }
 
 // ==== Config template ====

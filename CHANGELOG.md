@@ -1,5 +1,146 @@
 # Changelog
 
+## [v0.11.7] - 14-06-2018
+
+### Changed
+#### WNE-981-NAT-for-WLAN
+ - Option for access to CPE settings via NAT
+#### del-client-freq
+ - Remove freq from client (dis)connect event data
+
+## [v0.11.3] - 08-06-2018
+
+### Changed
+#### template-in-event
+ - Add template UUID to CPE connect event
+#### enum-verbose
+ - Enum errors more verbose
+
+## [v0.11.1] - 05-06-2018
+
+### Added
+#### WNE-981-NAT-for-WLAN
+ - Additional NAT-related parameters
+ - CPE NAT functions
+ - NAT flag for WLAN
+#### WNE-938-lbs-clients-with-assoc
+ - Add fields to save cpe/wlan names in ClientProbe
+ - Add manufacturer to client data
+ - Fix forgot rssi in struct for lbs
+ - Add struct for work with LBS Probe data coll
+ - Move LBS objects to stat, add ssid to client obj
+#### WNE-882-portal-switch-url
+ - Add SwitchURL to portal request object
+#### dual-band-support
+ - Add frequency (band) to config for frontend needs
+#### WNE-794-events-desc
+ - Add Description field to SystemEvent
+#### WNE-870-redirect-radio-id
+ - Add radio id to redirect sessio object
+#### cpe-resolved-host
+ - Remove unused fields from CPE status
+ - Struct for CPE info about broker connection
+#### WNE-901-L3ACL
+ - Add L3 ACL filter
+#### WNE-754-WMM
+ - Add DisableWMM flag (so WMM is on by default)
+
+### Changed
+#### WNE-983-accounting-refactor
+ - Name changing in accounting refactor
+ - Change in acct models from cpe
+ - CPE-related events refac: one cut short, two sawn off
+ - Enums reformatted with nil data in no-value assoc enums
+#### WNE-963-cpe-events-refac
+ - CPE-related events refac: one cut short, two sawn off
+ - Enums reformatted with nil data in no-value assoc enums
+#### nil-value-assoc-enum
+ - Enums reformatted with nil data in no-value assoc enums
+#### WNE-910-error-refac
+ - Error struct refac
+ - Utility to send logged messages to MQTT
+ - Event type for LoggedError
+ - JSON inline utilities moved to separate src
+
+### Removed
+#### remove-obsolete-caps
+ - Remove obsolete capabilities
+
+## [v0.10.17] - 27-04-2018
+
+### Added
+#### vlan-option-switch
+ - Switch param for VLAN state
+#### WNE-864-cpe-package-version
+ - Static script versions in CPE state
+ - Package versions in CPE firmware state
+#### wired-interfaces-to-array-in-db
+ - add set get bson to wired interfaces
+#### WNE-802-wired-model
+ - Switch vlan state
+
+### Changed
+#### tunnel-config
+ - Reuse Wlan.VLAN for host vlans
+ - Added tunnel vlan to wlan model & jsonrpc req
+ - HostIP for tunnel manager jsonrpc param
+ - HostId tag restored
+
+## [v0.10] - 09-04-2018
+
+### Added
+#### marshal-inline
+ - Support for multiple inline fields
+ - Support for "unique" inline field with constraints
+#### WNE-762-portal
+ - Models for redirect and redirect API
+ - CapriveRedirect / RedirectClientSession / etc
+#### WNE-802-wired-model
+ - Config, state and capabilities for wired interfaces
+ - Interface name for vlan
+ - Version for CPEModel
+#### WNE-831-accounting-rubic
+ - Change API for redirect HTTP requests for RubicPro
+#### jsonrpc-funcs
+ - JSONRPC support functions (moved from tunnel-manager)
+#### WNE-838-broker-reconnect
+ - Add onDisconnect function with panic to MQTT util
+#### WNE-832-sms-gw
+ - Add portal API (status of session, type of authorization)
+#### wlan-virtual-iface
+ - Field for WLAN virtual interface on CPE
+#### cpeagent_jsonrpc
+ - New CPEAgent jsonrpc functions
+#### wired-client-enum-type
+ - Add wired type for WirelessClient
+#### IPSec-IP-For-Tun
+ - IpSec addr in vpnhost model
+ - Add VPN type - openvpn or ipsec
+ - add ipsec ip to broadcast
+#### jsonrpc-funcs
+ - Service start routine with ServiceID support
+ - Routines for JSONRPC support
+
+### Changed
+#### WNE-731-remote-syslog
+ - CPE logging config changed
+#### tunnel-config
+ - Separate config for tunnels
+
+## [v0.9] - 15-02-2018
+
+### Added
+#### WNE-696-fwupdate-event
+ - Add events for FW update feature
+#### l2chain-template-mask
+ - Add l2chain link to mask for config templates
+
+### Changed
+#### WNE-744-no-separate-tunnels
+ - Tunnel sessions moved from separate coll to CPE model
+#### ip-addr-list
+ - IP address list for CPE
+
 ## [v0.8.0] - 23-01-2018
 ### Added
 #### L2Rules-Template

@@ -9,9 +9,10 @@ import (
 
 type SystemEvent struct {
 	SystemEventObject
-	Timestamp  int64            `json:"timestamp"`
-	Subject_id string           `json:"subject_id"`
-	Level      SystemEventLevel `json:"level"`
+	Timestamp   int64            `json:"timestamp"`
+	Subject_id  string           `json:"subject_id"`
+	Level       SystemEventLevel `json:"level"`
+	Description string           `json:"description"`
 }
 
 func (self *SystemEvent) MarshalJSON() ([]byte, error) {
@@ -36,6 +37,7 @@ func (self *SystemEvent) MarshalJSON() ([]byte, error) {
 	doc["timestamp"] = self.Timestamp
 	doc["subject_id"] = self.Subject_id
 	doc["level"] = self.Level
+	doc["description"] = self.Description
 
 	return json.Marshal(doc)
 }
@@ -93,6 +95,19 @@ func (self *SystemEvent) UnmarshalJSON(b []byte) error {
 
 	delete(doc, "level")
 
+	var descRaw, descExists = doc["description"]
+	if descExists {
+		var desc string
+		var desErr = json.Unmarshal(descRaw, &desc)
+		if desErr == nil {
+			self.Description = desc
+		} else {
+			return desErr
+		}
+	}
+
+	delete(doc, "description")
+
 	var v, _ = json.Marshal(doc)
 
 	return self.SystemEventObject.UnmarshalJSON(v)
@@ -127,6 +142,7 @@ func (self *SystemEvent) GetBSON() (interface{}, error) {
 	out["timestamp"] = self.Timestamp
 	out["subject_id"] = self.Subject_id
 	out["level"] = levelBson
+	out["description"] = self.Description
 
 	return out, nil
 }
@@ -178,6 +194,19 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 		delete(in, "level")
 	}
 
+	//description
+	{
+		var v, k_found = in["description"]
+		if k_found {
+			if err := v.Unmarshal(&self.Description); err != nil {
+				return err
+			}
+
+			delete(in, "description")
+		}
+
+	}
+
 	var obj_b, mErr = bson.Marshal(in)
 	if mErr != nil {
 		return mErr
@@ -189,7 +218,10 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
-type CPEConnectedData Version
+type CPEConnectedData struct {
+	Version
+	Template UUID `json:"template, omitempty"`
+}
 
 type MonitorRuleViolationData struct {
 	Cpe_id  UUID `json:"cpe_id"`
@@ -198,30 +230,22 @@ type MonitorRuleViolationData struct {
 
 type ClientConnectedData struct {
 	Session_id string `json:"session_id"`
-	Freq       string `json:"freq"`
 	Cpe_id     UUID   `json:"cpe_id"`
 	Wlan_id    UUID   `json:"wlan_id"`
 	Radio_id   string `json:"radio_id"`
+	//Freq       string `json:"freq"`
 }
 
 type ClientDisconnectedData struct {
 	Session_id string `json:"session_id"`
-	Freq       string `json:"freq"`
 	Cpe_id     UUID   `json:"cpe_id"`
 	Wlan_id    UUID   `json:"wlan_id"`
 	Radio_id   string `json:"radio_id"`
-}
-
-type CPEConfigurationErrorData struct {
-	Wifi   map[string]WifiConfigurationError `json:"wifi,omitempty"`
-	Radius string                            `json:"radius,omitempty"`
+	//Freq       string `json:"freq"`
 }
 
 type CPEInterfaceStateData struct {
 	Interface string            `json:"radio_id"`
-	WLAN      string            `json:"wlan_id"`
-	EventName string            `json:"event_name"`
-	EventType string            `json:"event_type"`
 	State     CPEInterfaceState `json:"state"`
 }
 
@@ -230,25 +254,12 @@ type WLANCentrAccChangeData struct {
 	Radiuses  []UUID `json:"radiuses"`
 }
 
-type WifiConfigurationError struct {
-	Config interface{}            `json:"config"`
-	Wlans  map[string]interface{} `json:"wlans"`
-}
-
 type ServiceFatalErrorData struct {
 	Sw_version  string `json:"sw_version"`
 	Description string `json:"description"`
 }
 
 type ServiceConnectedData Version
-
-type LBSClientData struct {
-	Timestamp int64  `json:"timestamp"`
-	CPE       UUID   `json:"cpe"`
-	Radio     string `json:"radio"`
-	ClientMac string `json:"client_mac"`
-	RSSI      int    `json:"rssi"`
-}
 
 type RRMStatusData struct {
 	Cpes []RRMCpeStatus `json:"cpes"`
@@ -262,13 +273,21 @@ type RRMCpeStatus struct {
 }
 
 type FirmwareUploadedData struct {
-	CpeIDs []UUID `json:"cpe_ids"`
-	Url    string `json:"url"`
+	CpeIDs []UUID             `json:"cpe_ids"`
+	Url    string             `json:"url"`
+	Md5Sum string             `json:"md5sum"`
+	Mode   FirmwareUpdateMode `json:"mode"`
 }
 
 type CpeFirmwareData struct {
-	AvailableMd5  string `json:"available_md5"`
-	CurrentMd5    string `json:"current_md5"`
-	NewFirmware   bool   `json:"new_firmware"`
-	GoingToUpdate bool   `json:"going_to_update"`
+	AvailableMd5   string `json:"available_md5"`
+	CurrentMd5     string `json:"current_md5"`
+	NewFirmware    bool   `json:"new_firmware"`
+	GoingToUpgrade bool   `json:"going_to_upgrade"`
+	Error          string `json:"error"`
+}
+
+type RadiusAccountingSendData struct {
+	RadiusList []Radius            `json:"radius_list"`
+	Message    RadiusMessageObject `json:"message"`
 }

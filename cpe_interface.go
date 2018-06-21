@@ -5,6 +5,8 @@ const (
 	JSONRPC_CPE_CPEAGENT_PROCESS_REQ = "cpeagent:process_request"
 	JSONRPC_CPE_CPEAGENT_GET_STATICS = "cpeagent:get_statics"
 	JSONRPC_CPE_CPEAGENT_GET_METHODS = "cpeagent:get_methods"
+	JSONRPC_CPE_CPEAGENT_STATUS      = "cpeagent:status"
+	JSONRPC_CPE_CPEAGENT_OPKG        = "cpeagent:opkg"
 )
 
 // JSONRPC functions from CPE for UCI
@@ -34,6 +36,8 @@ const (
 	JSONRPC_CPE_NETWORK_L2AP       = "network:l2ap"
 	JSONRPC_CPE_NETWORK_VLAN       = "network:vlan"
 	JSONRPC_CPE_NETWORK_CLEAN_L2TP = "network:clean_l2tp"
+	JSONRPC_CPE_NETWORK_ADD_NAT    = "network:add_nat"
+	JSONRPC_CPE_NETWORK_WAN_ACCESS = "network:wan_access"
 )
 
 // JSONRPC functions from CPE for LBS
@@ -49,6 +53,7 @@ const (
 	JSONRPC_CPE_GET_WIFI         = "get:wifi"
 	JSONRPC_CPE_GET_CAPABILITIES = "get:capabilities"
 	JSONRPC_CPE_GET_MODEL        = "get:model"
+	JSONRPC_CPE_GET_VERSION      = "get:version"
 )
 
 // JSONRPC functions from CPE for LOGGING
@@ -91,21 +96,48 @@ const (
 	JSONRPC_CPE_FW_UPGRADE = "firmware:upgrade"
 )
 
+// JSONRPC functions from CPE for l2portal
+const (
+	JSONRPC_CPE_L2PORTAL_WHITELIST_ADD    = "l2portal:whitelist_add"
+	JSONRPC_CPE_L2PORTAL_WHITELIST_REMOVE = "l2portal:whitelist_remove"
+)
+
 // JSONRPC parameters
+
+// for cpeagent:*
+type CPEAgentStatusBroker struct {
+	Host string `json:"host"`
+}
+type CPEAgentStatusConnHost struct {
+	Host string `json:"address"`
+}
+type CPEAgentStatusConnInfo struct {
+	Remote CPEAgentStatusConnHost `json:"remote"`
+	Local  CPEAgentStatusConnHost `json:"local"`
+}
+type CPEAgentStatus struct {
+	State        string                 `json:"state"`
+	Connection   CPEAgentStatusConnInfo `json:"conninfo"`
+	Broker       CPEAgentStatusBroker   `json:"broker"`
+	TunnelBroker CPEAgentStatusBroker   `json:"tunnel_broker"`
+	TunnelType   string                 `json:"tunnel"`
+}
+
+type CPEAgentPackages map[string]string
 
 // for firmware:*
 type CPEFirmwareUpgradeParams struct {
 	Config       CPEFirmwareConfig `json:"config"`
-	FastResponce bool              `json:"fast_responce"`
+	FastResponce bool              `json:"fast_response"`
 }
 type CPEFirmwareConfig struct {
-	FileUrl      string             `json:"file"`
-	StorageUrl   string             `json:"storage"`
-	Md5SumsUrl   string             `json:"md5sums"`
-	CheckTimeout int                `json:"timeout"`
+	FileUrl      string             `json:"file,omitempty"`
+	StorageUrl   string             `json:"storage,omitempty"`
+	Md5SumsUrl   string             `json:"md5sums,omitempty"`
+	CheckTimeout int                `json:"timeout,omitempty"`
 	Mode         FirmwareUpdateMode `json:"mode"`
-	AvailableMd5 string             `json:"available_md5"`
-	ForceUpdate  bool               `json:"force_update"`
+	AvailableMd5 string             `json:"available_md5,omitempty"`
+	ForceUpgrade bool               `json:"force_upgrade"`
 }
 type CPEFirmwareConfigResponse struct {
 	Action string `json:"action"`

@@ -5,7 +5,6 @@ package libwimark
 type TunManagerBroadcastMeta struct {
 	Hostname       string                 `json:"hostname"`
 	HostUUID       string                 `json:"host_uuid"`
-	HostIP         string                 `json:"host_ip"`
 	HostInterfaces []LinkDescriptor       `json:"active_out_interfaces"`
 	HostTunnels    []CPETunnelDescription `json:"active_cpe_tunnels"`
 }
@@ -49,7 +48,9 @@ type CreateL2TunnelSessionParams struct {
 	CPEIP                    string `json:"cpe_ip"`
 	CPESessionID             int    `json:"cpe_session_id"`
 	CPETunnelID              int    `json:"cpe_tunnel_id"`
+	HostIP                   string `json:"host_ip"`
 	CommutationInterfaceName string `json:"commutation_interface"`
+	CommutationInterfaceVlan int    `json:"commutation_vlan,omitempty"`
 }
 
 type CreateL2TunnelSessionResult struct {

@@ -34,7 +34,7 @@ func (self *EnumSecurity) UnmarshalJSON(b []byte) error {
 	}
 	switch t {
 	case SecurityTypeNone:
-		break
+		self.Data = nil
 	case SecurityTypeWPA2Enterprise:
 		if !data_found {
 			return errors.New("No associated data found for enum EnumSecurity")
@@ -102,7 +102,7 @@ func (self *EnumSecurity) SetBSON(v bson.Raw) error {
 	}
 	switch t {
 	case SecurityTypeNone:
-		break
+		self.Data = nil
 	case SecurityTypeWPA2Enterprise:
 		if !data_found {
 			return errors.New("No associated data found for enum EnumSecurity")
@@ -148,12 +148,12 @@ func (self *EnumSecurity) SetBSON(v bson.Raw) error {
 	return nil
 }
 
-type PortalAuthObject struct {
-	Type PortalAuthType "json:\"type\""
-	Data interface{}    "json:\"data\""
+type RadiusMessageObject struct {
+	Type RadiusMessageType "json:\"type\""
+	Data interface{}       "json:\"data\""
 }
 
-func (self *PortalAuthObject) UnmarshalJSON(b []byte) error {
+func (self *RadiusMessageObject) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	if err := json.Unmarshal(b, &doc); err != nil {
 		return err
@@ -169,48 +169,46 @@ func (self *PortalAuthObject) UnmarshalJSON(b []byte) error {
 	if bytes.Equal(data_raw, []byte("null")) {
 		data_found = false
 	}
-	var t PortalAuthType
+	var t RadiusMessageType
 	if t_err := json.Unmarshal(t_raw, &t); t_err != nil {
 		return t_err
 	}
 	switch t {
-	case PortalAuthTypeExternal:
+	case RadiusMessageTypeAccessAccept:
 		if !data_found {
-			return errors.New("No associated data found for enum PortalAuthObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d PortalAuthExternal
+		var d RadiusAccessAccept
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
 		}
 		self.Data = &d
-	case PortalAuthTypeNone:
-		break
-	case PortalAuthTypeOAuth2:
+	case RadiusMessageTypeAccessReject:
 		if !data_found {
-			return errors.New("No associated data found for enum PortalAuthObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d PortalAuthOAuth2
+		var d RadiusAccessReject
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
 		}
 		self.Data = &d
-	case PortalAuthTypeRADIUS:
+	case RadiusMessageTypeAccessRequest:
 		if !data_found {
-			return errors.New("No associated data found for enum PortalAuthObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d PortalAuthRADIUS
+		var d RadiusAccessRequest
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
 		}
 		self.Data = &d
-	case PortalAuthTypeSMS:
+	case RadiusMessageTypeAccountingRequest:
 		if !data_found {
-			return errors.New("No associated data found for enum PortalAuthObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d PortalAuthSMS
+		var d RadiusAccountingRequest
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
@@ -221,7 +219,7 @@ func (self *PortalAuthObject) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func (self *PortalAuthObject) SetBSON(v bson.Raw) error {
+func (self *RadiusMessageObject) SetBSON(v bson.Raw) error {
 	var in = map[string]bson.Raw{}
 	if err := v.Unmarshal(&in); err != nil {
 		return err
@@ -237,48 +235,46 @@ func (self *PortalAuthObject) SetBSON(v bson.Raw) error {
 	if bytes.Equal(data_raw.Data, []byte("null")) {
 		data_found = false
 	}
-	var t PortalAuthType
+	var t RadiusMessageType
 	if t_err := t_raw.Unmarshal(&t); t_err != nil {
 		return t_err
 	}
 	switch t {
-	case PortalAuthTypeExternal:
+	case RadiusMessageTypeAccessAccept:
 		if !data_found {
-			return errors.New("No associated data found for enum PortalAuthObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d PortalAuthExternal
+		var d RadiusAccessAccept
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err
 		}
 		self.Data = &d
-	case PortalAuthTypeNone:
-		break
-	case PortalAuthTypeOAuth2:
+	case RadiusMessageTypeAccessReject:
 		if !data_found {
-			return errors.New("No associated data found for enum PortalAuthObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d PortalAuthOAuth2
+		var d RadiusAccessReject
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err
 		}
 		self.Data = &d
-	case PortalAuthTypeRADIUS:
+	case RadiusMessageTypeAccessRequest:
 		if !data_found {
-			return errors.New("No associated data found for enum PortalAuthObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d PortalAuthRADIUS
+		var d RadiusAccessRequest
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err
 		}
 		self.Data = &d
-	case PortalAuthTypeSMS:
+	case RadiusMessageTypeAccountingRequest:
 		if !data_found {
-			return errors.New("No associated data found for enum PortalAuthObject")
+			return errors.New("No associated data found for enum RadiusMessageObject")
 		}
-		var d PortalAuthSMS
+		var d RadiusAccountingRequest
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err
@@ -412,18 +408,6 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		return t_err
 	}
 	switch t {
-	case SystemEventTypeCPEConfigurationError:
-		if !data_found {
-			return errors.New("No associated data found for enum SystemEventObject")
-		}
-		var d CPEConfigurationErrorData
-		var data_err = json.Unmarshal(data_raw, &d)
-		if data_err != nil {
-			return data_err
-		}
-		self.Data = &d
-	case SystemEventTypeCPEConfigurationSuccess:
-		break
 	case SystemEventTypeCPEConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -435,7 +419,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		}
 		self.Data = &d
 	case SystemEventTypeCPEDisconnected:
-		break
+		self.Data = nil
 	case SystemEventTypeCPEInterfaceState:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -477,12 +461,22 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		}
 		self.Data = &d
 	case SystemEventTypeDaemonSettingsChanged:
-		break
+		self.Data = nil
 	case SystemEventTypeFirmwareUploaded:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
 		var d FirmwareUploadedData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventTypeLoggedError:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d ModelError
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
@@ -508,6 +502,16 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
+	case SystemEventTypeRadiusAccountingSend:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d RadiusAccountingSendData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
 	case SystemEventTypeServiceConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -519,7 +523,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		}
 		self.Data = &d
 	case SystemEventTypeServiceDisconnected:
-		break
+		self.Data = nil
 	case SystemEventTypeServiceFatalError:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -531,7 +535,7 @@ func (self *SystemEventObject) UnmarshalJSON(b []byte) error {
 		}
 		self.Data = &d
 	case SystemEventTypeSystemTimeChanged:
-		break
+		self.Data = nil
 	case SystemEventTypeWLANCentrAccChanged:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -568,18 +572,6 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		return t_err
 	}
 	switch t {
-	case SystemEventTypeCPEConfigurationError:
-		if !data_found {
-			return errors.New("No associated data found for enum SystemEventObject")
-		}
-		var d CPEConfigurationErrorData
-		var data_err = data_raw.Unmarshal(&d)
-		if data_err != nil {
-			return data_err
-		}
-		self.Data = &d
-	case SystemEventTypeCPEConfigurationSuccess:
-		break
 	case SystemEventTypeCPEConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -591,7 +583,7 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case SystemEventTypeCPEDisconnected:
-		break
+		self.Data = nil
 	case SystemEventTypeCPEInterfaceState:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -633,12 +625,22 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case SystemEventTypeDaemonSettingsChanged:
-		break
+		self.Data = nil
 	case SystemEventTypeFirmwareUploaded:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
 		}
 		var d FirmwareUploadedData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case SystemEventTypeLoggedError:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d ModelError
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err
@@ -664,6 +666,16 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 			return data_err
 		}
 		self.Data = &d
+	case SystemEventTypeRadiusAccountingSend:
+		if !data_found {
+			return errors.New("No associated data found for enum SystemEventObject")
+		}
+		var d RadiusAccountingSendData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
 	case SystemEventTypeServiceConnected:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -675,7 +687,7 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case SystemEventTypeServiceDisconnected:
-		break
+		self.Data = nil
 	case SystemEventTypeServiceFatalError:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -687,7 +699,7 @@ func (self *SystemEventObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case SystemEventTypeSystemTimeChanged:
-		break
+		self.Data = nil
 	case SystemEventTypeWLANCentrAccChanged:
 		if !data_found {
 			return errors.New("No associated data found for enum SystemEventObject")
@@ -749,6 +761,16 @@ func (self *WirelessClientObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
+	case WirelessClientTypeWired:
+		if !data_found {
+			return errors.New("No associated data found for enum WirelessClientObject")
+		}
+		var d OtherClientData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
 	}
 	self.Type = t
 	return nil
@@ -786,6 +808,16 @@ func (self *WirelessClientObject) SetBSON(v bson.Raw) error {
 		}
 		self.Data = &d
 	case WirelessClientTypeOther:
+		if !data_found {
+			return errors.New("No associated data found for enum WirelessClientObject")
+		}
+		var d OtherClientData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case WirelessClientTypeWired:
 		if !data_found {
 			return errors.New("No associated data found for enum WirelessClientObject")
 		}

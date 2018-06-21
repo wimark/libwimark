@@ -13,8 +13,6 @@ constraint = "SystemEventType"
 CPEConnected            = "CPEConnectedData"
 CPEDisconnected         = "null"
 MonitorRuleViolation    = "MonitorRuleViolationData"
-CPEConfigurationError   = "CPEConfigurationErrorData"
-CPEConfigurationSuccess = "null"
 ClientConnected         = "ClientConnectedData"
 ClientDisconnected      = "ClientDisconnectedData"
 ServiceFatalError       = "ServiceFatalErrorData"
@@ -27,6 +25,8 @@ CPEInterfaceState       = "CPEInterfaceStateData"
 RRMStatus               = "RRMStatusData"
 FirmwareUploaded        = "FirmwareUploadedData"
 CpeFirmwareAvailable    = "CpeFirmwareData"
+RadiusAccountingSend    = "RadiusAccountingSendData"
+LoggedError             = "ModelError"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"
@@ -38,13 +38,13 @@ CPUload = "LimitBetween"
 constraint = "WirelessClientType"
 [WirelessClientObject.Variants]
 Camera = "CameraClientData"
-Other = "OtherClientData"
+Wired  = "OtherClientData"
+Other  = "OtherClientData"
 
-[PortalAuthObject]
-constraint = "PortalAuthType"
-[PortalAuthObject.Variants]
-None     = "null"
-RADIUS   = "PortalAuthRADIUS"
-SMS      = "PortalAuthSMS"
-OAuth2   = "PortalAuthOAuth2"
-External = "PortalAuthExternal"
+[RadiusMessageObject]
+constraint = "RadiusMessageType"
+[RadiusMessageObject.variants]
+AccountingRequest = "RadiusAccountingRequest"
+AccessRequest     = "RadiusAccessRequest"
+AccessAccept      = "RadiusAccessAccept"
+AccessReject      = "RadiusAccessReject"

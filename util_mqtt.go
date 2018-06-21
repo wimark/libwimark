@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"reflect"
 	"time"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
@@ -43,7 +42,16 @@ func MQTTMustConnectSync(addr string) mqtt.Client {
 	return client
 }
 
+func onDisconnect(client mqtt.Client, err error) {
+	time.Sleep(time.Second * 1)
+	panic("MQTT broker connection lost")
+}
+
 func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.Client, error) {
+	return MQTTServiceStartWithId(addr, s, v, "", meta)
+}
+
+func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta interface{}) (mqtt.Client, error) {
 	ts := time.Now().Unix()
 
 	// prepare disconnect event for will message
@@ -75,6 +83,8 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 
 	opts.SetClientID(s.String())
 
+	opts.SetConnectionLostHandler(onDisconnect)
+
 	client, err := MQTTConnectSyncOpts(opts)
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("error: (%s) while connecting to broker", err.Error()))
@@ -83,7 +93,7 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 	//sending retain status message
 	statusTopic := StatusTopic{
 		SenderModule: s,
-		SenderID:     "",
+		SenderID:     id,
 	}
 
 	statusPayload := ModuleStatus{
@@ -91,7 +101,7 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 		Commit:  v.Commit,
 		Build:   v.Build,
 		Service: s,
-		Id:      "",
+		Id:      id,
 		State:   ServiceStateConnected,
 		Meta:    meta,
 	}
@@ -108,7 +118,7 @@ func MQTTServiceStart(addr string, s Module, v Version, meta interface{}) (mqtt.
 	// sending connect event
 	eventConnectTopic := EventTopic{
 		SenderModule: s,
-		SenderID:     "",
+		SenderID:     id,
 		Type:         SystemEventTypeServiceConnected,
 	}
 
@@ -296,89 +306,58 @@ func CacheGetRequest(c *cache.Cache, id string) MQTTMessage {
 	return v.(MQTTMessage)
 }
 
-func MarshalInline(val interface{}) (b []byte, e error) {
-	var err error
-	var bytes []byte
-	bytes, err = json.Marshal(val)
-	if err != nil {
-		return nil, err
-	}
-	var v = reflect.ValueOf(val)
-	if v.Kind() == reflect.Ptr {
-		v = v.Elem()
-	}
-	if v.Kind() != reflect.Struct {
-		return bytes, nil
-	}
-
-	var m = map[string]json.RawMessage{}
-	err = json.Unmarshal(bytes, &m)
-
-	for i := 0; i < v.NumField(); i++ {
-		field := v.Type().Field(i)
-		tag := field.Tag.Get("inline")
-		if len(tag) != 0 {
-			msg, e := json.Marshal(v.Field(i).Interface())
-			if e != nil {
-				return nil, e
-			}
-			var f = map[string]json.RawMessage{}
-			e = json.Unmarshal(msg, &f)
-			if e != nil {
-				return nil, e
-			}
-			for n, v := range f {
-				m[n] = v
-			}
-		}
-	}
-
-	return json.Marshal(m)
+type LogMsg struct {
+	Timestamp time.Time        `json:"timestamp"`
+	Level     SystemEventLevel `json:"level"`
+	Message   string           `json:"message"`
+	Module    Module           `json:"service"`
+	ModuleId  UUID             `json:"service_id,omitempty"`
 }
 
-func UnmarshalInline(b []byte, val interface{}, tmpl interface{}) error {
+type EventWriter struct {
+	ch      chan<- MQTTMessage
+	makeMsg func(msg LogMsg) MQTTMessage
+}
 
-	var doc map[string]json.RawMessage
-	var err error
-	if err = json.Unmarshal(b, &doc); err != nil {
-		return err
-	}
-	if doc == nil {
+func NewEventWriter(c mqtt.Client, makeMsg func(msg LogMsg) MQTTMessage) EventWriter {
+	return EventWriter{ch: MQTTMakePublishChan(c, func(string) {}), makeMsg: makeMsg}
+}
+
+func DefaultLoggedEvent(msg LogMsg) MQTTMessage {
+	if msg.Level != SystemEventLevelERROR {
 		return nil
 	}
-	if err = json.Unmarshal(b, val); err != nil {
-		return err
+	return MQTTDocumentMessage{
+		T: EventTopic{
+			SenderModule: msg.Module,
+			SenderID:     string(msg.ModuleId),
+			Type:         SystemEventTypeLoggedError,
+		},
+		D: SystemEvent{
+			Timestamp: msg.Timestamp.Unix(),
+			Level:     msg.Level,
+			SystemEventObject: SystemEventObject{
+				Type: SystemEventTypeLoggedError,
+				Data: ModelError{
+					Module:      msg.Module,
+					ModuleId:    msg.ModuleId,
+					Type:        WimarkErrorCodeOther,
+					Description: msg.Message,
+				},
+			},
+		},
 	}
-	// if 'val' is not a ptr, we'll be kicked out by json.Unmarshal
-	var v = reflect.ValueOf(val).Elem()
-	if v.Kind() != reflect.Struct {
-		return nil
-	}
+}
 
-	var ind = -1
-	for i := 0; i < v.NumField(); i++ {
-		field := v.Type().Field(i)
-		tag := field.Tag.Get("inline")
-		if len(tag) == 0 {
-			delete(doc, field.Name)
-		} else {
-			ind = i
-		}
+func (w EventWriter) Write(p []byte) (n int, err error) {
+	var msg LogMsg
+	var e = json.Unmarshal(p, &msg)
+	if e != nil {
+		return 0, e
 	}
-	if ind < 0 {
-		return nil
+	var mqttMsg = w.makeMsg(msg)
+	if mqttMsg != nil {
+		go func() { w.ch <- mqttMsg }()
 	}
-	var bb []byte
-	bb, err = json.Marshal(doc)
-	var f = v.Field(ind)
-	var tv = reflect.ValueOf(tmpl).Elem()
-	if f.Kind() != tv.Kind() {
-		return errors.New("Inline template is not equal to inline field")
-	}
-	if err = json.Unmarshal(bb, &tmpl); err != nil {
-		return err
-	}
-	f.Set(tv)
-
-	return nil
+	return len(p), nil
 }

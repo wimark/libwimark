@@ -27,6 +27,8 @@ TunManager = "TUN_MANAGER"
 RRM        = "RRM"
 FW         = "FW"
 Redirect   = "REDIRECT"
+PortalBack = "PORTAL_BACKEND"
+RadiusGw   = "RADIUS_GATEWAY"
 
 [Operation]
 [Operation.variants]
@@ -46,8 +48,6 @@ Any                     = "+"
 CPEConnected            = "CPE_CONNECTED"
 CPEDisconnected         = "CPE_DISCONNECTED"
 MonitorRuleViolation    = "MONITOR_RULE_VIOLATION"
-CPEConfigurationError   = "CPE_CONFIGURATION_ERROR"
-CPEConfigurationSuccess = "CPE_CONFIGURATION_SUCCESS"
 CPEInterfaceState       = "CPE_INTERFACE_STATE"
 ClientConnected         = "CLIENT_CONNECTED"
 ClientDisconnected      = "CLIENT_DISCONNECTED"
@@ -60,6 +60,8 @@ SystemTimeChanged       = "SYSTEM_TIME_CHANGE"
 RRMStatus               = "RRM_STATUS_DATA"
 FirmwareUploaded        = "FIRMWARE_UPLOADED"
 CpeFirmwareAvailable    = "CPE_FIRMWARE_AVAILABLE"
+RadiusAccountingSend    = "RADIUS_ACCOUNTING_SEND"
+LoggedError             = "LOGGED_ERROR"
 
 [SystemEventLevel]
 default = "DEBUG"
@@ -98,22 +100,26 @@ CPUload = "cpu_load"
 
 [ClientStatPacketType]
 [ClientStatPacketType.variants]
-On      = "Accounting-On"
-Off     = "Accounting-Off"
-Start   = "Start"
-Stop    = "Stop"
-Interim = "Interim-Update"
+OnOld      = "Accounting-On"
+OffOld     = "Accounting-Off"
+StartOld   = "Start"
+StopOld    = "Stop"
+InterimOld = "Interim-Update"
+Start      = "start"
+Stop       = "stop"
+Interim    = "interim"
 
 [WirelessClientType]
 default = "Other"
 [WirelessClientType.variants]
 Camera = "camera"
 Other  = "other"
+Wired  = "wired"
 
 [WirelessClientState]
 [WirelessClientState.variants]
-CONNECTED     = "CONNECTED"
-DISCONNECTED  = "DISCONNECTED"
+Connected     = "CONNECTED"
+Disconnected  = "DISCONNECTED"
 
 [ConnectionModeType]
 default = "ModeLegacy"
@@ -141,7 +147,7 @@ Enabled       = "ENABLED"
 Disabled      = "DISABLED"
 ACS           = "ACS"
 DFS           = "DFS"
-CountryUpdate = "CONTRY_UPDATE"
+CountryUpdate = "COUNTRY_UPDATE"
 HtScan        = "HT_SCAN"
 Unknown       = "UNKNOWN"
 Uninitialized = "UNINITIALIZED"
@@ -165,6 +171,7 @@ default = "Empty"
 Empty  = ""
 Drop   = "DROP"
 Accept = "ACCEPT"
+Return = "RETURN"
 
 [L3Protocol]
 default = "Empty"
@@ -181,13 +188,6 @@ Empty = ""
 TCP   = "TCP"
 UDP   = "UDP"
 
-[FirewallJump]
-default = "Accept"
-[FirewallJump.variants]
-Accept = "ACCEPT"
-DROP   = "DROP"
-
-
 [FirewallDirection]
 default = "Any"
 [FirewallDirection.variants]
@@ -196,7 +196,7 @@ In  = "IN"
 Out = "OUT"
 
 [FirmwareUpdateMode]
-default = "On"
+default = "Check"
 [FirmwareUpdateMode.variants]
 On    = "on"
 Off   = "off"
@@ -210,3 +210,11 @@ RADIUS   = "radius"
 SMS      = "sms"
 OAuth2   = "oauth2"
 External = "external"
+
+[RadiusMessageType]
+default = "AccountingRequest"
+[RadiusMessageType.variants]
+AccountingRequest = "accounting"
+AccessRequest     = "access-request"
+AccessAccept      = "access-accept"
+AccessReject      = "access-reject"
