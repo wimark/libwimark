@@ -102,6 +102,12 @@ const (
 	JSONRPC_CPE_L2PORTAL_WHITELIST_REMOVE = "l2portal:whitelist_remove"
 )
 
+// JSONRPC functions from CPE for RRM
+const (
+	JSONRPC_CPE_WIFI_ONFLY_SET_CHANNEL = "wifi_onfly:wifi_set_channel"
+	JSONRPC_CPE_WIFI_ONFLY_SET_TXPOWER = "wifi_onfly:wifi_set_txpower"
+)
+
 // JSONRPC parameters
 
 // for cpeagent:*
@@ -142,4 +148,17 @@ type CPEFirmwareConfig struct {
 type CPEFirmwareConfigResponse struct {
 	Action string `json:"action"`
 	CpeFirmwareData
+}
+
+// for wifi-onfly:*
+type CPERRMChannelParams struct {
+	Count       int  `json:"cs_count"`
+	Freq        int  `json:"freq"`
+	Block       bool `json:"blocktx"`
+	Offset      int  `json:"sec_channel_offset,omitempty"`
+	CenterFreq1 int  `json:"center_freq1,omitempty"`
+	CenterFreq2 int  `json:"center_freq2,omitempty"`
+	Bandwidth   int  `json:"bandwidth,omitempty"`
+	HT          bool `json:"ht"`
+	VHT         bool `json:"vht"`
 }
