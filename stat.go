@@ -128,7 +128,8 @@ type CPEPollSettings struct {
 
 type StatEventRule struct {
 	StatEventRuleObject
-	Name string `json:"name"`
+	Name       string `json:"name"`
+	PostScript string `json:"post_script"`
 }
 
 func (self *StatEventRule) MarshalJSON() ([]byte, error) {
@@ -151,6 +152,7 @@ func (self *StatEventRule) MarshalJSON() ([]byte, error) {
 	}
 
 	doc["name"] = self.Name
+	doc["post_script"] = self.PostScript
 
 	return json.Marshal(doc)
 }
@@ -182,6 +184,19 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 
 	delete(doc, "name")
 
+	var postScriptRaw, postScriptExists = doc["post_script"]
+	if postScriptExists {
+		var postScript string
+		var tsErr = json.Unmarshal(postScriptRaw, &postScript)
+		if tsErr == nil {
+			self.PostScript = postScript
+		} else {
+			return tsErr
+		}
+	}
+
+	delete(doc, "post_script")
+
 	var v, _ = json.Marshal(doc)
 
 	return self.StatEventRuleObject.UnmarshalJSON(v)
@@ -209,6 +224,7 @@ func (self *StatEventRule) GetBSON() (interface{}, error) {
 	}
 	out = obj
 	out["name"] = self.Name
+	out["post_script"] = self.PostScript
 
 	return out, nil
 }
@@ -231,8 +247,15 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 	}
 
 	self.Name = v_name.(string)
-
 	delete(in, "name")
+
+	//post_script
+	var ps_script, ps_found = in["post_script"]
+
+	if ps_found {
+		self.PostScript = ps_script.(string)
+		delete(in, "post_script")
+	}
 
 	var err error
 	obj_b, err := bson.Marshal(in)

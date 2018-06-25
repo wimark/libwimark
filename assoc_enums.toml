@@ -31,8 +31,12 @@ LoggedError             = "ModelError"
 [StatEventRuleObject]
 constraint = "StatEventRuleType"
 [StatEventRuleObject.Variants]
-FreeRAM = "LimitBetween"
-CPUload = "LimitBetween"
+FreeRAM      = "LimitBetween"
+CPUload      = "LimitBetween"
+Connected    = "null"
+Disconnected = "null"
+ConfigError  = "null"
+IfaceError   = "null"
 
 [WirelessClientObject]
 constraint = "WirelessClientType"
