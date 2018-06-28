@@ -36,6 +36,7 @@ type WPA2EnterpriseData struct {
 	NasID                string `json:"nasid"`
 	PMKCaching           bool   `json:"pmkcaching"`
 	RadiusAuthentication []UUID `json:"radiusauthentication"`
+	Hotspot20Profile     UUID   `json:"hotspot20_profile" bson:"hotspot20_profile"`
 }
 
 type WPAPersonalData struct {
@@ -47,6 +48,7 @@ type WPAEnterpriseData struct {
 	WPACommon            `bson:",inline"`
 	NasID                string `json:"nasid"`
 	RadiusAuthentication []UUID `json:"radiusauthentication"`
+	Hotspot20Profile     UUID   `json:"hotspot20_profile" bson:"hotspot20_profile"`
 }
 
 type WLAN struct {
