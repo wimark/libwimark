@@ -269,7 +269,8 @@ type RRMCpeStatus struct {
 	CpeID   UUID   `json:"cpe_id"`
 	Radio   string `json:"radio"`
 	Channel int    `json:"channel"`
-	Dbm     int    `json:"dbm"`
+	Power   int    `json:"power"`
+	Error   bool   `json:"error"`
 }
 
 type FirmwareUploadedData struct {
