@@ -9,23 +9,24 @@ type DBResponseBase struct {
 }
 
 type DBDataObj struct {
-	WLANs           map[UUID]WLAN            `json:"wlan,omitempty"`
-	CPEs            map[UUID]CPE             `json:"cpe,omitempty"`
-	Stats           map[UUID]Stat            `json:"stat,omitempty"`
-	ClientStats     map[UUID]ClientStat      `json:"client-stat,omitempty"`
-	Events          map[UUID]SystemEvent     `json:"event,omitempty"`
-	StatEventRules  map[UUID]StatEventRule   `json:"stat-event-rule,omitempty"`
-	PollCPE         map[UUID]CPEPollSettings `json:"poll-cpe,omitempty"`
-	Radius          map[UUID]Radius          `json:"radius,omitempty"`
-	LBSCPEInfo      map[UUID]LBSCPEInfo      `json:"lbs-cpe-info,omitempty"`
-	LBSClientData   map[UUID]LBSClientData   `json:"lbs-client-data,omitempty"`
-	LBSClientCoords map[UUID]LBSClientCoords `json:"lbs-client-coords,omitempty"`
-	VPNHosts        map[UUID]VPNHost         `json:"vpn-host,omitempty"`
-	CPEScanData     map[UUID]CPEScanData     `json:"cpe-scan-data,omitempty"`
-	CPEModel        map[UUID]CPEModel        `json:"cpe-model,omitempty"`
-	ConfigRule      map[UUID]ConfigRule      `json:"config-rule,omitempty"`
-	L2Chain         map[UUID]L2Chain         `json:"l2-chain,omitempty"`
-	CaptiveRedirect map[UUID]CaptiveRedirect `json:"captive-redirect,omitempty"`
+	WLANs           map[UUID]WLAN             `json:"wlan,omitempty"`
+	CPEs            map[UUID]CPE              `json:"cpe,omitempty"`
+	Stats           map[UUID]Stat             `json:"stat,omitempty"`
+	ClientStats     map[UUID]ClientStat       `json:"client-stat,omitempty"`
+	Events          map[UUID]SystemEvent      `json:"event,omitempty"`
+	StatEventRules  map[UUID]StatEventRule    `json:"stat-event-rule,omitempty"`
+	PollCPE         map[UUID]CPEPollSettings  `json:"poll-cpe,omitempty"`
+	Radius          map[UUID]Radius           `json:"radius,omitempty"`
+	LBSCPEInfo      map[UUID]LBSCPEInfo       `json:"lbs-cpe-info,omitempty"`
+	LBSClientData   map[UUID]LBSClientData    `json:"lbs-client-data,omitempty"`
+	LBSClientCoords map[UUID]LBSClientCoords  `json:"lbs-client-coords,omitempty"`
+	VPNHosts        map[UUID]VPNHost          `json:"vpn-host,omitempty"`
+	CPEScanData     map[UUID]CPEScanData      `json:"cpe-scan-data,omitempty"`
+	CPEModel        map[UUID]CPEModel         `json:"cpe-model,omitempty"`
+	ConfigRule      map[UUID]ConfigRule       `json:"config-rule,omitempty"`
+	L2Chain         map[UUID]L2Chain          `json:"l2-chain,omitempty"`
+	CaptiveRedirect map[UUID]CaptiveRedirect  `json:"captive-redirect,omitempty"`
+	HotspotProfile  map[UUID]Hotspot20Profile `json:"hotspot-profile,omitempty"`
 }
 
 func (self *DBDataObj) Reset() {
@@ -50,6 +51,7 @@ type DBDataUUID struct {
 	ConfigRule      []UUID `json:"config-rule,omitempty"`
 	L2Chain         []UUID `json:"l2-chain,omitempty"`
 	CaptiveRedirect []UUID `json:"captive-redirect,omitempty"`
+	HotspotProfile  []UUID `json:"hotspot-profile,omitempty"`
 }
 
 func (self *DBDataUUID) Reset() {
@@ -74,6 +76,7 @@ type DBDataMasks struct {
 	ConfigRule      *ConfigRuleMask      `json:"config-rule,omitempty"`
 	L2Chain         *SimpleMask          `json:"l2-chain,omitempty"`
 	CaptiveRedirect *SimpleMask          `json:"captive-redirect,omitempty"`
+	HotspotProfile  *SimpleMask          `json:"hotspot-profile,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {
