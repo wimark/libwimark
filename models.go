@@ -260,6 +260,7 @@ type FirmwareState struct {
 type WlanState struct {
 	State        CPEInterfaceState `json:"state"`
 	VirtualIface string            `json:"virtual_iface" bson:"virtual_iface"`
+	BSSID        string            `json:"bssid" bson:"bssid"`
 }
 
 type WiFiState struct {
