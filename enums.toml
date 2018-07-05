@@ -220,7 +220,8 @@ AccessAccept      = "access-accept"
 AccessReject      = "access-reject"
 
 [RRMAlgoType]
-default = "Blind"
+default = "Greed"
 [RRMAlgoType.variants]
 Dummy = "Dummy"
 Blind = "Blind"
+Greed = "Greed"

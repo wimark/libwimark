@@ -1960,6 +1960,7 @@ type RRMAlgoType string
 
 const RRMAlgoTypeBlind RRMAlgoType = "Blind"
 const RRMAlgoTypeDummy RRMAlgoType = "Dummy"
+const RRMAlgoTypeGreed RRMAlgoType = "Greed"
 
 func (self RRMAlgoType) GetPtr() *RRMAlgoType { var v = self; return &v }
 
@@ -1969,9 +1970,11 @@ func (self *RRMAlgoType) String() string {
 		return "Blind"
 	case RRMAlgoTypeDummy:
 		return "Dummy"
+	case RRMAlgoTypeGreed:
+		return "Greed"
 	}
 	if len(*self) == 0 {
-		return "Blind"
+		return "Greed"
 	}
 	panic(errors.New("Invalid value of RRMAlgoType: " + string(*self)))
 }
@@ -1982,9 +1985,11 @@ func (self *RRMAlgoType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("Blind")
 	case RRMAlgoTypeDummy:
 		return json.Marshal("Dummy")
+	case RRMAlgoTypeGreed:
+		return json.Marshal("Greed")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("Blind")
+		return json.Marshal("Greed")
 	}
 	return nil, errors.New("Invalid value of RRMAlgoType: " + string(*self))
 }
@@ -1995,9 +2000,11 @@ func (self *RRMAlgoType) GetBSON() (interface{}, error) {
 		return "Blind", nil
 	case RRMAlgoTypeDummy:
 		return "Dummy", nil
+	case RRMAlgoTypeGreed:
+		return "Greed", nil
 	}
 	if len(*self) == 0 {
-		return "Blind", nil
+		return "Greed", nil
 	}
 	return nil, errors.New("Invalid value of RRMAlgoType: " + string(*self))
 }
@@ -2014,9 +2021,12 @@ func (self *RRMAlgoType) UnmarshalJSON(b []byte) error {
 	case "Dummy":
 		*self = RRMAlgoTypeDummy
 		return nil
+	case "Greed":
+		*self = RRMAlgoTypeGreed
+		return nil
 	}
 	if len(s) == 0 {
-		*self = RRMAlgoTypeBlind
+		*self = RRMAlgoTypeGreed
 		return nil
 	}
 	return errors.New("Unknown RRMAlgoType: " + s)
@@ -2034,9 +2044,12 @@ func (self *RRMAlgoType) SetBSON(v bson.Raw) error {
 	case "Dummy":
 		*self = RRMAlgoTypeDummy
 		return nil
+	case "Greed":
+		*self = RRMAlgoTypeGreed
+		return nil
 	}
 	if len(s) == 0 {
-		*self = RRMAlgoTypeBlind
+		*self = RRMAlgoTypeGreed
 		return nil
 	}
 	return errors.New("Unknown RRMAlgoType: " + s)
