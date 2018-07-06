@@ -38,6 +38,6 @@ type Hotspot20Profile struct {
 	Venue       HS20_Venue         `json:"venue" bson:"venue"`
 	Domains     []string           `json:"domains" bson:"domains"`
 	Realms      []HS20_NAIRealm    `json:"realms" bson:"realms"`
-	Celluar     []HS20_3GPPNetwork `json:"celluar" bson:"celluar"`
+	Cellular    []HS20_3GPPNetwork `json:"cellular" bson:"cellular"`
 	Consortiums []HS20_Consortium  `json:"consortiums" bson:"consortiums"`
 }
