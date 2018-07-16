@@ -104,8 +104,8 @@ const (
 
 // JSONRPC functions from CPE for RRM
 const (
-	JSONRPC_CPE_WIFI_ONFLY_SET_CHANNEL = "wifi_onfly:wifi_set_channel"
-	JSONRPC_CPE_WIFI_ONFLY_SET_TXPOWER = "wifi_onfly:wifi_set_txpower"
+	JSONRPC_CPE_WIFI_SET_CHANNEL = "wifi:switch_chan"
+	JSONRPC_CPE_WIFI_SET_TXPOWER = "wifi:set_txpower"
 )
 
 // JSONRPC parameters
@@ -150,11 +150,11 @@ type CPEFirmwareConfigResponse struct {
 	CpeFirmwareData
 }
 
-// for wifi-onfly:*
+// for RRM
 type CPERRMChannelParams struct {
-	Count       int  `json:"cs_count"`
+	Count       int  `json:"bcn_count"`
 	Freq        int  `json:"freq"`
-	Block       bool `json:"blocktx"`
+	Block       bool `json:"block_tx"`
 	Offset      int  `json:"sec_channel_offset,omitempty"`
 	CenterFreq1 int  `json:"center_freq1,omitempty"`
 	CenterFreq2 int  `json:"center_freq2,omitempty"`
