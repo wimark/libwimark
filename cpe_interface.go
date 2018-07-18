@@ -152,13 +152,13 @@ type CPEFirmwareConfigResponse struct {
 
 // for RRM
 type CPERRMChannelParams struct {
-	Count       int  `json:"bcn_count"`
-	Freq        int  `json:"freq"`
-	Block       bool `json:"block_tx"`
-	Offset      int  `json:"sec_channel_offset,omitempty"`
-	CenterFreq1 int  `json:"center_freq1,omitempty"`
-	CenterFreq2 int  `json:"center_freq2,omitempty"`
-	Bandwidth   int  `json:"bandwidth,omitempty"`
-	HT          bool `json:"ht"`
-	VHT         bool `json:"vht"`
+	Count       int    `json:"bcn_count"`
+	Freq        int    `json:"freq"`
+	Block       string `json:"block_tx,omitempty"`
+	Offset      int    `json:"sec_channel_offset,omitempty"`
+	CenterFreq1 int    `json:"center_freq1,omitempty"`
+	CenterFreq2 int    `json:"center_freq2,omitempty"`
+	Bandwidth   int    `json:"bandwidth,omitempty"`
+	HT          string `json:"ht,omitempty"`
+	VHT         string `json:"vht,omitempty"`
 }
