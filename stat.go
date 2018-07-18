@@ -248,11 +248,12 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 }
 
 type LBSClientData struct {
-	Timestamp int64  `json:"timestamp"`
-	CPE       UUID   `json:"cpe"`
-	Radio     string `json:"radio"`
-	ClientMac string `json:"client_mac"`
-	RSSI      int    `json:"rssi"`
+	Timestamp int64   `json:"timestamp"`
+	CPE       UUID    `json:"cpe"`
+	Radio     string  `json:"radio"`
+	ClientMac string  `json:"client_mac"`
+	RSSI      float64 `json:"rssi"`
+	Frequency int     `json:"frequency"`
 }
 
 type LBSCPEInfo struct {
