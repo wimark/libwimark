@@ -273,14 +273,6 @@ type RRMCpeStatus struct {
 	Error   bool       `json:"error"`
 }
 
-type RRMChannel struct {
-	Channel int `json:"channel"`
-	Mode    int `json:"mode"`   // 0-legacy, 1-HT, 2-VHT
-	Width   int `json:"width"`  // 20, 40, 80, 160 (no 80+80 support yet)
-	Offset  int `json:"offset"` // -1, 0, 1 - for HT only
-	Central int `json:"center"`
-}
-
 type FirmwareUploadedData struct {
 	CpeIDs []UUID             `json:"cpe_ids"`
 	Url    string             `json:"url"`
