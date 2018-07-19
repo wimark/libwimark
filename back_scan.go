@@ -131,6 +131,10 @@ func AvailableChannels(state WiFiState, cfg WiFiConfig, caps WifiCapabilities) [
 		var newset = settings
 		newset.Channel = ch
 		newset.Central = CalcCentralChannel(newset)
+		if newset.Central >= 50 && newset.Central <= 144 {
+			// exclude DFS channels for now
+			continue
+		}
 		res = append(res, newset)
 	}
 	return res
