@@ -54,4 +54,4 @@ constraint = "RRMAlgoType"
 [RRMAlgoObject.variants]
 Dummy = "RRMTimerParams"
 Blind = "RRMTimerParams"
-Greed = "RRMTimerParams"
+Greed = "RRMGreedParams"

@@ -17,3 +17,8 @@ type RRMParamUpdateGroup struct {
 type RRMTimerParams struct {
 	Timeout int `json:"timeout"`
 }
+
+type RRMGreedParams struct {
+	RRMTimerParams
+	ManagePower bool `json:"manage_power"`
+}

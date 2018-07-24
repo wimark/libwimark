@@ -198,7 +198,7 @@ func (self *RRMAlgoObject) UnmarshalJSON(b []byte) error {
 		if !data_found {
 			return errors.New("No associated data found for enum RRMAlgoObject")
 		}
-		var d RRMTimerParams
+		var d RRMGreedParams
 		var data_err = json.Unmarshal(data_raw, &d)
 		if data_err != nil {
 			return data_err
@@ -254,7 +254,7 @@ func (self *RRMAlgoObject) SetBSON(v bson.Raw) error {
 		if !data_found {
 			return errors.New("No associated data found for enum RRMAlgoObject")
 		}
-		var d RRMTimerParams
+		var d RRMGreedParams
 		var data_err = data_raw.Unmarshal(&d)
 		if data_err != nil {
 			return data_err
