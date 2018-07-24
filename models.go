@@ -140,6 +140,7 @@ type WiFiConfig struct {
 	BandMode    string     `json:"bandmode"`
 	Bandwidth   string     `json:"bandwidth"`
 	TxPower     string     `json:"txpower"`
+	MinTxPower  string     `json:"mintxpower"`
 	WLANs       []UUID     `json:"wlans"`
 	Channels    []int      `json:"channels"`
 	Country     string     `json:"country"`
