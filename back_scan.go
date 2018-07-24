@@ -140,6 +140,22 @@ func AvailableChannels(state WiFiState, cfg WiFiConfig, caps WifiCapabilities) [
 	return res
 }
 
+func AvailablePowers(cfg WiFiConfig, caps WifiCapabilities) []int {
+	var res []int
+	var max, _ = strconv.Atoi(cfg.TxPower)
+	var min, _ = strconv.Atoi(cfg.MinTxPower)
+	for _, pow := range caps.TxPowers {
+		if pow.DBelMw < min {
+			continue
+		}
+		if max > 0 && pow.DBelMw > max {
+			continue
+		}
+		res = append(res, pow.DBelMw)
+	}
+	return res
+}
+
 func ParseBandmode(bandmode string) (width int, mode int, offset int) {
 	var re = regexp.MustCompile("(V?HT)?([0-9]+)?([\\+-])?")
 	var modes = re.FindStringSubmatch(bandmode)
