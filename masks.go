@@ -45,6 +45,7 @@ type WLANMask struct {
 	HasRadius           []UUID `json:"has_radius"`
 	HasL2Chains         []UUID `json:"has_l2chains"`
 	HasCaptiveRedirects []UUID `json:"has_redirects"`
+	HasHotspotProfiles  []UUID `json:"has_hotspots"`
 }
 
 type StatsMask struct {
