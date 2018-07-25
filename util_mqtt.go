@@ -7,7 +7,6 @@ import (
 	"time"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	cache "github.com/patrickmn/go-cache"
 )
 
 func MQTTConnectSyncOpts(opts *mqtt.ClientOptions) (mqtt.Client, error) {
@@ -58,7 +57,7 @@ func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta in
 	var opts = mqtt.NewClientOptions().AddBroker(addr)
 	eventDisconnetTopic := EventTopic{
 		SenderModule: s,
-		SenderID:     "",
+		SenderID:     id,
 		Type:         SystemEventTypeServiceDisconnected,
 	}
 
@@ -106,11 +105,11 @@ func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta in
 		Meta:    meta,
 	}
 
-	b, err = json.Marshal(statusPayload)
-	if err != nil {
-		return client, errors.New(fmt.Sprintf("error: (%s) while marshalling to status message ", err.Error()))
-	}
-	err = MQTTPublishRetainedSync(client, statusTopic, b)
+	err = MQTTPublishMsg(client, MQTTDocumentMessage{
+		T: statusTopic,
+		D: statusPayload,
+		R: true,
+	})
 	if err != nil {
 		return client, errors.New(fmt.Sprintf("error: (%s) while publishing retained in service start", err.Error()))
 	}
@@ -140,12 +139,11 @@ func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta in
 	}
 	eventConnectedPayload.SystemEventObject = eventObject
 
-	b, err = json.Marshal(eventConnectedPayload)
-	if err != nil {
-		return nil, errors.New(fmt.Sprintf("error: (%s) marshalling connected event in service start", err.Error()))
-	}
-
-	err = MQTTPublishSync(client, eventConnectTopic, b)
+	err = MQTTPublishMsg(client, MQTTDocumentMessage{
+		T: eventConnectTopic,
+		D: eventConnectedPayload,
+		R: false,
+	})
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("error: (%s) publishing connected event in service start", err.Error()))
 	}
@@ -198,23 +196,29 @@ func (self MQTTRawMessage) Retained() bool {
 	return self.R
 }
 
-func MQTTPublishMsg(client mqtt.Client, log_cb func(string), msg MQTTMessage) {
+func MQTTPublishMsg(client mqtt.Client, msg MQTTMessage) error {
 	var topic_str = msg.Topic().TopicPath()
 	var payload, pErr = msg.Payload()
-
-	if pErr != nil {
-		log_cb(fmt.Sprintf("Error marshalling outgoind payload. Topic: %s, Error: %s", topic_str, pErr))
-	} else {
-		log_cb(fmt.Sprintf("Sending message - Topic: %s, Payload: %s\n", topic_str, payload))
-		client.Publish(topic_str, 2, msg.Retained(), payload)
+	if pErr == nil {
+		var token = client.Publish(topic_str, 2, msg.Retained(), payload)
+		token.Wait()
+		return token.Error()
 	}
+	return pErr
 }
 
 func MQTTMakePublishChan(client mqtt.Client, log_cb func(string)) chan<- MQTTMessage {
 	var publishChan = make(chan MQTTMessage)
 	go func() {
 		for msg := range publishChan {
-			MQTTPublishMsg(client, log_cb, msg)
+			var topic_str = msg.Topic().TopicPath()
+			var payload, pErr = msg.Payload()
+			if pErr != nil {
+				log_cb(fmt.Sprintf("Error marshalling outgoind payload. Topic: %s, Error: %s", topic_str, pErr))
+			} else {
+				log_cb(fmt.Sprintf("Sending message - Topic: %s, Payload: %s\n", topic_str, payload))
+				client.Publish(topic_str, 2, msg.Retained(), payload)
+			}
 		}
 	}()
 
@@ -278,32 +282,6 @@ func MQTTMustUnsubscribeSync(client mqtt.Client, topics []Topic) {
 	if err != nil {
 		panic(err)
 	}
-}
-
-func MQTTPublishSync(client mqtt.Client, topic Topic, payload interface{}) error {
-	var token = client.Publish(topic.TopicPath(), 2, false, payload)
-	token.Wait()
-	var err = token.Error()
-	return err
-}
-
-func MQTTPublishRetainedSync(client mqtt.Client, topic Topic, payload interface{}) error {
-	var token = client.Publish(topic.TopicPath(), 2, true, payload)
-	token.Wait()
-	var err = token.Error()
-	return err
-}
-
-func CacheSetRequest(c *cache.Cache, id string, d time.Duration, v MQTTMessage) {
-	c.Set(id, v, d)
-}
-
-func CacheGetRequest(c *cache.Cache, id string) MQTTMessage {
-	var v, ok = c.Get(id)
-	if !ok {
-		return nil
-	}
-	return v.(MQTTMessage)
 }
 
 type LogMsg struct {
