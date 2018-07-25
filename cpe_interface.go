@@ -104,6 +104,12 @@ const (
 	JSONRPC_CPE_L2PORTAL_WHITELIST_REMOVE = "l2portal:whitelist_remove"
 )
 
+// JSONRPC functions from CPE for RRM
+const (
+	JSONRPC_CPE_WIFI_SET_CHANNEL = "wifi:switch_chan"
+	JSONRPC_CPE_WIFI_SET_TXPOWER = "wifi:set_txpower"
+)
+
 // JSONRPC parameters
 
 // for cpeagent:*
@@ -144,4 +150,17 @@ type CPEFirmwareConfig struct {
 type CPEFirmwareConfigResponse struct {
 	Action string `json:"action"`
 	CpeFirmwareData
+}
+
+// for RRM
+type CPERRMChannelParams struct {
+	Count       int    `json:"bcn_count"`
+	Freq        int    `json:"freq"`
+	Block       string `json:"block_tx,omitempty"`
+	Offset      int    `json:"sec_channel_offset,omitempty"`
+	CenterFreq1 int    `json:"center_freq1,omitempty"`
+	CenterFreq2 int    `json:"center_freq2,omitempty"`
+	Bandwidth   int    `json:"bandwidth,omitempty"`
+	HT          string `json:"ht,omitempty"`
+	VHT         string `json:"vht,omitempty"`
 }

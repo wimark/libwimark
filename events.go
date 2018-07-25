@@ -266,10 +266,11 @@ type RRMStatusData struct {
 }
 
 type RRMCpeStatus struct {
-	CpeID   UUID   `json:"cpe_id"`
-	Radio   string `json:"radio"`
-	Channel int    `json:"channel"`
-	Dbm     int    `json:"dbm"`
+	CpeID   UUID       `json:"cpe_id"`
+	Radio   string     `json:"radio"`
+	Channel RRMChannel `json:"channel"`
+	Power   int        `json:"power"`
+	Error   bool       `json:"error"`
 }
 
 type FirmwareUploadedData struct {

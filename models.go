@@ -142,6 +142,7 @@ type WiFiConfig struct {
 	BandMode    string     `json:"bandmode"`
 	Bandwidth   string     `json:"bandwidth"`
 	TxPower     string     `json:"txpower"`
+	MinTxPower  string     `json:"mintxpower"`
 	WLANs       []UUID     `json:"wlans"`
 	Channels    []int      `json:"channels"`
 	Country     string     `json:"country"`
@@ -262,6 +263,7 @@ type FirmwareState struct {
 type WlanState struct {
 	State        CPEInterfaceState `json:"state"`
 	VirtualIface string            `json:"virtual_iface" bson:"virtual_iface"`
+	BSSID        string            `json:"bssid" bson:"bssid"`
 }
 
 type WiFiState struct {
@@ -433,4 +435,14 @@ type CPEFirmware struct {
 	Name    string `json:"name" bson:"name"`
 	Version string `json:"version" bson:"version"`
 	URL     string `json:"url" bson:"url"`
+}
+
+// ==== RRM template ====
+
+const COLLECTION_RRM_GROUPS = "rrm_groups"
+
+type RRMGroup struct {
+	Name string        `json:"name" bson:"name"`
+	CPEs []UUID        `json:"cpes" bson:"cpes"`
+	Algo RRMAlgoObject `json:"algo" bson:"algo"`
 }

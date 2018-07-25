@@ -1956,6 +1956,105 @@ func (self *PortalAuthType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown PortalAuthType: " + s)
 }
 
+type RRMAlgoType string
+
+const RRMAlgoTypeBlind RRMAlgoType = "Blind"
+const RRMAlgoTypeDummy RRMAlgoType = "Dummy"
+const RRMAlgoTypeGreed RRMAlgoType = "Greed"
+
+func (self RRMAlgoType) GetPtr() *RRMAlgoType { var v = self; return &v }
+
+func (self *RRMAlgoType) String() string {
+	switch *self {
+	case RRMAlgoTypeBlind:
+		return "Blind"
+	case RRMAlgoTypeDummy:
+		return "Dummy"
+	case RRMAlgoTypeGreed:
+		return "Greed"
+	}
+	if len(*self) == 0 {
+		return "Greed"
+	}
+	panic(errors.New("Invalid value of RRMAlgoType: " + string(*self)))
+}
+
+func (self *RRMAlgoType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case RRMAlgoTypeBlind:
+		return json.Marshal("Blind")
+	case RRMAlgoTypeDummy:
+		return json.Marshal("Dummy")
+	case RRMAlgoTypeGreed:
+		return json.Marshal("Greed")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("Greed")
+	}
+	return nil, errors.New("Invalid value of RRMAlgoType: " + string(*self))
+}
+
+func (self *RRMAlgoType) GetBSON() (interface{}, error) {
+	switch *self {
+	case RRMAlgoTypeBlind:
+		return "Blind", nil
+	case RRMAlgoTypeDummy:
+		return "Dummy", nil
+	case RRMAlgoTypeGreed:
+		return "Greed", nil
+	}
+	if len(*self) == 0 {
+		return "Greed", nil
+	}
+	return nil, errors.New("Invalid value of RRMAlgoType: " + string(*self))
+}
+
+func (self *RRMAlgoType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "Blind":
+		*self = RRMAlgoTypeBlind
+		return nil
+	case "Dummy":
+		*self = RRMAlgoTypeDummy
+		return nil
+	case "Greed":
+		*self = RRMAlgoTypeGreed
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RRMAlgoTypeGreed
+		return nil
+	}
+	return errors.New("Unknown RRMAlgoType: " + s)
+}
+
+func (self *RRMAlgoType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "Blind":
+		*self = RRMAlgoTypeBlind
+		return nil
+	case "Dummy":
+		*self = RRMAlgoTypeDummy
+		return nil
+	case "Greed":
+		*self = RRMAlgoTypeGreed
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RRMAlgoTypeGreed
+		return nil
+	}
+	return errors.New("Unknown RRMAlgoType: " + s)
+}
+
 type RadiusMessageType string
 
 const RadiusMessageTypeAccessAccept RadiusMessageType = "access-accept"

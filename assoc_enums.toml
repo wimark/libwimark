@@ -52,3 +52,10 @@ AccountingRequest = "RadiusAccountingRequest"
 AccessRequest     = "RadiusAccessRequest"
 AccessAccept      = "RadiusAccessAccept"
 AccessReject      = "RadiusAccessReject"
+
+[RRMAlgoObject]
+constraint = "RRMAlgoType"
+[RRMAlgoObject.variants]
+Dummy = "RRMTimerParams"
+Blind = "RRMTimerParams"
+Greed = "RRMGreedParams"
