@@ -93,4 +93,5 @@ type ConfigRuleMask struct {
 	WLANs       []UUID `json:"has_wlans"`
 	HasL2Chains []UUID `json:"has_l2chains"`
 	Auto        *bool  `json:"is_auto"`
+	Always      *bool  `json:"is_always"`
 }
