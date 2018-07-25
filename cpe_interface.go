@@ -27,6 +27,8 @@ const (
 	JSONRPC_CPE_WIFI_UPDATE         = "wifi:update"
 	JSONRPC_CPE_WIFI_ENABLE_RADIO   = "wifi:enable_radio"
 	JSONRPC_CPE_WIFI_CONFIGURE_ACCT = "wifi:configure_acct"
+	JSONRPC_CPE_WIFI_NAI_COMPILE    = "wifi:compile_nai_realm"
+	JSONRPC_CPE_WIFI_RADIO_STATE    = "wifi:get_radios_state"
 )
 
 // JSONRPC functions from CPE for NETWORK
