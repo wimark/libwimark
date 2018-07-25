@@ -19,6 +19,6 @@ type RRMTimerParams struct {
 }
 
 type RRMGreedParams struct {
-	RRMTimerParams
-	ManagePower bool `json:"manage_power"`
+	RRMTimerParams `bson:",inline"`
+	ManagePower    bool `json:"manage_power" bson:"manage_power"`
 }
