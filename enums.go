@@ -2347,7 +2347,11 @@ func (self *ServiceState) SetBSON(v bson.Raw) error {
 type StatEventRuleType string
 
 const StatEventRuleTypeCPUload StatEventRuleType = "cpu_load"
+const StatEventRuleTypeConfigError StatEventRuleType = "config_error"
+const StatEventRuleTypeConnected StatEventRuleType = "connected"
+const StatEventRuleTypeDisconnected StatEventRuleType = "disconnected"
 const StatEventRuleTypeFreeRAM StatEventRuleType = "free_ram"
+const StatEventRuleTypeIfaceError StatEventRuleType = "iface_error"
 
 func (self StatEventRuleType) GetPtr() *StatEventRuleType { var v = self; return &v }
 
@@ -2355,8 +2359,16 @@ func (self *StatEventRuleType) String() string {
 	switch *self {
 	case StatEventRuleTypeCPUload:
 		return "cpu_load"
+	case StatEventRuleTypeConfigError:
+		return "config_error"
+	case StatEventRuleTypeConnected:
+		return "connected"
+	case StatEventRuleTypeDisconnected:
+		return "disconnected"
 	case StatEventRuleTypeFreeRAM:
 		return "free_ram"
+	case StatEventRuleTypeIfaceError:
+		return "iface_error"
 	}
 	panic(errors.New("Invalid value of StatEventRuleType: " + string(*self)))
 }
@@ -2365,8 +2377,16 @@ func (self *StatEventRuleType) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case StatEventRuleTypeCPUload:
 		return json.Marshal("cpu_load")
+	case StatEventRuleTypeConfigError:
+		return json.Marshal("config_error")
+	case StatEventRuleTypeConnected:
+		return json.Marshal("connected")
+	case StatEventRuleTypeDisconnected:
+		return json.Marshal("disconnected")
 	case StatEventRuleTypeFreeRAM:
 		return json.Marshal("free_ram")
+	case StatEventRuleTypeIfaceError:
+		return json.Marshal("iface_error")
 	}
 	return nil, errors.New("Invalid value of StatEventRuleType: " + string(*self))
 }
@@ -2375,8 +2395,16 @@ func (self *StatEventRuleType) GetBSON() (interface{}, error) {
 	switch *self {
 	case StatEventRuleTypeCPUload:
 		return "cpu_load", nil
+	case StatEventRuleTypeConfigError:
+		return "config_error", nil
+	case StatEventRuleTypeConnected:
+		return "connected", nil
+	case StatEventRuleTypeDisconnected:
+		return "disconnected", nil
 	case StatEventRuleTypeFreeRAM:
 		return "free_ram", nil
+	case StatEventRuleTypeIfaceError:
+		return "iface_error", nil
 	}
 	return nil, errors.New("Invalid value of StatEventRuleType: " + string(*self))
 }
@@ -2390,8 +2418,20 @@ func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
 	case "cpu_load":
 		*self = StatEventRuleTypeCPUload
 		return nil
+	case "config_error":
+		*self = StatEventRuleTypeConfigError
+		return nil
+	case "connected":
+		*self = StatEventRuleTypeConnected
+		return nil
+	case "disconnected":
+		*self = StatEventRuleTypeDisconnected
+		return nil
 	case "free_ram":
 		*self = StatEventRuleTypeFreeRAM
+		return nil
+	case "iface_error":
+		*self = StatEventRuleTypeIfaceError
 		return nil
 	}
 	return errors.New("Unknown StatEventRuleType: " + s)
@@ -2406,8 +2446,20 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 	case "cpu_load":
 		*self = StatEventRuleTypeCPUload
 		return nil
+	case "config_error":
+		*self = StatEventRuleTypeConfigError
+		return nil
+	case "connected":
+		*self = StatEventRuleTypeConnected
+		return nil
+	case "disconnected":
+		*self = StatEventRuleTypeDisconnected
+		return nil
 	case "free_ram":
 		*self = StatEventRuleTypeFreeRAM
+		return nil
+	case "iface_error":
+		*self = StatEventRuleTypeIfaceError
 		return nil
 	}
 	return errors.New("Unknown StatEventRuleType: " + s)

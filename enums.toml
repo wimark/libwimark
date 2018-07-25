@@ -95,8 +95,12 @@ Exception   = "exception"
 
 [StatEventRuleType]
 [StatEventRuleType.variants]
-FreeRAM = "free_ram"
-CPUload = "cpu_load"
+FreeRAM      = "free_ram"
+CPUload      = "cpu_load"
+Connected    = "connected"
+Disconnected = "disconnected"
+ConfigError  = "config_error"
+IfaceError   = "iface_error"
 
 [ClientStatPacketType]
 [ClientStatPacketType.variants]
