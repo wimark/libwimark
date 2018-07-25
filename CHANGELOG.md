@@ -1,5 +1,38 @@
 # Changelog
 
+## [v0.12.1] - 25-07-2018
+
+### Added
+#### RRM-daemon
+ - CPE interface for RRM
+ - RRM daemon request parameters
+ - RRM interface and objects
+ - RRMChannel routines
+ - Func for list of available Tx powers
+#### WNE-1045-req-iface-state
+ - New cpe wifi functions added
+#### WNE-1040-hetmaps
+ - Add OUI vendor list for not-only statdaemon using
+#### WNE-1015-hotspot20-settings
+ - Support for HS2.0 structs in DB interface
+ - Hotspot 2.0 models
+#### WNE-1021-monitor-rules-postaction
+ - Add post_script and more rule types
+#### WNE-997-template-always
+ - Add flag for applyng template on every connect
+
+### Changed
+#### RRM-daemon
+ - Min Tx power in config
+ - BSSID in WLAN state
+ - Scandata updated: width & htmode
+#### WNE-1051-LBS-update
+ - Update LBSClientData: freq & float rssi
+
+### Removed
+#### mqtt-cleanup
+ - Removed unnecessary stuff
+
 ## [v0.11.7] - 14-06-2018
 
 ### Changed
