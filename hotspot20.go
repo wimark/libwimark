@@ -4,12 +4,10 @@ type I18nName struct {
 	Language string `json:"lang" bson:"lang"`
 	Name     string `json:"name" bson:"name"`
 }
-type HS20_VenueName I18nName
-type HS20_OperFriendlyName I18nName
 type HS20_Venue struct {
-	VenueGroup int              `json:"group" bson:"group"`
-	VenueType  int              `json:"type" bson:"type"`
-	Names      []HS20_VenueName `json:"names" bson:"names"`
+	VenueGroup int        `json:"group" bson:"group"`
+	VenueType  int        `json:"type" bson:"type"`
+	Names      []I18nName `json:"names" bson:"names"`
 }
 type HS20_NAIAuth struct {
 	Type    int `json:"type" bson:"type"`
@@ -47,22 +45,22 @@ type HS20_WanMetrics struct {
 	MeasureDuration int `json:"lmd" bson:"lmd"`
 }
 type Hotspot20Profile struct {
-	Name        string                  `json:"name" bson:"name"`
-	NetType     int                     `json:"net_type" bson:"net_type"`
-	Internet    bool                    `json:"internet" bson:"internet"`
-	ASRA        bool                    `json:"asra" bson:"asra"`
-	ESR         bool                    `json:"esr" bson:"esr"`
-	UESA        bool                    `json:"uesa" bson:"uesa"`
-	DGAF        bool                    `json:"dgaf" bson:"dgaf"`
-	HESSID      string                  `json:"hessid" bson:"hessid"`
-	Venue       HS20_Venue              `json:"venue" bson:"venue"`
-	Domains     []string                `json:"domains" bson:"domains"`
-	Realms      []HS20_NAIRealm         `json:"realms" bson:"realms"`
-	Cellular    []HS20_3GPPNetwork      `json:"cellular" bson:"cellular"`
-	Consortiums []HS20_Consortium       `json:"consortiums" bson:"consortiums"`
-	OperNames   []HS20_OperFriendlyName `json:"oper_names" bson:"oper_names"`
-	IpTypes     HS20_IPTypes            `json:"ip_types" bson:"ip_types"`
-	ConnCaps    []HS20_ConnCaps         `json:"conn_caps" bson:"conn_caps"`
-	WanMetrics  HS20_WanMetrics         `json:"wan_metrics" bson:"wan_metrics"`
-	OperClasses []int                   `json:"oper_classes" bson:"oper_classes"`
+	Name        string             `json:"name" bson:"name"`
+	NetType     int                `json:"net_type" bson:"net_type"`
+	Internet    bool               `json:"internet" bson:"internet"`
+	ASRA        bool               `json:"asra" bson:"asra"`
+	ESR         bool               `json:"esr" bson:"esr"`
+	UESA        bool               `json:"uesa" bson:"uesa"`
+	DGAF        bool               `json:"dgaf" bson:"dgaf"`
+	HESSID      string             `json:"hessid" bson:"hessid"`
+	Venue       HS20_Venue         `json:"venue" bson:"venue"`
+	Domains     []string           `json:"domains" bson:"domains"`
+	Realms      []HS20_NAIRealm    `json:"realms" bson:"realms"`
+	Cellular    []HS20_3GPPNetwork `json:"cellular" bson:"cellular"`
+	Consortiums []HS20_Consortium  `json:"consortiums" bson:"consortiums"`
+	OperNames   []I18nName         `json:"oper_names" bson:"oper_names"`
+	IpTypes     HS20_IPTypes       `json:"ip_types" bson:"ip_types"`
+	ConnCaps    []HS20_ConnCaps    `json:"conn_caps" bson:"conn_caps"`
+	WanMetrics  HS20_WanMetrics    `json:"wan_metrics" bson:"wan_metrics"`
+	OperClasses []int              `json:"oper_classes" bson:"oper_classes"`
 }
