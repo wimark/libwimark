@@ -314,12 +314,20 @@ type VlanState struct {
 	Switch string   `json:"device" bson:"device"`
 }
 
+// ---- WAN state ----
+
+type WanState struct {
+	Interface string `json:"iface" bson:"iface"`
+	Protocol  string `json:"proto" bson:"proto"`
+}
+
 // ---- CPE state ----
 
 type CPEState struct {
 	Wifi     WiFiStates    `json:"wifi,omitempty"`
 	Wired    WiredStates   `json:"wired,omitempty"`
 	Firmware FirmwareState `json:"firmware,omitempty"`
+	Wan      WanState      `json:"wan"`
 }
 
 // ---- CPE itself ----
