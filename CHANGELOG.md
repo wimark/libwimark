@@ -1,5 +1,18 @@
 # Changelog
 
+## [v0.12.4] - 07-08-2018
+
+### Added
+#### WNE-1058-lte-support
+ - State of WAN
+
+## [v0.12.3] - 27-07-2018
+
+### Added
+#### WNE-1015-hotspot20-settings
+ - Generic struct for lang:name
+ - Additional HS2.0 profile parameters
+
 ## [v0.12.1] - 25-07-2018
 
 ### Added
