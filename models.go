@@ -159,19 +159,21 @@ type wifiCfg struct {
 }
 
 func (self WiFiConfigs) GetBSON() (interface{}, error) {
-	out := []wifiCfg{}
+	var out = make([]wifiCfg, len(self))
+	var index = 0
 	for k, v := range self {
-		out = append(out, wifiCfg{k, v})
+		out[index] = wifiCfg{k, v}
+		index += 1
 	}
 	return out, nil
 }
 
 func (self *WiFiConfigs) SetBSON(raw bson.Raw) error {
 	var in = []wifiCfg{}
-	var out = WiFiConfigs{}
 	if err := raw.Unmarshal(&in); err != nil {
 		return err
 	}
+	var out = make(WiFiConfigs, len(in))
 	for _, v := range in {
 		out[v.Id] = v.Contents
 	}
@@ -213,19 +215,21 @@ type wiredCfg struct {
 }
 
 func (self WiredConfigs) GetBSON() (interface{}, error) {
-	out := []wiredCfg{}
+	var out = make([]wiredCfg, len(self))
+	var index = 0
 	for k, v := range self {
-		out = append(out, wiredCfg{k, v})
+		out[index] = wiredCfg{k, v}
+		index += 1
 	}
 	return out, nil
 }
 
 func (self *WiredConfigs) SetBSON(raw bson.Raw) error {
 	var in = []wiredCfg{}
-	var out = WiredConfigs{}
 	if err := raw.Unmarshal(&in); err != nil {
 		return err
 	}
+	var out = make(WiredConfigs, len(in))
 	for _, v := range in {
 		out[v.Id] = v.Contents
 	}
@@ -283,19 +287,21 @@ type wifiStat struct {
 }
 
 func (self WiFiStates) GetBSON() (interface{}, error) {
-	out := []wifiStat{}
+	var out = make([]wifiStat, len(self))
+	var index = 0
 	for k, v := range self {
-		out = append(out, wifiStat{k, v})
+		out[index] = wifiStat{k, v}
+		index += 1
 	}
 	return out, nil
 }
 
 func (self *WiFiStates) SetBSON(raw bson.Raw) error {
 	var in = []wifiStat{}
-	var out = WiFiStates{}
 	if err := raw.Unmarshal(&in); err != nil {
 		return err
 	}
+	var out = make(WiFiStates, len(in))
 	for _, v := range in {
 		out[v.Id] = v.Contents
 	}
