@@ -27,9 +27,12 @@ func (self *ModuleStatus) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &doc); err != nil {
 		return err
 	}
-	if err := json.Unmarshal(b, self); err != nil {
+	type MS ModuleStatus
+	var s MS
+	if err := json.Unmarshal(b, &s); err != nil {
 		return err
 	}
+	*self = ModuleStatus(s)
 	var meta, has_meta = doc["meta"]
 	has_meta = has_meta && !bytes.Equal(meta, []byte("null"))
 
