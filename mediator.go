@@ -7,17 +7,8 @@ type SSHAccess struct {
 }
 
 type Controller struct {
-	// Mac: string,
-	// SN: string,
-	// Name: string,
-	// Description: string,
-	// IP: string,
-	// SshKey: string,
-	// Connected: boolean,
-	// Config_status: string,
-	// Fw_version: string,
-	// Vendor/Model: string
 	Status      ControllerStatusType `json:"status"`
+	Enable      bool                 `json:"enable"`
 	Name        string               `json:"name"`
 	Description string               `json:"description"`
 	MAC         string               `json:"mac"`
