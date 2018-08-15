@@ -380,19 +380,19 @@ type GAWifiStatus struct {
 //============= Get all ================
 
 type CPEAllInfo struct {
-	Wifi       map[string]GAWifi  `json:"wifi"`
-	Network    GANetwork          `json:"network"`
-	Config     UciConfig          `json:"configuration"`
-	System     GASysInfo          `json:"system"`
-	Capability Capabilities       `json:"capabilities"`
-	Model      GAModelInfo        `json:"model"`
-	Version    GAVersion          `json:"version"`
-	Status     CPEAgentStatus     `json:"status"`
-	Packages   CPEAgentPackages   `json:"packages"`
-	Statics    map[string]Version `json:"statics"`
-	WifiStatus []GAWifiStatus
+	Wifi       map[string]GAWifi  `json:"wifi,omitempty"`
+	Network    GANetwork          `json:"network,omitempty"`
+	Config     UciConfig          `json:"configuration,omitempty"`
+	System     GASysInfo          `json:"system,omitempty"`
+	Capability Capabilities       `json:"capabilities,omitempty"`
+	Model      GAModelInfo        `json:"model,omitempty"`
+	Version    GAVersion          `json:"version,omitempty"`
+	Status     CPEAgentStatus     `json:"status,omitempty"`
+	Packages   CPEAgentPackages   `json:"packages,omitempty"`
+	Statics    map[string]Version `json:"statics,omitempty"`
+	WifiStatus []GAWifiStatus     `json:"wifistatus,omitempty"`
 
-	Errors map[int]JSONRPC_Error
+	Errors map[int]JSONRPC_Error `json:"-"`
 }
 
 type CPEMeta struct {
@@ -415,8 +415,8 @@ type SLChainObject struct {
 	Target    string            `json:"target"`
 }
 type SLChainConfig struct {
-	Chains  []SLChain
-	Objects []SLChainObject
+	Chains  []SLChain       `json:"chains"`
+	Objects []SLChainObject `json:"objects"`
 }
 
 type SLNatAttrs struct {
@@ -425,20 +425,20 @@ type SLNatAttrs struct {
 	NetMask  string `json:"netmask,omitempty"`
 }
 type SLNatConfig struct {
-	Attrs  SLNatAttrs
-	Access bool
+	Attrs  SLNatAttrs `json:"attrs"`
+	Access bool       `json:"access"`
 }
 
 //======== CPE model to CPE script with JSON RPC ====
 
 type SLMessageContentsJSONRPC struct {
-	General  UciConfig
-	Wlans    map[string]UciWifiWlan
-	Nats     map[string]SLNatConfig
-	Chains   SLChainConfig
-	L3Filter []string
-	ToDel    map[string]interface{}
-	Timeout  time.Duration
+	General  UciConfig              `json:"config"`
+	Wlans    map[string]UciWifiWlan `json:"wlans,omitempty"`
+	Nats     map[string]SLNatConfig `json:"nats,omitempty"`
+	Chains   SLChainConfig          `json:"l2chains,omitempty"`
+	L3Filter []string               `json:"l3filter,omitempty"`
+	ToDel    map[string]interface{} `json:"-"`
+	Timeout  time.Duration          `json:"-"`
 }
 
 //======== Params for NAI realm compile JSON RPC ====
