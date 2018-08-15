@@ -22,6 +22,13 @@ type CpeStatusMeta struct {
 	Statics map[string]Version `json:"statics"`
 }
 
+type TunManagerBroadcastMeta struct {
+	Hostname       string                 `json:"hostname"`
+	HostUUID       string                 `json:"host_uuid"`
+	HostInterfaces []LinkDescriptor       `json:"active_out_interfaces"`
+	HostTunnels    []CPETunnelDescription `json:"active_cpe_tunnels"`
+}
+
 func (self *ModuleStatus) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	if err := json.Unmarshal(b, &doc); err != nil {
@@ -39,6 +46,14 @@ func (self *ModuleStatus) UnmarshalJSON(b []byte) error {
 	switch self.Service {
 	case ModuleCPE:
 		var m CpeStatusMeta
+		if has_meta {
+			if err := json.Unmarshal(meta, &m); err != nil {
+				return err
+			}
+		}
+		self.Meta = m
+	case ModuleTunManager:
+		var m TunManagerBroadcastMeta
 		if has_meta {
 			if err := json.Unmarshal(meta, &m); err != nil {
 				return err
