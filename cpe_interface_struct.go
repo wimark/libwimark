@@ -400,6 +400,7 @@ type CPEMeta struct {
 	ModelName string
 	ModelId   string
 	Caps      Capabilities
+	Uci       UciConfig
 }
 
 //============= To set.lua script ================
