@@ -97,3 +97,8 @@ type ConfigRuleMask struct {
 	Auto        *bool  `json:"is_auto"`
 	Always      *bool  `json:"is_always"`
 }
+
+type ControllerMask struct {
+	UUID    []UUID `json:"uuid"`
+	Enabled *bool  `json:"is_enabled"`
+}

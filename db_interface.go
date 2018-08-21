@@ -79,7 +79,7 @@ type DBDataMasks struct {
 	L2Chain         *SimpleMask          `json:"l2-chain,omitempty"`
 	CaptiveRedirect *SimpleMask          `json:"captive-redirect,omitempty"`
 	HotspotProfile  *SimpleMask          `json:"hotspot-profile,omitempty"`
-	Controller      *SimpleMask          `json:"controller,omitempty"`
+	Controller      *ControllerMask      `json:"controller,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {
