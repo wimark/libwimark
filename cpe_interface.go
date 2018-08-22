@@ -110,6 +110,12 @@ const (
 	JSONRPC_CPE_WIFI_SET_TXPOWER = "wifi:set_txpower"
 )
 
+// JSONRPC functions for interaction with CISCO mediator
+const (
+	JSONRPC_CISCO_GET = "cisco:get"
+	JSONRPC_CISCO_SET = "cisco:set"
+)
+
 // JSONRPC parameters
 
 // for cpeagent:*
