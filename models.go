@@ -422,10 +422,12 @@ type CPEModel struct {
 // ==== Config template ====
 
 type ConfigRule struct {
-	Name        string `json:"name" bson:"name"`
-	Description string `json:"description" bson:"description"`
-	Model       UUID   `json:"model" bson:"model"`
-	CPEs        []UUID `json:"cpes" bson:"cpes"`
+	Name        string    `json:"name" bson:"name"`
+	Description string    `json:"description" bson:"description"`
+	Model       UUID      `json:"model" bson:"model"`
+	CPEs        []UUID    `json:"cpes" bson:"cpes"`
+	MacPrefix   string    `json:"mac_prefix" bson:"mac_prefix"`
+	Subnet      IPAddress `json:"subnet" bson:"subnet"`
 	Template    struct {
 		WLANs     []UUID    `json:"wlans" bson:"wlans"`
 		CpeConfig CPEConfig `json:"cpe_config_template" bson:"cpe_config_template"`
