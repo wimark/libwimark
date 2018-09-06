@@ -229,3 +229,11 @@ default = "Greed"
 Dummy = "Dummy"
 Blind = "Blind"
 Greed = "Greed"
+
+[WMMAccessCategory]
+default = "Background"
+[WMMAccessCategory.variants]
+Background = "BK"
+BestEffort = "BE"
+Video = "VI"
+Voice = "VO"

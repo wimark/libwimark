@@ -3022,6 +3022,118 @@ func (self *TunManagerRPC) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown TunManagerRPC: " + s)
 }
 
+type WMMAccessCategory string
+
+const WMMAccessCategoryBackground WMMAccessCategory = "BK"
+const WMMAccessCategoryBestEffort WMMAccessCategory = "BE"
+const WMMAccessCategoryVideo WMMAccessCategory = "VI"
+const WMMAccessCategoryVoice WMMAccessCategory = "VO"
+
+func (self WMMAccessCategory) GetPtr() *WMMAccessCategory { var v = self; return &v }
+
+func (self *WMMAccessCategory) String() string {
+	switch *self {
+	case WMMAccessCategoryBackground:
+		return "BK"
+	case WMMAccessCategoryBestEffort:
+		return "BE"
+	case WMMAccessCategoryVideo:
+		return "VI"
+	case WMMAccessCategoryVoice:
+		return "VO"
+	}
+	if len(*self) == 0 {
+		return "BK"
+	}
+	panic(errors.New("Invalid value of WMMAccessCategory: " + string(*self)))
+}
+
+func (self *WMMAccessCategory) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case WMMAccessCategoryBackground:
+		return json.Marshal("BK")
+	case WMMAccessCategoryBestEffort:
+		return json.Marshal("BE")
+	case WMMAccessCategoryVideo:
+		return json.Marshal("VI")
+	case WMMAccessCategoryVoice:
+		return json.Marshal("VO")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("BK")
+	}
+	return nil, errors.New("Invalid value of WMMAccessCategory: " + string(*self))
+}
+
+func (self *WMMAccessCategory) GetBSON() (interface{}, error) {
+	switch *self {
+	case WMMAccessCategoryBackground:
+		return "BK", nil
+	case WMMAccessCategoryBestEffort:
+		return "BE", nil
+	case WMMAccessCategoryVideo:
+		return "VI", nil
+	case WMMAccessCategoryVoice:
+		return "VO", nil
+	}
+	if len(*self) == 0 {
+		return "BK", nil
+	}
+	return nil, errors.New("Invalid value of WMMAccessCategory: " + string(*self))
+}
+
+func (self *WMMAccessCategory) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "BK":
+		*self = WMMAccessCategoryBackground
+		return nil
+	case "BE":
+		*self = WMMAccessCategoryBestEffort
+		return nil
+	case "VI":
+		*self = WMMAccessCategoryVideo
+		return nil
+	case "VO":
+		*self = WMMAccessCategoryVoice
+		return nil
+	}
+	if len(s) == 0 {
+		*self = WMMAccessCategoryBackground
+		return nil
+	}
+	return errors.New("Unknown WMMAccessCategory: " + s)
+}
+
+func (self *WMMAccessCategory) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "BK":
+		*self = WMMAccessCategoryBackground
+		return nil
+	case "BE":
+		*self = WMMAccessCategoryBestEffort
+		return nil
+	case "VI":
+		*self = WMMAccessCategoryVideo
+		return nil
+	case "VO":
+		*self = WMMAccessCategoryVoice
+		return nil
+	}
+	if len(s) == 0 {
+		*self = WMMAccessCategoryBackground
+		return nil
+	}
+	return errors.New("Unknown WMMAccessCategory: " + s)
+}
+
 type WirelessClientState string
 
 const WirelessClientStateConnected WirelessClientState = "CONNECTED"
