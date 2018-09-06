@@ -163,49 +163,49 @@ type UciWifiWlan struct {
 
 	// TODO use map[WMMAccessCategory]WMMCategoryConfig
 	// and custom marshal/unmarshal
-	WmmTxBKAifs  string `json:"wmm_tx_bk_aifs,omitempty"`
-	WmmTxBKCwmin string `json:"wmm_tx_bk_cwmin,omitempty"`
-	WmmTxBKCwmax string `json:"wmm_tx_bk_cwmax,omitempty"`
-	WmmTxBKBurst string `json:"wmm_tx_bk_burst,omitempty"`
+	WmmTxBKAifs  string `json:"wmm_tx_bk_aifs"`
+	WmmTxBKCwmin string `json:"wmm_tx_bk_cwmin"`
+	WmmTxBKCwmax string `json:"wmm_tx_bk_cwmax"`
+	WmmTxBKBurst string `json:"wmm_tx_bk_burst"`
 
-	WmmTxBEAifs  string `json:"wmm_tx_be_aifs,omitempty"`
-	WmmTxBECwmin string `json:"wmm_tx_be_cwmin,omitempty"`
-	WmmTxBECwmax string `json:"wmm_tx_be_cwmax,omitempty"`
-	WmmTxBEBurst string `json:"wmm_tx_be_burst,omitempty"`
+	WmmTxBEAifs  string `json:"wmm_tx_be_aifs"`
+	WmmTxBECwmin string `json:"wmm_tx_be_cwmin"`
+	WmmTxBECwmax string `json:"wmm_tx_be_cwmax"`
+	WmmTxBEBurst string `json:"wmm_tx_be_burst"`
 
-	WmmTxVIAifs  string `json:"wmm_tx_vi_aifs,omitempty"`
-	WmmTxVICwmin string `json:"wmm_tx_vi_cwmin,omitempty"`
-	WmmTxVICwmax string `json:"wmm_tx_vi_cwmax,omitempty"`
-	WmmTxVIBurst string `json:"wmm_tx_vi_burst,omitempty"`
+	WmmTxVIAifs  string `json:"wmm_tx_vi_aifs"`
+	WmmTxVICwmin string `json:"wmm_tx_vi_cwmin"`
+	WmmTxVICwmax string `json:"wmm_tx_vi_cwmax"`
+	WmmTxVIBurst string `json:"wmm_tx_vi_burst"`
 
-	WmmTxVOAifs  string `json:"wmm_tx_vo_aifs,omitempty"`
-	WmmTxVOCwmin string `json:"wmm_tx_vo_cwmin,omitempty"`
-	WmmTxVOCwmax string `json:"wmm_tx_vo_cwmax,omitempty"`
-	WmmTxVOBurst string `json:"wmm_tx_vo_burst,omitempty"`
+	WmmTxVOAifs  string `json:"wmm_tx_vo_aifs"`
+	WmmTxVOCwmin string `json:"wmm_tx_vo_cwmin"`
+	WmmTxVOCwmax string `json:"wmm_tx_vo_cwmax"`
+	WmmTxVOBurst string `json:"wmm_tx_vo_burst"`
 
-	WmmAcBKAifs  string `json:"wmm_ac_bk_aifs,omitempty"`
-	WmmAcBKCwmin string `json:"wmm_ac_bk_cwmin,omitempty"`
-	WmmAcBKCwmax string `json:"wmm_ac_bk_cwmax,omitempty"`
-	WmmAcBKTxop  string `json:"wmm_ac_bk_txop,omitempty"`
-	WmmAcBKAcm   string `json:"wmm_ac_bk_acm,omitempty"`
+	WmmAcBKAifs  string `json:"wmm_ac_bk_aifs"`
+	WmmAcBKCwmin string `json:"wmm_ac_bk_cwmin"`
+	WmmAcBKCwmax string `json:"wmm_ac_bk_cwmax"`
+	WmmAcBKTxop  string `json:"wmm_ac_bk_txop"`
+	WmmAcBKAcm   string `json:"wmm_ac_bk_acm"`
 
-	WmmAcBEAifs  string `json:"wmm_ac_be_aifs,omitempty"`
-	WmmAcBECwmin string `json:"wmm_ac_be_cwmin,omitempty"`
-	WmmAcBECwmax string `json:"wmm_ac_be_cwmax,omitempty"`
-	WmmAcBETxop  string `json:"wmm_ac_be_txop,omitempty"`
-	WmmAcBEAcm   string `json:"wmm_ac_bk_acm,omitempty"`
+	WmmAcBEAifs  string `json:"wmm_ac_be_aifs"`
+	WmmAcBECwmin string `json:"wmm_ac_be_cwmin"`
+	WmmAcBECwmax string `json:"wmm_ac_be_cwmax"`
+	WmmAcBETxop  string `json:"wmm_ac_be_txop"`
+	WmmAcBEAcm   string `json:"wmm_ac_be_acm"`
 
-	WmmAcVIAifs  string `json:"wmm_ac_vi_aifs,omitempty"`
-	WmmAcVICwmin string `json:"wmm_ac_vi_cwmin,omitempty"`
-	WmmAcVICwmax string `json:"wmm_ac_vi_cwmax,omitempty"`
-	WmmAcVITxop  string `json:"wmm_ac_vi_txop,omitempty"`
-	WmmAcVIAcm   string `json:"wmm_ac_bk_acm,omitempty"`
+	WmmAcVIAifs  string `json:"wmm_ac_vi_aifs"`
+	WmmAcVICwmin string `json:"wmm_ac_vi_cwmin"`
+	WmmAcVICwmax string `json:"wmm_ac_vi_cwmax"`
+	WmmAcVITxop  string `json:"wmm_ac_vi_txop"`
+	WmmAcVIAcm   string `json:"wmm_ac_vi_acm"`
 
-	WmmAcVOAifs  string `json:"wmm_ac_vo_aifs,omitempty"`
-	WmmAcVOCwmin string `json:"wmm_ac_vo_cwmin,omitempty"`
-	WmmAcVOCwmax string `json:"wmm_ac_vo_cwmax,omitempty"`
-	WmmAcVOTxop  string `json:"wmm_ac_vo_txop,omitempty"`
-	WmmAcVOAcm   string `json:"wmm_ac_vo_acm,omitempty"`
+	WmmAcVOAifs  string `json:"wmm_ac_vo_aifs"`
+	WmmAcVOCwmin string `json:"wmm_ac_vo_cwmin"`
+	WmmAcVOCwmax string `json:"wmm_ac_vo_cwmax"`
+	WmmAcVOTxop  string `json:"wmm_ac_vo_txop"`
+	WmmAcVOAcm   string `json:"wmm_ac_vo_acm"`
 }
 type UciWifiIface struct {
 	Type        string      `json:".type"`
