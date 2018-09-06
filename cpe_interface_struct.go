@@ -118,7 +118,6 @@ type UciWifiWlan struct {
 	OwnIp          string      `json:"ownip,omitempty"`
 	Redirect       string      `json:"wimark_redirect,omitempty"`
 	MACAddr        string      `json:"macaddr,omitempty"`
-	WMM            string      `json:"wmm"`
 	UbusAcctPeriod string      `json:"ubus_acct_interval,omitempty"`
 
 	// security
@@ -157,6 +156,56 @@ type UciWifiWlan struct {
 	HSOperFriendlyNames interface{} `json:"oper_friendly_name,omitempty"`
 	HSConnCaps          interface{} `json:"conn_capab,omitempty"`
 	HSOperClasses       string      `json:"operating_class,omitempty"`
+
+	// WMM
+	WMM   string `json:"wmm"`
+	Uapsd string `json:"uapsd"`
+
+	// TODO use map[WMMAccessCategory]WMMCategoryConfig
+	// and custom marshal/unmarshal
+	WmmTxBKAifs  string `json:"wmm_tx_bk_aifs,omitempty"`
+	WmmTxBKCwmin string `json:"wmm_tx_bk_cwmin,omitempty"`
+	WmmTxBKCwmax string `json:"wmm_tx_bk_cwmax,omitempty"`
+	WmmTxBKBurst string `json:"wmm_tx_bk_burst,omitempty"`
+
+	WmmTxBEAifs  string `json:"wmm_tx_be_aifs,omitempty"`
+	WmmTxBECwmin string `json:"wmm_tx_be_cwmin,omitempty"`
+	WmmTxBECwmax string `json:"wmm_tx_be_cwmax,omitempty"`
+	WmmTxBEBurst string `json:"wmm_tx_be_burst,omitempty"`
+
+	WmmTxVIAifs  string `json:"wmm_tx_vi_aifs,omitempty"`
+	WmmTxVICwmin string `json:"wmm_tx_vi_cwmin,omitempty"`
+	WmmTxVICwmax string `json:"wmm_tx_vi_cwmax,omitempty"`
+	WmmTxVIBurst string `json:"wmm_tx_vi_burst,omitempty"`
+
+	WmmTxVOAifs  string `json:"wmm_tx_vo_aifs,omitempty"`
+	WmmTxVOCwmin string `json:"wmm_tx_vo_cwmin,omitempty"`
+	WmmTxVOCwmax string `json:"wmm_tx_vo_cwmax,omitempty"`
+	WmmTxVOBurst string `json:"wmm_tx_vo_burst,omitempty"`
+
+	WmmAcBKAifs  string `json:"wmm_ac_bk_aifs,omitempty"`
+	WmmAcBKCwmin string `json:"wmm_ac_bk_cwmin,omitempty"`
+	WmmAcBKCwmax string `json:"wmm_ac_bk_cwmax,omitempty"`
+	WmmAcBKTxop  string `json:"wmm_ac_bk_txop,omitempty"`
+	WmmAcBKAcm   string `json:"wmm_ac_bk_acm,omitempty"`
+
+	WmmAcBEAifs  string `json:"wmm_ac_be_aifs,omitempty"`
+	WmmAcBECwmin string `json:"wmm_ac_be_cwmin,omitempty"`
+	WmmAcBECwmax string `json:"wmm_ac_be_cwmax,omitempty"`
+	WmmAcBETxop  string `json:"wmm_ac_be_txop,omitempty"`
+	WmmAcBEAcm   string `json:"wmm_ac_bk_acm,omitempty"`
+
+	WmmAcVIAifs  string `json:"wmm_ac_vi_aifs,omitempty"`
+	WmmAcVICwmin string `json:"wmm_ac_vi_cwmin,omitempty"`
+	WmmAcVICwmax string `json:"wmm_ac_vi_cwmax,omitempty"`
+	WmmAcVITxop  string `json:"wmm_ac_vi_txop,omitempty"`
+	WmmAcVIAcm   string `json:"wmm_ac_bk_acm,omitempty"`
+
+	WmmAcVOAifs  string `json:"wmm_ac_vo_aifs,omitempty"`
+	WmmAcVOCwmin string `json:"wmm_ac_vo_cwmin,omitempty"`
+	WmmAcVOCwmax string `json:"wmm_ac_vo_cwmax,omitempty"`
+	WmmAcVOTxop  string `json:"wmm_ac_vo_txop,omitempty"`
+	WmmAcVOAcm   string `json:"wmm_ac_vo_acm,omitempty"`
 }
 type UciWifiIface struct {
 	Type        string      `json:".type"`
