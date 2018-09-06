@@ -29,6 +29,7 @@ FW         = "FW"
 Redirect   = "REDIRECT"
 PortalBack = "PORTAL_BACKEND"
 RadiusGw   = "RADIUS_GATEWAY"
+Mediator   = "MEDIATOR"
 
 [Operation]
 [Operation.variants]
@@ -237,3 +238,13 @@ Background = "BK"
 BestEffort = "BE"
 Video = "VI"
 Voice = "VO"
+
+[ControllerStatusType]
+default = "Empty"
+[ControllerStatusType.variants]
+Empty        = "empty"
+Error        = "error"
+Connected    = "connected"
+Disconnected = "disconnected"
+Updating     = "updating"
+Provisioning = "provision"
