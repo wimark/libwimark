@@ -110,6 +110,12 @@ const (
 	JSONRPC_CPE_WIFI_SET_TXPOWER = "wifi:set_txpower"
 )
 
+// JSONRPC system functions from CPE
+const (
+	JSONRPC_CPE_SYSTEM_FIRSTBOOT = "system:firstboot"
+	JSONRPC_CPE_SYSTEM_REBOOT    = "system:reboot"
+)
+
 // JSONRPC parameters
 
 // for cpeagent:*
