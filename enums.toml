@@ -2,11 +2,11 @@
 default = "Empty"
 [ConfigurationStatus.variants]
 Empty     = "empty"
-Error     = "error"
 OK        = "ok"
-Pending   = "pending"
 Updating  = "updating"
 Upgrading = "upgrading"
+Offline   = "offline"
+Rebooting = "rebooting"
 
 [Module]
 [Module.variants]

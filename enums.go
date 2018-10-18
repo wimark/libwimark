@@ -428,9 +428,9 @@ func (self *ClientStatPacketType) SetBSON(v bson.Raw) error {
 type ConfigurationStatus string
 
 const ConfigurationStatusEmpty ConfigurationStatus = "empty"
-const ConfigurationStatusError ConfigurationStatus = "error"
 const ConfigurationStatusOK ConfigurationStatus = "ok"
-const ConfigurationStatusPending ConfigurationStatus = "pending"
+const ConfigurationStatusOffline ConfigurationStatus = "offline"
+const ConfigurationStatusRebooting ConfigurationStatus = "rebooting"
 const ConfigurationStatusUpdating ConfigurationStatus = "updating"
 const ConfigurationStatusUpgrading ConfigurationStatus = "upgrading"
 
@@ -440,12 +440,12 @@ func (self *ConfigurationStatus) String() string {
 	switch *self {
 	case ConfigurationStatusEmpty:
 		return "empty"
-	case ConfigurationStatusError:
-		return "error"
 	case ConfigurationStatusOK:
 		return "ok"
-	case ConfigurationStatusPending:
-		return "pending"
+	case ConfigurationStatusOffline:
+		return "offline"
+	case ConfigurationStatusRebooting:
+		return "rebooting"
 	case ConfigurationStatusUpdating:
 		return "updating"
 	case ConfigurationStatusUpgrading:
@@ -461,12 +461,12 @@ func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case ConfigurationStatusEmpty:
 		return json.Marshal("empty")
-	case ConfigurationStatusError:
-		return json.Marshal("error")
 	case ConfigurationStatusOK:
 		return json.Marshal("ok")
-	case ConfigurationStatusPending:
-		return json.Marshal("pending")
+	case ConfigurationStatusOffline:
+		return json.Marshal("offline")
+	case ConfigurationStatusRebooting:
+		return json.Marshal("rebooting")
 	case ConfigurationStatusUpdating:
 		return json.Marshal("updating")
 	case ConfigurationStatusUpgrading:
@@ -482,12 +482,12 @@ func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
 	switch *self {
 	case ConfigurationStatusEmpty:
 		return "empty", nil
-	case ConfigurationStatusError:
-		return "error", nil
 	case ConfigurationStatusOK:
 		return "ok", nil
-	case ConfigurationStatusPending:
-		return "pending", nil
+	case ConfigurationStatusOffline:
+		return "offline", nil
+	case ConfigurationStatusRebooting:
+		return "rebooting", nil
 	case ConfigurationStatusUpdating:
 		return "updating", nil
 	case ConfigurationStatusUpgrading:
@@ -508,14 +508,14 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 	case "empty":
 		*self = ConfigurationStatusEmpty
 		return nil
-	case "error":
-		*self = ConfigurationStatusError
-		return nil
 	case "ok":
 		*self = ConfigurationStatusOK
 		return nil
-	case "pending":
-		*self = ConfigurationStatusPending
+	case "offline":
+		*self = ConfigurationStatusOffline
+		return nil
+	case "rebooting":
+		*self = ConfigurationStatusRebooting
 		return nil
 	case "updating":
 		*self = ConfigurationStatusUpdating
@@ -540,14 +540,14 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 	case "empty":
 		*self = ConfigurationStatusEmpty
 		return nil
-	case "error":
-		*self = ConfigurationStatusError
-		return nil
 	case "ok":
 		*self = ConfigurationStatusOK
 		return nil
-	case "pending":
-		*self = ConfigurationStatusPending
+	case "offline":
+		*self = ConfigurationStatusOffline
+		return nil
+	case "rebooting":
+		*self = ConfigurationStatusRebooting
 		return nil
 	case "updating":
 		*self = ConfigurationStatusUpdating

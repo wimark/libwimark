@@ -356,6 +356,7 @@ type CPE struct {
 	Gateway      string              `json:"gateway"`
 	Model        CPEModelLink        `json:"model"`
 	ConfigStatus ConfigurationStatus `json:"config_status"`
+	LastError    ModelError          `json:"last_error" bson:"last_error"`
 
 	Config CPEConfig `json:"config"`
 	State  CPEState  `json:"state"`
