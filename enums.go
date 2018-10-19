@@ -427,6 +427,8 @@ func (self *ClientStatPacketType) SetBSON(v bson.Raw) error {
 
 type ConfigurationStatus string
 
+const ConfigurationStatusDontUse1 ConfigurationStatus = "pending"
+const ConfigurationStatusDontUse2 ConfigurationStatus = "error"
 const ConfigurationStatusEmpty ConfigurationStatus = "empty"
 const ConfigurationStatusOK ConfigurationStatus = "ok"
 const ConfigurationStatusOffline ConfigurationStatus = "offline"
@@ -438,6 +440,10 @@ func (self ConfigurationStatus) GetPtr() *ConfigurationStatus { var v = self; re
 
 func (self *ConfigurationStatus) String() string {
 	switch *self {
+	case ConfigurationStatusDontUse1:
+		return "pending"
+	case ConfigurationStatusDontUse2:
+		return "error"
 	case ConfigurationStatusEmpty:
 		return "empty"
 	case ConfigurationStatusOK:
@@ -459,6 +465,10 @@ func (self *ConfigurationStatus) String() string {
 
 func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 	switch *self {
+	case ConfigurationStatusDontUse1:
+		return json.Marshal("pending")
+	case ConfigurationStatusDontUse2:
+		return json.Marshal("error")
 	case ConfigurationStatusEmpty:
 		return json.Marshal("empty")
 	case ConfigurationStatusOK:
@@ -480,6 +490,10 @@ func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 
 func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
 	switch *self {
+	case ConfigurationStatusDontUse1:
+		return "pending", nil
+	case ConfigurationStatusDontUse2:
+		return "error", nil
 	case ConfigurationStatusEmpty:
 		return "empty", nil
 	case ConfigurationStatusOK:
@@ -505,6 +519,12 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
+	case "pending":
+		*self = ConfigurationStatusDontUse1
+		return nil
+	case "error":
+		*self = ConfigurationStatusDontUse2
+		return nil
 	case "empty":
 		*self = ConfigurationStatusEmpty
 		return nil
@@ -537,6 +557,12 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
+	case "pending":
+		*self = ConfigurationStatusDontUse1
+		return nil
+	case "error":
+		*self = ConfigurationStatusDontUse2
+		return nil
 	case "empty":
 		*self = ConfigurationStatusEmpty
 		return nil

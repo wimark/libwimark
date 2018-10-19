@@ -7,6 +7,8 @@ Offline   = "offline"
 Updating  = "updating"
 Upgrading = "upgrading"
 Rebooting = "rebooting"
+DontUse1  = "pending"
+DontUse2  = "error"
 
 [Module]
 default = "None"
