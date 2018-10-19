@@ -3,14 +3,16 @@ default = "Empty"
 [ConfigurationStatus.variants]
 Empty     = "empty"
 OK        = "ok"
+Offline   = "offline"
 Updating  = "updating"
 Upgrading = "upgrading"
-Offline   = "offline"
 Rebooting = "rebooting"
 
 [Module]
+default = "None"
 [Module.variants]
 Any        = "+"
+None       = ""
 Dummy      = "DUMMY"
 Backend    = "BACKEND"
 CPE        = "CPE"
