@@ -27,6 +27,7 @@ type DBDataObj struct {
 	L2Chain         map[UUID]L2Chain          `json:"l2-chain,omitempty"`
 	CaptiveRedirect map[UUID]CaptiveRedirect  `json:"captive-redirect,omitempty"`
 	HotspotProfile  map[UUID]Hotspot20Profile `json:"hotspot-profile,omitempty"`
+	Controller      map[UUID]Controller       `json:"controller,omitempty"`
 }
 
 func (self *DBDataObj) Reset() {
@@ -52,6 +53,7 @@ type DBDataUUID struct {
 	L2Chain         []UUID `json:"l2-chain,omitempty"`
 	CaptiveRedirect []UUID `json:"captive-redirect,omitempty"`
 	HotspotProfile  []UUID `json:"hotspot-profile,omitempty"`
+	Controller      []UUID `json:"controller,omitempty"`
 }
 
 func (self *DBDataUUID) Reset() {
@@ -77,6 +79,7 @@ type DBDataMasks struct {
 	L2Chain         *SimpleMask          `json:"l2-chain,omitempty"`
 	CaptiveRedirect *SimpleMask          `json:"captive-redirect,omitempty"`
 	HotspotProfile  *SimpleMask          `json:"hotspot-profile,omitempty"`
+	Controller      *ControllerMask      `json:"controller,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {

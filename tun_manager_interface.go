@@ -2,13 +2,6 @@ package libwimark
 
 // Tun Manager
 
-type TunManagerBroadcastMeta struct {
-	Hostname       string                 `json:"hostname"`
-	HostUUID       string                 `json:"host_uuid"`
-	HostInterfaces []LinkDescriptor       `json:"active_out_interfaces"`
-	HostTunnels    []CPETunnelDescription `json:"active_cpe_tunnels"`
-}
-
 type LinkDescriptor struct {
 	LinkName   string `json:"name"`
 	LinkType   string `json:"type"`
