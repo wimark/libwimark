@@ -109,17 +109,6 @@ type DHCPCapConfig struct {
 	MsgTypeFilter []string `json:"msgtypefilter"`
 }
 
-type L2TPConfig struct {
-	Enabled        bool   `json:"enabled" bson:"enabled"`
-	HostId         UUID   `json:"host" bson:"host"`
-	HostAddr       string `json:"host_addr" bson:"host_addr"`
-	HostTunnelId   int    `json:"host_tunnel" bson:"host_tunnel"`
-	TunnelType     string `json:"tunnel_type" bson:"tunnel_type"`
-	LocalAddr      string `json:"local_addr" bson:"local_addr"`
-	LocalInterface string `json:"local_iface" bson:"local_iface"`
-	LocalTunnelId  int    `json:"local_tunnel" bson:"local_tunnel"`
-}
-
 type ScanConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
@@ -242,7 +231,6 @@ type CPEConfig struct {
 	StatisticsConfig StatisticsConfig `json:"stats_config" bson:"stats_config"`
 	LogConfig        LogConfig        `json:"log_config" bson:"log_config"`
 	DHCPCapConfig    DHCPCapConfig    `json:"dhcpcap_config" bson:"dhcpcap_config"`
-	L2TPConfig       L2TPConfig       `json:"l2tp_config" bson:"l2tp_config"`
 	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
 	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
 	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
@@ -256,6 +244,19 @@ type FirmwareState struct {
 	Version    Version            `json:"version" bson:"version"`
 	Packages   map[string]Version `json:"packages" bson:"packages"`
 	Statics    map[string]Version `json:"statics" bson:"statics"`
+}
+
+// ---- General tunnel state ----
+
+type L2TPState struct {
+	Enabled        bool   `json:"enabled" bson:"enabled"`
+	HostId         UUID   `json:"host" bson:"host"`
+	HostAddr       string `json:"host_addr" bson:"host_addr"`
+	HostTunnelId   int    `json:"host_tunnel" bson:"host_tunnel"`
+	TunnelType     string `json:"tunnel_type" bson:"tunnel_type"`
+	LocalAddr      string `json:"local_addr" bson:"local_addr"`
+	LocalInterface string `json:"local_iface" bson:"local_iface"`
+	LocalTunnelId  int    `json:"local_tunnel" bson:"local_tunnel"`
 }
 
 // ---- Wifi state ----
@@ -328,10 +329,11 @@ type WanState struct {
 // ---- CPE state ----
 
 type CPEState struct {
-	Wifi     WiFiStates    `json:"wifi,omitempty"`
-	Wired    WiredStates   `json:"wired,omitempty"`
-	Firmware FirmwareState `json:"firmware,omitempty"`
-	Wan      WanState      `json:"wan"`
+	Wifi      WiFiStates    `json:"wifi,omitempty"`
+	Wired     WiredStates   `json:"wired,omitempty"`
+	Firmware  FirmwareState `json:"firmware,omitempty"`
+	Wan       WanState      `json:"wan"`
+	L2TPState L2TPState     `json:"l2tp_state" bson:"l2tp_state"`
 }
 
 // ---- CPE itself ----
