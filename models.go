@@ -329,6 +329,7 @@ type WanState struct {
 // ---- Net state ----
 
 type NetworkState struct {
+	IPAddr  string      `json:"ipaddr"`
 	MACAddr string      `json:"macaddr"`
 	IPAddrs []IPAddress `json:"ipaddrs"`
 	Gateway string      `json:"gateway"`
