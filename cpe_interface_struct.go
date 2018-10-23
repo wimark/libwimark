@@ -284,7 +284,7 @@ func (self UciNetwork) MarshalJSON() (b []byte, e error) {
 func (self *UciNetwork) UnmarshalJSON(b []byte) error {
 	var tmp = map[string]interface{}{
 		".type:interface":   &map[string]UciNetIface{},
-		".type:tunnel":      &map[string]UciNetTunnel{},
+		".type:l2tunnel":    &map[string]UciNetTunnel{},
 		".type:switch_vlan": &map[string]UciNetSwitchVlan{},
 		//".type:switch_port": &map[string]UciNetSwitchPort{},
 	}
