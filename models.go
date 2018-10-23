@@ -252,7 +252,7 @@ type CPEConfig struct {
 // ---- Beeline config ----
 
 type BeelineConfig struct {
-	FramedIP string `json:"framed_ip" bson:"framed_ip"`
+	NASIP string `json:"nas_ip" bson:"nas_ip"`
 }
 
 // ---- Service states ----
