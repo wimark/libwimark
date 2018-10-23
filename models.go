@@ -326,6 +326,14 @@ type WanState struct {
 	Protocol  string `json:"proto" bson:"proto"`
 }
 
+// ---- Net state ----
+
+type NetworkState struct {
+	MACAddr string      `json:"macaddr"`
+	IPAddrs []IPAddress `json:"ipaddrs"`
+	Gateway string      `json:"gateway"`
+}
+
 // ---- CPE state ----
 
 type CPEState struct {
@@ -334,6 +342,7 @@ type CPEState struct {
 	Firmware  FirmwareState `json:"firmware,omitempty"`
 	Wan       WanState      `json:"wan"`
 	L2TPState L2TPState     `json:"l2tp_state" bson:"l2tp_state"`
+	Network   NetworkState  `json:"network" bson:"network"`
 }
 
 // ---- CPE itself ----
@@ -352,11 +361,6 @@ type CPE struct {
 	Name         string              `json:"name"`
 	Connected    bool                `json:"connected"`
 	Description  string              `json:"description"`
-	IPAddr       string              `json:"ipaddr"`
-	MACAddr      string              `json:"macaddr"`
-	NetMask      string              `json:"netmask"`
-	IPAddrs      []IPAddress         `json:"ipaddrs"`
-	Gateway      string              `json:"gateway"`
 	Model        CPEModelLink        `json:"model"`
 	ConfigStatus ConfigurationStatus `json:"config_status"`
 
