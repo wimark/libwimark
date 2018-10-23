@@ -246,6 +246,13 @@ type CPEConfig struct {
 	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
 	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
 	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
+	Beeline          BeelineConfig    `json:"beeline_config" bson:"beeline_config"`
+}
+
+// ---- Beeline config ----
+
+type BeelineConfig struct {
+	FramedIP string `json:"framed_ip" bson:"framed_ip"`
 }
 
 // ---- Service states ----
