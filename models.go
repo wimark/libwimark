@@ -76,6 +76,13 @@ type WLAN struct {
 	NATNetwork         IPAddress            `json:"nat_network" bson:"nat_network"`
 }
 
+type WLANCompact struct {
+	Name        string `json:"name" bson:"name"`
+	SSID        string `json:"ssid" bson:"ssid"`
+	Description string `json:"description" bson:"description"`
+	// Security    EnumSecurity `json:"security" bson:"security"`
+}
+
 // ==== CPE ====
 
 // ---- Service configs ----
@@ -236,6 +243,14 @@ type CPEConfig struct {
 	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
 }
 
+type CPEConfigItemCompact struct {
+	Enabled bool `json:"enabled" bson:"enabled"`
+}
+
+type CPEConfigCompact struct {
+	LbsConfig CPEConfigItemCompact `json:"lbs_config" bson:"lbs_config"`
+}
+
 // ---- Service states ----
 
 type FirmwareState struct {
@@ -335,6 +350,11 @@ type NetworkState struct {
 	Gateway string      `json:"gateway"`
 }
 
+type NetworkStateCompact struct {
+	IPAddr  string `json:"ipaddr" bson:"ipaddr"`
+	MACAddr string `json:"macaddr" bson:"macaddr"`
+}
+
 // ---- CPE state ----
 
 type CPEState struct {
@@ -344,6 +364,10 @@ type CPEState struct {
 	Wan       WanState      `json:"wan"`
 	L2TPState L2TPState     `json:"l2tp_state" bson:"l2tp_state"`
 	Network   NetworkState  `json:"network" bson:"network"`
+}
+
+type CPEStateCompact struct {
+	Network NetworkStateCompact `json:"network" bson:"network"`
 }
 
 // ---- CPE itself ----
@@ -367,6 +391,17 @@ type CPE struct {
 
 	Config CPEConfig `json:"config"`
 	State  CPEState  `json:"state"`
+}
+
+type CPECompact struct {
+	Name         string              `json:"name" bson:"name"`
+	Connected    bool                `json:"connected" bson:"connected"`
+	Description  string              `json:"description" bson:"description"`
+	Model        CPEModelLink        `json:"model" bson:"model"`
+	ConfigStatus ConfigurationStatus `json:"config_status" bson:"configstatus"`
+
+	Config CPEConfigCompact `json:"config" bson:"config"`
+	State  CPEStateCompact  `json:"state" bson:"state"`
 }
 
 // ==== Capabilities ====
