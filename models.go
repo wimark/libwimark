@@ -364,6 +364,7 @@ type CPEState struct {
 	Wan       WanState      `json:"wan"`
 	L2TPState L2TPState     `json:"l2tp_state" bson:"l2tp_state"`
 	Network   NetworkState  `json:"network" bson:"network"`
+	Tunnels   TunnelConfigs `json:"tunnels" bson:"tunnels"`
 }
 
 type CPEStateCompact struct {
