@@ -312,8 +312,9 @@ func DefaultLoggedEvent(msg LogMsg) MQTTMessage {
 			Type:         SystemEventTypeLoggedError,
 		},
 		D: SystemEvent{
-			Timestamp: msg.Timestamp.Unix(),
-			Level:     msg.Level,
+			Timestamp:   msg.Timestamp.Unix(),
+			Level:       msg.Level,
+			Description: msg.Message,
 			SystemEventObject: SystemEventObject{
 				Type: SystemEventTypeLoggedError,
 				Data: ModelError{
