@@ -59,6 +59,7 @@ type WLAN struct {
 	VLAN               int                  `json:"vlan"`
 	Hidden             bool                 `json:"hidden"`
 	NasID              *string              `json:"nas_id"`
+	NasPortID          string               `json:"nas_port_id" bson:"nas_port_id"`
 	RadiusAcctServers  []UUID               `json:"radius_acct_servers"`
 	RadiusAcctInterval int                  `json:"radius_acct_interval"`
 	WhiteList          []string             `json:"whitelist"`

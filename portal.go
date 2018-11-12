@@ -1,7 +1,8 @@
 package libwimark
 
 type GuestControlSettings struct {
-	CaptiveRedirect UUID `json:"captive_redirect" bson:"captive_redirect"`
+	CaptiveRedirect UUID   `json:"captive_redirect" bson:"captive_redirect"`
+	MACAuth         []UUID `json:"mac_radius_auth_servers" bson:"mac_radius_auth_servers"`
 }
 
 type DnsAddress struct {
