@@ -64,12 +64,13 @@ type RedirectClientSession struct {
 	Timeout   int64 `json:"timeout" bson:"timeout"`
 
 	// data from acct start
+	UserName         string `json:"User-Name"`
 	CallingStationId string `json:"Calling-Station-Id"`
 	CalledStationId  string `json:"Called-Station-Id"`
 	NasIdentifier    string `json:"NAS-Identifier"`
 	NasIPAddress     string `json:"NAS-IP-Address"`
 	FramedIPAddress  string `json:"Framed-IP-Address"`
-	UserName         string `json:"User-Name"`
+	UserQosGroup     string `json:"Qos-Group"`
 
 	// data for interim update and acct stop
 	AcctSessionTime     int `json:"Acct-Session-Time"`
