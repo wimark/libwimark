@@ -349,10 +349,10 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) err
 			return err
 		}
 		var newflt []TrafficFilter
-		if len(qos.Class.Filters) == 0 {
+		if len(qos.Filters) == 0 {
 			newflt = []TrafficFilter{TrafficFilter{}}
 		} else {
-			newflt = qos.Class.Filters
+			newflt = qos.Filters
 		}
 		var acts []Action
 		if qos.Block {

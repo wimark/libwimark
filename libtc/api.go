@@ -6,18 +6,13 @@ import (
 )
 
 type TrafficFilter struct {
-	SrcAddr string `yaml:"src_addr"`
-	SrcMask string `yaml:"src_mask"`
-	SrcPort int    `yaml:"src_port"`
-	DstAddr string `yaml:"dst_addr"`
-	DstMask string `yaml:"dst_mask"`
-	DstPort int    `yaml:"dst_port"`
-	ToS     int    `yaml:"tos"`
-}
-
-type TrafficClass struct {
-	Name    string          `yaml:"name"`
-	Filters []TrafficFilter `yaml:"filters"`
+	SrcAddr string `yaml:"src_addr" json:"src_addr" bson:"src_addr"`
+	SrcMask string `yaml:"src_mask" json:"src_mask" bson:"src_mask"`
+	SrcPort int    `yaml:"src_port" json:"src_port" bson:"src_port"`
+	DstAddr string `yaml:"dst_addr" json:"dst_addr" bson:"dst_addr"`
+	DstMask string `yaml:"dst_mask" json:"dst_mask" bson:"dst_mask"`
+	DstPort int    `yaml:"dst_port" json:"dst_port" bson:"dst_port"`
+	ToS     int    `yaml:"tos" json:"tos" bson:"tos"`
 }
 
 type RateType string
@@ -32,16 +27,16 @@ const (
 )
 
 type QosItem struct {
-	Class    TrafficClass `yaml:"class"`
-	Block    bool         `yaml:"block"`
-	Rate     int          `yaml:"rate"`
-	RateType RateType     `yaml:"rate_type"` // what-per-second
+	Filters  []TrafficFilter `yaml:"filters" json:"filters" bson:"filters"`
+	Block    bool            `yaml:"block" json:"block" bson:"block"`
+	Rate     int             `yaml:"rate" json:"rate" bson:"rate"`
+	RateType RateType        `yaml:"rate_type" json:"rate_type" bson:"rate_type"` // what-per-second
 }
 
 type UserClass struct {
-	Name   string    `yaml:"name"`
-	QosIn  []QosItem `yaml:"qos_in"`
-	QosOut []QosItem `yaml:"qos_out"`
+	Name   string    `yaml:"name" json:"name" bson:"name"`
+	QosIn  []QosItem `yaml:"qos_in" json:"qos_in" bson:"qos_in"`
+	QosOut []QosItem `yaml:"qos_out" json:"qos_out" bson:"qos_out"`
 }
 
 type User struct {
