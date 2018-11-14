@@ -1,7 +1,7 @@
 package libwimark
 
 import (
-	tc "bitbucket.org/wimarksystems/wbras/libtc"
+	tc "bitbucket.org/wimarksystems/libwimark/libtc"
 )
 
 type GuestControlSettings struct {
@@ -21,6 +21,6 @@ type CaptiveRedirect struct {
 	MACWhiteList []string     `json:"mac_list" bson:"mac_list"`
 	URLWhiteList []DnsAddress `json:"url_list" bson:"url_list"`
 
-	DefaultProfile string                  `json:"default_class" bson:"default_class"`
+	DefaultProfile string                  `json:"default_profile" bson:"default_profile"`
 	Profiles       map[string]tc.UserClass `json:"user_profiles" bson:"user_profiles"`
 }
