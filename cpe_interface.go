@@ -137,8 +137,6 @@ type CPEAgentStatus struct {
 	TunnelType   string                 `json:"tunnel"`
 }
 
-type CPEAgentPackages map[string]string
-
 // for firmware:*
 type CPEFirmwareUpgradeParams struct {
 	Config       CPEFirmwareConfig `json:"config"`
