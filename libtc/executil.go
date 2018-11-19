@@ -42,6 +42,14 @@ func s2i(s string) int {
 	return 0
 }
 
+func hex2uint(s string) uint32 {
+	var i, e = strconv.ParseUint(s, 16, 0)
+	if e == nil {
+		return uint32(i)
+	}
+	return 0
+}
+
 func i2hex(i int) string {
 	return strconv.FormatInt(int64(i), 16)
 }

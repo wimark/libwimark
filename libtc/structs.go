@@ -13,6 +13,7 @@ type Action struct {
 
 type FilterSpec interface {
 	Handle() string
+	Id() int
 	MakeAddParams() []string
 	MakeDelParams() []string
 	ParseParams([]string, *Filter) error
