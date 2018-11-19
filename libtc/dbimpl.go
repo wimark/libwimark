@@ -3,6 +3,7 @@ package libtc
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 type innerDb struct {
@@ -60,6 +61,59 @@ func (db *Database) commit() error {
 		return err
 	}
 	return nil
+}
+
+func (db *Database) parseInterfaces() {
+
+	for ifname, iface := range db.ifaces {
+		var state ifaceState
+		if st, ok := db.states[ifname]; ok {
+			state = st
+		} else {
+			state = ifaceState{
+				users: map[string]innerRes{},
+				qdisc: map[int]innerRes{},
+				dir:   DIR_NONE,
+			}
+		}
+		var defFound = false
+		for qid, qdisc := range iface.Discs {
+			if state.qdisc[qid].classes == nil {
+				state.qdisc[qid] = innerRes{
+					filters: map[int]bool{},
+					classes: map[int]bool{},
+				}
+			}
+			if qid == 0 {
+				iface.DefaultDiscs = append(iface.DefaultDiscs, qdisc)
+				defFound = true
+				continue
+			}
+			for cid, _ := range qdisc.Classes {
+				state.qdisc[qid].classes[cid] = true
+			}
+			for _, filter := range qdisc.Filters {
+				var addr, dir = joinMac(filter)
+				if len(addr) == 0 {
+					continue
+				}
+				state.dir = dir
+				if state.users[addr].classes == nil {
+					state.users[addr] = innerRes{
+						filters: map[int]bool{},
+						classes: map[int]bool{},
+					}
+				}
+				state.qdisc[qid].filters[filter.Spec.Id()] = true
+				state.users[addr].classes[filter.ToClass] = true
+				state.users[addr].filters[filter.Spec.Id()] = true
+			}
+		}
+		if defFound {
+			delete(iface.Discs, 0)
+		}
+		db.states[ifname] = state
+	}
 }
 
 func (db *Database) initIface(ifname string, dir int, clsname string) {
@@ -561,6 +615,46 @@ func splitMac(mac string, dir int) macIndex {
 			listId:   mac,
 		},
 	}
+}
+
+func joinMac(filter Filter) (string, int) {
+
+	if filter.Type != FILTER_U32 || filter.ToClass == 0 || filter.Parent == ROOT_DISC_HANDLE {
+		return "", DIR_NONE
+	}
+	var mac [6]int
+
+	var class = (filter.ToClass - 1) >> 3
+	var parent = filter.Parent - 1
+
+	mac[5] = parent & 0xff
+	mac[4] = (parent >> 8) + (class & 0x0f << 4)
+	mac[3] = class >> 4
+
+	var spec = filter.Spec.(*FilterU32)
+	var dir = DIR_NONE
+	for _, match := range spec.Match {
+		if match.Offset < 0 {
+			if match.Offset == -8 {
+				dir = DIR_OUT
+				mac[2] = int(match.Value & 0xff)
+				mac[1] = int((match.Value >> 8) & 0xff)
+				mac[0] = int(match.Value >> 16)
+			} else if match.Offset == -12 {
+				dir = DIR_IN
+				mac[2] = int(match.Value >> 24)
+			} else if match.Offset == -16 {
+				dir = DIR_IN
+				mac[1] = int(match.Value & 0xff)
+				mac[0] = int((match.Value >> 8) & 0xff)
+			}
+		}
+	}
+	var res []string
+	for _, i := range mac {
+		res = append(res, fmt.Sprintf("%02x", i))
+	}
+	return strings.Join(res, ":"), dir
 }
 
 func (db *Database) addUser(ifname, mac, clsname string, dir int) {

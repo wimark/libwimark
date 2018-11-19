@@ -90,6 +90,7 @@ type Database struct {
 
 func (db *Database) SetInterfaces(ifaces map[string]Iface) {
 	db.ifaces = ifaces
+	db.parseInterfaces()
 }
 
 func (db *Database) Load() error {

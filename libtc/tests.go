@@ -325,7 +325,6 @@ func ExecTest() error {
 func ApiTest(filename string) error {
 
 	var DB = Database{Tc: &ExecTcBind{}}
-	fmt.Println(DB, DB.Tc)
 	if err := DB.Load(); err != nil {
 		return err
 	}
