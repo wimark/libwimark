@@ -51,7 +51,7 @@ type innerRes struct {
 }
 
 type ifaceState struct {
-	users map[int]innerRes
+	users map[string]innerRes
 	qdisc map[int]innerRes
 	dir   int
 }

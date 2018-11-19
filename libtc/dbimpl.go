@@ -69,7 +69,7 @@ func (db *Database) initIface(ifname string, dir int, clsname string) {
 	var iface = db.ifaces[ifname]
 	var class = db.classes[clsname]
 	db.states[ifname] = ifaceState{
-		users: map[int]innerRes{},
+		users: map[string]innerRes{},
 		qdisc: map[int]innerRes{},
 		dir:   dir,
 	}
@@ -145,9 +145,9 @@ func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) {
 	var state = db.states[iface.Name]
 	if state.qdisc == nil {
 		state.qdisc = map[int]innerRes{}
-		state.users = map[int]innerRes{}
+		state.users = map[string]innerRes{}
 	}
-	if cfg.listId != -1 {
+	if len(cfg.listId) != 0 {
 		state.users[cfg.listId] = innerRes{
 			filters: map[int]bool{},
 			classes: map[int]bool{},
@@ -292,7 +292,7 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) {
 	var clsNum = cfg.class
 	var filtNum = 1
 	for _, qos := range newqos {
-		if cfg.listId != -1 {
+		if len(cfg.listId) != 0 {
 			for ; clsNum < cfg.classLim; clsNum++ {
 				if _, ok := state.qdisc[cfg.disc].classes[clsNum]; !ok {
 					break
@@ -331,7 +331,7 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) {
 			acts = append(acts, Action{Type: "drop"})
 		}
 		for _, filter := range newflt {
-			if cfg.listId != -1 {
+			if len(cfg.listId) != 0 {
 				for ; filtNum <= MAX_FILTER_NUM; filtNum++ {
 					if _, ok := state.qdisc[cfg.disc].filters[filtNum]; !ok {
 						break
@@ -450,7 +450,7 @@ type qdiscCfgForMac struct {
 	rsample  FilterU32Match
 	lsample  FilterU32Match
 	match    []FilterU32Match
-	listId   int
+	listId   string
 }
 
 type macIndex struct {
@@ -545,7 +545,6 @@ func splitMac(mac string, dir int) macIndex {
 			lhash:   rbFilt,
 			rsample: rtFilt,
 			lsample: rbFilt,
-			listId:  -1,
 		},
 		leaf: qdiscCfgForMac{
 			disc:     root_table + root_bucket<<8 + 1,
@@ -559,7 +558,7 @@ func splitMac(mac string, dir int) macIndex {
 			rsample:  ltFilt,
 			lsample:  lbFilt,
 			match:    match,
-			listId:   list_part,
+			listId:   mac,
 		},
 	}
 }
