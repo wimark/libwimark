@@ -7,5 +7,5 @@ import (
 )
 
 func TestExec(t *testing.T) {
-	assert.NoError(ExecTest())
+	assert.NoError(t, ExecTest())
 }

@@ -37,31 +37,37 @@ var UNLIM_QOS_OPTIONS = []Option{
 
 func (db *Database) init() error {
 
-	var ifaces, err = GetIfaces()
-	if err != nil {
+	if db.Tc == nil {
+		return errors.New("No tc driver")
+	}
+	db.Tc.Init(db)
+
+	db.Tc.Prepare()
+	db.Tc.Get()
+
+	db.classes = map[string]UserClass{}
+	db.ifaces = map[string]Iface{}
+	db.states = map[string]ifaceState{}
+	db.users = map[string]User{}
+	db.ready = true
+
+	return db.Tc.Commit()
+}
+
+func (db *Database) commit() error {
+	if err := db.Tc.Commit(); err != nil {
+		//rollback
 		return err
 	}
-
-	*db = Database{
-		classes: map[string]UserClass{},
-		ifaces:  ifaces,
-		states:  map[string]ifaceState{},
-		users:   map[string]User{},
-		ready:   true,
-	}
-
 	return nil
 }
 
-func (db *Database) initIface(ifname string, dir int, clsname string) error {
+func (db *Database) initIface(ifname string, dir int, clsname string) {
 
-	if err := db.deinitIface(ifname); err != nil {
-		return err
-	}
+	db.deinitIface(ifname)
 
 	var iface = db.ifaces[ifname]
 	var class = db.classes[clsname]
-	var err error
 	db.states[ifname] = ifaceState{
 		users: map[int]innerRes{},
 		qdisc: map[int]innerRes{},
@@ -75,10 +81,7 @@ func (db *Database) initIface(ifname string, dir int, clsname string) error {
 		qos = class.QosOut
 	}
 
-	err = cfgQdisc(db, &iface, splitMac("", dir).root)
-	if err != nil {
-		return err
-	}
+	cfgQdisc(db, &iface, splitMac("", dir).root)
 
 	var newqos QosItem
 	if len(qos) == 0 {
@@ -93,7 +96,7 @@ func (db *Database) initIface(ifname string, dir int, clsname string) error {
 		acts = append(acts, Action{Type: "drop"})
 	}
 	// unauth filter
-	err = AddFilter(&iface, Filter{
+	db.Tc.AddFilter(&iface, Filter{
 		Type:     "u32",
 		Protocol: "all",
 		Spec: &FilterU32{
@@ -109,36 +112,25 @@ func (db *Database) initIface(ifname string, dir int, clsname string) error {
 		Actions: acts,
 		Prio:    1,
 	})
-	if err != nil {
-		return err
-	}
 	// unauth class
-	err = AddClass(&iface, Class{
+	db.Tc.AddClass(&iface, Class{
 		Handle:     UNAUTH_CLASS_HANDLE,
 		ParentDisc: ROOT_DISC_HANDLE,
 		Options:    qos2rates(newqos),
 	})
-	if err != nil {
-		return err
-	}
 
 	db.ifaces[ifname] = iface
-	return nil
 }
 
-func (db *Database) deinitIface(ifname string) error {
+func (db *Database) deinitIface(ifname string) {
 
 	var iface = db.ifaces[ifname]
-	var err error
 	delete(db.states, ifname)
 
 	// drop all (but ingress)
 	// empty QDisc has zero parent => it's root
 	if len(iface.Discs) != 0 {
-		err = DelQdisc(&iface, QDisc{})
-		if err != nil {
-			return err
-		}
+		db.Tc.DelQdisc(&iface, QDisc{})
 		for key, val := range iface.Discs {
 			if val.Type != INGRESS_VALUE {
 				delete(iface.Discs, key)
@@ -146,12 +138,10 @@ func (db *Database) deinitIface(ifname string) error {
 		}
 	}
 	db.ifaces[ifname] = iface
-	return nil
 }
 
-func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) error {
+func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) {
 
-	var err error
 	var state = db.states[iface.Name]
 	if state.qdisc == nil {
 		state.qdisc = map[int]innerRes{}
@@ -165,7 +155,7 @@ func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) error {
 	}
 	if _, ok := iface.Discs[cfg.disc]; ok {
 		db.states[iface.Name] = state
-		return nil
+		return
 	}
 	state.qdisc[cfg.disc] = innerRes{
 		filters: map[int]bool{},
@@ -179,7 +169,7 @@ func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) error {
 	//	handle QDISC:
 	//	htb
 	//		default ffff
-	err = AddQdisc(iface, QDisc{
+	db.Tc.AddQdisc(iface, QDisc{
 		Type:        QDISC_HTB,
 		Handle:      cfg.disc,
 		ParentDisc:  cfg.pdisc,
@@ -191,9 +181,6 @@ func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) error {
 			},
 		},
 	})
-	if err != nil {
-		return err
-	}
 	// base filter table
 	// tc filter add
 	//	dev DEV
@@ -202,7 +189,7 @@ func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) error {
 	//	handle 7ff:
 	//	u32
 	//		divisor 256
-	err = AddFilter(iface, Filter{
+	db.Tc.AddFilter(iface, Filter{
 		Type:     "u32",
 		Protocol: "ip",
 		Spec: &FilterU32{
@@ -212,9 +199,6 @@ func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) error {
 		Parent: cfg.disc,
 		Prio:   100,
 	})
-	if err != nil {
-		return err
-	}
 	// root filter
 	// in: DEV, QDISC, LINK, HASH
 	// tc filter add
@@ -225,7 +209,7 @@ func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) error {
 	//		link 7ff:
 	//		match u8 0x00 0x00 at 0
 	//		hash HASH
-	err = AddFilter(iface, Filter{
+	db.Tc.AddFilter(iface, Filter{
 		Type:     "u32",
 		Protocol: "ip",
 		Spec: &FilterU32{
@@ -235,19 +219,15 @@ func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) error {
 		Parent: cfg.disc,
 		Prio:   100,
 	})
-	if err != nil {
-		return err
-	}
 	db.states[iface.Name] = state
-	return nil
 }
 
-func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) error {
+func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) {
 
-	var err error
 	var qdisc, ok = iface.Discs[cfg.disc]
 	if !ok {
-		return errors.New("No qdisc")
+		db.Tc.Error(errors.New("No qdisc"))
+		return
 	}
 	var state = db.states[iface.Name]
 
@@ -278,10 +258,7 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) err
 	}
 	if !ok {
 		// create table
-		err = AddFilter(iface, table)
-		if err != nil {
-			return err
-		}
+		db.Tc.AddFilter(iface, table)
 		//  create filter to table
 		// tc filter add
 		//	dev DEV
@@ -293,7 +270,7 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) err
 		//		hash LHASH
 		//		sample RSAMPLE
 		//		match ALL
-		err = AddFilter(iface, Filter{
+		db.Tc.AddFilter(iface, Filter{
 			Type:     "u32",
 			Protocol: "ip",
 			Spec: &FilterU32{
@@ -305,9 +282,6 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) err
 			Parent: cfg.disc,
 			Prio:   100,
 		})
-		if err != nil {
-			return err
-		}
 	}
 
 	var newqos = qos
@@ -325,7 +299,8 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) err
 				}
 			}
 			if clsNum >= cfg.classLim {
-				return errors.New("Class limit")
+				db.Tc.Error(errors.New("Class limit"))
+				return
 			}
 			state.qdisc[cfg.disc].classes[clsNum] = true
 			state.users[cfg.listId].classes[clsNum] = true
@@ -340,14 +315,11 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) err
 		//	classid QDISC:CLASS+classNum
 		//	htb
 		//		rate RATE ceil CEIL
-		err = AddClass(iface, Class{
+		db.Tc.AddClass(iface, Class{
 			Handle:     clsNum,
 			ParentDisc: cfg.disc,
 			Options:    qos2rates(qos),
 		})
-		if err != nil {
-			return err
-		}
 		var newflt []TrafficFilter
 		if len(qos.Filters) == 0 {
 			newflt = []TrafficFilter{TrafficFilter{}}
@@ -366,7 +338,8 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) err
 					}
 				}
 				if filtNum > MAX_FILTER_NUM {
-					return errors.New("Filter limit")
+					db.Tc.Error(errors.New("Filter limit"))
+					return
 				}
 				state.qdisc[cfg.disc].filters[filtNum] = true
 				state.users[cfg.listId].filters[filtNum] = true
@@ -382,7 +355,7 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) err
 			//		match FILTER
 			//		sample LSAMPLE
 			//		classid QDISC:CLASS+
-			err = AddFilter(iface, Filter{
+			db.Tc.AddFilter(iface, Filter{
 				Type:     "u32",
 				Protocol: "ip",
 				Spec: &FilterU32{
@@ -397,14 +370,9 @@ func cfgClass(db *Database, iface *Iface, cfg qdiscCfgForMac, qos []QosItem) err
 				Actions: acts,
 				Prio:    100,
 			})
-			if err != nil {
-				return err
-			}
 		}
 	}
 	db.states[iface.Name] = state
-
-	return err
 }
 
 func qos2rates(qos QosItem) []Option {
@@ -596,15 +564,15 @@ func splitMac(mac string, dir int) macIndex {
 	}
 }
 
-func (db *Database) addUser(ifname, mac, clsname string, dir int) error {
+func (db *Database) addUser(ifname, mac, clsname string, dir int) {
 
-	var err error
 	var iface = db.ifaces[ifname]
 	var qos []QosItem
 	var index = splitMac(mac, dir)
 
 	if i, ok := db.states[ifname]; ok && (i.dir != dir) {
-		return errors.New("Trying to turn interface inside out")
+		db.Tc.Error(errors.New("Trying to turn interface inside out"))
+		return
 	}
 	switch dir {
 	case DIR_IN:
@@ -613,26 +581,15 @@ func (db *Database) addUser(ifname, mac, clsname string, dir int) error {
 		qos = db.classes[clsname].QosOut
 	}
 
-	err = cfgClass(db, &iface, index.root, []QosItem{})
-	if err != nil {
-		return err
-	}
-	err = cfgQdisc(db, &iface, index.leaf)
-	if err != nil {
-		return err
-	}
-	err = cfgClass(db, &iface, index.leaf, qos)
-	if err != nil {
-		return err
-	}
+	cfgClass(db, &iface, index.root, []QosItem{})
+	cfgQdisc(db, &iface, index.leaf)
+	cfgClass(db, &iface, index.leaf, qos)
+	db.Tc.Get()
 	db.ifaces[ifname] = iface
-
-	return nil
 }
 
-func (db *Database) delUser(ifname, mac string) error {
+func (db *Database) delUser(ifname, mac string) {
 
-	var err error
 	var iface = db.ifaces[ifname]
 	var state = db.states[ifname]
 	var index = splitMac(mac, DIR_IN) // only hash/sample/match depend on dir
@@ -647,31 +604,18 @@ func (db *Database) delUser(ifname, mac string) error {
 	}
 
 	for _, flt := range fltToRm {
-		err = DelFilter(&iface, flt)
-		if err != nil {
-			return err
-		}
+		db.Tc.DelFilter(&iface, flt)
 	}
 	for cls, _ := range res.classes {
-		err = DelClass(&iface, qdisc.Classes[cls])
-		if err != nil {
-			return err
-		}
+		db.Tc.DelClass(&iface, qdisc.Classes[cls])
 	}
 
 	db.ifaces[ifname] = iface
 	db.states[ifname] = state
-
-	return nil
 }
 
-func (db *Database) changeUser(ifname, mac, clsname string) error {
+func (db *Database) changeUser(ifname, mac, clsname string) {
 
-	if err := db.delUser(ifname, mac); err != nil {
-		return err
-	}
-	if err := db.addUser(ifname, mac, clsname, db.states[ifname].dir); err != nil {
-		return err
-	}
-	return nil
+	db.delUser(ifname, mac)
+	db.addUser(ifname, mac, clsname, db.states[ifname].dir)
 }

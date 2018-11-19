@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	tc "bitbucket.org/wimarksystems/wbras/libtc"
+	tc "bitbucket.org/wimarksystems/libwimark/libtc"
 )
 
 const classes_file = "../classes.yaml"

@@ -62,6 +62,22 @@ const (
 	DIR_NONE = 0
 )
 
+type TcBind interface {
+	AddFilter(dev *Iface, f Filter)
+	AddClass(dev *Iface, c Class)
+	AddQdisc(dev *Iface, qdisc QDisc)
+	DelFilter(dev *Iface, f Filter)
+	DelClass(dev *Iface, c Class)
+	DelQdisc(dev *Iface, qdisc QDisc)
+	Get()
+
+	Prepare()
+	Commit() error
+	Error(err error)
+
+	Init(db *Database)
+}
+
 type Database struct {
 	users   map[string]User
 	ifaces  map[string]Iface
@@ -69,6 +85,11 @@ type Database struct {
 	states  map[string]ifaceState
 	mutex   sync.Mutex
 	ready   bool
+	Tc      TcBind
+}
+
+func (db *Database) SetInterfaces(ifaces map[string]Iface) {
+	db.ifaces = ifaces
 }
 
 func (db *Database) Load() error {
@@ -78,6 +99,7 @@ func (db *Database) Load() error {
 func (db *Database) Close() error {
 	db.mutex.Lock()
 	defer db.mutex.Unlock()
+	db.Tc.Prepare()
 
 	for uname, user := range db.users {
 		user.Ifaces = []string{}
@@ -85,16 +107,15 @@ func (db *Database) Close() error {
 	}
 
 	for ifname, _ := range db.ifaces {
-		if err := db.deinitIface(ifname); err != nil {
-			return err
-		}
+		db.deinitIface(ifname)
 	}
-	return nil
+	return db.commit()
 }
 
 func (db *Database) InitIface(iface string, dir int, clsname string) error {
 	db.mutex.Lock()
 	defer db.mutex.Unlock()
+
 	if !db.ready {
 		return errors.New("Data dont loaded")
 	}
@@ -104,7 +125,9 @@ func (db *Database) InitIface(iface string, dir int, clsname string) error {
 	if _, ok := db.classes[clsname]; !ok {
 		return errors.New("Default class doesnt exist")
 	}
-	return db.initIface(iface, dir, clsname)
+	db.Tc.Prepare()
+	db.initIface(iface, dir, clsname)
+	return db.commit()
 }
 
 func (db *Database) DeinitIface(ifname string) error {
@@ -116,7 +139,7 @@ func (db *Database) DeinitIface(ifname string) error {
 	if _, ok := db.ifaces[ifname]; !ok {
 		return errors.New("Interface doesnt exist")
 	}
-
+	db.Tc.Prepare()
 	for uname, user := range db.users {
 		var newifaces []string
 		for _, iface := range user.Ifaces {
@@ -128,7 +151,8 @@ func (db *Database) DeinitIface(ifname string) error {
 		db.users[uname] = user
 	}
 
-	return db.deinitIface(ifname)
+	db.deinitIface(ifname)
+	return db.commit()
 }
 
 func (db *Database) NewUser(mac string, class string) error {
@@ -188,14 +212,11 @@ func (db *Database) AssignUser(iface_in, iface_out string, mac string) error {
 	} else {
 		return errors.New("User doesnt exist")
 	}
-	if err := db.addUser(iface_in, mac, u.Class, DIR_IN); err != nil {
-		return err
-	}
-	if err := db.addUser(iface_out, mac, u.Class, DIR_OUT); err != nil {
-		return err
-	}
+	db.Tc.Prepare()
+	db.addUser(iface_in, mac, u.Class, DIR_IN)
+	db.addUser(iface_out, mac, u.Class, DIR_OUT)
 	db.users[mac] = u
-	return nil
+	return db.commit()
 }
 
 func (db *Database) DeassignUser(iface string, mac string) error {
@@ -209,6 +230,7 @@ func (db *Database) DeassignUser(iface string, mac string) error {
 	if !ok {
 		return errors.New("User not found")
 	}
+	db.Tc.Prepare()
 	for index, i := range u.Ifaces {
 		if i == iface {
 			u.Ifaces = append(u.Ifaces[:index], u.Ifaces[index+1:]...)
@@ -217,10 +239,10 @@ func (db *Database) DeassignUser(iface string, mac string) error {
 			} else {
 				db.users[mac] = u
 			}
-			return db.delUser(iface, mac)
+			db.delUser(iface, mac)
 		}
 	}
-	return nil
+	return db.commit()
 }
 
 func (db *Database) DelUser(mac string) error {
@@ -234,13 +256,12 @@ func (db *Database) DelUser(mac string) error {
 	if !ok {
 		return errors.New("User not found")
 	}
+	db.Tc.Prepare()
 	for _, i := range u.Ifaces {
-		if err := db.delUser(i, mac); err != nil {
-			return err
-		}
+		db.delUser(i, mac)
 	}
 	delete(db.users, mac)
-	return nil
+	return db.commit()
 }
 
 func (db *Database) ChangeUser(mac string, class string) error {
@@ -257,12 +278,11 @@ func (db *Database) ChangeUser(mac string, class string) error {
 	if u.Class == class {
 		return nil
 	}
+	db.Tc.Prepare()
 	for _, iface := range u.Ifaces {
-		if err := db.changeUser(iface, mac, class); err != nil {
-			return err
-		}
+		db.changeUser(iface, mac, class)
 	}
-	return nil
+	return db.commit()
 }
 
 func (db *Database) AddClass(class UserClass) error {
@@ -300,19 +320,18 @@ func (db *Database) DelClass(classname string, withusers bool) error {
 	if !withusers && len(users) != 0 {
 		return errors.New("Dont del class with users")
 	}
+	db.Tc.Prepare()
 	for _, mac := range users {
 		mac = normalizeMac(mac)
 		var user = db.users[mac]
 		for _, i := range user.Ifaces {
-			if err := db.delUser(i, mac); err != nil {
-				return err
-			}
+			db.delUser(i, mac)
 		}
 		delete(db.users, mac)
 	}
 
 	delete(db.classes, classname)
-	return nil
+	return db.commit()
 }
 
 func (db *Database) ChangeClass(class UserClass, withusers bool) error {
@@ -323,4 +342,6 @@ func (db *Database) ChangeClass(class UserClass, withusers bool) error {
 	}
 	// TODO
 	return errors.New("Not implemented")
+	db.Tc.Prepare()
+	return db.commit()
 }

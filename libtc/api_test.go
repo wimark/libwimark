@@ -7,5 +7,5 @@ import (
 )
 
 func TestApi(t *testing.T) {
-	assert.NoError(ApiTest())
+	assert.NoError(t, ApiTest())
 }
