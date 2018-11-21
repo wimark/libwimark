@@ -34,10 +34,11 @@ type ClientStatMask struct {
 }
 
 type CPEMask struct {
-	UUID        []UUID `json:"uuid"`
-	HasWLANs    []UUID `json:"has_wlans"`
-	Connected   *bool  `json:"connected"`
-	HasL2Chains []UUID `json:"has_l2chains"`
+	UUID          []UUID   `json:"uuid"`
+	HasWLANs      []UUID   `json:"has_wlans"`
+	Connected     *bool    `json:"connected"`
+	HasL2Chains   []UUID   `json:"has_l2chains"`
+	HasController []string `json:"has_controller"`
 }
 
 type WLANMask struct {
@@ -95,4 +96,9 @@ type ConfigRuleMask struct {
 	HasL2Chains []UUID `json:"has_l2chains"`
 	Auto        *bool  `json:"is_auto"`
 	Always      *bool  `json:"is_always"`
+}
+
+type ControllerMask struct {
+	UUID    []UUID `json:"uuid"`
+	Enabled *bool  `json:"is_enabled"`
 }

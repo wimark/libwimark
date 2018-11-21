@@ -337,8 +337,9 @@ type CPEState struct {
 // ---- CPE itself ----
 
 type CPEModelLink struct {
-	Id   UUID   `json:"id"`
-	Name string `json:"name"`
+	Id        UUID   `json:"id"`
+	Name      string `json:"name"`
+	ShortName string `json:"short"`
 }
 
 type IPAddress struct {
