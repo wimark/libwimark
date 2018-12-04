@@ -11,14 +11,14 @@ import (
 
 func execute(name string, params ...string) ([]string, error) {
 
-	fmt.Println("  Exec", name, params)
+	fmt.Printf("  Exec: %s %s\n", name, strings.Join(params, " "))
 	var cmd = exec.Command(name, params...)
 	var out, eout bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &eout
 	err := cmd.Run()
 	if err != nil {
-		fmt.Println("  Error", err.Error(), eout.String())
+		fmt.Printf("  Error: %s %s\n", err.Error(), eout.String())
 		return nil, err
 	}
 

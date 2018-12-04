@@ -633,6 +633,8 @@ func splitMac(mac string, dir int) macIndex {
 func splitIp(ip string, dir int) macIndex {
 	var octets = parseIp(ip)
 
+	fmt.Printf("Octets: %+v\n", octets)
+
 	var index_part = octets[3] + (octets[2] << 8) + (octets[1] << 16)
 	var list_part = octets[0]
 
@@ -658,7 +660,7 @@ func splitIp(ip string, dir int) macIndex {
 		}
 		ltFilt = FilterU32Match{
 			Value:  uint32(leaf_table),
-			Mask:   mask(8, 0),
+			Mask:   mask(8, 16),
 			Offset: 16,
 		}
 		lbFilt = FilterU32Match{
@@ -684,7 +686,7 @@ func splitIp(ip string, dir int) macIndex {
 		}
 		ltFilt = FilterU32Match{
 			Value:  uint32(leaf_table),
-			Mask:   mask(8, 0),
+			Mask:   mask(8, 16),
 			Offset: 12,
 		}
 		lbFilt = FilterU32Match{
@@ -703,7 +705,7 @@ func splitIp(ip string, dir int) macIndex {
 		root: qdiscCfgForMac{
 			table:   root_table,
 			disc:    ROOT_DISC_HANDLE,
-			class:   root_table + root_bucket<<8 + 1,
+			class:   root_table + root_bucket + 1,
 			pdisc:   0,
 			pclass:  0,
 			rhash:   rtFilt,
@@ -712,12 +714,12 @@ func splitIp(ip string, dir int) macIndex {
 			lsample: rbFilt,
 		},
 		leaf: qdiscCfgForMac{
-			disc:     root_table + root_bucket<<8 + 1,
-			table:    leaf_table,
-			class:    (leaf_table<<4+leaf_bucket)<<3 + 1,
-			classLim: (leaf_table<<4+leaf_bucket+1)<<3 + 1,
+			disc:     root_table + root_bucket + 1,
+			table:    leaf_table >> 16,
+			class:    (leaf_table>>12+leaf_bucket)<<3 + 1,
+			classLim: (leaf_table>>12+leaf_bucket+1)<<3 + 1,
 			pdisc:    ROOT_DISC_HANDLE,
-			pclass:   root_table + root_bucket<<8 + 1,
+			pclass:   root_table + root_bucket + 1,
 			rhash:    ltFilt,
 			lhash:    lbFilt,
 			rsample:  ltFilt,

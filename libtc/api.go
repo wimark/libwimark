@@ -98,12 +98,25 @@ func (db *Database) Load() error {
 	return db.init()
 }
 
-func (db *Database) SetClasses(classes map[string]UserClass) {
+func (db *Database) SetClasses(classes map[string]UserClass) error {
+	db.mutex.Lock()
+	defer db.mutex.Unlock()
+	db.Tc.Prepare()
+
 	db.classes = classes
+
+	return db.commit()
+
 }
 
-func (db *Database) SetMode(l3mode bool) {
+func (db *Database) SetMode(l3mode bool) error {
+	db.mutex.Lock()
+	defer db.mutex.Unlock()
+	db.Tc.Prepare()
+
 	db.l3mode = l3mode
+
+	return db.commit()
 }
 
 func (db *Database) Close() error {
