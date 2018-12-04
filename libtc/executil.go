@@ -158,3 +158,19 @@ func mask(length, offset uint) uint32 {
 	var res int64 = 1<<length - 1
 	return uint32(res) << offset
 }
+
+func parseIp(ip string) []int {
+	var octets = strings.Split(ip, ".")
+	var res []int
+	for _, o := range octets {
+		var oo, err = strconv.ParseInt(o, 10, 32)
+		if err != nil {
+			continue
+		}
+		res = append(res, int(oo))
+	}
+	for len(res) < 4 {
+		res = append(res, 0)
+	}
+	return res
+}

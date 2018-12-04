@@ -93,7 +93,13 @@ func (db *Database) parseInterfaces() {
 				state.qdisc[qid].classes[cid] = true
 			}
 			for _, filter := range qdisc.Filters {
-				var addr, dir = joinMac(filter)
+				var addr string
+				var dir int
+				if !db.l3mode {
+					addr, dir = joinMac(filter)
+				} else {
+					addr, dir = joinIp(filter)
+				}
 				if len(addr) == 0 {
 					continue
 				}
@@ -135,7 +141,14 @@ func (db *Database) initIface(ifname string, dir int, clsname string) {
 		qos = class.QosOut
 	}
 
-	cfgQdisc(db, &iface, splitMac("", dir).root)
+	var root qdiscCfgForMac
+	if db.l3mode {
+		root = splitIp("", dir).root
+	} else {
+		root = splitMac("", dir).root
+	}
+
+	cfgQdisc(db, &iface, root)
 
 	var newqos QosItem
 	if len(qos) == 0 {
@@ -617,6 +630,104 @@ func splitMac(mac string, dir int) macIndex {
 	}
 }
 
+func splitIp(ip string, dir int) macIndex {
+	var octets = parseIp(ip)
+
+	var index_part = octets[3] + (octets[2] << 8) + (octets[1] << 16)
+	var list_part = octets[0]
+
+	var root_table = index_part & 0xff
+	var root_bucket = index_part & 0xf00
+	var leaf_table = index_part & 0xff0000
+	var leaf_bucket = index_part & 0xf000
+
+	var rtFilt, rbFilt, ltFilt, lbFilt FilterU32Match
+	var match []FilterU32Match
+
+	switch dir {
+	case DIR_IN:
+		rtFilt = FilterU32Match{
+			Value:  uint32(root_table),
+			Mask:   mask(8, 0),
+			Offset: 16,
+		}
+		rbFilt = FilterU32Match{
+			Value:  uint32(root_bucket),
+			Mask:   mask(4, 8),
+			Offset: 16,
+		}
+		ltFilt = FilterU32Match{
+			Value:  uint32(leaf_table),
+			Mask:   mask(8, 0),
+			Offset: 16,
+		}
+		lbFilt = FilterU32Match{
+			Value:  uint32(leaf_bucket),
+			Mask:   mask(4, 12),
+			Offset: 16,
+		}
+		match = []FilterU32Match{FilterU32Match{
+			Value:  uint32(list_part) << 24,
+			Mask:   mask(8, 24),
+			Offset: 16,
+		}}
+	case DIR_OUT:
+		rtFilt = FilterU32Match{
+			Value:  uint32(root_table),
+			Mask:   mask(8, 0),
+			Offset: 12,
+		}
+		rbFilt = FilterU32Match{
+			Value:  uint32(root_bucket),
+			Mask:   mask(4, 8),
+			Offset: 12,
+		}
+		ltFilt = FilterU32Match{
+			Value:  uint32(leaf_table),
+			Mask:   mask(8, 0),
+			Offset: 12,
+		}
+		lbFilt = FilterU32Match{
+			Value:  uint32(leaf_bucket),
+			Mask:   mask(4, 12),
+			Offset: 12,
+		}
+		match = []FilterU32Match{FilterU32Match{
+			Value:  uint32(list_part) << 24,
+			Mask:   mask(8, 24),
+			Offset: 12,
+		}}
+	}
+
+	return macIndex{
+		root: qdiscCfgForMac{
+			table:   root_table,
+			disc:    ROOT_DISC_HANDLE,
+			class:   root_table + root_bucket<<8 + 1,
+			pdisc:   0,
+			pclass:  0,
+			rhash:   rtFilt,
+			lhash:   rbFilt,
+			rsample: rtFilt,
+			lsample: rbFilt,
+		},
+		leaf: qdiscCfgForMac{
+			disc:     root_table + root_bucket<<8 + 1,
+			table:    leaf_table,
+			class:    (leaf_table<<4+leaf_bucket)<<3 + 1,
+			classLim: (leaf_table<<4+leaf_bucket+1)<<3 + 1,
+			pdisc:    ROOT_DISC_HANDLE,
+			pclass:   root_table + root_bucket<<8 + 1,
+			rhash:    ltFilt,
+			lhash:    lbFilt,
+			rsample:  ltFilt,
+			lsample:  lbFilt,
+			match:    match,
+			listId:   ip,
+		},
+	}
+}
+
 func joinMac(filter Filter) (string, int) {
 
 	if filter.Type != FILTER_U32 || filter.ToClass == 0 || filter.Parent == ROOT_DISC_HANDLE {
@@ -657,11 +768,50 @@ func joinMac(filter Filter) (string, int) {
 	return strings.Join(res, ":"), dir
 }
 
-func (db *Database) addUser(ifname, mac, clsname string, dir int) {
+func joinIp(filter Filter) (string, int) {
+
+	if filter.Type != FILTER_U32 || filter.ToClass == 0 || filter.Parent == ROOT_DISC_HANDLE {
+		return "", DIR_NONE
+	}
+	var ip [4]int
+
+	var class = (filter.ToClass - 1) >> 3
+	var parent = filter.Parent - 1
+
+	ip[3] = parent & 0xff
+	ip[2] = (parent >> 8) + (class & 0x0f << 4)
+	ip[1] = class >> 4
+
+	var spec = filter.Spec.(*FilterU32)
+	var dir = DIR_NONE
+	for _, match := range spec.Match {
+		if match.Offset > 0 {
+			if match.Offset == 12 {
+				dir = DIR_OUT
+			} else if match.Offset == 16 {
+				dir = DIR_IN
+			}
+			ip[0] = int(match.Value >> 24)
+
+		}
+	}
+	var res []string
+	for _, i := range ip {
+		res = append(res, fmt.Sprintf("%d", i))
+	}
+	return strings.Join(res, "."), dir
+}
+
+func (db *Database) addUser(ifname, key, clsname string, dir int) {
 
 	var iface = db.ifaces[ifname]
 	var qos []QosItem
-	var index = splitMac(mac, dir)
+	var index macIndex
+	if db.l3mode {
+		index = splitIp(key, dir)
+	} else {
+		index = splitMac(key, dir)
+	}
 
 	if i, ok := db.states[ifname]; ok && (i.dir != dir) {
 		db.Tc.Error(errors.New("Trying to turn interface inside out"))
@@ -681,11 +831,19 @@ func (db *Database) addUser(ifname, mac, clsname string, dir int) {
 	db.ifaces[ifname] = iface
 }
 
-func (db *Database) delUser(ifname, mac string) {
+func (db *Database) delUser(ifname, key string) {
 
 	var iface = db.ifaces[ifname]
 	var state = db.states[ifname]
-	var index = splitMac(mac, DIR_IN) // only hash/sample/match depend on dir
+
+	var index macIndex
+	if db.l3mode {
+		index = splitIp(key, DIR_IN)
+	} else {
+		index = splitMac(key, DIR_IN)
+	}
+
+	// var index = splitMac(mac, DIR_IN) // only hash/sample/match depend on dir
 	var qdisc = iface.Discs[index.leaf.disc]
 	var res = state.users[index.leaf.listId]
 
@@ -707,8 +865,8 @@ func (db *Database) delUser(ifname, mac string) {
 	db.states[ifname] = state
 }
 
-func (db *Database) changeUser(ifname, mac, clsname string) {
+func (db *Database) changeUser(ifname, key, clsname string) {
 
-	db.delUser(ifname, mac)
-	db.addUser(ifname, mac, clsname, db.states[ifname].dir)
+	db.delUser(ifname, key)
+	db.addUser(ifname, key, clsname, db.states[ifname].dir)
 }

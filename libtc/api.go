@@ -85,6 +85,7 @@ type Database struct {
 	states  map[string]ifaceState
 	mutex   sync.Mutex
 	ready   bool
+	l3mode  bool
 	Tc      TcBind
 }
 
@@ -95,6 +96,14 @@ func (db *Database) SetInterfaces(ifaces map[string]Iface) {
 
 func (db *Database) Load() error {
 	return db.init()
+}
+
+func (db *Database) SetClasses(classes map[string]UserClass) {
+	db.classes = classes
+}
+
+func (db *Database) SetMode(l3mode bool) {
+	db.l3mode = l3mode
 }
 
 func (db *Database) Close() error {
@@ -156,14 +165,16 @@ func (db *Database) DeinitIface(ifname string) error {
 	return db.commit()
 }
 
-func (db *Database) NewUser(mac string, class string) error {
+func (db *Database) NewUser(key string, class string) error {
 	db.mutex.Lock()
 	defer db.mutex.Unlock()
 	if !db.ready {
 		return errors.New("Data dont loaded")
 	}
-	mac = normalizeMac(mac)
-	var u, ok = db.users[mac]
+	if !db.l3mode {
+		key = normalizeMac(key)
+	}
+	var u, ok = db.users[key]
 	if ok {
 		if u.Class != class {
 			return errors.New("User exists with another class")
@@ -173,21 +184,23 @@ func (db *Database) NewUser(mac string, class string) error {
 	if _, ok := db.classes[class]; !ok {
 		return errors.New("Class not found")
 	}
-	db.users[mac] = User{
-		Address: mac,
+	db.users[key] = User{
+		Address: key,
 		Class:   class,
 	}
 	return nil
 }
 
-func (db *Database) AssignUser(iface_in, iface_out string, mac string) error {
+func (db *Database) AssignUser(iface_in, iface_out string, key string) error {
 	db.mutex.Lock()
 	defer db.mutex.Unlock()
 	if !db.ready {
 		return errors.New("Data dont loaded")
 	}
-	mac = normalizeMac(mac)
-	var u, ok = db.users[mac]
+	if !db.l3mode {
+		key = normalizeMac(key)
+	}
+	var u, ok = db.users[key]
 	if !ok {
 		return errors.New("User doesnt exist")
 	}
@@ -214,20 +227,22 @@ func (db *Database) AssignUser(iface_in, iface_out string, mac string) error {
 		return errors.New("User doesnt exist")
 	}
 	db.Tc.Prepare()
-	db.addUser(iface_in, mac, u.Class, DIR_IN)
-	db.addUser(iface_out, mac, u.Class, DIR_OUT)
-	db.users[mac] = u
+	db.addUser(iface_in, key, u.Class, DIR_IN)
+	db.addUser(iface_out, key, u.Class, DIR_OUT)
+	db.users[key] = u
 	return db.commit()
 }
 
-func (db *Database) DeassignUser(iface string, mac string) error {
+func (db *Database) DeassignUser(iface string, key string) error {
 	db.mutex.Lock()
 	defer db.mutex.Unlock()
 	if !db.ready {
 		return errors.New("Data dont loaded")
 	}
-	mac = normalizeMac(mac)
-	var u, ok = db.users[mac]
+	if !db.l3mode {
+		key = normalizeMac(key)
+	}
+	var u, ok = db.users[key]
 	if !ok {
 		return errors.New("User not found")
 	}
@@ -236,43 +251,47 @@ func (db *Database) DeassignUser(iface string, mac string) error {
 		if i == iface {
 			u.Ifaces = append(u.Ifaces[:index], u.Ifaces[index+1:]...)
 			if len(u.Ifaces) == 0 {
-				delete(db.users, mac)
+				delete(db.users, key)
 			} else {
-				db.users[mac] = u
+				db.users[key] = u
 			}
-			db.delUser(iface, mac)
+			db.delUser(iface, key)
 		}
 	}
 	return db.commit()
 }
 
-func (db *Database) DelUser(mac string) error {
+func (db *Database) DelUser(key string) error {
 	db.mutex.Lock()
 	defer db.mutex.Unlock()
 	if !db.ready {
 		return errors.New("Data dont loaded")
 	}
-	mac = normalizeMac(mac)
-	var u, ok = db.users[mac]
+	if !db.l3mode {
+		key = normalizeMac(key)
+	}
+	var u, ok = db.users[key]
 	if !ok {
 		return errors.New("User not found")
 	}
 	db.Tc.Prepare()
 	for _, i := range u.Ifaces {
-		db.delUser(i, mac)
+		db.delUser(i, key)
 	}
-	delete(db.users, mac)
+	delete(db.users, key)
 	return db.commit()
 }
 
-func (db *Database) ChangeUser(mac string, class string) error {
+func (db *Database) ChangeUser(key string, class string) error {
 	db.mutex.Lock()
 	defer db.mutex.Unlock()
 	if !db.ready {
 		return errors.New("Data dont loaded")
 	}
-	mac = normalizeMac(mac)
-	var u, ok = db.users[mac]
+	if !db.l3mode {
+		key = normalizeMac(key)
+	}
+	var u, ok = db.users[key]
 	if !ok {
 		return errors.New("User doesnt exist")
 	}
@@ -281,7 +300,7 @@ func (db *Database) ChangeUser(mac string, class string) error {
 	}
 	db.Tc.Prepare()
 	for _, iface := range u.Ifaces {
-		db.changeUser(iface, mac, class)
+		db.changeUser(iface, key, class)
 	}
 	return db.commit()
 }
