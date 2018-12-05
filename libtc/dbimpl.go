@@ -664,8 +664,8 @@ func splitIp(ip string, dir int) macIndex {
 			Offset: 16,
 		}
 		lbFilt = FilterU32Match{
-			Value:  uint32(leaf_bucket),
-			Mask:   mask(4, 12),
+			Value:  uint32(leaf_bucket) + uint32(root_bucket),
+			Mask:   mask(8, 8),
 			Offset: 16,
 		}
 		match = []FilterU32Match{FilterU32Match{
@@ -690,8 +690,8 @@ func splitIp(ip string, dir int) macIndex {
 			Offset: 12,
 		}
 		lbFilt = FilterU32Match{
-			Value:  uint32(leaf_bucket),
-			Mask:   mask(4, 12),
+			Value:  uint32(leaf_bucket) + uint32(root_bucket),
+			Mask:   mask(8, 8),
 			Offset: 12,
 		}
 		match = []FilterU32Match{FilterU32Match{
@@ -716,8 +716,8 @@ func splitIp(ip string, dir int) macIndex {
 		leaf: qdiscCfgForMac{
 			disc:     root_table + root_bucket + 1,
 			table:    leaf_table >> 16,
-			class:    (leaf_table>>12+leaf_bucket)<<3 + 1,
-			classLim: (leaf_table>>12+leaf_bucket+1)<<3 + 1,
+			class:    (leaf_table>>12+leaf_bucket>>12)<<3 + 1,
+			classLim: (leaf_table>>12+leaf_bucket>>12+1)<<3 + 1,
 			pdisc:    ROOT_DISC_HANDLE,
 			pclass:   root_table + root_bucket + 1,
 			rhash:    ltFilt,
