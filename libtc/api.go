@@ -45,6 +45,19 @@ type User struct {
 	Ifaces  []string
 }
 
+type innerUserStat struct {
+	Key     string
+	Bytes   int
+	Packets int
+	Drops   int
+}
+
+type UserStat struct {
+	Bytes   int
+	Packets int
+	Drops   int
+}
+
 type innerRes struct {
 	filters map[int]bool
 	classes map[int]bool
@@ -176,6 +189,20 @@ func (db *Database) DeinitIface(ifname string) error {
 
 	db.deinitIface(ifname)
 	return db.commit()
+}
+
+func (db *Database) StatsIface(ifname string) (result map[string]UserStat, err error) {
+	db.mutex.Lock()
+	defer db.mutex.Unlock()
+	if !db.ready {
+		return nil, errors.New("Data dont loaded")
+	}
+	if _, ok := db.ifaces[ifname]; !ok {
+		return nil, errors.New("Interface doesnt exist")
+	}
+	db.Tc.Prepare()
+
+	return result, err
 }
 
 func (db *Database) NewUser(key string, class string) error {

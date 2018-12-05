@@ -207,6 +207,20 @@ func (db *Database) deinitIface(ifname string) {
 	db.ifaces[ifname] = iface
 }
 
+func (db *Database) parseIfaceStats(ifname string) {
+
+	// read stats
+
+	// fill resulting object
+	var state = db.states[ifname]
+	for k, v := range state.users {
+		_ = v.classes
+		_ = k
+		_ = v
+	}
+
+}
+
 func cfgQdisc(db *Database, iface *Iface, cfg qdiscCfgForMac) {
 
 	var state = db.states[iface.Name]

@@ -197,3 +197,63 @@ func (self *ExecTcBind) getFilters(iface string, disc int) ([]Filter, error) {
 
 	return res, nil
 }
+
+func (self *ExecTcBind) getStats(iface string) (map[string]ClassStat, error) {
+	var params = []string{
+		"-s", // with stats
+		CLASS_OBJECT,
+		SHOW_COMMAND,
+		DEV_PARAM,
+		iface,
+	}
+	var out, err = execute(TC_EXECUTABLE, params...)
+	if err != nil {
+		return nil, err
+	}
+
+	var res = map[string]ClassStat{}
+	for index, line := range out {
+		var params = split(line)
+		if len(params) < 4 {
+			continue
+		}
+		if params[0] != CLASS_OBJECT {
+			continue
+		}
+
+		lr := params[2]
+		rt := findString(params[2], 1, 16)
+		lt := findString(params[2], 0, 16)
+
+		var cls = ClassStat{
+			Handle: uint32(lt)<<16 + uint32(rt),
+		}
+		var optionsFrom = 4
+		if params[3] == PARENT_PARAM {
+			cls.ParentClass = findString(params[4], 1, 16)
+			optionsFrom = 5
+		}
+		if optionsFrom < len(params) && params[optionsFrom] == LEAF_PARAM {
+			cls.LeafDisc = findString(params[optionsFrom+1], 0, 16)
+		}
+
+		if len(out) < index+1 {
+			return res, nil
+		}
+
+		line = out[index+1]
+		params = split(line)
+		if len(params) < 4 {
+			continue
+		}
+		if params[0] != SENT_PARAM {
+			continue
+		}
+		cls.Bytes = s2i(params[1])
+		cls.Packets = s2i(params[3])
+
+		res[lr] = cls
+	}
+
+	return res, nil
+}

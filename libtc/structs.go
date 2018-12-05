@@ -52,3 +52,12 @@ type Iface struct {
 	Discs        map[int]QDisc
 	DefaultDiscs []QDisc
 }
+
+type ClassStat struct {
+	Handle      uint32
+	ParentDisc  int
+	ParentClass int
+	LeafDisc    int
+	Bytes       int
+	Packets     int
+}

@@ -46,4 +46,8 @@ const (
 
 	ROOT_VALUE    = "root"
 	INGRESS_VALUE = "ingress"
+
+	SENT_PARAM  = "Sent"
+	BYTES_PARAM = "bytes"
+	PKT_PARAM   = "pkt"
 )
