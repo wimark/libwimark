@@ -799,9 +799,9 @@ func joinMac(filter Filter) (string, int) {
 		if match.Offset < 0 {
 			if match.Offset == -8 {
 				dir = DIR_OUT
-				mac[2] = int(match.Value & 0xff)
-				mac[1] = int((match.Value >> 8) & 0xff)
-				mac[0] = int(match.Value >> 16)
+				mac[2] = int((match.Value >> 8) & 0xff)
+				mac[1] = int((match.Value >> 16) & 0xff)
+				mac[0] = int((match.Value >> 24) & 0xff)
 			} else if match.Offset == -12 {
 				dir = DIR_IN
 				mac[2] = int(match.Value >> 24)
