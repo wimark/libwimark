@@ -207,17 +207,54 @@ func (db *Database) deinitIface(ifname string) {
 	db.ifaces[ifname] = iface
 }
 
-func (db *Database) parseIfaceStats(ifname string) {
+func (db *Database) ifaceStats(ifname string) (map[string]UserStat, error) {
+
+	// get iface
+	var iface = db.ifaces[ifname]
 
 	// read stats
+	var stats, err = db.Tc.GetStats(&iface)
+	if err != nil {
+		return nil, err
+	}
+
+	var result = map[string]UserStat{}
 
 	// fill resulting object
 	var state = db.states[ifname]
 	for k, v := range state.users {
-		_ = v.classes
-		_ = k
-		_ = v
+		// get specific leaf disc and class
+		var index macIndex
+		if !db.l3mode {
+			index = splitMac(k, DIR_NONE)
+		} else {
+			index = splitIp(k, DIR_NONE)
+		}
+
+		if _, ok := result[k]; !ok {
+			result[k] = UserStat{}
+		}
+
+		// summ for all user classes
+		for cc := range v.classes {
+			key := uint32(index.leaf.disc)<<16 + uint32(cc)
+			if userStat, ok := stats[key]; ok {
+				if us, ok := result[k]; ok {
+					us.Bytes += userStat.Bytes
+					us.Packets += userStat.Packets
+					result[k] = us
+				} else {
+					result[k] = UserStat{
+						Bytes:   userStat.Bytes,
+						Packets: userStat.Packets,
+					}
+				}
+			}
+		}
+
 	}
+
+	return result, nil
 
 }
 
@@ -646,8 +683,6 @@ func splitMac(mac string, dir int) macIndex {
 
 func splitIp(ip string, dir int) macIndex {
 	var octets = parseIp(ip)
-
-	fmt.Printf("Octets: %+v\n", octets)
 
 	var index_part = octets[3] + (octets[2] << 8) + (octets[1] << 16)
 	var list_part = octets[0]

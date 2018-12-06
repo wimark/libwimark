@@ -198,20 +198,24 @@ func (self *ExecTcBind) getFilters(iface string, disc int) ([]Filter, error) {
 	return res, nil
 }
 
-func (self *ExecTcBind) getStats(iface string) (map[string]ClassStat, error) {
+func (self *ExecTcBind) GetStats(iface *Iface) (map[uint32]ClassStat, error) {
+	if iface == nil {
+		return nil, fmt.Errorf("Nil iface")
+	}
+
 	var params = []string{
 		"-s", // with stats
 		CLASS_OBJECT,
 		SHOW_COMMAND,
 		DEV_PARAM,
-		iface,
+		iface.Name,
 	}
 	var out, err = execute(TC_EXECUTABLE, params...)
 	if err != nil {
 		return nil, err
 	}
 
-	var res = map[string]ClassStat{}
+	var res = map[uint32]ClassStat{}
 	for index, line := range out {
 		var params = split(line)
 		if len(params) < 4 {
@@ -221,7 +225,6 @@ func (self *ExecTcBind) getStats(iface string) (map[string]ClassStat, error) {
 			continue
 		}
 
-		lr := params[2]
 		rt := findString(params[2], 1, 16)
 		lt := findString(params[2], 0, 16)
 
@@ -234,7 +237,8 @@ func (self *ExecTcBind) getStats(iface string) (map[string]ClassStat, error) {
 			optionsFrom = 5
 		}
 		if optionsFrom < len(params) && params[optionsFrom] == LEAF_PARAM {
-			cls.LeafDisc = findString(params[optionsFrom+1], 0, 16)
+			continue
+			// cls.LeafDisc = findString(params[optionsFrom+1], 0, 16)
 		}
 
 		if len(out) < index+1 {
@@ -252,7 +256,14 @@ func (self *ExecTcBind) getStats(iface string) (map[string]ClassStat, error) {
 		cls.Bytes = s2i(params[1])
 		cls.Packets = s2i(params[3])
 
-		res[lr] = cls
+		// if k, ok := res[cls.Handle]; ok {
+		// 	k.Bytes += cls.Bytes
+		// 	k.Packets += cls.Packets
+		// 	res[cls.Handle] = k
+		// } else {
+		res[cls.Handle] = cls
+		// }
+
 	}
 
 	return res, nil

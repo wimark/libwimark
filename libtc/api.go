@@ -55,7 +55,6 @@ type innerUserStat struct {
 type UserStat struct {
 	Bytes   int
 	Packets int
-	Drops   int
 }
 
 type innerRes struct {
@@ -83,6 +82,7 @@ type TcBind interface {
 	DelClass(dev *Iface, c Class)
 	DelQdisc(dev *Iface, qdisc QDisc)
 	Get()
+	GetStats(dev *Iface) (map[uint32]ClassStat, error)
 
 	Prepare()
 	Commit() error
@@ -191,7 +191,7 @@ func (db *Database) DeinitIface(ifname string) error {
 	return db.commit()
 }
 
-func (db *Database) StatsIface(ifname string) (result map[string]UserStat, err error) {
+func (db *Database) IfaceStats(ifname string) (result map[string]UserStat, err error) {
 	db.mutex.Lock()
 	defer db.mutex.Unlock()
 	if !db.ready {
@@ -201,8 +201,9 @@ func (db *Database) StatsIface(ifname string) (result map[string]UserStat, err e
 		return nil, errors.New("Interface doesnt exist")
 	}
 	db.Tc.Prepare()
+	defer db.commit()
 
-	return result, err
+	return db.ifaceStats(ifname)
 }
 
 func (db *Database) NewUser(key string, class string) error {

@@ -57,7 +57,7 @@ type ClassStat struct {
 	Handle      uint32
 	ParentDisc  int
 	ParentClass int
-	LeafDisc    int
-	Bytes       int
-	Packets     int
+	// LeafDisc    int
+	Bytes   int
+	Packets int
 }
