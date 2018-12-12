@@ -912,6 +912,8 @@ func (db *Database) delUser(ifname, key string) {
 		db.Tc.DelClass(&iface, qdisc.Classes[cls])
 	}
 
+	delete(state.users, index.leaf.listId)
+
 	db.ifaces[ifname] = iface
 	db.states[ifname] = state
 }
