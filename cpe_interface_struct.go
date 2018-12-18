@@ -122,19 +122,19 @@ type UciWifiWlan struct {
 	UbusAcctPeriod string      `json:"ubus_acct_interval,omitempty"`
 
 	// security
-	NasID      string      `json:"nasid,omitempty"`
-	AcctHost   string      `json:"acct_server,omitempty"`
-	AcctSecret string      `json:"acct_secret,omitempty"`
-	AcctPeriod string      `json:"acct_interval,omitempty"`
-	AcctPort   string      `json:"acct_port,omitempty"`
-	AuthHost   string      `json:"auth_server,omitempty"`
-	AuthSecret string      `json:"auth_secret,omitempty"`
-	AuthPort   string      `json:"auth_port,omitempty"`
-	WMNasID    string      `json:"wimark_nasid,omitempty"`
-	WMAcct     interface{} `json:"wimark_acct,omitempty"`
-	WMAuth     interface{} `json:"wimark_auth,omitempty"`
-	SecType    string      `json:"encryption,omitempty"`
-	Password   string      `json:"key,omitempty"`
+	NasID       string `json:"nasid,omitempty"`
+	AcctHost    string `json:"acct_server,omitempty"`
+	AcctSecret  string `json:"acct_secret,omitempty"`
+	AcctPeriod  string `json:"acct_interval,omitempty"`
+	AcctPort    string `json:"acct_port,omitempty"`
+	AuthHost    string `json:"auth_server,omitempty"`
+	AuthSecret  string `json:"auth_secret,omitempty"`
+	AuthPort    string `json:"auth_port,omitempty"`
+	AcctServers string `json:"acct_server_list,omitempty"`
+	AuthServers string `json:"auth_server_list,omitempty"`
+	WMNasID     string `json:"wimark_nasid,omitempty"`
+	SecType     string `json:"encryption,omitempty"`
+	Password    string `json:"key,omitempty"`
 
 	// hotspot 2.0
 	HotspotEnabled      string      `json:"hotspot20,omitempty"`
@@ -170,9 +170,18 @@ type UciWifiIface struct {
 	Disabled    string      `json:"disabled"`
 	ChanList    interface{} `json:"channels"`
 }
+type UciRadius struct {
+	Type       string `json:".type"`
+	Addr       string `json:"server_addr"`
+	AcctPort   string `json:"acct_port"`
+	AuthPort   string `json:"auth_port"`
+	AcctSecret string `json:"acct_secret"`
+	AuthSecret string `json:"auth_secret"`
+}
 type innerUciWireless struct {
 	Wlans      map[string]UciWifiWlan  `json:"-" inline:"yes,.type:wifi-iface"`
 	Interfaces map[string]UciWifiIface `json:"-" inline:"yes,.type:wifi-device"`
+	Radiuses   map[string]UciRadius    `json:"-" inline:"yes,.type:radius"`
 }
 type UciWireless innerUciWireless
 
@@ -276,6 +285,7 @@ func (self *UciWireless) UnmarshalJSON(b []byte) error {
 	var tmp = map[string]interface{}{
 		".type:wifi-iface":  &map[string]UciWifiWlan{},
 		".type:wifi-device": &map[string]UciWifiIface{},
+		".type:radius":      &map[string]UciRadius{},
 	}
 	return UnmarshalInline(b, (*innerUciWireless)(self), tmp)
 }
