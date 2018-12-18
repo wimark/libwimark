@@ -51,6 +51,24 @@ type WPAEnterpriseData struct {
 	Hotspot20Profile     UUID   `json:"hotspot20_profile" bson:"hotspot20_profile"`
 }
 
+type WMMCategoryConfig struct {
+	CliCwMin int  `json:"cli_cw_min" bson:"cli_cw_min"`
+	CliCwMax int  `json:"cli_cw_max" bson:"cli_cw_max"`
+	CliAifs  int  `json:"cli_aifs" bson:"cli_aifs"`
+	CliTxOp  int  `json:"cli_txop" bson:"cli_txop"`
+	CliAcm   bool `json:"cli_acm" bson:"cli_acm"`
+
+	AcCwMin int     `json:"ac_cw_min" bson:"ac_cw_min"`
+	AcCwMax int     `json:"ac_cw_max" bson:"ac_cw_max"`
+	AcAifs  int     `json:"ac_aifs" bson:"ac_aifs"`
+	AcBurst float32 `json:"ac_burst" bson:"ac_burst"`
+}
+type WMMConfig struct {
+	Categories map[WMMAccessCategory]WMMCategoryConfig `json:"categories" bson:"categories"`
+	Disabled   bool                                    `json:"disabled" bson:"disabled"`
+	Uapsd      bool                                    `json:"uapsd" bson:"uapsd"`
+}
+
 type WLAN struct {
 	Name               string               `json:"name"`
 	SSID               string               `json:"ssid"`
@@ -71,7 +89,7 @@ type WLAN struct {
 	DefaultTunnel      string               `json:"default_tunnel"`
 	Firewall           FireWallSettings     `json:"firewall"`
 	GuestControl       GuestControlSettings `json:"guest_control"`
-	DisableWMM         bool                 `json:"disable_wmm" bson:"disable_wmm"`
+	WMMConfig          WMMConfig            `json:"wmm" bson:"wmm"`
 	NAT                bool                 `json:"nat" bson:"nat"`
 	NATNetwork         IPAddress            `json:"nat_network" bson:"nat_network"`
 }
