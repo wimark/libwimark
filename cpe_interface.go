@@ -116,6 +116,12 @@ const (
 	JSONRPC_CISCO_SET = "cisco:set"
 )
 
+// JSONRPC system functions from CPE
+const (
+	JSONRPC_CPE_SYSTEM_FIRSTBOOT = "system:firstboot"
+	JSONRPC_CPE_SYSTEM_REBOOT    = "system:reboot"
+)
+
 // JSONRPC parameters
 
 // for cpeagent:*

@@ -427,10 +427,12 @@ func (self *ClientStatPacketType) SetBSON(v bson.Raw) error {
 
 type ConfigurationStatus string
 
+const ConfigurationStatusDontUse1 ConfigurationStatus = "pending"
+const ConfigurationStatusDontUse2 ConfigurationStatus = "error"
 const ConfigurationStatusEmpty ConfigurationStatus = "empty"
-const ConfigurationStatusError ConfigurationStatus = "error"
 const ConfigurationStatusOK ConfigurationStatus = "ok"
-const ConfigurationStatusPending ConfigurationStatus = "pending"
+const ConfigurationStatusOffline ConfigurationStatus = "offline"
+const ConfigurationStatusRebooting ConfigurationStatus = "rebooting"
 const ConfigurationStatusUpdating ConfigurationStatus = "updating"
 const ConfigurationStatusUpgrading ConfigurationStatus = "upgrading"
 
@@ -438,14 +440,18 @@ func (self ConfigurationStatus) GetPtr() *ConfigurationStatus { var v = self; re
 
 func (self *ConfigurationStatus) String() string {
 	switch *self {
+	case ConfigurationStatusDontUse1:
+		return "pending"
+	case ConfigurationStatusDontUse2:
+		return "error"
 	case ConfigurationStatusEmpty:
 		return "empty"
-	case ConfigurationStatusError:
-		return "error"
 	case ConfigurationStatusOK:
 		return "ok"
-	case ConfigurationStatusPending:
-		return "pending"
+	case ConfigurationStatusOffline:
+		return "offline"
+	case ConfigurationStatusRebooting:
+		return "rebooting"
 	case ConfigurationStatusUpdating:
 		return "updating"
 	case ConfigurationStatusUpgrading:
@@ -459,14 +465,18 @@ func (self *ConfigurationStatus) String() string {
 
 func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 	switch *self {
+	case ConfigurationStatusDontUse1:
+		return json.Marshal("pending")
+	case ConfigurationStatusDontUse2:
+		return json.Marshal("error")
 	case ConfigurationStatusEmpty:
 		return json.Marshal("empty")
-	case ConfigurationStatusError:
-		return json.Marshal("error")
 	case ConfigurationStatusOK:
 		return json.Marshal("ok")
-	case ConfigurationStatusPending:
-		return json.Marshal("pending")
+	case ConfigurationStatusOffline:
+		return json.Marshal("offline")
+	case ConfigurationStatusRebooting:
+		return json.Marshal("rebooting")
 	case ConfigurationStatusUpdating:
 		return json.Marshal("updating")
 	case ConfigurationStatusUpgrading:
@@ -480,14 +490,18 @@ func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
 
 func (self *ConfigurationStatus) GetBSON() (interface{}, error) {
 	switch *self {
+	case ConfigurationStatusDontUse1:
+		return "pending", nil
+	case ConfigurationStatusDontUse2:
+		return "error", nil
 	case ConfigurationStatusEmpty:
 		return "empty", nil
-	case ConfigurationStatusError:
-		return "error", nil
 	case ConfigurationStatusOK:
 		return "ok", nil
-	case ConfigurationStatusPending:
-		return "pending", nil
+	case ConfigurationStatusOffline:
+		return "offline", nil
+	case ConfigurationStatusRebooting:
+		return "rebooting", nil
 	case ConfigurationStatusUpdating:
 		return "updating", nil
 	case ConfigurationStatusUpgrading:
@@ -505,17 +519,23 @@ func (self *ConfigurationStatus) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "empty":
-		*self = ConfigurationStatusEmpty
+	case "pending":
+		*self = ConfigurationStatusDontUse1
 		return nil
 	case "error":
-		*self = ConfigurationStatusError
+		*self = ConfigurationStatusDontUse2
+		return nil
+	case "empty":
+		*self = ConfigurationStatusEmpty
 		return nil
 	case "ok":
 		*self = ConfigurationStatusOK
 		return nil
-	case "pending":
-		*self = ConfigurationStatusPending
+	case "offline":
+		*self = ConfigurationStatusOffline
+		return nil
+	case "rebooting":
+		*self = ConfigurationStatusRebooting
 		return nil
 	case "updating":
 		*self = ConfigurationStatusUpdating
@@ -537,17 +557,23 @@ func (self *ConfigurationStatus) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "empty":
-		*self = ConfigurationStatusEmpty
+	case "pending":
+		*self = ConfigurationStatusDontUse1
 		return nil
 	case "error":
-		*self = ConfigurationStatusError
+		*self = ConfigurationStatusDontUse2
+		return nil
+	case "empty":
+		*self = ConfigurationStatusEmpty
 		return nil
 	case "ok":
 		*self = ConfigurationStatusOK
 		return nil
-	case "pending":
-		*self = ConfigurationStatusPending
+	case "offline":
+		*self = ConfigurationStatusOffline
+		return nil
+	case "rebooting":
+		*self = ConfigurationStatusRebooting
 		return nil
 	case "updating":
 		*self = ConfigurationStatusUpdating
@@ -1535,6 +1561,7 @@ const ModuleLBS Module = "LBS"
 const ModuleMQTTLog Module = "MQTT_LOG"
 const ModuleMediator Module = "MEDIATOR"
 const ModuleMonitor Module = "MONITOR"
+const ModuleNone Module = ""
 const ModulePortalBack Module = "PORTAL_BACKEND"
 const ModuleRRM Module = "RRM"
 const ModuleRadiusGw Module = "RADIUS_GATEWAY"
@@ -1574,6 +1601,8 @@ func (self *Module) String() string {
 		return "MEDIATOR"
 	case ModuleMonitor:
 		return "MONITOR"
+	case ModuleNone:
+		return ""
 	case ModulePortalBack:
 		return "PORTAL_BACKEND"
 	case ModuleRRM:
@@ -1586,6 +1615,9 @@ func (self *Module) String() string {
 		return "STAT"
 	case ModuleTunManager:
 		return "TUN_MANAGER"
+	}
+	if len(*self) == 0 {
+		return ""
 	}
 	panic(errors.New("Invalid value of Module: " + string(*self)))
 }
@@ -1620,6 +1652,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("MEDIATOR")
 	case ModuleMonitor:
 		return json.Marshal("MONITOR")
+	case ModuleNone:
+		return json.Marshal("")
 	case ModulePortalBack:
 		return json.Marshal("PORTAL_BACKEND")
 	case ModuleRRM:
@@ -1632,6 +1666,9 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("STAT")
 	case ModuleTunManager:
 		return json.Marshal("TUN_MANAGER")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("")
 	}
 	return nil, errors.New("Invalid value of Module: " + string(*self))
 }
@@ -1666,6 +1703,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "MEDIATOR", nil
 	case ModuleMonitor:
 		return "MONITOR", nil
+	case ModuleNone:
+		return "", nil
 	case ModulePortalBack:
 		return "PORTAL_BACKEND", nil
 	case ModuleRRM:
@@ -1678,6 +1717,9 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "STAT", nil
 	case ModuleTunManager:
 		return "TUN_MANAGER", nil
+	}
+	if len(*self) == 0 {
+		return "", nil
 	}
 	return nil, errors.New("Invalid value of Module: " + string(*self))
 }
@@ -1730,6 +1772,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 	case "MONITOR":
 		*self = ModuleMonitor
 		return nil
+	case "":
+		*self = ModuleNone
+		return nil
 	case "PORTAL_BACKEND":
 		*self = ModulePortalBack
 		return nil
@@ -1747,6 +1792,10 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "TUN_MANAGER":
 		*self = ModuleTunManager
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ModuleNone
 		return nil
 	}
 	return errors.New("Unknown Module: " + s)
@@ -1800,6 +1849,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 	case "MONITOR":
 		*self = ModuleMonitor
 		return nil
+	case "":
+		*self = ModuleNone
+		return nil
 	case "PORTAL_BACKEND":
 		*self = ModulePortalBack
 		return nil
@@ -1817,6 +1869,10 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "TUN_MANAGER":
 		*self = ModuleTunManager
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ModuleNone
 		return nil
 	}
 	return errors.New("Unknown Module: " + s)

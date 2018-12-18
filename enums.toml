@@ -2,15 +2,19 @@
 default = "Empty"
 [ConfigurationStatus.variants]
 Empty     = "empty"
-Error     = "error"
 OK        = "ok"
-Pending   = "pending"
+Offline   = "offline"
 Updating  = "updating"
 Upgrading = "upgrading"
+Rebooting = "rebooting"
+DontUse1  = "pending"
+DontUse2  = "error"
 
 [Module]
+default = "None"
 [Module.variants]
 Any        = "+"
+None       = ""
 Dummy      = "DUMMY"
 Backend    = "BACKEND"
 CPE        = "CPE"
