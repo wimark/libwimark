@@ -662,6 +662,144 @@ func (self *ConnectionModeType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown ConnectionModeType: " + s)
 }
 
+type ControllerStatusType string
+
+const ControllerStatusTypeConnected ControllerStatusType = "connected"
+const ControllerStatusTypeDisconnected ControllerStatusType = "disconnected"
+const ControllerStatusTypeEmpty ControllerStatusType = "empty"
+const ControllerStatusTypeError ControllerStatusType = "error"
+const ControllerStatusTypeProvisioning ControllerStatusType = "provision"
+const ControllerStatusTypeUpdating ControllerStatusType = "updating"
+
+func (self ControllerStatusType) GetPtr() *ControllerStatusType { var v = self; return &v }
+
+func (self *ControllerStatusType) String() string {
+	switch *self {
+	case ControllerStatusTypeConnected:
+		return "connected"
+	case ControllerStatusTypeDisconnected:
+		return "disconnected"
+	case ControllerStatusTypeEmpty:
+		return "empty"
+	case ControllerStatusTypeError:
+		return "error"
+	case ControllerStatusTypeProvisioning:
+		return "provision"
+	case ControllerStatusTypeUpdating:
+		return "updating"
+	}
+	if len(*self) == 0 {
+		return "empty"
+	}
+	panic(errors.New("Invalid value of ControllerStatusType: " + string(*self)))
+}
+
+func (self *ControllerStatusType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case ControllerStatusTypeConnected:
+		return json.Marshal("connected")
+	case ControllerStatusTypeDisconnected:
+		return json.Marshal("disconnected")
+	case ControllerStatusTypeEmpty:
+		return json.Marshal("empty")
+	case ControllerStatusTypeError:
+		return json.Marshal("error")
+	case ControllerStatusTypeProvisioning:
+		return json.Marshal("provision")
+	case ControllerStatusTypeUpdating:
+		return json.Marshal("updating")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("empty")
+	}
+	return nil, errors.New("Invalid value of ControllerStatusType: " + string(*self))
+}
+
+func (self *ControllerStatusType) GetBSON() (interface{}, error) {
+	switch *self {
+	case ControllerStatusTypeConnected:
+		return "connected", nil
+	case ControllerStatusTypeDisconnected:
+		return "disconnected", nil
+	case ControllerStatusTypeEmpty:
+		return "empty", nil
+	case ControllerStatusTypeError:
+		return "error", nil
+	case ControllerStatusTypeProvisioning:
+		return "provision", nil
+	case ControllerStatusTypeUpdating:
+		return "updating", nil
+	}
+	if len(*self) == 0 {
+		return "empty", nil
+	}
+	return nil, errors.New("Invalid value of ControllerStatusType: " + string(*self))
+}
+
+func (self *ControllerStatusType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "connected":
+		*self = ControllerStatusTypeConnected
+		return nil
+	case "disconnected":
+		*self = ControllerStatusTypeDisconnected
+		return nil
+	case "empty":
+		*self = ControllerStatusTypeEmpty
+		return nil
+	case "error":
+		*self = ControllerStatusTypeError
+		return nil
+	case "provision":
+		*self = ControllerStatusTypeProvisioning
+		return nil
+	case "updating":
+		*self = ControllerStatusTypeUpdating
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ControllerStatusTypeEmpty
+		return nil
+	}
+	return errors.New("Unknown ControllerStatusType: " + s)
+}
+
+func (self *ControllerStatusType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "connected":
+		*self = ControllerStatusTypeConnected
+		return nil
+	case "disconnected":
+		*self = ControllerStatusTypeDisconnected
+		return nil
+	case "empty":
+		*self = ControllerStatusTypeEmpty
+		return nil
+	case "error":
+		*self = ControllerStatusTypeError
+		return nil
+	case "provision":
+		*self = ControllerStatusTypeProvisioning
+		return nil
+	case "updating":
+		*self = ControllerStatusTypeUpdating
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ControllerStatusTypeEmpty
+		return nil
+	}
+	return errors.New("Unknown ControllerStatusType: " + s)
+}
+
 type FirewallDirection string
 
 const FirewallDirectionAny FirewallDirection = "ANY"
@@ -1395,6 +1533,7 @@ const ModuleDummy Module = "DUMMY"
 const ModuleFW Module = "FW"
 const ModuleLBS Module = "LBS"
 const ModuleMQTTLog Module = "MQTT_LOG"
+const ModuleMediator Module = "MEDIATOR"
 const ModuleMonitor Module = "MONITOR"
 const ModulePortalBack Module = "PORTAL_BACKEND"
 const ModuleRRM Module = "RRM"
@@ -1431,6 +1570,8 @@ func (self *Module) String() string {
 		return "LBS"
 	case ModuleMQTTLog:
 		return "MQTT_LOG"
+	case ModuleMediator:
+		return "MEDIATOR"
 	case ModuleMonitor:
 		return "MONITOR"
 	case ModulePortalBack:
@@ -1475,6 +1616,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("LBS")
 	case ModuleMQTTLog:
 		return json.Marshal("MQTT_LOG")
+	case ModuleMediator:
+		return json.Marshal("MEDIATOR")
 	case ModuleMonitor:
 		return json.Marshal("MONITOR")
 	case ModulePortalBack:
@@ -1519,6 +1662,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "LBS", nil
 	case ModuleMQTTLog:
 		return "MQTT_LOG", nil
+	case ModuleMediator:
+		return "MEDIATOR", nil
 	case ModuleMonitor:
 		return "MONITOR", nil
 	case ModulePortalBack:
@@ -1578,6 +1723,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MQTT_LOG":
 		*self = ModuleMQTTLog
+		return nil
+	case "MEDIATOR":
+		*self = ModuleMediator
 		return nil
 	case "MONITOR":
 		*self = ModuleMonitor
@@ -1645,6 +1793,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "MQTT_LOG":
 		*self = ModuleMQTTLog
+		return nil
+	case "MEDIATOR":
+		*self = ModuleMediator
 		return nil
 	case "MONITOR":
 		*self = ModuleMonitor

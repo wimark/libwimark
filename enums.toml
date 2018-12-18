@@ -29,6 +29,7 @@ FW         = "FW"
 Redirect   = "REDIRECT"
 PortalBack = "PORTAL_BACKEND"
 RadiusGw   = "RADIUS_GATEWAY"
+Mediator   = "MEDIATOR"
 
 [Operation]
 [Operation.variants]
@@ -229,3 +230,14 @@ default = "Greed"
 Dummy = "Dummy"
 Blind = "Blind"
 Greed = "Greed"
+
+
+[ControllerStatusType]
+default = "Empty"
+[ControllerStatusType.variants]
+Empty        = "empty"
+Error        = "error"
+Connected    = "connected"
+Disconnected = "disconnected"
+Updating     = "updating"
+Provisioning = "provision"
