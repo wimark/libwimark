@@ -297,7 +297,7 @@ type UciNetSwitchPort struct {
 }
 
 type innerUciNetwork struct {
-	Tunnels     map[string]UciNetTunnel     `json:"-" inline:"yes,.type:tunnel"`
+	Tunnels     map[string]UciNetTunnel     `json:"-" inline:"yes,.type:l2tunnel"`
 	Interfaces  map[string]UciNetIface      `json:"-" inline:"yes,.type:interface"`
 	SwitchVlans map[string]UciNetSwitchVlan `json:"-" inline:"yes,.type:switch_vlan"`
 	//SwitchPorts map[string]UciNetSwitchPort `json:"-" inline:"yes,.type:switch_port"`
@@ -344,7 +344,7 @@ func (self UciNetwork) MarshalJSON() (b []byte, e error) {
 func (self *UciNetwork) UnmarshalJSON(b []byte) error {
 	var tmp = map[string]interface{}{
 		".type:interface":   &map[string]UciNetIface{},
-		".type:tunnel":      &map[string]UciNetTunnel{},
+		".type:l2tunnel":    &map[string]UciNetTunnel{},
 		".type:switch_vlan": &map[string]UciNetSwitchVlan{},
 		//".type:switch_port": &map[string]UciNetSwitchPort{},
 	}
