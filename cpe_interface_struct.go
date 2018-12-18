@@ -448,7 +448,7 @@ type CPEAllInfo struct {
 	Model      GAModelInfo        `json:"model,omitempty"`
 	Version    GAVersion          `json:"version,omitempty"`
 	Status     CPEAgentStatus     `json:"status,omitempty"`
-	Packages   CPEAgentPackages   `json:"packages,omitempty"`
+	Packages   map[string]string  `json:"packages,omitempty"`
 	Statics    map[string]Version `json:"statics,omitempty"`
 	WifiStatus []GAWifiStatus     `json:"wifistatus,omitempty"`
 
@@ -460,6 +460,8 @@ type CPEMeta struct {
 	ModelId   string
 	Caps      Capabilities
 	Uci       UciConfig
+	Packages  map[string]string
+	Statics   map[string]Version
 }
 
 //============= To set.lua script ================
