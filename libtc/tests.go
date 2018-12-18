@@ -28,13 +28,19 @@ func ExecTest() error {
 	var ifaces_old map[string]Iface
 	var ifaces_new map[string]Iface
 	var err error
+	var tc TcBind = &ExecTcBind{}
+	var db Database
+
+	tc.Init(&db)
 
 	fmt.Println("==== First get")
 
-	ifaces_old, err = GetIfaces()
-	if err != nil {
+	tc.Prepare()
+	tc.Get()
+	if err := tc.Commit(); err != nil {
 		return err
 	}
+	ifaces_old = db.ifaces
 	var i, ok = ifaces_old[test_dev_in]
 	if !ok {
 		return errors.New("Test interface not found")
@@ -42,28 +48,27 @@ func ExecTest() error {
 
 	fmt.Println("==== Add stuff")
 
+	tc.Prepare()
 	// tc qdisc add
 	//	dev enp0s25
 	//	root
 	//	handle 1:
 	//	htb
 	//		default 20
-	if err = AddQdisc(&i, QDisc{
+	tc.AddQdisc(&i, QDisc{
 		Type:   "htb",
 		Handle: 0x1,
 		Options: []Option{
 			Option{Name: "default", Value: "20"},
 		},
-	}); err != nil {
-		return err
-	}
+	})
 	// tc class add
 	//	dev eth0
 	//	parent 1:
 	//	classid 1:1
 	//	htb
 	//		rate 90kbps ceil 90kbps
-	if err = AddClass(&i, Class{
+	tc.AddClass(&i, Class{
 		Handle:      0x1,
 		ParentDisc:  0x1,
 		ParentClass: 0x0,
@@ -71,16 +76,14 @@ func ExecTest() error {
 			Option{Name: "rate", Value: "720Kbit"},
 			Option{Name: "ceil", Value: "720Kbit"},
 		},
-	}); err != nil {
-		return err
-	}
+	})
 	// tc class add
 	//	dev eth0
 	//	parent 1:1
 	//	classid 1:10
 	//	htb
 	//		rate 20kbps ceil 90kbps
-	if err = AddClass(&i, Class{
+	tc.AddClass(&i, Class{
 		Handle:      0x10,
 		ParentDisc:  0x1,
 		ParentClass: 0x1,
@@ -88,16 +91,14 @@ func ExecTest() error {
 			Option{Name: "rate", Value: "160Kbit"},
 			Option{Name: "ceil", Value: "560Kbit"},
 		},
-	}); err != nil {
-		return err
-	}
+	})
 	// tc class add
 	//	dev eth0
 	//	parent 1:1
 	//	classid 1:20
 	//	htb
 	//		rate 70kbps ceil 90kbps
-	if err = AddClass(&i, Class{
+	tc.AddClass(&i, Class{
 		Handle:      0x20,
 		ParentDisc:  0x1,
 		ParentClass: 0x1,
@@ -105,16 +106,14 @@ func ExecTest() error {
 			Option{Name: "rate", Value: "560Kbit"},
 			Option{Name: "ceil", Value: "720Kbit"},
 		},
-	}); err != nil {
-		return err
-	}
+	})
 	// tc class add
 	//	dev eth0
 	//	parent 1:20
 	//	classid 1:200
 	//	htb
 	//		rate 1kbps ceil 2kbps
-	if err = AddClass(&i, Class{
+	tc.AddClass(&i, Class{
 		Handle:      0x200,
 		ParentDisc:  0x1,
 		ParentClass: 0x20,
@@ -122,33 +121,27 @@ func ExecTest() error {
 			Option{Name: "rate", Value: "8Kbit"},
 			Option{Name: "ceil", Value: "16Kbit"},
 		},
-	}); err != nil {
-		return err
-	}
+	})
 
 	// tc qdisc add
 	//	dev enp0s25
 	//	parent 1:10
 	//	handle 2:
 	//	prio
-	if err = AddQdisc(&i, QDisc{
+	tc.AddQdisc(&i, QDisc{
 		Type:        "prio",
 		Handle:      0x2,
 		ParentDisc:  0x1,
 		ParentClass: 0x10,
 		Options:     []Option{},
-	}); err != nil {
-		return err
-	}
+	})
 
 	// tc qdisc add
 	//	dev enp0s25
 	//	ingress
-	if err = AddQdisc(&i, QDisc{
+	tc.AddQdisc(&i, QDisc{
 		Type: INGRESS_VALUE,
-	}); err != nil {
-		return err
-	}
+	})
 
 	// tc filter add
 	//	dev enp0s25
@@ -158,7 +151,7 @@ func ExecTest() error {
 	//	handle 1:
 	//	u32
 	//	divisor 256
-	if err = AddFilter(&i, Filter{
+	tc.AddFilter(&i, Filter{
 		Type:     "u32",
 		Protocol: "ip",
 		Spec: &FilterU32{
@@ -167,9 +160,7 @@ func ExecTest() error {
 		},
 		Parent: 0x1,
 		Prio:   30,
-	}); err != nil {
-		return err
-	}
+	})
 
 	// tc filter add
 	//	dev enp0s25
@@ -180,7 +171,7 @@ func ExecTest() error {
 	//	u32
 	//		match ether src 12:34:56:78:9a:bc
 	//	flowid 1:200
-	if err = AddFilter(&i, Filter{
+	tc.AddFilter(&i, Filter{
 		Type:     "u32",
 		Protocol: "802_3",
 		Spec: &FilterU32{
@@ -194,9 +185,7 @@ func ExecTest() error {
 		ToClass: 0x200,
 		Prio:    10,
 		Actions: []Action{},
-	}); err != nil {
-		return err
-	}
+	})
 
 	// tc filter add
 	//	dev enp0s25
@@ -207,7 +196,7 @@ func ExecTest() error {
 	//	u32
 	//		match ip dport 25 0xffff
 	//	flowid 1:10
-	if err = AddFilter(&i, Filter{
+	tc.AddFilter(&i, Filter{
 		Type:     "u32",
 		Protocol: "ip",
 		Spec: &FilterU32{
@@ -221,9 +210,7 @@ func ExecTest() error {
 		ToClass: 0x10,
 		Prio:    20,
 		Actions: []Action{},
-	}); err != nil {
-		return err
-	}
+	})
 
 	// tc filter add
 	//	dev enp0s25
@@ -233,7 +220,7 @@ func ExecTest() error {
 	//	handle 1
 	//	fw
 	//	flowid 2:10
-	if err = AddFilter(&i, Filter{
+	tc.AddFilter(&i, Filter{
 		Type:     "fw",
 		Protocol: "ip",
 		Spec: &FilterFW{
@@ -243,9 +230,7 @@ func ExecTest() error {
 		ToClass: 0x10,
 		Prio:    10,
 		Actions: []Action{},
-	}); err != nil {
-		return err
-	}
+	})
 
 	// tc filter add
 	//	dev enp0s25
@@ -257,7 +242,7 @@ func ExecTest() error {
 	//		ht 1:42
 	//		match ip dport 25 0xffff
 	//		action police rate 2Mbit burst 200K drop
-	if err = AddFilter(&i, Filter{
+	tc.AddFilter(&i, Filter{
 		Type:     "u32",
 		Protocol: "ip",
 		Spec: &FilterU32{
@@ -275,9 +260,7 @@ func ExecTest() error {
 		Actions: []Action{
 			Action{Type: "police", Options: []string{"rate", "2Mbit", "burst", "200K", "drop"}},
 		},
-	}); err != nil {
-		return err
-	}
+	})
 
 	// tc filter add
 	//	dev enp0s25
@@ -290,7 +273,7 @@ func ExecTest() error {
 	//		action pedit munge offset 22 u16 set 11500 pipe
 	//		action csum tcp pipe
 	//		action mirred egress mirror dev enp25s0
-	if err = AddFilter(&i, Filter{
+	tc.AddFilter(&i, Filter{
 		Type:     "u32",
 		Protocol: "ip",
 		Spec: &FilterU32{
@@ -308,30 +291,30 @@ func ExecTest() error {
 			Action{Type: "csum", Options: []string{"tcp", "pipe"}},
 			Action{Type: "mirred", Options: []string{"egress", "mirror", "dev", "wlp3s0"}},
 		},
-	}); err != nil {
-		return err
-	}
+	})
 
 	// tc qdisc del
 	//	dev enp0s25
 	//	root
-	if err = DelQdisc(&i, QDisc{}); err != nil {
-		return err
-	}
+	tc.DelQdisc(&i, QDisc{})
 
 	// tc qdisc del
 	//	dev enp0s25
 	//	ingress
-	if err = DelQdisc(&i, QDisc{Type: INGRESS_VALUE}); err != nil {
-		return err
-	}
+	tc.DelQdisc(&i, QDisc{Type: INGRESS_VALUE})
 
 	fmt.Println("==== Second get")
 
-	ifaces_new, err = GetIfaces()
+	tc.Prepare()
+	tc.Get()
+	if err := tc.Commit(); err != nil {
+		return err
+	}
+	ifaces_new = db.ifaces
 	if err != nil {
 		return err
 	}
+
 	var check = deep.Equal(i, ifaces_new[test_dev_in])
 	for _, c := range check {
 		fmt.Println(c)
@@ -341,7 +324,7 @@ func ExecTest() error {
 
 func ApiTest(filename string) error {
 
-	var DB = Database{}
+	var DB = Database{Tc: &ExecTcBind{}}
 	if err := DB.Load(); err != nil {
 		return err
 	}

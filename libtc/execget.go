@@ -6,14 +6,21 @@ import (
 	"strings"
 )
 
-func GetIfaces() (map[string]Iface, error) {
+func (self *ExecTcBind) Get() {
+
+	if self.lastError != nil {
+		return
+	}
+
 	var params = []string{
 		LINK_OBJECT,
 		SHOW_COMMAND,
 	}
+	self.ifaces = map[string]Iface{}
 	var out, err = execute(IP_EXECUTABLE, params...)
 	if err != nil {
-		return nil, err
+		self.lastError = err
+		return
 	}
 	var res = map[string]Iface{}
 	var re = regexp.MustCompile("^[[:digit:]]+:[[:space:]]+([^:]+):")
@@ -21,7 +28,7 @@ func GetIfaces() (map[string]Iface, error) {
 		var subs = re.FindStringSubmatch(line)
 		if len(subs) > 1 {
 			var ifname = strings.Split(subs[1], "@")[0]
-			var iface, err = GetDiscs(ifname)
+			var iface, err = self.getDiscs(ifname)
 			if err != nil {
 				fmt.Println("  Error", err.Error())
 				continue
@@ -29,10 +36,10 @@ func GetIfaces() (map[string]Iface, error) {
 			res[ifname] = iface
 		}
 	}
-	return res, nil
+	self.ifaces = res
 }
 
-func GetDiscs(iface string) (Iface, error) {
+func (self *ExecTcBind) getDiscs(iface string) (Iface, error) {
 
 	var params = []string{
 		QDISC_OBJECT,
@@ -69,10 +76,10 @@ func GetDiscs(iface string) (Iface, error) {
 		qdisc.Options = parseOptions(params[optionsFrom:])
 		if qdisc.Handle != 0 || (qdisc.ParentClass == 0 && qdisc.ParentDisc == 0) {
 
-			if cls, err := GetClasses(iface, qdisc.Handle); err == nil {
+			if cls, err := self.getClasses(iface, qdisc.Handle); err == nil {
 				qdisc.Classes = cls
 			}
-			if flt, err := GetFilters(iface, qdisc.Handle); err == nil {
+			if flt, err := self.getFilters(iface, qdisc.Handle); err == nil {
 				qdisc.Filters = flt
 			}
 		}
@@ -86,7 +93,7 @@ func GetDiscs(iface string) (Iface, error) {
 	return res, nil
 }
 
-func GetClasses(iface string, disc int) (map[int]Class, error) {
+func (self *ExecTcBind) getClasses(iface string, disc int) (map[int]Class, error) {
 
 	var params = []string{
 		CLASS_OBJECT,
@@ -129,7 +136,7 @@ func GetClasses(iface string, disc int) (map[int]Class, error) {
 	return res, nil
 }
 
-func GetFilters(iface string, disc int) ([]Filter, error) {
+func (self *ExecTcBind) getFilters(iface string, disc int) ([]Filter, error) {
 
 	var params = []string{
 		FILTER_OBJECT,
@@ -186,6 +193,77 @@ func GetFilters(iface string, disc int) ([]Filter, error) {
 	}
 	if flt.Spec != nil && flt.Spec.ParseParams(spec, &flt) == nil {
 		res = append(res, flt)
+	}
+
+	return res, nil
+}
+
+func (self *ExecTcBind) GetStats(iface *Iface) (map[uint32]ClassStat, error) {
+	if iface == nil {
+		return nil, fmt.Errorf("Nil iface")
+	}
+
+	var params = []string{
+		"-s", // with stats
+		CLASS_OBJECT,
+		SHOW_COMMAND,
+		DEV_PARAM,
+		iface.Name,
+	}
+	var out, err = execute(TC_EXECUTABLE, params...)
+	if err != nil {
+		return nil, err
+	}
+
+	var res = map[uint32]ClassStat{}
+	for index, line := range out {
+		var params = split(line)
+		if len(params) < 4 {
+			continue
+		}
+		if params[0] != CLASS_OBJECT {
+			continue
+		}
+
+		rt := findString(params[2], 1, 16)
+		lt := findString(params[2], 0, 16)
+
+		var cls = ClassStat{
+			Handle: uint32(lt)<<16 + uint32(rt),
+		}
+		var optionsFrom = 4
+		if params[3] == PARENT_PARAM {
+			cls.ParentClass = findString(params[4], 1, 16)
+			optionsFrom = 5
+		}
+		if optionsFrom < len(params) && params[optionsFrom] == LEAF_PARAM {
+			continue
+			// cls.LeafDisc = findString(params[optionsFrom+1], 0, 16)
+		}
+
+		if len(out) < index+1 {
+			return res, nil
+		}
+
+		line = out[index+1]
+		params = split(line)
+		if len(params) < 4 {
+			continue
+		}
+		if params[0] != SENT_PARAM {
+			continue
+		}
+		cls.Bytes = s2i(params[1])
+		cls.Packets = s2i(params[3])
+
+		// if k, ok := res[cls.Handle]; ok {
+		// 	k.Bytes += cls.Bytes
+		// 	k.Packets += cls.Packets
+		// 	res[cls.Handle] = k
+		// } else {
+		res[cls.Handle] = cls
+		// }
+
 	}
 
 	return res, nil

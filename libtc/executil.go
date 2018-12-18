@@ -11,14 +11,14 @@ import (
 
 func execute(name string, params ...string) ([]string, error) {
 
-	fmt.Println("  Exec", name, params)
+	fmt.Printf("  Exec: %s %s\n", name, strings.Join(params, " "))
 	var cmd = exec.Command(name, params...)
 	var out, eout bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &eout
 	err := cmd.Run()
 	if err != nil {
-		fmt.Println("  Error", err.Error(), eout.String())
+		fmt.Printf("  Error: %s %s\n", err.Error(), eout.String())
 		return nil, err
 	}
 
@@ -38,6 +38,14 @@ func s2i(s string) int {
 	var i, e = strconv.Atoi(s)
 	if e == nil {
 		return i
+	}
+	return 0
+}
+
+func hex2uint(s string) uint32 {
+	var i, e = strconv.ParseUint(s, 16, 0)
+	if e == nil {
+		return uint32(i)
 	}
 	return 0
 }
@@ -149,4 +157,20 @@ func hex(val uint32, size int) string {
 func mask(length, offset uint) uint32 {
 	var res int64 = 1<<length - 1
 	return uint32(res) << offset
+}
+
+func parseIp(ip string) []int {
+	var octets = strings.Split(ip, ".")
+	var res []int
+	for _, o := range octets {
+		var oo, err = strconv.ParseInt(o, 10, 32)
+		if err != nil {
+			continue
+		}
+		res = append(res, int(oo))
+	}
+	for len(res) < 4 {
+		res = append(res, 0)
+	}
+	return res
 }

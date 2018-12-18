@@ -3,11 +3,9 @@ patsak:
     name: patsak
     qos_in:
         -
-            class:
-                name: fuckhttp
-                filters:
-                    - {src_port: 80}
-                    - {src_port: 443}
+            filters:
+                - {src_port: 80}
+                - {src_port: 443}
             block: true
         -
             name: all
@@ -17,15 +15,13 @@ chatlan:
     name: chatlan
     qos_out:
         -
-            class:
-                name: mail
-                filters:
-                    - {dst_port: 25}
-                    - {dst_port: 465}
-                    - {dst_port: 110}
-                    - {dst_port: 995}
-                    - {dst_port: 143}
-                    - {dst_port: 993}
+            filters:
+                - {dst_port: 25}
+                - {dst_port: 465}
+                - {dst_port: 110}
+                - {dst_port: 995}
+                - {dst_port: 143}
+                - {dst_port: 993}
             rate: 100
             rate_type: Kbit
         -

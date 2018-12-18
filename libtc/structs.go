@@ -13,6 +13,7 @@ type Action struct {
 
 type FilterSpec interface {
 	Handle() string
+	Id() int
 	MakeAddParams() []string
 	MakeDelParams() []string
 	ParseParams([]string, *Filter) error
@@ -50,4 +51,13 @@ type Iface struct {
 	Name         string
 	Discs        map[int]QDisc
 	DefaultDiscs []QDisc
+}
+
+type ClassStat struct {
+	Handle      uint32
+	ParentDisc  int
+	ParentClass int
+	// LeafDisc    int
+	Bytes   int
+	Packets int
 }

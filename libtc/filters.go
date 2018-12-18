@@ -3,6 +3,7 @@ package libtc
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type FilterU32Match struct {
@@ -56,6 +57,14 @@ func (f *FilterU32) Handle() string {
 		return fmt.Sprintf("%x:", f.Table)
 	} else {
 		return fmt.Sprintf("%x:%x:%x", f.Table, f.Bucket, f.Index)
+	}
+}
+
+func (f *FilterU32) Id() int {
+	if f.Div != 0 {
+		return f.Table
+	} else {
+		return f.Index
 	}
 }
 
@@ -129,6 +138,16 @@ func (f *FilterU32) ParseParams(lines []string, flt *Filter) error {
 				f.Div = s2i(params[n+1])
 				f.Index = -1
 				f.Bucket = -1
+			case U32_MATCH_PARAM:
+				var valmask = strings.Split(params[n+1], "/")
+				if len(valmask) != 2 {
+					break
+				}
+				f.Match = append(f.Match, FilterU32Match{
+					Mask:   hex2uint(valmask[1]),
+					Value:  hex2uint(valmask[0]),
+					Offset: s2i(params[n+3]),
+				})
 			}
 		}
 	}
@@ -141,6 +160,10 @@ type FilterFW struct {
 
 func (f *FilterFW) Handle() string {
 	return fmt.Sprintf("%d", f.Mark)
+}
+
+func (f *FilterFW) Id() int {
+	return f.Mark
 }
 
 func (f *FilterFW) MakeAddParams() []string {

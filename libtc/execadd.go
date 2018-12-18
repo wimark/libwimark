@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func AddFilter(dev *Iface, f Filter) error {
+func (self *ExecTcBind) AddFilter(dev *Iface, f Filter) {
 	// Example:
 	//	tc filter add
 	//		dev wlp3s0 parent 2: prio 20 protocol ip handle ::3 u32
@@ -15,10 +15,15 @@ func AddFilter(dev *Iface, f Filter) error {
 	//		action csum tcp pipe
 	//		action mirred egress mirror dev enp0s25
 
+	if self.lastError != nil {
+		return
+	}
+
 	// TODO checks
 	var qdisc, ok = dev.Discs[f.Parent]
 	if !ok {
-		return errors.New("No qdisc in filter add")
+		self.lastError = errors.New("No qdisc in filter add")
+		return
 	}
 
 	// add
@@ -37,24 +42,29 @@ func AddFilter(dev *Iface, f Filter) error {
 	}
 	params = append(params, acts...)
 
-	var _, err = execute(TC_EXECUTABLE, params...)
-	if err == nil {
-		qdisc.Filters = append(qdisc.Filters, f)
-		dev.Discs[f.Parent] = qdisc
+	if _, err := execute(TC_EXECUTABLE, params...); err != nil {
+		self.lastError = err
+		return
 	}
-	return err
+	qdisc.Filters = append(qdisc.Filters, f)
+	dev.Discs[f.Parent] = qdisc
 }
 
-func AddClass(dev *Iface, c Class) error {
+func (self *ExecTcBind) AddClass(dev *Iface, c Class) {
 	// Example:
 	//	tc class add
 	//		dev eth0 parent 1: classid 1:1 htb
 	//		rate 90kbps ceil 90kbps
 
+	if self.lastError != nil {
+		return
+	}
+
 	// TODO checks
 	var qdisc, ok = dev.Discs[c.ParentDisc]
 	if !ok {
-		return errors.New("No qdisc in class add")
+		self.lastError = errors.New("No qdisc in class add")
+		return
 	}
 
 	// add
@@ -68,22 +78,26 @@ func AddClass(dev *Iface, c Class) error {
 	var opts = opt2params(c.Options)
 	params = append(params, opts...)
 
-	var _, err = execute(TC_EXECUTABLE, params...)
-	if err == nil {
-		if qdisc.Classes == nil {
-			qdisc.Classes = map[int]Class{}
-		}
-		qdisc.Classes[c.Handle] = c
-		dev.Discs[c.ParentDisc] = qdisc
+	if _, err := execute(TC_EXECUTABLE, params...); err != nil {
+		self.lastError = err
+		return
 	}
-	return err
+	if qdisc.Classes == nil {
+		qdisc.Classes = map[int]Class{}
+	}
+	qdisc.Classes[c.Handle] = c
+	dev.Discs[c.ParentDisc] = qdisc
 }
 
-func AddQdisc(dev *Iface, qdisc QDisc) error {
+func (self *ExecTcBind) AddQdisc(dev *Iface, qdisc QDisc) {
 	// Example:
 	//	tc qdics add
 	//		dev eth0 parent 1:10 handle 2: htb
 	//		default 20
+
+	if self.lastError != nil {
+		return
+	}
 
 	// TODO checks
 
@@ -113,20 +127,20 @@ func AddQdisc(dev *Iface, qdisc QDisc) error {
 		params = append(params, opts...)
 	}
 
-	var _, err = execute(TC_EXECUTABLE, params...)
-	if err == nil {
-		dev.DefaultDiscs = nil
-		dev.Discs[qdisc.Handle] = qdisc
-		if qdisc.ParentDisc != 0 {
-			var pdisc = dev.Discs[qdisc.ParentDisc]
-			var pcls = pdisc.Classes[qdisc.ParentClass]
-			pcls.LeafDisc = qdisc.Handle
-			if pdisc.Classes == nil {
-				pdisc.Classes = map[int]Class{}
-			}
-			pdisc.Classes[qdisc.ParentClass] = pcls
-			dev.Discs[qdisc.ParentDisc] = pdisc
-		}
+	if _, err := execute(TC_EXECUTABLE, params...); err != nil {
+		self.lastError = err
+		return
 	}
-	return err
+	dev.DefaultDiscs = nil
+	dev.Discs[qdisc.Handle] = qdisc
+	if qdisc.ParentDisc != 0 {
+		var pdisc = dev.Discs[qdisc.ParentDisc]
+		var pcls = pdisc.Classes[qdisc.ParentClass]
+		pcls.LeafDisc = qdisc.Handle
+		if pdisc.Classes == nil {
+			pdisc.Classes = map[int]Class{}
+		}
+		pdisc.Classes[qdisc.ParentClass] = pcls
+		dev.Discs[qdisc.ParentDisc] = pdisc
+	}
 }

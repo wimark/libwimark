@@ -6,15 +6,20 @@ import (
 	"strconv"
 )
 
-func DelFilter(dev *Iface, f Filter) error {
+func (self *ExecTcBind) DelFilter(dev *Iface, f Filter) {
 	// Example:
 	//	tc filter del
 	//		dev wlp3s0 parent 2: prio 20 handle ::3 u32
 
+	if self.lastError != nil {
+		return
+	}
+
 	// TODO checks
 	var qdisc, ok = dev.Discs[f.Parent]
 	if !ok {
-		return errors.New("No qdisc in filter del")
+		self.lastError = errors.New("No qdisc in filter del")
+		return
 	}
 
 	// delete
@@ -26,28 +31,33 @@ func DelFilter(dev *Iface, f Filter) error {
 	}
 	params = append(params, f.Spec.MakeDelParams()...)
 
-	var _, err = execute(TC_EXECUTABLE, params...)
-	if err == nil {
-		for i, filt := range qdisc.Filters {
-			if filt.Spec.Handle() == f.Spec.Handle() {
-				qdisc.Filters = append(qdisc.Filters[:i], qdisc.Filters[i+1:]...)
-				break
-			}
-		}
-		dev.Discs[f.Parent] = qdisc
+	if _, err := execute(TC_EXECUTABLE, params...); err != nil {
+		self.lastError = err
+		return
 	}
-	return err
+	for i, filt := range qdisc.Filters {
+		if filt.Spec.Handle() == f.Spec.Handle() {
+			qdisc.Filters = append(qdisc.Filters[:i], qdisc.Filters[i+1:]...)
+			break
+		}
+	}
+	dev.Discs[f.Parent] = qdisc
 }
 
-func DelClass(dev *Iface, c Class) error {
+func (self *ExecTcBind) DelClass(dev *Iface, c Class) {
 	// Example:
 	//	tc class del
 	//		dev eth0 classid 1:1
 
+	if self.lastError != nil {
+		return
+	}
+
 	// TODO checks
 	var qdisc, ok = dev.Discs[c.ParentDisc]
 	if !ok {
-		return errors.New("No qdisc in class add")
+		self.lastError = errors.New("No qdisc in class add")
+		return
 	}
 
 	// update
@@ -57,18 +67,22 @@ func DelClass(dev *Iface, c Class) error {
 		CLASSID_PARAM, fmt.Sprintf("%x:%x", c.ParentDisc, c.Handle),
 	}
 
-	var _, err = execute(TC_EXECUTABLE, params...)
-	if err == nil {
-		delete(qdisc.Classes, c.Handle)
-		dev.Discs[c.ParentDisc] = qdisc
+	if _, err := execute(TC_EXECUTABLE, params...); err != nil {
+		self.lastError = err
+		return
 	}
-	return err
+	delete(qdisc.Classes, c.Handle)
+	dev.Discs[c.ParentDisc] = qdisc
 }
 
-func DelQdisc(dev *Iface, qdisc QDisc) error {
+func (self *ExecTcBind) DelQdisc(dev *Iface, qdisc QDisc) {
 	// Example:
 	//	tc qdics del
 	//		dev eth0 parent 1:10 handle 2:
+
+	if self.lastError != nil {
+		return
+	}
 
 	// TODO checks
 
@@ -88,14 +102,14 @@ func DelQdisc(dev *Iface, qdisc QDisc) error {
 		)
 	}
 
-	var _, err = execute(TC_EXECUTABLE, params...)
-	if err == nil {
-		delete(dev.Discs, qdisc.Handle)
-		for key, d := range dev.Discs {
-			if d.ParentDisc == qdisc.Handle {
-				delete(dev.Discs, key)
-			}
+	if _, err := execute(TC_EXECUTABLE, params...); err != nil {
+		self.lastError = err
+		return
+	}
+	delete(dev.Discs, qdisc.Handle)
+	for key, d := range dev.Discs {
+		if d.ParentDisc == qdisc.Handle {
+			delete(dev.Discs, key)
 		}
 	}
-	return err
 }
