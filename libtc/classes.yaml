@@ -1,0 +1,43 @@
+default:
+patsak:
+    name: patsak
+    qos_in:
+        -
+            class:
+                name: fuckhttp
+                filters:
+                    - {src_port: 80}
+                    - {src_port: 443}
+            block: true
+        -
+            name: all
+            rate: 10
+            rate_type: Kbit
+chatlan:
+    name: chatlan
+    qos_out:
+        -
+            class:
+                name: mail
+                filters:
+                    - {dst_port: 25}
+                    - {dst_port: 465}
+                    - {dst_port: 110}
+                    - {dst_port: 995}
+                    - {dst_port: 143}
+                    - {dst_port: 993}
+            rate: 100
+            rate_type: Kbit
+        -
+            rate: 1
+            rate_type: Mbit
+ecilop:
+    name: ecilop
+    qos_in:
+        -
+            rate: 10
+            rate_type: Gbit
+    qos_out:
+        -
+            rate: 10
+            rate_type: Gbit
