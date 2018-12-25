@@ -76,6 +76,13 @@ type WLAN struct {
 	NATNetwork         IPAddress            `json:"nat_network" bson:"nat_network"`
 }
 
+type WLANCompact struct {
+	Name        string `json:"name" bson:"name"`
+	SSID        string `json:"ssid" bson:"ssid"`
+	Description string `json:"description" bson:"description"`
+	// Security    EnumSecurity `json:"security" bson:"security"`
+}
+
 // ==== CPE ====
 
 // ---- Service configs ----
@@ -107,17 +114,6 @@ type LogConfig struct {
 type DHCPCapConfig struct {
 	Enabled       bool     `json:"enabled"`
 	MsgTypeFilter []string `json:"msgtypefilter"`
-}
-
-type L2TPConfig struct {
-	Enabled        bool   `json:"enabled" bson:"enabled"`
-	HostId         UUID   `json:"host" bson:"host"`
-	HostAddr       string `json:"host_addr" bson:"host_addr"`
-	HostTunnelId   int    `json:"host_tunnel" bson:"host_tunnel"`
-	TunnelType     string `json:"tunnel_type" bson:"tunnel_type"`
-	LocalAddr      string `json:"local_addr" bson:"local_addr"`
-	LocalInterface string `json:"local_iface" bson:"local_iface"`
-	LocalTunnelId  int    `json:"local_tunnel" bson:"local_tunnel"`
 }
 
 type ScanConfig struct {
@@ -196,6 +192,7 @@ type TunnelConfigs map[string]TunnelConfig
 
 type WiredVlanConfig struct {
 	Vlan       int      `json:"vlan" bson:"vlan"`
+	Vid        int      `json:"vid" bson:"vid"`
 	Ports      []string `json:"ports" bson:"ports"`
 	Tunnel     string   `json:"tunnel" bson:"tunnel"`
 	FakeWlan   UUID     `json:"fake_wlan" bson:"fake_wlan"`
@@ -242,10 +239,17 @@ type CPEConfig struct {
 	StatisticsConfig StatisticsConfig `json:"stats_config" bson:"stats_config"`
 	LogConfig        LogConfig        `json:"log_config" bson:"log_config"`
 	DHCPCapConfig    DHCPCapConfig    `json:"dhcpcap_config" bson:"dhcpcap_config"`
-	L2TPConfig       L2TPConfig       `json:"l2tp_config" bson:"l2tp_config"`
 	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
 	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
 	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
+}
+
+type CPEConfigItemCompact struct {
+	Enabled bool `json:"enabled" bson:"enabled"`
+}
+
+type CPEConfigCompact struct {
+	LbsConfig CPEConfigItemCompact `json:"lbs_config" bson:"lbs_config"`
 }
 
 // ---- Service states ----
@@ -256,6 +260,19 @@ type FirmwareState struct {
 	Version    Version            `json:"version" bson:"version"`
 	Packages   map[string]Version `json:"packages" bson:"packages"`
 	Statics    map[string]Version `json:"statics" bson:"statics"`
+}
+
+// ---- General tunnel state ----
+
+type L2TPState struct {
+	Enabled        bool   `json:"enabled" bson:"enabled"`
+	HostId         UUID   `json:"host" bson:"host"`
+	HostAddr       string `json:"host_addr" bson:"host_addr"`
+	HostTunnelId   int    `json:"host_tunnel" bson:"host_tunnel"`
+	TunnelType     string `json:"tunnel_type" bson:"tunnel_type"`
+	LocalAddr      string `json:"local_addr" bson:"local_addr"`
+	LocalInterface string `json:"local_iface" bson:"local_iface"`
+	LocalTunnelId  int    `json:"local_tunnel" bson:"local_tunnel"`
 }
 
 // ---- Wifi state ----
@@ -325,20 +342,42 @@ type WanState struct {
 	Protocol  string `json:"proto" bson:"proto"`
 }
 
+// ---- Net state ----
+
+type NetworkState struct {
+	IPAddr  string      `json:"ipaddr"`
+	MACAddr string      `json:"macaddr"`
+	IPAddrs []IPAddress `json:"ipaddrs"`
+	Gateway string      `json:"gateway"`
+}
+
+type NetworkStateCompact struct {
+	IPAddr  string `json:"ipaddr" bson:"ipaddr"`
+	MACAddr string `json:"macaddr" bson:"macaddr"`
+}
+
 // ---- CPE state ----
 
 type CPEState struct {
-	Wifi     WiFiStates    `json:"wifi,omitempty"`
-	Wired    WiredStates   `json:"wired,omitempty"`
-	Firmware FirmwareState `json:"firmware,omitempty"`
-	Wan      WanState      `json:"wan"`
+	Wifi      WiFiStates    `json:"wifi,omitempty"`
+	Wired     WiredStates   `json:"wired,omitempty"`
+	Firmware  FirmwareState `json:"firmware,omitempty"`
+	Wan       WanState      `json:"wan"`
+	L2TPState L2TPState     `json:"l2tp_state" bson:"l2tp_state"`
+	Network   NetworkState  `json:"network" bson:"network"`
+	Tunnels   TunnelConfigs `json:"tunnels" bson:"tunnels"`
+}
+
+type CPEStateCompact struct {
+	Network NetworkStateCompact `json:"network" bson:"network"`
 }
 
 // ---- CPE itself ----
 
 type CPEModelLink struct {
-	Id   UUID   `json:"id"`
-	Name string `json:"name"`
+	Id        UUID   `json:"id"`
+	Name      string `json:"name"`
+	ShortName string `json:"short"`
 }
 
 type IPAddress struct {
@@ -349,16 +388,22 @@ type CPE struct {
 	Name         string              `json:"name"`
 	Connected    bool                `json:"connected"`
 	Description  string              `json:"description"`
-	IPAddr       string              `json:"ipaddr"`
-	MACAddr      string              `json:"macaddr"`
-	NetMask      string              `json:"netmask"`
-	IPAddrs      []IPAddress         `json:"ipaddrs"`
-	Gateway      string              `json:"gateway"`
 	Model        CPEModelLink        `json:"model"`
 	ConfigStatus ConfigurationStatus `json:"config_status"`
 
 	Config CPEConfig `json:"config"`
 	State  CPEState  `json:"state"`
+}
+
+type CPECompact struct {
+	Name         string              `json:"name" bson:"name"`
+	Connected    bool                `json:"connected" bson:"connected"`
+	Description  string              `json:"description" bson:"description"`
+	Model        CPEModelLink        `json:"model" bson:"model"`
+	ConfigStatus ConfigurationStatus `json:"config_status" bson:"configstatus"`
+
+	Config CPEConfigCompact `json:"config" bson:"config"`
+	State  CPEStateCompact  `json:"state" bson:"state"`
 }
 
 // ==== Capabilities ====
