@@ -74,7 +74,7 @@ type UciFirmwareCfg struct {
 }
 type UciEthernetAcct struct {
 	Type       string   `json:".type,omitempty"`
-	Interfaces []string `json:"interface"`
+	Interfaces []string `json:"interface,omitempty"`
 }
 type UciRedirectCfg struct {
 	Id           UUID     `json:"id"`
@@ -88,7 +88,7 @@ type innerUciWimark struct {
 	Lbs              UciLbsCfg                 `json:"lbs"`
 	Stat             UciStatCfg                `json:"statistic"`
 	DhcpCap          UciDhcpcapCfg             `json:"dhcpcap"`
-	EthernetAcct     UciEthernetAcct           `json:"eth_acct"`
+	EthernetAcct     UciEthernetAcct           `json:"eth_acct,omitempty"`
 	Firmware         UciFirmwareCfg            `json:"-" inline:"yes,.type:firmware,unique,.firmware"`
 	ScanSettings     map[string]UciScanningCfg `json:"-" inline:"yes,.type:scanning"`
 	RedirectSettings map[string]UciRedirectCfg `json:"-" inline:"yes,.type:redirect"`
