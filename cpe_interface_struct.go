@@ -88,7 +88,7 @@ type innerUciWimark struct {
 	Lbs              UciLbsCfg                 `json:"lbs"`
 	Stat             UciStatCfg                `json:"statistic"`
 	DhcpCap          UciDhcpcapCfg             `json:"dhcpcap"`
-	EthernetAcct     UciEthernetAcct           `json:"eth_acct,omitempty"`
+	EthernetAcct     UciEthernetAcct           `json:"-" inline:"yes,.type:eth_acct,unique,omitempty,.eth_acct"`
 	Firmware         UciFirmwareCfg            `json:"-" inline:"yes,.type:firmware,unique,.firmware"`
 	ScanSettings     map[string]UciScanningCfg `json:"-" inline:"yes,.type:scanning"`
 	RedirectSettings map[string]UciRedirectCfg `json:"-" inline:"yes,.type:redirect"`
