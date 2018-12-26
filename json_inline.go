@@ -13,11 +13,12 @@ import (
 )
 
 type inlineTag struct {
-	Enabled bool
-	Unique  bool
-	Attrs   map[string]string
-	Key     string
-	Name    string
+	Enabled   bool
+	Unique    bool
+	Omitempty bool
+	Attrs     map[string]string
+	Key       string
+	Name      string
 }
 
 func parseInlineTag(tag string) inlineTag {
@@ -33,6 +34,8 @@ func parseInlineTag(tag string) inlineTag {
 			res.Enabled = false
 		case "unique":
 			res.Unique = true
+		case "omitempty":
+			res.Omitempty = true
 		default:
 			index := strings.Index(t, ":")
 			if index != -1 {
@@ -96,6 +99,9 @@ func MarshalInline(val interface{}) (b []byte, e error) {
 			f, e := mapDecode(v.Field(i).Interface())
 			if e != nil {
 				return nil, e
+			}
+			if tag.Omitempty && len(f) == 0 {
+				continue
 			}
 			if tag.Unique {
 				if len(tag.Name) == 0 {
