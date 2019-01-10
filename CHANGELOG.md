@@ -1,5 +1,91 @@
 # Changelog
 
+## [v1.0.7] - 11-01-2019
+
+### Changed
+#### lbs-struct-fix
+ - Tag in LBS data fixed
+
+## [v1.0.6] - 27-12-2018
+
+### Changed
+#### eth-acct-off
+ - Write eth_acct section by name
+ - Event test fixed
+ - Omitempty for eth_acct config section
+ - Omitempty support for inline marshaling
+
+## [v1.0.2] - 24-12-2018
+
+### Changed
+#### WNE-1147-separate-configure
+ - Add vid param to vlan config (filled by configurer)
+
+## [v1.0.1] - 18-12-2018
+
+### Added
+#### l3-libtc
+ - Add ifaceStats to read users stats
+ - Add Ip address as key to libtc
+ - libtc: parse interface & users state
+ - libtc: user state stuff now is stored by mac
+ - libtc: parse U32 filter matches
+ - libtc: tc cli driver
+ - libtc moved from wbras
+#### WNE-1206-acct-mirror
+ - Add Accounting mirroring (WLAN, event)
+#### cpe-features
+ - Cpe.state.firmware.features
+#### WNE-1193-mac-auth
+ - Use structs from libwimark/libtc
+ - Add user classes for QoS from libtc
+ - Add QosGroup to redir session
+ - Add NasPortId to Acct req
+ - Add QosGroup obj
+ - Add mac_auth and nas_port_id to WLAN
+#### event-desc-root
+ - Event description for LOGGED_ERROR type added to root struct
+#### beeline-framed-ip-address
+ - add framed ip address for beeline configuration purposes
+#### WNE-1079-firstboot
+ - Default Module value
+ - New CPE statuses and last error field
+ - Multiple CPEs for reboot + field renames
+ - CPE system functions
+ - Configurer JSONRPC interface
+#### WNE-1077-wmm-support
+ - WMM params in UCI config
+ - WMM support in models
+#### WNE-1075-template-extends
+ - Add subnet and MAC prefix to ConfigRule constraints
+#### WNE-1081-multiradius
+ - Radius section in UCI config
+#### WNE-1080-wired-redirect
+ - Add UCI config contents to CPE metadata
+ - HasCaptiveRedirect in CPE mask
+ - Fields for wired redirect
+#### WNE-1095-cisco
+ - add yaml tags for nesseccary fields
+ - Mask for controller
+ - CPE mask for controller
+ - CPE status meta
+ - CPE interface structs moved from configurer
+ - Add calls for cisco mediator interface
+ - Add model id from CPE to CPE struct
+ - Add Controller model for Cisco integration
+
+### Changed
+#### WNE-1088-mongo
+ - Perf improves in set/get BSON
+ - Switch to new mgo
+#### WNE-1147-separate-configure
+ - Tunnel config moved to cpe state
+ - Add Compact objects for frontend using
+ - CPE addresses moved to state
+ - L2TP config -> state
+#### rrm-power
+ - New model for Tx power config
+
 ## [v0.12.4] - 07-08-2018
 
 ### Added
@@ -225,7 +311,7 @@
 #### WNE-585-mcs-management
  - Add fields for MCS config
 
-### Changed 
+### Changed
 #### WNE-640-templates
  - Separate capabilities from CPE model
 #### new-enums
@@ -236,7 +322,7 @@
  - 'omitempty' tags removed from models
 
 ## [v0.6.0] - 03-11-2017
-### Added 
+### Added
 #### WNE-601-lbs-maclists
  - Add MAC-filters for LBS
 #### WNE-604-clients-unique
@@ -266,13 +352,13 @@
 
 ### Changed
 #### WNE-630-Add-new-fields-to-client-model
- - Add channel parameters (rssi, noise, inactive, mode) to Client and Client Info 
+ - Add channel parameters (rssi, noise, inactive, mode) to Client and Client Info
  - Add channel paramters and client hw modes to ClientStat
 #### Fix-Backgound-Scanning-JSON
  - Model fixes for BackScanModelRaw
 
 ## [v0.5.0] - 09-10-2017
-### Added 
+### Added
 #### WNE-510-CPE-Stats
  - Add model for collect "cpe_stat_info"
  - Add model for collect "wlan_stat_info"
