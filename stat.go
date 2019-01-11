@@ -276,7 +276,7 @@ type LBSClientData struct {
 	Radio     string  `json:"radio"`
 	ClientMac string  `json:"client_mac"`
 	RSSI      float64 `json:"rssi"`
-	Frequency int     `json:"frequency"`
+	Frequency int     `json:"freq"`
 }
 
 type LBSCPEInfo struct {
