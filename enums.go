@@ -2653,6 +2653,9 @@ func (self *ServiceState) SetBSON(v bson.Raw) error {
 type StatEventRuleType string
 
 const StatEventRuleTypeCPUload StatEventRuleType = "cpu_load"
+const StatEventRuleTypeClientCon StatEventRuleType = "client_con"
+const StatEventRuleTypeClientDis StatEventRuleType = "client_dis"
+const StatEventRuleTypeClientFar StatEventRuleType = "client_far"
 const StatEventRuleTypeConfigError StatEventRuleType = "config_error"
 const StatEventRuleTypeConnected StatEventRuleType = "connected"
 const StatEventRuleTypeDisconnected StatEventRuleType = "disconnected"
@@ -2665,6 +2668,12 @@ func (self *StatEventRuleType) String() string {
 	switch *self {
 	case StatEventRuleTypeCPUload:
 		return "cpu_load"
+	case StatEventRuleTypeClientCon:
+		return "client_con"
+	case StatEventRuleTypeClientDis:
+		return "client_dis"
+	case StatEventRuleTypeClientFar:
+		return "client_far"
 	case StatEventRuleTypeConfigError:
 		return "config_error"
 	case StatEventRuleTypeConnected:
@@ -2683,6 +2692,12 @@ func (self *StatEventRuleType) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case StatEventRuleTypeCPUload:
 		return json.Marshal("cpu_load")
+	case StatEventRuleTypeClientCon:
+		return json.Marshal("client_con")
+	case StatEventRuleTypeClientDis:
+		return json.Marshal("client_dis")
+	case StatEventRuleTypeClientFar:
+		return json.Marshal("client_far")
 	case StatEventRuleTypeConfigError:
 		return json.Marshal("config_error")
 	case StatEventRuleTypeConnected:
@@ -2701,6 +2716,12 @@ func (self *StatEventRuleType) GetBSON() (interface{}, error) {
 	switch *self {
 	case StatEventRuleTypeCPUload:
 		return "cpu_load", nil
+	case StatEventRuleTypeClientCon:
+		return "client_con", nil
+	case StatEventRuleTypeClientDis:
+		return "client_dis", nil
+	case StatEventRuleTypeClientFar:
+		return "client_far", nil
 	case StatEventRuleTypeConfigError:
 		return "config_error", nil
 	case StatEventRuleTypeConnected:
@@ -2723,6 +2744,15 @@ func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
 	switch s {
 	case "cpu_load":
 		*self = StatEventRuleTypeCPUload
+		return nil
+	case "client_con":
+		*self = StatEventRuleTypeClientCon
+		return nil
+	case "client_dis":
+		*self = StatEventRuleTypeClientDis
+		return nil
+	case "client_far":
+		*self = StatEventRuleTypeClientFar
 		return nil
 	case "config_error":
 		*self = StatEventRuleTypeConfigError
@@ -2751,6 +2781,15 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 	switch s {
 	case "cpu_load":
 		*self = StatEventRuleTypeCPUload
+		return nil
+	case "client_con":
+		*self = StatEventRuleTypeClientCon
+		return nil
+	case "client_dis":
+		*self = StatEventRuleTypeClientDis
+		return nil
+	case "client_far":
+		*self = StatEventRuleTypeClientFar
 		return nil
 	case "config_error":
 		*self = StatEventRuleTypeConfigError

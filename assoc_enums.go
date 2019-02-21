@@ -438,6 +438,20 @@ func (self *StatEventRuleObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		self.Data = &d
+	case StatEventRuleTypeClientCon:
+		self.Data = nil
+	case StatEventRuleTypeClientDis:
+		self.Data = nil
+	case StatEventRuleTypeClientFar:
+		if !data_found {
+			return errors.New("No associated data found for enum StatEventRuleObject")
+		}
+		var d LimitBetween
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
 	case StatEventRuleTypeConfigError:
 		self.Data = nil
 	case StatEventRuleTypeConnected:
@@ -483,6 +497,20 @@ func (self *StatEventRuleObject) SetBSON(v bson.Raw) error {
 	}
 	switch t {
 	case StatEventRuleTypeCPUload:
+		if !data_found {
+			return errors.New("No associated data found for enum StatEventRuleObject")
+		}
+		var d LimitBetween
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		self.Data = &d
+	case StatEventRuleTypeClientCon:
+		self.Data = nil
+	case StatEventRuleTypeClientDis:
+		self.Data = nil
+	case StatEventRuleTypeClientFar:
 		if !data_found {
 			return errors.New("No associated data found for enum StatEventRuleObject")
 		}

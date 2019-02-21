@@ -37,6 +37,9 @@ Connected    = "null"
 Disconnected = "null"
 ConfigError  = "null"
 IfaceError   = "null"
+ClientCon    = "null"
+ClientDis    = "null"
+ClientFar    = "LimitBetween"
 
 [WirelessClientObject]
 constraint = "WirelessClientType"

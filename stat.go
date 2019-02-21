@@ -457,3 +457,8 @@ type ClientProbeData struct {
 	Manufacturer string          `json:"manufacturer" bson:"manufacturer"`
 	AssocData    ClientAssocData `json:"assoc_data,omitempty" bson:"assoc_data"`
 }
+
+type StationDumpData struct {
+	Radio     string                     `json:"radio" bson:"radio"`
+	AssocList map[string]AccountingRadio `json:"assoclist" bson:"assoclist"`
+}

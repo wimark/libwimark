@@ -106,6 +106,9 @@ Connected    = "connected"
 Disconnected = "disconnected"
 ConfigError  = "config_error"
 IfaceError   = "iface_error"
+ClientCon    = "client_con"
+ClientDis    = "client_dis"
+ClientFar    = "client_far"
 
 [ClientStatPacketType]
 [ClientStatPacketType.variants]
