@@ -1567,6 +1567,7 @@ const ModuleRRM Module = "RRM"
 const ModuleRadiusGw Module = "RADIUS_GATEWAY"
 const ModuleRedirect Module = "REDIRECT"
 const ModuleStat Module = "STAT"
+const ModuleStatLBS Module = "STAT-LBS"
 const ModuleTunManager Module = "TUN_MANAGER"
 
 func (self Module) GetPtr() *Module { var v = self; return &v }
@@ -1613,6 +1614,8 @@ func (self *Module) String() string {
 		return "REDIRECT"
 	case ModuleStat:
 		return "STAT"
+	case ModuleStatLBS:
+		return "STAT-LBS"
 	case ModuleTunManager:
 		return "TUN_MANAGER"
 	}
@@ -1664,6 +1667,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("REDIRECT")
 	case ModuleStat:
 		return json.Marshal("STAT")
+	case ModuleStatLBS:
+		return json.Marshal("STAT-LBS")
 	case ModuleTunManager:
 		return json.Marshal("TUN_MANAGER")
 	}
@@ -1715,6 +1720,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "REDIRECT", nil
 	case ModuleStat:
 		return "STAT", nil
+	case ModuleStatLBS:
+		return "STAT-LBS", nil
 	case ModuleTunManager:
 		return "TUN_MANAGER", nil
 	}
@@ -1789,6 +1796,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "STAT":
 		*self = ModuleStat
+		return nil
+	case "STAT-LBS":
+		*self = ModuleStatLBS
 		return nil
 	case "TUN_MANAGER":
 		*self = ModuleTunManager
@@ -1866,6 +1876,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "STAT":
 		*self = ModuleStat
+		return nil
+	case "STAT-LBS":
+		*self = ModuleStatLBS
 		return nil
 	case "TUN_MANAGER":
 		*self = ModuleTunManager

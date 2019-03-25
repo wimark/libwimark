@@ -34,6 +34,7 @@ Redirect   = "REDIRECT"
 PortalBack = "PORTAL_BACKEND"
 RadiusGw   = "RADIUS_GATEWAY"
 Mediator   = "MEDIATOR"
+StatLBS    = "STAT-LBS"
 
 [Operation]
 [Operation.variants]
