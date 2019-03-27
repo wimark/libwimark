@@ -9,17 +9,19 @@ import (
 const (
 	TAG_MATCH = "$match"
 	TAG_GROUP = "$group"
+	TAG_LIMIT = "$limit"
 
 	// необработанные пробы от точки -- TTL 24 часа
 	COLL_RADAR_BASE = "radar_probes_raw"
 	// отфильтрованные пробы по реальным MAC -- TTL 24 часа
 	COLL_RADAR_BASE_REAL = "radar_probes_real"
+	// первое появление конкретного клиента с привязской к точке -- TTL 1 год
+	COLL_RADAR_VISITS_FIRST = "radar_visits_first"
+
 	// подсчет клиентских визитов RadarClientVisit -- TTL 1 год -- аггрегация раз в сутки
 	COLL_RADAR_VISITS = "radar_visits"
 	// клиентские визиты с привязкой к конкретному часу -- TTL 1 год -- аггрегация раз в сутки
 	COLL_RADAR_VISITS_HOUR = "radar_visits_hour"
-	// первое появление конкретного клиента с привязской к точке
-	COLL_RADAR_VISITS_FIRST = "radar_visits_first"
 
 	RADAR_RESAMPLE_HOUR  = "h"
 	RADAR_RESAMPLE_DAY   = "d"
@@ -67,7 +69,7 @@ func MacAddrShrink(s string) string {
 	return strings.ToLower(stripchars(s, ":-."))
 }
 
-func MacAddrGlobalAssigned(s string) bool {
+func MacAddrIsGlobalAssigned(s string) bool {
 	if len(s) < 2 {
 		return false
 	}
@@ -85,11 +87,8 @@ func MacAddrVendor(s string) string {
 	return v
 }
 
-func MacAddrProcess(s string) string {
-	if !MacAddrGlobalAssigned(s) {
-		return ""
-	}
-	return MacAddrVendor(s)
+func MacAddrIsReal(s string) bool {
+	return MacAddrIsGlobalAssigned(s) && MacAddrVendor(s) != ""
 }
 
 func stripchars(str, chr string) string {
