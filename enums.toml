@@ -35,6 +35,8 @@ PortalBack = "PORTAL_BACKEND"
 RadiusGw   = "RADIUS_GATEWAY"
 Mediator   = "MEDIATOR"
 StatLBS    = "STAT-LBS"
+AnalMW     = "ANAL-MW"
+RadarMW    = "RADAR-MW"
 
 [Operation]
 [Operation.variants]

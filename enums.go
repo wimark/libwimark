@@ -1548,6 +1548,7 @@ func (self *MacFilterType) SetBSON(v bson.Raw) error {
 type Module string
 
 const ModuleAC Module = "AC"
+const ModuleAnalMW Module = "ANAL-MW"
 const ModuleAny Module = "+"
 const ModuleBackend Module = "BACKEND"
 const ModuleCPE Module = "CPE"
@@ -1564,6 +1565,7 @@ const ModuleMonitor Module = "MONITOR"
 const ModuleNone Module = ""
 const ModulePortalBack Module = "PORTAL_BACKEND"
 const ModuleRRM Module = "RRM"
+const ModuleRadarMW Module = "RADAR-MW"
 const ModuleRadiusGw Module = "RADIUS_GATEWAY"
 const ModuleRedirect Module = "REDIRECT"
 const ModuleStat Module = "STAT"
@@ -1576,6 +1578,8 @@ func (self *Module) String() string {
 	switch *self {
 	case ModuleAC:
 		return "AC"
+	case ModuleAnalMW:
+		return "ANAL-MW"
 	case ModuleAny:
 		return "+"
 	case ModuleBackend:
@@ -1608,6 +1612,8 @@ func (self *Module) String() string {
 		return "PORTAL_BACKEND"
 	case ModuleRRM:
 		return "RRM"
+	case ModuleRadarMW:
+		return "RADAR-MW"
 	case ModuleRadiusGw:
 		return "RADIUS_GATEWAY"
 	case ModuleRedirect:
@@ -1629,6 +1635,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case ModuleAC:
 		return json.Marshal("AC")
+	case ModuleAnalMW:
+		return json.Marshal("ANAL-MW")
 	case ModuleAny:
 		return json.Marshal("+")
 	case ModuleBackend:
@@ -1661,6 +1669,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("PORTAL_BACKEND")
 	case ModuleRRM:
 		return json.Marshal("RRM")
+	case ModuleRadarMW:
+		return json.Marshal("RADAR-MW")
 	case ModuleRadiusGw:
 		return json.Marshal("RADIUS_GATEWAY")
 	case ModuleRedirect:
@@ -1682,6 +1692,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 	switch *self {
 	case ModuleAC:
 		return "AC", nil
+	case ModuleAnalMW:
+		return "ANAL-MW", nil
 	case ModuleAny:
 		return "+", nil
 	case ModuleBackend:
@@ -1714,6 +1726,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "PORTAL_BACKEND", nil
 	case ModuleRRM:
 		return "RRM", nil
+	case ModuleRadarMW:
+		return "RADAR-MW", nil
 	case ModuleRadiusGw:
 		return "RADIUS_GATEWAY", nil
 	case ModuleRedirect:
@@ -1739,6 +1753,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 	switch s {
 	case "AC":
 		*self = ModuleAC
+		return nil
+	case "ANAL-MW":
+		*self = ModuleAnalMW
 		return nil
 	case "+":
 		*self = ModuleAny
@@ -1787,6 +1804,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "RRM":
 		*self = ModuleRRM
+		return nil
+	case "RADAR-MW":
+		*self = ModuleRadarMW
 		return nil
 	case "RADIUS_GATEWAY":
 		*self = ModuleRadiusGw
@@ -1820,6 +1840,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 	case "AC":
 		*self = ModuleAC
 		return nil
+	case "ANAL-MW":
+		*self = ModuleAnalMW
+		return nil
 	case "+":
 		*self = ModuleAny
 		return nil
@@ -1867,6 +1890,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "RRM":
 		*self = ModuleRRM
+		return nil
+	case "RADAR-MW":
+		*self = ModuleRadarMW
 		return nil
 	case "RADIUS_GATEWAY":
 		*self = ModuleRadiusGw
