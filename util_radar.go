@@ -39,12 +39,21 @@ type RadarClientBaseObject struct {
 	RSSI int       `json:"rssi" bson:"rssi"`
 }
 
+type RadarClientIncome struct {
+	Id   string    `json:"id,omitempty" bson:"_id"`
+	Date time.Time `json:"date" bson:"date"`
+	Ts   int64     `json:"ts" bson:"ts"`
+	MAC  string    `json:"mac" bson:"mac"`
+	CPE  string    `json:"cpe" bson:"cpe"`
+}
+
 type RadarClientVisit struct {
 	Id        string    `json:"id,omitempty" bson:"_id"`
 	MAC       string    `json:"mac" bson:"mac"`
 	DateStart time.Time `json:"start" bson:"start"`
 	DateStop  time.Time `json:"stop" bson:"stop"`
 	Duration  int64     `json:"duration" bson:"duration"`
+	CPE       string    `json:"cpe,omitempty" bson:"cpe"`
 }
 
 type RadarClientVisitor struct {
