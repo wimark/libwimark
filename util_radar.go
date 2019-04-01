@@ -37,6 +37,7 @@ type RadarClientBaseObject struct {
 	CPE  string    `json:"cpe" bson:"cpe"`
 	Freq int       `json:"freq" bson:"freq"`
 	RSSI int       `json:"rssi" bson:"rssi"`
+	New  bool      `json:"new" bson:"new"`
 }
 
 type RadarClientIncome struct {
@@ -54,6 +55,7 @@ type RadarClientVisit struct {
 	DateStop  time.Time `json:"stop" bson:"stop"`
 	Duration  int64     `json:"duration" bson:"duration"`
 	CPE       string    `json:"cpe,omitempty" bson:"cpe"`
+	New       bool      `json:"new" bson:"new"`
 }
 
 type RadarClientVisitor struct {
@@ -64,6 +66,7 @@ type RadarClientVisitor struct {
 	DurationAvg int64              `json:"duration_avg" bson:"duration_avg"`
 	VisitsCount int                `json:"visits_count" bson:"visits_count"`
 	Visits      []RadarClientVisit `json:"visits" bson:"visits"`
+	New         bool               `json:"new" bson:"new"`
 }
 
 type RadarClientFirst struct {
