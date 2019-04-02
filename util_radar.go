@@ -1,6 +1,9 @@
 package libwimark
 
 import (
+	"crypto/md5"
+	"fmt"
+	"net"
 	"strconv"
 	"strings"
 	"time"
@@ -77,6 +80,40 @@ type RadarClientFirst struct {
 	CPE  string    `json:"cpe" bson:"cpe"`
 }
 
+type AnalyticsMwHttpRequest struct {
+	CPEs     []string `query:"cpes"`
+	Location string   `query:"location"`
+
+	Start   int64  `query:"start"`
+	Stop    int64  `query:"stop"`
+	Timeout int    `query:"timeout"`
+	Period  string `query:"period"`
+
+	Rate int  `query:"rate"`
+	Raw  bool `query:"raw"`
+	Long bool `query:"long"`
+	Hash bool `query:"hash"`
+}
+
+func (r *AnalyticsMwHttpRequest) String() string {
+	s := fmt.Sprintf("start=%d&stop=%d&timeout=%d&period=%s&rate=%d&raw=%s&long=%s&hash=%s",
+		r.Start, r.Stop, r.Timeout, r.Period, r.Rate,
+		strconv.FormatBool(r.Raw),
+		strconv.FormatBool(r.Long),
+		strconv.FormatBool(r.Hash))
+	if len(r.CPEs) != 0 {
+		cpes := strings.Join(r.CPEs, ",")
+		s = s + "&cpes=" + cpes
+	}
+	return s
+}
+
+type AnalyticsMwHttpResponse struct {
+	Status string                 `json:"status"`
+	Desc   string                 `json:"error,omitempty"`
+	Data   map[string]interface{} `json:"data"`
+}
+
 func MacAddrShrink(s string) string {
 	return strings.ToLower(stripchars(s, ":-."))
 }
@@ -101,6 +138,15 @@ func MacAddrVendor(s string) string {
 
 func MacAddrIsReal(s string) bool {
 	return MacAddrIsGlobalAssigned(s) && MacAddrVendor(s) != ""
+}
+
+func MacAddrHash(mac string) string {
+	if len(mac) < 12 {
+		return ""
+	}
+	m, _ := net.ParseMAC(fmt.Sprintf("%s.%s.%s", mac[0:4],
+		mac[4:8], mac[8:12]))
+	return fmt.Sprintf("%X", md5.Sum(m))
 }
 
 func stripchars(str, chr string) string {
