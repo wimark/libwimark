@@ -26,6 +26,9 @@ const (
 	// клиентские визиты с привязкой к конкретному часу -- TTL 1 год -- аггрегация раз в сутки
 	COLL_RADAR_VISITS_HOUR = "radar_visits_hour"
 
+	// radar export
+	COLL_RADAR_EXPORT = "radar_export"
+
 	RADAR_RESAMPLE_HOUR  = "h"
 	RADAR_RESAMPLE_DAY   = "d"
 	RADAR_RESAMPLE_WEEK  = "w"
@@ -102,8 +105,8 @@ func (r *AnalyticsMwHttpRequest) String() string {
 		strconv.FormatBool(r.Long),
 		strconv.FormatBool(r.Hash))
 	if len(r.CPEs) != 0 {
-		cpes := strings.Join(r.CPEs, ",")
-		s = s + "&cpes=" + cpes
+		cpes := strings.Join(r.CPEs, "&cpes[]=")
+		s = s + "&cpes[]=" + cpes
 	}
 	return s
 }
@@ -112,6 +115,42 @@ type AnalyticsMwHttpResponse struct {
 	Status string                 `json:"status"`
 	Desc   string                 `json:"error,omitempty"`
 	Data   map[string]interface{} `json:"data"`
+}
+
+type RadarExportPeriod struct {
+	Start int64  `json:"start" bson:"start"`
+	Stop  int64  `json:"stop" bson:"stop"`
+	Short string `json:"short" bson:"short"`
+}
+
+type RadarExportCreds struct {
+	Username string `json:"username" bson:"password"`
+	Password string `json:"password" bson:"password"`
+	Key      string `json:"key" bson:"key"`
+	Share    string `json:"share" bson:"share"`
+}
+
+type RadarExportObject struct {
+	Id   string `json:"id" bson:"_id"`
+	Name string `json:"name" bson:"name"`
+	Desc string `json:"desc" bson:"desc"`
+
+	Enable   bool      `json:"enable" bson:"enable"`
+	CreateAt time.Time `json:"create_at" bson:"create_at"`
+
+	CPEs   []string          `json:"cpes" bson:"cpes"`
+	Type   RadarExportType   `json:"type" bson:"type"`
+	Creds  RadarExportCreds  `json:"creds" bson:"creds"`
+	Format RadarExportFormat `json:"format" bson:"format"`
+	Period RadarExportPeriod `json:"period" bson:"period"`
+	Auto   bool              `json:"auto" bson:"auto"`
+
+	Filter RadarExportFilter `json:"filter" bson:"filter"`
+}
+
+type RadarExportUpdate struct {
+	Type string   `json:"type" bson:"type"`
+	IDs  []string `json:"ids" bson:"ids"`
 }
 
 func MacAddrShrink(s string) string {

@@ -37,6 +37,7 @@ Mediator   = "MEDIATOR"
 StatLBS    = "STAT-LBS"
 AnalMW     = "ANAL-MW"
 RadarMW    = "RADAR-MW"
+RadarExportMW    = "RADAR-EXPORT-MW"
 
 [Operation]
 [Operation.variants]
@@ -70,6 +71,7 @@ FirmwareUploaded        = "FIRMWARE_UPLOADED"
 CpeFirmwareAvailable    = "CPE_FIRMWARE_AVAILABLE"
 RadiusAccountingSend    = "RADIUS_ACCOUNTING_SEND"
 LoggedError             = "LOGGED_ERROR"
+RadarExportUpdate       = "RADAR_EXPORT_UPDATE"
 
 [SystemEventLevel]
 default = "DEBUG"
@@ -258,3 +260,27 @@ Connected    = "connected"
 Disconnected = "disconnected"
 Updating     = "updating"
 Provisioning = "provision"
+
+[RadarExportType]
+default = "Email"
+[RadarExportType.variants]
+Email    = "email"
+Yandex   = "yandex"
+Mytarget = "mytarget"
+External = "external"
+
+[RadarExportFormat]
+default = "CSV"
+[RadarExportFormat.variants]
+CSV      = "csv"
+Json     = "json"
+txt      = "txt"
+External = "external"
+
+[RadarExportFilter]
+default = "All"
+[RadarExportFilter.variants]
+All       = "all"
+Near      = "near"
+Passerby  = "passerby"
+Permanent = "permanent"
