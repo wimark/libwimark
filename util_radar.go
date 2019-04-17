@@ -118,9 +118,8 @@ type AnalyticsMwHttpResponse struct {
 }
 
 type RadarExportPeriod struct {
-	Start int64  `json:"start" bson:"start"`
-	Stop  int64  `json:"stop" bson:"stop"`
-	Short string `json:"short" bson:"short"`
+	Start int64 `json:"start" bson:"start"`
+	Stop  int64 `json:"stop" bson:"stop"`
 }
 
 type RadarExportCreds struct {
@@ -143,7 +142,11 @@ type RadarExportObject struct {
 	Creds  RadarExportCreds  `json:"creds" bson:"creds"`
 	Format RadarExportFormat `json:"format" bson:"format"`
 	Period RadarExportPeriod `json:"period" bson:"period"`
-	Auto   bool              `json:"auto" bson:"auto"`
+
+	// auto export
+	Auto bool `json:"auto" bson:"auto"`
+	// auto period in hours. 24 for 1-day update
+	AutoPeriod int `json:"auto_period" bson:"auto_period"`
 
 	Filter RadarExportFilter `json:"filter" bson:"filter"`
 }
