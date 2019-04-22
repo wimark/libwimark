@@ -2317,9 +2317,8 @@ func (self *RRMAlgoType) SetBSON(v bson.Raw) error {
 type RadarExportFilter string
 
 const RadarExportFilterAll RadarExportFilter = "all"
-const RadarExportFilterNear RadarExportFilter = "near"
-const RadarExportFilterPasserby RadarExportFilter = "passerby"
-const RadarExportFilterPermanent RadarExportFilter = "permanent"
+const RadarExportFilterNew RadarExportFilter = "new"
+const RadarExportFilterReturn RadarExportFilter = "return"
 
 func (self RadarExportFilter) GetPtr() *RadarExportFilter { var v = self; return &v }
 
@@ -2327,12 +2326,10 @@ func (self *RadarExportFilter) String() string {
 	switch *self {
 	case RadarExportFilterAll:
 		return "all"
-	case RadarExportFilterNear:
-		return "near"
-	case RadarExportFilterPasserby:
-		return "passerby"
-	case RadarExportFilterPermanent:
-		return "permanent"
+	case RadarExportFilterNew:
+		return "new"
+	case RadarExportFilterReturn:
+		return "return"
 	}
 	if len(*self) == 0 {
 		return "all"
@@ -2344,12 +2341,10 @@ func (self *RadarExportFilter) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case RadarExportFilterAll:
 		return json.Marshal("all")
-	case RadarExportFilterNear:
-		return json.Marshal("near")
-	case RadarExportFilterPasserby:
-		return json.Marshal("passerby")
-	case RadarExportFilterPermanent:
-		return json.Marshal("permanent")
+	case RadarExportFilterNew:
+		return json.Marshal("new")
+	case RadarExportFilterReturn:
+		return json.Marshal("return")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("all")
@@ -2361,12 +2356,10 @@ func (self *RadarExportFilter) GetBSON() (interface{}, error) {
 	switch *self {
 	case RadarExportFilterAll:
 		return "all", nil
-	case RadarExportFilterNear:
-		return "near", nil
-	case RadarExportFilterPasserby:
-		return "passerby", nil
-	case RadarExportFilterPermanent:
-		return "permanent", nil
+	case RadarExportFilterNew:
+		return "new", nil
+	case RadarExportFilterReturn:
+		return "return", nil
 	}
 	if len(*self) == 0 {
 		return "all", nil
@@ -2383,14 +2376,11 @@ func (self *RadarExportFilter) UnmarshalJSON(b []byte) error {
 	case "all":
 		*self = RadarExportFilterAll
 		return nil
-	case "near":
-		*self = RadarExportFilterNear
+	case "new":
+		*self = RadarExportFilterNew
 		return nil
-	case "passerby":
-		*self = RadarExportFilterPasserby
-		return nil
-	case "permanent":
-		*self = RadarExportFilterPermanent
+	case "return":
+		*self = RadarExportFilterReturn
 		return nil
 	}
 	if len(s) == 0 {
@@ -2409,14 +2399,11 @@ func (self *RadarExportFilter) SetBSON(v bson.Raw) error {
 	case "all":
 		*self = RadarExportFilterAll
 		return nil
-	case "near":
-		*self = RadarExportFilterNear
+	case "new":
+		*self = RadarExportFilterNew
 		return nil
-	case "passerby":
-		*self = RadarExportFilterPasserby
-		return nil
-	case "permanent":
-		*self = RadarExportFilterPermanent
+	case "return":
+		*self = RadarExportFilterReturn
 		return nil
 	}
 	if len(s) == 0 {
@@ -2429,9 +2416,8 @@ func (self *RadarExportFilter) SetBSON(v bson.Raw) error {
 type RadarExportFormat string
 
 const RadarExportFormatCSV RadarExportFormat = "csv"
-const RadarExportFormatExternal RadarExportFormat = "external"
 const RadarExportFormatJson RadarExportFormat = "json"
-const RadarExportFormattxt RadarExportFormat = "txt"
+const RadarExportFormatTxt RadarExportFormat = "txt"
 
 func (self RadarExportFormat) GetPtr() *RadarExportFormat { var v = self; return &v }
 
@@ -2439,11 +2425,9 @@ func (self *RadarExportFormat) String() string {
 	switch *self {
 	case RadarExportFormatCSV:
 		return "csv"
-	case RadarExportFormatExternal:
-		return "external"
 	case RadarExportFormatJson:
 		return "json"
-	case RadarExportFormattxt:
+	case RadarExportFormatTxt:
 		return "txt"
 	}
 	if len(*self) == 0 {
@@ -2456,11 +2440,9 @@ func (self *RadarExportFormat) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case RadarExportFormatCSV:
 		return json.Marshal("csv")
-	case RadarExportFormatExternal:
-		return json.Marshal("external")
 	case RadarExportFormatJson:
 		return json.Marshal("json")
-	case RadarExportFormattxt:
+	case RadarExportFormatTxt:
 		return json.Marshal("txt")
 	}
 	if len(*self) == 0 {
@@ -2473,11 +2455,9 @@ func (self *RadarExportFormat) GetBSON() (interface{}, error) {
 	switch *self {
 	case RadarExportFormatCSV:
 		return "csv", nil
-	case RadarExportFormatExternal:
-		return "external", nil
 	case RadarExportFormatJson:
 		return "json", nil
-	case RadarExportFormattxt:
+	case RadarExportFormatTxt:
 		return "txt", nil
 	}
 	if len(*self) == 0 {
@@ -2495,14 +2475,11 @@ func (self *RadarExportFormat) UnmarshalJSON(b []byte) error {
 	case "csv":
 		*self = RadarExportFormatCSV
 		return nil
-	case "external":
-		*self = RadarExportFormatExternal
-		return nil
 	case "json":
 		*self = RadarExportFormatJson
 		return nil
 	case "txt":
-		*self = RadarExportFormattxt
+		*self = RadarExportFormatTxt
 		return nil
 	}
 	if len(s) == 0 {
@@ -2521,14 +2498,11 @@ func (self *RadarExportFormat) SetBSON(v bson.Raw) error {
 	case "csv":
 		*self = RadarExportFormatCSV
 		return nil
-	case "external":
-		*self = RadarExportFormatExternal
-		return nil
 	case "json":
 		*self = RadarExportFormatJson
 		return nil
 	case "txt":
-		*self = RadarExportFormattxt
+		*self = RadarExportFormatTxt
 		return nil
 	}
 	if len(s) == 0 {

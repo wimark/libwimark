@@ -92,15 +92,16 @@ type AnalyticsMwHttpRequest struct {
 	Timeout int    `query:"timeout"`
 	Period  string `query:"period"`
 
-	Rate int  `query:"rate"`
-	Raw  bool `query:"raw"`
-	Long bool `query:"long"`
-	Hash bool `query:"hash"`
+	Rate   int    `query:"rate"`
+	Raw    bool   `query:"raw"`
+	Long   bool   `query:"long"`
+	Hash   bool   `query:"hash"`
+	Filter string `query:"filter"`
 }
 
 func (r *AnalyticsMwHttpRequest) String() string {
-	s := fmt.Sprintf("start=%d&stop=%d&timeout=%d&period=%s&rate=%d&raw=%s&long=%s&hash=%s",
-		r.Start, r.Stop, r.Timeout, r.Period, r.Rate,
+	s := fmt.Sprintf("start=%d&stop=%d&timeout=%d&period=%s&rate=%d&filter=%s&raw=%s&long=%s&hash=%s",
+		r.Start, r.Stop, r.Timeout, r.Period, r.Rate, r.Filter,
 		strconv.FormatBool(r.Raw),
 		strconv.FormatBool(r.Long),
 		strconv.FormatBool(r.Hash))
@@ -123,7 +124,7 @@ type RadarExportPeriod struct {
 }
 
 type RadarExportCreds struct {
-	Username string `json:"username" bson:"password"`
+	Username string `json:"username" bson:"username"`
 	Password string `json:"password" bson:"password"`
 	Key      string `json:"key" bson:"key"`
 	Share    string `json:"share" bson:"share"`
@@ -134,8 +135,9 @@ type RadarExportObject struct {
 	Name string `json:"name" bson:"name"`
 	Desc string `json:"desc" bson:"desc"`
 
-	Enable   bool      `json:"enable" bson:"enable"`
-	CreateAt time.Time `json:"create_at" bson:"create_at"`
+	Enable   bool  `json:"enable" bson:"enable"`
+	CreateAt int64 `json:"create_at" bson:"create_at"`
+	LastAt   int64 `json:"last_at" bson:"last_at"`
 
 	CPEs   []string          `json:"cpes" bson:"cpes"`
 	Type   RadarExportType   `json:"type" bson:"type"`
@@ -149,6 +151,7 @@ type RadarExportObject struct {
 	AutoPeriod int `json:"auto_period" bson:"auto_period"`
 
 	Filter RadarExportFilter `json:"filter" bson:"filter"`
+	Hash   bool              `json:"hash" bson:"hash"`
 }
 
 type RadarExportUpdate struct {

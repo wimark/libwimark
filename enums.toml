@@ -274,13 +274,11 @@ default = "CSV"
 [RadarExportFormat.variants]
 CSV      = "csv"
 Json     = "json"
-txt      = "txt"
-External = "external"
+Txt      = "txt"
 
 [RadarExportFilter]
 default = "All"
 [RadarExportFilter.variants]
-All       = "all"
-Near      = "near"
-Passerby  = "passerby"
-Permanent = "permanent"
+All     = "all"
+New     = "new"
+Return  = "return"
