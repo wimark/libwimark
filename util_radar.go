@@ -84,7 +84,7 @@ type RadarClientFirst struct {
 }
 
 type AnalyticsMwHttpRequest struct {
-	CPEs     []string `query:"cpes"`
+	CPEs     []string `query:"cpes[]"`
 	Location string   `query:"location"`
 
 	Start   int64  `query:"start"`
