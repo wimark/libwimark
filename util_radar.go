@@ -32,12 +32,14 @@ const (
 	// radar export result -- save every worker state to DB -- TTL 6 months
 	COLL_RADAR_EXPORT_RESULT = "radar_export_result"
 
+	// resample periods
 	RADAR_RESAMPLE_HOUR  = "h"
 	RADAR_RESAMPLE_DAY   = "d"
 	RADAR_RESAMPLE_WEEK  = "w"
 	RADAR_RESAMPLE_MONTH = "m"
 )
 
+// base object for 
 type RadarClientBaseObject struct {
 	Id   string    `json:"id,omitempty" bson:"_id"`
 	Date time.Time `json:"date" bson:"date"`
@@ -127,9 +129,11 @@ type RadarExportPeriod struct {
 }
 
 type RadarExportCreds struct {
-	Key   string   `json:"key" bson:"key"`
-	Share string   `json:"share" bson:"share"`
-	Grant []string `json:"grant" bson:"grant"`
+	// subject for email subject
+	Subject string `json:"subject" bson:"subject"`
+
+	// share for list of emails, yandex accounts to share with
+	Share []string `json:"share" bson:"share"`
 }
 
 type RadarExportState struct {
@@ -143,58 +147,41 @@ type RadarExportState struct {
 }
 
 type RadarExportObject struct {
-	Id   string `json:"id" bson:"_id"`
+	Id string `json:"id" bson:"_id"`
+
+	// common settings
 	Name string `json:"name" bson:"name"`
 	Desc string `json:"desc" bson:"desc"`
 
-	Enable   bool              `json:"enable" bson:"enable"`
-	Status   RadarExportStatus `json:"status" bson:"status"`
+	// config part
+	CPEs       []string          `json:"cpes" bson:"cpes"`
+	Type       RadarExportType   `json:"type" bson:"type"`
+	Creds      RadarExportCreds  `json:"creds" bson:"creds"`
+	Format     RadarExportFormat `json:"format" bson:"format"`
+	Period     RadarExportPeriod `json:"period" bson:"period"`
+	Filter     RadarExportFilter `json:"filter" bson:"filter"`
+	Hash       bool              `json:"hash" bson:"hash"`
+	Auto       bool              `json:"auto" bson:"auto"`               // auto export
+	AutoPeriod int               `json:"auto_period" bson:"auto_period"` // auto period in hours. 24 for 1-day update
+
+	// state part
 	CreateAt int64             `json:"create_at" bson:"create_at"`
 	LastAt   int64             `json:"last_at" bson:"last_at"`
-
-	CPEs   []string          `json:"cpes" bson:"cpes"`
-	Type   RadarExportType   `json:"type" bson:"type"`
-	Creds  RadarExportCreds  `json:"creds" bson:"creds"`
-	Format RadarExportFormat `json:"format" bson:"format"`
-	Period RadarExportPeriod `json:"period" bson:"period"`
-
-	// auto export
-	Auto bool `json:"auto" bson:"auto"`
-	// auto period in hours. 24 for 1-day update
-	AutoPeriod int `json:"auto_period" bson:"auto_period"`
-
-	Filter RadarExportFilter `json:"filter" bson:"filter"`
-	Hash   bool              `json:"hash" bson:"hash"`
-	State  RadarExportState  `json:"state" bson:"state"`
+	Status   RadarExportStatus `json:"status" bson:"status"`
+	State    RadarExportState  `json:"state" bson:"state"`
 }
 
-// type RadarExportObjectUpdate struct {
-// 	Name string `json:"name" bson:"name"`
-// 	Desc string `json:"desc" bson:"desc"`
-
-// 	Enable bool  `json:"enable" bson:"enable"`
-// 	LastAt int64 `json:"last_at" bson:"last_at"`
-
-// 	CPEs   []string          `json:"cpes" bson:"cpes"`
-// 	Type   RadarExportType   `json:"type" bson:"type"`
-// 	Creds  RadarExportCreds  `json:"creds" bson:"creds"`
-// 	Format RadarExportFormat `json:"format" bson:"format"`
-// 	Period RadarExportPeriod `json:"period" bson:"period"`
-
-// 	// auto export
-// 	Auto bool `json:"auto" bson:"auto"`
-// 	// auto period in hours. 24 for 1-day update
-// 	AutoPeriod int `json:"auto_period" bson:"auto_period"`
-
-// 	Filter RadarExportFilter `json:"filter" bson:"filter"`
-// 	Hash   bool              `json:"hash" bson:"hash"`
-// }
+type RadarExportObjectUpdate struct {
+	Name string `json:"name" bson:"name"`
+	Desc string `json:"desc" bson:"desc"`
+}
 
 type RadarExportResult struct {
 	Id   string `json:"id" bson:"_id"`
 	Name string `json:"name" bson:"name"`
 
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
+	Append   bool      `json:"append" bson:"append"`
 	CPEs     []string  `json:"cpes" bson:"cpes"`
 	MACs     []string  `json:"macs" bson:"macs"`
 }

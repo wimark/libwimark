@@ -104,3 +104,35 @@ func SendHTTPSFileRequest(url, apiKey string, path string) ([]byte, error) {
 
 	return SendHTTPSRequest(url, apiKey, "POST", body.Bytes(), writer.FormDataContentType())
 }
+
+func SendHTTPSFileDataRequest(url, apiKey string, path string, data []byte) ([]byte, error) {
+	res := []byte{}
+	file, err := os.Open(path)
+	if err != nil {
+		return res, err
+	}
+	defer file.Close()
+
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+
+	if len(data) > 0 {
+		err = writer.WriteField("data", string(data))
+		if err != nil {
+			return res, err
+		}
+	}
+
+	part, err := writer.CreateFormFile("file", filepath.Base(path))
+	if err != nil {
+		return res, err
+	}
+	_, err = io.Copy(part, file)
+
+	err = writer.Close()
+	if err != nil {
+		return res, err
+	}
+
+	return SendHTTPSRequest(url, apiKey, "POST", body.Bytes(), writer.FormDataContentType())
+}

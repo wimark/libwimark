@@ -80,7 +80,7 @@ func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta in
 	}
 	opts.SetWill(eventDisconnetTopic.TopicPath(), string(b), 2, false)
 
-	opts.SetClientID(s.String())
+	opts.SetClientID(s.String() + id)
 
 	opts.SetConnectionLostHandler(onDisconnect)
 
