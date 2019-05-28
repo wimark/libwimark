@@ -27,6 +27,7 @@ FirmwareUploaded        = "FirmwareUploadedData"
 CpeFirmwareAvailable    = "CpeFirmwareData"
 RadiusAccountingSend    = "RadiusAccountingSendData"
 LoggedError             = "ModelError"
+RadarExportUpdate       = "RadarExportUpdate"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"
@@ -37,6 +38,9 @@ Connected    = "null"
 Disconnected = "null"
 ConfigError  = "null"
 IfaceError   = "null"
+ClientCon    = "null"
+ClientDis    = "null"
+ClientFar    = "LimitBetween"
 
 [WirelessClientObject]
 constraint = "WirelessClientType"

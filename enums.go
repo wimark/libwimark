@@ -1548,6 +1548,7 @@ func (self *MacFilterType) SetBSON(v bson.Raw) error {
 type Module string
 
 const ModuleAC Module = "AC"
+const ModuleAnalMW Module = "ANAL-MW"
 const ModuleAny Module = "+"
 const ModuleBackend Module = "BACKEND"
 const ModuleCPE Module = "CPE"
@@ -1564,9 +1565,12 @@ const ModuleMonitor Module = "MONITOR"
 const ModuleNone Module = ""
 const ModulePortalBack Module = "PORTAL_BACKEND"
 const ModuleRRM Module = "RRM"
+const ModuleRadarExportMW Module = "RADAR-EXPORT-MW"
+const ModuleRadarMW Module = "RADAR-MW"
 const ModuleRadiusGw Module = "RADIUS_GATEWAY"
 const ModuleRedirect Module = "REDIRECT"
 const ModuleStat Module = "STAT"
+const ModuleStatLBS Module = "STAT-LBS"
 const ModuleTunManager Module = "TUN_MANAGER"
 
 func (self Module) GetPtr() *Module { var v = self; return &v }
@@ -1575,6 +1579,8 @@ func (self *Module) String() string {
 	switch *self {
 	case ModuleAC:
 		return "AC"
+	case ModuleAnalMW:
+		return "ANAL-MW"
 	case ModuleAny:
 		return "+"
 	case ModuleBackend:
@@ -1607,12 +1613,18 @@ func (self *Module) String() string {
 		return "PORTAL_BACKEND"
 	case ModuleRRM:
 		return "RRM"
+	case ModuleRadarExportMW:
+		return "RADAR-EXPORT-MW"
+	case ModuleRadarMW:
+		return "RADAR-MW"
 	case ModuleRadiusGw:
 		return "RADIUS_GATEWAY"
 	case ModuleRedirect:
 		return "REDIRECT"
 	case ModuleStat:
 		return "STAT"
+	case ModuleStatLBS:
+		return "STAT-LBS"
 	case ModuleTunManager:
 		return "TUN_MANAGER"
 	}
@@ -1626,6 +1638,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case ModuleAC:
 		return json.Marshal("AC")
+	case ModuleAnalMW:
+		return json.Marshal("ANAL-MW")
 	case ModuleAny:
 		return json.Marshal("+")
 	case ModuleBackend:
@@ -1658,12 +1672,18 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("PORTAL_BACKEND")
 	case ModuleRRM:
 		return json.Marshal("RRM")
+	case ModuleRadarExportMW:
+		return json.Marshal("RADAR-EXPORT-MW")
+	case ModuleRadarMW:
+		return json.Marshal("RADAR-MW")
 	case ModuleRadiusGw:
 		return json.Marshal("RADIUS_GATEWAY")
 	case ModuleRedirect:
 		return json.Marshal("REDIRECT")
 	case ModuleStat:
 		return json.Marshal("STAT")
+	case ModuleStatLBS:
+		return json.Marshal("STAT-LBS")
 	case ModuleTunManager:
 		return json.Marshal("TUN_MANAGER")
 	}
@@ -1677,6 +1697,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 	switch *self {
 	case ModuleAC:
 		return "AC", nil
+	case ModuleAnalMW:
+		return "ANAL-MW", nil
 	case ModuleAny:
 		return "+", nil
 	case ModuleBackend:
@@ -1709,12 +1731,18 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "PORTAL_BACKEND", nil
 	case ModuleRRM:
 		return "RRM", nil
+	case ModuleRadarExportMW:
+		return "RADAR-EXPORT-MW", nil
+	case ModuleRadarMW:
+		return "RADAR-MW", nil
 	case ModuleRadiusGw:
 		return "RADIUS_GATEWAY", nil
 	case ModuleRedirect:
 		return "REDIRECT", nil
 	case ModuleStat:
 		return "STAT", nil
+	case ModuleStatLBS:
+		return "STAT-LBS", nil
 	case ModuleTunManager:
 		return "TUN_MANAGER", nil
 	}
@@ -1732,6 +1760,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 	switch s {
 	case "AC":
 		*self = ModuleAC
+		return nil
+	case "ANAL-MW":
+		*self = ModuleAnalMW
 		return nil
 	case "+":
 		*self = ModuleAny
@@ -1781,6 +1812,12 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 	case "RRM":
 		*self = ModuleRRM
 		return nil
+	case "RADAR-EXPORT-MW":
+		*self = ModuleRadarExportMW
+		return nil
+	case "RADAR-MW":
+		*self = ModuleRadarMW
+		return nil
 	case "RADIUS_GATEWAY":
 		*self = ModuleRadiusGw
 		return nil
@@ -1789,6 +1826,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "STAT":
 		*self = ModuleStat
+		return nil
+	case "STAT-LBS":
+		*self = ModuleStatLBS
 		return nil
 	case "TUN_MANAGER":
 		*self = ModuleTunManager
@@ -1810,6 +1850,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 	case "AC":
 		*self = ModuleAC
 		return nil
+	case "ANAL-MW":
+		*self = ModuleAnalMW
+		return nil
 	case "+":
 		*self = ModuleAny
 		return nil
@@ -1858,6 +1901,12 @@ func (self *Module) SetBSON(v bson.Raw) error {
 	case "RRM":
 		*self = ModuleRRM
 		return nil
+	case "RADAR-EXPORT-MW":
+		*self = ModuleRadarExportMW
+		return nil
+	case "RADAR-MW":
+		*self = ModuleRadarMW
+		return nil
 	case "RADIUS_GATEWAY":
 		*self = ModuleRadiusGw
 		return nil
@@ -1866,6 +1915,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "STAT":
 		*self = ModuleStat
+		return nil
+	case "STAT-LBS":
+		*self = ModuleStatLBS
 		return nil
 	case "TUN_MANAGER":
 		*self = ModuleTunManager
@@ -2262,6 +2314,428 @@ func (self *RRMAlgoType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown RRMAlgoType: " + s)
 }
 
+type RadarExportFilter string
+
+const RadarExportFilterAll RadarExportFilter = "all"
+const RadarExportFilterNew RadarExportFilter = "new"
+const RadarExportFilterReturn RadarExportFilter = "return"
+
+func (self RadarExportFilter) GetPtr() *RadarExportFilter { var v = self; return &v }
+
+func (self *RadarExportFilter) String() string {
+	switch *self {
+	case RadarExportFilterAll:
+		return "all"
+	case RadarExportFilterNew:
+		return "new"
+	case RadarExportFilterReturn:
+		return "return"
+	}
+	if len(*self) == 0 {
+		return "all"
+	}
+	panic(errors.New("Invalid value of RadarExportFilter: " + string(*self)))
+}
+
+func (self *RadarExportFilter) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case RadarExportFilterAll:
+		return json.Marshal("all")
+	case RadarExportFilterNew:
+		return json.Marshal("new")
+	case RadarExportFilterReturn:
+		return json.Marshal("return")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("all")
+	}
+	return nil, errors.New("Invalid value of RadarExportFilter: " + string(*self))
+}
+
+func (self *RadarExportFilter) GetBSON() (interface{}, error) {
+	switch *self {
+	case RadarExportFilterAll:
+		return "all", nil
+	case RadarExportFilterNew:
+		return "new", nil
+	case RadarExportFilterReturn:
+		return "return", nil
+	}
+	if len(*self) == 0 {
+		return "all", nil
+	}
+	return nil, errors.New("Invalid value of RadarExportFilter: " + string(*self))
+}
+
+func (self *RadarExportFilter) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "all":
+		*self = RadarExportFilterAll
+		return nil
+	case "new":
+		*self = RadarExportFilterNew
+		return nil
+	case "return":
+		*self = RadarExportFilterReturn
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportFilterAll
+		return nil
+	}
+	return errors.New("Unknown RadarExportFilter: " + s)
+}
+
+func (self *RadarExportFilter) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "all":
+		*self = RadarExportFilterAll
+		return nil
+	case "new":
+		*self = RadarExportFilterNew
+		return nil
+	case "return":
+		*self = RadarExportFilterReturn
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportFilterAll
+		return nil
+	}
+	return errors.New("Unknown RadarExportFilter: " + s)
+}
+
+type RadarExportFormat string
+
+const RadarExportFormatCSV RadarExportFormat = "csv"
+const RadarExportFormatJson RadarExportFormat = "json"
+const RadarExportFormatTxt RadarExportFormat = "txt"
+
+func (self RadarExportFormat) GetPtr() *RadarExportFormat { var v = self; return &v }
+
+func (self *RadarExportFormat) String() string {
+	switch *self {
+	case RadarExportFormatCSV:
+		return "csv"
+	case RadarExportFormatJson:
+		return "json"
+	case RadarExportFormatTxt:
+		return "txt"
+	}
+	if len(*self) == 0 {
+		return "csv"
+	}
+	panic(errors.New("Invalid value of RadarExportFormat: " + string(*self)))
+}
+
+func (self *RadarExportFormat) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case RadarExportFormatCSV:
+		return json.Marshal("csv")
+	case RadarExportFormatJson:
+		return json.Marshal("json")
+	case RadarExportFormatTxt:
+		return json.Marshal("txt")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("csv")
+	}
+	return nil, errors.New("Invalid value of RadarExportFormat: " + string(*self))
+}
+
+func (self *RadarExportFormat) GetBSON() (interface{}, error) {
+	switch *self {
+	case RadarExportFormatCSV:
+		return "csv", nil
+	case RadarExportFormatJson:
+		return "json", nil
+	case RadarExportFormatTxt:
+		return "txt", nil
+	}
+	if len(*self) == 0 {
+		return "csv", nil
+	}
+	return nil, errors.New("Invalid value of RadarExportFormat: " + string(*self))
+}
+
+func (self *RadarExportFormat) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "csv":
+		*self = RadarExportFormatCSV
+		return nil
+	case "json":
+		*self = RadarExportFormatJson
+		return nil
+	case "txt":
+		*self = RadarExportFormatTxt
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportFormatCSV
+		return nil
+	}
+	return errors.New("Unknown RadarExportFormat: " + s)
+}
+
+func (self *RadarExportFormat) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "csv":
+		*self = RadarExportFormatCSV
+		return nil
+	case "json":
+		*self = RadarExportFormatJson
+		return nil
+	case "txt":
+		*self = RadarExportFormatTxt
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportFormatCSV
+		return nil
+	}
+	return errors.New("Unknown RadarExportFormat: " + s)
+}
+
+type RadarExportStatus string
+
+const RadarExportStatusCreated RadarExportStatus = "created"
+const RadarExportStatusFinished RadarExportStatus = "finished"
+const RadarExportStatusRunning RadarExportStatus = "running"
+const RadarExportStatusUpdated RadarExportStatus = "updated"
+
+func (self RadarExportStatus) GetPtr() *RadarExportStatus { var v = self; return &v }
+
+func (self *RadarExportStatus) String() string {
+	switch *self {
+	case RadarExportStatusCreated:
+		return "created"
+	case RadarExportStatusFinished:
+		return "finished"
+	case RadarExportStatusRunning:
+		return "running"
+	case RadarExportStatusUpdated:
+		return "updated"
+	}
+	if len(*self) == 0 {
+		return "created"
+	}
+	panic(errors.New("Invalid value of RadarExportStatus: " + string(*self)))
+}
+
+func (self *RadarExportStatus) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case RadarExportStatusCreated:
+		return json.Marshal("created")
+	case RadarExportStatusFinished:
+		return json.Marshal("finished")
+	case RadarExportStatusRunning:
+		return json.Marshal("running")
+	case RadarExportStatusUpdated:
+		return json.Marshal("updated")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("created")
+	}
+	return nil, errors.New("Invalid value of RadarExportStatus: " + string(*self))
+}
+
+func (self *RadarExportStatus) GetBSON() (interface{}, error) {
+	switch *self {
+	case RadarExportStatusCreated:
+		return "created", nil
+	case RadarExportStatusFinished:
+		return "finished", nil
+	case RadarExportStatusRunning:
+		return "running", nil
+	case RadarExportStatusUpdated:
+		return "updated", nil
+	}
+	if len(*self) == 0 {
+		return "created", nil
+	}
+	return nil, errors.New("Invalid value of RadarExportStatus: " + string(*self))
+}
+
+func (self *RadarExportStatus) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "created":
+		*self = RadarExportStatusCreated
+		return nil
+	case "finished":
+		*self = RadarExportStatusFinished
+		return nil
+	case "running":
+		*self = RadarExportStatusRunning
+		return nil
+	case "updated":
+		*self = RadarExportStatusUpdated
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportStatusCreated
+		return nil
+	}
+	return errors.New("Unknown RadarExportStatus: " + s)
+}
+
+func (self *RadarExportStatus) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "created":
+		*self = RadarExportStatusCreated
+		return nil
+	case "finished":
+		*self = RadarExportStatusFinished
+		return nil
+	case "running":
+		*self = RadarExportStatusRunning
+		return nil
+	case "updated":
+		*self = RadarExportStatusUpdated
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportStatusCreated
+		return nil
+	}
+	return errors.New("Unknown RadarExportStatus: " + s)
+}
+
+type RadarExportType string
+
+const RadarExportTypeEmail RadarExportType = "email"
+const RadarExportTypeExternal RadarExportType = "external"
+const RadarExportTypeMytarget RadarExportType = "mytarget"
+const RadarExportTypeYandex RadarExportType = "yandex"
+
+func (self RadarExportType) GetPtr() *RadarExportType { var v = self; return &v }
+
+func (self *RadarExportType) String() string {
+	switch *self {
+	case RadarExportTypeEmail:
+		return "email"
+	case RadarExportTypeExternal:
+		return "external"
+	case RadarExportTypeMytarget:
+		return "mytarget"
+	case RadarExportTypeYandex:
+		return "yandex"
+	}
+	if len(*self) == 0 {
+		return "email"
+	}
+	panic(errors.New("Invalid value of RadarExportType: " + string(*self)))
+}
+
+func (self *RadarExportType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case RadarExportTypeEmail:
+		return json.Marshal("email")
+	case RadarExportTypeExternal:
+		return json.Marshal("external")
+	case RadarExportTypeMytarget:
+		return json.Marshal("mytarget")
+	case RadarExportTypeYandex:
+		return json.Marshal("yandex")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("email")
+	}
+	return nil, errors.New("Invalid value of RadarExportType: " + string(*self))
+}
+
+func (self *RadarExportType) GetBSON() (interface{}, error) {
+	switch *self {
+	case RadarExportTypeEmail:
+		return "email", nil
+	case RadarExportTypeExternal:
+		return "external", nil
+	case RadarExportTypeMytarget:
+		return "mytarget", nil
+	case RadarExportTypeYandex:
+		return "yandex", nil
+	}
+	if len(*self) == 0 {
+		return "email", nil
+	}
+	return nil, errors.New("Invalid value of RadarExportType: " + string(*self))
+}
+
+func (self *RadarExportType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "email":
+		*self = RadarExportTypeEmail
+		return nil
+	case "external":
+		*self = RadarExportTypeExternal
+		return nil
+	case "mytarget":
+		*self = RadarExportTypeMytarget
+		return nil
+	case "yandex":
+		*self = RadarExportTypeYandex
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportTypeEmail
+		return nil
+	}
+	return errors.New("Unknown RadarExportType: " + s)
+}
+
+func (self *RadarExportType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "email":
+		*self = RadarExportTypeEmail
+		return nil
+	case "external":
+		*self = RadarExportTypeExternal
+		return nil
+	case "mytarget":
+		*self = RadarExportTypeMytarget
+		return nil
+	case "yandex":
+		*self = RadarExportTypeYandex
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportTypeEmail
+		return nil
+	}
+	return errors.New("Unknown RadarExportType: " + s)
+}
+
 type RadiusMessageType string
 
 const RadiusMessageTypeAccessAccept RadiusMessageType = "access-accept"
@@ -2653,6 +3127,9 @@ func (self *ServiceState) SetBSON(v bson.Raw) error {
 type StatEventRuleType string
 
 const StatEventRuleTypeCPUload StatEventRuleType = "cpu_load"
+const StatEventRuleTypeClientCon StatEventRuleType = "client_con"
+const StatEventRuleTypeClientDis StatEventRuleType = "client_dis"
+const StatEventRuleTypeClientFar StatEventRuleType = "client_far"
 const StatEventRuleTypeConfigError StatEventRuleType = "config_error"
 const StatEventRuleTypeConnected StatEventRuleType = "connected"
 const StatEventRuleTypeDisconnected StatEventRuleType = "disconnected"
@@ -2665,6 +3142,12 @@ func (self *StatEventRuleType) String() string {
 	switch *self {
 	case StatEventRuleTypeCPUload:
 		return "cpu_load"
+	case StatEventRuleTypeClientCon:
+		return "client_con"
+	case StatEventRuleTypeClientDis:
+		return "client_dis"
+	case StatEventRuleTypeClientFar:
+		return "client_far"
 	case StatEventRuleTypeConfigError:
 		return "config_error"
 	case StatEventRuleTypeConnected:
@@ -2683,6 +3166,12 @@ func (self *StatEventRuleType) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case StatEventRuleTypeCPUload:
 		return json.Marshal("cpu_load")
+	case StatEventRuleTypeClientCon:
+		return json.Marshal("client_con")
+	case StatEventRuleTypeClientDis:
+		return json.Marshal("client_dis")
+	case StatEventRuleTypeClientFar:
+		return json.Marshal("client_far")
 	case StatEventRuleTypeConfigError:
 		return json.Marshal("config_error")
 	case StatEventRuleTypeConnected:
@@ -2701,6 +3190,12 @@ func (self *StatEventRuleType) GetBSON() (interface{}, error) {
 	switch *self {
 	case StatEventRuleTypeCPUload:
 		return "cpu_load", nil
+	case StatEventRuleTypeClientCon:
+		return "client_con", nil
+	case StatEventRuleTypeClientDis:
+		return "client_dis", nil
+	case StatEventRuleTypeClientFar:
+		return "client_far", nil
 	case StatEventRuleTypeConfigError:
 		return "config_error", nil
 	case StatEventRuleTypeConnected:
@@ -2723,6 +3218,15 @@ func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
 	switch s {
 	case "cpu_load":
 		*self = StatEventRuleTypeCPUload
+		return nil
+	case "client_con":
+		*self = StatEventRuleTypeClientCon
+		return nil
+	case "client_dis":
+		*self = StatEventRuleTypeClientDis
+		return nil
+	case "client_far":
+		*self = StatEventRuleTypeClientFar
 		return nil
 	case "config_error":
 		*self = StatEventRuleTypeConfigError
@@ -2751,6 +3255,15 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 	switch s {
 	case "cpu_load":
 		*self = StatEventRuleTypeCPUload
+		return nil
+	case "client_con":
+		*self = StatEventRuleTypeClientCon
+		return nil
+	case "client_dis":
+		*self = StatEventRuleTypeClientDis
+		return nil
+	case "client_far":
+		*self = StatEventRuleTypeClientFar
 		return nil
 	case "config_error":
 		*self = StatEventRuleTypeConfigError
@@ -2897,6 +3410,7 @@ const SystemEventTypeFirmwareUploaded SystemEventType = "FIRMWARE_UPLOADED"
 const SystemEventTypeLoggedError SystemEventType = "LOGGED_ERROR"
 const SystemEventTypeMonitorRuleViolation SystemEventType = "MONITOR_RULE_VIOLATION"
 const SystemEventTypeRRMStatus SystemEventType = "RRM_STATUS_DATA"
+const SystemEventTypeRadarExportUpdate SystemEventType = "RADAR_EXPORT_UPDATE"
 const SystemEventTypeRadiusAccountingSend SystemEventType = "RADIUS_ACCOUNTING_SEND"
 const SystemEventTypeServiceConnected SystemEventType = "SERVICE_CONNECTED"
 const SystemEventTypeServiceDisconnected SystemEventType = "SERVICE_DISCONNECTED"
@@ -2932,6 +3446,8 @@ func (self *SystemEventType) String() string {
 		return "MONITOR_RULE_VIOLATION"
 	case SystemEventTypeRRMStatus:
 		return "RRM_STATUS_DATA"
+	case SystemEventTypeRadarExportUpdate:
+		return "RADAR_EXPORT_UPDATE"
 	case SystemEventTypeRadiusAccountingSend:
 		return "RADIUS_ACCOUNTING_SEND"
 	case SystemEventTypeServiceConnected:
@@ -2974,6 +3490,8 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("MONITOR_RULE_VIOLATION")
 	case SystemEventTypeRRMStatus:
 		return json.Marshal("RRM_STATUS_DATA")
+	case SystemEventTypeRadarExportUpdate:
+		return json.Marshal("RADAR_EXPORT_UPDATE")
 	case SystemEventTypeRadiusAccountingSend:
 		return json.Marshal("RADIUS_ACCOUNTING_SEND")
 	case SystemEventTypeServiceConnected:
@@ -3016,6 +3534,8 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 		return "MONITOR_RULE_VIOLATION", nil
 	case SystemEventTypeRRMStatus:
 		return "RRM_STATUS_DATA", nil
+	case SystemEventTypeRadarExportUpdate:
+		return "RADAR_EXPORT_UPDATE", nil
 	case SystemEventTypeRadiusAccountingSend:
 		return "RADIUS_ACCOUNTING_SEND", nil
 	case SystemEventTypeServiceConnected:
@@ -3073,6 +3593,9 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "RRM_STATUS_DATA":
 		*self = SystemEventTypeRRMStatus
+		return nil
+	case "RADAR_EXPORT_UPDATE":
+		*self = SystemEventTypeRadarExportUpdate
 		return nil
 	case "RADIUS_ACCOUNTING_SEND":
 		*self = SystemEventTypeRadiusAccountingSend
@@ -3137,6 +3660,9 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "RRM_STATUS_DATA":
 		*self = SystemEventTypeRRMStatus
+		return nil
+	case "RADAR_EXPORT_UPDATE":
+		*self = SystemEventTypeRadarExportUpdate
 		return nil
 	case "RADIUS_ACCOUNTING_SEND":
 		*self = SystemEventTypeRadiusAccountingSend

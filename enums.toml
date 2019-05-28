@@ -34,6 +34,10 @@ Redirect   = "REDIRECT"
 PortalBack = "PORTAL_BACKEND"
 RadiusGw   = "RADIUS_GATEWAY"
 Mediator   = "MEDIATOR"
+StatLBS    = "STAT-LBS"
+AnalMW     = "ANAL-MW"
+RadarMW    = "RADAR-MW"
+RadarExportMW    = "RADAR-EXPORT-MW"
 
 [Operation]
 [Operation.variants]
@@ -67,6 +71,7 @@ FirmwareUploaded        = "FIRMWARE_UPLOADED"
 CpeFirmwareAvailable    = "CPE_FIRMWARE_AVAILABLE"
 RadiusAccountingSend    = "RADIUS_ACCOUNTING_SEND"
 LoggedError             = "LOGGED_ERROR"
+RadarExportUpdate       = "RADAR_EXPORT_UPDATE"
 
 [SystemEventLevel]
 default = "DEBUG"
@@ -106,6 +111,9 @@ Connected    = "connected"
 Disconnected = "disconnected"
 ConfigError  = "config_error"
 IfaceError   = "iface_error"
+ClientCon    = "client_con"
+ClientDis    = "client_dis"
+ClientFar    = "client_far"
 
 [ClientStatPacketType]
 [ClientStatPacketType.variants]
@@ -252,3 +260,33 @@ Connected    = "connected"
 Disconnected = "disconnected"
 Updating     = "updating"
 Provisioning = "provision"
+
+[RadarExportType]
+default = "Email"
+[RadarExportType.variants]
+Email    = "email"
+Yandex   = "yandex"
+Mytarget = "mytarget"
+External = "external"
+
+[RadarExportFormat]
+default = "CSV"
+[RadarExportFormat.variants]
+CSV      = "csv"
+Json     = "json"
+Txt      = "txt"
+
+[RadarExportFilter]
+default = "All"
+[RadarExportFilter.variants]
+All     = "all"
+New     = "new"
+Return  = "return"
+
+[RadarExportStatus]
+default = "Created"
+[RadarExportStatus.variants]
+Created  = "created"
+Updated  = "updated"
+Running  = "running"
+Finished = "finished"

@@ -270,13 +270,20 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
+type LBSClientSignal struct {
+	RSSI      int   `json:"rssi" bson:"rssi"`
+	Timestamp int64 `json:"timestamp"`
+}
+
 type LBSClientData struct {
-	Timestamp int64   `json:"timestamp"`
-	CPE       UUID    `json:"cpe"`
-	Radio     string  `json:"radio"`
-	ClientMac string  `json:"client_mac"`
-	RSSI      float64 `json:"rssi"`
-	Frequency int     `json:"freq"`
+	Timestamp int64             `json:"timestamp"`
+	CPE       UUID              `json:"cpe"`
+	Radio     string            `json:"radio"`
+	ClientMac string            `json:"client_mac"`
+	RSSI      float64           `json:"rssi"`
+	Frequency int               `json:"freq"`
+	SSIDs     []string          `json:"ssids"`
+	Signals   []LBSClientSignal `json:"signals"`
 }
 
 type LBSCPEInfo struct {
@@ -456,4 +463,9 @@ type ClientProbeData struct {
 	RSSI         int             `json:"rssi" bson:"rssi"`
 	Manufacturer string          `json:"manufacturer" bson:"manufacturer"`
 	AssocData    ClientAssocData `json:"assoc_data,omitempty" bson:"assoc_data"`
+}
+
+type StationDumpData struct {
+	Radio     string                     `json:"radio" bson:"radio"`
+	AssocList map[string]AccountingRadio `json:"assoclist" bson:"assoclist"`
 }
