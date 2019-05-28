@@ -282,3 +282,11 @@ default = "All"
 All     = "all"
 New     = "new"
 Return  = "return"
+
+[RadarExportStatus]
+default = "Created"
+[RadarExportStatus.variants]
+Created  = "created"
+Updated  = "updated"
+Running  = "running"
+Finished = "finished"

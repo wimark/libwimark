@@ -2512,6 +2512,118 @@ func (self *RadarExportFormat) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown RadarExportFormat: " + s)
 }
 
+type RadarExportStatus string
+
+const RadarExportStatusCreated RadarExportStatus = "created"
+const RadarExportStatusFinished RadarExportStatus = "finished"
+const RadarExportStatusRunning RadarExportStatus = "running"
+const RadarExportStatusUpdated RadarExportStatus = "updated"
+
+func (self RadarExportStatus) GetPtr() *RadarExportStatus { var v = self; return &v }
+
+func (self *RadarExportStatus) String() string {
+	switch *self {
+	case RadarExportStatusCreated:
+		return "created"
+	case RadarExportStatusFinished:
+		return "finished"
+	case RadarExportStatusRunning:
+		return "running"
+	case RadarExportStatusUpdated:
+		return "updated"
+	}
+	if len(*self) == 0 {
+		return "created"
+	}
+	panic(errors.New("Invalid value of RadarExportStatus: " + string(*self)))
+}
+
+func (self *RadarExportStatus) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case RadarExportStatusCreated:
+		return json.Marshal("created")
+	case RadarExportStatusFinished:
+		return json.Marshal("finished")
+	case RadarExportStatusRunning:
+		return json.Marshal("running")
+	case RadarExportStatusUpdated:
+		return json.Marshal("updated")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("created")
+	}
+	return nil, errors.New("Invalid value of RadarExportStatus: " + string(*self))
+}
+
+func (self *RadarExportStatus) GetBSON() (interface{}, error) {
+	switch *self {
+	case RadarExportStatusCreated:
+		return "created", nil
+	case RadarExportStatusFinished:
+		return "finished", nil
+	case RadarExportStatusRunning:
+		return "running", nil
+	case RadarExportStatusUpdated:
+		return "updated", nil
+	}
+	if len(*self) == 0 {
+		return "created", nil
+	}
+	return nil, errors.New("Invalid value of RadarExportStatus: " + string(*self))
+}
+
+func (self *RadarExportStatus) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "created":
+		*self = RadarExportStatusCreated
+		return nil
+	case "finished":
+		*self = RadarExportStatusFinished
+		return nil
+	case "running":
+		*self = RadarExportStatusRunning
+		return nil
+	case "updated":
+		*self = RadarExportStatusUpdated
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportStatusCreated
+		return nil
+	}
+	return errors.New("Unknown RadarExportStatus: " + s)
+}
+
+func (self *RadarExportStatus) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "created":
+		*self = RadarExportStatusCreated
+		return nil
+	case "finished":
+		*self = RadarExportStatusFinished
+		return nil
+	case "running":
+		*self = RadarExportStatusRunning
+		return nil
+	case "updated":
+		*self = RadarExportStatusUpdated
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportStatusCreated
+		return nil
+	}
+	return errors.New("Unknown RadarExportStatus: " + s)
+}
+
 type RadarExportType string
 
 const RadarExportTypeEmail RadarExportType = "email"
