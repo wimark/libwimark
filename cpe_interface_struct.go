@@ -122,6 +122,7 @@ type UciWifiWlan struct {
 
 	// security
 	NasID       string `json:"nasid,omitempty"`
+	NasPortID   string `json:"nas_port_id,omitempty"`
 	AcctHost    string `json:"acct_server,omitempty"`
 	AcctSecret  string `json:"acct_secret,omitempty"`
 	AcctPeriod  string `json:"acct_interval,omitempty"`
