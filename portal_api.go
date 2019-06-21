@@ -1,8 +1,8 @@
 package libwimark
 
-import (
-	"gopkg.in/go-playground/validator.v9"
-)
+// import (
+// 	"gopkg.in/go-playground/validator.v9"
+// )
 
 // Struct for request payload from external captive portal
 
@@ -16,6 +16,9 @@ type RedirectRequestObject struct {
 
 	Timeout int64  `json:"session-timeout,omitempty" bson:"session-timeout" form:"session-timeout" query:"session-timeout" validate:"-"`
 	NasId   string `json:"nas-id,omitempty" bson:"nas-id" form:"nas-id" query:"nas-id" validate:"-"`
+
+	Group    string `json:"wimark-client-group,omitempty" bson:"wimark-client-group" validate:"-"`
+	Timeout2 int64  `json:"wimark-session-timeout,omitempty" bson:"wimark-session-timeout" validate:"-"`
 }
 
 // Struct for request payload from webui
@@ -33,18 +36,18 @@ type PortalRequestObject struct {
 	SwitchURL string `json:"switch_url" validate:"-"`
 }
 
-type Validator struct {
-	Validator *validator.Validate
-}
+// type Validator struct {
+// 	Validator *validator.Validate
+// }
 
-func (cv *Validator) Validate(i interface{}) error {
-	return cv.Validator.Struct(i)
-}
+// func (cv *Validator) Validate(i interface{}) error {
+// 	return cv.Validator.Struct(i)
+// }
 
 type HTTPResponseObject struct {
 	Status      string      `json:"status,omitempty"`
 	Description string      `json:"description,omitempty"`
-	Code        string      `json:"code,omitempty"`
+	Code        int         `json:"code"`
 	Data        interface{} `json:"data,omitempty"`
 }
 
