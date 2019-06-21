@@ -1,6 +1,8 @@
 package libwimark
 
 import (
+	"fmt"
+
 	"github.com/globalsign/mgo/bson"
 )
 
@@ -63,10 +65,20 @@ type WMMCategoryConfig struct {
 	AcAifs  int     `json:"ac_aifs" bson:"ac_aifs"`
 	AcBurst float32 `json:"ac_burst" bson:"ac_burst"`
 }
+
 type WMMConfig struct {
 	Categories map[WMMAccessCategory]WMMCategoryConfig `json:"categories" bson:"categories"`
 	Disabled   bool                                    `json:"disabled" bson:"disabled"`
 	Uapsd      bool                                    `json:"uapsd" bson:"uapsd"`
+}
+
+type SpeedConfig struct {
+	Value int       `json:"value" bson:"value"`
+	Type  SpeedType `json:"type" bson:"type"`
+}
+
+func (sc *SpeedConfig) String() string {
+	return fmt.Sprintf("%d%s", sc.Value, sv.Type.String())
 }
 
 type WLAN struct {
@@ -94,6 +106,9 @@ type WLAN struct {
 	WMMConfig           WMMConfig            `json:"wmm" bson:"wmm"`
 	NAT                 bool                 `json:"nat" bson:"nat"`
 	NATNetwork          IPAddress            `json:"nat_network" bson:"nat_network"`
+
+	SpeedUpload   SpeedConfig `json:"speed_upload" bson:"speed_upload"`
+	SpeedDownload SpeedConfig `json:"speed_download" bson:"speed_download"`
 }
 
 type WLANCompact struct {

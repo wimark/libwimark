@@ -3124,6 +3124,118 @@ func (self *ServiceState) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown ServiceState: " + s)
 }
 
+type SpeedType string
+
+const SpeedTypeGBps SpeedType = "gbps"
+const SpeedTypeKBps SpeedType = "kbps"
+const SpeedTypeMBps SpeedType = "mbps"
+const SpeedTypeTBps SpeedType = "tbps"
+
+func (self SpeedType) GetPtr() *SpeedType { var v = self; return &v }
+
+func (self *SpeedType) String() string {
+	switch *self {
+	case SpeedTypeGBps:
+		return "gbps"
+	case SpeedTypeKBps:
+		return "kbps"
+	case SpeedTypeMBps:
+		return "mbps"
+	case SpeedTypeTBps:
+		return "tbps"
+	}
+	if len(*self) == 0 {
+		return "kbps"
+	}
+	panic(errors.New("Invalid value of SpeedType: " + string(*self)))
+}
+
+func (self *SpeedType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case SpeedTypeGBps:
+		return json.Marshal("gbps")
+	case SpeedTypeKBps:
+		return json.Marshal("kbps")
+	case SpeedTypeMBps:
+		return json.Marshal("mbps")
+	case SpeedTypeTBps:
+		return json.Marshal("tbps")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("kbps")
+	}
+	return nil, errors.New("Invalid value of SpeedType: " + string(*self))
+}
+
+func (self *SpeedType) GetBSON() (interface{}, error) {
+	switch *self {
+	case SpeedTypeGBps:
+		return "gbps", nil
+	case SpeedTypeKBps:
+		return "kbps", nil
+	case SpeedTypeMBps:
+		return "mbps", nil
+	case SpeedTypeTBps:
+		return "tbps", nil
+	}
+	if len(*self) == 0 {
+		return "kbps", nil
+	}
+	return nil, errors.New("Invalid value of SpeedType: " + string(*self))
+}
+
+func (self *SpeedType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "gbps":
+		*self = SpeedTypeGBps
+		return nil
+	case "kbps":
+		*self = SpeedTypeKBps
+		return nil
+	case "mbps":
+		*self = SpeedTypeMBps
+		return nil
+	case "tbps":
+		*self = SpeedTypeTBps
+		return nil
+	}
+	if len(s) == 0 {
+		*self = SpeedTypeKBps
+		return nil
+	}
+	return errors.New("Unknown SpeedType: " + s)
+}
+
+func (self *SpeedType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "gbps":
+		*self = SpeedTypeGBps
+		return nil
+	case "kbps":
+		*self = SpeedTypeKBps
+		return nil
+	case "mbps":
+		*self = SpeedTypeMBps
+		return nil
+	case "tbps":
+		*self = SpeedTypeTBps
+		return nil
+	}
+	if len(s) == 0 {
+		*self = SpeedTypeKBps
+		return nil
+	}
+	return errors.New("Unknown SpeedType: " + s)
+}
+
 type StatEventRuleType string
 
 const StatEventRuleTypeCPUload StatEventRuleType = "cpu_load"

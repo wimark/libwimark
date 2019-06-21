@@ -290,3 +290,11 @@ Created  = "created"
 Updated  = "updated"
 Running  = "running"
 Finished = "finished"
+
+[SpeedType]
+default = "KBps"
+[SpeedType.variants]
+KBps = "kbps"
+MBps = "mbps"
+GBps = "gbps"
+TBps = "tbps"

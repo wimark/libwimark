@@ -207,6 +207,13 @@ type UciWifiWlan struct {
 	WmmAcVOCwmax string `json:"wmm_ac_vo_cwmax"`
 	WmmAcVOTxop  string `json:"wmm_ac_vo_txop"`
 	WmmAcVOAcm   string `json:"wmm_ac_vo_acm"`
+
+	// speed limit
+
+	// limit_fromrf -- FROM client -- UPLOAD
+	// limit_torf -- TO client -- DOWNLOAD
+	LimitFromRf string `json:"limit_fromrf"`
+	LimitToRf   string `json:"limit_torf"`
 }
 type UciWifiIface struct {
 	Type        string      `json:".type"`
