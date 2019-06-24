@@ -78,7 +78,7 @@ type SpeedConfig struct {
 }
 
 func (sc *SpeedConfig) String() string {
-	return fmt.Sprintf("%d%s", sc.Value, sv.Type.String())
+	return fmt.Sprintf("%d%s", sc.Value, sc.Type.String())
 }
 
 type WLAN struct {

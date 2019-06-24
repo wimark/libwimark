@@ -85,6 +85,16 @@ type RedirectClientSession struct {
 	AcctOutputPackets   int `json:"Acct-Output-Packets"`
 }
 
+type RedirectClientSessionAcct struct {
+	AcctSessionTime     int `json:"Acct-Session-Time"`
+	AcctInputGigawords  int `json:"Acct-Input-Gigawords"`
+	AcctOutputGigawords int `json:"Acct-Output-Gigawords"`
+	AcctInputOctets     int `json:"Acct-Input-Octets"`
+	AcctOutputOctets    int `json:"Acct-Output-Octets"`
+	AcctInputPackets    int `json:"Acct-Input-Packets"`
+	AcctOutputPackets   int `json:"Acct-Output-Packets"`
+}
+
 type PortalAuthObject struct {
 	Timestamp int64  `json:"timestamp" bson:"timestamp"`
 	CPE       string `json:"cpe_id" bson:"cpe_id"`

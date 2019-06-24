@@ -292,9 +292,9 @@ Running  = "running"
 Finished = "finished"
 
 [SpeedType]
-default = "KBps"
+default = "Kbit"
 [SpeedType.variants]
-KBps = "kbps"
-MBps = "mbps"
-GBps = "gbps"
-TBps = "tbps"
+Kbit = "kbit"
+Mbit = "mbit"
+Gbit = "gbit"
+Tbit = "tbit"

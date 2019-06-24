@@ -3126,60 +3126,60 @@ func (self *ServiceState) SetBSON(v bson.Raw) error {
 
 type SpeedType string
 
-const SpeedTypeGBps SpeedType = "gbps"
-const SpeedTypeKBps SpeedType = "kbps"
-const SpeedTypeMBps SpeedType = "mbps"
-const SpeedTypeTBps SpeedType = "tbps"
+const SpeedTypeGbit SpeedType = "gbit"
+const SpeedTypeKbit SpeedType = "kbit"
+const SpeedTypeMbit SpeedType = "mbit"
+const SpeedTypeTbit SpeedType = "tbit"
 
 func (self SpeedType) GetPtr() *SpeedType { var v = self; return &v }
 
 func (self *SpeedType) String() string {
 	switch *self {
-	case SpeedTypeGBps:
-		return "gbps"
-	case SpeedTypeKBps:
-		return "kbps"
-	case SpeedTypeMBps:
-		return "mbps"
-	case SpeedTypeTBps:
-		return "tbps"
+	case SpeedTypeGbit:
+		return "gbit"
+	case SpeedTypeKbit:
+		return "kbit"
+	case SpeedTypeMbit:
+		return "mbit"
+	case SpeedTypeTbit:
+		return "tbit"
 	}
 	if len(*self) == 0 {
-		return "kbps"
+		return "kbit"
 	}
 	panic(errors.New("Invalid value of SpeedType: " + string(*self)))
 }
 
 func (self *SpeedType) MarshalJSON() ([]byte, error) {
 	switch *self {
-	case SpeedTypeGBps:
-		return json.Marshal("gbps")
-	case SpeedTypeKBps:
-		return json.Marshal("kbps")
-	case SpeedTypeMBps:
-		return json.Marshal("mbps")
-	case SpeedTypeTBps:
-		return json.Marshal("tbps")
+	case SpeedTypeGbit:
+		return json.Marshal("gbit")
+	case SpeedTypeKbit:
+		return json.Marshal("kbit")
+	case SpeedTypeMbit:
+		return json.Marshal("mbit")
+	case SpeedTypeTbit:
+		return json.Marshal("tbit")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("kbps")
+		return json.Marshal("kbit")
 	}
 	return nil, errors.New("Invalid value of SpeedType: " + string(*self))
 }
 
 func (self *SpeedType) GetBSON() (interface{}, error) {
 	switch *self {
-	case SpeedTypeGBps:
-		return "gbps", nil
-	case SpeedTypeKBps:
-		return "kbps", nil
-	case SpeedTypeMBps:
-		return "mbps", nil
-	case SpeedTypeTBps:
-		return "tbps", nil
+	case SpeedTypeGbit:
+		return "gbit", nil
+	case SpeedTypeKbit:
+		return "kbit", nil
+	case SpeedTypeMbit:
+		return "mbit", nil
+	case SpeedTypeTbit:
+		return "tbit", nil
 	}
 	if len(*self) == 0 {
-		return "kbps", nil
+		return "kbit", nil
 	}
 	return nil, errors.New("Invalid value of SpeedType: " + string(*self))
 }
@@ -3190,21 +3190,21 @@ func (self *SpeedType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "gbps":
-		*self = SpeedTypeGBps
+	case "gbit":
+		*self = SpeedTypeGbit
 		return nil
-	case "kbps":
-		*self = SpeedTypeKBps
+	case "kbit":
+		*self = SpeedTypeKbit
 		return nil
-	case "mbps":
-		*self = SpeedTypeMBps
+	case "mbit":
+		*self = SpeedTypeMbit
 		return nil
-	case "tbps":
-		*self = SpeedTypeTBps
+	case "tbit":
+		*self = SpeedTypeTbit
 		return nil
 	}
 	if len(s) == 0 {
-		*self = SpeedTypeKBps
+		*self = SpeedTypeKbit
 		return nil
 	}
 	return errors.New("Unknown SpeedType: " + s)
@@ -3216,21 +3216,21 @@ func (self *SpeedType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "gbps":
-		*self = SpeedTypeGBps
+	case "gbit":
+		*self = SpeedTypeGbit
 		return nil
-	case "kbps":
-		*self = SpeedTypeKBps
+	case "kbit":
+		*self = SpeedTypeKbit
 		return nil
-	case "mbps":
-		*self = SpeedTypeMBps
+	case "mbit":
+		*self = SpeedTypeMbit
 		return nil
-	case "tbps":
-		*self = SpeedTypeTBps
+	case "tbit":
+		*self = SpeedTypeTbit
 		return nil
 	}
 	if len(s) == 0 {
-		*self = SpeedTypeKBps
+		*self = SpeedTypeKbit
 		return nil
 	}
 	return errors.New("Unknown SpeedType: " + s)
