@@ -1,48 +1,53 @@
 package libwimark
 
-// import (
-// 	"gopkg.in/go-playground/validator.v9"
-// )
+const (
+	COLL_PORTAL_COLLECTION = "portal_client_sessions"
+	COLL_PORTAL_PROFILES   = "portal_profiles"
+)
 
 // Struct for request payload from external captive portal
-
 type RedirectRequestObject struct {
-	Username string `json:"username" bson:"username" form:"username" query:"username" validate:"-"`
-	Password string `json:"password" bson:"password" form:"password" query:"password" validate:"-"`
-
+	// Basic and Needed client data
 	MAC  string `json:"mac" bson:"mac" form:"mac" query:"mac" validate:"required,mac"`
 	CPE  string `json:"cpe_id" bson:"cpe_id" form:"cpe_id" query:"cpe_id" validate:"uuid"`
 	WLAN string `json:"wlan_id" bson:"wlan_id" form:"wlan_id" query:"wlan_id" validate:"uuid"`
 
-	Timeout int64  `json:"session-timeout,omitempty" bson:"session-timeout" form:"session-timeout" query:"session-timeout" validate:"-"`
-	NasId   string `json:"nas-id,omitempty" bson:"nas-id" form:"nas-id" query:"nas-id" validate:"-"`
+	// Username will be use in RADIUS Acct
+	Username string `json:"username" bson:"username" form:"username" query:"username" validate:"-"`
+	Password string `json:"password" bson:"password" form:"password" query:"password" validate:"-"`
 
-	Group    string `json:"wimark-client-group,omitempty" bson:"wimark-client-group" validate:"-"`
-	Timeout2 int64  `json:"wimark-session-timeout,omitempty" bson:"wimark-session-timeout" validate:"-"`
+	// passing NAS-ID to use in next RADIUS Acct
+	NasId string `json:"nas-id,omitempty" bson:"nas-id" form:"nas-id" query:"nas-id" validate:"-"`
+
+	// two way to set session-timeout
+	Timeout  int64 `json:"session-timeout,omitempty" bson:"session-timeout" form:"session-timeout" query:"session-timeout" validate:"-"`
+	Timeout2 int64 `json:"wimark-session-timeout,omitempty" bson:"wimark-session-timeout" validate:"-"`
+
+	// ACL group -- not using now
+	Group string `json:"wimark-client-group,omitempty" bson:"wimark-client-group" validate:"-"`
+
+	// count client reconnection as one session
+	Statefull bool `json:"statefull" bson:"statefull"`
 }
 
 // Struct for request payload from webui
-
 type PortalRequestObject struct {
+	// Needed client data
+	MAC  string `json:"mac" bson:"mac" form:"mac" query:"mac" validate:"required,mac"`
+	CPE  string `json:"cpe_id" bson:"cpe_id" form:"cpe_id" query:"cpe_id" validate:"required,uuid"`
+	WLAN string `json:"wlan_id" bson:"wlan_id" form:"wlan_id" query:"wlan_id" validate:"required,uuid"`
+
 	Username string `json:"username,omitempty" bson:"username" form:"username" query:"username" validate:"-"`
 	Password string `json:"password,omitempty" bson:"password" form:"password" query:"password" validate:"-"`
 
-	MAC       string `json:"mac" bson:"mac" form:"mac" query:"mac" validate:"required,mac"`
-	CPE       string `json:"cpe_id" bson:"cpe_id" form:"cpe_id" query:"cpe_id" validate:"required,uuid"`
-	WLAN      string `json:"wlan_id" bson:"wlan_id" form:"wlan_id" query:"wlan_id" validate:"required,uuid"`
 	Useragent string `json:"useragent"  bson:"useragent" form:"useragent" query:"useragent" validate:"-"`
-	Timeout   int64  `json:"-" validate:"-"`
 
+	// Address of platform CoA manager
 	SwitchURL string `json:"switch_url" validate:"-"`
+
+	// for internal using
+	Timeout int64 `json:"-" validate:"-"`
 }
-
-// type Validator struct {
-// 	Validator *validator.Validate
-// }
-
-// func (cv *Validator) Validate(i interface{}) error {
-// 	return cv.Validator.Struct(i)
-// }
 
 type HTTPResponseObject struct {
 	Status      string      `json:"status,omitempty"`
@@ -51,6 +56,7 @@ type HTTPResponseObject struct {
 	Data        interface{} `json:"data,omitempty"`
 }
 
+// struct for store redirect session on platform
 type RedirectClientSession struct {
 	ID string `json:"id" bson:"_id"`
 
@@ -85,6 +91,7 @@ type RedirectClientSession struct {
 	AcctOutputPackets   int `json:"Acct-Output-Packets"`
 }
 
+// struct for update acct of redirect session on platform
 type RedirectClientSessionAcct struct {
 	AcctSessionTime     int `json:"Acct-Session-Time"`
 	AcctInputGigawords  int `json:"Acct-Input-Gigawords"`
@@ -95,12 +102,16 @@ type RedirectClientSessionAcct struct {
 	AcctOutputPackets   int `json:"Acct-Output-Packets"`
 }
 
+// struct for store every auth attempt
 type PortalAuthObject struct {
 	Timestamp int64  `json:"timestamp" bson:"timestamp"`
 	CPE       string `json:"cpe_id" bson:"cpe_id"`
 	Useragent string `json:"useragent" bson:"useragent"`
+	Username  string `json:"username" bson:"username"`
+	Password  string `json:"password" bson:"password"`
 }
 
+// struct for store portal client
 type PortalClientSession struct {
 	Id string `json:"id" bson:"_id"`
 
@@ -111,9 +122,49 @@ type PortalClientSession struct {
 	Username string `json:"username" bson:"username"`
 	Password string `json:"password" bson:"password"`
 
-	CreateAt       int64              `json:"create_at" bson:"create_at"`
-	StopAt         int64              `json:"stop_at" bson:"stop_at"`
-	Timeout        int64              `json:"timeout" bson:"timeout"`
-	SessionTimeout int64              `json:"session_timeout" bson:"session_timeout"`
-	Auth           []PortalAuthObject `json:"auth" bson:"auth"`
+	CreateAt int64 `json:"create_at" bson:"create_at"`
+	StopAt   int64 `json:"stop_at" bson:"stop_at"`
+
+	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
+	Auth          []PortalAuthObject  `json:"auth" bson:"auth"`
+
+	// will be DEPRECATED
+	Timeout        int64 `json:"timeout" bson:"timeout"`
+	SessionTimeout int64 `json:"session_timeout" bson:"session_timeout"`
+}
+
+// portal condition
+type PortalCondition struct {
+	// MAC   map[string]bool `json:"mac" bson:"mac"`
+	WLAN  []string `json:"wlan" bson:"wlan"`
+	CPE   []string `json:"cpe" bson:"cpe"`
+	NasId []string `json:"nas_id" bson:"nas_id"`
+}
+
+// struct for flexible session config
+type PortalSessionConfig struct {
+	// // store in DB -- 24 hours as example
+	// StoreTimeout    int64 `json:"store_timeout" bson:"store_timeout"`
+
+	// one-time online timeout -- 30 min as example
+	Timeout int64 `json:"timeout" bson:"timeout"`
+
+	// timeout to resend
+	AuthTimeout int64 `json:"auth_timeout" bson:"auth_timeout"`
+
+	// block after using timeout for
+	BlockTimeout int64 `json:"block_timeout" bson:"block_timeout"`
+
+	MaxNum int `json:"session_max_num" bson:"session_max_num"`
+}
+
+// portal profile to link provide better access control
+type PortalProfile struct {
+	Id string `json:"id" bson:"_id"`
+
+	Condition PortalCondition `json:"condition" bson:"condition"`
+
+	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
+	// true for whitelist, false for blacklist
+	AccessList map[string]bool `json:"access_list" bson:"access_list"`
 }
