@@ -81,6 +81,8 @@ type UciRedirectCfg struct {
 	FormattedUrl string   `json:"redirect_url_format"`
 	MacWhiteList []string `json:"whitelist"`
 	DnsResolve   []string `json:"resolve"`
+	LanPortal    string   `json:"lan_portal"`
+	EnableHttps  string   `json:"enable_https"`
 	Type         string   `json:".type,omitempty"`
 }
 type innerUciWimark struct {
