@@ -290,3 +290,11 @@ Created  = "created"
 Updated  = "updated"
 Running  = "running"
 Finished = "finished"
+
+[SpeedType]
+default = "Kbit"
+[SpeedType.variants]
+Kbit = "kbit"
+Mbit = "mbit"
+Gbit = "gbit"
+Tbit = "tbit"

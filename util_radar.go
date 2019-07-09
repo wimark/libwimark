@@ -39,7 +39,7 @@ const (
 	RADAR_RESAMPLE_MONTH = "m"
 )
 
-// base object for 
+// base object for
 type RadarClientBaseObject struct {
 	Id   string    `json:"id,omitempty" bson:"_id"`
 	Date time.Time `json:"date" bson:"date"`
@@ -67,6 +67,7 @@ type RadarClientVisit struct {
 	Duration  int64     `json:"duration" bson:"duration"`
 	CPE       string    `json:"cpe,omitempty" bson:"cpe"`
 	New       bool      `json:"new" bson:"new"`
+	RSSI      int       `json:"rssi" bson:"rssi"`
 }
 
 type RadarClientVisitor struct {
@@ -86,6 +87,12 @@ type RadarClientFirst struct {
 	Ts   int64     `json:"ts" bson:"ts"`
 	MAC  string    `json:"mac" bson:"mac"`
 	CPE  string    `json:"cpe" bson:"cpe"`
+}
+
+type RadarClientVisitGroup struct {
+	All         int64 `json:"all" bson:"all"`
+	New         int64 `json:"new" bson:"new"`
+	DurationAvg int64 `json:"duration_avg" bson:"duration_avg"`
 }
 
 type AnalyticsMwHttpRequest struct {

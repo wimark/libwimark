@@ -23,4 +23,6 @@ type CaptiveRedirect struct {
 
 	DefaultProfile string                  `json:"default_profile" bson:"default_profile"`
 	Profiles       map[string]tc.UserClass `json:"user_profiles" bson:"user_profiles"`
+
+	NoMasquerade bool `json:"no_masquerade" bson:"no_masquerade"`
 }

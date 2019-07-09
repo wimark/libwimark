@@ -81,6 +81,8 @@ type UciRedirectCfg struct {
 	FormattedUrl string   `json:"redirect_url_format"`
 	MacWhiteList []string `json:"whitelist"`
 	DnsResolve   []string `json:"resolve"`
+	LanPortal    string   `json:"lan_portal"`
+	EnableHttps  string   `json:"enable_https"`
 	Type         string   `json:".type,omitempty"`
 }
 type innerUciWimark struct {
@@ -122,6 +124,7 @@ type UciWifiWlan struct {
 
 	// security
 	NasID       string `json:"nasid,omitempty"`
+	NasPortID   string `json:"nas_port_id,omitempty"`
 	AcctHost    string `json:"acct_server,omitempty"`
 	AcctSecret  string `json:"acct_secret,omitempty"`
 	AcctPeriod  string `json:"acct_interval,omitempty"`
@@ -206,6 +209,13 @@ type UciWifiWlan struct {
 	WmmAcVOCwmax string `json:"wmm_ac_vo_cwmax"`
 	WmmAcVOTxop  string `json:"wmm_ac_vo_txop"`
 	WmmAcVOAcm   string `json:"wmm_ac_vo_acm"`
+
+	// speed limit
+
+	// limit_fromrf -- FROM client -- UPLOAD
+	// limit_torf -- TO client -- DOWNLOAD
+	LimitFromRf string `json:"limit_fromrf"`
+	LimitToRf   string `json:"limit_torf"`
 }
 type UciWifiIface struct {
 	Type        string      `json:".type"`
