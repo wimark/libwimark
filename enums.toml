@@ -72,6 +72,7 @@ CpeFirmwareAvailable    = "CPE_FIRMWARE_AVAILABLE"
 RadiusAccountingSend    = "RADIUS_ACCOUNTING_SEND"
 LoggedError             = "LOGGED_ERROR"
 RadarExportUpdate       = "RADAR_EXPORT_UPDATE"
+ClientAuthorization     = "CLIENT_AUTHORIZATION"
 
 [SystemEventLevel]
 default = "DEBUG"
@@ -298,3 +299,10 @@ Kbit = "kbit"
 Mbit = "mbit"
 Gbit = "gbit"
 Tbit = "tbit"
+
+[PortalProfileType]
+default = "Free"
+[PortalProfileType.variants]
+Free     = "free"
+Sponsor  = "sponsor"
+Premium  = "premium"

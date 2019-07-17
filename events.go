@@ -293,3 +293,13 @@ type RadiusAccountingSendData struct {
 	Mirroring  bool                `json:"mirroring"`
 	Message    RadiusMessageObject `json:"message"`
 }
+
+type ClientAuthorizationData struct {
+	Session        string `json:"session_id"`
+	MAC            string `json:"mac"`
+	CPE            string `json:"cpe_id"`
+	WLAN           string `json:"wlan_id"`
+	Radio          string `json:"radio_id"`
+	SessionTimeout int64  `json:"session_timeout"`
+	//Freq       string `json:"freq"`
+}

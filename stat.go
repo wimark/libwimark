@@ -91,6 +91,8 @@ type AccountingRadio struct {
 	TxMcs     int  `json:"tx_mcs"`
 	Tx40Mhz   bool `json:"tx_40mhz"`
 	TxShortGi bool `json:"tx_short_gi"`
+
+	ExpThroughput int `json:"expected_throughput"`
 }
 
 type ClientStat struct {
@@ -318,6 +320,7 @@ type CPEStatInfo struct {
 	LastTxBytes      int64     `json:"last_tx_bytes" bson:"last_tx_bytes"`
 	DeltaTxBytes     int64     `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
 	DeltaRxBytes     int64     `json:"delta_rx_bytes" bson:"delta_rx_bytes"`
+	Uptime           int64     `json:"uptime" bson:"uptime"`
 	ConnectedClients []string  `json:"connected_clients" bson:"connected_clients"`
 }
 
@@ -374,11 +377,14 @@ type WirelessClient struct {
 	MAC       string `json:"mac" bson:"_id"`
 	Timestamp int64  `json:"timestamp"`
 
+	// general client data
 	Type         WirelessClientType
-	State        WirelessClientState
 	Data         interface{} `bson:"data" json:"data"`
 	Manufacturer string      `json:"manufacturer" bson:"manufacturer"`
+	MacAddr      string      `json:"mac_addr" bson:"mac_addr"`
 
+	// last connection data
+	State   WirelessClientState
 	WLAN    string             `json:"wlan_id" bson:"wlan_id"`
 	SSID    string             `json:"wlan_ssid" bson:"wlan_ssid"`
 	CPE     string             `json:"cpe_id" bson:"cpe_id"`
@@ -388,16 +394,20 @@ type WirelessClient struct {
 	Rssi    int                `json:"rssi"`
 	Noise   int                `json:"noise"`
 	Mode    ConnectionModeType `json:"mode"`
+	Ip      string             `json:"ip"`
 
+	// DEPRECATED -- last session traffic data
 	InPackets  int64 `json:"in_packets" bson:"in_packets"`
 	OutPackets int64 `json:"out_packets" bson:"out_packets"`
 	InKBytes   int64 `json:"in_kbytes" bson:"in_kbytes"`
 	OutKBytes  int64 `json:"out_kbytes" bson:"out_kbytes"`
 
-	Ip string `json:"ip"`
+	// session overall data
+	FirstConnect  int64 `json:"first_connect" bson:"first_connect"`
+	LastConnect   int64 `json:"last_connect" bson:"last_connect"`
+	LastAuthorise int64 `json:"last_auth" bson:"last_auth"`
 
-	FirstConnect int64 `json:"first_connect" bson:"first_connect"`
-	LastConnect  int64 `json:"last_connect" bson:"last_connect"`
+	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }
 
 func (wc *WirelessClient) GetSpecificWCInfo() *WirelessClientObject {
@@ -411,24 +421,29 @@ func (wc *WirelessClient) SetSpecificWCInfo(wco *WirelessClientObject) {
 }
 
 type CPESessionInfo struct {
-	ID    string `json:"id" bson:"_id"`
-	CPE   string `json:"cpe_id" bson:"cpe_id"`
-	Start int64  `json:"start" bson:"start"`
-	Stop  int64  `json:"stop" bson:"stop"`
+	ID       string `json:"id" bson:"_id"`
+	CPE      string `json:"cpe_id" bson:"cpe_id"`
+	Start    int64  `json:"start" bson:"start"`
+	Stop     int64  `json:"stop" bson:"stop"`
+	Duration int64  `json:"duration" bson:"duration"`
+
+	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }
 
 type ClientSessionInfo struct {
-	ID    string `json:"id" bson:"_id"`
-	MAC   string `json:"mac" bson:"mac"`
-	WLAN  string `json:"wlan_id" bson:"wlan_id"`
-	SSID  string `json:"ssid" bson:"ssid"`
-	CPE   string `json:"cpe_id" bson:"cpe_id"`
+	ID   string `json:"id" bson:"_id"`
+	MAC  string `json:"mac" bson:"mac"`
+	WLAN string `json:"wlan_id" bson:"wlan_id"`
+	SSID string `json:"ssid" bson:"ssid"`
+	CPE  string `json:"cpe_id" bson:"cpe_id"`
+
 	Radio string `json:"radio_id" bson:"radio_id"`
 	Freq  string `json:"freq" bson:"freq"`
 	Mode  string `json:"mode" bson:"mode"`
 
-	Start int64 `json:"start" bson:"start"`
-	Stop  int64 `json:"stop" bson:"stop"`
+	Start    int64 `json:"start" bson:"start"`
+	Stop     int64 `json:"stop" bson:"stop"`
+	Duration int64 `json:"duration" bson:"duration"`
 
 	StartNoise int `json:"start_noise" bson:"start_noise"`
 	StopNoise  int `json:"stop_noise" bson:"stop_noise"`
@@ -438,6 +453,8 @@ type ClientSessionInfo struct {
 
 	RxBytes int64 `json:"rx_bytes" bson:"rx_bytes"`
 	TxBytes int64 `json:"tx_bytes" bson:"tx_bytes"`
+
+	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }
 
 // for new storing lbs probe data collection

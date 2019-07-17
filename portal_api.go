@@ -25,9 +25,6 @@ type RedirectRequestObject struct {
 
 	// ACL group -- not using now
 	Group string `json:"wimark-client-group,omitempty" bson:"wimark-client-group" validate:"-"`
-
-	// count client reconnection as one session
-	Statefull bool `json:"statefull" bson:"statefull"`
 }
 
 // Struct for request payload from webui
@@ -36,14 +33,23 @@ type PortalRequestObject struct {
 	MAC  string `json:"mac" bson:"mac" form:"mac" query:"mac" validate:"required,mac"`
 	CPE  string `json:"cpe_id" bson:"cpe_id" form:"cpe_id" query:"cpe_id" validate:"required,uuid"`
 	WLAN string `json:"wlan_id" bson:"wlan_id" form:"wlan_id" query:"wlan_id" validate:"required,uuid"`
+	Ip   string `json:"client_ip" bson:"client_ip" form:"client_ip" query:"client_ip"`
 
+	// client credentials
 	Username string `json:"username,omitempty" bson:"username" form:"username" query:"username" validate:"-"`
 	Password string `json:"password,omitempty" bson:"password" form:"password" query:"password" validate:"-"`
 
+	// browser specific data
 	Useragent string `json:"useragent"  bson:"useragent" form:"useragent" query:"useragent" validate:"-"`
 
 	// Address of platform CoA manager
 	SwitchURL string `json:"switch_url" validate:"-"`
+
+	// Remember period -- default is auth timeout
+	Remember int64 `json:"remember"`
+
+	// Type of choosen portal
+	Type PortalProfileType `json:"portal_type"`
 
 	// for internal using
 	Timeout int64 `json:"-" validate:"-"`
@@ -106,6 +112,7 @@ type RedirectClientSessionAcct struct {
 type PortalAuthObject struct {
 	Timestamp int64  `json:"timestamp" bson:"timestamp"`
 	CPE       string `json:"cpe_id" bson:"cpe_id"`
+	Ip        string `json:"client_ip" bson:"client_ip"`
 	Useragent string `json:"useragent" bson:"useragent"`
 	Username  string `json:"username" bson:"username"`
 	Password  string `json:"password" bson:"password"`
@@ -127,6 +134,8 @@ type PortalClientSession struct {
 
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
 	Auth          []PortalAuthObject  `json:"auth" bson:"auth"`
+	// current cpe
+	CPE string `json:"cpe" bson:"cpe"`
 
 	// will be DEPRECATED
 	Timeout        int64 `json:"timeout" bson:"timeout"`
@@ -139,6 +148,11 @@ type PortalCondition struct {
 	WLAN  []string `json:"wlan" bson:"wlan"`
 	CPE   []string `json:"cpe" bson:"cpe"`
 	NasId []string `json:"nas_id" bson:"nas_id"`
+}
+
+// func to check struct for empty
+func (pc *PortalCondition) Empty() bool {
+	return len(pc.WLAN) == 0 && len(pc.CPE) == 0 && len(pc.NasId) == 0
 }
 
 // struct for flexible session config
@@ -154,17 +168,24 @@ type PortalSessionConfig struct {
 
 	// block after using timeout for
 	BlockTimeout int64 `json:"block_timeout" bson:"block_timeout"`
-
-	MaxNum int `json:"session_max_num" bson:"session_max_num"`
 }
 
 // portal profile to link provide better access control
 type PortalProfile struct {
 	Id string `json:"id" bson:"_id"`
 
+	// type of portal profile
+	Type PortalProfileType `json:"type" bson:"type"`
+
+	// condition to check
 	Condition PortalCondition `json:"condition" bson:"condition"`
 
+	// session configuration (timeout and block timeout)
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
+
+	// maximum number of online sessions
+	MaxNum int `json:"session_max_num" bson:"session_max_num"`
+
 	// true for whitelist, false for blacklist
 	AccessList map[string]bool `json:"access_list" bson:"access_list"`
 }

@@ -2215,6 +2215,105 @@ func (self *PortalAuthType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown PortalAuthType: " + s)
 }
 
+type PortalProfileType string
+
+const PortalProfileTypeFree PortalProfileType = "free"
+const PortalProfileTypePremium PortalProfileType = "premium"
+const PortalProfileTypeSponsor PortalProfileType = "sponsor"
+
+func (self PortalProfileType) GetPtr() *PortalProfileType { var v = self; return &v }
+
+func (self *PortalProfileType) String() string {
+	switch *self {
+	case PortalProfileTypeFree:
+		return "free"
+	case PortalProfileTypePremium:
+		return "premium"
+	case PortalProfileTypeSponsor:
+		return "sponsor"
+	}
+	if len(*self) == 0 {
+		return "free"
+	}
+	panic(errors.New("Invalid value of PortalProfileType: " + string(*self)))
+}
+
+func (self *PortalProfileType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case PortalProfileTypeFree:
+		return json.Marshal("free")
+	case PortalProfileTypePremium:
+		return json.Marshal("premium")
+	case PortalProfileTypeSponsor:
+		return json.Marshal("sponsor")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("free")
+	}
+	return nil, errors.New("Invalid value of PortalProfileType: " + string(*self))
+}
+
+func (self *PortalProfileType) GetBSON() (interface{}, error) {
+	switch *self {
+	case PortalProfileTypeFree:
+		return "free", nil
+	case PortalProfileTypePremium:
+		return "premium", nil
+	case PortalProfileTypeSponsor:
+		return "sponsor", nil
+	}
+	if len(*self) == 0 {
+		return "free", nil
+	}
+	return nil, errors.New("Invalid value of PortalProfileType: " + string(*self))
+}
+
+func (self *PortalProfileType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "free":
+		*self = PortalProfileTypeFree
+		return nil
+	case "premium":
+		*self = PortalProfileTypePremium
+		return nil
+	case "sponsor":
+		*self = PortalProfileTypeSponsor
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalProfileTypeFree
+		return nil
+	}
+	return errors.New("Unknown PortalProfileType: " + s)
+}
+
+func (self *PortalProfileType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "free":
+		*self = PortalProfileTypeFree
+		return nil
+	case "premium":
+		*self = PortalProfileTypePremium
+		return nil
+	case "sponsor":
+		*self = PortalProfileTypeSponsor
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalProfileTypeFree
+		return nil
+	}
+	return errors.New("Unknown PortalProfileType: " + s)
+}
+
 type RRMAlgoType string
 
 const RRMAlgoTypeBlind RRMAlgoType = "Blind"
@@ -3514,6 +3613,7 @@ const SystemEventTypeAny SystemEventType = "+"
 const SystemEventTypeCPEConnected SystemEventType = "CPE_CONNECTED"
 const SystemEventTypeCPEDisconnected SystemEventType = "CPE_DISCONNECTED"
 const SystemEventTypeCPEInterfaceState SystemEventType = "CPE_INTERFACE_STATE"
+const SystemEventTypeClientAuthorization SystemEventType = "CLIENT_AUTHORIZATION"
 const SystemEventTypeClientConnected SystemEventType = "CLIENT_CONNECTED"
 const SystemEventTypeClientDisconnected SystemEventType = "CLIENT_DISCONNECTED"
 const SystemEventTypeCpeFirmwareAvailable SystemEventType = "CPE_FIRMWARE_AVAILABLE"
@@ -3542,6 +3642,8 @@ func (self *SystemEventType) String() string {
 		return "CPE_DISCONNECTED"
 	case SystemEventTypeCPEInterfaceState:
 		return "CPE_INTERFACE_STATE"
+	case SystemEventTypeClientAuthorization:
+		return "CLIENT_AUTHORIZATION"
 	case SystemEventTypeClientConnected:
 		return "CLIENT_CONNECTED"
 	case SystemEventTypeClientDisconnected:
@@ -3586,6 +3688,8 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("CPE_DISCONNECTED")
 	case SystemEventTypeCPEInterfaceState:
 		return json.Marshal("CPE_INTERFACE_STATE")
+	case SystemEventTypeClientAuthorization:
+		return json.Marshal("CLIENT_AUTHORIZATION")
 	case SystemEventTypeClientConnected:
 		return json.Marshal("CLIENT_CONNECTED")
 	case SystemEventTypeClientDisconnected:
@@ -3630,6 +3734,8 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 		return "CPE_DISCONNECTED", nil
 	case SystemEventTypeCPEInterfaceState:
 		return "CPE_INTERFACE_STATE", nil
+	case SystemEventTypeClientAuthorization:
+		return "CLIENT_AUTHORIZATION", nil
 	case SystemEventTypeClientConnected:
 		return "CLIENT_CONNECTED", nil
 	case SystemEventTypeClientDisconnected:
@@ -3681,6 +3787,9 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CPE_INTERFACE_STATE":
 		*self = SystemEventTypeCPEInterfaceState
+		return nil
+	case "CLIENT_AUTHORIZATION":
+		*self = SystemEventTypeClientAuthorization
 		return nil
 	case "CLIENT_CONNECTED":
 		*self = SystemEventTypeClientConnected
@@ -3748,6 +3857,9 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "CPE_INTERFACE_STATE":
 		*self = SystemEventTypeCPEInterfaceState
+		return nil
+	case "CLIENT_AUTHORIZATION":
+		*self = SystemEventTypeClientAuthorization
 		return nil
 	case "CLIENT_CONNECTED":
 		*self = SystemEventTypeClientConnected
