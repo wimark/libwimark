@@ -334,6 +334,8 @@ type WLANStatInfo struct {
 	DeltaTxBytes     int64    `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
 	DeltaRxBytes     int64    `json:"delta_rx_bytes" bson:"delta_rx_bytes"`
 	ConnectedClients []string `json:"connected_clients" bson:"connected_clients"`
+
+	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }
 
 type BSSStatInfo struct {
@@ -348,6 +350,8 @@ type BSSStatInfo struct {
 	DeltaTxBytes     int64    `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
 	DeltaRxBytes     int64    `json:"delta_rx_bytes" bson:"delta_rx_bytes"`
 	ConnectedClients []string `json:"connected_clients" bson:"connected_clients"`
+
+	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }
 
 type ClientStatInfo struct {
@@ -371,6 +375,8 @@ type ClientStatInfo struct {
 	DeltaRxBytes int64 `json:"delta_rx_bytes" bson:"delta_rx_bytes"`
 	LastRxBytes  int64 `json:"last_rx_bytes" bson:"last_rx_bytes"`
 	LastTxBytes  int64 `json:"last_tx_bytes" bson:"last_tx_bytes"`
+
+	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }
 
 type WirelessClient struct {
