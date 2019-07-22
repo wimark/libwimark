@@ -28,6 +28,7 @@ CpeFirmwareAvailable    = "CpeFirmwareData"
 RadiusAccountingSend    = "RadiusAccountingSendData"
 LoggedError             = "ModelError"
 RadarExportUpdate       = "RadarExportUpdate"
+ClientAuthorization     = "ClientAuthorizationData"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"
