@@ -3,6 +3,8 @@ package libwimark
 const (
 	COLL_PORTAL_COLLECTION = "portal_client_sessions"
 	COLL_PORTAL_PROFILES   = "portal_profiles"
+	COLL_AD_PROFILES       = "ad_profiles"
+	COLL_PAGE_PROFILES     = "page_profiles"
 )
 
 // Struct for request payload from external captive portal
@@ -188,4 +190,29 @@ type PortalProfile struct {
 
 	// true for whitelist, false for blacklist
 	AccessList map[string]bool `json:"access_list" bson:"access_list"`
+}
+
+// PortalPageProfile provide page information
+type PortalPageProfile struct {
+	Id string `json:"id" bson:"_id"`
+
+	// URL generated id
+	IdURL string `json:"url_id" bson:"url_id"`
+
+	// condition to check
+	// Condition PortalCondition `json:"condition" bson:"condition"`
+
+	// title of webpage
+	Title string `json:"title" bson:"title"`
+
+	// interface features
+	Interface struct {
+		Logo        string `json:"logo" bson:"logo"`
+		Background  string `json:"background" bson:"background"`
+		ButtonColor string `json:"button_color" bson:"button_color"`
+	} `json:"interface" bson:"interface"`
+
+	// here will be auth types
+
+	// Types
 }
