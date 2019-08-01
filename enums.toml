@@ -306,3 +306,10 @@ default = "Free"
 Free     = "free"
 Sponsor  = "sponsor"
 Premium  = "premium"
+
+[ReportPeriod]
+default = "Daily"
+[ReportPeriod.variants]
+Daily   = "daily"
+Weekly  = "weekly"
+Monthly = "monthly"

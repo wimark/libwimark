@@ -2947,6 +2947,105 @@ func (self *RadiusMessageType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown RadiusMessageType: " + s)
 }
 
+type ReportPeriod string
+
+const ReportPeriodDaily ReportPeriod = "daily"
+const ReportPeriodMonthly ReportPeriod = "monthly"
+const ReportPeriodWeekly ReportPeriod = "weekly"
+
+func (self ReportPeriod) GetPtr() *ReportPeriod { var v = self; return &v }
+
+func (self *ReportPeriod) String() string {
+	switch *self {
+	case ReportPeriodDaily:
+		return "daily"
+	case ReportPeriodMonthly:
+		return "monthly"
+	case ReportPeriodWeekly:
+		return "weekly"
+	}
+	if len(*self) == 0 {
+		return "daily"
+	}
+	panic(errors.New("Invalid value of ReportPeriod: " + string(*self)))
+}
+
+func (self *ReportPeriod) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case ReportPeriodDaily:
+		return json.Marshal("daily")
+	case ReportPeriodMonthly:
+		return json.Marshal("monthly")
+	case ReportPeriodWeekly:
+		return json.Marshal("weekly")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("daily")
+	}
+	return nil, errors.New("Invalid value of ReportPeriod: " + string(*self))
+}
+
+func (self *ReportPeriod) GetBSON() (interface{}, error) {
+	switch *self {
+	case ReportPeriodDaily:
+		return "daily", nil
+	case ReportPeriodMonthly:
+		return "monthly", nil
+	case ReportPeriodWeekly:
+		return "weekly", nil
+	}
+	if len(*self) == 0 {
+		return "daily", nil
+	}
+	return nil, errors.New("Invalid value of ReportPeriod: " + string(*self))
+}
+
+func (self *ReportPeriod) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "daily":
+		*self = ReportPeriodDaily
+		return nil
+	case "monthly":
+		*self = ReportPeriodMonthly
+		return nil
+	case "weekly":
+		*self = ReportPeriodWeekly
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ReportPeriodDaily
+		return nil
+	}
+	return errors.New("Unknown ReportPeriod: " + s)
+}
+
+func (self *ReportPeriod) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "daily":
+		*self = ReportPeriodDaily
+		return nil
+	case "monthly":
+		*self = ReportPeriodMonthly
+		return nil
+	case "weekly":
+		*self = ReportPeriodWeekly
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ReportPeriodDaily
+		return nil
+	}
+	return errors.New("Unknown ReportPeriod: " + s)
+}
+
 type SecuritySuite string
 
 const SecuritySuiteAES SecuritySuite = "aes"
