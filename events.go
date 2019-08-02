@@ -301,5 +301,7 @@ type ClientAuthorizationData struct {
 	WLAN           string `json:"wlan_id"`
 	Radio          string `json:"radio_id"`
 	SessionTimeout int64  `json:"session_timeout"`
+	UserName       string `json:"username"`
+	UserAgent      string `json:"useragent"`
 	//Freq       string `json:"freq"`
 }

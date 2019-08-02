@@ -379,6 +379,13 @@ type ClientStatInfo struct {
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }
 
+type WirelessClientUpdate struct {
+	MAC string `json:"mac" bson:"_id"`
+
+	Type WirelessClientType
+	Data interface{} `bson:"data" json:"data"`
+}
+
 type WirelessClient struct {
 	MAC       string `json:"mac" bson:"_id"`
 	Timestamp int64  `json:"timestamp"`
@@ -412,6 +419,15 @@ type WirelessClient struct {
 	FirstConnect  int64 `json:"first_connect" bson:"first_connect"`
 	LastConnect   int64 `json:"last_connect" bson:"last_connect"`
 	LastAuthorise int64 `json:"last_auth" bson:"last_auth"`
+
+	// auth data
+	UserAgent string `json:"useragent" bson:"useragent"`
+	UserName  string `json:"username" bson:"username"`
+
+	OS        string `json:"os" bson:"os"`
+	OSVersion string `json:"os_version" bson:"os_version"`
+	UADevice  string `json:"ua_device" bson:"ua_device"`
+	UAType    string `json:"ua_type" bson:"ua_type"`
 
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }
@@ -459,6 +475,10 @@ type ClientSessionInfo struct {
 
 	RxBytes int64 `json:"rx_bytes" bson:"rx_bytes"`
 	TxBytes int64 `json:"tx_bytes" bson:"tx_bytes"`
+
+	// auth data
+	UserAgent string `json:"useragent" bson:"useragent"`
+	UserName  string `json:"username" bson:"username"`
 
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }

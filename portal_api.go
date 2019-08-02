@@ -27,6 +27,9 @@ type RedirectRequestObject struct {
 
 	// ACL group -- not using now
 	Group string `json:"wimark-client-group,omitempty" bson:"wimark-client-group" validate:"-"`
+
+	// Auth additional data
+	UserAgent string `json:"useragent"`
 }
 
 // Struct for request payload from webui
@@ -42,7 +45,7 @@ type PortalRequestObject struct {
 	Password string `json:"password,omitempty" bson:"password" form:"password" query:"password" validate:"-"`
 
 	// browser specific data
-	Useragent string `json:"useragent"  bson:"useragent" form:"useragent" query:"useragent" validate:"-"`
+	UserAgent string `json:"useragent"  bson:"useragent" form:"useragent" query:"useragent" validate:"-"`
 
 	// Address of platform CoA manager
 	SwitchURL string `json:"switch_url" validate:"-"`
@@ -68,12 +71,13 @@ type HTTPResponseObject struct {
 type RedirectClientSession struct {
 	ID string `json:"id" bson:"_id"`
 
-	Session  string `json:"session_id" bson:"session_id"`
-	MAC      string `json:"mac" bson:"mac"`
-	WLAN     string `json:"wlan_id" bson:"wlan_id"`
-	CPE      string `json:"cpe_id" bson:"cpe_id"`
-	Redirect string `json:"redirect_id" bson:"redirect_id"`
-	Radio    string `json:"radio_id" bson:"radio_id"`
+	Session   string `json:"session_id" bson:"session_id"`
+	MAC       string `json:"mac" bson:"mac"`
+	WLAN      string `json:"wlan_id" bson:"wlan_id"`
+	CPE       string `json:"cpe_id" bson:"cpe_id"`
+	Redirect  string `json:"redirect_id" bson:"redirect_id"`
+	Radio     string `json:"radio_id" bson:"radio_id"`
+	UserAgent string `json:"useragent" bson:"useragent"`
 
 	AcctStart int64 `json:"acct_start" bson:"acct_start"`
 	AuthStart int64 `json:"auth_start" bson:"auth_start"`
