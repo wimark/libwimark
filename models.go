@@ -242,6 +242,8 @@ type WiredVlanConfig struct {
 	Accounting   bool                 `json:"acct" bson:"acct"`
 	Interface    string               `json:"interface" bson:"interface"`
 	GuestControl GuestControlSettings `json:"guest_control" bson:"guest_control"`
+	NAT          bool                 `json:"nat" bson:"nat"`
+	NATNetwork   IPAddress            `json:"nat_network" bson:"nat_network"`
 }
 type WiredConfig struct {
 	PrimaryVlan int               `json:"primary_vlan" bson:"primary_vlan"`

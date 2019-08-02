@@ -497,6 +497,7 @@ type SLNatAttrs struct {
 	Redirect string `json:"wimark_redirect_l3,omitempty"`
 	Addr     string `json:"ipaddr,omitempty"`
 	NetMask  string `json:"netmask,omitempty"`
+	Iface    string `json:"ifname,omitempty"`
 }
 type SLNatConfig struct {
 	Attrs  SLNatAttrs `json:"attrs"`
