@@ -2947,10 +2947,196 @@ func (self *RadiusMessageType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown RadiusMessageType: " + s)
 }
 
+type ReportActionType string
+
+const ReportActionTypeEmail ReportActionType = "email"
+const ReportActionTypeScript ReportActionType = "script"
+
+func (self ReportActionType) GetPtr() *ReportActionType { var v = self; return &v }
+
+func (self *ReportActionType) String() string {
+	switch *self {
+	case ReportActionTypeEmail:
+		return "email"
+	case ReportActionTypeScript:
+		return "script"
+	}
+	if len(*self) == 0 {
+		return "email"
+	}
+	panic(errors.New("Invalid value of ReportActionType: " + string(*self)))
+}
+
+func (self *ReportActionType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case ReportActionTypeEmail:
+		return json.Marshal("email")
+	case ReportActionTypeScript:
+		return json.Marshal("script")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("email")
+	}
+	return nil, errors.New("Invalid value of ReportActionType: " + string(*self))
+}
+
+func (self *ReportActionType) GetBSON() (interface{}, error) {
+	switch *self {
+	case ReportActionTypeEmail:
+		return "email", nil
+	case ReportActionTypeScript:
+		return "script", nil
+	}
+	if len(*self) == 0 {
+		return "email", nil
+	}
+	return nil, errors.New("Invalid value of ReportActionType: " + string(*self))
+}
+
+func (self *ReportActionType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "email":
+		*self = ReportActionTypeEmail
+		return nil
+	case "script":
+		*self = ReportActionTypeScript
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ReportActionTypeEmail
+		return nil
+	}
+	return errors.New("Unknown ReportActionType: " + s)
+}
+
+func (self *ReportActionType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "email":
+		*self = ReportActionTypeEmail
+		return nil
+	case "script":
+		*self = ReportActionTypeScript
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ReportActionTypeEmail
+		return nil
+	}
+	return errors.New("Unknown ReportActionType: " + s)
+}
+
+type ReportFormat string
+
+const ReportFormatCSV ReportFormat = "csv"
+const ReportFormatJson ReportFormat = "json"
+const ReportFormatTxt ReportFormat = "txt"
+
+func (self ReportFormat) GetPtr() *ReportFormat { var v = self; return &v }
+
+func (self *ReportFormat) String() string {
+	switch *self {
+	case ReportFormatCSV:
+		return "csv"
+	case ReportFormatJson:
+		return "json"
+	case ReportFormatTxt:
+		return "txt"
+	}
+	if len(*self) == 0 {
+		return "csv"
+	}
+	panic(errors.New("Invalid value of ReportFormat: " + string(*self)))
+}
+
+func (self *ReportFormat) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case ReportFormatCSV:
+		return json.Marshal("csv")
+	case ReportFormatJson:
+		return json.Marshal("json")
+	case ReportFormatTxt:
+		return json.Marshal("txt")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("csv")
+	}
+	return nil, errors.New("Invalid value of ReportFormat: " + string(*self))
+}
+
+func (self *ReportFormat) GetBSON() (interface{}, error) {
+	switch *self {
+	case ReportFormatCSV:
+		return "csv", nil
+	case ReportFormatJson:
+		return "json", nil
+	case ReportFormatTxt:
+		return "txt", nil
+	}
+	if len(*self) == 0 {
+		return "csv", nil
+	}
+	return nil, errors.New("Invalid value of ReportFormat: " + string(*self))
+}
+
+func (self *ReportFormat) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "csv":
+		*self = ReportFormatCSV
+		return nil
+	case "json":
+		*self = ReportFormatJson
+		return nil
+	case "txt":
+		*self = ReportFormatTxt
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ReportFormatCSV
+		return nil
+	}
+	return errors.New("Unknown ReportFormat: " + s)
+}
+
+func (self *ReportFormat) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "csv":
+		*self = ReportFormatCSV
+		return nil
+	case "json":
+		*self = ReportFormatJson
+		return nil
+	case "txt":
+		*self = ReportFormatTxt
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ReportFormatCSV
+		return nil
+	}
+	return errors.New("Unknown ReportFormat: " + s)
+}
+
 type ReportPeriod string
 
 const ReportPeriodDaily ReportPeriod = "daily"
 const ReportPeriodMonthly ReportPeriod = "monthly"
+const ReportPeriodOnce ReportPeriod = "once"
 const ReportPeriodWeekly ReportPeriod = "weekly"
 
 func (self ReportPeriod) GetPtr() *ReportPeriod { var v = self; return &v }
@@ -2961,11 +3147,13 @@ func (self *ReportPeriod) String() string {
 		return "daily"
 	case ReportPeriodMonthly:
 		return "monthly"
+	case ReportPeriodOnce:
+		return "once"
 	case ReportPeriodWeekly:
 		return "weekly"
 	}
 	if len(*self) == 0 {
-		return "daily"
+		return "once"
 	}
 	panic(errors.New("Invalid value of ReportPeriod: " + string(*self)))
 }
@@ -2976,11 +3164,13 @@ func (self *ReportPeriod) MarshalJSON() ([]byte, error) {
 		return json.Marshal("daily")
 	case ReportPeriodMonthly:
 		return json.Marshal("monthly")
+	case ReportPeriodOnce:
+		return json.Marshal("once")
 	case ReportPeriodWeekly:
 		return json.Marshal("weekly")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("daily")
+		return json.Marshal("once")
 	}
 	return nil, errors.New("Invalid value of ReportPeriod: " + string(*self))
 }
@@ -2991,11 +3181,13 @@ func (self *ReportPeriod) GetBSON() (interface{}, error) {
 		return "daily", nil
 	case ReportPeriodMonthly:
 		return "monthly", nil
+	case ReportPeriodOnce:
+		return "once", nil
 	case ReportPeriodWeekly:
 		return "weekly", nil
 	}
 	if len(*self) == 0 {
-		return "daily", nil
+		return "once", nil
 	}
 	return nil, errors.New("Invalid value of ReportPeriod: " + string(*self))
 }
@@ -3012,12 +3204,15 @@ func (self *ReportPeriod) UnmarshalJSON(b []byte) error {
 	case "monthly":
 		*self = ReportPeriodMonthly
 		return nil
+	case "once":
+		*self = ReportPeriodOnce
+		return nil
 	case "weekly":
 		*self = ReportPeriodWeekly
 		return nil
 	}
 	if len(s) == 0 {
-		*self = ReportPeriodDaily
+		*self = ReportPeriodOnce
 		return nil
 	}
 	return errors.New("Unknown ReportPeriod: " + s)
@@ -3035,12 +3230,15 @@ func (self *ReportPeriod) SetBSON(v bson.Raw) error {
 	case "monthly":
 		*self = ReportPeriodMonthly
 		return nil
+	case "once":
+		*self = ReportPeriodOnce
+		return nil
 	case "weekly":
 		*self = ReportPeriodWeekly
 		return nil
 	}
 	if len(s) == 0 {
-		*self = ReportPeriodDaily
+		*self = ReportPeriodOnce
 		return nil
 	}
 	return errors.New("Unknown ReportPeriod: " + s)

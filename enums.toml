@@ -308,8 +308,22 @@ Sponsor  = "sponsor"
 Premium  = "premium"
 
 [ReportPeriod]
-default = "Daily"
+default = "Once"
 [ReportPeriod.variants]
+Once    = "once"
 Daily   = "daily"
 Weekly  = "weekly"
 Monthly = "monthly"
+
+[ReportActionType]
+default = "Email"
+[ReportActionType.variants]
+Email  = "email"
+Script = "script"
+
+[ReportFormat]
+default = "CSV"
+[ReportFormat.variants]
+CSV      = "csv"
+Json     = "json"
+Txt      = "txt"
