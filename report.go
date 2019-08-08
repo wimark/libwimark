@@ -22,11 +22,12 @@ type StatReport struct {
 	Name        string `json:"name" bson:"name"`
 	Description string `json:"description" bson:"description"`
 
-	// subject of report (CPEs, Clients, Events)
-	Subject string `json:"subject" bson:"subject"`
+	// subject of report (CPEs, Clients, Events, Custom)
+	Subject ReportSubject `json:"subject" bson:"subject"`
+	// CustomSubject
 
 	// report type (current, summary)
-	Type string `json:"type" bson:"type"`
+	Type ReportType `json:"type" bson:"type"`
 
 	// collect period (once, day, week, month)
 	Period ReportPeriod `json:"collect_period" bson:"collect_period"`

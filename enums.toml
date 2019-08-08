@@ -327,3 +327,19 @@ default = "CSV"
 CSV      = "csv"
 Json     = "json"
 Txt      = "txt"
+
+[ReportType]
+default = "Current"
+[ReportType.variants]
+Current = "current"
+Summary = "summary"
+
+[ReportSubject]
+default = "Clients"
+[ReportSubject.variants]
+Clients   = "clients"
+CPEs      = "cpes"
+Events    = "events"
+#WLANs     = "wlans"
+#ClSession = "client_sessions"
+#CpSession = "cpe_sessions"
