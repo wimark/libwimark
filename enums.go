@@ -15,8 +15,8 @@ const CPEAgentStatusTypeUndefined CPEAgentStatusType = "undefined"
 
 func (self CPEAgentStatusType) GetPtr() *CPEAgentStatusType { var v = self; return &v }
 
-func (self *CPEAgentStatusType) String() string {
-	switch *self {
+func (self CPEAgentStatusType) String() string {
+	switch self {
 	case CPEAgentStatusTypeException:
 		return "exception"
 	case CPEAgentStatusTypeSuccess:
@@ -26,10 +26,10 @@ func (self *CPEAgentStatusType) String() string {
 	case CPEAgentStatusTypeUndefined:
 		return "undefined"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "undefined"
 	}
-	panic(errors.New("Invalid value of CPEAgentStatusType: " + string(*self)))
+	panic(errors.New("Invalid value of CPEAgentStatusType: " + string(self)))
 }
 
 func (self *CPEAgentStatusType) MarshalJSON() ([]byte, error) {
@@ -132,8 +132,8 @@ const CPEInterfaceStateUnknown CPEInterfaceState = "UNKNOWN"
 
 func (self CPEInterfaceState) GetPtr() *CPEInterfaceState { var v = self; return &v }
 
-func (self *CPEInterfaceState) String() string {
-	switch *self {
+func (self CPEInterfaceState) String() string {
+	switch self {
 	case CPEInterfaceStateACS:
 		return "ACS"
 	case CPEInterfaceStateCountryUpdate:
@@ -153,7 +153,7 @@ func (self *CPEInterfaceState) String() string {
 	case CPEInterfaceStateUnknown:
 		return "UNKNOWN"
 	}
-	panic(errors.New("Invalid value of CPEInterfaceState: " + string(*self)))
+	panic(errors.New("Invalid value of CPEInterfaceState: " + string(self)))
 }
 
 func (self *CPEInterfaceState) MarshalJSON() ([]byte, error) {
@@ -291,8 +291,8 @@ const ClientStatPacketTypeStopOld ClientStatPacketType = "Stop"
 
 func (self ClientStatPacketType) GetPtr() *ClientStatPacketType { var v = self; return &v }
 
-func (self *ClientStatPacketType) String() string {
-	switch *self {
+func (self ClientStatPacketType) String() string {
+	switch self {
 	case ClientStatPacketTypeInterim:
 		return "interim"
 	case ClientStatPacketTypeInterimOld:
@@ -310,7 +310,7 @@ func (self *ClientStatPacketType) String() string {
 	case ClientStatPacketTypeStopOld:
 		return "Stop"
 	}
-	panic(errors.New("Invalid value of ClientStatPacketType: " + string(*self)))
+	panic(errors.New("Invalid value of ClientStatPacketType: " + string(self)))
 }
 
 func (self *ClientStatPacketType) MarshalJSON() ([]byte, error) {
@@ -438,8 +438,8 @@ const ConfigurationStatusUpgrading ConfigurationStatus = "upgrading"
 
 func (self ConfigurationStatus) GetPtr() *ConfigurationStatus { var v = self; return &v }
 
-func (self *ConfigurationStatus) String() string {
-	switch *self {
+func (self ConfigurationStatus) String() string {
+	switch self {
 	case ConfigurationStatusDontUse1:
 		return "pending"
 	case ConfigurationStatusDontUse2:
@@ -457,10 +457,10 @@ func (self *ConfigurationStatus) String() string {
 	case ConfigurationStatusUpgrading:
 		return "upgrading"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "empty"
 	}
-	panic(errors.New("Invalid value of ConfigurationStatus: " + string(*self)))
+	panic(errors.New("Invalid value of ConfigurationStatus: " + string(self)))
 }
 
 func (self *ConfigurationStatus) MarshalJSON() ([]byte, error) {
@@ -597,8 +597,8 @@ const ConnectionModeTypeModeN ConnectionModeType = "n"
 
 func (self ConnectionModeType) GetPtr() *ConnectionModeType { var v = self; return &v }
 
-func (self *ConnectionModeType) String() string {
-	switch *self {
+func (self ConnectionModeType) String() string {
+	switch self {
 	case ConnectionModeTypeModeAC:
 		return "ac"
 	case ConnectionModeTypeModeLegacy:
@@ -606,10 +606,10 @@ func (self *ConnectionModeType) String() string {
 	case ConnectionModeTypeModeN:
 		return "n"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "legacy"
 	}
-	panic(errors.New("Invalid value of ConnectionModeType: " + string(*self)))
+	panic(errors.New("Invalid value of ConnectionModeType: " + string(self)))
 }
 
 func (self *ConnectionModeType) MarshalJSON() ([]byte, error) {
@@ -699,8 +699,8 @@ const ControllerStatusTypeUpdating ControllerStatusType = "updating"
 
 func (self ControllerStatusType) GetPtr() *ControllerStatusType { var v = self; return &v }
 
-func (self *ControllerStatusType) String() string {
-	switch *self {
+func (self ControllerStatusType) String() string {
+	switch self {
 	case ControllerStatusTypeConnected:
 		return "connected"
 	case ControllerStatusTypeDisconnected:
@@ -714,10 +714,10 @@ func (self *ControllerStatusType) String() string {
 	case ControllerStatusTypeUpdating:
 		return "updating"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "empty"
 	}
-	panic(errors.New("Invalid value of ControllerStatusType: " + string(*self)))
+	panic(errors.New("Invalid value of ControllerStatusType: " + string(self)))
 }
 
 func (self *ControllerStatusType) MarshalJSON() ([]byte, error) {
@@ -834,8 +834,8 @@ const FirewallDirectionOut FirewallDirection = "OUT"
 
 func (self FirewallDirection) GetPtr() *FirewallDirection { var v = self; return &v }
 
-func (self *FirewallDirection) String() string {
-	switch *self {
+func (self FirewallDirection) String() string {
+	switch self {
 	case FirewallDirectionAny:
 		return "ANY"
 	case FirewallDirectionIn:
@@ -843,10 +843,10 @@ func (self *FirewallDirection) String() string {
 	case FirewallDirectionOut:
 		return "OUT"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "ANY"
 	}
-	panic(errors.New("Invalid value of FirewallDirection: " + string(*self)))
+	panic(errors.New("Invalid value of FirewallDirection: " + string(self)))
 }
 
 func (self *FirewallDirection) MarshalJSON() ([]byte, error) {
@@ -934,8 +934,8 @@ const FirewallPolicyReturn FirewallPolicy = "RETURN"
 
 func (self FirewallPolicy) GetPtr() *FirewallPolicy { var v = self; return &v }
 
-func (self *FirewallPolicy) String() string {
-	switch *self {
+func (self FirewallPolicy) String() string {
+	switch self {
 	case FirewallPolicyAccept:
 		return "ACCEPT"
 	case FirewallPolicyDrop:
@@ -945,10 +945,10 @@ func (self *FirewallPolicy) String() string {
 	case FirewallPolicyReturn:
 		return "RETURN"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of FirewallPolicy: " + string(*self)))
+	panic(errors.New("Invalid value of FirewallPolicy: " + string(self)))
 }
 
 func (self *FirewallPolicy) MarshalJSON() ([]byte, error) {
@@ -1045,8 +1045,8 @@ const FirmwareUpdateModeOn FirmwareUpdateMode = "on"
 
 func (self FirmwareUpdateMode) GetPtr() *FirmwareUpdateMode { var v = self; return &v }
 
-func (self *FirmwareUpdateMode) String() string {
-	switch *self {
+func (self FirmwareUpdateMode) String() string {
+	switch self {
 	case FirmwareUpdateModeCheck:
 		return "check"
 	case FirmwareUpdateModeOff:
@@ -1054,10 +1054,10 @@ func (self *FirmwareUpdateMode) String() string {
 	case FirmwareUpdateModeOn:
 		return "on"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "check"
 	}
-	panic(errors.New("Invalid value of FirmwareUpdateMode: " + string(*self)))
+	panic(errors.New("Invalid value of FirmwareUpdateMode: " + string(self)))
 }
 
 func (self *FirmwareUpdateMode) MarshalJSON() ([]byte, error) {
@@ -1145,8 +1145,8 @@ const L3ProtocolIPv6 L3Protocol = "ipv6"
 
 func (self L3Protocol) GetPtr() *L3Protocol { var v = self; return &v }
 
-func (self *L3Protocol) String() string {
-	switch *self {
+func (self L3Protocol) String() string {
+	switch self {
 	case L3ProtocolEmpty:
 		return ""
 	case L3ProtocolIP:
@@ -1156,10 +1156,10 @@ func (self *L3Protocol) String() string {
 	case L3ProtocolIPv6:
 		return "ipv6"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of L3Protocol: " + string(*self)))
+	panic(errors.New("Invalid value of L3Protocol: " + string(self)))
 }
 
 func (self *L3Protocol) MarshalJSON() ([]byte, error) {
@@ -1256,8 +1256,8 @@ const L4ProtocolUDP L4Protocol = "UDP"
 
 func (self L4Protocol) GetPtr() *L4Protocol { var v = self; return &v }
 
-func (self *L4Protocol) String() string {
-	switch *self {
+func (self L4Protocol) String() string {
+	switch self {
 	case L4ProtocolEmpty:
 		return ""
 	case L4ProtocolTCP:
@@ -1265,10 +1265,10 @@ func (self *L4Protocol) String() string {
 	case L4ProtocolUDP:
 		return "UDP"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of L4Protocol: " + string(*self)))
+	panic(errors.New("Invalid value of L4Protocol: " + string(self)))
 }
 
 func (self *L4Protocol) MarshalJSON() ([]byte, error) {
@@ -1355,8 +1355,8 @@ const MCSRequireVHT MCSRequire = "vht"
 
 func (self MCSRequire) GetPtr() *MCSRequire { var v = self; return &v }
 
-func (self *MCSRequire) String() string {
-	switch *self {
+func (self MCSRequire) String() string {
+	switch self {
 	case MCSRequireHT:
 		return "ht"
 	case MCSRequireOff:
@@ -1364,10 +1364,10 @@ func (self *MCSRequire) String() string {
 	case MCSRequireVHT:
 		return "vht"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "off"
 	}
-	panic(errors.New("Invalid value of MCSRequire: " + string(*self)))
+	panic(errors.New("Invalid value of MCSRequire: " + string(self)))
 }
 
 func (self *MCSRequire) MarshalJSON() ([]byte, error) {
@@ -1454,8 +1454,8 @@ const MacFilterTypeWhiteList MacFilterType = "WhiteList"
 
 func (self MacFilterType) GetPtr() *MacFilterType { var v = self; return &v }
 
-func (self *MacFilterType) String() string {
-	switch *self {
+func (self MacFilterType) String() string {
+	switch self {
 	case MacFilterTypeBlackList:
 		return "BlackList"
 	case MacFilterTypeNone:
@@ -1463,10 +1463,10 @@ func (self *MacFilterType) String() string {
 	case MacFilterTypeWhiteList:
 		return "WhiteList"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "None"
 	}
-	panic(errors.New("Invalid value of MacFilterType: " + string(*self)))
+	panic(errors.New("Invalid value of MacFilterType: " + string(self)))
 }
 
 func (self *MacFilterType) MarshalJSON() ([]byte, error) {
@@ -1575,8 +1575,8 @@ const ModuleTunManager Module = "TUN_MANAGER"
 
 func (self Module) GetPtr() *Module { var v = self; return &v }
 
-func (self *Module) String() string {
-	switch *self {
+func (self Module) String() string {
+	switch self {
 	case ModuleAC:
 		return "AC"
 	case ModuleAnalMW:
@@ -1628,10 +1628,10 @@ func (self *Module) String() string {
 	case ModuleTunManager:
 		return "TUN_MANAGER"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of Module: " + string(*self)))
+	panic(errors.New("Invalid value of Module: " + string(self)))
 }
 
 func (self *Module) MarshalJSON() ([]byte, error) {
@@ -1944,8 +1944,8 @@ const OperationUpdate Operation = "U"
 
 func (self Operation) GetPtr() *Operation { var v = self; return &v }
 
-func (self *Operation) String() string {
-	switch *self {
+func (self Operation) String() string {
+	switch self {
 	case OperationAny:
 		return "+"
 	case OperationCPEStatus:
@@ -1965,7 +1965,7 @@ func (self *Operation) String() string {
 	case OperationUpdate:
 		return "U"
 	}
-	panic(errors.New("Invalid value of Operation: " + string(*self)))
+	panic(errors.New("Invalid value of Operation: " + string(self)))
 }
 
 func (self *Operation) MarshalJSON() ([]byte, error) {
@@ -2100,8 +2100,8 @@ const PortalAuthTypeSMS PortalAuthType = "sms"
 
 func (self PortalAuthType) GetPtr() *PortalAuthType { var v = self; return &v }
 
-func (self *PortalAuthType) String() string {
-	switch *self {
+func (self PortalAuthType) String() string {
+	switch self {
 	case PortalAuthTypeExternal:
 		return "external"
 	case PortalAuthTypeNone:
@@ -2113,10 +2113,10 @@ func (self *PortalAuthType) String() string {
 	case PortalAuthTypeSMS:
 		return "sms"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of PortalAuthType: " + string(*self)))
+	panic(errors.New("Invalid value of PortalAuthType: " + string(self)))
 }
 
 func (self *PortalAuthType) MarshalJSON() ([]byte, error) {
@@ -2223,8 +2223,8 @@ const PortalProfileTypeSponsor PortalProfileType = "sponsor"
 
 func (self PortalProfileType) GetPtr() *PortalProfileType { var v = self; return &v }
 
-func (self *PortalProfileType) String() string {
-	switch *self {
+func (self PortalProfileType) String() string {
+	switch self {
 	case PortalProfileTypeFree:
 		return "free"
 	case PortalProfileTypePremium:
@@ -2232,10 +2232,10 @@ func (self *PortalProfileType) String() string {
 	case PortalProfileTypeSponsor:
 		return "sponsor"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "free"
 	}
-	panic(errors.New("Invalid value of PortalProfileType: " + string(*self)))
+	panic(errors.New("Invalid value of PortalProfileType: " + string(self)))
 }
 
 func (self *PortalProfileType) MarshalJSON() ([]byte, error) {
@@ -2322,8 +2322,8 @@ const RRMAlgoTypeGreed RRMAlgoType = "Greed"
 
 func (self RRMAlgoType) GetPtr() *RRMAlgoType { var v = self; return &v }
 
-func (self *RRMAlgoType) String() string {
-	switch *self {
+func (self RRMAlgoType) String() string {
+	switch self {
 	case RRMAlgoTypeBlind:
 		return "Blind"
 	case RRMAlgoTypeDummy:
@@ -2331,10 +2331,10 @@ func (self *RRMAlgoType) String() string {
 	case RRMAlgoTypeGreed:
 		return "Greed"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "Greed"
 	}
-	panic(errors.New("Invalid value of RRMAlgoType: " + string(*self)))
+	panic(errors.New("Invalid value of RRMAlgoType: " + string(self)))
 }
 
 func (self *RRMAlgoType) MarshalJSON() ([]byte, error) {
@@ -2421,8 +2421,8 @@ const RadarExportFilterReturn RadarExportFilter = "return"
 
 func (self RadarExportFilter) GetPtr() *RadarExportFilter { var v = self; return &v }
 
-func (self *RadarExportFilter) String() string {
-	switch *self {
+func (self RadarExportFilter) String() string {
+	switch self {
 	case RadarExportFilterAll:
 		return "all"
 	case RadarExportFilterNew:
@@ -2430,10 +2430,10 @@ func (self *RadarExportFilter) String() string {
 	case RadarExportFilterReturn:
 		return "return"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "all"
 	}
-	panic(errors.New("Invalid value of RadarExportFilter: " + string(*self)))
+	panic(errors.New("Invalid value of RadarExportFilter: " + string(self)))
 }
 
 func (self *RadarExportFilter) MarshalJSON() ([]byte, error) {
@@ -2520,8 +2520,8 @@ const RadarExportFormatTxt RadarExportFormat = "txt"
 
 func (self RadarExportFormat) GetPtr() *RadarExportFormat { var v = self; return &v }
 
-func (self *RadarExportFormat) String() string {
-	switch *self {
+func (self RadarExportFormat) String() string {
+	switch self {
 	case RadarExportFormatCSV:
 		return "csv"
 	case RadarExportFormatJson:
@@ -2529,10 +2529,10 @@ func (self *RadarExportFormat) String() string {
 	case RadarExportFormatTxt:
 		return "txt"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "csv"
 	}
-	panic(errors.New("Invalid value of RadarExportFormat: " + string(*self)))
+	panic(errors.New("Invalid value of RadarExportFormat: " + string(self)))
 }
 
 func (self *RadarExportFormat) MarshalJSON() ([]byte, error) {
@@ -2620,8 +2620,8 @@ const RadarExportStatusUpdated RadarExportStatus = "updated"
 
 func (self RadarExportStatus) GetPtr() *RadarExportStatus { var v = self; return &v }
 
-func (self *RadarExportStatus) String() string {
-	switch *self {
+func (self RadarExportStatus) String() string {
+	switch self {
 	case RadarExportStatusCreated:
 		return "created"
 	case RadarExportStatusFinished:
@@ -2631,10 +2631,10 @@ func (self *RadarExportStatus) String() string {
 	case RadarExportStatusUpdated:
 		return "updated"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "created"
 	}
-	panic(errors.New("Invalid value of RadarExportStatus: " + string(*self)))
+	panic(errors.New("Invalid value of RadarExportStatus: " + string(self)))
 }
 
 func (self *RadarExportStatus) MarshalJSON() ([]byte, error) {
@@ -2732,8 +2732,8 @@ const RadarExportTypeYandex RadarExportType = "yandex"
 
 func (self RadarExportType) GetPtr() *RadarExportType { var v = self; return &v }
 
-func (self *RadarExportType) String() string {
-	switch *self {
+func (self RadarExportType) String() string {
+	switch self {
 	case RadarExportTypeEmail:
 		return "email"
 	case RadarExportTypeExternal:
@@ -2743,10 +2743,10 @@ func (self *RadarExportType) String() string {
 	case RadarExportTypeYandex:
 		return "yandex"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "email"
 	}
-	panic(errors.New("Invalid value of RadarExportType: " + string(*self)))
+	panic(errors.New("Invalid value of RadarExportType: " + string(self)))
 }
 
 func (self *RadarExportType) MarshalJSON() ([]byte, error) {
@@ -2844,8 +2844,8 @@ const RadiusMessageTypeAccountingRequest RadiusMessageType = "accounting"
 
 func (self RadiusMessageType) GetPtr() *RadiusMessageType { var v = self; return &v }
 
-func (self *RadiusMessageType) String() string {
-	switch *self {
+func (self RadiusMessageType) String() string {
+	switch self {
 	case RadiusMessageTypeAccessAccept:
 		return "access-accept"
 	case RadiusMessageTypeAccessReject:
@@ -2855,10 +2855,10 @@ func (self *RadiusMessageType) String() string {
 	case RadiusMessageTypeAccountingRequest:
 		return "accounting"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "accounting"
 	}
-	panic(errors.New("Invalid value of RadiusMessageType: " + string(*self)))
+	panic(errors.New("Invalid value of RadiusMessageType: " + string(self)))
 }
 
 func (self *RadiusMessageType) MarshalJSON() ([]byte, error) {
@@ -2954,17 +2954,17 @@ const ReportActionTypeScript ReportActionType = "script"
 
 func (self ReportActionType) GetPtr() *ReportActionType { var v = self; return &v }
 
-func (self *ReportActionType) String() string {
-	switch *self {
+func (self ReportActionType) String() string {
+	switch self {
 	case ReportActionTypeEmail:
 		return "email"
 	case ReportActionTypeScript:
 		return "script"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "email"
 	}
-	panic(errors.New("Invalid value of ReportActionType: " + string(*self)))
+	panic(errors.New("Invalid value of ReportActionType: " + string(self)))
 }
 
 func (self *ReportActionType) MarshalJSON() ([]byte, error) {
@@ -3041,8 +3041,8 @@ const ReportFormatTxt ReportFormat = "txt"
 
 func (self ReportFormat) GetPtr() *ReportFormat { var v = self; return &v }
 
-func (self *ReportFormat) String() string {
-	switch *self {
+func (self ReportFormat) String() string {
+	switch self {
 	case ReportFormatCSV:
 		return "csv"
 	case ReportFormatJson:
@@ -3050,10 +3050,10 @@ func (self *ReportFormat) String() string {
 	case ReportFormatTxt:
 		return "txt"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "csv"
 	}
-	panic(errors.New("Invalid value of ReportFormat: " + string(*self)))
+	panic(errors.New("Invalid value of ReportFormat: " + string(self)))
 }
 
 func (self *ReportFormat) MarshalJSON() ([]byte, error) {
@@ -3141,8 +3141,8 @@ const ReportPeriodWeekly ReportPeriod = "weekly"
 
 func (self ReportPeriod) GetPtr() *ReportPeriod { var v = self; return &v }
 
-func (self *ReportPeriod) String() string {
-	switch *self {
+func (self ReportPeriod) String() string {
+	switch self {
 	case ReportPeriodDaily:
 		return "daily"
 	case ReportPeriodMonthly:
@@ -3152,10 +3152,10 @@ func (self *ReportPeriod) String() string {
 	case ReportPeriodWeekly:
 		return "weekly"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "once"
 	}
-	panic(errors.New("Invalid value of ReportPeriod: " + string(*self)))
+	panic(errors.New("Invalid value of ReportPeriod: " + string(self)))
 }
 
 func (self *ReportPeriod) MarshalJSON() ([]byte, error) {
@@ -3244,6 +3244,191 @@ func (self *ReportPeriod) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown ReportPeriod: " + s)
 }
 
+type ReportSubject string
+
+const ReportSubjectCPEs ReportSubject = "cpes"
+const ReportSubjectClients ReportSubject = "clients"
+const ReportSubjectEvents ReportSubject = "events"
+
+func (self ReportSubject) GetPtr() *ReportSubject { var v = self; return &v }
+
+func (self ReportSubject) String() string {
+	switch self {
+	case ReportSubjectCPEs:
+		return "cpes"
+	case ReportSubjectClients:
+		return "clients"
+	case ReportSubjectEvents:
+		return "events"
+	}
+	if len(self) == 0 {
+		return "clients"
+	}
+	panic(errors.New("Invalid value of ReportSubject: " + string(self)))
+}
+
+func (self *ReportSubject) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case ReportSubjectCPEs:
+		return json.Marshal("cpes")
+	case ReportSubjectClients:
+		return json.Marshal("clients")
+	case ReportSubjectEvents:
+		return json.Marshal("events")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("clients")
+	}
+	return nil, errors.New("Invalid value of ReportSubject: " + string(*self))
+}
+
+func (self *ReportSubject) GetBSON() (interface{}, error) {
+	switch *self {
+	case ReportSubjectCPEs:
+		return "cpes", nil
+	case ReportSubjectClients:
+		return "clients", nil
+	case ReportSubjectEvents:
+		return "events", nil
+	}
+	if len(*self) == 0 {
+		return "clients", nil
+	}
+	return nil, errors.New("Invalid value of ReportSubject: " + string(*self))
+}
+
+func (self *ReportSubject) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "cpes":
+		*self = ReportSubjectCPEs
+		return nil
+	case "clients":
+		*self = ReportSubjectClients
+		return nil
+	case "events":
+		*self = ReportSubjectEvents
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ReportSubjectClients
+		return nil
+	}
+	return errors.New("Unknown ReportSubject: " + s)
+}
+
+func (self *ReportSubject) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "cpes":
+		*self = ReportSubjectCPEs
+		return nil
+	case "clients":
+		*self = ReportSubjectClients
+		return nil
+	case "events":
+		*self = ReportSubjectEvents
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ReportSubjectClients
+		return nil
+	}
+	return errors.New("Unknown ReportSubject: " + s)
+}
+
+type ReportType string
+
+const ReportTypeCurrent ReportType = "current"
+const ReportTypeSummary ReportType = "summary"
+
+func (self ReportType) GetPtr() *ReportType { var v = self; return &v }
+
+func (self ReportType) String() string {
+	switch self {
+	case ReportTypeCurrent:
+		return "current"
+	case ReportTypeSummary:
+		return "summary"
+	}
+	if len(self) == 0 {
+		return "current"
+	}
+	panic(errors.New("Invalid value of ReportType: " + string(self)))
+}
+
+func (self *ReportType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case ReportTypeCurrent:
+		return json.Marshal("current")
+	case ReportTypeSummary:
+		return json.Marshal("summary")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("current")
+	}
+	return nil, errors.New("Invalid value of ReportType: " + string(*self))
+}
+
+func (self *ReportType) GetBSON() (interface{}, error) {
+	switch *self {
+	case ReportTypeCurrent:
+		return "current", nil
+	case ReportTypeSummary:
+		return "summary", nil
+	}
+	if len(*self) == 0 {
+		return "current", nil
+	}
+	return nil, errors.New("Invalid value of ReportType: " + string(*self))
+}
+
+func (self *ReportType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "current":
+		*self = ReportTypeCurrent
+		return nil
+	case "summary":
+		*self = ReportTypeSummary
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ReportTypeCurrent
+		return nil
+	}
+	return errors.New("Unknown ReportType: " + s)
+}
+
+func (self *ReportType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "current":
+		*self = ReportTypeCurrent
+		return nil
+	case "summary":
+		*self = ReportTypeSummary
+		return nil
+	}
+	if len(s) == 0 {
+		*self = ReportTypeCurrent
+		return nil
+	}
+	return errors.New("Unknown ReportType: " + s)
+}
+
 type SecuritySuite string
 
 const SecuritySuiteAES SecuritySuite = "aes"
@@ -3251,14 +3436,14 @@ const SecuritySuiteTKIP SecuritySuite = "tkip"
 
 func (self SecuritySuite) GetPtr() *SecuritySuite { var v = self; return &v }
 
-func (self *SecuritySuite) String() string {
-	switch *self {
+func (self SecuritySuite) String() string {
+	switch self {
 	case SecuritySuiteAES:
 		return "aes"
 	case SecuritySuiteTKIP:
 		return "tkip"
 	}
-	panic(errors.New("Invalid value of SecuritySuite: " + string(*self)))
+	panic(errors.New("Invalid value of SecuritySuite: " + string(self)))
 }
 
 func (self *SecuritySuite) MarshalJSON() ([]byte, error) {
@@ -3323,8 +3508,8 @@ const SecurityTypeWPAPersonal SecurityType = "wpapersonal"
 
 func (self SecurityType) GetPtr() *SecurityType { var v = self; return &v }
 
-func (self *SecurityType) String() string {
-	switch *self {
+func (self SecurityType) String() string {
+	switch self {
 	case SecurityTypeNone:
 		return "open"
 	case SecurityTypeWPA2Enterprise:
@@ -3336,10 +3521,10 @@ func (self *SecurityType) String() string {
 	case SecurityTypeWPAPersonal:
 		return "wpapersonal"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "open"
 	}
-	panic(errors.New("Invalid value of SecurityType: " + string(*self)))
+	panic(errors.New("Invalid value of SecurityType: " + string(self)))
 }
 
 func (self *SecurityType) MarshalJSON() ([]byte, error) {
@@ -3446,8 +3631,8 @@ const ServiceStatePending ServiceState = "PENDING"
 
 func (self ServiceState) GetPtr() *ServiceState { var v = self; return &v }
 
-func (self *ServiceState) String() string {
-	switch *self {
+func (self ServiceState) String() string {
+	switch self {
 	case ServiceStateConnected:
 		return "CONNECTED"
 	case ServiceStateDisconnected:
@@ -3455,7 +3640,7 @@ func (self *ServiceState) String() string {
 	case ServiceStatePending:
 		return "PENDING"
 	}
-	panic(errors.New("Invalid value of ServiceState: " + string(*self)))
+	panic(errors.New("Invalid value of ServiceState: " + string(self)))
 }
 
 func (self *ServiceState) MarshalJSON() ([]byte, error) {
@@ -3529,8 +3714,8 @@ const SpeedTypeTbit SpeedType = "tbit"
 
 func (self SpeedType) GetPtr() *SpeedType { var v = self; return &v }
 
-func (self *SpeedType) String() string {
-	switch *self {
+func (self SpeedType) String() string {
+	switch self {
 	case SpeedTypeGbit:
 		return "gbit"
 	case SpeedTypeKbit:
@@ -3540,10 +3725,10 @@ func (self *SpeedType) String() string {
 	case SpeedTypeTbit:
 		return "tbit"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "kbit"
 	}
-	panic(errors.New("Invalid value of SpeedType: " + string(*self)))
+	panic(errors.New("Invalid value of SpeedType: " + string(self)))
 }
 
 func (self *SpeedType) MarshalJSON() ([]byte, error) {
@@ -3646,8 +3831,8 @@ const StatEventRuleTypeIfaceError StatEventRuleType = "iface_error"
 
 func (self StatEventRuleType) GetPtr() *StatEventRuleType { var v = self; return &v }
 
-func (self *StatEventRuleType) String() string {
-	switch *self {
+func (self StatEventRuleType) String() string {
+	switch self {
 	case StatEventRuleTypeCPUload:
 		return "cpu_load"
 	case StatEventRuleTypeClientCon:
@@ -3667,7 +3852,7 @@ func (self *StatEventRuleType) String() string {
 	case StatEventRuleTypeIfaceError:
 		return "iface_error"
 	}
-	panic(errors.New("Invalid value of StatEventRuleType: " + string(*self)))
+	panic(errors.New("Invalid value of StatEventRuleType: " + string(self)))
 }
 
 func (self *StatEventRuleType) MarshalJSON() ([]byte, error) {
@@ -3801,8 +3986,8 @@ const SystemEventLevelWARNING SystemEventLevel = "WARNING"
 
 func (self SystemEventLevel) GetPtr() *SystemEventLevel { var v = self; return &v }
 
-func (self *SystemEventLevel) String() string {
-	switch *self {
+func (self SystemEventLevel) String() string {
+	switch self {
 	case SystemEventLevelDEBUG:
 		return "DEBUG"
 	case SystemEventLevelERROR:
@@ -3812,10 +3997,10 @@ func (self *SystemEventLevel) String() string {
 	case SystemEventLevelWARNING:
 		return "WARNING"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "DEBUG"
 	}
-	panic(errors.New("Invalid value of SystemEventLevel: " + string(*self)))
+	panic(errors.New("Invalid value of SystemEventLevel: " + string(self)))
 }
 
 func (self *SystemEventLevel) MarshalJSON() ([]byte, error) {
@@ -3929,8 +4114,8 @@ const SystemEventTypeWLANCentrAccChanged SystemEventType = "WLAN_CENTR_ACC_CHANG
 
 func (self SystemEventType) GetPtr() *SystemEventType { var v = self; return &v }
 
-func (self *SystemEventType) String() string {
-	switch *self {
+func (self SystemEventType) String() string {
+	switch self {
 	case SystemEventTypeAny:
 		return "+"
 	case SystemEventTypeCPEConnected:
@@ -3972,7 +4157,7 @@ func (self *SystemEventType) String() string {
 	case SystemEventTypeWLANCentrAccChanged:
 		return "WLAN_CENTR_ACC_CHANGE"
 	}
-	panic(errors.New("Invalid value of SystemEventType: " + string(*self)))
+	panic(errors.New("Invalid value of SystemEventType: " + string(self)))
 }
 
 func (self *SystemEventType) MarshalJSON() ([]byte, error) {
@@ -4214,14 +4399,14 @@ const TunManagerRPCDeleteL2TunnelSession TunManagerRPC = "DeleteL2TunnelSession"
 
 func (self TunManagerRPC) GetPtr() *TunManagerRPC { var v = self; return &v }
 
-func (self *TunManagerRPC) String() string {
-	switch *self {
+func (self TunManagerRPC) String() string {
+	switch self {
 	case TunManagerRPCCreateL2TunnelSession:
 		return "CreateL2TunnelSession"
 	case TunManagerRPCDeleteL2TunnelSession:
 		return "DeleteL2TunnelSession"
 	}
-	panic(errors.New("Invalid value of TunManagerRPC: " + string(*self)))
+	panic(errors.New("Invalid value of TunManagerRPC: " + string(self)))
 }
 
 func (self *TunManagerRPC) MarshalJSON() ([]byte, error) {
@@ -4285,8 +4470,8 @@ const WMMAccessCategoryVoice WMMAccessCategory = "VO"
 
 func (self WMMAccessCategory) GetPtr() *WMMAccessCategory { var v = self; return &v }
 
-func (self *WMMAccessCategory) String() string {
-	switch *self {
+func (self WMMAccessCategory) String() string {
+	switch self {
 	case WMMAccessCategoryBackground:
 		return "BK"
 	case WMMAccessCategoryBestEffort:
@@ -4296,10 +4481,10 @@ func (self *WMMAccessCategory) String() string {
 	case WMMAccessCategoryVoice:
 		return "VO"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "BK"
 	}
-	panic(errors.New("Invalid value of WMMAccessCategory: " + string(*self)))
+	panic(errors.New("Invalid value of WMMAccessCategory: " + string(self)))
 }
 
 func (self *WMMAccessCategory) MarshalJSON() ([]byte, error) {
@@ -4395,14 +4580,14 @@ const WirelessClientStateDisconnected WirelessClientState = "DISCONNECTED"
 
 func (self WirelessClientState) GetPtr() *WirelessClientState { var v = self; return &v }
 
-func (self *WirelessClientState) String() string {
-	switch *self {
+func (self WirelessClientState) String() string {
+	switch self {
 	case WirelessClientStateConnected:
 		return "CONNECTED"
 	case WirelessClientStateDisconnected:
 		return "DISCONNECTED"
 	}
-	panic(errors.New("Invalid value of WirelessClientState: " + string(*self)))
+	panic(errors.New("Invalid value of WirelessClientState: " + string(self)))
 }
 
 func (self *WirelessClientState) MarshalJSON() ([]byte, error) {
@@ -4465,8 +4650,8 @@ const WirelessClientTypeWired WirelessClientType = "wired"
 
 func (self WirelessClientType) GetPtr() *WirelessClientType { var v = self; return &v }
 
-func (self *WirelessClientType) String() string {
-	switch *self {
+func (self WirelessClientType) String() string {
+	switch self {
 	case WirelessClientTypeCamera:
 		return "camera"
 	case WirelessClientTypeOther:
@@ -4474,10 +4659,10 @@ func (self *WirelessClientType) String() string {
 	case WirelessClientTypeWired:
 		return "wired"
 	}
-	if len(*self) == 0 {
+	if len(self) == 0 {
 		return "other"
 	}
-	panic(errors.New("Invalid value of WirelessClientType: " + string(*self)))
+	panic(errors.New("Invalid value of WirelessClientType: " + string(self)))
 }
 
 func (self *WirelessClientType) MarshalJSON() ([]byte, error) {
