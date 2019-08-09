@@ -308,12 +308,12 @@ Sponsor  = "sponsor"
 Premium  = "premium"
 
 [ReportPeriod]
-default = "Once"
+default = "Now"
 [ReportPeriod.variants]
-Once    = "once"
-Daily   = "daily"
-Weekly  = "weekly"
-Monthly = "monthly"
+Now   = "now"
+Day   = "day"
+Week  = "week"
+Month = "month"
 
 [ReportActionType]
 default = "Email"

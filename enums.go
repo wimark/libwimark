@@ -3134,60 +3134,60 @@ func (self *ReportFormat) SetBSON(v bson.Raw) error {
 
 type ReportPeriod string
 
-const ReportPeriodDaily ReportPeriod = "daily"
-const ReportPeriodMonthly ReportPeriod = "monthly"
-const ReportPeriodOnce ReportPeriod = "once"
-const ReportPeriodWeekly ReportPeriod = "weekly"
+const ReportPeriodDay ReportPeriod = "day"
+const ReportPeriodMonth ReportPeriod = "month"
+const ReportPeriodNow ReportPeriod = "now"
+const ReportPeriodWeek ReportPeriod = "week"
 
 func (self ReportPeriod) GetPtr() *ReportPeriod { var v = self; return &v }
 
 func (self ReportPeriod) String() string {
 	switch self {
-	case ReportPeriodDaily:
-		return "daily"
-	case ReportPeriodMonthly:
-		return "monthly"
-	case ReportPeriodOnce:
-		return "once"
-	case ReportPeriodWeekly:
-		return "weekly"
+	case ReportPeriodDay:
+		return "day"
+	case ReportPeriodMonth:
+		return "month"
+	case ReportPeriodNow:
+		return "now"
+	case ReportPeriodWeek:
+		return "week"
 	}
 	if len(self) == 0 {
-		return "once"
+		return "now"
 	}
 	panic(errors.New("Invalid value of ReportPeriod: " + string(self)))
 }
 
 func (self *ReportPeriod) MarshalJSON() ([]byte, error) {
 	switch *self {
-	case ReportPeriodDaily:
-		return json.Marshal("daily")
-	case ReportPeriodMonthly:
-		return json.Marshal("monthly")
-	case ReportPeriodOnce:
-		return json.Marshal("once")
-	case ReportPeriodWeekly:
-		return json.Marshal("weekly")
+	case ReportPeriodDay:
+		return json.Marshal("day")
+	case ReportPeriodMonth:
+		return json.Marshal("month")
+	case ReportPeriodNow:
+		return json.Marshal("now")
+	case ReportPeriodWeek:
+		return json.Marshal("week")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("once")
+		return json.Marshal("now")
 	}
 	return nil, errors.New("Invalid value of ReportPeriod: " + string(*self))
 }
 
 func (self *ReportPeriod) GetBSON() (interface{}, error) {
 	switch *self {
-	case ReportPeriodDaily:
-		return "daily", nil
-	case ReportPeriodMonthly:
-		return "monthly", nil
-	case ReportPeriodOnce:
-		return "once", nil
-	case ReportPeriodWeekly:
-		return "weekly", nil
+	case ReportPeriodDay:
+		return "day", nil
+	case ReportPeriodMonth:
+		return "month", nil
+	case ReportPeriodNow:
+		return "now", nil
+	case ReportPeriodWeek:
+		return "week", nil
 	}
 	if len(*self) == 0 {
-		return "once", nil
+		return "now", nil
 	}
 	return nil, errors.New("Invalid value of ReportPeriod: " + string(*self))
 }
@@ -3198,21 +3198,21 @@ func (self *ReportPeriod) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "daily":
-		*self = ReportPeriodDaily
+	case "day":
+		*self = ReportPeriodDay
 		return nil
-	case "monthly":
-		*self = ReportPeriodMonthly
+	case "month":
+		*self = ReportPeriodMonth
 		return nil
-	case "once":
-		*self = ReportPeriodOnce
+	case "now":
+		*self = ReportPeriodNow
 		return nil
-	case "weekly":
-		*self = ReportPeriodWeekly
+	case "week":
+		*self = ReportPeriodWeek
 		return nil
 	}
 	if len(s) == 0 {
-		*self = ReportPeriodOnce
+		*self = ReportPeriodNow
 		return nil
 	}
 	return errors.New("Unknown ReportPeriod: " + s)
@@ -3224,21 +3224,21 @@ func (self *ReportPeriod) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "daily":
-		*self = ReportPeriodDaily
+	case "day":
+		*self = ReportPeriodDay
 		return nil
-	case "monthly":
-		*self = ReportPeriodMonthly
+	case "month":
+		*self = ReportPeriodMonth
 		return nil
-	case "once":
-		*self = ReportPeriodOnce
+	case "now":
+		*self = ReportPeriodNow
 		return nil
-	case "weekly":
-		*self = ReportPeriodWeekly
+	case "week":
+		*self = ReportPeriodWeek
 		return nil
 	}
 	if len(s) == 0 {
-		*self = ReportPeriodOnce
+		*self = ReportPeriodNow
 		return nil
 	}
 	return errors.New("Unknown ReportPeriod: " + s)
