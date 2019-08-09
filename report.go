@@ -22,6 +22,8 @@ type StatReport struct {
 	Name        string `json:"name" bson:"name"`
 	Description string `json:"description" bson:"description"`
 
+	// location dat
+	Location string `json:"-" bson:"location"`
 	// subject of report (CPEs, Clients, Events, Custom)
 	Subject ReportSubject `json:"subject" bson:"subject"`
 	// CustomSubject
@@ -29,10 +31,10 @@ type StatReport struct {
 	// report type (current, summary)
 	Type ReportType `json:"type" bson:"type"`
 
-	// collect period (once, day, week, month)
+	// collect period (now, day, week, month)
 	Period ReportPeriod `json:"collect_period" bson:"collect_period"`
 
-	// period timebounds if Period == once
+	// period timebounds if Period == now
 	TimeBounds timeBounds `json:"timebounds" bson:"timebounds"`
 
 	// report format
@@ -52,8 +54,8 @@ type StatReport struct {
 type StatReportResult struct {
 	ID string `json:"id" bson:"_id"`
 
-	Report StatReport    `json:"report_id" bson:"report_id"`
-	Data   []interface{} `json:"data" bson:"data"`
+	Report StatReport  `json:"report_id" bson:"report_id"`
+	Data   interface{} `json:"data" bson:"data"`
 
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }
