@@ -3051,7 +3051,7 @@ func (self ReportFormat) String() string {
 		return "txt"
 	}
 	if len(self) == 0 {
-		return "csv"
+		return "json"
 	}
 	panic(errors.New("Invalid value of ReportFormat: " + string(self)))
 }
@@ -3066,7 +3066,7 @@ func (self *ReportFormat) MarshalJSON() ([]byte, error) {
 		return json.Marshal("txt")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("csv")
+		return json.Marshal("json")
 	}
 	return nil, errors.New("Invalid value of ReportFormat: " + string(*self))
 }
@@ -3081,7 +3081,7 @@ func (self *ReportFormat) GetBSON() (interface{}, error) {
 		return "txt", nil
 	}
 	if len(*self) == 0 {
-		return "csv", nil
+		return "json", nil
 	}
 	return nil, errors.New("Invalid value of ReportFormat: " + string(*self))
 }
@@ -3103,7 +3103,7 @@ func (self *ReportFormat) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 	if len(s) == 0 {
-		*self = ReportFormatCSV
+		*self = ReportFormatJson
 		return nil
 	}
 	return errors.New("Unknown ReportFormat: " + s)
@@ -3126,7 +3126,7 @@ func (self *ReportFormat) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	if len(s) == 0 {
-		*self = ReportFormatCSV
+		*self = ReportFormatJson
 		return nil
 	}
 	return errors.New("Unknown ReportFormat: " + s)

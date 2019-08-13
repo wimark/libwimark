@@ -322,7 +322,7 @@ Email  = "email"
 Script = "script"
 
 [ReportFormat]
-default = "CSV"
+default = "Json"
 [ReportFormat.variants]
 CSV      = "csv"
 Json     = "json"

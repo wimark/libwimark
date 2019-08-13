@@ -16,10 +16,13 @@ type DnsAddress struct {
 
 // struct for manage of cpe http-redirect system
 type CaptiveRedirect struct {
-	Name         string       `json:"name" bson:"name"`
-	RedirectURL  string       `json:"redirect_url" bson:"redirect_url"`
-	MACWhiteList []string     `json:"mac_list" bson:"mac_list"`
+	Name        string `json:"name" bson:"name"`
+	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
+
+	MACWhiteList []string `json:"mac_list" bson:"mac_list"`
+
 	URLWhiteList []DnsAddress `json:"url_list" bson:"url_list"`
+	PreAuthList  []string     `json:"preauth_list" bson:"preauth_list"`
 
 	DefaultProfile string                  `json:"default_profile" bson:"default_profile"`
 	Profiles       map[string]tc.UserClass `json:"user_profiles" bson:"user_profiles"`

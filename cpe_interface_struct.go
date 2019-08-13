@@ -80,6 +80,7 @@ type UciRedirectCfg struct {
 	Id           UUID     `json:"id"`
 	FormattedUrl string   `json:"redirect_url_format"`
 	MacWhiteList []string `json:"whitelist"`
+	PreAuthList  []string `json:"preauth"`
 	DnsResolve   []string `json:"resolve"`
 	LanPortal    string   `json:"lan_portal"`
 	EnableHttps  string   `json:"enable_https"`
