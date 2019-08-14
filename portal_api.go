@@ -180,9 +180,6 @@ type PortalSessionConfig struct {
 type PortalProfile struct {
 	Id string `json:"id" bson:"_id"`
 
-	// type of portal profile
-	Type PortalProfileType `json:"type" bson:"type"`
-
 	// condition to check
 	Condition PortalCondition `json:"condition" bson:"condition"`
 
@@ -194,6 +191,12 @@ type PortalProfile struct {
 
 	// true for whitelist, false for blacklist
 	AccessList map[string]bool `json:"access_list" bson:"access_list"`
+
+	// //
+	// MSISDNCountryCode string `json:"country_code" bson:"country_code"`
+
+	// available MSISDN prefixes
+	MSISDNPrefixes []string `json:"msisdn_prefixes" bson:"msisdn_prefixes"`
 }
 
 // PortalPageProfile provide page information
