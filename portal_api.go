@@ -50,11 +50,11 @@ type PortalRequestObject struct {
 	// Address of platform CoA manager
 	SwitchURL string `json:"switch_url" validate:"-"`
 
-	// Remember period -- default is auth timeout
+	// Remember period for user accounts
 	Remember int64 `json:"remember"`
 
 	// Type of choosen portal
-	Type PortalProfileType `json:"portal_type"`
+	State string `json:"state"`
 
 	// for internal using
 	Timeout int64 `json:"-" validate:"-"`
@@ -195,7 +195,7 @@ type PortalProfile struct {
 	// //
 	// MSISDNCountryCode string `json:"country_code" bson:"country_code"`
 
-	// available MSISDN prefixes
+	// available MSISDN prefixes --TODO change to DEF
 	MSISDNPrefixes []string `json:"msisdn_prefixes" bson:"msisdn_prefixes"`
 }
 
@@ -222,4 +222,18 @@ type PortalPageProfile struct {
 	// here will be auth types
 
 	// Types
+}
+
+// PortalAccessData struct  for
+type PortalAccessData struct {
+}
+
+type PortalUserAccount struct {
+	Id string `json:"id" bson:"_id"`
+
+	// AuthenticationData
+
+	// AuthorizationData
+
+	// AccountingData
 }
