@@ -1,0 +1,37 @@
+[PortalUserState]
+default = "Authentication"
+[PortalUserState.variants]
+Authentication = "authentication"
+Authorization  = "authorization"
+Advertisement  = "advertisement"
+Passing        = "passing"
+
+[PortalAuthenticationType]
+default = "SMS"
+[PortalAuthenticationType.variants]
+None     = "none"
+SMS      = "sms"
+Callback = "callback"
+Vouncher = "voucher"
+UserPass = "userpass"
+ESIA     = "esia"
+
+[PortalAuthorizationType]
+default = "None"
+[PortalAuthorizationType.variants]
+None     = "none"
+Vouncher = "voucher"
+UserPass = "userpass"
+
+[PortalAuthenticationState]
+default = "None"
+[PortalAuthenticationState.variants]
+None    = "none"
+Sent    = "sent"
+Checked = "checked"
+
+[PortalAuthorizationState]
+default = "None"
+[PortalAuthorizationState.variants]
+None    = "none"
+Checked = "checked"

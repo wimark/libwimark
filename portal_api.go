@@ -7,7 +7,7 @@ const (
 	COLL_PAGE_PROFILES     = "page_profiles"
 )
 
-// Struct for request payload from external captive portal
+// RedirectRequestObject struct for request payload from external captive portal
 type RedirectRequestObject struct {
 	// Basic and Needed client data
 	MAC  string `json:"mac" bson:"mac" form:"mac" query:"mac" validate:"required,mac"`
@@ -32,7 +32,7 @@ type RedirectRequestObject struct {
 	UserAgent string `json:"useragent"`
 }
 
-// Struct for request payload from webui
+// PortalRequestObject struct for request payload from web
 type PortalRequestObject struct {
 	// Needed client data
 	MAC  string `json:"mac" bson:"mac" form:"mac" query:"mac" validate:"required,mac"`
@@ -61,10 +61,13 @@ type PortalRequestObject struct {
 }
 
 type HTTPResponseObject struct {
-	Status      string      `json:"status,omitempty"`
+	Status string `json:"status,omitempty"`
+	Code   int    `json:"code"`
+
 	Description string      `json:"description,omitempty"`
-	Code        int         `json:"code"`
 	Data        interface{} `json:"data,omitempty"`
+
+	State string `json:"state"`
 }
 
 // struct for store redirect session on platform
@@ -116,20 +119,25 @@ type RedirectClientSessionAcct struct {
 
 // struct for store every auth attempt
 type PortalAuthObject struct {
-	Timestamp int64  `json:"timestamp" bson:"timestamp"`
+	Timestamp int64 `json:"timestamp" bson:"timestamp"`
+
 	CPE       string `json:"cpe_id" bson:"cpe_id"`
 	Ip        string `json:"client_ip" bson:"client_ip"`
 	Useragent string `json:"useragent" bson:"useragent"`
-	Username  string `json:"username" bson:"username"`
-	Password  string `json:"password" bson:"password"`
+
+	Username string `json:"username" bson:"username"`
+	Password string `json:"password" bson:"password"`
 }
 
 // struct for store portal client
 type PortalClientSession struct {
 	Id string `json:"id" bson:"_id"`
 
+	// identification
 	MAC  string `json:"mac" bson:"mac"`
 	WLAN string `json:"wlan_id" bson:"wlan_id"`
+
+	State string `json:"state" bson:"state"`
 
 	Status   string `json:"status" bson:"status"`
 	Username string `json:"username" bson:"username"`
@@ -140,7 +148,14 @@ type PortalClientSession struct {
 
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
 	Auth          []PortalAuthObject  `json:"auth" bson:"auth"`
-	// current cpe
+
+	AuthenticationData interface{}
+
+	AuthorizationData interface{}
+
+	AdvertisementData interface{}
+
+	// current cpe -- from auth
 	CPE string `json:"cpe" bson:"cpe"`
 
 	// will be DEPRECATED
@@ -176,12 +191,28 @@ type PortalSessionConfig struct {
 	BlockTimeout int64 `json:"block_timeout" bson:"block_timeout"`
 }
 
+type PortalMSISDNConfig struct {
+	CC  []string `json:"cc" bson:"cc"`
+	NDC []string `json:"ndc" bson:"ndc"`
+}
+
+type PortalAuthenticationConfig struct {
+	Type    PortalAuthenticationType `json:"type" bson:"type"`
+	HTTPAPI string                   `json:"http_api" bson:"http_api"`
+}
+
 // portal profile to link provide better access control
 type PortalProfile struct {
 	Id string `json:"id" bson:"_id"`
 
 	// condition to check
 	Condition PortalCondition `json:"condition" bson:"condition"`
+
+	// authentication types
+
+	// authorization types
+
+	// advertisement types
 
 	// session configuration (timeout and block timeout)
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
@@ -192,16 +223,17 @@ type PortalProfile struct {
 	// true for whitelist, false for blacklist
 	AccessList map[string]bool `json:"access_list" bson:"access_list"`
 
-	// //
-	// MSISDNCountryCode string `json:"country_code" bson:"country_code"`
-
 	// available MSISDN prefixes --TODO change to DEF
 	MSISDNPrefixes []string `json:"msisdn_prefixes" bson:"msisdn_prefixes"`
+
+	MSISDNConfig PortalMSISDNConfig `json:"msisdn_config" bson:"msisdn_config'`
 }
 
 // PortalPageProfile provide page information
 type PortalPageProfile struct {
 	Id string `json:"id" bson:"_id"`
+
+	IdPath string `json:"path_id" bson:"path_id"`
 
 	// URL generated id
 	IdURL string `json:"url_id" bson:"url_id"`
@@ -218,22 +250,4 @@ type PortalPageProfile struct {
 		Background  string `json:"background" bson:"background"`
 		ButtonColor string `json:"button_color" bson:"button_color"`
 	} `json:"interface" bson:"interface"`
-
-	// here will be auth types
-
-	// Types
-}
-
-// PortalAccessData struct  for
-type PortalAccessData struct {
-}
-
-type PortalUserAccount struct {
-	Id string `json:"id" bson:"_id"`
-
-	// AuthenticationData
-
-	// AuthorizationData
-
-	// AccountingData
 }
