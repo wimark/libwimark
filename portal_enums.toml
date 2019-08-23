@@ -20,8 +20,9 @@ ESIA     = "esia"
 default = "None"
 [PortalAuthorizationType.variants]
 None     = "none"
+Sponsor  = "sponsor" 
 Vouncher = "voucher"
-UserPass = "userpass"
+ExtVoucher = "ext_voucher"
 
 [PortalAuthenticationState]
 default = "None"
@@ -35,3 +36,9 @@ default = "None"
 [PortalAuthorizationState.variants]
 None    = "none"
 Checked = "checked"
+
+[PortalResponseStatus]
+default = "Success"
+[PortalResponseStatus.variants]
+Success = "success"
+Error   = "error"

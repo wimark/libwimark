@@ -1,10 +1,16 @@
 package libwimark
 
+import (
+	"time"
+)
+
 const (
-	COLL_PORTAL_COLLECTION = "portal_client_sessions"
-	COLL_PORTAL_PROFILES   = "portal_profiles"
-	COLL_AD_PROFILES       = "ad_profiles"
-	COLL_PAGE_PROFILES     = "page_profiles"
+	COLL_PORTAL_COLLECTION      = "portal_client_sessions"
+	COLL_PORTAL_AUTHENTICATIONS = "portal_client_authentications"
+	COLL_PORTAL_PROFILES        = "portal_profiles"
+	COLL_AD_PROFILES            = "ad_profiles"
+	COLL_PAGE_PROFILES          = "page_profiles"
+	COLL_PORTAL_UACCOUNTS       = "portal_user_accounts"
 )
 
 // RedirectRequestObject struct for request payload from external captive portal
@@ -27,6 +33,9 @@ type RedirectRequestObject struct {
 
 	// ACL group -- not using now
 	Group string `json:"wimark-client-group,omitempty" bson:"wimark-client-group" validate:"-"`
+
+	// redirect every connect
+	AlwaysRedirect bool `json:"always_redirect"`
 
 	// Auth additional data
 	UserAgent string `json:"useragent"`
@@ -53,11 +62,23 @@ type PortalRequestObject struct {
 	// Remember period for user accounts
 	Remember int64 `json:"remember"`
 
-	// Type of choosen portal
-	State string `json:"state"`
+	// Type of choosen type
+	Type string `json:"type"`
 
 	// for internal using
 	Timeout int64 `json:"-" validate:"-"`
+}
+
+type PortalResponseObject struct {
+	Status PortalResponseStatus `json:"status,omitempty"`
+	Code   int                  `json:"code"`
+
+	Description string      `json:"description,omitempty"`
+	Data        interface{} `json:"data,omitempty"`
+
+	State    PortalUserState `json:"state"`
+	Substate string          `json:"substate,omitempty"`
+	Types    map[string]bool `json:"types,omitempty"`
 }
 
 type HTTPResponseObject struct {
@@ -133,34 +154,55 @@ type PortalAuthObject struct {
 type PortalClientSession struct {
 	Id string `json:"id" bson:"_id"`
 
-	// identification
+	// identity
 	MAC  string `json:"mac" bson:"mac"`
 	WLAN string `json:"wlan_id" bson:"wlan_id"`
 
-	State string `json:"state" bson:"state"`
+	// just info data
+	CPE string `json:"cpe" bson:"cpe"`
+	IP  string `json:"ip" bson:"ip"`
 
-	Status   string `json:"status" bson:"status"`
-	Username string `json:"username" bson:"username"`
-	Password string `json:"password" bson:"password"`
-
-	CreateAt int64 `json:"create_at" bson:"create_at"`
-	StopAt   int64 `json:"stop_at" bson:"stop_at"`
+	Create   time.Time `json:"create" bson:"create"`
+	CreateAt int64     `json:"create_at" bson:"create_at"`
+	StartAt  int64     `json:"start_at" bson:"create_at"`
+	StopAt   int64     `json:"stop_at" bson:"stop_at"`
 
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
 	Auth          []PortalAuthObject  `json:"auth" bson:"auth"`
 
-	AuthenticationData interface{}
+	// new states
+	State          PortalUserState            `json:"state" bson:"state"`
+	Authentication PortalClientAuthentication `json:"authentication" bson:"authontication"`
+	Authorization  PortalAuthorizationData    `json:"authorization" bson:"authorization"`
+	Advertisement  interface{}                `json:"advertisement" bson:"advertisement"`
 
-	AuthorizationData interface{}
+	// will be deprecated
+	Status   string `json:"status" bson:"status"`
+	Username string `json:"username" bson:"username"`
+	Password string `json:"password" bson:"password"`
+}
 
-	AdvertisementData interface{}
+// struct for store portal client
+type PortalClientAuthentication struct {
+	Id string `json:"id" bson:"_id"`
+
+	// identification
+	MAC  string `json:"mac" bson:"mac"`
+	WLAN string `json:"wlan_id" bson:"wlan_id"`
+
+	State PortalAuthenticationState `json:"state" bson:"state"`
+
+	Identity string `json:"identity" bson:"identity"`
+	Password string `json:"password" bson:"password"`
+
+	CreateAt time.Time `json:"create_at" bson:"create_at"`
+	StartAt  int64     `json:"start_at" bson:"start_at"`
+	StopAt   int64     `json:"stop_at" bson:"stop_at"`
+	Remember int64     `json:"config" bson:"config"`
 
 	// current cpe -- from auth
-	CPE string `json:"cpe" bson:"cpe"`
-
-	// will be DEPRECATED
-	Timeout        int64 `json:"timeout" bson:"timeout"`
-	SessionTimeout int64 `json:"session_timeout" bson:"session_timeout"`
+	// CPE string `json:"cpe" bson:"cpe"`
+	// Ip string `json:"ip"`
 }
 
 // portal condition
@@ -189,28 +231,84 @@ type PortalSessionConfig struct {
 
 	// block after using timeout for
 	BlockTimeout int64 `json:"block_timeout" bson:"block_timeout"`
+
+	// traffic limit
+	DownloadLimit int `json:"download_limit" bson:"download_limit"`
+
+	// max number
+	MaxSessions int `json:"max_sessions" bson:"max_sessions"`
 }
 
+// PortalMSISDNConfig config of possible CC and NDC prefixes in MSISDN
 type PortalMSISDNConfig struct {
 	CC  []string `json:"cc" bson:"cc"`
 	NDC []string `json:"ndc" bson:"ndc"`
+
+	CCNDC []string `json:"-" bson:"ccndc"`
 }
 
+func (p *PortalMSISDNConfig) Map() {
+	p.CCNDC = make([]string, 0, len(p.CC)*len(p.NDC))
+	for _, c := range p.CC {
+		for _, n := range p.NDC {
+			p.CCNDC = append(p.CCNDC, c+n)
+		}
+	}
+}
+
+// PortalAuthenticationConfig config of possible authentications
 type PortalAuthenticationConfig struct {
-	Type    PortalAuthenticationType `json:"type" bson:"type"`
-	HTTPAPI string                   `json:"http_api" bson:"http_api"`
+	Type        PortalAuthenticationType `json:"type" bson:"type"`
+	Name        string                   `json:"name" bson:"name"`
+	PassGateway string                   `json:"pass_gateway" bson:"pass_gateway"`
+
+	Remember int64 `json:"config" bson:"config"`
 }
 
-// portal profile to link provide better access control
+type PortalAuthenticationData struct {
+	Type  PortalAuthenticationType  `json:"type" bson:"type"`
+	State PortalAuthenticationState `json:"state" bson:"state"`
+
+	Identity string `json:"identity" bson:"identity'`
+	Password string `json:"password" bson:"password"`
+
+	Remember int64 `json:"config" bson:"config"`
+}
+
+type PortalAuthorizationData struct {
+	Type  PortalAuthorizationType  `json:"type" bson:"type"`
+	State PortalAuthorizationState `json:"state" bson:"state"`
+
+	Identity string `json:"identity" bson:"identity'`
+	Password string `json:"password" bson:"password"`
+
+	StartAt int64 `json:"start_at" bson:"start_at"`
+}
+
+type PortalAuthorizationConfig struct {
+	Type        PortalAuthorizationType `json:"type" bson:"type"`
+	Name        string                  `json:"name" bson:"name"`
+	PassGateway string                  `json:"pass_gateway,omitempty" bson:"pass_gateway"`
+	Vouchers    []string                `json:"vouchers,omitempty" bson:"vouchers"`
+
+	Config PortalSessionConfig `json:"config" bson:"config"`
+}
+
+// PortalProfile to link portal and it's config
 type PortalProfile struct {
 	Id string `json:"id" bson:"_id"`
 
 	// condition to check
 	Condition PortalCondition `json:"condition" bson:"condition"`
 
+	// flow
+	States []PortalUserState `json:"states" bson:"states"`
+
 	// authentication types
+	Authentications map[string]PortalAuthenticationConfig `json:"authentications" bson:"authentications"`
 
 	// authorization types
+	Authorizations map[string]PortalAuthorizationConfig `json:"authorizations" bson:"authorizations"`
 
 	// advertisement types
 
@@ -223,10 +321,22 @@ type PortalProfile struct {
 	// true for whitelist, false for blacklist
 	AccessList map[string]bool `json:"access_list" bson:"access_list"`
 
-	// available MSISDN prefixes --TODO change to DEF
+	// available MSISDN prefixes --
 	MSISDNPrefixes []string `json:"msisdn_prefixes" bson:"msisdn_prefixes"`
 
+	//
 	MSISDNConfig PortalMSISDNConfig `json:"msisdn_config" bson:"msisdn_config'`
+}
+
+func (p PortalProfile) NextState(state PortalUserState) PortalUserState {
+	for i, v := range p.States {
+		if state == v {
+			if i < len(p.States) {
+				return p.States[i+1]
+			}
+		}
+	}
+	return p.States[len(p.States)-1]
 }
 
 // PortalPageProfile provide page information
@@ -249,5 +359,22 @@ type PortalPageProfile struct {
 		Logo        string `json:"logo" bson:"logo"`
 		Background  string `json:"background" bson:"background"`
 		ButtonColor string `json:"button_color" bson:"button_color"`
+		LogoFooter  string `json:"logo_footer" bson:"logo_footer"`
 	} `json:"interface" bson:"interface"`
+}
+
+type PortalClientAccount struct {
+	Id string `json:"id" bson:"_id"`
+
+	// user common data
+	MAC  string `json:"mac" bson:"mac" form:"mac" query:"mac" validate:"required,mac"`
+	WLAN string `json:"wlan_id" bson:"wlan_id" form:"wlan_id" query:"wlan_id" validate:"required,uuid"`
+
+	// identity for PHONE
+	Identity string `json:"identity" bson:"identity"`
+
+	CreateAt time.Time `json:"create_at" bson:"create_at"`
+
+	// virtual amount
+	Amount int `json:"amount" bson:"amount"`
 }

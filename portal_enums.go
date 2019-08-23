@@ -331,18 +331,21 @@ func (self *PortalAuthorizationState) SetBSON(v bson.Raw) error {
 
 type PortalAuthorizationType string
 
+const PortalAuthorizationTypeExtVoucher PortalAuthorizationType = "ext_voucher"
 const PortalAuthorizationTypeNone PortalAuthorizationType = "none"
-const PortalAuthorizationTypeUserPass PortalAuthorizationType = "userpass"
+const PortalAuthorizationTypeSponsor PortalAuthorizationType = "sponsor"
 const PortalAuthorizationTypeVouncher PortalAuthorizationType = "voucher"
 
 func (self PortalAuthorizationType) GetPtr() *PortalAuthorizationType { var v = self; return &v }
 
 func (self PortalAuthorizationType) String() string {
 	switch self {
+	case PortalAuthorizationTypeExtVoucher:
+		return "ext_voucher"
 	case PortalAuthorizationTypeNone:
 		return "none"
-	case PortalAuthorizationTypeUserPass:
-		return "userpass"
+	case PortalAuthorizationTypeSponsor:
+		return "sponsor"
 	case PortalAuthorizationTypeVouncher:
 		return "voucher"
 	}
@@ -354,10 +357,12 @@ func (self PortalAuthorizationType) String() string {
 
 func (self *PortalAuthorizationType) MarshalJSON() ([]byte, error) {
 	switch *self {
+	case PortalAuthorizationTypeExtVoucher:
+		return json.Marshal("ext_voucher")
 	case PortalAuthorizationTypeNone:
 		return json.Marshal("none")
-	case PortalAuthorizationTypeUserPass:
-		return json.Marshal("userpass")
+	case PortalAuthorizationTypeSponsor:
+		return json.Marshal("sponsor")
 	case PortalAuthorizationTypeVouncher:
 		return json.Marshal("voucher")
 	}
@@ -369,10 +374,12 @@ func (self *PortalAuthorizationType) MarshalJSON() ([]byte, error) {
 
 func (self *PortalAuthorizationType) GetBSON() (interface{}, error) {
 	switch *self {
+	case PortalAuthorizationTypeExtVoucher:
+		return "ext_voucher", nil
 	case PortalAuthorizationTypeNone:
 		return "none", nil
-	case PortalAuthorizationTypeUserPass:
-		return "userpass", nil
+	case PortalAuthorizationTypeSponsor:
+		return "sponsor", nil
 	case PortalAuthorizationTypeVouncher:
 		return "voucher", nil
 	}
@@ -388,11 +395,14 @@ func (self *PortalAuthorizationType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
+	case "ext_voucher":
+		*self = PortalAuthorizationTypeExtVoucher
+		return nil
 	case "none":
 		*self = PortalAuthorizationTypeNone
 		return nil
-	case "userpass":
-		*self = PortalAuthorizationTypeUserPass
+	case "sponsor":
+		*self = PortalAuthorizationTypeSponsor
 		return nil
 	case "voucher":
 		*self = PortalAuthorizationTypeVouncher
@@ -411,11 +421,14 @@ func (self *PortalAuthorizationType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
+	case "ext_voucher":
+		*self = PortalAuthorizationTypeExtVoucher
+		return nil
 	case "none":
 		*self = PortalAuthorizationTypeNone
 		return nil
-	case "userpass":
-		*self = PortalAuthorizationTypeUserPass
+	case "sponsor":
+		*self = PortalAuthorizationTypeSponsor
 		return nil
 	case "voucher":
 		*self = PortalAuthorizationTypeVouncher
@@ -426,6 +439,92 @@ func (self *PortalAuthorizationType) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	return errors.New("Unknown PortalAuthorizationType: " + s)
+}
+
+type PortalResponseStatus string
+
+const PortalResponseStatusError PortalResponseStatus = "error"
+const PortalResponseStatusSuccess PortalResponseStatus = "success"
+
+func (self PortalResponseStatus) GetPtr() *PortalResponseStatus { var v = self; return &v }
+
+func (self PortalResponseStatus) String() string {
+	switch self {
+	case PortalResponseStatusError:
+		return "error"
+	case PortalResponseStatusSuccess:
+		return "success"
+	}
+	if len(self) == 0 {
+		return "success"
+	}
+	panic(errors.New("Invalid value of PortalResponseStatus: " + string(self)))
+}
+
+func (self *PortalResponseStatus) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case PortalResponseStatusError:
+		return json.Marshal("error")
+	case PortalResponseStatusSuccess:
+		return json.Marshal("success")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("success")
+	}
+	return nil, errors.New("Invalid value of PortalResponseStatus: " + string(*self))
+}
+
+func (self *PortalResponseStatus) GetBSON() (interface{}, error) {
+	switch *self {
+	case PortalResponseStatusError:
+		return "error", nil
+	case PortalResponseStatusSuccess:
+		return "success", nil
+	}
+	if len(*self) == 0 {
+		return "success", nil
+	}
+	return nil, errors.New("Invalid value of PortalResponseStatus: " + string(*self))
+}
+
+func (self *PortalResponseStatus) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "error":
+		*self = PortalResponseStatusError
+		return nil
+	case "success":
+		*self = PortalResponseStatusSuccess
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalResponseStatusSuccess
+		return nil
+	}
+	return errors.New("Unknown PortalResponseStatus: " + s)
+}
+
+func (self *PortalResponseStatus) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "error":
+		*self = PortalResponseStatusError
+		return nil
+	case "success":
+		*self = PortalResponseStatusSuccess
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalResponseStatusSuccess
+		return nil
+	}
+	return errors.New("Unknown PortalResponseStatus: " + s)
 }
 
 type PortalUserState string
