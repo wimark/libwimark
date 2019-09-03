@@ -6,6 +6,131 @@ import (
 	"github.com/globalsign/mgo/bson"
 )
 
+type PortalAdvertisementType string
+
+const PortalAdvertisementTypeFlash PortalAdvertisementType = "flash"
+const PortalAdvertisementTypeIframe PortalAdvertisementType = "iframe"
+const PortalAdvertisementTypeImage PortalAdvertisementType = "image"
+const PortalAdvertisementTypePoll PortalAdvertisementType = "poll"
+const PortalAdvertisementTypeVideo PortalAdvertisementType = "video"
+
+func (self PortalAdvertisementType) GetPtr() *PortalAdvertisementType { var v = self; return &v }
+
+func (self PortalAdvertisementType) String() string {
+	switch self {
+	case PortalAdvertisementTypeFlash:
+		return "flash"
+	case PortalAdvertisementTypeIframe:
+		return "iframe"
+	case PortalAdvertisementTypeImage:
+		return "image"
+	case PortalAdvertisementTypePoll:
+		return "poll"
+	case PortalAdvertisementTypeVideo:
+		return "video"
+	}
+	if len(self) == 0 {
+		return "image"
+	}
+	panic(errors.New("Invalid value of PortalAdvertisementType: " + string(self)))
+}
+
+func (self *PortalAdvertisementType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case PortalAdvertisementTypeFlash:
+		return json.Marshal("flash")
+	case PortalAdvertisementTypeIframe:
+		return json.Marshal("iframe")
+	case PortalAdvertisementTypeImage:
+		return json.Marshal("image")
+	case PortalAdvertisementTypePoll:
+		return json.Marshal("poll")
+	case PortalAdvertisementTypeVideo:
+		return json.Marshal("video")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("image")
+	}
+	return nil, errors.New("Invalid value of PortalAdvertisementType: " + string(*self))
+}
+
+func (self *PortalAdvertisementType) GetBSON() (interface{}, error) {
+	switch *self {
+	case PortalAdvertisementTypeFlash:
+		return "flash", nil
+	case PortalAdvertisementTypeIframe:
+		return "iframe", nil
+	case PortalAdvertisementTypeImage:
+		return "image", nil
+	case PortalAdvertisementTypePoll:
+		return "poll", nil
+	case PortalAdvertisementTypeVideo:
+		return "video", nil
+	}
+	if len(*self) == 0 {
+		return "image", nil
+	}
+	return nil, errors.New("Invalid value of PortalAdvertisementType: " + string(*self))
+}
+
+func (self *PortalAdvertisementType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "flash":
+		*self = PortalAdvertisementTypeFlash
+		return nil
+	case "iframe":
+		*self = PortalAdvertisementTypeIframe
+		return nil
+	case "image":
+		*self = PortalAdvertisementTypeImage
+		return nil
+	case "poll":
+		*self = PortalAdvertisementTypePoll
+		return nil
+	case "video":
+		*self = PortalAdvertisementTypeVideo
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalAdvertisementTypeImage
+		return nil
+	}
+	return errors.New("Unknown PortalAdvertisementType: " + s)
+}
+
+func (self *PortalAdvertisementType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "flash":
+		*self = PortalAdvertisementTypeFlash
+		return nil
+	case "iframe":
+		*self = PortalAdvertisementTypeIframe
+		return nil
+	case "image":
+		*self = PortalAdvertisementTypeImage
+		return nil
+	case "poll":
+		*self = PortalAdvertisementTypePoll
+		return nil
+	case "video":
+		*self = PortalAdvertisementTypeVideo
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalAdvertisementTypeImage
+		return nil
+	}
+	return errors.New("Unknown PortalAdvertisementType: " + s)
+}
+
 type PortalAuthenticationState string
 
 const PortalAuthenticationStateChecked PortalAuthenticationState = "checked"
@@ -332,6 +457,7 @@ func (self *PortalAuthorizationState) SetBSON(v bson.Raw) error {
 type PortalAuthorizationType string
 
 const PortalAuthorizationTypeExtVoucher PortalAuthorizationType = "ext_voucher"
+const PortalAuthorizationTypeFree PortalAuthorizationType = "free"
 const PortalAuthorizationTypeNone PortalAuthorizationType = "none"
 const PortalAuthorizationTypeSponsor PortalAuthorizationType = "sponsor"
 const PortalAuthorizationTypeVouncher PortalAuthorizationType = "voucher"
@@ -342,6 +468,8 @@ func (self PortalAuthorizationType) String() string {
 	switch self {
 	case PortalAuthorizationTypeExtVoucher:
 		return "ext_voucher"
+	case PortalAuthorizationTypeFree:
+		return "free"
 	case PortalAuthorizationTypeNone:
 		return "none"
 	case PortalAuthorizationTypeSponsor:
@@ -359,6 +487,8 @@ func (self *PortalAuthorizationType) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case PortalAuthorizationTypeExtVoucher:
 		return json.Marshal("ext_voucher")
+	case PortalAuthorizationTypeFree:
+		return json.Marshal("free")
 	case PortalAuthorizationTypeNone:
 		return json.Marshal("none")
 	case PortalAuthorizationTypeSponsor:
@@ -376,6 +506,8 @@ func (self *PortalAuthorizationType) GetBSON() (interface{}, error) {
 	switch *self {
 	case PortalAuthorizationTypeExtVoucher:
 		return "ext_voucher", nil
+	case PortalAuthorizationTypeFree:
+		return "free", nil
 	case PortalAuthorizationTypeNone:
 		return "none", nil
 	case PortalAuthorizationTypeSponsor:
@@ -397,6 +529,9 @@ func (self *PortalAuthorizationType) UnmarshalJSON(b []byte) error {
 	switch s {
 	case "ext_voucher":
 		*self = PortalAuthorizationTypeExtVoucher
+		return nil
+	case "free":
+		*self = PortalAuthorizationTypeFree
 		return nil
 	case "none":
 		*self = PortalAuthorizationTypeNone
@@ -423,6 +558,9 @@ func (self *PortalAuthorizationType) SetBSON(v bson.Raw) error {
 	switch s {
 	case "ext_voucher":
 		*self = PortalAuthorizationTypeExtVoucher
+		return nil
+	case "free":
+		*self = PortalAuthorizationTypeFree
 		return nil
 	case "none":
 		*self = PortalAuthorizationTypeNone

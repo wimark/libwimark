@@ -20,6 +20,7 @@ ESIA     = "esia"
 default = "None"
 [PortalAuthorizationType.variants]
 None     = "none"
+Free     = "free"
 Sponsor  = "sponsor" 
 Vouncher = "voucher"
 ExtVoucher = "ext_voucher"
@@ -42,3 +43,12 @@ default = "Success"
 [PortalResponseStatus.variants]
 Success = "success"
 Error   = "error"
+
+[PortalAdvertisementType]
+default = "Image"
+[PortalAdvertisementType.variants]
+Image  = "image"
+Video  = "video"
+Flash  = "flash"
+Iframe = "iframe"
+Poll   = "poll"
