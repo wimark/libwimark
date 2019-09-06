@@ -6,19 +6,31 @@ import (
 )
 
 const (
-	COLL_PORTAL_COLLECTION      = "portal_client_sessions"
+
+	// user clients
+	COLL_PORTAL_COLLECTION = "portal_client_sessions"
+
+	// user authentications
 	COLL_PORTAL_AUTHENTICATIONS = "portal_client_authentications"
 
+	// webpage of portal settings
+	COLL_PAGE_PROFILES = "portal_pages"
+	// portal profile settings
 	COLL_PORTAL_PROFILES = "portal_profiles"
-	COLL_AD_PROFILES     = "ad_profiles"
-	COLL_PAGE_PROFILES   = "page_profiles"
 
-	COLL_PORTAL_UACCOUNTS = "portal_user_accounts"
-
+	// available authentications
 	COLL_PORTAL_AUTHEN_CFG = "portal_authentications"
-	COLL_PORTAL_AUTH_CFG   = "portal_authorisations"
-	COLL_PORTAL_ADV_CFG    = "portal_advertisement"
+	// available authorizations
+	COLL_PORTAL_AUTH_CFG = "portal_authorizations"
 
+	// portal advertisements
+	COLL_PORTAL_ADS       = "portal_ads"
+	COLL_PORTAL_ADS_STATS = "portal_ads_stats"
+
+	// futher accounts
+	COLL_PORTAL_USER_ACCOUNTS = "portal_user_accounts"
+
+	// futher vouchers
 	COLL_PORTAL_VOUCHERS = "portal_vouchers"
 )
 
@@ -134,8 +146,13 @@ type PortalRequestObject struct {
 	// Remember period for user accounts
 	Remember int64 `json:"remember"`
 
+	// push aggrement
+	PushAgreement bool `json:"push_agree"`
+
 	// Type of choosen type
 	Type string `json:"type"`
+
+	Ad PortalAdStatRequest `json:"ad"`
 
 	// for internal using
 	Timeout int64 `json:"-" validate:"-"`
@@ -145,12 +162,12 @@ type PortalResponseObject struct {
 	Status PortalResponseStatus `json:"status,omitempty"`
 	Code   int                  `json:"code"`
 
-	Description string      `json:"description,omitempty"`
-	Data        interface{} `json:"data,omitempty"`
+	Description string `json:"description,omitempty"`
+	// Data        interface{} `json:"data,omitempty"`
 
 	State    PortalUserState `json:"state,omitempty"`
 	Substate string          `json:"substate,omitempty"`
-	Types    map[string]bool `json:"types,omitempty"`
+	Data     interface{}     `json:"data,omitempty"`
 }
 
 // struct for store every auth attempt
@@ -177,20 +194,27 @@ type PortalClientSession struct {
 	CPE string `json:"cpe" bson:"cpe"`
 	IP  string `json:"ip" bson:"ip"`
 
-	Create   time.Time `json:"create" bson:"create"`
-	CreateAt int64     `json:"create_at" bson:"create_at"`
-	StartAt  int64     `json:"start_at" bson:"start_at"`
-	StopAt   int64     `json:"stop_at" bson:"stop_at"`
+	Create time.Time `json:"create" bson:"create"`
+
+	// from create to end of internet + block
+	CreateAt int64 `json:"create_at" bson:"create_at"`
+	ExpireAt int64 `json:"expire_at" bson:"expire_at"`
+
+	// real internet part
+	StartAt int64 `json:"start_at" bson:"start_at"`
+	StopAt  int64 `json:"stop_at" bson:"stop_at"`
+	// BlockAt int64 `json:"block_at" bson:"block_at"`
 
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
 	Auth          []PortalAuthObject  `json:"auth" bson:"auth"`
 
-	// new states
-	Profile        string                     `json:"profile" bson:"profile"`
-	State          PortalUserState            `json:"state" bson:"state"`
-	Authentication PortalClientAuthentication `json:"authentication" bson:"authentication"`
-	Authorization  PortalAuthorizationData    `json:"authorization" bson:"authorization"`
-	Advertisement  interface{}                `json:"advertisement" bson:"advertisement"`
+	State       PortalUserState `json:"state" bson:"state"`
+	AuthenState PortalAuthenticationState
+	AuthState   PortalAuthorizationState
+
+	Authentication PortalAuthenticationData `json:"authentication" bson:"authentication"`
+	Authorization  PortalAuthorizationData  `json:"authorization" bson:"authorization"`
+	// Advertisement  PortalAdvertisementData  `json:"advertisement" bson:"advertisement"`
 
 	// will be deprecated
 	Status   string `json:"status" bson:"status"`
@@ -202,19 +226,24 @@ type PortalClientSession struct {
 type PortalClientAuthentication struct {
 	Id string `json:"id" bson:"_id"`
 
-	// identification
+	// client identification
 	MAC  string `json:"mac" bson:"mac"`
 	WLAN string `json:"wlan_id" bson:"wlan_id"`
 
-	State PortalAuthenticationState `json:"state" bson:"state"`
+	// data with identity and authentication info
+	Data PortalAuthenticationData `json:"data" bson:"data"`
 
-	Identity string `json:"identity" bson:"identity"`
-	Password string `json:"password" bson:"password"`
+	Create time.Time `json:"create" bson:"create"`
 
-	CreateAt time.Time `json:"create_at" bson:"create_at"`
-	StartAt  int64     `json:"start_at" bson:"start_at"`
-	StopAt   int64     `json:"stop_at" bson:"stop_at"`
-	Remember int64     `json:"remember" bson:"remember"`
+	// valid time
+	CreateAt int64 `json:"create_at" bson:"create_at"`
+	ExpireAt int64 `json:"expire_at" bson:"expire_at"`
+
+	// // time to remember (from create to expire)
+	// Remember int64 `json:"remember" bson:"remember"`
+
+	// // client agree to take pushes
+	// PushAgreement bool `json:"push_agree" bson:"push_agree"`
 }
 
 // portal condition
@@ -232,13 +261,11 @@ func (pc *PortalCondition) Empty() bool {
 
 // struct for flexible session config
 type PortalSessionConfig struct {
-	// // store in DB -- 24 hours as example
-	// StoreTimeout    int64 `json:"store_timeout" bson:"store_timeout"`
 
-	// one-time online timeout -- 30 min as example
+	// session timeout -- 30 min as example
 	Timeout int64 `json:"timeout" bson:"timeout"`
 
-	// timeout to resend
+	// timeout to remember
 	AuthTimeout int64 `json:"auth_timeout" bson:"auth_timeout"`
 
 	// block after using timeout for
@@ -283,6 +310,18 @@ type PortalVoucher struct {
 	Config PortalSessionConfig
 }
 
+type PortalAuthenticationData struct {
+	// ConfigId string `json:"config_id" bson:"config_id"`
+
+	Type PortalAuthenticationType `json:"type" bson:"type"`
+
+	Identity string `json:"identity" bson:"identity"`
+	Password string `json:"password" bson:"password"`
+
+	Remember      int64 `json:"remember" bson:"remember"`
+	PushAgreement bool  `json:"push_agree" bson:"push_agree"`
+}
+
 // PortalAuthenticationConfig config of possible authentications
 type PortalAuthenticationConfig struct {
 	Id string `json:"id" bson:"_id"`
@@ -291,19 +330,23 @@ type PortalAuthenticationConfig struct {
 
 	Name        string `json:"name" bson:"name"`
 	Description string `json:"description" bson:"description"`
-	PassGateway string `json:"pass_gateway" bson:"pass_gateway"`
 
-	Remember int64 `json:"remember" bson:"remember"`
+	Remember  int64 `json:"remember" bson:"remember"`
+	OPTLength int   `json:"otp_length" bson:"otp_length"`
+
+	PassGateway string `json:"-" bson:"pass_gateway"`
 }
 
 type PortalAuthorizationData struct {
+	ConfigId string `json:"config_id" bson:"config_id"`
+
 	Type  PortalAuthorizationType  `json:"type" bson:"type"`
 	State PortalAuthorizationState `json:"state" bson:"state"`
 
-	Identity string `json:"identity" bson:"identity'`
-	Password string `json:"password" bson:"password"`
-
-	StartAt int64 `json:"start_at" bson:"start_at"`
+	Config      PortalSessionConfig `json:"config" bson:"config"`
+	Ads         []PortalAd          `json:"ads" bson:"ads"`
+	AdsToWatch  int                 `json:"ads_to_watch" bson:"ads_to_watch"`
+	RedirectURL string              `json:"redirect_url" bson:"redirect_url"`
 }
 
 type PortalAuthorizationConfig struct {
@@ -314,11 +357,18 @@ type PortalAuthorizationConfig struct {
 	Description string                  `json:"description" bson:"description"`
 
 	// pass gateway needed if external authorization
-	PassGateway string `json:"pass_gateway,omitempty" bson:"pass_gateway"`
+	PassGateway string `json:"-" bson:"pass_gateway"`
 
 	// Vouchers    []string `json:"vouchers,omitempty" bson:"vouchers"`
 
+	// advertisements
+	Ads []PortalAd `json:"ads" bson:"ads"`
+
+	// session configuration
 	Config PortalSessionConfig `json:"config" bson:"config"`
+
+	// landing page redirect URL
+	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
 }
 
 // PortalProfile to link portal and it's config
@@ -332,38 +382,56 @@ type PortalProfile struct {
 	Condition PortalCondition `json:"condition" bson:"condition"`
 
 	// flow of client portal
-	States []PortalUserState `json:"states" bson:"states"`
+	// States []PortalUserState `json:"states" bson:"states"`
 
 	// authentication types
 	Authentications []PortalAuthenticationConfig `json:"authentications" bson:"authentications"`
 
+	// available MSISDN prefixes --
+	MSISDNConfig PortalMSISDNConfig `json:"msisdn_config" bson:"msisdn_config'`
+
 	// authorization types
 	Authorizations []PortalAuthorizationConfig `json:"authorizations" bson:"authorizations"`
 
-	// advertisement types
-	Advertisements []PortalAd `json:"ads" bson:"ads"`
-
-	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
-
-	// true for whitelist, false for blacklist
+	// found for whitelist
 	AccessList map[string]bool `json:"access_list" bson:"access_list"`
-
-	// available MSISDN prefixes --
-	MSISDNConfig PortalMSISDNConfig `json:"msisdn_config" bson:"msisdn_config'`
+	BlackList  map[string]bool `json:"black_list" bson:"black_list"`
 
 	// default session configuration (timeout and block timeout)
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
 }
 
-func (p PortalProfile) NextState(state PortalUserState) PortalUserState {
-	for i, v := range p.States {
-		if state == v {
-			if i < len(p.States) {
-				return p.States[i+1]
+func (p *PortalProfile) NextState(state PortalUserState) (PortalUserState, []string) {
+
+	var retState = PortalUserStatePass
+	var possible = []string{}
+	switch state {
+	case PortalUserStateNew:
+		if len(p.Authentications) == 0 && p.Authentications[0].Type == PortalAuthenticationTypeNone {
+			if len(p.Authorizations) == 0 && p.Authorizations[0].Type == PortalAuthorizationTypeNone {
+			} else {
+				retState = PortalUserStateAuthorize
+				for _, v := range p.Authorizations {
+					possible = append(possible, v.Type.String())
+				}
+			}
+		} else {
+			retState = PortalUserStateAuthenticate
+			for _, v := range p.Authentications {
+				possible = append(possible, v.Type.String())
+			}
+		}
+	case PortalUserStateAuthenticate:
+		if len(p.Authorizations) == 0 && p.Authorizations[0].Type == PortalAuthorizationTypeNone {
+
+		} else {
+			retState = PortalUserStateAuthorize
+			for _, v := range p.Authorizations {
+				possible = append(possible, v.Type.String())
 			}
 		}
 	}
-	return p.States[len(p.States)-1]
+	return retState, possible
 }
 
 // PortalPageProfile provide page information
@@ -378,9 +446,6 @@ type PortalPageProfile struct {
 	// URL generated id
 	IdURL string `json:"url_id" bson:"url_id"`
 
-	// condition to check
-	// Condition PortalCondition `json:"condition" bson:"condition"`
-
 	// title of webpage
 	Title string `json:"title" bson:"title"`
 
@@ -391,14 +456,12 @@ type PortalPageProfile struct {
 		ButtonColor string `json:"button_color" bson:"button_color"`
 		LogoFooter  string `json:"logo_footer" bson:"logo_footer"`
 	} `json:"interface" bson:"interface"`
+
+	// service aggrement
+	Agreement string `json:"agreement" bson:"agreement"`
 }
 
-type PortalAd struct {
-	Id string `json:"id" bson:"_id"`
-
-	Name        string `json:"name" bson:"name"`
-	Description string `json:"description" bson:"description"`
-
+type PortalAdData struct {
 	Type PortalAdvertisementType `json:"type" bson:"type"`
 
 	URL string `json:"url" bson:"url"`
@@ -406,8 +469,56 @@ type PortalAd struct {
 	Question     string   `json:"question" bson:"question"`
 	PollVariants []string `json:"poll_variants" bson:"poll_variants"`
 
-	Skip bool `json:"skip" bson:"skip"`
+	Skip         bool  `json:"skip" bson:"skip"`
+	Duration     int64 `json:"duration" bson:"duration"`
+	SkipDuration int64 `json:"skip_after" bson:"skip_after"`
 }
+
+// PortalAd object for ihot
+type PortalAd struct {
+	Id string `json:"id" bson:"_id"`
+
+	Name        string `json:"name" bson:"name"`
+	Description string `json:"description" bson:"description"`
+
+	Data PortalAdData `json:"data" bson:"data"`
+}
+
+type PortalAdStatRequest struct {
+	Id          string `json:"id"`
+	Duration    int64  `json:"duration"`
+	Skipped     bool   `json:"skipped"`
+	PollVariant string `json:"poll_variant"`
+}
+
+type PortalAdStatInc struct {
+	Counter        int   `json:"counter" bson:"counter"`
+	CounterSkipped int   `json:"counter_skipped" bson:"counter_skipped"`
+	Duration       int64 `json:"duration" bson:"duration"`
+	// PollCounter    int `json:"poll_counter" bson:"poll_counter."`
+}
+
+// PortalAdStat
+type PortalAdStat struct {
+	// same ID as portalad
+	Id string `json:"id" bson:"_id"`
+
+	Data PortalAdData `json:"data" bson:"data"`
+
+	Counter        int            `json:"counter" bson:"counter"`
+	CounterSkipped int            `json:"counter_skipped" bson:"counter_skipped"`
+	Duration       int64          `json:"duration" bson:"duration"`
+	PollCounter    map[string]int `json:"poll_counter" bson:"poll_counter"`
+}
+
+// type PortalAdConfig struct {
+// 	Id string `json:"id" bson:"_id"`
+
+// 	Name        string `json:"name" bson:"name"`
+// 	Description string `json:"description" bson:"description"`
+
+// 	Ads []PortalAdData `json:"ads" bson:"ads"`
+// }
 
 type PortalClientAccount struct {
 	Id string `json:"id" bson:"_id"`

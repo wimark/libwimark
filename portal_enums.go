@@ -6,6 +6,92 @@ import (
 	"github.com/globalsign/mgo/bson"
 )
 
+type PortalAdvertisementState string
+
+const PortalAdvertisementStateChecked PortalAdvertisementState = "checked"
+const PortalAdvertisementStateNeed PortalAdvertisementState = "none"
+
+func (self PortalAdvertisementState) GetPtr() *PortalAdvertisementState { var v = self; return &v }
+
+func (self PortalAdvertisementState) String() string {
+	switch self {
+	case PortalAdvertisementStateChecked:
+		return "checked"
+	case PortalAdvertisementStateNeed:
+		return "none"
+	}
+	if len(self) == 0 {
+		return "none"
+	}
+	panic(errors.New("Invalid value of PortalAdvertisementState: " + string(self)))
+}
+
+func (self *PortalAdvertisementState) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case PortalAdvertisementStateChecked:
+		return json.Marshal("checked")
+	case PortalAdvertisementStateNeed:
+		return json.Marshal("none")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("none")
+	}
+	return nil, errors.New("Invalid value of PortalAdvertisementState: " + string(*self))
+}
+
+func (self *PortalAdvertisementState) GetBSON() (interface{}, error) {
+	switch *self {
+	case PortalAdvertisementStateChecked:
+		return "checked", nil
+	case PortalAdvertisementStateNeed:
+		return "none", nil
+	}
+	if len(*self) == 0 {
+		return "none", nil
+	}
+	return nil, errors.New("Invalid value of PortalAdvertisementState: " + string(*self))
+}
+
+func (self *PortalAdvertisementState) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "checked":
+		*self = PortalAdvertisementStateChecked
+		return nil
+	case "none":
+		*self = PortalAdvertisementStateNeed
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalAdvertisementStateNeed
+		return nil
+	}
+	return errors.New("Unknown PortalAdvertisementState: " + s)
+}
+
+func (self *PortalAdvertisementState) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "checked":
+		*self = PortalAdvertisementStateChecked
+		return nil
+	case "none":
+		*self = PortalAdvertisementStateNeed
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalAdvertisementStateNeed
+		return nil
+	}
+	return errors.New("Unknown PortalAdvertisementState: " + s)
+}
+
 type PortalAdvertisementType string
 
 const PortalAdvertisementTypeFlash PortalAdvertisementType = "flash"
@@ -134,7 +220,7 @@ func (self *PortalAdvertisementType) SetBSON(v bson.Raw) error {
 type PortalAuthenticationState string
 
 const PortalAuthenticationStateChecked PortalAuthenticationState = "checked"
-const PortalAuthenticationStateNone PortalAuthenticationState = "none"
+const PortalAuthenticationStateNeed PortalAuthenticationState = "need"
 const PortalAuthenticationStateSent PortalAuthenticationState = "sent"
 
 func (self PortalAuthenticationState) GetPtr() *PortalAuthenticationState { var v = self; return &v }
@@ -143,13 +229,13 @@ func (self PortalAuthenticationState) String() string {
 	switch self {
 	case PortalAuthenticationStateChecked:
 		return "checked"
-	case PortalAuthenticationStateNone:
-		return "none"
+	case PortalAuthenticationStateNeed:
+		return "need"
 	case PortalAuthenticationStateSent:
 		return "sent"
 	}
 	if len(self) == 0 {
-		return "none"
+		return "need"
 	}
 	panic(errors.New("Invalid value of PortalAuthenticationState: " + string(self)))
 }
@@ -158,13 +244,13 @@ func (self *PortalAuthenticationState) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case PortalAuthenticationStateChecked:
 		return json.Marshal("checked")
-	case PortalAuthenticationStateNone:
-		return json.Marshal("none")
+	case PortalAuthenticationStateNeed:
+		return json.Marshal("need")
 	case PortalAuthenticationStateSent:
 		return json.Marshal("sent")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("none")
+		return json.Marshal("need")
 	}
 	return nil, errors.New("Invalid value of PortalAuthenticationState: " + string(*self))
 }
@@ -173,13 +259,13 @@ func (self *PortalAuthenticationState) GetBSON() (interface{}, error) {
 	switch *self {
 	case PortalAuthenticationStateChecked:
 		return "checked", nil
-	case PortalAuthenticationStateNone:
-		return "none", nil
+	case PortalAuthenticationStateNeed:
+		return "need", nil
 	case PortalAuthenticationStateSent:
 		return "sent", nil
 	}
 	if len(*self) == 0 {
-		return "none", nil
+		return "need", nil
 	}
 	return nil, errors.New("Invalid value of PortalAuthenticationState: " + string(*self))
 }
@@ -193,15 +279,15 @@ func (self *PortalAuthenticationState) UnmarshalJSON(b []byte) error {
 	case "checked":
 		*self = PortalAuthenticationStateChecked
 		return nil
-	case "none":
-		*self = PortalAuthenticationStateNone
+	case "need":
+		*self = PortalAuthenticationStateNeed
 		return nil
 	case "sent":
 		*self = PortalAuthenticationStateSent
 		return nil
 	}
 	if len(s) == 0 {
-		*self = PortalAuthenticationStateNone
+		*self = PortalAuthenticationStateNeed
 		return nil
 	}
 	return errors.New("Unknown PortalAuthenticationState: " + s)
@@ -216,15 +302,15 @@ func (self *PortalAuthenticationState) SetBSON(v bson.Raw) error {
 	case "checked":
 		*self = PortalAuthenticationStateChecked
 		return nil
-	case "none":
-		*self = PortalAuthenticationStateNone
+	case "need":
+		*self = PortalAuthenticationStateNeed
 		return nil
 	case "sent":
 		*self = PortalAuthenticationStateSent
 		return nil
 	}
 	if len(s) == 0 {
-		*self = PortalAuthenticationStateNone
+		*self = PortalAuthenticationStateNeed
 		return nil
 	}
 	return errors.New("Unknown PortalAuthenticationState: " + s)
@@ -371,7 +457,7 @@ func (self *PortalAuthenticationType) SetBSON(v bson.Raw) error {
 type PortalAuthorizationState string
 
 const PortalAuthorizationStateChecked PortalAuthorizationState = "checked"
-const PortalAuthorizationStateNone PortalAuthorizationState = "none"
+const PortalAuthorizationStateNeed PortalAuthorizationState = "none"
 
 func (self PortalAuthorizationState) GetPtr() *PortalAuthorizationState { var v = self; return &v }
 
@@ -379,7 +465,7 @@ func (self PortalAuthorizationState) String() string {
 	switch self {
 	case PortalAuthorizationStateChecked:
 		return "checked"
-	case PortalAuthorizationStateNone:
+	case PortalAuthorizationStateNeed:
 		return "none"
 	}
 	if len(self) == 0 {
@@ -392,7 +478,7 @@ func (self *PortalAuthorizationState) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case PortalAuthorizationStateChecked:
 		return json.Marshal("checked")
-	case PortalAuthorizationStateNone:
+	case PortalAuthorizationStateNeed:
 		return json.Marshal("none")
 	}
 	if len(*self) == 0 {
@@ -405,7 +491,7 @@ func (self *PortalAuthorizationState) GetBSON() (interface{}, error) {
 	switch *self {
 	case PortalAuthorizationStateChecked:
 		return "checked", nil
-	case PortalAuthorizationStateNone:
+	case PortalAuthorizationStateNeed:
 		return "none", nil
 	}
 	if len(*self) == 0 {
@@ -424,11 +510,11 @@ func (self *PortalAuthorizationState) UnmarshalJSON(b []byte) error {
 		*self = PortalAuthorizationStateChecked
 		return nil
 	case "none":
-		*self = PortalAuthorizationStateNone
+		*self = PortalAuthorizationStateNeed
 		return nil
 	}
 	if len(s) == 0 {
-		*self = PortalAuthorizationStateNone
+		*self = PortalAuthorizationStateNeed
 		return nil
 	}
 	return errors.New("Unknown PortalAuthorizationState: " + s)
@@ -444,11 +530,11 @@ func (self *PortalAuthorizationState) SetBSON(v bson.Raw) error {
 		*self = PortalAuthorizationStateChecked
 		return nil
 	case "none":
-		*self = PortalAuthorizationStateNone
+		*self = PortalAuthorizationStateNeed
 		return nil
 	}
 	if len(s) == 0 {
-		*self = PortalAuthorizationStateNone
+		*self = PortalAuthorizationStateNeed
 		return nil
 	}
 	return errors.New("Unknown PortalAuthorizationState: " + s)
@@ -667,60 +753,67 @@ func (self *PortalResponseStatus) SetBSON(v bson.Raw) error {
 
 type PortalUserState string
 
-const PortalUserStateAdvertisement PortalUserState = "advertisement"
-const PortalUserStateAuthentication PortalUserState = "authentication"
-const PortalUserStateAuthorization PortalUserState = "authorization"
-const PortalUserStatePassing PortalUserState = "passing"
+const PortalUserStateAdvertise PortalUserState = "advertise"
+const PortalUserStateAuthenticate PortalUserState = "authenticate"
+const PortalUserStateAuthorize PortalUserState = "authorize"
+const PortalUserStateNew PortalUserState = "new"
+const PortalUserStatePass PortalUserState = "pass"
 
 func (self PortalUserState) GetPtr() *PortalUserState { var v = self; return &v }
 
 func (self PortalUserState) String() string {
 	switch self {
-	case PortalUserStateAdvertisement:
-		return "advertisement"
-	case PortalUserStateAuthentication:
-		return "authentication"
-	case PortalUserStateAuthorization:
-		return "authorization"
-	case PortalUserStatePassing:
-		return "passing"
+	case PortalUserStateAdvertise:
+		return "advertise"
+	case PortalUserStateAuthenticate:
+		return "authenticate"
+	case PortalUserStateAuthorize:
+		return "authorize"
+	case PortalUserStateNew:
+		return "new"
+	case PortalUserStatePass:
+		return "pass"
 	}
 	if len(self) == 0 {
-		return "authentication"
+		return "new"
 	}
 	panic(errors.New("Invalid value of PortalUserState: " + string(self)))
 }
 
 func (self *PortalUserState) MarshalJSON() ([]byte, error) {
 	switch *self {
-	case PortalUserStateAdvertisement:
-		return json.Marshal("advertisement")
-	case PortalUserStateAuthentication:
-		return json.Marshal("authentication")
-	case PortalUserStateAuthorization:
-		return json.Marshal("authorization")
-	case PortalUserStatePassing:
-		return json.Marshal("passing")
+	case PortalUserStateAdvertise:
+		return json.Marshal("advertise")
+	case PortalUserStateAuthenticate:
+		return json.Marshal("authenticate")
+	case PortalUserStateAuthorize:
+		return json.Marshal("authorize")
+	case PortalUserStateNew:
+		return json.Marshal("new")
+	case PortalUserStatePass:
+		return json.Marshal("pass")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("authentication")
+		return json.Marshal("new")
 	}
 	return nil, errors.New("Invalid value of PortalUserState: " + string(*self))
 }
 
 func (self *PortalUserState) GetBSON() (interface{}, error) {
 	switch *self {
-	case PortalUserStateAdvertisement:
-		return "advertisement", nil
-	case PortalUserStateAuthentication:
-		return "authentication", nil
-	case PortalUserStateAuthorization:
-		return "authorization", nil
-	case PortalUserStatePassing:
-		return "passing", nil
+	case PortalUserStateAdvertise:
+		return "advertise", nil
+	case PortalUserStateAuthenticate:
+		return "authenticate", nil
+	case PortalUserStateAuthorize:
+		return "authorize", nil
+	case PortalUserStateNew:
+		return "new", nil
+	case PortalUserStatePass:
+		return "pass", nil
 	}
 	if len(*self) == 0 {
-		return "authentication", nil
+		return "new", nil
 	}
 	return nil, errors.New("Invalid value of PortalUserState: " + string(*self))
 }
@@ -731,21 +824,24 @@ func (self *PortalUserState) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
-	case "advertisement":
-		*self = PortalUserStateAdvertisement
+	case "advertise":
+		*self = PortalUserStateAdvertise
 		return nil
-	case "authentication":
-		*self = PortalUserStateAuthentication
+	case "authenticate":
+		*self = PortalUserStateAuthenticate
 		return nil
-	case "authorization":
-		*self = PortalUserStateAuthorization
+	case "authorize":
+		*self = PortalUserStateAuthorize
 		return nil
-	case "passing":
-		*self = PortalUserStatePassing
+	case "new":
+		*self = PortalUserStateNew
+		return nil
+	case "pass":
+		*self = PortalUserStatePass
 		return nil
 	}
 	if len(s) == 0 {
-		*self = PortalUserStateAuthentication
+		*self = PortalUserStateNew
 		return nil
 	}
 	return errors.New("Unknown PortalUserState: " + s)
@@ -757,21 +853,24 @@ func (self *PortalUserState) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
-	case "advertisement":
-		*self = PortalUserStateAdvertisement
+	case "advertise":
+		*self = PortalUserStateAdvertise
 		return nil
-	case "authentication":
-		*self = PortalUserStateAuthentication
+	case "authenticate":
+		*self = PortalUserStateAuthenticate
 		return nil
-	case "authorization":
-		*self = PortalUserStateAuthorization
+	case "authorize":
+		*self = PortalUserStateAuthorize
 		return nil
-	case "passing":
-		*self = PortalUserStatePassing
+	case "new":
+		*self = PortalUserStateNew
+		return nil
+	case "pass":
+		*self = PortalUserStatePass
 		return nil
 	}
 	if len(s) == 0 {
-		*self = PortalUserStateAuthentication
+		*self = PortalUserStateNew
 		return nil
 	}
 	return errors.New("Unknown PortalUserState: " + s)

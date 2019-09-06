@@ -1,10 +1,11 @@
 [PortalUserState]
-default = "Authentication"
+default = "New"
 [PortalUserState.variants]
-Authentication = "authentication"
-Authorization  = "authorization"
-Advertisement  = "advertisement"
-Passing        = "passing"
+New            = "new"
+Authenticate   = "authenticate"
+Authorize      = "authorize"
+Advertise      = "advertise"
+Pass           = "pass"
 
 [PortalAuthenticationType]
 default = "SMS"
@@ -26,16 +27,22 @@ Vouncher = "voucher"
 ExtVoucher = "ext_voucher"
 
 [PortalAuthenticationState]
-default = "None"
+default = "Need"
 [PortalAuthenticationState.variants]
-None    = "none"
+Need    = "need"
 Sent    = "sent"
 Checked = "checked"
 
 [PortalAuthorizationState]
-default = "None"
+default = "Need"
 [PortalAuthorizationState.variants]
-None    = "none"
+Need    = "none"
+Checked = "checked"
+
+[PortalAdvertisementState]
+default = "Need"
+[PortalAdvertisementState.variants]
+Need    = "none"
 Checked = "checked"
 
 [PortalResponseStatus]
