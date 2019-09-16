@@ -122,6 +122,10 @@ const (
 	JSONRPC_CPE_SYSTEM_REBOOT    = "system:reboot"
 )
 
+const (
+	CPEClientDisAssocTemplate = "for i in $(cat /proc/net/wireless | grep wlan | awk '{print $1;}' | sed 's/://g'); do echo $i; ubus call hostapd.$i del_client \"{'addr':'%s', 'reason':5, 'deauth':true, 'ban_time':0}\" ; done"
+)
+
 // JSONRPC parameters
 
 // for cpeagent:*

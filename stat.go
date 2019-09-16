@@ -380,7 +380,9 @@ type ClientStatInfo struct {
 }
 
 type WirelessClientUpdate struct {
-	MAC string `json:"mac" bson:"_id"`
+	MAC     string `json:"mac" bson:"_id"`
+	MacAddr string `json:"mac_addr" bson:"mac_addr"`
+	CPE     string `json:"cpe_id" bson:"cpe_id"`
 
 	Type WirelessClientType
 	Data interface{} `bson:"data" json:"data"`
