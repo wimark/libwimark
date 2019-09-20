@@ -288,6 +288,10 @@ type PortalMSISDNConfig struct {
 func (p *PortalMSISDNConfig) Map() {
 	p.PrMap = []string{}
 	for k, v := range p.Prefix {
+		if len(v) == 0 {
+			p.PrMap = append(p.PrMap, k)
+			continue
+		}
 		for _, vv := range v {
 			p.PrMap = append(p.PrMap, k+vv)
 		}
