@@ -290,10 +290,10 @@ func (p *PortalMSISDNConfig) Map() {
 	for k, v := range p.Prefix {
 		if len(v) == 0 {
 			p.PrMap = append(p.PrMap, k)
-			continue
-		}
-		for _, vv := range v {
-			p.PrMap = append(p.PrMap, k+vv)
+		} else {
+			for _, vv := range v {
+				p.PrMap = append(p.PrMap, k+vv)
+			}
 		}
 	}
 }
@@ -445,7 +445,7 @@ type PortalPageProfile struct {
 	Name        string `json:"name" bson:"name"`
 	Description string `json:"description" bson:"description"`
 
-	IdPath string `json:"path_id" bson:"path_id"`
+	// IdPath string `json:"path_id" bson:"path_id"`
 
 	// URL generated id
 	IdURL string `json:"url_id" bson:"url_id"`
@@ -468,7 +468,8 @@ type PortalPageProfile struct {
 type PortalAdData struct {
 	Type PortalAdvertisementType `json:"type" bson:"type"`
 
-	URL string `json:"url" bson:"url"`
+	URL  string `json:"url" bson:"url"`
+	File string `json:"file,omitempty" bson:"-"`
 
 	Question     string   `json:"question" bson:"question"`
 	PollVariants []string `json:"poll_variants" bson:"poll_variants"`
