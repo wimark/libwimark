@@ -445,8 +445,6 @@ type PortalPageProfile struct {
 	Name        string `json:"name" bson:"name"`
 	Description string `json:"description" bson:"description"`
 
-	// IdPath string `json:"path_id" bson:"path_id"`
-
 	// URL generated id
 	IdURL string `json:"url_id" bson:"url_id"`
 
@@ -455,14 +453,26 @@ type PortalPageProfile struct {
 
 	// interface features
 	Interface struct {
-		Logo        string `json:"logo" bson:"logo"`
-		Background  string `json:"background" bson:"background"`
-		ButtonColor string `json:"button_color" bson:"button_color"`
-		LogoFooter  string `json:"logo_footer" bson:"logo_footer"`
+		Logo          string `json:"logo" bson:"-"`
+		LogoFooter    string `json:"logo_footer" bson:"-"`
+		Background    string `json:"background" bson:"-"`
+		LogoURL       string `json:"logo_url" bson:"logo_url"`
+		LogoFooterURL string `json:"logo_footer_url" bson:"logo_footer_url"`
+		BackgroundURL string `json:"background_url" bson:"background_url"`
+		ButtonColor   string `json:"button_color" bson:"button_color"`
+		Color         struct {
+			Main  string `json:"main" bson:"main"`
+			Light string `json:"light" bson:"light"`
+			Dark  string `json:"dark" bson:"dark"`
+			Error string `json:"error" bson:"error"`
+		} `json:"color" bson:"color"`
 	} `json:"interface" bson:"interface"`
 
-	// service aggrement
-	Agreement string `json:"agreement" bson:"agreement"`
+	// locales
+	Locales map[string]string `json:"locales" bson:"locales"`
+
+	// service aggrement per locale
+	Agreements map[string]string `json:"agreements" bson:"agreements"`
 }
 
 type PortalAdData struct {
