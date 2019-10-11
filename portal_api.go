@@ -1,6 +1,7 @@
 package libwimark
 
 import (
+	"sort"
 	"strings"
 	"time"
 )
@@ -347,10 +348,12 @@ type PortalAuthorizationData struct {
 	Type  PortalAuthorizationType  `json:"type" bson:"type"`
 	State PortalAuthorizationState `json:"state" bson:"state"`
 
-	Config      PortalSessionConfig `json:"config" bson:"config"`
-	Ads         []PortalAd          `json:"ads" bson:"ads"`
-	AdsToWatch  int                 `json:"ads_to_watch" bson:"ads_to_watch"`
-	RedirectURL string              `json:"redirect_url" bson:"redirect_url"`
+	Config PortalSessionConfig `json:"config" bson:"config"`
+
+	Ads        []PortalAd `json:"ads" bson:"ads"`
+	AdsToWatch int        `json:"ads_to_watch" bson:"ads_to_watch"`
+
+	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
 }
 
 type PortalAuthorizationConfig struct {
@@ -363,16 +366,21 @@ type PortalAuthorizationConfig struct {
 	// pass gateway needed if external authorization
 	PassGateway string `json:"-" bson:"pass_gateway"`
 
-	// Vouchers    []string `json:"vouchers,omitempty" bson:"vouchers"`
-
-	// advertisements
-	Ads []PortalAd `json:"ads" bson:"ads"`
+	// advertisements for user
+	Ads        []PortalAd `json:"ads" bson:"ads"`
+	AdsToWatch int        `json:"ads_to_watch" bson:"ads_to_watch"`
 
 	// session configuration
 	Config PortalSessionConfig `json:"config" bson:"config"`
 
 	// landing page redirect URL
 	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
+}
+
+func (p *PortalAuthorizationConfig) SortAd() {
+	sort.Slice(p.Ads, func(i, j int) bool {
+		return p.Ads[i].Priority > p.Ads[j].Priority
+	})
 }
 
 // PortalProfile to link portal and it's config
@@ -438,6 +446,12 @@ func (p *PortalProfile) NextState(state PortalUserState) (PortalUserState, []str
 	return retState, possible
 }
 
+func (p *PortalProfile) SortAd() {
+	for i := range p.Authorizations {
+		p.Authorizations[i].SortAd()
+	}
+}
+
 // PortalPageProfile provide page information
 type PortalPageProfile struct {
 	Id string `json:"id" bson:"_id"`
@@ -478,11 +492,14 @@ type PortalPageProfile struct {
 type PortalAdData struct {
 	Type PortalAdvertisementType `json:"type" bson:"type"`
 
+	// URL of iframe or URL to file on portal
 	URL  string `json:"url" bson:"url"`
 	File string `json:"file,omitempty" bson:"-"`
 
+	// question and poll variants if type == poll
 	Question     string   `json:"question" bson:"question"`
 	PollVariants []string `json:"poll_variants" bson:"poll_variants"`
+	SelfVariant  bool     `json:"self_variant" bson:"self_variant"`
 
 	Skip         bool  `json:"skip" bson:"skip"`
 	Duration     int64 `json:"duration" bson:"duration"`
@@ -493,14 +510,32 @@ type PortalAdData struct {
 type PortalAd struct {
 	Id string `json:"id" bson:"_id"`
 
+	// common data
 	Name        string `json:"name" bson:"name"`
 	Description string `json:"description" bson:"description"`
+
+	// more specific data to link with profiles and authorization
+	Profile       string `json:"profile" bson:"profile"`
+	Authorization string `json:"authorization" bson:"authorization"`
+
+	// number beetween 0 and 100 - more is higher
+	Priority int `json:"priority" bson:"priority"`
+
+	// schedule of ads to work start-stop and number of views to show
+	Schedule struct {
+		Start int64 `json:"start" bson:"start"`
+		Stop  int64 `json:"stop" bson:"stop"`
+		Views int   `json:"views" bson:"views"`
+	} `json:"schedule" bson:"schedule"`
 
 	Data PortalAdData `json:"data" bson:"data"`
 }
 
 type PortalAdStatRequest struct {
-	Id          string `json:"id"`
+	Id            string `json:"id"`
+	Profile       string `json:"profile"`
+	Authorization string `json:"authorization"`
+
 	Duration    int64  `json:"duration"`
 	Skipped     bool   `json:"skipped"`
 	PollVariant string `json:"poll_variant"`
@@ -517,6 +552,10 @@ type PortalAdStatInc struct {
 type PortalAdStat struct {
 	// same ID as portalad
 	Id string `json:"id" bson:"_id"`
+
+	// more specific data to link with profiles and authorization
+	Profile       string `json:"profile" bson:"profile"`
+	Authorization string `json:"authorization" bson:"authorization"`
 
 	Data PortalAdData `json:"data" bson:"data"`
 
