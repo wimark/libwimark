@@ -82,30 +82,32 @@ func (sc *SpeedConfig) String() string {
 }
 
 type WLAN struct {
-	Name                string               `json:"name"`
-	SSID                string               `json:"ssid"`
-	Description         string               `json:"description"`
-	Security            EnumSecurity         `json:"security"`
-	VLAN                int                  `json:"vlan"`
-	Hidden              bool                 `json:"hidden"`
-	NasID               *string              `json:"nas_id"`
-	NasPortID           string               `json:"nas_port_id" bson:"nas_port_id"`
-	RadiusAcctServers   []UUID               `json:"radius_acct_servers"`
-	RadiusAcctInterval  int                  `json:"radius_acct_interval"`
-	RadiusAcctMirroring bool                 `json:"radius_acct_mirroring" bson:"radius_acct_mirroring"`
-	WhiteList           []string             `json:"whitelist"`
-	BlackList           []string             `json:"blacklist"`
-	FilterMode          MacFilterType        `json:"filtermode"`
-	L2Isolate           bool                 `json:"l2isolate"`
-	PMKCaching          bool                 `json:"pmkcaching"`
-	Roaming80211r       bool                 `json:"roam80211r"`
-	Tunneling           bool                 `json:"tunneling"`
-	DefaultTunnel       string               `json:"default_tunnel"`
-	Firewall            FireWallSettings     `json:"firewall"`
-	GuestControl        GuestControlSettings `json:"guest_control"`
-	WMMConfig           WMMConfig            `json:"wmm" bson:"wmm"`
-	NAT                 bool                 `json:"nat" bson:"nat"`
-	NATNetwork          IPAddress            `json:"nat_network" bson:"nat_network"`
+	Name                string       `json:"name"`
+	SSID                string       `json:"ssid"`
+	Description         string       `json:"description"`
+	Security            EnumSecurity `json:"security"`
+	VLAN                int          `json:"vlan"`
+	Hidden              bool         `json:"hidden"`
+	NasID               *string      `json:"nas_id"`
+	NasPortID           string       `json:"nas_port_id" bson:"nas_port_id"`
+	RadiusAcctServers   []UUID       `json:"radius_acct_servers"`
+	RadiusAcctInterval  int          `json:"radius_acct_interval"`
+	RadiusAcctMirroring bool         `json:"radius_acct_mirroring" bson:"radius_acct_mirroring"`
+
+	FilterMode MacFilterType `json:"filtermode"`
+	WhiteList  []string      `json:"whitelist"`
+	BlackList  []string      `json:"blacklist"`
+
+	L2Isolate     bool                 `json:"l2isolate"`
+	PMKCaching    bool                 `json:"pmkcaching"`
+	Roaming80211r bool                 `json:"roam80211r"`
+	Tunneling     bool                 `json:"tunneling"`
+	DefaultTunnel string               `json:"default_tunnel"`
+	Firewall      FireWallSettings     `json:"firewall"`
+	GuestControl  GuestControlSettings `json:"guest_control"`
+	WMMConfig     WMMConfig            `json:"wmm" bson:"wmm"`
+	NAT           bool                 `json:"nat" bson:"nat"`
+	NATNetwork    IPAddress            `json:"nat_network" bson:"nat_network"`
 
 	SpeedUpload   SpeedConfig `json:"speed_upload" bson:"speed_upload"`
 	SpeedDownload SpeedConfig `json:"speed_download" bson:"speed_download"`
@@ -233,18 +235,27 @@ type TunnelConfigs map[string]TunnelConfig
 
 // ---- Wired switch config ----
 
-type WiredVlanConfig struct {
-	Vlan         int                  `json:"vlan" bson:"vlan"`
-	Vid          int                  `json:"vid" bson:"vid"`
-	Ports        []string             `json:"ports" bson:"ports"`
-	Tunnel       string               `json:"tunnel" bson:"tunnel"`
-	FakeWlan     UUID                 `json:"fake_wlan" bson:"fake_wlan"`
-	Accounting   bool                 `json:"acct" bson:"acct"`
-	Interface    string               `json:"interface" bson:"interface"`
-	GuestControl GuestControlSettings `json:"guest_control" bson:"guest_control"`
-	NAT          bool                 `json:"nat" bson:"nat"`
-	NATNetwork   IPAddress            `json:"nat_network" bson:"nat_network"`
+type WiredSpeedConfig struct {
+	Max  int       `json:"max" bson:"max"`
+	Min  int       `json:"min" bson:"min"`
+	Type SpeedType `json:"type" bson:"type"`
 }
+
+type WiredVlanConfig struct {
+	Vlan          int                  `json:"vlan" bson:"vlan"`
+	Vid           int                  `json:"vid" bson:"vid"`
+	Ports         []string             `json:"ports" bson:"ports"`
+	Tunnel        string               `json:"tunnel" bson:"tunnel"`
+	FakeWlan      UUID                 `json:"fake_wlan" bson:"fake_wlan"`
+	Accounting    bool                 `json:"acct" bson:"acct"`
+	Interface     string               `json:"interface" bson:"interface"`
+	GuestControl  GuestControlSettings `json:"guest_control" bson:"guest_control"`
+	NAT           bool                 `json:"nat" bson:"nat"`
+	NATNetwork    IPAddress            `json:"nat_network" bson:"nat_network"`
+	NatAccess     bool                 `json:"nat_access" bson:"nat_access"`
+	SpeedDownload WiredSpeedConfig     `json:"speed_download" bson:"speed_download"`
+}
+
 type WiredConfig struct {
 	PrimaryVlan int               `json:"primary_vlan" bson:"primary_vlan"`
 	Vlans       []WiredVlanConfig `json:"vlans" bson:"vlans"`

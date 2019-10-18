@@ -33,13 +33,15 @@ const (
 
 // JSONRPC functions from CPE for NETWORK
 const (
-	JSONRPC_CPE_NETWORK_GET_BOARD  = "network:get_boardinfo"
-	JSONRPC_CPE_NETWORK_RELOAD     = "network:reload"
-	JSONRPC_CPE_NETWORK_L2AP       = "network:l2ap"
-	JSONRPC_CPE_NETWORK_VLAN       = "network:vlan"
-	JSONRPC_CPE_NETWORK_CLEAN_L2TP = "network:clean_l2tp"
-	JSONRPC_CPE_NETWORK_ADD_NAT    = "network:add_nat"
-	JSONRPC_CPE_NETWORK_WAN_ACCESS = "network:wan_access"
+	JSONRPC_CPE_NETWORK_GET_BOARD   = "network:get_boardinfo"
+	JSONRPC_CPE_NETWORK_RELOAD      = "network:reload"
+	JSONRPC_CPE_NETWORK_L2AP        = "network:l2ap"
+	JSONRPC_CPE_NETWORK_VLAN        = "network:vlan"
+	JSONRPC_CPE_NETWORK_CLEAN_L2TP  = "network:clean_l2tp"
+	JSONRPC_CPE_NETWORK_ADD_NAT     = "network:add_nat"
+	JSONRPC_CPE_NETWORK_WAN_ACCESS  = "network:wan_access"
+	JSONRPC_CPE_NETWORK_WIRE_TC_ADD = "network:wire_tc_add"
+	JSONRPC_CPE_NETWORK_WIRE_TC_DEL = "network:wire_tc_del"
 )
 
 // JSONRPC functions from CPE for LBS
@@ -177,4 +179,12 @@ type CPERRMChannelParams struct {
 	Bandwidth   int    `json:"bandwidth,omitempty"`
 	HT          string `json:"ht,omitempty"`
 	VHT         string `json:"vht,omitempty"`
+}
+
+// for tc config on wire nat iface
+type CPEWireTCConfig struct {
+	Iface string `json:"iface"`
+	Max   int    `json:"max,omitempty"`
+	Min   int    `json:"min,omitempty"`
+	Type  string `json:"type,omitempty"`
 }

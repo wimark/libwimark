@@ -508,13 +508,15 @@ type SLNatConfig struct {
 //======== CPE model to CPE script with JSON RPC ====
 
 type SLMessageContentsJSONRPC struct {
-	General  UciConfig              `json:"config"`
-	Wlans    map[string]UciWifiWlan `json:"wlans,omitempty"`
-	Nats     map[string]SLNatConfig `json:"nats,omitempty"`
-	Chains   SLChainConfig          `json:"l2chains,omitempty"`
-	L3Filter []string               `json:"l3filter,omitempty"`
-	ToDel    map[string]interface{} `json:"-"`
-	Timeout  time.Duration          `json:"-"`
+	General   UciConfig              `json:"config"`
+	Wlans     map[string]UciWifiWlan `json:"wlans,omitempty"`
+	Nats      map[string]SLNatConfig `json:"nats,omitempty"`
+	Chains    SLChainConfig          `json:"l2chains,omitempty"`
+	L3Filter  []string               `json:"l3filter,omitempty"`
+	ToDel     map[string]interface{} `json:"-"`
+	Timeout   time.Duration          `json:"-"`
+	WireTCAdd []CPEWireTCConfig      `json:"-"`
+	WireTCDel []CPEWireTCConfig      `json:"-"`
 }
 
 //======== Params for NAI realm compile JSON RPC ====
