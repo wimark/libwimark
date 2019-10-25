@@ -59,11 +59,14 @@ type RedirectRequestObject struct {
 	// ACL group -- not using now
 	Group string `json:"wimark-client-group,omitempty" bson:"wimark-client-group" validate:"-"`
 
-	// redirect every connect
-	AlwaysRedirect bool `json:"always_redirect"`
-
 	// Auth additional data
 	UserAgent string `json:"useragent"`
+
+	// auth type -- free / sponsor / paid / etc
+	AuthType string `json:"auth_type"`
+
+	// authentype -- sms / callback / etc
+	AuthenType string `json:"authen_type"`
 }
 
 // RedirectClientSession struct for store redirect session on platform
@@ -157,6 +160,12 @@ type PortalRequestObject struct {
 
 	// for internal using
 	Timeout int64 `json:"-" validate:"-"`
+
+	// auth type -- free / sponsor / paid / etc
+	AuthType string `json:"auth_type"`
+
+	// authentype -- sms / callback / etc
+	AuthenType string `json:"authen_type"`
 }
 
 type PortalResponseObject struct {
