@@ -16,6 +16,7 @@ Callback = "callback"
 Vouncher = "voucher"
 UserPass = "userpass"
 ESIA     = "esia"
+Email    = "email"
 
 [PortalAuthorizationType]
 default = "None"

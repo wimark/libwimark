@@ -320,6 +320,7 @@ type PortalAuthenticationType string
 
 const PortalAuthenticationTypeCallback PortalAuthenticationType = "callback"
 const PortalAuthenticationTypeESIA PortalAuthenticationType = "esia"
+const PortalAuthenticationTypeEmail PortalAuthenticationType = "email"
 const PortalAuthenticationTypeNone PortalAuthenticationType = "none"
 const PortalAuthenticationTypeSMS PortalAuthenticationType = "sms"
 const PortalAuthenticationTypeUserPass PortalAuthenticationType = "userpass"
@@ -333,6 +334,8 @@ func (self PortalAuthenticationType) String() string {
 		return "callback"
 	case PortalAuthenticationTypeESIA:
 		return "esia"
+	case PortalAuthenticationTypeEmail:
+		return "email"
 	case PortalAuthenticationTypeNone:
 		return "none"
 	case PortalAuthenticationTypeSMS:
@@ -354,6 +357,8 @@ func (self *PortalAuthenticationType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("callback")
 	case PortalAuthenticationTypeESIA:
 		return json.Marshal("esia")
+	case PortalAuthenticationTypeEmail:
+		return json.Marshal("email")
 	case PortalAuthenticationTypeNone:
 		return json.Marshal("none")
 	case PortalAuthenticationTypeSMS:
@@ -375,6 +380,8 @@ func (self *PortalAuthenticationType) GetBSON() (interface{}, error) {
 		return "callback", nil
 	case PortalAuthenticationTypeESIA:
 		return "esia", nil
+	case PortalAuthenticationTypeEmail:
+		return "email", nil
 	case PortalAuthenticationTypeNone:
 		return "none", nil
 	case PortalAuthenticationTypeSMS:
@@ -401,6 +408,9 @@ func (self *PortalAuthenticationType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "esia":
 		*self = PortalAuthenticationTypeESIA
+		return nil
+	case "email":
+		*self = PortalAuthenticationTypeEmail
 		return nil
 	case "none":
 		*self = PortalAuthenticationTypeNone
@@ -433,6 +443,9 @@ func (self *PortalAuthenticationType) SetBSON(v bson.Raw) error {
 		return nil
 	case "esia":
 		*self = PortalAuthenticationTypeESIA
+		return nil
+	case "email":
+		*self = PortalAuthenticationTypeEmail
 		return nil
 	case "none":
 		*self = PortalAuthenticationTypeNone
