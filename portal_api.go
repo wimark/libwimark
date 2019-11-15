@@ -122,16 +122,23 @@ type PortalRequestObject struct {
 	// Type of choosen type
 	Type string `json:"type"`
 
+	// info for watched advertisement / poll
 	Ad PortalAdStatRequest `json:"ad"`
-
-	// for internal using
-	Timeout int64 `json:"-" validate:"-"`
 
 	// auth type -- free / sponsor / paid / etc
 	AuthType string `json:"auth_type"`
 
 	// authentype -- sms / callback / etc
 	AuthenType string `json:"authen_type"`
+
+	// voucher for paid voucher internet
+	Voucher string `json:"voucher"`
+
+	// for internal using
+	Timeout int64 `json:"-" validate:"-"`
+
+	// profile id
+	Profile string `json:"-" validate:"-"`
 }
 
 // PortalResponseObject struct for answer from Portal
@@ -149,6 +156,12 @@ type PortalResponseObject struct {
 	Substate string `json:"substate,omitempty"`
 	// additional data if needed
 	Data interface{} `json:"data,omitempty"`
+
 	// additional available data
-	Available interface{} `json:"available"`
+	Available interface{} `json:"available,omitempty"`
+	// account data provided
+	Account interface{} `json:"account,omitempty"`
+
+	// data for new auth stage
+	Data2 interface{} `json:"data2,omitempty"`
 }

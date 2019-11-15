@@ -1,6 +1,7 @@
 package libwimark
 
 import (
+	"math/rand"
 	"time"
 )
 
@@ -32,13 +33,27 @@ type PortalUserAccount struct {
 	CreateAt int64     `json:"create_at" bson:"create_at"`
 }
 
+// PortalUserAccountShort for short represent account
+type PortalUserAccountShort struct {
+	Identity string   `json:"identity" bson:"identity"`
+	MACs     []string `json:"macs" bson:"macs"`
+
+	Name    string `json:"name" bson:"name"`
+	SurName string `json:"surname" bson:"surname"`
+	Filled  bool   `json:"filled" bson:"filled"`
+
+	PushAgreement bool `json:"push_agreement" bson:"push_agreement"`
+
+	Balance  int    `json:"balance" bson:"balance"`
+	Currency string `json:"currency" bson:"currency"`
+
+	CreateAt int64 `json:"create_at" bson:"create_at"`
+}
+
 // PortalUserVoucher struct to represent voucher
 type PortalUserVoucher struct {
 	ID string `json:"id" bson:"_id"`
 
-	// Profile  string `json:"profile" bson:"profile"`
-	// WLAN     string `json:"wlan_id" bson:"wlan_id"`
-	// Identity string `json:"identity" bson:"identity"`
 	Account string `json:"account" bson:"account"`
 
 	Create   time.Time `json:"create" bson:"create"`
@@ -46,6 +61,9 @@ type PortalUserVoucher struct {
 
 	StartAt  int64 `json:"start_at" bson:"start_at"`
 	ExpireAt int64 `json:"expire_at" bson:"expire_at"`
+
+	Code string `json:"code" bson:"code"`
+	Used bool   `json:"used" bson:"used"`
 
 	Plan string `json:"tariff" bson:"tariff"`
 }
@@ -68,4 +86,22 @@ type PortalTariffPlan struct {
 	// service info
 	Create   time.Time `json:"create" bson:"create"`
 	CreateAt int64     `json:"create_at" bson:"create_at"`
+}
+
+const letterBytes = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+// GenerateVoucher function to generate unique
+// alphanumeric voucher code with provided len.
+// Example: GenerateVoucher(6) -> a1b-2c3
+func GenerateVoucher(length int) string {
+	if length < 6 {
+		length = 6
+	}
+
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+	}
+
+	return string(b)
 }

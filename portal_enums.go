@@ -324,7 +324,7 @@ const PortalAuthenticationTypeEmail PortalAuthenticationType = "email"
 const PortalAuthenticationTypeNone PortalAuthenticationType = "none"
 const PortalAuthenticationTypeSMS PortalAuthenticationType = "sms"
 const PortalAuthenticationTypeUserPass PortalAuthenticationType = "userpass"
-const PortalAuthenticationTypeVouncher PortalAuthenticationType = "voucher"
+const PortalAuthenticationTypeVoucher PortalAuthenticationType = "voucher"
 
 func (self PortalAuthenticationType) GetPtr() *PortalAuthenticationType { var v = self; return &v }
 
@@ -342,7 +342,7 @@ func (self PortalAuthenticationType) String() string {
 		return "sms"
 	case PortalAuthenticationTypeUserPass:
 		return "userpass"
-	case PortalAuthenticationTypeVouncher:
+	case PortalAuthenticationTypeVoucher:
 		return "voucher"
 	}
 	if len(self) == 0 {
@@ -365,7 +365,7 @@ func (self *PortalAuthenticationType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("sms")
 	case PortalAuthenticationTypeUserPass:
 		return json.Marshal("userpass")
-	case PortalAuthenticationTypeVouncher:
+	case PortalAuthenticationTypeVoucher:
 		return json.Marshal("voucher")
 	}
 	if len(*self) == 0 {
@@ -388,7 +388,7 @@ func (self *PortalAuthenticationType) GetBSON() (interface{}, error) {
 		return "sms", nil
 	case PortalAuthenticationTypeUserPass:
 		return "userpass", nil
-	case PortalAuthenticationTypeVouncher:
+	case PortalAuthenticationTypeVoucher:
 		return "voucher", nil
 	}
 	if len(*self) == 0 {
@@ -422,7 +422,7 @@ func (self *PortalAuthenticationType) UnmarshalJSON(b []byte) error {
 		*self = PortalAuthenticationTypeUserPass
 		return nil
 	case "voucher":
-		*self = PortalAuthenticationTypeVouncher
+		*self = PortalAuthenticationTypeVoucher
 		return nil
 	}
 	if len(s) == 0 {
@@ -457,7 +457,7 @@ func (self *PortalAuthenticationType) SetBSON(v bson.Raw) error {
 		*self = PortalAuthenticationTypeUserPass
 		return nil
 	case "voucher":
-		*self = PortalAuthenticationTypeVouncher
+		*self = PortalAuthenticationTypeVoucher
 		return nil
 	}
 	if len(s) == 0 {
@@ -559,7 +559,7 @@ const PortalAuthorizationTypeExtVoucher PortalAuthorizationType = "ext_voucher"
 const PortalAuthorizationTypeFree PortalAuthorizationType = "free"
 const PortalAuthorizationTypeNone PortalAuthorizationType = "none"
 const PortalAuthorizationTypeSponsor PortalAuthorizationType = "sponsor"
-const PortalAuthorizationTypeVouncher PortalAuthorizationType = "voucher"
+const PortalAuthorizationTypeVoucher PortalAuthorizationType = "voucher"
 
 func (self PortalAuthorizationType) GetPtr() *PortalAuthorizationType { var v = self; return &v }
 
@@ -573,7 +573,7 @@ func (self PortalAuthorizationType) String() string {
 		return "none"
 	case PortalAuthorizationTypeSponsor:
 		return "sponsor"
-	case PortalAuthorizationTypeVouncher:
+	case PortalAuthorizationTypeVoucher:
 		return "voucher"
 	}
 	if len(self) == 0 {
@@ -592,7 +592,7 @@ func (self *PortalAuthorizationType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("none")
 	case PortalAuthorizationTypeSponsor:
 		return json.Marshal("sponsor")
-	case PortalAuthorizationTypeVouncher:
+	case PortalAuthorizationTypeVoucher:
 		return json.Marshal("voucher")
 	}
 	if len(*self) == 0 {
@@ -611,7 +611,7 @@ func (self *PortalAuthorizationType) GetBSON() (interface{}, error) {
 		return "none", nil
 	case PortalAuthorizationTypeSponsor:
 		return "sponsor", nil
-	case PortalAuthorizationTypeVouncher:
+	case PortalAuthorizationTypeVoucher:
 		return "voucher", nil
 	}
 	if len(*self) == 0 {
@@ -639,7 +639,7 @@ func (self *PortalAuthorizationType) UnmarshalJSON(b []byte) error {
 		*self = PortalAuthorizationTypeSponsor
 		return nil
 	case "voucher":
-		*self = PortalAuthorizationTypeVouncher
+		*self = PortalAuthorizationTypeVoucher
 		return nil
 	}
 	if len(s) == 0 {
@@ -668,7 +668,7 @@ func (self *PortalAuthorizationType) SetBSON(v bson.Raw) error {
 		*self = PortalAuthorizationTypeSponsor
 		return nil
 	case "voucher":
-		*self = PortalAuthorizationTypeVouncher
+		*self = PortalAuthorizationTypeVoucher
 		return nil
 	}
 	if len(s) == 0 {

@@ -7,6 +7,7 @@ import (
 )
 
 // PortalAuthObject is struct for store every auth attempt
+// (Deprecated)
 type PortalAuthObject struct {
 	Timestamp int64 `json:"timestamp" bson:"timestamp"`
 
@@ -27,10 +28,11 @@ type PortalClientSession struct {
 	WLAN string `json:"wlan_id" bson:"wlan_id"`
 
 	// just info data
-	CPE string `json:"cpe" bson:"cpe"`
-	IP  string `json:"ip" bson:"ip"`
+	CPE     string `json:"cpe" bson:"cpe"`
+	IP      string `json:"ip" bson:"ip"`
+	Profile string `json:"profile" bson:"profile"`
 
-	// creation time
+	// creation time (index needs)
 	Create time.Time `json:"create" bson:"create"`
 
 	// from create to end of internet + block
@@ -38,13 +40,13 @@ type PortalClientSession struct {
 	ExpireAt int64 `json:"expire_at" bson:"expire_at"`
 
 	// real internet part
-	StartAt int64 `json:"start_at" bson:"start_at"`
-	StopAt  int64 `json:"stop_at" bson:"stop_at"`
+	StartAt  int64 `json:"start_at" bson:"start_at"`
+	StopAt   int64 `json:"stop_at" bson:"stop_at"`
+	Duration int64 `json:"duration" bson:"duration"`
 
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
 	Auth          []PortalAuthObject  `json:"auth" bson:"auth"`
 
-	Profile     string          `json:"profile" bson:"profile"`
 	State       PortalUserState `json:"state" bson:"state"`
 	AuthenState PortalAuthenticationState
 	AuthState   PortalAuthorizationState
@@ -58,7 +60,7 @@ type PortalClientSession struct {
 	Password string `json:"password" bson:"password"`
 }
 
-// struct for store portal client
+// PortalClientAuthentication struct for store portal client
 type PortalClientAuthentication struct {
 	Id string `json:"id" bson:"_id"`
 
@@ -76,20 +78,20 @@ type PortalClientAuthentication struct {
 	ExpireAt int64 `json:"expire_at" bson:"expire_at"`
 }
 
-// portal condition
+// PortalCondition struct for apply profile condition
 type PortalCondition struct {
 	// MAC   map[string]bool `json:"mac" bson:"mac"`
 	WLAN  []string `json:"wlan" bson:"wlan"`
 	CPE   []string `json:"cpe" bson:"cpe"`
-	NasId []string `json:"nas_id" bson:"nas_id"`
+	NasID []string `json:"nas_id" bson:"nas_id"`
 }
 
-// func to check struct for empty
+// Empty func to check struct for empty
 func (pc *PortalCondition) Empty() bool {
-	return len(pc.WLAN) == 0 && len(pc.CPE) == 0 && len(pc.NasId) == 0
+	return len(pc.WLAN) == 0 && len(pc.CPE) == 0 && len(pc.NasID) == 0
 }
 
-// struct for flexible session config
+// PortalSessionConfig struct for flexible session config
 type PortalSessionConfig struct {
 
 	// session timeout -- 30 min as example
@@ -98,17 +100,20 @@ type PortalSessionConfig struct {
 	// timeout to remember
 	AuthTimeout int64 `json:"auth_timeout" bson:"auth_timeout"`
 
-	// block after using timeout for
-	BlockTimeout int64 `json:"block_timeout" bson:"block_timeout"`
+	// block after using timeout for (example: 3600 is for seconds online)
+	BlockAfterTimeout int64 `json:"block_after" bson:"block_after"`
 
-	// expiration of block after
-	BlockExpireTimeout int64 `json:"block_expire_timeout" bson:"block_expire_timeout"`
+	// expiration of block after (example: 7200 is for seconds to nullify block_after)
+	BlockExpireTimeout int64 `json:"block_expire" bson:"block_expire"`
 
 	// traffic limit
 	DownloadLimit int `json:"download_limit" bson:"download_limit"`
 
 	// max number
 	MaxSessions int `json:"max_sessions" bson:"max_sessions"`
+
+	// Deprecated field for block timeout
+	BlockTimeout int64 `json:"block_timeout" bson:"block_timeout"`
 }
 
 // PortalMSISDNConfig config of possible CC and NDC prefixes in MSISDN
@@ -118,6 +123,7 @@ type PortalMSISDNConfig struct {
 	PrMap  []string            `json:"-" bson:"map"`
 }
 
+// Map (PortalMSISDNConfig) func to Map DEF / CC codes
 func (p *PortalMSISDNConfig) Map() {
 	p.PrMap = []string{}
 	for k, v := range p.Prefix {
