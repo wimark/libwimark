@@ -139,6 +139,13 @@ type PortalRequestObject struct {
 
 	// profile id
 	Profile string `json:"-" validate:"-"`
+
+	// account update data
+	AccountName    string `json:"account_name"`
+	AccountSurName string `json:"account_surname"`
+
+	// tarriff to buy a voucher
+	Tariff string `json:"tariff"`
 }
 
 // PortalResponseObject struct for answer from Portal
