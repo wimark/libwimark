@@ -331,10 +331,11 @@ type CPEStatInfo struct {
 }
 
 type WLANStatInfo struct {
-	ID               string   `json:"id" bson:"_id"`
-	WLAN             string   `json:"wlan_id" bson:"wlan_id"`
-	SSID             string   `json:"ssid" bson:"ssid"`
-	Timestamp        int64    `json:"timestamp" bson:"timestamp"`
+	ID        string `json:"id" bson:"_id"`
+	WLAN      string `json:"wlan_id" bson:"wlan_id"`
+	SSID      string `json:"ssid" bson:"ssid"`
+	Timestamp int64  `json:"timestamp" bson:"timestamp"`
+
 	TotalRxBytes     int64    `json:"total_rx_bytes" bson:"total_rx_bytes"`
 	TotalTxBytes     int64    `json:"total_tx_bytes" bson:"total_tx_bytes"`
 	DeltaTxBytes     int64    `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
@@ -342,15 +343,21 @@ type WLANStatInfo struct {
 	ConnectedClients []string `json:"connected_clients" bson:"connected_clients"`
 
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
+
+	// new clients
+	Clients map[string]bool `json:"-" bson:"-"`
+	// hits to count average cpu / mem load
+	// Hits int `json:"-" bson:"-"`
 }
 
 type BSSStatInfo struct {
-	ID               string   `json:"id" bson:"_id"`
-	WLAN             string   `json:"wlan_id" bson:"wlan_id"`
-	SSID             string   `json:"ssid" bson:"ssid"`
-	CPE              string   `json:"cpe_id" bson:"cpe_id"`
-	Radio            string   `json:"radio" bson:"radio"`
-	Timestamp        int64    `json:"timestamp" bson:"timestamp"`
+	ID        string `json:"id" bson:"_id"`
+	WLAN      string `json:"wlan_id" bson:"wlan_id"`
+	SSID      string `json:"ssid" bson:"ssid"`
+	CPE       string `json:"cpe_id" bson:"cpe_id"`
+	Radio     string `json:"radio" bson:"radio"`
+	Timestamp int64  `json:"timestamp" bson:"timestamp"`
+
 	TotalRxBytes     int64    `json:"total_rx_bytes" bson:"total_rx_bytes"`
 	TotalTxBytes     int64    `json:"total_tx_bytes" bson:"total_tx_bytes"`
 	DeltaTxBytes     int64    `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
@@ -358,6 +365,11 @@ type BSSStatInfo struct {
 	ConnectedClients []string `json:"connected_clients" bson:"connected_clients"`
 
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
+
+	// new clients
+	Clients map[string]bool `json:"-" bson:"-"`
+	// hits to count average cpu / mem load
+	// Hits int `json:"-" bson:"-"`
 }
 
 type ClientStatInfo struct {

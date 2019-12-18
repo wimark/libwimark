@@ -2,6 +2,7 @@ package libwimark
 
 const (
 	CollCPEStat    = "stats"
+	CollClient     = "clients"
 	CollClientStat = "client_stats"
 
 	CollCPEStatInfo    = "cpe_stat_info"
