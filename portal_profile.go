@@ -319,6 +319,8 @@ type PortalPageProfile struct {
 
 	// service aggrement per locale
 	Agreements map[string]string `json:"agreements" bson:"agreements"`
+
+	Agreement string `json:"agreement" bson:"agreement"`
 }
 
 type PortalAdData struct {
