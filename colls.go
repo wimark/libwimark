@@ -14,4 +14,7 @@ const (
 	CollBSSStatInfoCache    = "bss_stat_info_capped"
 	CollWLANStatInfoCache   = "wlan_stat_info_capped"
 	CollClientStatInfoCache = "client_stat_info_capped"
+
+	CollCPESession    = "cpe_session_info"
+	CollClientSession = "client_session_info"
 )

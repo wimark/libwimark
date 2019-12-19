@@ -346,8 +346,6 @@ type WLANStatInfo struct {
 
 	// new clients
 	Clients map[string]bool `json:"-" bson:"-"`
-	// hits to count average cpu / mem load
-	// Hits int `json:"-" bson:"-"`
 }
 
 type BSSStatInfo struct {
@@ -368,8 +366,6 @@ type BSSStatInfo struct {
 
 	// new clients
 	Clients map[string]bool `json:"-" bson:"-"`
-	// hits to count average cpu / mem load
-	// Hits int `json:"-" bson:"-"`
 }
 
 type ClientStatInfo struct {
