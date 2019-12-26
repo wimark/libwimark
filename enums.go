@@ -3038,6 +3038,7 @@ type ReportFormat string
 const ReportFormatCSV ReportFormat = "csv"
 const ReportFormatJson ReportFormat = "json"
 const ReportFormatTxt ReportFormat = "txt"
+const ReportFormatXLSX ReportFormat = "xlsx"
 
 func (self ReportFormat) GetPtr() *ReportFormat { var v = self; return &v }
 
@@ -3049,6 +3050,8 @@ func (self ReportFormat) String() string {
 		return "json"
 	case ReportFormatTxt:
 		return "txt"
+	case ReportFormatXLSX:
+		return "xlsx"
 	}
 	if len(self) == 0 {
 		return "json"
@@ -3064,6 +3067,8 @@ func (self *ReportFormat) MarshalJSON() ([]byte, error) {
 		return json.Marshal("json")
 	case ReportFormatTxt:
 		return json.Marshal("txt")
+	case ReportFormatXLSX:
+		return json.Marshal("xlsx")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("json")
@@ -3079,6 +3084,8 @@ func (self *ReportFormat) GetBSON() (interface{}, error) {
 		return "json", nil
 	case ReportFormatTxt:
 		return "txt", nil
+	case ReportFormatXLSX:
+		return "xlsx", nil
 	}
 	if len(*self) == 0 {
 		return "json", nil
@@ -3100,6 +3107,9 @@ func (self *ReportFormat) UnmarshalJSON(b []byte) error {
 		return nil
 	case "txt":
 		*self = ReportFormatTxt
+		return nil
+	case "xlsx":
+		*self = ReportFormatXLSX
 		return nil
 	}
 	if len(s) == 0 {
@@ -3123,6 +3133,9 @@ func (self *ReportFormat) SetBSON(v bson.Raw) error {
 		return nil
 	case "txt":
 		*self = ReportFormatTxt
+		return nil
+	case "xlsx":
+		*self = ReportFormatXLSX
 		return nil
 	}
 	if len(s) == 0 {
@@ -3246,6 +3259,7 @@ func (self *ReportPeriod) SetBSON(v bson.Raw) error {
 
 type ReportSubject string
 
+const ReportSubjectCPECommon ReportSubject = "cpes_common"
 const ReportSubjectCPEs ReportSubject = "cpes"
 const ReportSubjectClients ReportSubject = "clients"
 const ReportSubjectEvents ReportSubject = "events"
@@ -3254,6 +3268,8 @@ func (self ReportSubject) GetPtr() *ReportSubject { var v = self; return &v }
 
 func (self ReportSubject) String() string {
 	switch self {
+	case ReportSubjectCPECommon:
+		return "cpes_common"
 	case ReportSubjectCPEs:
 		return "cpes"
 	case ReportSubjectClients:
@@ -3269,6 +3285,8 @@ func (self ReportSubject) String() string {
 
 func (self *ReportSubject) MarshalJSON() ([]byte, error) {
 	switch *self {
+	case ReportSubjectCPECommon:
+		return json.Marshal("cpes_common")
 	case ReportSubjectCPEs:
 		return json.Marshal("cpes")
 	case ReportSubjectClients:
@@ -3284,6 +3302,8 @@ func (self *ReportSubject) MarshalJSON() ([]byte, error) {
 
 func (self *ReportSubject) GetBSON() (interface{}, error) {
 	switch *self {
+	case ReportSubjectCPECommon:
+		return "cpes_common", nil
 	case ReportSubjectCPEs:
 		return "cpes", nil
 	case ReportSubjectClients:
@@ -3303,6 +3323,9 @@ func (self *ReportSubject) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
+	case "cpes_common":
+		*self = ReportSubjectCPECommon
+		return nil
 	case "cpes":
 		*self = ReportSubjectCPEs
 		return nil
@@ -3326,6 +3349,9 @@ func (self *ReportSubject) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
+	case "cpes_common":
+		*self = ReportSubjectCPECommon
+		return nil
 	case "cpes":
 		*self = ReportSubjectCPEs
 		return nil

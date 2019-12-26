@@ -48,6 +48,9 @@ type StatReport struct {
 
 	// post action address dests
 	ActionDest []string `json:"action_dest" bson:"action_dest"`
+
+	// add charts
+	Charts bool `json:"charts" bson:"charts"`
 }
 
 // StatReportResult struct for store collected reports
