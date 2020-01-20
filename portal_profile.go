@@ -243,6 +243,9 @@ type PortalProfile struct {
 
 	// default session configuration (timeout and block timeout)
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
+
+	// UTC diff (plus or minus from UTC time)
+	UTCDiff int `json:""`
 }
 
 func (p *PortalProfile) NextState(state PortalUserState) (PortalUserState, []string) {
@@ -297,20 +300,28 @@ type PortalPageProfile struct {
 	// title of webpage
 	Title string `json:"title" bson:"title"`
 
+	// footer text
+	Footer string `json:"footer" bson:"footer"`
+
 	// interface features
 	Interface struct {
-		Logo          string `json:"logo" bson:"-"`
-		LogoFooter    string `json:"logo_footer" bson:"-"`
-		Background    string `json:"background" bson:"-"`
+		// Favicon    string `json:"favicon" bson:"-"`
+		Logo       string `json:"logo" bson:"-"`
+		LogoFooter string `json:"logo_footer" bson:"-"`
+		Background string `json:"background" bson:"-"`
+
+		// FaviconURL    string `json:"favicon_url" bson:"favicon_url"`
 		LogoURL       string `json:"logo_url" bson:"logo_url"`
 		LogoFooterURL string `json:"logo_footer_url" bson:"logo_footer_url"`
 		BackgroundURL string `json:"background_url" bson:"background_url"`
 		ButtonColor   string `json:"button_color" bson:"button_color"`
-		Color         struct {
-			Main  string `json:"main" bson:"main"`
-			Light string `json:"light" bson:"light"`
-			Dark  string `json:"dark" bson:"dark"`
-			Error string `json:"error" bson:"error"`
+
+		Color struct {
+			Main       string `json:"main" bson:"main"`
+			Light      string `json:"light" bson:"light"`
+			Dark       string `json:"dark" bson:"dark"`
+			Error      string `json:"error" bson:"error"`
+			Background string `json:"background" bson:"background"`
 		} `json:"color" bson:"color"`
 	} `json:"interface" bson:"interface"`
 
@@ -320,6 +331,7 @@ type PortalPageProfile struct {
 	// service aggrement per locale
 	Agreements map[string]string `json:"agreements" bson:"agreements"`
 
+	// service aggrement plain text
 	Agreement string `json:"agreement" bson:"agreement"`
 }
 
@@ -332,12 +344,17 @@ type PortalAdData struct {
 
 	// question and poll variants if type == poll
 	Question     string   `json:"question" bson:"question"`
+	QuestionDesc string   `json:"question_desc" bson:"question_desc"`
 	PollVariants []string `json:"poll_variants" bson:"poll_variants"`
 	SelfVariant  bool     `json:"self_variant" bson:"self_variant"`
 
 	Skip         bool  `json:"skip" bson:"skip"`
 	Duration     int64 `json:"duration" bson:"duration"`
 	SkipDuration int64 `json:"skip_after" bson:"skip_after"`
+
+	// for redirect to client's site
+	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
+	SkipURL     string `json:"skip_url" bson:"skip_url"`
 }
 
 // PortalAd object for ihot
@@ -357,9 +374,15 @@ type PortalAd struct {
 
 	// schedule of ads to work start-stop and number of views to show
 	Schedule struct {
-		Start int64 `json:"start" bson:"start"`
-		Stop  int64 `json:"stop" bson:"stop"`
-		Views int   `json:"views" bson:"views"`
+		Start     int64 `json:"start" bson:"start"`
+		Stop      int64 `json:"stop" bson:"stop"`
+		Views     int   `json:"views" bson:"views"`
+		TimeOfDay struct {
+			Morning   bool `json:"morning" bson:"morning"`
+			Afternoon bool `json:"afternoon" bson:"afternoon"`
+			Evening   bool `json:"evening" bson:"evening"`
+			Night     bool `json:"night" bson:"night"`
+		} `json:"time_of_day" bson:"time_of_day"`
 	} `json:"schedule" bson:"schedule"`
 
 	Data PortalAdData `json:"data" bson:"data"`
