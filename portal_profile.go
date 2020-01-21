@@ -287,6 +287,14 @@ func (p *PortalProfile) SortAd() {
 	}
 }
 
+type pageColor struct {
+	Main       string `json:"main" bson:"main"`
+	Light      string `json:"light" bson:"light"`
+	Dark       string `json:"dark" bson:"dark"`
+	Error      string `json:"error" bson:"error"`
+	Background string `json:"background" bson:"background"`
+}
+
 // PortalPageProfile provide page information
 type PortalPageProfile struct {
 	Id string `json:"id" bson:"_id"`
@@ -316,13 +324,7 @@ type PortalPageProfile struct {
 		BackgroundURL string `json:"background_url" bson:"background_url"`
 		ButtonColor   string `json:"button_color" bson:"button_color"`
 
-		Color struct {
-			Main       string `json:"main" bson:"main"`
-			Light      string `json:"light" bson:"light"`
-			Dark       string `json:"dark" bson:"dark"`
-			Error      string `json:"error" bson:"error"`
-			Background string `json:"background" bson:"background"`
-		} `json:"color" bson:"color"`
+		Color pageColor `json:"color" bson:"color"`
 	} `json:"interface" bson:"interface"`
 
 	// locales
@@ -355,6 +357,12 @@ type PortalAdData struct {
 	// for redirect to client's site
 	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
 	SkipURL     string `json:"skip_url" bson:"skip_url"`
+
+	// title text
+	Text string `json:"text" bson:"text"`
+
+	// color options
+	Color pageColor `json:"color" bson:"color"`
 }
 
 // PortalAd object for ihot
