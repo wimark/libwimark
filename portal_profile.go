@@ -175,6 +175,11 @@ type PortalAuthenticationConfig struct {
 	OPTLength int   `json:"otp_length" bson:"otp_length"`
 
 	PassGateway string `json:"-" bson:"pass_gateway"`
+
+	Validate struct {
+		Regex    string `json:"regex" bson:"regex"`
+		ErrorMsg string `json:"error" bson:"error"`
+	} `json:"validate" bson:"validate"`
 }
 
 type PortalAuthorizationData struct {
@@ -245,7 +250,7 @@ type PortalProfile struct {
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
 
 	// UTC diff (plus or minus from UTC time)
-	UTCDiff int `json:""`
+	UTCDiff int `json:"utc_diff"`
 }
 
 func (p *PortalProfile) NextState(state PortalUserState) (PortalUserState, []string) {
