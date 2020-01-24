@@ -559,6 +559,7 @@ const PortalAuthorizationTypeExtVoucher PortalAuthorizationType = "ext_voucher"
 const PortalAuthorizationTypeFree PortalAuthorizationType = "free"
 const PortalAuthorizationTypeNone PortalAuthorizationType = "none"
 const PortalAuthorizationTypeSponsor PortalAuthorizationType = "sponsor"
+const PortalAuthorizationTypeStaff PortalAuthorizationType = "staff"
 const PortalAuthorizationTypeVoucher PortalAuthorizationType = "voucher"
 
 func (self PortalAuthorizationType) GetPtr() *PortalAuthorizationType { var v = self; return &v }
@@ -573,6 +574,8 @@ func (self PortalAuthorizationType) String() string {
 		return "none"
 	case PortalAuthorizationTypeSponsor:
 		return "sponsor"
+	case PortalAuthorizationTypeStaff:
+		return "staff"
 	case PortalAuthorizationTypeVoucher:
 		return "voucher"
 	}
@@ -592,6 +595,8 @@ func (self *PortalAuthorizationType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("none")
 	case PortalAuthorizationTypeSponsor:
 		return json.Marshal("sponsor")
+	case PortalAuthorizationTypeStaff:
+		return json.Marshal("staff")
 	case PortalAuthorizationTypeVoucher:
 		return json.Marshal("voucher")
 	}
@@ -611,6 +616,8 @@ func (self *PortalAuthorizationType) GetBSON() (interface{}, error) {
 		return "none", nil
 	case PortalAuthorizationTypeSponsor:
 		return "sponsor", nil
+	case PortalAuthorizationTypeStaff:
+		return "staff", nil
 	case PortalAuthorizationTypeVoucher:
 		return "voucher", nil
 	}
@@ -637,6 +644,9 @@ func (self *PortalAuthorizationType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "sponsor":
 		*self = PortalAuthorizationTypeSponsor
+		return nil
+	case "staff":
+		*self = PortalAuthorizationTypeStaff
 		return nil
 	case "voucher":
 		*self = PortalAuthorizationTypeVoucher
@@ -666,6 +676,9 @@ func (self *PortalAuthorizationType) SetBSON(v bson.Raw) error {
 		return nil
 	case "sponsor":
 		*self = PortalAuthorizationTypeSponsor
+		return nil
+	case "staff":
+		*self = PortalAuthorizationTypeStaff
 		return nil
 	case "voucher":
 		*self = PortalAuthorizationTypeVoucher
