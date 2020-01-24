@@ -1,5 +1,53 @@
 # Changelog
 
+## [v1.2.0] - 24-01-2020
+### Added
+ - staff auth type for MinFin
+ - validate field in authentication
+ - color schema/popup text for ADs
+ - webpage/ad and polls fields updates
+ - charts flag and enum for consolidate CPE rep
+ - aggrement to page
+ - session collections
+ - wlan and bss clients cache
+ - CPEStatInfo cache variables
+ - stats and go mod
+ - name/surname to portal request
+ - Accounts, Vouchers and tariffs
+ - user account / paid plans for paid inet
+ - auth/authen types in RedirectRequest
+ - traffic shaper config on wired NAT iface
+ - ads to watch update for portal ads engine
+ - logo/prefix/etc in web
+ - MSISDN prefix without DEF codes
+ - template/API for CPE disassoc
+ - formalize portal client sessions, add config
+ - Simple User-account, enums user portal state
+ - enums for states of user on portal
+ - MSISDN prefix to portal profile
+ - preauth list to portal, JSON as basic report
+ - report types, enums reformat
+ - formalize StatReport obj, add type nums
+ - StatReport and StatReportResult for reports
+ - support for wired with NAT
+ - client username / useragent, new event
+ - report formats
+ - PortalPageProfile obj, colls for portal
+ - CreateAt field to stat
+ - portal and coa sessions refac, auth event
+ - no masquerade to portal config
+ - portal session updates for block support
+ - TC per wlan config (models, enum, uci)
+ - Nas-Id and fixes for captive portal
+ - Nas Port ID to uci to pass in redirect url
+ - MACs filter, HTTP/Exec helper funcs
+ - structs for radar-export
+ - more features for Radar save & analyze
+ - common radar API for back as proxy
+ - new "new" field in radar for first income
+ - visit income for radar analyze
+ - station dump data, new Rule types
+
 ## [v1.0.7] - 11-01-2019
 
 ### Changed
