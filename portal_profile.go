@@ -330,6 +330,10 @@ type PortalPageProfile struct {
 		ButtonColor   string `json:"button_color" bson:"button_color"`
 
 		Color pageColor `json:"color" bson:"color"`
+
+		// color themes (new 1.3)
+		ThemeType  string `json:"theme_type" bson:"theme_type"`
+		ThemeColor string `json:"theme_color" bson:"theme_color"`
 	} `json:"interface" bson:"interface"`
 
 	// locales
@@ -340,6 +344,14 @@ type PortalPageProfile struct {
 
 	// service aggrement plain text
 	Agreement string `json:"agreement" bson:"agreement"`
+
+	// support field (email / phone / etc)
+	Support string `json:"support" bson:"support"`
+}
+
+type AdImageObject struct {
+	Text  string `json:"text" bson:"text"`
+	Image string `json:"image" bson:"image"`
 }
 
 type PortalAdData struct {
@@ -349,11 +361,16 @@ type PortalAdData struct {
 	URL  string `json:"url" bson:"url"`
 	File string `json:"file,omitempty" bson:"-"`
 
+	// Desktop URL
+	URLDesktop  string `json:"url_desktop" bson:"url_desktop"`
+	FileDesktop string `json:"file_desktop,omitempty" bson:"-"`
+
 	// question and poll variants if type == poll
-	Question     string   `json:"question" bson:"question"`
-	QuestionDesc string   `json:"question_desc" bson:"question_desc"`
-	PollVariants []string `json:"poll_variants" bson:"poll_variants"`
-	SelfVariant  bool     `json:"self_variant" bson:"self_variant"`
+	Question     string          `json:"question" bson:"question"`
+	QuestionDesc string          `json:"question_desc" bson:"question_desc"`
+	PollVariants []string        `json:"poll_variants" bson:"poll_variants"`
+	SelfVariant  bool            `json:"self_variant" bson:"self_variant"`
+	PollImage    []AdImageObject `json:"poll_image" bson:"poll_image"`
 
 	Skip         bool  `json:"skip" bson:"skip"`
 	Duration     int64 `json:"duration" bson:"duration"`
@@ -367,7 +384,11 @@ type PortalAdData struct {
 	Text string `json:"text" bson:"text"`
 
 	// color options
-	Color pageColor `json:"color" bson:"color"`
+	Color pageColor `json:"color,omitempty" bson:"color"`
+
+	// color themes
+	ThemeType  string `json:"theme_type" bson:"theme_type"`
+	ThemeColor string `json:"theme_color" bson:"theme_color"`
 }
 
 // PortalAd object for ihot

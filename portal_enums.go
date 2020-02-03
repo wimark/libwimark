@@ -98,6 +98,7 @@ const PortalAdvertisementTypeFlash PortalAdvertisementType = "flash"
 const PortalAdvertisementTypeIframe PortalAdvertisementType = "iframe"
 const PortalAdvertisementTypeImage PortalAdvertisementType = "image"
 const PortalAdvertisementTypePoll PortalAdvertisementType = "poll"
+const PortalAdvertisementTypePollIm PortalAdvertisementType = "poll_image"
 const PortalAdvertisementTypeVideo PortalAdvertisementType = "video"
 
 func (self PortalAdvertisementType) GetPtr() *PortalAdvertisementType { var v = self; return &v }
@@ -112,6 +113,8 @@ func (self PortalAdvertisementType) String() string {
 		return "image"
 	case PortalAdvertisementTypePoll:
 		return "poll"
+	case PortalAdvertisementTypePollIm:
+		return "poll_image"
 	case PortalAdvertisementTypeVideo:
 		return "video"
 	}
@@ -131,6 +134,8 @@ func (self *PortalAdvertisementType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("image")
 	case PortalAdvertisementTypePoll:
 		return json.Marshal("poll")
+	case PortalAdvertisementTypePollIm:
+		return json.Marshal("poll_image")
 	case PortalAdvertisementTypeVideo:
 		return json.Marshal("video")
 	}
@@ -150,6 +155,8 @@ func (self *PortalAdvertisementType) GetBSON() (interface{}, error) {
 		return "image", nil
 	case PortalAdvertisementTypePoll:
 		return "poll", nil
+	case PortalAdvertisementTypePollIm:
+		return "poll_image", nil
 	case PortalAdvertisementTypeVideo:
 		return "video", nil
 	}
@@ -176,6 +183,9 @@ func (self *PortalAdvertisementType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "poll":
 		*self = PortalAdvertisementTypePoll
+		return nil
+	case "poll_image":
+		*self = PortalAdvertisementTypePollIm
 		return nil
 	case "video":
 		*self = PortalAdvertisementTypeVideo
@@ -205,6 +215,9 @@ func (self *PortalAdvertisementType) SetBSON(v bson.Raw) error {
 		return nil
 	case "poll":
 		*self = PortalAdvertisementTypePoll
+		return nil
+	case "poll_image":
+		*self = PortalAdvertisementTypePollIm
 		return nil
 	case "video":
 		*self = PortalAdvertisementTypeVideo
