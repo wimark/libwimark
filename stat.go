@@ -95,6 +95,10 @@ type AccountingRadio struct {
 	ExpThroughput int `json:"expected_throughput"`
 }
 
+type AccountingDPI struct {
+	DestIPs []string `json:"dest_ips" bson:"dest_ips"`
+}
+
 type ClientStat struct {
 	Type ClientStatPacketType `json:"type"`
 
@@ -113,6 +117,8 @@ type ClientStat struct {
 	Timestamp  int64           `json:"timestamp"`
 	Accounting AccountingData  `json:"accounting"`
 	Radio      AccountingRadio `json:"rf"`
+
+	DPI AccountingDPI `json:"dpi"`
 }
 
 type CameraClientData struct {
@@ -497,6 +503,9 @@ type ClientSessionInfo struct {
 	UserName  string `json:"username" bson:"username"`
 
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
+
+	// list of clients IPS
+	DPI AccountingDPI `json:"dpi" bson:"dpi"`
 }
 
 // for new storing lbs probe data collection
