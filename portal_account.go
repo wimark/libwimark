@@ -110,10 +110,14 @@ func GenerateVoucher(length int) string {
 // PortalPaymentSystem struct for represent PS
 // (Humo, Megafon Life, Robokassa, etc)
 type PortalPaymentSystem struct {
-	ID          string `json:"id" bson:"_id"`
+	ID string `json:"id" bson:"_id"`
+
 	Name        string `json:"name" bson:"name"`
 	Identity    string `json:"identity" bson:"identity"`
 	Image       string `json:"image" bson:"image"`
 	Text        string `json:"text" bson:"text"`
 	TemplateURL string `json:"template_url" bson:"template_url"`
+
+	TemplateHash string `json:"template_hash" bson:"template_hash"`
+	HashKey      string `json:"hash_key" bson:"hash_key"`
 }

@@ -251,6 +251,10 @@ type PortalProfile struct {
 
 	// UTC diff (plus or minus from UTC time)
 	UTCDiff int `json:"utc_diff"`
+
+	// to payments and payments system integration
+	AllowBalance   bool     `json:"allow_balance" bson:"allow_balance"`
+	PaymentSystems []string `json:"payment_systems" bson:"payment_systems"`
 }
 
 func (p *PortalProfile) NextState(state PortalUserState) (PortalUserState, []string) {
