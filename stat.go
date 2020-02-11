@@ -499,8 +499,10 @@ type ClientSessionInfo struct {
 	TxBytes int64 `json:"tx_bytes" bson:"tx_bytes"`
 
 	// auth data
-	UserAgent string `json:"useragent" bson:"useragent"`
-	UserName  string `json:"username" bson:"username"`
+	UserAgent  string `json:"useragent" bson:"useragent"`
+	UserName   string `json:"username" bson:"username"`
+	AuthenType string `json:"authen_type,omitempty" bson:"authen_type"`
+	AuthType   string `json:"auth_type,omitempty" bson:"auth_type"`
 
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
 
