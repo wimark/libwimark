@@ -302,6 +302,7 @@ type CPEConfig struct {
 	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
 	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
 	Beeline          BeelineConfig    `json:"beeline_config" bson:"beeline_config"`
+	WiFiLock         bool             `json:"wifi_lock" bson:"wifi_lock"`
 }
 
 // ---- Beeline config ----
