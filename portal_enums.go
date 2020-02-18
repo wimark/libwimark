@@ -569,10 +569,13 @@ func (self *PortalAuthorizationState) SetBSON(v bson.Raw) error {
 type PortalAuthorizationType string
 
 const PortalAuthorizationTypeExtVoucher PortalAuthorizationType = "ext_voucher"
+const PortalAuthorizationTypeFB PortalAuthorizationType = "facebook"
 const PortalAuthorizationTypeFree PortalAuthorizationType = "free"
+const PortalAuthorizationTypeIG PortalAuthorizationType = "instagram"
 const PortalAuthorizationTypeNone PortalAuthorizationType = "none"
 const PortalAuthorizationTypeSponsor PortalAuthorizationType = "sponsor"
 const PortalAuthorizationTypeStaff PortalAuthorizationType = "staff"
+const PortalAuthorizationTypeVK PortalAuthorizationType = "vk"
 const PortalAuthorizationTypeVoucher PortalAuthorizationType = "voucher"
 
 func (self PortalAuthorizationType) GetPtr() *PortalAuthorizationType { var v = self; return &v }
@@ -581,14 +584,20 @@ func (self PortalAuthorizationType) String() string {
 	switch self {
 	case PortalAuthorizationTypeExtVoucher:
 		return "ext_voucher"
+	case PortalAuthorizationTypeFB:
+		return "facebook"
 	case PortalAuthorizationTypeFree:
 		return "free"
+	case PortalAuthorizationTypeIG:
+		return "instagram"
 	case PortalAuthorizationTypeNone:
 		return "none"
 	case PortalAuthorizationTypeSponsor:
 		return "sponsor"
 	case PortalAuthorizationTypeStaff:
 		return "staff"
+	case PortalAuthorizationTypeVK:
+		return "vk"
 	case PortalAuthorizationTypeVoucher:
 		return "voucher"
 	}
@@ -602,14 +611,20 @@ func (self *PortalAuthorizationType) MarshalJSON() ([]byte, error) {
 	switch *self {
 	case PortalAuthorizationTypeExtVoucher:
 		return json.Marshal("ext_voucher")
+	case PortalAuthorizationTypeFB:
+		return json.Marshal("facebook")
 	case PortalAuthorizationTypeFree:
 		return json.Marshal("free")
+	case PortalAuthorizationTypeIG:
+		return json.Marshal("instagram")
 	case PortalAuthorizationTypeNone:
 		return json.Marshal("none")
 	case PortalAuthorizationTypeSponsor:
 		return json.Marshal("sponsor")
 	case PortalAuthorizationTypeStaff:
 		return json.Marshal("staff")
+	case PortalAuthorizationTypeVK:
+		return json.Marshal("vk")
 	case PortalAuthorizationTypeVoucher:
 		return json.Marshal("voucher")
 	}
@@ -623,14 +638,20 @@ func (self *PortalAuthorizationType) GetBSON() (interface{}, error) {
 	switch *self {
 	case PortalAuthorizationTypeExtVoucher:
 		return "ext_voucher", nil
+	case PortalAuthorizationTypeFB:
+		return "facebook", nil
 	case PortalAuthorizationTypeFree:
 		return "free", nil
+	case PortalAuthorizationTypeIG:
+		return "instagram", nil
 	case PortalAuthorizationTypeNone:
 		return "none", nil
 	case PortalAuthorizationTypeSponsor:
 		return "sponsor", nil
 	case PortalAuthorizationTypeStaff:
 		return "staff", nil
+	case PortalAuthorizationTypeVK:
+		return "vk", nil
 	case PortalAuthorizationTypeVoucher:
 		return "voucher", nil
 	}
@@ -649,8 +670,14 @@ func (self *PortalAuthorizationType) UnmarshalJSON(b []byte) error {
 	case "ext_voucher":
 		*self = PortalAuthorizationTypeExtVoucher
 		return nil
+	case "facebook":
+		*self = PortalAuthorizationTypeFB
+		return nil
 	case "free":
 		*self = PortalAuthorizationTypeFree
+		return nil
+	case "instagram":
+		*self = PortalAuthorizationTypeIG
 		return nil
 	case "none":
 		*self = PortalAuthorizationTypeNone
@@ -660,6 +687,9 @@ func (self *PortalAuthorizationType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "staff":
 		*self = PortalAuthorizationTypeStaff
+		return nil
+	case "vk":
+		*self = PortalAuthorizationTypeVK
 		return nil
 	case "voucher":
 		*self = PortalAuthorizationTypeVoucher
@@ -681,8 +711,14 @@ func (self *PortalAuthorizationType) SetBSON(v bson.Raw) error {
 	case "ext_voucher":
 		*self = PortalAuthorizationTypeExtVoucher
 		return nil
+	case "facebook":
+		*self = PortalAuthorizationTypeFB
+		return nil
 	case "free":
 		*self = PortalAuthorizationTypeFree
+		return nil
+	case "instagram":
+		*self = PortalAuthorizationTypeIG
 		return nil
 	case "none":
 		*self = PortalAuthorizationTypeNone
@@ -692,6 +728,9 @@ func (self *PortalAuthorizationType) SetBSON(v bson.Raw) error {
 		return nil
 	case "staff":
 		*self = PortalAuthorizationTypeStaff
+		return nil
+	case "vk":
+		*self = PortalAuthorizationTypeVK
 		return nil
 	case "voucher":
 		*self = PortalAuthorizationTypeVoucher

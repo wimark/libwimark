@@ -27,6 +27,9 @@ Sponsor  = "sponsor"
 Voucher  = "voucher"
 ExtVoucher = "ext_voucher"
 Staff    = "staff"
+FB       = "facebook"
+VK       = "vk"
+IG       = "instagram"
 
 [PortalAuthenticationState]
 default = "Need"
