@@ -76,6 +76,12 @@ type UciEthernetAcct struct {
 	Type       string   `json:".type,omitempty"`
 	Interfaces []string `json:"interface,omitempty"`
 }
+type UciEthernetStat struct {
+	Type       string   `json:".type,omitempty"`
+	Enabled    string   `json:"enabled"`
+	Interfaces []string `json:"ifaces,omitempty"`
+	Timeout    string   `json:"timeout"`
+}
 type UciRedirectCfg struct {
 	Id           UUID     `json:"id"`
 	FormattedUrl string   `json:"redirect_url_format"`
@@ -92,6 +98,7 @@ type innerUciWimark struct {
 	Stat             UciStatCfg                `json:"statistic"`
 	DhcpCap          UciDhcpcapCfg             `json:"dhcpcap"`
 	EthernetAcct     UciEthernetAcct           `json:"-" inline:"yes,.type:eth_acct,unique,omitempty,eth_acct"`
+	EthernetStat     UciEthernetStat           `json:"-" inline:"yes,.type:wsmd,unique,omitempty,wsmd"`
 	Firmware         UciFirmwareCfg            `json:"-" inline:"yes,.type:firmware,unique,.firmware"`
 	ScanSettings     map[string]UciScanningCfg `json:"-" inline:"yes,.type:scanning"`
 	RedirectSettings map[string]UciRedirectCfg `json:"-" inline:"yes,.type:redirect"`
