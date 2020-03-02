@@ -343,6 +343,7 @@ func (self *UciWimark) UnmarshalJSON(b []byte) error {
 		".type:redirect": &map[string]UciRedirectCfg{},
 		".type:broker":   &map[string]UciBrokerCfg{},
 		".type:eth_acct": &UciEthernetAcct{},
+		".type:wsmd":     &UciEthernetStat{},
 	}
 	return UnmarshalInline(b, (*innerUciWimark)(self), tmp)
 }
