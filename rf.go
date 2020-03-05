@@ -7,7 +7,7 @@ const CollClientRF = "client_rf"
 
 // ClientRF struct for history client rf data
 type ClientRF struct {
-	ID       string          `json:"id" bson:"_id"`
+	ID       string          `json:"id" bson:"_id,omitempty"`
 	MAC      string          `json:"mac" bson:"mac"`
 	CPE      string          `json:"cpe" bson:"cpe"`
 	TS       int64           `json:"ts" bson:"ts"`
