@@ -50,7 +50,10 @@ func SendHTTPPostFile(url, filename, filetype string) ([]byte, error) {
 		return []byte{}, err
 	}
 
-	io.Copy(part, file)
+	_, err = io.Copy(part, file)
+	if err != nil {
+		return []byte{}, err
+	}
 	writer.Close()
 	request, err := http.NewRequest("POST", url, body)
 	if err != nil {

@@ -392,8 +392,8 @@ func (self *WiFiStates) SetBSON(raw bson.Raw) error {
 
 type WiredStates map[string]WiredState
 type WiredState struct {
-	CableIn     bool        `json:"cable_in" json:"cable_in"`
-	SwitchVlans []VlanState `json:"vlans" json:"vlans"`
+	CableIn     bool        `json:"cable_in" bson:"cablein"`
+	SwitchVlans []VlanState `json:"vlans" bson:"switchvlans"`
 }
 type VlanState struct {
 	Vid    int      `json:"vid" bson:"vid"`

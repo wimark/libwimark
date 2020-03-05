@@ -114,7 +114,7 @@ func (self *SystemEvent) UnmarshalJSON(b []byte) error {
 }
 
 func (self *SystemEvent) GetBSON() (interface{}, error) {
-	var out = bson.M{}
+	var out bson.M
 
 	levelBson, err := self.Level.GetBSON()
 	if err != nil {
@@ -220,7 +220,7 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 
 type CPEConnectedData struct {
 	Version
-	Template UUID `json:"template, omitempty"`
+	Template UUID `json:"template,omitempty"`
 }
 
 type MonitorRuleViolationData struct {

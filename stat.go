@@ -56,15 +56,15 @@ type ClientStatOld struct {
 	Inactive  int  `json:"inactive"`
 	Tx_ht     bool `json:"tx_ht"`
 	Rx_ht     bool `json:"rx_ht"`
-	Tx_rate   int  `json:"tx_rate, omitempty"`
-	Rx_rate   int  `json:"rx_rate, omitempty"`
+	Tx_rate   int  `json:"tx_rate,omitempty"`
+	Rx_rate   int  `json:"rx_rate,omitempty"`
 	Rx_vht    bool `json:"rx_vht"`
 	Tx_vht    bool `json:"tx_vht"`
-	Rx_mhz    int  `json:"rx_mhz, omitempty"`
-	Tx_mhz    int  `json:"tx_mhz, omitempty"`
-	Signal    int  `json:"signal, omitempty"`
-	Noise     int  `json:"noise, omitempty"`
-	Frequency int  `json:"frequency, omitempty"`
+	Rx_mhz    int  `json:"rx_mhz,omitempty"`
+	Tx_mhz    int  `json:"tx_mhz,omitempty"`
+	Signal    int  `json:"signal,omitempty"`
+	Noise     int  `json:"noise,omitempty"`
+	Frequency int  `json:"frequency,omitempty"`
 }
 
 type AccountingData struct {
@@ -108,7 +108,7 @@ type ClientStat struct {
 	CPE       UUID   `json:"cpe_id"`
 	RadioId   string `json:"radio_id"`
 	BSSID     string `json:"bssid"`
-	Frequency int    `json:"frequency, omitempty"`
+	Frequency int    `json:"frequency,omitempty"`
 
 	Username    string `json:"identity"`
 	SessionId   string `json:"session_id"`
@@ -211,7 +211,7 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 }
 
 func (self *StatEventRule) GetBSON() (interface{}, error) {
-	var out = bson.M{}
+	var out bson.M
 
 	var obj_b []byte
 	{
@@ -376,7 +376,7 @@ type BSSStatInfo struct {
 
 type ClientStatInfo struct {
 	ID    string `json:"id" bson:"_id"`
-	MAC   string `json:"mac" bson: "mac"`
+	MAC   string `json:"mac" bson:"mac"`
 	WLAN  string `json:"wlan_id" bson:"wlan_id"`
 	SSID  string `json:"ssid" bson:"ssid"`
 	CPE   string `json:"cpe_id" bson:"cpe_id"`

@@ -117,12 +117,12 @@ func (self *DBRequestD) UnmarshalJSON(b []byte) error {
 
 type DBResponseObj struct {
 	DBResponseBase `json:",inline"`
-	DBDataObj      `json:"data",inline`
+	DBDataObj      `json:"data,inline"`
 }
 
 type DBResponseUUID struct {
 	DBResponseBase `json:",inline"`
-	DBDataUUID     `json:"data",inline`
+	DBDataUUID     `json:"data,inline"`
 }
 
 type DBResponseC DBResponseUUID
