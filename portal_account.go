@@ -6,10 +6,11 @@ import (
 )
 
 const (
-	CollPortalUserAccount = "portal_user_accounts"
-	CollPortalUserVoucher = "portal_user_voucher"
-	CollPortalPaidPlans   = "portal_paid_plans"
-	CollPortalPaymentSys  = "portal_payment_system"
+	CollPortalUserAccount  = "portal_user_accounts"
+	CollPortalUserVoucher  = "portal_user_voucher"
+	CollPortalPaidPlans    = "portal_paid_plans"
+	CollPortalPaymentSys   = "portal_payment_system"
+	CollPortalTransactions = "portal_transactions"
 )
 
 // PortalUserAccount struct to represent user account for WLAN
@@ -120,4 +121,21 @@ type PortalPaymentSystem struct {
 
 	TemplateHash string `json:"template_hash" bson:"template_hash"`
 	HashKey      string `json:"hash_key" bson:"hash_key"`
+}
+
+// PortalTransaction struct for represent balance transactions
+type PortalTransaction struct {
+	ID string `json:"id" bson:"_id"`
+
+	Account  string `json:"account" bson:"account"`
+	Identity string `json:"identity" bson:"identity"`
+
+	Value    int    `json:"balance" bson:"balance"`
+	Currency string `json:"currency" bson:"currency"`
+
+	Type string `json:"type" bson:"type"`
+	Fill bool   `json:"fill" bson:"fill"`
+
+	Create   time.Time `json:"create" bson:"create"`
+	CreateAt int64     `json:"create_at" bson:"create_at"`
 }
