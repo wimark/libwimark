@@ -226,16 +226,20 @@ type UciWifiWlan struct {
 	LimitToRf   string `json:"limit_torf"`
 }
 type UciWifiIface struct {
-	Type        string      `json:".type"`
-	Addr        string      `json:"macaddr,omitempty"`
-	Channel     string      `json:"channel"`
-	Power       string      `json:"txpower"`
-	BandMode    string      `json:"hwmode"`
-	Bandwidth   string      `json:"htmode"`
-	Country     string      `json:"country"`
-	RequireMode string      `json:"require_mode"`
-	Disabled    string      `json:"disabled"`
-	ChanList    interface{} `json:"channels"`
+	Type           string      `json:".type"`
+	Addr           string      `json:"macaddr,omitempty"`
+	Channel        string      `json:"channel"`
+	Power          string      `json:"txpower"`
+	BandMode       string      `json:"hwmode"`
+	Bandwidth      string      `json:"htmode"`
+	Country        string      `json:"country"`
+	RequireMode    string      `json:"require_mode"`
+	Disabled       string      `json:"disabled"`
+	ChanList       interface{} `json:"channels"`
+	BasicRate      string      `json:"basic_rate,omitempty"`
+	SupportedRates interface{} `json:"supported_rates,omitempty"`
+	LegacyRates    string      `json:"legacy_rates,omitempty"`
+	LogLevel       string      `json:"log_level,omitempty"`
 }
 type UciRadius struct {
 	Type       string `json:".type"`

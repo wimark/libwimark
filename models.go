@@ -177,18 +177,22 @@ type PowerConfig struct {
 }
 
 type WiFiConfig struct {
-	BandMode    string      `json:"bandmode"`
-	Bandwidth   string      `json:"bandwidth"`
-	TxPower     string      `json:"txpower"`
-	MinTxPower  string      `json:"mintxpower"`
-	Power       PowerConfig `json:"power"`
-	WLANs       []UUID      `json:"wlans"`
-	Channels    []int       `json:"channels"`
-	Country     string      `json:"country"`
-	MaxClients  int         `json:"maxclients"`
-	ScanConfig  ScanConfig  `json:"scanningconfig"`
-	RequireMode MCSRequire  `json:"require_mode"`
-	Frequency   string      `json:"frequency"`
+	BandMode       string      `json:"bandmode"`
+	Bandwidth      string      `json:"bandwidth"`
+	TxPower        string      `json:"txpower"`
+	MinTxPower     string      `json:"mintxpower"`
+	Power          PowerConfig `json:"power"`
+	WLANs          []UUID      `json:"wlans"`
+	Channels       []int       `json:"channels"`
+	Country        string      `json:"country"`
+	MaxClients     int         `json:"maxclients"`
+	ScanConfig     ScanConfig  `json:"scanningconfig"`
+	RequireMode    MCSRequire  `json:"require_mode"`
+	Frequency      string      `json:"frequency"`
+	BasicRate      string      `json:"basic_rate,omitempty"`
+	SupportedRates interface{} `json:"supported_rates,omitempty"`
+	LegacyRates    string      `json:"legacy_rates,omitempty"`
+	LogLevel       string      `json:"log_level,omitempty"`
 }
 
 type WiFiConfigs map[string]WiFiConfig
