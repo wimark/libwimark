@@ -189,10 +189,10 @@ type WiFiConfig struct {
 	ScanConfig     ScanConfig  `json:"scanningconfig"`
 	RequireMode    MCSRequire  `json:"require_mode"`
 	Frequency      string      `json:"frequency"`
-	BasicRate      string      `json:"basic_rate,omitempty"`
-	SupportedRates interface{} `json:"supported_rates,omitempty"`
-	LegacyRates    string      `json:"legacy_rates,omitempty"`
-	LogLevel       string      `json:"log_level,omitempty"`
+	BasicRate      string      `json:"basic_rate"`
+	SupportedRates interface{} `json:"supported_rates"`
+	LegacyRates    string      `json:"legacy_rates"`
+	LogLevel       string      `json:"log_level"`
 }
 
 type WiFiConfigs map[string]WiFiConfig
