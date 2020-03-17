@@ -190,8 +190,11 @@ type PortalAuthorizationData struct {
 
 	Config PortalSessionConfig `json:"config" bson:"config"`
 
-	Ads        []PortalAd `json:"ads" bson:"ads"`
-	AdsToWatch int        `json:"ads_to_watch" bson:"ads_to_watch"`
+	// will be deprecated
+	Ads []PortalAd `json:"ads" bson:"-"`
+
+	AdsIDs     []string `json:"ads_ids" bson:"ads_ids"`
+	AdsToWatch int      `json:"ads_to_watch" bson:"ads_to_watch"`
 
 	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
 }
@@ -206,9 +209,12 @@ type PortalAuthorizationConfig struct {
 	// pass gateway needed if external authorization
 	PassGateway string `json:"-" bson:"pass_gateway"`
 
+	// will be deprecated
+	Ads []PortalAd `json:"ads" bson:"ads"`
+
 	// advertisements for user
-	Ads        []PortalAd `json:"ads" bson:"ads"`
-	AdsToWatch int        `json:"ads_to_watch" bson:"ads_to_watch"`
+	AdsIDs     []string `json:"ads_ids" bson:"ads_ids"`
+	AdsToWatch int      `json:"ads_to_watch" bson:"ads_to_watch"`
 
 	// session configuration
 	Config PortalSessionConfig `json:"config" bson:"config"`
