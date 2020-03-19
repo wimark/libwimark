@@ -67,6 +67,12 @@ type PortalUserVoucher struct {
 	Code string `json:"code" bson:"code"`
 	Used bool   `json:"used" bson:"used"`
 
+	// limits
+	SpeedLimit   int   `json:"speed" bson:"speed"`
+	TimeoutLimit int64 `json:"session" bson:"session"`
+	TrafficLimit int   `json:"traffic" bson:"traffic"`
+
+	// not needed anymore
 	Plan string `json:"tariff" bson:"tariff"`
 }
 
@@ -80,6 +86,7 @@ type PortalTariffPlan struct {
 	// limits
 	SpeedLimit   int   `json:"speed" bson:"speed"`
 	TimeoutLimit int64 `json:"session" bson:"session"`
+	TrafficLimit int   `json:"traffic" bson:"traffic"`
 
 	// how much to pay
 	Amount   int    `json:"amount" bson:"amount"`
