@@ -427,6 +427,15 @@ type PortalAd struct {
 			Evening   bool `json:"evening" bson:"evening"`
 			Night     bool `json:"night" bson:"night"`
 		} `json:"time_of_day" bson:"time_of_day"`
+		DayOfWeek struct {
+			Monday    bool
+			Tuesday   bool
+			Wednesday bool
+			Thursday  bool
+			Friday    bool
+			Saturday  bool
+			Sunday    bool
+		} `json:"day_of_week" bson:"day_of_week"`
 	} `json:"schedule" bson:"schedule"`
 
 	Data PortalAdData `json:"data" bson:"data"`
