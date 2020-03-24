@@ -150,6 +150,9 @@ type PortalRequestObject struct {
 	// payment system
 	PaymentSystem string `json:"payment_system"`
 	PaymentAmount int    `json:"payment_amount"`
+
+	// vouchers
+	Vouchers []string `json:"vouchers"`
 }
 
 // PortalResponseObject struct for answer from Portal
