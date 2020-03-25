@@ -413,8 +413,17 @@ type PortalAd struct {
 	Profile       string `json:"profile" bson:"profile"`
 	Authorization string `json:"authorization" bson:"authorization"`
 
-	// number beetween 0 and 100 - more is higher
+	// number beetween 1 and 100 - more is higher
 	Priority int `json:"priority" bson:"priority"`
+
+	//OS operation system of client
+	OS string `json:"os" bson:"os"`
+
+	//Vendor customer device manufacturers
+	Vendor string `json:"vendor" bson:"vendor"`
+
+	//Platform descktop/mobile
+	Platform string `json:"platform" bson:"platform"`
 
 	// schedule of ads to work start-stop and number of views to show
 	Schedule struct {
@@ -428,13 +437,13 @@ type PortalAd struct {
 			Night     bool `json:"night" bson:"night"`
 		} `json:"time_of_day" bson:"time_of_day"`
 		DayOfWeek struct {
-			Monday    bool
-			Tuesday   bool
-			Wednesday bool
-			Thursday  bool
-			Friday    bool
-			Saturday  bool
-			Sunday    bool
+			Monday    bool `json:"monday" bson:"monday"`
+			Tuesday   bool `json:"tuesday" bson:"tuesday"`
+			Wednesday bool `json:"wednesday" bson:"wednesday"`
+			Thursday  bool `json:"thursday" bson:"thursday"`
+			Friday    bool `json:"friday" bson:"friday"`
+			Saturday  bool `json:"saturday" bson:"saturday"`
+			Sunday    bool `json:"sunday" bson:"sunday"`
 		} `json:"day_of_week" bson:"day_of_week"`
 	} `json:"schedule" bson:"schedule"`
 
