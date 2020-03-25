@@ -65,3 +65,14 @@ Flash  = "flash"
 Iframe = "iframe"
 Poll   = "poll"
 PollIm = "poll_image"
+
+[PortalOSType]
+default = "None"
+[PortalOSType.variants]
+None  = "none"
+Linux  = "Linux"
+MacOs  = "Mac Os"
+IOS    = "iPhone OS"
+Windows = "Windows"
+Android = "Android"
+
