@@ -426,7 +426,11 @@ type PortalAd struct {
 	Vendor string `json:"vendor" bson:"vendor"`
 
 	//Platform descktop/mobile
-	Platform string `json:"platform" bson:"platform"`
+	Platform struct {
+		Desktop bool `json:"desktop" bson:"start"`
+		Mobile  bool `json:"mobile" bson:"mobile"`
+		Tablet  bool `json:"tablet" bson:"tablet"`
+	} `json:"platform" bson:"platform"`
 
 	// schedule of ads to work start-stop and number of views to show
 	Schedule struct {
