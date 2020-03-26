@@ -11,3 +11,5 @@ require (
 	golang.org/x/net v0.0.0-20191209160850-c0dbc17a3553 // indirect
 	gopkg.in/yaml.v2 v2.2.2
 )
+
+go 1.13

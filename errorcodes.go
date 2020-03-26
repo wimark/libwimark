@@ -24,8 +24,8 @@ const WimarkErrorCodeRspTimeout WimarkErrorCode = "ERROR_RSP_TIMEOUT"
 
 func (self WimarkErrorCode) GetPtr() *WimarkErrorCode { var v = self; return &v }
 
-func (self WimarkErrorCode) String() string {
-	switch self {
+func (self *WimarkErrorCode) String() string {
+	switch *self {
 	case WimarkErrorCodeBadEnvironment:
 		return "ERROR_BAD_ENV"
 	case WimarkErrorCodeCPE:
@@ -53,10 +53,10 @@ func (self WimarkErrorCode) String() string {
 	case WimarkErrorCodeRspTimeout:
 		return "ERROR_RSP_TIMEOUT"
 	}
-	if len(self) == 0 {
+	if len(*self) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of WimarkErrorCode: " + string(self)))
+	panic(errors.New("Invalid value of WimarkErrorCode: " + string(*self)))
 }
 
 func (self *WimarkErrorCode) MarshalJSON() ([]byte, error) {
