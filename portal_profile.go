@@ -420,7 +420,8 @@ type PortalAd struct {
 	Priority int `json:"priority" bson:"priority"`
 
 	//OS operation system of client
-	OS PortalOSType `json:"os" bson:"os"`
+	//OS PortalOSType `json:"os" bson:"os"`
+	OS string `json:"os" bson:"os"`
 
 	//Vendor customer device manufacturers
 	Vendor string `json:"vendor" bson:"vendor"`
