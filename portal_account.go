@@ -13,12 +13,12 @@ const (
 	CollPortalTransactions = "portal_transactions"
 )
 
-// PortalUserAccount struct to represent user account for WLAN
+// PortalUserAccount struct to represent user account for Profile
 type PortalUserAccount struct {
 	ID string `json:"id" bson:"_id"`
 
-	// WLAN     string   `json:"wlan_id" bson:"wlan_id"`
-	Profile  string   `json:"profile" bson:"profile"`
+	Profile string `json:"profile" bson:"profile"`
+
 	Identity string   `json:"identity" bson:"identity"`
 	MACs     []string `json:"macs" bson:"macs"`
 
@@ -37,6 +37,8 @@ type PortalUserAccount struct {
 
 // PortalUserAccountShort for short represent account
 type PortalUserAccountShort struct {
+	Profile string `json:"profile" bson:"profile"`
+
 	Identity string   `json:"identity" bson:"identity"`
 	MACs     []string `json:"macs" bson:"macs"`
 
@@ -57,6 +59,7 @@ type PortalUserVoucher struct {
 	ID string `json:"id" bson:"_id"`
 
 	Account string `json:"account" bson:"account"`
+	Profile string `json:"profile" bson:"profile"`
 
 	Create   time.Time `json:"create" bson:"create"`
 	CreateAt int64     `json:"create_at" bson:"create_at"`
@@ -79,6 +82,8 @@ type PortalUserVoucher struct {
 // PortalTariffPlan struct to represent paid plans (tariffs)
 type PortalTariffPlan struct {
 	ID string `json:"id" bson:"_id"`
+
+	Profile string `json:"profile" bson:"profile"`
 
 	// name
 	Name string `json:"name" bson:"name"`
@@ -120,6 +125,8 @@ func GenerateVoucher(length int) string {
 type PortalPaymentSystem struct {
 	ID string `json:"id" bson:"_id"`
 
+	Profile string `json:"profile" bson:"profile"`
+
 	Name        string `json:"name" bson:"name"`
 	Identity    string `json:"identity" bson:"identity"`
 	Image       string `json:"image" bson:"image"`
@@ -133,6 +140,8 @@ type PortalPaymentSystem struct {
 // PortalTransaction struct for represent balance transactions
 type PortalTransaction struct {
 	ID string `json:"id" bson:"_id"`
+
+	Profile string `json:"profile" bson:"profile"`
 
 	Account  string `json:"account" bson:"account"`
 	Identity string `json:"identity" bson:"identity"`
