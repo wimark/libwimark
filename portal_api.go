@@ -32,6 +32,9 @@ type RedirectRequestObject struct {
 
 	// authentype -- sms / callback / etc
 	AuthenType string `json:"authen_type"`
+
+	// IP address of user -- if has
+	IP string `json:"ip" bson:"ip"`
 }
 
 // RedirectClientSession struct for store redirect session on platform
@@ -45,6 +48,7 @@ type RedirectClientSession struct {
 	Redirect  string `json:"redirect_id" bson:"redirect_id"`
 	Radio     string `json:"radio_id" bson:"radio_id"`
 	UserAgent string `json:"useragent" bson:"useragent"`
+	IP        string `json:"ip" bson:"ip"`
 
 	AcctStart int64 `json:"acct_start" bson:"acct_start"`
 	AuthStart int64 `json:"auth_start" bson:"auth_start"`
