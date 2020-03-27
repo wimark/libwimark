@@ -89,8 +89,13 @@ type AccountingRadio struct {
 	TxVht  bool `json:"tx_vht"`
 
 	TxMcs     int  `json:"tx_mcs"`
+	RxMcs     int  `json:"rx_mcs"`
+	TxNSS     int  `json:"tx_nss"`
+	RxNSS     int  `json:"rx_nss"`
 	Tx40Mhz   bool `json:"tx_40mhz"`
+	Rx40Mhz   bool `json:"rx_40mhz"`
 	TxShortGi bool `json:"tx_short_gi"`
+	RxShortGi bool `json:"rx_short_gi"`
 
 	ExpThroughput int `json:"expected_throughput"`
 }
