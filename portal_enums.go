@@ -99,6 +99,7 @@ const PortalAdvertisementTypeIframe PortalAdvertisementType = "iframe"
 const PortalAdvertisementTypeImage PortalAdvertisementType = "image"
 const PortalAdvertisementTypePoll PortalAdvertisementType = "poll"
 const PortalAdvertisementTypePollIm PortalAdvertisementType = "poll_image"
+const PortalAdvertisementTypePollQuality PortalAdvertisementType = "poll_quality"
 const PortalAdvertisementTypeVideo PortalAdvertisementType = "video"
 
 func (self PortalAdvertisementType) GetPtr() *PortalAdvertisementType { var v = self; return &v }
@@ -115,6 +116,8 @@ func (self *PortalAdvertisementType) String() string {
 		return "poll"
 	case PortalAdvertisementTypePollIm:
 		return "poll_image"
+	case PortalAdvertisementTypePollQuality:
+		return "poll_quality"
 	case PortalAdvertisementTypeVideo:
 		return "video"
 	}
@@ -136,6 +139,8 @@ func (self *PortalAdvertisementType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("poll")
 	case PortalAdvertisementTypePollIm:
 		return json.Marshal("poll_image")
+	case PortalAdvertisementTypePollQuality:
+		return json.Marshal("poll_quality")
 	case PortalAdvertisementTypeVideo:
 		return json.Marshal("video")
 	}
@@ -157,6 +162,8 @@ func (self *PortalAdvertisementType) GetBSON() (interface{}, error) {
 		return "poll", nil
 	case PortalAdvertisementTypePollIm:
 		return "poll_image", nil
+	case PortalAdvertisementTypePollQuality:
+		return "poll_quality", nil
 	case PortalAdvertisementTypeVideo:
 		return "video", nil
 	}
@@ -186,6 +193,9 @@ func (self *PortalAdvertisementType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "poll_image":
 		*self = PortalAdvertisementTypePollIm
+		return nil
+	case "poll_quality":
+		*self = PortalAdvertisementTypePollQuality
 		return nil
 	case "video":
 		*self = PortalAdvertisementTypeVideo
@@ -218,6 +228,9 @@ func (self *PortalAdvertisementType) SetBSON(v bson.Raw) error {
 		return nil
 	case "poll_image":
 		*self = PortalAdvertisementTypePollIm
+		return nil
+	case "poll_quality":
+		*self = PortalAdvertisementTypePollQuality
 		return nil
 	case "video":
 		*self = PortalAdvertisementTypeVideo

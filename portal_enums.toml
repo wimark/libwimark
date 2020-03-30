@@ -65,6 +65,7 @@ Flash  = "flash"
 Iframe = "iframe"
 Poll   = "poll"
 PollIm = "poll_image"
+PollQuality = "poll_quality"
 
 [PortalOSType]
 default = "None"
