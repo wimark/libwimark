@@ -196,8 +196,9 @@ type PortalAuthorizationData struct {
 	// will be deprecated
 	Ads []PortalAd `json:"ads" bson:"-"`
 
-	AdsIDs     []string `json:"ads_ids" bson:"ads_ids"`
-	AdsToWatch int      `json:"ads_to_watch" bson:"ads_to_watch"`
+	AdsIDs         []string `json:"ads_ids" bson:"ads_ids"`
+	EnableRotation bool     `json:"enable_rotation" bson:"enable_rotation"`
+	AdsToWatch     int      `json:"ads_to_watch" bson:"ads_to_watch"`
 
 	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
 }
