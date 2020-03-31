@@ -216,8 +216,9 @@ type PortalAuthorizationConfig struct {
 	Ads []PortalAd `json:"ads" bson:"ads"`
 
 	// advertisements for user
-	AdsIDs     []string `json:"ads_ids" bson:"ads_ids"`
-	AdsToWatch int      `json:"ads_to_watch" bson:"ads_to_watch"`
+	AdsIDs         []string `json:"ads_ids" bson:"ads_ids"`
+	EnableRotation bool     `json:"enable_rotation" bson:"enable_rotation"`
+	AdsToWatch     int      `json:"ads_to_watch" bson:"ads_to_watch"`
 
 	// session configuration
 	Config PortalSessionConfig `json:"config" bson:"config"`
