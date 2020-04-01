@@ -157,6 +157,9 @@ type PortalRequestObject struct {
 
 	// vouchers
 	Vouchers []string `json:"vouchers"`
+
+	// client locale
+	Locale string `json:"locale"`
 }
 
 // PortalResponseObject struct for answer from Portal

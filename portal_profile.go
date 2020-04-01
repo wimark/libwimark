@@ -55,7 +55,8 @@ type PortalClientSession struct {
 	Authorization  PortalAuthorizationData  `json:"authorization" bson:"authorization"`
 
 	// data from UserAgent
-	UA UserAgent `json:"ua" bson:"ua"`
+	UA     UserAgent `json:"ua" bson:"ua"`
+	Locale string    `json:"locale" bson:"locale"`
 
 	// will be deprecated
 	Status   string `json:"status" bson:"status"`
