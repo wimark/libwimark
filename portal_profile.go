@@ -494,3 +494,23 @@ type PortalAdStat struct {
 	Duration       int64          `json:"duration" bson:"duration"`
 	PollCounter    map[string]int `json:"poll_counter" bson:"poll_counter"`
 }
+
+type PortalAdStatDaily struct {
+	// same ID as portalad
+	Id string `json:"id" bson:"_id"`
+
+	// more specific data to link with profiles and authorization
+	Profile       string `json:"profile" bson:"profile"`
+	Authorization string `json:"authorization" bson:"authorization"`
+
+	// dat of day
+
+	Year  int
+	Month int
+	Day   int
+
+	Counter        int            `json:"counter" bson:"counter"`
+	CounterSkipped int            `json:"counter_skipped" bson:"counter_skipped"`
+	Duration       int64          `json:"duration" bson:"duration"`
+	PollCounter    map[string]int `json:"poll_counter" bson:"poll_counter"`
+}
