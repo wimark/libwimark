@@ -18,8 +18,9 @@ const (
 	COLL_PORTAL_AUTH_CFG = "portal_authorizations"
 
 	// portal advertisements
-	COLL_PORTAL_ADS       = "portal_ads"
-	COLL_PORTAL_ADS_STATS = "portal_ads_stats"
+	COLL_PORTAL_ADS             = "portal_ads"
+	COLL_PORTAL_ADS_STATS       = "portal_ads_stats"
+	COLl_PORTAL_ADS_STATS_DAILY = "portal_ads_stats_daily"
 
 	// futher accounts
 	COLL_PORTAL_USER_ACCOUNTS = "portal_user_accounts"
