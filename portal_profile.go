@@ -506,9 +506,9 @@ type PortalAdStatDaily struct {
 
 	// dat of day
 
-	Year  int
-	Month int
-	Day   int
+	Year  int `json:"year" bson:"year"`
+	Month int `json:"month" bson:"month"`
+	Day   int `json:"day" bson:"day"`
 
 	Counter        int            `json:"counter" bson:"counter"`
 	CounterSkipped int            `json:"counter_skipped" bson:"counter_skipped"`
