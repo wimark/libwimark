@@ -497,8 +497,8 @@ type PortalAdStat struct {
 
 type PortalAdStatDaily struct {
 	// same ID as portalad
-	Id    string `json:"id" bson:"_id"`
-	IdDAd string `json:"idAd" bson:"id_ad"`
+	Id   string `json:"id" bson:"_id"`
+	IdAd string `json:"idAd" bson:"id_ad"`
 
 	// more specific data to link with profiles and authorization
 	Profile       string `json:"profile" bson:"profile"`
