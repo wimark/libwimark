@@ -57,15 +57,32 @@ type PortalClientStat struct {
 	CreateAt int64     `json:"create_at" bson:"create_at"`
 }
 
+// DailyProfileStat struct represent daily aggregated stats
+// common for os, vendor, devices, etc
 type DailyProfileStat struct {
 	Create   time.Time `json:"create" bson:"create"`
 	CreateAt int64     `json:"create_at" bson:"create_at"`
+	Time     dayTime   `json:"time" bson:"time"`
 
-	Profile string  `json:"profile" bson:"profile"`
-	Time    dayTime `json:"time" bson:"time"`
-	// Data    map[string]int `json:"data" bson:"data"`
-	Values []string `json:"values" bson:"values"`
-	Counts []int    `json:"counts" bson:"counts"`
+	Profile string   `json:"profile" bson:"profile"`
+	Values  []string `json:"values" bson:"values"`
+	Counts  []int    `json:"counts" bson:"counts"`
+}
+
+// NewDailyProfileStat func return new object DailyProfileStat
+func NewDailyProfileStat(t time.Time, profile string, values []string, counts []int) DailyProfileStat {
+	return DailyProfileStat{
+		Create:   t,
+		CreateAt: t.Unix(),
+		Time: dayTime{
+			Year:  t.Year(),
+			Month: int(t.Month()),
+			Day:   t.Day(),
+		},
+		Profile: profile,
+		Values:  values,
+		Counts:  counts,
+	}
 }
 
 type PortalDailyVendor = DailyProfileStat
