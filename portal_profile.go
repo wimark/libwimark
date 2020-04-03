@@ -28,9 +28,12 @@ type PortalClientSession struct {
 	WLAN string `json:"wlan_id" bson:"wlan_id"`
 
 	// just info data
-	CPE     string `json:"cpe" bson:"cpe"`
-	IP      string `json:"ip" bson:"ip"`
+	CPE string `json:"cpe" bson:"cpe"`
+	IP  string `json:"ip" bson:"ip"`
+
+	// link with profile and account
 	Profile string `json:"profile" bson:"profile"`
+	Account string `json:"account" bson:"account"`
 
 	// creation time (index needs)
 	Create time.Time `json:"create" bson:"create"`
