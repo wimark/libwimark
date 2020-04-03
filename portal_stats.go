@@ -18,7 +18,7 @@ const (
 )
 
 type dayTime struct {
-	Year  int `json:"year" bson:"month"`
+	Year  int `json:"year" bson:"year"`
 	Month int `json:"month" bson:"month"`
 	Day   int `json:"day" bson:"day"`
 }
