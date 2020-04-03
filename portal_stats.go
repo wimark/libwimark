@@ -57,15 +57,18 @@ type PortalClientStat struct {
 	CreateAt int64     `json:"create_at" bson:"create_at"`
 }
 
-type dailyProfileStat struct {
-	Time     dayTime        `json:"time" bson:"time"`
-	Profile  string         `json:"profile" bson:"profile"`
-	Create   time.Time      `json:"create" bson:"create"`
-	CreateAt int64          `json:"create_at" bson:"create_at"`
-	Data     map[string]int `json:"data" bson:"data"`
+type DailyProfileStat struct {
+	Create   time.Time `json:"create" bson:"create"`
+	CreateAt int64     `json:"create_at" bson:"create_at"`
+
+	Profile string  `json:"profile" bson:"profile"`
+	Time    dayTime `json:"time" bson:"time"`
+	// Data    map[string]int `json:"data" bson:"data"`
+	Values []string `json:"values" bson:"values"`
+	Counts []int    `json:"counts" bson:"counts"`
 }
 
-type PortalDailyVendor = dailyProfileStat
-type PortalDailyOS = dailyProfileStat
-type PortalDailyLocale = dailyProfileStat
-type PortalDailyType = dailyProfileStat
+type PortalDailyVendor = DailyProfileStat
+type PortalDailyOS = DailyProfileStat
+type PortalDailyLocale = DailyProfileStat
+type PortalDailyType = DailyProfileStat
