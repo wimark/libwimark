@@ -1,6 +1,9 @@
 package libwimark
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 const (
 	// CollPortalClientLog collection with portal client state moves
@@ -17,7 +20,8 @@ const (
 	CollPortalDailyType = "portal_daily_type"
 )
 
-type dayTime struct {
+// DayTime struct fot represent year-month-day object
+type DayTime struct {
 	Year  int `json:"year" bson:"year"`
 	Month int `json:"month" bson:"month"`
 	Day   int `json:"day" bson:"day"`
@@ -62,26 +66,38 @@ type PortalClientStat struct {
 type DailyProfileStat struct {
 	Create   time.Time `json:"create" bson:"create"`
 	CreateAt int64     `json:"create_at" bson:"create_at"`
-	Time     dayTime   `json:"time" bson:"time"`
+	Time     DayTime   `json:"time" bson:"time"`
 
 	Profile string   `json:"profile" bson:"profile"`
 	Values  []string `json:"values" bson:"values"`
 	Counts  []int    `json:"counts" bson:"counts"`
 }
 
+// DailyProfileStatDB struct wrapper with ID for DailyProfileStat
+type DailyProfileStatDB struct {
+	ID     string           `json:"id" bson:"_id"`
+	Object DailyProfileStat `json:",inline" bson:",inline"`
+}
+
 // NewDailyProfileStat func return new object DailyProfileStat
-func NewDailyProfileStat(t time.Time, profile string, values []string, counts []int) DailyProfileStat {
-	return DailyProfileStat{
-		Create:   t,
-		CreateAt: t.Unix(),
-		Time: dayTime{
-			Year:  t.Year(),
-			Month: int(t.Month()),
-			Day:   t.Day(),
+func NewDailyProfileStatDBYesterday(t time.Time, profile string,
+	values []string, counts []int) DailyProfileStatDB {
+	var tYesterday = t.AddDate(0, 0, -1)
+	var year, month, day = tYesterday.Year(), int(tYesterday.Month()), tYesterday.Day()
+	return DailyProfileStatDB{
+		ID: fmt.Sprintf("%d-%d-%d-%s", year, month, day, profile),
+		Object: DailyProfileStat{
+			Create:   t,
+			CreateAt: t.Unix(),
+			Time: DayTime{
+				Year:  year,
+				Month: month,
+				Day:   day,
+			},
+			Profile: profile,
+			Values:  values,
+			Counts:  counts,
 		},
-		Profile: profile,
-		Values:  values,
-		Counts:  counts,
 	}
 }
 
