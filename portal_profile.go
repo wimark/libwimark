@@ -517,4 +517,7 @@ type PortalAdStatDaily struct {
 	CounterSkipped int            `json:"counter_skipped" bson:"counter_skipped"`
 	Duration       int64          `json:"duration" bson:"duration"`
 	PollCounter    map[string]int `json:"poll_counter" bson:"poll_counter"`
+
+	Create   time.Time `json:"create" bson:"create"`
+	CreateAt int64     `json:"create_at" bson:"create_at"`
 }
