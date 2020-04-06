@@ -28,6 +28,8 @@ type PortalUserAccount struct {
 
 	PushAgreement bool `json:"push_agreement" bson:"push_agreement"`
 
+	Visits map[string]int `json:"visits" bson:"visits"`
+
 	Balance  int    `json:"balance" bson:"balance"`
 	Currency string `json:"currency" bson:"currency"`
 
