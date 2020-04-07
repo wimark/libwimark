@@ -77,3 +77,9 @@ IOS    = "iPhone OS"
 Windows = "Windows"
 Android = "Android"
 
+[PortalSignType]
+default = "Greater"
+[PortalSignType.variants]
+Less  = "less"
+Greater  = "greater"
+Equal  = "equal"

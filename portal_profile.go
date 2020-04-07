@@ -427,10 +427,10 @@ type PortalAd struct {
 
 	//OS operation system of client
 	//OS PortalOSType `json:"os" bson:"os"`
-	OS string `json:"os" bson:"os"`
+	OS []string `json:"os" bson:"os"`
 
 	//Vendor customer device manufacturers
-	Vendor string `json:"vendor" bson:"vendor"`
+	Vendor []string `json:"vendor" bson:"vendor"`
 
 	//Platform descktop/mobile
 	Platform struct {
@@ -462,8 +462,8 @@ type PortalAd struct {
 	} `json:"schedule" bson:"schedule"`
 
 	NumberOfVisits struct {
-		Visits int    `json:"visits" bson:"visits"`
-		Sign   string `json:"sign" bson:"sign"`
+		Visits int            `json:"visits" bson:"visits"`
+		Sign   PortalSignType `json:"sign" bson:"sign"`
 	} `json:"number_of_visits" bson:"number_of_visits"`
 
 	Data PortalAdData `json:"data" bson:"data"`

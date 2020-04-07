@@ -980,6 +980,105 @@ func (self *PortalResponseStatus) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown PortalResponseStatus: " + s)
 }
 
+type PortalSignType string
+
+const PortalSignTypeEqual PortalSignType = "equal"
+const PortalSignTypeGreater PortalSignType = "greater"
+const PortalSignTypeLess PortalSignType = "less"
+
+func (self PortalSignType) GetPtr() *PortalSignType { var v = self; return &v }
+
+func (self *PortalSignType) String() string {
+	switch *self {
+	case PortalSignTypeEqual:
+		return "equal"
+	case PortalSignTypeGreater:
+		return "greater"
+	case PortalSignTypeLess:
+		return "less"
+	}
+	if len(*self) == 0 {
+		return "greater"
+	}
+	panic(errors.New("Invalid value of PortalSignType: " + string(*self)))
+}
+
+func (self *PortalSignType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case PortalSignTypeEqual:
+		return json.Marshal("equal")
+	case PortalSignTypeGreater:
+		return json.Marshal("greater")
+	case PortalSignTypeLess:
+		return json.Marshal("less")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("greater")
+	}
+	return nil, errors.New("Invalid value of PortalSignType: " + string(*self))
+}
+
+func (self *PortalSignType) GetBSON() (interface{}, error) {
+	switch *self {
+	case PortalSignTypeEqual:
+		return "equal", nil
+	case PortalSignTypeGreater:
+		return "greater", nil
+	case PortalSignTypeLess:
+		return "less", nil
+	}
+	if len(*self) == 0 {
+		return "greater", nil
+	}
+	return nil, errors.New("Invalid value of PortalSignType: " + string(*self))
+}
+
+func (self *PortalSignType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "equal":
+		*self = PortalSignTypeEqual
+		return nil
+	case "greater":
+		*self = PortalSignTypeGreater
+		return nil
+	case "less":
+		*self = PortalSignTypeLess
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalSignTypeGreater
+		return nil
+	}
+	return errors.New("Unknown PortalSignType: " + s)
+}
+
+func (self *PortalSignType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "equal":
+		*self = PortalSignTypeEqual
+		return nil
+	case "greater":
+		*self = PortalSignTypeGreater
+		return nil
+	case "less":
+		*self = PortalSignTypeLess
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalSignTypeGreater
+		return nil
+	}
+	return errors.New("Unknown PortalSignType: " + s)
+}
+
 type PortalUserState string
 
 const PortalUserStateAdvertise PortalUserState = "advertise"
