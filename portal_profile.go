@@ -461,6 +461,11 @@ type PortalAd struct {
 		} `json:"day_of_week" bson:"day_of_week"`
 	} `json:"schedule" bson:"schedule"`
 
+	NumberOfVisits struct {
+		Visits int    `json:"visits" bson:"visits"`
+		Sign   string `json:"sign" bson:"sign"`
+	} `json:"number_of_visits" bson:"number_of_visits"`
+
 	Data PortalAdData `json:"data" bson:"data"`
 }
 
