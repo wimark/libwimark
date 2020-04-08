@@ -30,6 +30,7 @@ Staff    = "staff"
 FB       = "facebook"
 VK       = "vk"
 IG       = "instagram"
+Skip     = "skip"
 
 [PortalAuthenticationState]
 default = "Need"

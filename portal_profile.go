@@ -222,8 +222,9 @@ type PortalAuthorizationConfig struct {
 
 	// advertisements for user
 	AdsIDs         []string `json:"ads_ids" bson:"ads_ids"`
-	EnableRotation bool     `json:"enable_rotation" bson:"enable_rotation"`
 	AdsToWatch     int      `json:"ads_to_watch" bson:"ads_to_watch"`
+	EnableRotation bool     `json:"enable_rotation" bson:"enable_rotation"`
+	EnableAdFollow bool     `json:"enable_ad_follow" bson:"enable_ad_follow"`
 
 	// session configuration
 	Config PortalSessionConfig `json:"config" bson:"config"`
@@ -257,6 +258,10 @@ type PortalProfile struct {
 	// authorization types
 	Authorizations []PortalAuthorizationConfig `json:"authorizations" bson:"authorizations"`
 
+	// limits for authens and auths per page
+	AuthenticationLimit int `json:"authentication_limit" bson:"authentication_limit"`
+	AuthorizationLimit  int `json:"authorization_limit" bson:"authorization_limit"`
+
 	// found for whitelist
 	AccessList map[string]bool `json:"access_list" bson:"access_list"`
 	BlackList  map[string]bool `json:"black_list" bson:"black_list"`
@@ -265,44 +270,11 @@ type PortalProfile struct {
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
 
 	// UTC diff (plus or minus from UTC time)
-	UTCDiff int `json:"utc_diff"`
+	UTCDiff int `json:"utc_diff" bson:"utc_diff"`
 
 	// to payments and payments system integration
 	AllowBalance   bool     `json:"allow_balance" bson:"allow_balance"`
 	PaymentSystems []string `json:"payment_systems" bson:"payment_systems"`
-}
-
-func (p *PortalProfile) NextState(state PortalUserState) (PortalUserState, []string) {
-
-	var retState = PortalUserStatePass
-	var possible = []string{}
-	switch state {
-	case PortalUserStateNew:
-		if len(p.Authentications) == 0 && p.Authentications[0].Type == PortalAuthenticationTypeNone {
-			if len(p.Authorizations) == 0 && p.Authorizations[0].Type == PortalAuthorizationTypeNone {
-			} else {
-				retState = PortalUserStateAuthorize
-				for _, v := range p.Authorizations {
-					possible = append(possible, v.Type.String())
-				}
-			}
-		} else {
-			retState = PortalUserStateAuthenticate
-			for _, v := range p.Authentications {
-				possible = append(possible, v.Type.String())
-			}
-		}
-	case PortalUserStateAuthenticate:
-		if len(p.Authorizations) == 0 && p.Authorizations[0].Type == PortalAuthorizationTypeNone {
-
-		} else {
-			retState = PortalUserStateAuthorize
-			for _, v := range p.Authorizations {
-				possible = append(possible, v.Type.String())
-			}
-		}
-	}
-	return retState, possible
 }
 
 func (p *PortalProfile) SortAd() {
@@ -397,7 +369,6 @@ type PortalAdData struct {
 
 	// for redirect to client's site
 	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
-	SkipURL     string `json:"skip_url" bson:"skip_url"`
 
 	// title text
 	Text string `json:"text" bson:"text"`
@@ -434,7 +405,7 @@ type PortalAd struct {
 
 	//Platform descktop/mobile
 	Platform struct {
-		Desktop bool `json:"desktop" bson:"start"`
+		Desktop bool `json:"desktop" bson:"desktop"`
 		Mobile  bool `json:"mobile" bson:"mobile"`
 		Tablet  bool `json:"tablet" bson:"tablet"`
 	} `json:"platform" bson:"platform"`
@@ -474,9 +445,10 @@ type PortalAdStatRequest struct {
 	Profile       string `json:"profile"`
 	Authorization string `json:"authorization"`
 
-	Duration    int64  `json:"duration"`
-	Skipped     bool   `json:"skipped"`
-	PollVariant string `json:"poll_variant"`
+	Duration          int64  `json:"duration"`
+	Skipped           bool   `json:"skipped"`
+	PollVariant       string `json:"poll_variant"`
+	FollowRedirectURL bool   `json:"follow_redirect"`
 }
 
 type PortalAdStatInc struct {
