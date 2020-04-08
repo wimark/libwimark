@@ -201,8 +201,9 @@ type PortalAuthorizationData struct {
 	Ads []PortalAd `json:"ads" bson:"-"`
 
 	AdsIDs         []string `json:"ads_ids" bson:"ads_ids"`
-	EnableRotation bool     `json:"enable_rotation" bson:"enable_rotation"`
 	AdsToWatch     int      `json:"ads_to_watch" bson:"ads_to_watch"`
+	EnableRotation bool     `json:"enable_rotation" bson:"enable_rotation"`
+	EnableAdFollow bool     `json:"enable_ad_follow" bson:"enable_ad_follow"`
 
 	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
 }
@@ -213,9 +214,6 @@ type PortalAuthorizationConfig struct {
 	Type        PortalAuthorizationType `json:"type" bson:"type"`
 	Name        string                  `json:"name" bson:"name"`
 	Description string                  `json:"description" bson:"description"`
-
-	// pass gateway needed if external authorization
-	PassGateway string `json:"-" bson:"pass_gateway"`
 
 	// will be deprecated
 	Ads []PortalAd `json:"ads" bson:"ads"`
