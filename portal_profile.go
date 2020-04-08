@@ -453,7 +453,7 @@ type PortalAdStatInc struct {
 	Counter        int   `json:"counter" bson:"counter"`
 	CounterSkipped int   `json:"counter_skipped" bson:"counter_skipped"`
 	Duration       int64 `json:"duration" bson:"duration"`
-	// PollCounter    int `json:"poll_counter" bson:"poll_counter."`
+	Follows        int   `json:"follows" bson:"follows"`
 }
 
 // PortalAdStat
@@ -471,6 +471,7 @@ type PortalAdStat struct {
 	CounterSkipped int            `json:"counter_skipped" bson:"counter_skipped"`
 	Duration       int64          `json:"duration" bson:"duration"`
 	PollCounter    map[string]int `json:"poll_counter" bson:"poll_counter"`
+	Follows        int            `json:"follows" bson:"follows"`
 }
 
 type PortalAdStatDaily struct {
@@ -492,6 +493,7 @@ type PortalAdStatDaily struct {
 	CounterSkipped int            `json:"counter_skipped" bson:"counter_skipped"`
 	Duration       int64          `json:"duration" bson:"duration"`
 	PollCounter    map[string]int `json:"poll_counter" bson:"poll_counter"`
+	Follows        int            `json:"follows" bson:"follows"`
 
 	Create   time.Time `json:"create" bson:"create"`
 	CreateAt int64     `json:"create_at" bson:"create_at"`
