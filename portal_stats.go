@@ -53,9 +53,10 @@ type PortalClientStat struct {
 	AuthenType string `json:"authen" bson:"authen,omitempty"`
 	AuthType   string `json:"auth" bson:"auth,omitempty"`
 
-	UA     UserAgent `json:"ua" bson:"ua"`
-	Vendor string    `json:"vendor" bson:"vendor"`
-	Locale string    `json:"locale" bson:"locale"`
+	UA         UserAgent `json:"ua" bson:"ua"`
+	Vendor     string    `json:"vendor" bson:"vendor"`
+	Locale     string    `json:"locale" bson:"locale"`
+	FirstVisit string    `json:"first_visit" bson:"first_visit"`
 
 	Create   time.Time `json:"create" bson:"create"`
 	CreateAt int64     `json:"create_at" bson:"create_at"`
