@@ -38,6 +38,7 @@ StatLBS    = "STAT-LBS"
 AnalMW     = "ANAL-MW"
 RadarMW    = "RADAR-MW"
 RadarExportMW    = "RADAR-EXPORT-MW"
+ClientDistance = "CLIENT-DISTANCE"
 
 [Operation]
 [Operation.variants]

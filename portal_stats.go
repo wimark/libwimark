@@ -18,6 +18,10 @@ const (
 	CollPortalDailyLocale = "portal_daily_locale"
 	// CollPortalDailyType daily aggregated with useragent type
 	CollPortalDailyType = "portal_daily_type"
+
+	CollPortalDailyFirstVisit = "portal_daily_first_visit"
+	CollPortalDailyAuth       = "portal_daily_auth"
+	CollPortalDailyAuthen     = "portal_daily_authen"
 )
 
 // DayTime struct fot represent year-month-day object
