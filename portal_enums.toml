@@ -84,3 +84,10 @@ default = "Greater"
 Less  = "less"
 Greater  = "greater"
 Equal  = "equal"
+
+[PortalPaymentSystemType]
+default = "Guide"
+[PortalPaymentSystemType.variants]
+Guide       = "guide"
+ExternalURL = "ext_url"
+External    = "ext"

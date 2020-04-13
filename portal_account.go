@@ -127,16 +127,26 @@ func GenerateVoucher(length int) string {
 type PortalPaymentSystem struct {
 	ID string `json:"id" bson:"_id"`
 
-	Profile string `json:"profile" bson:"profile"`
+	Name string                  `json:"name" bson:"name"`
+	Type PortalPaymentSystemType `json:"type" bson:"type"`
 
-	Name        string `json:"name" bson:"name"`
-	Identity    string `json:"identity" bson:"identity"`
-	Image       string `json:"image" bson:"image"`
-	Text        string `json:"text" bson:"text"`
-	TemplateURL string `json:"template_url" bson:"template_url"`
+	// for External
+	Merchant   string `json:"merchant" bson:"merchant"`
+	Profile    string `json:"profile" bson:"profile"`
+	TranUnique bool   `json:"tran_unique" bson:"tran_unique"`
 
+	// for buttons / guides
+	Image string `json:"image" bson:"image"`
+	Text  string `json:"text" bson:"text"`
+	Head  string `json:"head" bson:"head"`
+
+	// only for ExternalURL
+	TemplateURL  string `json:"template_url" bson:"template_url"`
 	TemplateHash string `json:"template_hash" bson:"template_hash"`
 	HashKey      string `json:"hash_key" bson:"hash_key"`
+
+	// will be deprecated
+	Identity string `json:"identity" bson:"identity"`
 }
 
 // PortalTransaction struct for represent balance transactions

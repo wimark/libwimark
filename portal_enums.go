@@ -907,6 +907,105 @@ func (self *PortalOSType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown PortalOSType: " + s)
 }
 
+type PortalPaymentSystemType string
+
+const PortalPaymentSystemTypeExternal PortalPaymentSystemType = "ext"
+const PortalPaymentSystemTypeExternalURL PortalPaymentSystemType = "ext_url"
+const PortalPaymentSystemTypeGuide PortalPaymentSystemType = "guide"
+
+func (self PortalPaymentSystemType) GetPtr() *PortalPaymentSystemType { var v = self; return &v }
+
+func (self PortalPaymentSystemType) String() string {
+	switch self {
+	case PortalPaymentSystemTypeExternal:
+		return "ext"
+	case PortalPaymentSystemTypeExternalURL:
+		return "ext_url"
+	case PortalPaymentSystemTypeGuide:
+		return "guide"
+	}
+	if len(self) == 0 {
+		return "guide"
+	}
+	panic(errors.New("Invalid value of PortalPaymentSystemType: " + string(self)))
+}
+
+func (self *PortalPaymentSystemType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case PortalPaymentSystemTypeExternal:
+		return json.Marshal("ext")
+	case PortalPaymentSystemTypeExternalURL:
+		return json.Marshal("ext_url")
+	case PortalPaymentSystemTypeGuide:
+		return json.Marshal("guide")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("guide")
+	}
+	return nil, errors.New("Invalid value of PortalPaymentSystemType: " + string(*self))
+}
+
+func (self *PortalPaymentSystemType) GetBSON() (interface{}, error) {
+	switch *self {
+	case PortalPaymentSystemTypeExternal:
+		return "ext", nil
+	case PortalPaymentSystemTypeExternalURL:
+		return "ext_url", nil
+	case PortalPaymentSystemTypeGuide:
+		return "guide", nil
+	}
+	if len(*self) == 0 {
+		return "guide", nil
+	}
+	return nil, errors.New("Invalid value of PortalPaymentSystemType: " + string(*self))
+}
+
+func (self *PortalPaymentSystemType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "ext":
+		*self = PortalPaymentSystemTypeExternal
+		return nil
+	case "ext_url":
+		*self = PortalPaymentSystemTypeExternalURL
+		return nil
+	case "guide":
+		*self = PortalPaymentSystemTypeGuide
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalPaymentSystemTypeGuide
+		return nil
+	}
+	return errors.New("Unknown PortalPaymentSystemType: " + s)
+}
+
+func (self *PortalPaymentSystemType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "ext":
+		*self = PortalPaymentSystemTypeExternal
+		return nil
+	case "ext_url":
+		*self = PortalPaymentSystemTypeExternalURL
+		return nil
+	case "guide":
+		*self = PortalPaymentSystemTypeGuide
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalPaymentSystemTypeGuide
+		return nil
+	}
+	return errors.New("Unknown PortalPaymentSystemType: " + s)
+}
+
 type PortalResponseStatus string
 
 const PortalResponseStatusError PortalResponseStatus = "error"
