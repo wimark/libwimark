@@ -160,6 +160,9 @@ type PortalRequestObject struct {
 
 	// client locale
 	Locale string `json:"locale"`
+
+	// for voucher activation in once
+	Activate bool `json:"activate"`
 }
 
 // PortalResponseObject struct for answer from Portal
