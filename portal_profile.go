@@ -206,6 +206,8 @@ type PortalAuthorizationData struct {
 	EnableAdFollow bool     `json:"enable_ad_follow" bson:"enable_ad_follow"`
 
 	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
+
+	Notification PortalNotification `json:"notification" bson:"notification"`
 }
 
 type PortalAuthorizationConfig struct {
@@ -229,12 +231,22 @@ type PortalAuthorizationConfig struct {
 
 	// landing page redirect URL
 	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
+
+	// notification config
+	Notification PortalNotification `json:"notification" bson:"notification"`
 }
 
 func (p *PortalAuthorizationConfig) SortAd() {
 	sort.Slice(p.Ads, func(i, j int) bool {
 		return p.Ads[i].Priority > p.Ads[j].Priority
 	})
+}
+
+// PortalNotification struct for send notification with text before session stop
+type PortalNotification struct {
+	Enable            bool   `json:"enable" bson:"enable"`
+	Text              string `json:"text" bson:"text"`
+	SecondsBeforeStop int    `json:"seconds_before_stop" bson:"seconds_before_stop"`
 }
 
 // PortalProfile to link portal and it's config
@@ -281,6 +293,12 @@ type PortalProfile struct {
 		FileURL  string `json:"file_url" bson:"file_url"`
 		Text     string `json:"text" bson:"text"`
 	} `json:"terms_of_service" bson:"terms_of_service"`
+
+	// messages for OTP codes / vouchers
+	PushText struct {
+		OTP     string `json:"otp" bson:"otp"`
+		Voucher string `json:"voucher" bson:"voucher"`
+	} `json:"push_text" bson:"push_text"`
 }
 
 func (p *PortalProfile) SortAd() {
