@@ -273,6 +273,14 @@ type PortalProfile struct {
 	// to payments and payments system integration
 	AllowBalance   bool     `json:"allow_balance" bson:"allow_balance"`
 	PaymentSystems []string `json:"payment_systems" bson:"payment_systems"`
+
+	// settings for terms of service
+	TermsOfService struct {
+		Enable   bool   `json:"enable" bson:"enable"`
+		External bool   `json:"external" bson:"external"`
+		FileURL  string `json:"file_url" bson:"file_url"`
+		Text     string `json:"text" bson:"text"`
+	} `json:"terms_of_service" bson:"terms_of_service"`
 }
 
 func (p *PortalProfile) SortAd() {
