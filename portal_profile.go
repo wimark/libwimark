@@ -488,10 +488,10 @@ type PortalAdStat struct {
 	Id string `json:"id" bson:"_id"`
 
 	// more specific data to link with profiles and authorization
-	Profile       string `json:"profile" bson:"profile"`
-	Authorization string `json:"authorization" bson:"authorization"`
+	// Profile       string `json:"profile" bson:"profile"`
+	// Authorization string `json:"authorization" bson:"authorization"`
 
-	Data PortalAdData `json:"data" bson:"data"`
+	// Data PortalAdData `json:"data" bson:"data"`
 
 	Counter        int            `json:"counter" bson:"counter"`
 	CounterSkipped int            `json:"counter_skipped" bson:"counter_skipped"`
@@ -501,16 +501,14 @@ type PortalAdStat struct {
 }
 
 type PortalAdStatDaily struct {
-	// same ID as portalad
 	Id   string `json:"id" bson:"_id"`
-	IdAd string `json:"idAd" bson:"id_ad"`
+	IdAd string `json:"id_ad" bson:"id_ad"`
 
 	// more specific data to link with profiles and authorization
 	Profile       string `json:"profile" bson:"profile"`
 	Authorization string `json:"authorization" bson:"authorization"`
 
 	// dat of day
-
 	Year  int `json:"year" bson:"year"`
 	Month int `json:"month" bson:"month"`
 	Day   int `json:"day" bson:"day"`
