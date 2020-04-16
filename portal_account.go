@@ -22,13 +22,17 @@ type PortalUserAccount struct {
 	Identity string   `json:"identity" bson:"identity"`
 	MACs     []string `json:"macs" bson:"macs"`
 
-	Name    string `json:"name" bson:"name"`
-	SurName string `json:"surname" bson:"surname"`
-	Filled  bool   `json:"filled" bson:"filled"`
+	Name        string `json:"name" bson:"name"`
+	SurName     string `json:"surname" bson:"surname"`
+	DateOfBirth string `json:"date_of_birth" bson:"date_of_birth"`
+	Filled      bool   `json:"filled" bson:"filled"`
 
 	PushAgreement bool `json:"push_agreement" bson:"push_agreement"`
 
 	Visits map[string]int `json:"visits" bson:"visits"`
+	//ids from social_network
+	SocialNetworkIDs map[string]string `json:"social_network_ids" bson:"social_network_ids"`
+	Email            string            `json:"email" bson:"email"`
 
 	Balance  int    `json:"balance" bson:"balance"`
 	Currency string `json:"currency" bson:"currency"`
