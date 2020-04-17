@@ -31,8 +31,8 @@ type PortalUserAccount struct {
 
 	Visits map[string]int `json:"visits" bson:"visits"`
 	//ids from social_network
-	SocialNetworkIDs map[string]string `json:"social_network_ids" bson:"social_network_ids"`
-	Email            string            `json:"email" bson:"email"`
+	SocialNetwork map[string]AccountFromSocialNetwork `json:"social_network" bson:"social_network"`
+	Email         string                              `json:"email" bson:"email"`
 
 	Balance  int    `json:"balance" bson:"balance"`
 	Currency string `json:"currency" bson:"currency"`
@@ -170,4 +170,12 @@ type PortalTransaction struct {
 
 	Create   time.Time `json:"create" bson:"create"`
 	CreateAt int64     `json:"create_at" bson:"create_at"`
+}
+
+type AccountFromSocialNetwork struct {
+	ID          string `json:"id" bson:"id"`
+	Name        string `json:"first_name" bson:"first_name"`
+	LastName    string `json:"last_name" bson:"last_name"`
+	Email       string `json:"email" bson:"email"`
+	DateOfBirth string `json:"birthday" bson:"birthday"`
 }

@@ -163,6 +163,9 @@ type PortalRequestObject struct {
 
 	// for voucher activation in once
 	Activate bool `json:"activate"`
+
+	//socialNetwork data
+	SocialNetwork map[string]AccountFromSocialNetwork `json:"social_network" bson:"social_network"`
 }
 
 // PortalResponseObject struct for answer from Portal
