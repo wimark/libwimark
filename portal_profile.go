@@ -217,6 +217,10 @@ type PortalAuthorizationConfig struct {
 	Name        string                  `json:"name" bson:"name"`
 	Description string                  `json:"description" bson:"description"`
 
+	// header and info for showing on captive portal page
+	Header string `json:"header" bson:"header"`
+	Info   string `json:"info" bson:"info"`
+
 	// will be deprecated
 	Ads []PortalAd `json:"ads" bson:"ads"`
 
