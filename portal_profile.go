@@ -65,6 +65,8 @@ type PortalClientSession struct {
 	Status   string `json:"status" bson:"status"`
 	Username string `json:"username" bson:"username"`
 	Password string `json:"password" bson:"password"`
+
+	SocialNetwork map[string]AccountFromSocialNetwork `json:"social_network" bson:"social_network"`
 }
 
 // PortalClientAuthentication struct for store portal client
