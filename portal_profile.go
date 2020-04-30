@@ -210,6 +210,9 @@ type PortalAuthorizationData struct {
 	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
 
 	Notification PortalNotification `json:"notification" bson:"notification"`
+
+	//SocialNetworkConfig SN auth setting
+	SocialNetworkConfig map[string]PortalAuthorizationWithSN `json:"social_network_config" bson:"social_network_config"`
 }
 
 type PortalAuthorizationConfig struct {
@@ -240,6 +243,9 @@ type PortalAuthorizationConfig struct {
 
 	// notification config
 	Notification PortalNotification `json:"notification" bson:"notification"`
+
+	//SocialNetworkConfig SN auth setting
+	SocialNetworkConfig map[string]PortalAuthorizationWithSN `json:"social_network_config" bson:"social_network_config"`
 }
 
 func (p *PortalAuthorizationConfig) SortAd() {
@@ -527,4 +533,14 @@ type PortalAdStatDaily struct {
 
 	Create   time.Time `json:"create" bson:"create"`
 	CreateAt int64     `json:"create_at" bson:"create_at"`
+}
+
+//PortalAuthorizationWithSN авторизация с помощью социальных сетей
+type PortalAuthorizationWithSN struct {
+	RedirectURL string `json:"redirect_url" bson:"redirect_url"`
+	GroupURL    string `json:"group_url" bson:"group_url"`
+	Post        struct {
+		Message     string `json:"message" bson:"message"`
+		AttachedURL string `json:"attached_url" bson:"attached_url"`
+	} `json:"post" bson:"post"`
 }
