@@ -212,7 +212,7 @@ type PortalAuthorizationData struct {
 	Notification PortalNotification `json:"notification" bson:"notification"`
 
 	//SocialNetworkConfig SN auth setting
-	SocialNetworkConfig map[string]PortalAuthorizationWithSN `json:"social_network_config" bson:"social_network_config"`
+	SocialNetworkConfig PortalAuthorizationWithSN `json:"social_network_config" bson:"social_network_config"`
 }
 
 type PortalAuthorizationConfig struct {
@@ -245,7 +245,7 @@ type PortalAuthorizationConfig struct {
 	Notification PortalNotification `json:"notification" bson:"notification"`
 
 	//SocialNetworkConfig SN auth setting
-	SocialNetworkConfig map[string]PortalAuthorizationWithSN `json:"social_network_config" bson:"social_network_config"`
+	SocialNetworkConfig PortalAuthorizationWithSN `json:"social_network_config" bson:"social_network_config"`
 }
 
 func (p *PortalAuthorizationConfig) SortAd() {
