@@ -22,10 +22,14 @@ type PortalUserAccount struct {
 	Identity string   `json:"identity" bson:"identity"`
 	MACs     []string `json:"macs" bson:"macs"`
 
-	Name            string `json:"name" bson:"name"`
-	SurName         string `json:"surname" bson:"surname"`
-	DateOfBirth     string `json:"date_of_birth" bson:"date_of_birth"`
-	DateOfBirthUnix int64  `json:"date_of_birth_unix" bson:"date_of_birth_unix"`
+	Name              string `json:"name" bson:"name"`
+	SurName           string `json:"surname" bson:"surname"`
+	DateOfBirth       string `json:"date_of_birth" bson:"date_of_birth"`
+	DateOfBirthStruct struct {
+		Day   int `json:"day" bson:"day`
+		Month int `json:"month" bson:"month"`
+		Year  int `json:"year" bson:"year"`
+	} `json:"date_of_birth_struct" bson:"date_of_birth_struct"`
 
 	Filled bool `json:"filled" bson:"filled"`
 
