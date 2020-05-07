@@ -25,11 +25,7 @@ type PortalUserAccount struct {
 	Name            string `json:"name" bson:"name"`
 	SurName         string `json:"surname" bson:"surname"`
 	DateOfBirth     string `json:"date_of_birth" bson:"date_of_birth"`
-	DateOfBirthUnix struct {
-		Day   int `json:"day" bson:"day`
-		Month int `json:"month" bson:"month"`
-		Year  int `json:"year" bson:"year"`
-	} `json:"date_of_birth_unix" bson:"date_of_birth_unix"`
+	DateOfBirthUnix int64  `json:"date_of_birth_unix" bson:"date_of_birth_unix"`
 
 	Filled bool `json:"filled" bson:"filled"`
 
