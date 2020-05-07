@@ -26,7 +26,7 @@ type PortalUserAccount struct {
 	SurName           string `json:"surname" bson:"surname"`
 	DateOfBirth       string `json:"date_of_birth" bson:"date_of_birth"`
 	DateOfBirthStruct struct {
-		Day   int `json:"day" bson:"day`
+		Day   int `json:"day" bson:"day"`
 		Month int `json:"month" bson:"month"`
 		Year  int `json:"year" bson:"year"`
 	} `json:"date_of_birth_struct" bson:"date_of_birth_struct"`
