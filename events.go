@@ -306,3 +306,15 @@ type ClientAuthorizationData struct {
 	AuthenType     string `json:"authen_type,omitempty"`
 	AuthType       string `json:"auth_type,omitempty"`
 }
+
+type DHCPAckData struct {
+	ClientAddr string `json:"client_addr"`
+	ClientMAC  string `json:"client_mac"`
+
+	ServerAddr string `json:"server_addr"`
+	ServerMAC  string `json:"server_mac"`
+	ServerHost string `json:"server_host"`
+
+	RouterAddrs []string `json:"router_addrs"`
+	Subnet      string   `json:"subnet"`
+}

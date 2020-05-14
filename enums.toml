@@ -37,7 +37,7 @@ Mediator   = "MEDIATOR"
 StatLBS    = "STAT-LBS"
 AnalMW     = "ANAL-MW"
 RadarMW    = "RADAR-MW"
-RadarExportMW    = "RADAR-EXPORT-MW"
+RadarExportMW  = "RADAR-EXPORT-MW"
 ClientDistance = "CLIENT-DISTANCE"
 
 [Operation]
@@ -74,6 +74,7 @@ RadiusAccountingSend    = "RADIUS_ACCOUNTING_SEND"
 LoggedError             = "LOGGED_ERROR"
 RadarExportUpdate       = "RADAR_EXPORT_UPDATE"
 ClientAuthorization     = "CLIENT_AUTHORIZATION"
+DHCPAck                 = "DHCP_ACK"
 
 [SystemEventLevel]
 default = "DEBUG"

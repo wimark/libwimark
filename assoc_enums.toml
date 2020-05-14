@@ -29,6 +29,7 @@ RadiusAccountingSend    = "RadiusAccountingSendData"
 LoggedError             = "ModelError"
 RadarExportUpdate       = "RadarExportUpdate"
 ClientAuthorization     = "ClientAuthorizationData"
+DHCPAck                 = "DHCPAckData"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"

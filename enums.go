@@ -4138,6 +4138,7 @@ const SystemEventTypeClientAuthorization SystemEventType = "CLIENT_AUTHORIZATION
 const SystemEventTypeClientConnected SystemEventType = "CLIENT_CONNECTED"
 const SystemEventTypeClientDisconnected SystemEventType = "CLIENT_DISCONNECTED"
 const SystemEventTypeCpeFirmwareAvailable SystemEventType = "CPE_FIRMWARE_AVAILABLE"
+const SystemEventTypeDHCPAck SystemEventType = "DHCP_ACK"
 const SystemEventTypeDaemonSettingsChanged SystemEventType = "DAEMON_SETTINGS_CHANGE"
 const SystemEventTypeFirmwareUploaded SystemEventType = "FIRMWARE_UPLOADED"
 const SystemEventTypeLoggedError SystemEventType = "LOGGED_ERROR"
@@ -4171,6 +4172,8 @@ func (self SystemEventType) String() string {
 		return "CLIENT_DISCONNECTED"
 	case SystemEventTypeCpeFirmwareAvailable:
 		return "CPE_FIRMWARE_AVAILABLE"
+	case SystemEventTypeDHCPAck:
+		return "DHCP_ACK"
 	case SystemEventTypeDaemonSettingsChanged:
 		return "DAEMON_SETTINGS_CHANGE"
 	case SystemEventTypeFirmwareUploaded:
@@ -4217,6 +4220,8 @@ func (self *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("CLIENT_DISCONNECTED")
 	case SystemEventTypeCpeFirmwareAvailable:
 		return json.Marshal("CPE_FIRMWARE_AVAILABLE")
+	case SystemEventTypeDHCPAck:
+		return json.Marshal("DHCP_ACK")
 	case SystemEventTypeDaemonSettingsChanged:
 		return json.Marshal("DAEMON_SETTINGS_CHANGE")
 	case SystemEventTypeFirmwareUploaded:
@@ -4263,6 +4268,8 @@ func (self *SystemEventType) GetBSON() (interface{}, error) {
 		return "CLIENT_DISCONNECTED", nil
 	case SystemEventTypeCpeFirmwareAvailable:
 		return "CPE_FIRMWARE_AVAILABLE", nil
+	case SystemEventTypeDHCPAck:
+		return "DHCP_ACK", nil
 	case SystemEventTypeDaemonSettingsChanged:
 		return "DAEMON_SETTINGS_CHANGE", nil
 	case SystemEventTypeFirmwareUploaded:
@@ -4320,6 +4327,9 @@ func (self *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "CPE_FIRMWARE_AVAILABLE":
 		*self = SystemEventTypeCpeFirmwareAvailable
+		return nil
+	case "DHCP_ACK":
+		*self = SystemEventTypeDHCPAck
 		return nil
 	case "DAEMON_SETTINGS_CHANGE":
 		*self = SystemEventTypeDaemonSettingsChanged
@@ -4390,6 +4400,9 @@ func (self *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "CPE_FIRMWARE_AVAILABLE":
 		*self = SystemEventTypeCpeFirmwareAvailable
+		return nil
+	case "DHCP_ACK":
+		*self = SystemEventTypeDHCPAck
 		return nil
 	case "DAEMON_SETTINGS_CHANGE":
 		*self = SystemEventTypeDaemonSettingsChanged
