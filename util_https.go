@@ -25,11 +25,10 @@ func SendHTTPSGet(url, apiKey string) ([]byte, error) {
 		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", apiKey))
 	}
 	resp, err := client.Do(req)
-	defer resp.Body.Close()
-
 	if err != nil {
 		return res, err
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusOK {
 		res, err = ioutil.ReadAll(resp.Body)
@@ -64,11 +63,10 @@ func SendHTTPSRequest(url, apiKey string,
 		req.Header.Set("Content-Type", contentType)
 	}
 	resp, err := client.Do(req)
-	defer resp.Body.Close()
-
 	if err != nil {
 		return res, err
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusOK {
 		res, err = ioutil.ReadAll(resp.Body)

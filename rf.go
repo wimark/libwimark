@@ -19,6 +19,7 @@ type ClientRF struct {
 	TS       int64           `json:"ts" bson:"ts"`
 	CreateAt time.Time       `json:"create_at" bson:"create_at"`
 	RF       AccountingRadio `json:"rf" bson:"rf"`
+	SNR      int             `json:"snr" bson:"snr"`
 }
 
 // ClientDistance struct for history client distance data
@@ -31,5 +32,6 @@ type ClientDistance struct {
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
 	Signal   int       `json:"signal" bson:"signal"`
 	Noise    int       `json:"noise" bson:"noise"`
+	SNR      int       `json:"snr" bson:"snr"`
 	Distance float64   `json:"distance" bson:"distance"`
 }

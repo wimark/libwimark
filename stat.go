@@ -431,10 +431,15 @@ type WirelessClient struct {
 	Radio   string             `json:"radio_id" bson:"radio_id"`
 	Freq    string             `json:"freq"`
 	Channel string             `json:"channel"`
-	Rssi    int                `json:"rssi"`
-	Noise   int                `json:"noise"`
 	Mode    ConnectionModeType `json:"mode"`
 	Ip      string             `json:"ip"`
+
+	// radio state
+	Rssi  int `json:"rssi"`
+	Noise int `json:"noise"`
+	SNR   int `json:"snr" bson:"snr"`
+	// heath score as Cisco DNA assurance - connected score (1 || 4) + best over 5 minute SNR
+	HealthScore int `json:"health_score" bson:"health_score"`
 
 	// DEPRECATED -- last session traffic data
 	InPackets  int64 `json:"in_packets" bson:"in_packets"`
