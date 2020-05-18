@@ -184,4 +184,5 @@ type AccountFromSocialNetwork struct {
 	LastName    string `json:"last_name" bson:"last_name"`
 	Email       string `json:"email" bson:"email"`
 	DateOfBirth string `json:"birthday" bson:"birthday"`
+	Sex         string `json:"sex" bson:"sex"`
 }
