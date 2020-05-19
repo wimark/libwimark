@@ -67,6 +67,7 @@ Iframe = "iframe"
 Poll   = "poll"
 PollIm = "poll_image"
 PollQuality = "poll_quality"
+PollUserData = "poll_user_data"
 
 [PortalOSType]
 default = "None"
