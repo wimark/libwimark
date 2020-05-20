@@ -544,3 +544,13 @@ type PortalAuthorizationWithSN struct {
 		AttachedURL string `json:"attached_url" bson:"attached_url"`
 	} `json:"post" bson:"post"`
 }
+
+//PortalPollUserDataAnswer for answer about user data(sex,date_of_birth etc)
+type PortalPollUserDataAnswer struct {
+	Sex         string `json:"sex" bson:"sex"`
+	DateOfBirth struct {
+		Day   int `json:"day" bson:"day"`
+		Month int `json:"month" bson:"month"`
+		Year  int `json:"year" bson:"year"`
+	} `json:"date_of_birth" bson:"date_of_birth"`
+}
