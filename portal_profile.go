@@ -481,10 +481,11 @@ type PortalAdStatRequest struct {
 	Profile       string `json:"profile"`
 	Authorization string `json:"authorization"`
 
-	Duration          int64  `json:"duration"`
-	Skipped           bool   `json:"skipped"`
-	PollVariant       string `json:"poll_variant"`
-	FollowRedirectURL bool   `json:"follow_redirect"`
+	Duration          int64                    `json:"duration"`
+	Skipped           bool                     `json:"skipped"`
+	PollVariant       string                   `json:"poll_variant"`
+	PollUserData      PortalPollUserDataAnswer `json: "poll_user_data_answer"`
+	FollowRedirectURL bool                     `json:"follow_redirect"`
 }
 
 type PortalAdStatInc struct {
