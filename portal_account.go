@@ -31,6 +31,8 @@ type PortalUserAccount struct {
 		Year  int `json:"year" bson:"year"`
 	} `json:"date_of_birth_struct" bson:"date_of_birth_struct"`
 
+	Sex string `json:"sex" bson:"sex"`
+
 	Filled bool `json:"filled" bson:"filled"`
 
 	PushAgreement bool `json:"push_agreement" bson:"push_agreement"`
