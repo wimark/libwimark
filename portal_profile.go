@@ -416,8 +416,8 @@ type PortalAdData struct {
 	ThemeType  string `json:"theme_type" bson:"theme_type"`
 	ThemeColor string `json:"theme_color" bson:"theme_color"`
 
-	// поля означаюзие включен ли опрос данных о пользователе
-	EnableDateOfBirth bool `json:"enable_date_of_birth" bson: "enable_date_of_birth"`
+	// поля означаюзие включен ли опрос данных о пользователя
+	EnableDateOfBirth bool `json:"enable_date_of_birth" bson:"enable_date_of_birth"`
 	EnableSex         bool `json:"enable_sex" bson:"enable_sex"`
 }
 
