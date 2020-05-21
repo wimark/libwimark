@@ -488,7 +488,7 @@ type PortalAdStatRequest struct {
 	Duration          int64                    `json:"duration"`
 	Skipped           bool                     `json:"skipped"`
 	PollVariant       string                   `json:"poll_variant"`
-	PollUserData      PortalPollUserDataAnswer `json: "poll_user_data_answer"`
+	PollUserData      PortalPollUserDataAnswer `json:"poll_user_data_answer"`
 	FollowRedirectURL bool                     `json:"follow_redirect"`
 }
 
