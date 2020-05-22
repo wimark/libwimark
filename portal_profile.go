@@ -417,8 +417,7 @@ type PortalAdData struct {
 	ThemeColor string `json:"theme_color" bson:"theme_color"`
 
 	// поля означаюзие включен ли опрос данных о пользователя
-	EnableDateOfBirth bool `json:"enable_date_of_birth" bson:"enable_date_of_birth"`
-	EnableSex         bool `json:"enable_sex" bson:"enable_sex"`
+	PollFields PollEnabledFields `json:"poll_fields" bson:"poll_fields"`
 }
 
 // PortalAd object for ihot
@@ -558,4 +557,10 @@ type PortalPollUserDataAnswer struct {
 		Month int `json:"month" bson:"month"`
 		Year  int `json:"year" bson:"year"`
 	} `json:"date_of_birth" bson:"date_of_birth"`
+}
+
+//PollEnabledFields включение опросов о данных пользователя
+type PollEnabledFields struct {
+	DateOfBirth bool `json:"date_of_birth" bson:"date_of_birth"`
+	Sex         bool `json:"sex" bson:"sex"`
 }
