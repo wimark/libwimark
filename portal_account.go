@@ -181,10 +181,13 @@ type PortalTransaction struct {
 }
 
 type AccountFromSocialNetwork struct {
-	ID          string `json:"id" bson:"id"`
-	Name        string `json:"first_name" bson:"first_name"`
-	LastName    string `json:"last_name" bson:"last_name"`
-	Email       string `json:"email" bson:"email"`
-	DateOfBirth string `json:"birthday" bson:"birthday"`
-	Sex         string `json:"sex" bson:"sex"`
+	ID           string   `json:"id" bson:"id"`
+	Name         string   `json:"first_name" bson:"first_name"`
+	LastName     string   `json:"last_name" bson:"last_name"`
+	Email        string   `json:"email" bson:"email"`
+	DateOfBirth  string   `json:"birthday" bson:"birthday"`
+	Sex          string   `json:"sex" bson:"sex"`
+	City         string   `json:"city"`
+	Universities []string `json:"universities"`
+	HomeTown     string   `json:"home_town"`
 }
