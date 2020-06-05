@@ -187,7 +187,7 @@ type AccountFromSocialNetwork struct {
 	Email        string   `json:"email" bson:"email"`
 	DateOfBirth  string   `json:"birthday" bson:"birthday"`
 	Sex          string   `json:"sex" bson:"sex"`
-	City         string   `json:"city"`
-	Universities []string `json:"universities"`
-	HomeTown     string   `json:"home_town"`
+	City         string   `json:"city" bson:"city"`
+	Universities []string `json:"universities" bson:"universities"`
+	HomeTown     string   `json:"home_town" bson:"home_town"`
 }
