@@ -476,6 +476,17 @@ type PortalAd struct {
 		Sign   PortalSignType `json:"sign" bson:"sign"`
 	} `json:"number_of_visits" bson:"number_of_visits"`
 
+	UserRotation struct {
+		Sex         string `json:"sex" bson:"age"`
+		DateOfBirth struct {
+			Day   int `json:"day" bson:"day"`
+			Month int `json:"month" bson:"month"`
+			Year  int `json:"year" bson:"year"`
+		} `json:"date_of_birth" bson:"date_of_birth"`
+		Age  int64  `json:"age" bson:"age"`
+		City string `json:"city" bson:"city"`
+	} `json:"user_rotation" bson:"user_rotation"`
+
 	Data PortalAdData `json:"data" bson:"data"`
 }
 

@@ -33,6 +33,9 @@ type PortalUserAccount struct {
 
 	Sex string `json:"sex" bson:"sex"`
 
+	City     string `json:"city" bson:"city"`
+	HomeTown string `json:"home_town" bson:"home_town"`
+
 	Filled bool `json:"filled" bson:"filled"`
 
 	PushAgreement bool `json:"push_agreement" bson:"push_agreement"`
