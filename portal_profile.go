@@ -477,7 +477,7 @@ type PortalAd struct {
 	} `json:"number_of_visits" bson:"number_of_visits"`
 
 	UserRotation struct {
-		Sex         string `json:"sex" bson:"age"`
+		Sex         string `json:"sex" bson:"sex"`
 		DateOfBirth struct {
 			Day   int `json:"day" bson:"day"`
 			Month int `json:"month" bson:"month"`
