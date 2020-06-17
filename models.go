@@ -111,6 +111,8 @@ type WLAN struct {
 
 	SpeedUpload   SpeedConfig `json:"speed_upload" bson:"speed_upload"`
 	SpeedDownload SpeedConfig `json:"speed_download" bson:"speed_download"`
+
+	BeelineAccountingType string `json:"beeline_accountng_type"`
 }
 
 type WLANCompact struct {
