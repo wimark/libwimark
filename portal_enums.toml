@@ -17,6 +17,7 @@ Voucher  = "voucher"
 UserPass = "userpass"
 ESIA     = "esia"
 Email    = "email"
+HotelVoucher = "hotel_voucher"
 
 [PortalAuthorizationType]
 default = "None"

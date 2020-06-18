@@ -360,6 +360,7 @@ type PortalAuthenticationType string
 const PortalAuthenticationTypeCallback PortalAuthenticationType = "callback"
 const PortalAuthenticationTypeESIA PortalAuthenticationType = "esia"
 const PortalAuthenticationTypeEmail PortalAuthenticationType = "email"
+const PortalAuthenticationTypeHotelVoucher PortalAuthenticationType = "hotel_voucher"
 const PortalAuthenticationTypeNone PortalAuthenticationType = "none"
 const PortalAuthenticationTypeSMS PortalAuthenticationType = "sms"
 const PortalAuthenticationTypeUserPass PortalAuthenticationType = "userpass"
@@ -375,6 +376,8 @@ func (self PortalAuthenticationType) String() string {
 		return "esia"
 	case PortalAuthenticationTypeEmail:
 		return "email"
+	case PortalAuthenticationTypeHotelVoucher:
+		return "hotel_voucher"
 	case PortalAuthenticationTypeNone:
 		return "none"
 	case PortalAuthenticationTypeSMS:
@@ -398,6 +401,8 @@ func (self *PortalAuthenticationType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("esia")
 	case PortalAuthenticationTypeEmail:
 		return json.Marshal("email")
+	case PortalAuthenticationTypeHotelVoucher:
+		return json.Marshal("hotel_voucher")
 	case PortalAuthenticationTypeNone:
 		return json.Marshal("none")
 	case PortalAuthenticationTypeSMS:
@@ -421,6 +426,8 @@ func (self *PortalAuthenticationType) GetBSON() (interface{}, error) {
 		return "esia", nil
 	case PortalAuthenticationTypeEmail:
 		return "email", nil
+	case PortalAuthenticationTypeHotelVoucher:
+		return "hotel_voucher", nil
 	case PortalAuthenticationTypeNone:
 		return "none", nil
 	case PortalAuthenticationTypeSMS:
@@ -450,6 +457,9 @@ func (self *PortalAuthenticationType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "email":
 		*self = PortalAuthenticationTypeEmail
+		return nil
+	case "hotel_voucher":
+		*self = PortalAuthenticationTypeHotelVoucher
 		return nil
 	case "none":
 		*self = PortalAuthenticationTypeNone
@@ -485,6 +495,9 @@ func (self *PortalAuthenticationType) SetBSON(v bson.Raw) error {
 		return nil
 	case "email":
 		*self = PortalAuthenticationTypeEmail
+		return nil
+	case "hotel_voucher":
+		*self = PortalAuthenticationTypeHotelVoucher
 		return nil
 	case "none":
 		*self = PortalAuthenticationTypeNone

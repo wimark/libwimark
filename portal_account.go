@@ -6,11 +6,12 @@ import (
 )
 
 const (
-	CollPortalUserAccount  = "portal_user_accounts"
-	CollPortalUserVoucher  = "portal_user_voucher"
-	CollPortalPaidPlans    = "portal_paid_plans"
-	CollPortalPaymentSys   = "portal_payment_system"
-	CollPortalTransactions = "portal_transactions"
+	CollPortalUserAccount      = "portal_user_accounts"
+	CollPortalUserVoucher      = "portal_user_voucher"
+	CollPortalUserHotelVoucher = "portal_user_hotel_voucher"
+	CollPortalPaidPlans        = "portal_paid_plans"
+	CollPortalPaymentSys       = "portal_payment_system"
+	CollPortalTransactions     = "portal_transactions"
 )
 
 // PortalUserAccount struct to represent user account for Profile
@@ -137,6 +138,22 @@ func GenerateVoucher(length int) string {
 	return string(b)
 }
 
+// GenerateHotelVoucher function to generate unique
+// alphanumeric voucher code with provided len.
+// Example: GenerateVoucher(6) -> a1b-2c3
+func GenerateHotelVoucher(length int) string {
+	if length < 4 {
+		length = 4
+	}
+
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+	}
+
+	return string(b)
+}
+
 // PortalPaymentSystem struct for represent PS
 // (Humo, Megafon Life, Robokassa, etc)
 type PortalPaymentSystem struct {
@@ -193,4 +210,26 @@ type AccountFromSocialNetwork struct {
 	City         string   `json:"city" bson:"city"`
 	Universities []string `json:"universities" bson:"universities"`
 	HomeTown     string   `json:"home_town" bson:"home_town"`
+}
+
+// PortalUserHotelVoucher struct to represent voucher
+type PortalUserHotelVoucher struct {
+	ID string `json:"id" bson:"_id"`
+
+	Account string `json:"account" bson:"account"`
+	Profile string `json:"profile" bson:"profile"`
+
+	Create   time.Time `json:"create" bson:"create"`
+	CreateAt int64     `json:"create_at" bson:"create_at"`
+
+	StartAt  int64 `json:"start_at" bson:"start_at"`
+	ExpireAt int64 `json:"expire_at" bson:"expire_at"`
+
+	Code string `json:"code" bson:"code"`
+	Used bool   `json:"used" bson:"used"`
+
+	// limits
+	SpeedLimit   int   `json:"speed" bson:"speed"`
+	TimeoutLimit int64 `json:"session" bson:"session"`
+	TrafficLimit int   `json:"traffic" bson:"traffic"`
 }
