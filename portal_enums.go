@@ -610,6 +610,7 @@ type PortalAuthorizationType string
 const PortalAuthorizationTypeExtVoucher PortalAuthorizationType = "ext_voucher"
 const PortalAuthorizationTypeFB PortalAuthorizationType = "facebook"
 const PortalAuthorizationTypeFree PortalAuthorizationType = "free"
+const PortalAuthorizationTypeHotelVoucher PortalAuthorizationType = "hotel_voucher"
 const PortalAuthorizationTypeIG PortalAuthorizationType = "instagram"
 const PortalAuthorizationTypeNone PortalAuthorizationType = "none"
 const PortalAuthorizationTypeSkip PortalAuthorizationType = "skip"
@@ -628,6 +629,8 @@ func (self PortalAuthorizationType) String() string {
 		return "facebook"
 	case PortalAuthorizationTypeFree:
 		return "free"
+	case PortalAuthorizationTypeHotelVoucher:
+		return "hotel_voucher"
 	case PortalAuthorizationTypeIG:
 		return "instagram"
 	case PortalAuthorizationTypeNone:
@@ -657,6 +660,8 @@ func (self *PortalAuthorizationType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("facebook")
 	case PortalAuthorizationTypeFree:
 		return json.Marshal("free")
+	case PortalAuthorizationTypeHotelVoucher:
+		return json.Marshal("hotel_voucher")
 	case PortalAuthorizationTypeIG:
 		return json.Marshal("instagram")
 	case PortalAuthorizationTypeNone:
@@ -686,6 +691,8 @@ func (self *PortalAuthorizationType) GetBSON() (interface{}, error) {
 		return "facebook", nil
 	case PortalAuthorizationTypeFree:
 		return "free", nil
+	case PortalAuthorizationTypeHotelVoucher:
+		return "hotel_voucher", nil
 	case PortalAuthorizationTypeIG:
 		return "instagram", nil
 	case PortalAuthorizationTypeNone:
@@ -721,6 +728,9 @@ func (self *PortalAuthorizationType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "free":
 		*self = PortalAuthorizationTypeFree
+		return nil
+	case "hotel_voucher":
+		*self = PortalAuthorizationTypeHotelVoucher
 		return nil
 	case "instagram":
 		*self = PortalAuthorizationTypeIG
@@ -765,6 +775,9 @@ func (self *PortalAuthorizationType) SetBSON(v bson.Raw) error {
 		return nil
 	case "free":
 		*self = PortalAuthorizationTypeFree
+		return nil
+	case "hotel_voucher":
+		*self = PortalAuthorizationTypeHotelVoucher
 		return nil
 	case "instagram":
 		*self = PortalAuthorizationTypeIG
