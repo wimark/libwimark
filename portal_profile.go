@@ -284,9 +284,10 @@ type PortalProfile struct {
 	AuthenticationLimit int `json:"authentication_limit" bson:"authentication_limit"`
 	AuthorizationLimit  int `json:"authorization_limit" bson:"authorization_limit"`
 
-	// found for whitelist
-	AccessList map[string]bool `json:"access_list" bson:"access_list"`
-	BlackList  map[string]bool `json:"black_list" bson:"black_list"`
+	//WhiteList is map[string]string as(map[account]code)
+	WhiteList map[string]string `json:"white_list" bson:"white_list"`
+	//BlackList is list to block user
+	BlackList map[string]bool `json:"black_list" bson:"black_list"`
 
 	// default session configuration (timeout and block timeout)
 	SessionConfig PortalSessionConfig `json:"session_config" bson:"session_config"`
