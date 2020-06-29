@@ -18,10 +18,10 @@ const (
 type PortalUserAccount struct {
 	ID string `json:"id" bson:"_id"`
 
-	Profile string `json:"profile" bson:"profile"`
-
-	Identity string   `json:"identity" bson:"identity"`
-	MACs     []string `json:"macs" bson:"macs"`
+	Profile            string   `json:"profile" bson:"profile"`
+	Identity           string   `json:"identity" bson:"identity"`
+	AuthenticationCode string   `json:"authentication_code" bson:"authentication_code"`
+	MACs               []string `json:"macs" bson:"macs"`
 
 	Name              string `json:"name" bson:"name"`
 	SurName           string `json:"surname" bson:"surname"`
