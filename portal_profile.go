@@ -297,6 +297,8 @@ type PortalProfile struct {
 	// UTC diff (plus or minus from UTC time)
 	UTCDiff int `json:"utc_diff" bson:"utc_diff"`
 
+	MACsLimit int `json:"macs_limit" bson:"macs_limit"`
+
 	// to payments and payments system integration
 	AllowBalance   bool     `json:"allow_balance" bson:"allow_balance"`
 	PaymentSystems []string `json:"payment_systems" bson:"payment_systems"`
