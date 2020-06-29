@@ -284,8 +284,10 @@ type PortalProfile struct {
 	AuthenticationLimit int `json:"authentication_limit" bson:"authentication_limit"`
 	AuthorizationLimit  int `json:"authorization_limit" bson:"authorization_limit"`
 
-	//WhiteList is map[string]string as(map[account]code)
-	WhiteList map[string]string `json:"white_list" bson:"white_list"`
+	//AccessList list to pass special user by code
+	AccessList map[string]bool `json:"access_list" bson:"access_list"`
+	//WhiteList to pass user with out auth
+	WhiteList map[string]bool `json:"white_list" bson:"white_list"`
 	//BlackList is list to block user
 	BlackList map[string]bool `json:"black_list" bson:"black_list"`
 
