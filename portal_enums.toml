@@ -94,3 +94,12 @@ default = "Guide"
 Guide       = "guide"
 ExternalURL = "ext_url"
 External    = "ext"
+
+[PortalActionListType]
+default = "None"
+[PortalActionListType.variants]
+None        = "none"
+AddToAccessList = "add_al"
+DelFromAccessList = "del_al"
+AddToBlackList = "add_bl"
+DelFromBlackList = "del_bl"

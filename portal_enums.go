@@ -6,6 +6,131 @@ import (
 	"github.com/globalsign/mgo/bson"
 )
 
+type PortalActionListType string
+
+const PortalActionListTypeAddToAccessList PortalActionListType = "add_al"
+const PortalActionListTypeAddToBlackList PortalActionListType = "add_bl"
+const PortalActionListTypeDelFromAccessList PortalActionListType = "del_al"
+const PortalActionListTypeDelFromBlackList PortalActionListType = "del_bl"
+const PortalActionListTypeNone PortalActionListType = "none"
+
+func (self PortalActionListType) GetPtr() *PortalActionListType { var v = self; return &v }
+
+func (self PortalActionListType) String() string {
+	switch self {
+	case PortalActionListTypeAddToAccessList:
+		return "add_al"
+	case PortalActionListTypeAddToBlackList:
+		return "add_bl"
+	case PortalActionListTypeDelFromAccessList:
+		return "del_al"
+	case PortalActionListTypeDelFromBlackList:
+		return "del_bl"
+	case PortalActionListTypeNone:
+		return "none"
+	}
+	if len(self) == 0 {
+		return "none"
+	}
+	panic(errors.New("Invalid value of PortalActionListType: " + string(self)))
+}
+
+func (self *PortalActionListType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case PortalActionListTypeAddToAccessList:
+		return json.Marshal("add_al")
+	case PortalActionListTypeAddToBlackList:
+		return json.Marshal("add_bl")
+	case PortalActionListTypeDelFromAccessList:
+		return json.Marshal("del_al")
+	case PortalActionListTypeDelFromBlackList:
+		return json.Marshal("del_bl")
+	case PortalActionListTypeNone:
+		return json.Marshal("none")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("none")
+	}
+	return nil, errors.New("Invalid value of PortalActionListType: " + string(*self))
+}
+
+func (self *PortalActionListType) GetBSON() (interface{}, error) {
+	switch *self {
+	case PortalActionListTypeAddToAccessList:
+		return "add_al", nil
+	case PortalActionListTypeAddToBlackList:
+		return "add_bl", nil
+	case PortalActionListTypeDelFromAccessList:
+		return "del_al", nil
+	case PortalActionListTypeDelFromBlackList:
+		return "del_bl", nil
+	case PortalActionListTypeNone:
+		return "none", nil
+	}
+	if len(*self) == 0 {
+		return "none", nil
+	}
+	return nil, errors.New("Invalid value of PortalActionListType: " + string(*self))
+}
+
+func (self *PortalActionListType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "add_al":
+		*self = PortalActionListTypeAddToAccessList
+		return nil
+	case "add_bl":
+		*self = PortalActionListTypeAddToBlackList
+		return nil
+	case "del_al":
+		*self = PortalActionListTypeDelFromAccessList
+		return nil
+	case "del_bl":
+		*self = PortalActionListTypeDelFromBlackList
+		return nil
+	case "none":
+		*self = PortalActionListTypeNone
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalActionListTypeNone
+		return nil
+	}
+	return errors.New("Unknown PortalActionListType: " + s)
+}
+
+func (self *PortalActionListType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "add_al":
+		*self = PortalActionListTypeAddToAccessList
+		return nil
+	case "add_bl":
+		*self = PortalActionListTypeAddToBlackList
+		return nil
+	case "del_al":
+		*self = PortalActionListTypeDelFromAccessList
+		return nil
+	case "del_bl":
+		*self = PortalActionListTypeDelFromBlackList
+		return nil
+	case "none":
+		*self = PortalActionListTypeNone
+		return nil
+	}
+	if len(s) == 0 {
+		*self = PortalActionListTypeNone
+		return nil
+	}
+	return errors.New("Unknown PortalActionListType: " + s)
+}
+
 type PortalAdvertisementState string
 
 const PortalAdvertisementStateChecked PortalAdvertisementState = "checked"
