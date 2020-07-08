@@ -12,6 +12,8 @@ const PortalActionListTypeAddToAccessList PortalActionListType = "add_al"
 const PortalActionListTypeAddToBlackList PortalActionListType = "add_bl"
 const PortalActionListTypeDelFromAccessList PortalActionListType = "del_al"
 const PortalActionListTypeDelFromBlackList PortalActionListType = "del_bl"
+const PortalActionListTypeGetAccessList PortalActionListType = "get_al"
+const PortalActionListTypeGetBlackList PortalActionListType = "get_bl"
 const PortalActionListTypeNone PortalActionListType = "none"
 
 func (self PortalActionListType) GetPtr() *PortalActionListType { var v = self; return &v }
@@ -26,6 +28,10 @@ func (self PortalActionListType) String() string {
 		return "del_al"
 	case PortalActionListTypeDelFromBlackList:
 		return "del_bl"
+	case PortalActionListTypeGetAccessList:
+		return "get_al"
+	case PortalActionListTypeGetBlackList:
+		return "get_bl"
 	case PortalActionListTypeNone:
 		return "none"
 	}
@@ -45,6 +51,10 @@ func (self *PortalActionListType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("del_al")
 	case PortalActionListTypeDelFromBlackList:
 		return json.Marshal("del_bl")
+	case PortalActionListTypeGetAccessList:
+		return json.Marshal("get_al")
+	case PortalActionListTypeGetBlackList:
+		return json.Marshal("get_bl")
 	case PortalActionListTypeNone:
 		return json.Marshal("none")
 	}
@@ -64,6 +74,10 @@ func (self *PortalActionListType) GetBSON() (interface{}, error) {
 		return "del_al", nil
 	case PortalActionListTypeDelFromBlackList:
 		return "del_bl", nil
+	case PortalActionListTypeGetAccessList:
+		return "get_al", nil
+	case PortalActionListTypeGetBlackList:
+		return "get_bl", nil
 	case PortalActionListTypeNone:
 		return "none", nil
 	}
@@ -90,6 +104,12 @@ func (self *PortalActionListType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "del_bl":
 		*self = PortalActionListTypeDelFromBlackList
+		return nil
+	case "get_al":
+		*self = PortalActionListTypeGetAccessList
+		return nil
+	case "get_bl":
+		*self = PortalActionListTypeGetBlackList
 		return nil
 	case "none":
 		*self = PortalActionListTypeNone
@@ -119,6 +139,12 @@ func (self *PortalActionListType) SetBSON(v bson.Raw) error {
 		return nil
 	case "del_bl":
 		*self = PortalActionListTypeDelFromBlackList
+		return nil
+	case "get_al":
+		*self = PortalActionListTypeGetAccessList
+		return nil
+	case "get_bl":
+		*self = PortalActionListTypeGetBlackList
 		return nil
 	case "none":
 		*self = PortalActionListTypeNone
