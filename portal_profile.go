@@ -248,6 +248,8 @@ type PortalAuthorizationConfig struct {
 
 	//SocialNetworkConfig SN auth setting
 	SocialNetworkConfig PortalAuthorizationWithSN `json:"social_network_config" bson:"social_network_config"`
+
+	SkipFinalPage bool `json:"skip_final_page" bson:"skip_final_page"`
 }
 
 func (p *PortalAuthorizationConfig) SortAd() {
