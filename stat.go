@@ -306,6 +306,7 @@ type LBSCPEInfo struct {
 	X     float64 `json:"x"`
 	Y     float64 `json:"y"`
 	Z     float64 `json:"z"`
+	Zones LBSZone `json:"zones"`
 }
 
 type LBSClientCoords struct {
@@ -313,6 +314,7 @@ type LBSClientCoords struct {
 	Group     UUID    `json:"group"`
 	Mac       string  `json:"mac"`
 	BestCPE   UUID    `json:"bestcpe"`
+	Zone      string  `json:"zone"`
 	X         float64 `json:"x"`
 	Y         float64 `json:"y"`
 	Z         float64 `json:"z"`
@@ -548,4 +550,20 @@ type ClientProbeData struct {
 type StationDumpData struct {
 	Radio     string                     `json:"radio" bson:"radio"`
 	AssocList map[string]AccountingRadio `json:"assoclist" bson:"assoclist"`
+}
+
+//LBSZone зоны на картах как Cisco CMX
+type LBSZone struct {
+	ID          string         `json:"id" bson:"_id"`
+	Name        string         `json:"name" bson:"name"`
+	Description string         `json:"description" bson:"description"`
+	Corners     []CornerCoords `json:"corners" bson:"corners"`
+	Visits      int64          `json:"visits" bson:"visits"`
+}
+
+//CornerCoords координаты углов зоны
+type CornerCoords struct {
+	X float64 `json:"x" bson:"x"`
+	Y float64 `json:"y" bson:"y"`
+	Z float64 `json:"z" bson:"z"`
 }
