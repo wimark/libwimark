@@ -300,13 +300,13 @@ type LBSClientData struct {
 }
 
 type LBSCPEInfo struct {
-	Group UUID    `json:"group"`
-	CPE   UUID    `json:"cpe"`
-	Name  string  `json:"name"`
-	X     float64 `json:"x"`
-	Y     float64 `json:"y"`
-	Z     float64 `json:"z"`
-	Zones LBSZone `json:"zones"`
+	Group UUID      `json:"group"`
+	CPE   UUID      `json:"cpe"`
+	Name  string    `json:"name"`
+	X     float64   `json:"x"`
+	Y     float64   `json:"y"`
+	Z     float64   `json:"z"`
+	Zones []LBSZone `json:"zones"`
 }
 
 type LBSClientCoords struct {
