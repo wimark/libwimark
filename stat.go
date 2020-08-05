@@ -300,13 +300,12 @@ type LBSClientData struct {
 }
 
 type LBSCPEInfo struct {
-	Group UUID      `json:"group"`
-	CPE   UUID      `json:"cpe"`
-	Name  string    `json:"name"`
-	X     float64   `json:"x"`
-	Y     float64   `json:"y"`
-	Z     float64   `json:"z"`
-	Zones []LBSZone `json:"zones"`
+	Group UUID    `json:"group"`
+	CPE   UUID    `json:"cpe"`
+	Name  string  `json:"name"`
+	X     float64 `json:"x"`
+	Y     float64 `json:"y"`
+	Z     float64 `json:"z"`
 }
 
 type LBSClientCoords struct {
@@ -557,8 +556,8 @@ type LBSZone struct {
 	ID          string         `json:"id" bson:"_id"`
 	Name        string         `json:"name" bson:"name"`
 	Description string         `json:"description" bson:"description"`
+	Group       UUID           `json:"group"`
 	Corners     []CornerCoords `json:"corners" bson:"corners"`
-	Visits      int64          `json:"visits" bson:"visits"`
 }
 
 //CornerCoords координаты углов зоны
