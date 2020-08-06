@@ -28,6 +28,7 @@ type DBDataObj struct {
 	CaptiveRedirect map[UUID]CaptiveRedirect  `json:"captive-redirect,omitempty"`
 	HotspotProfile  map[UUID]Hotspot20Profile `json:"hotspot-profile,omitempty"`
 	Controller      map[UUID]Controller       `json:"controller,omitempty"`
+	LBSZones        map[UUID]LBSZone          `json:"lbs_zones,omitempty"`
 }
 
 func (self *DBDataObj) Reset() {
