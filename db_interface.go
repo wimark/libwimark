@@ -82,7 +82,7 @@ type DBDataMasks struct {
 	CaptiveRedirect *SimpleMask          `json:"captive-redirect,omitempty"`
 	HotspotProfile  *SimpleMask          `json:"hotspot-profile,omitempty"`
 	Controller      *ControllerMask      `json:"controller,omitempty"`
-	LBSZones        []LBSZoneMask        `json:"lbs_zones,omitempty"`
+	LBSZones        *LBSZoneMask         `json:"lbs_zones,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {
