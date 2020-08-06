@@ -553,7 +553,6 @@ type StationDumpData struct {
 
 //LBSZone зоны на картах как Cisco CMX
 type LBSZone struct {
-	ID          string         `json:"id" bson:"_id"`
 	Name        string         `json:"name" bson:"name"`
 	Description string         `json:"description" bson:"description"`
 	Group       UUID           `json:"group"`
