@@ -75,21 +75,6 @@ type LBSCPEInfoMask struct {
 	Z     LimitBetweenOptional `json:"z"`
 }
 
-type LBSZoneMask struct {
-	SimpleMask
-	Name        string             `json:"name" bson:"name"`
-	Description string             `json:"description" bson:"description"`
-	Group       UUID               `json:"group"`
-	Corners     []CornerCoordsMask `json:"corners"`
-}
-
-type CornerCoordsMask struct {
-	SimpleMask
-	X LimitBetweenOptional `json:"x" bson:"x"`
-	Y LimitBetweenOptional `json:"y" bson:"y"`
-	Z LimitBetweenOptional `json:"z" bson:"z"`
-}
-
 type LBSClientCoordsMask struct {
 	TimestampMask
 	Group []UUID               `json:"group"`
