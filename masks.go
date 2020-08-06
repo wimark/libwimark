@@ -77,10 +77,10 @@ type LBSCPEInfoMask struct {
 
 type LBSZoneMask struct {
 	SimpleMask
-	Name        string `json:"name" bson:"name"`
-	Description string `json:"description" bson:"description"`
-	Group       UUID   `json:"group"`
-	Corners     []CornerCoords
+	Name        string             `json:"name" bson:"name"`
+	Description string             `json:"description" bson:"description"`
+	Group       UUID               `json:"group"`
+	Corners     []CornerCoordsMask `json:"corners"`
 }
 
 type CornerCoordsMask struct {

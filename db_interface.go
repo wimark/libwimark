@@ -55,6 +55,7 @@ type DBDataUUID struct {
 	CaptiveRedirect []UUID `json:"captive-redirect,omitempty"`
 	HotspotProfile  []UUID `json:"hotspot-profile,omitempty"`
 	Controller      []UUID `json:"controller,omitempty"`
+	LBSZones        []UUID `json:"lbs_zones,omitempty"`
 }
 
 func (self *DBDataUUID) Reset() {
@@ -81,6 +82,7 @@ type DBDataMasks struct {
 	CaptiveRedirect *SimpleMask          `json:"captive-redirect,omitempty"`
 	HotspotProfile  *SimpleMask          `json:"hotspot-profile,omitempty"`
 	Controller      *ControllerMask      `json:"controller,omitempty"`
+	LBSZones        []LBSZoneMask        `json:"lbs_zones,omitempty"`
 }
 
 func (self *DBDataMasks) Reset() {
