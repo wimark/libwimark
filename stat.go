@@ -553,10 +553,12 @@ type StationDumpData struct {
 
 //LBSZone зоны на картах как Cisco CMX
 type LBSZone struct {
-	Name        string         `json:"name" bson:"name"`
-	Description string         `json:"description" bson:"description"`
-	Group       UUID           `json:"group"`
-	Corners     []CornerCoords `json:"corners" bson:"corners"`
+	Name        string `json:"name" bson:"name"`
+	Description string `json:"description" bson:"description"`
+	//Identity поля для определения зоны
+	Identity string         `json:"identity" bson:"identity"`
+	Group    UUID           `json:"group"`
+	Corners  []CornerCoords `json:"corners" bson:"corners"`
 }
 
 //CornerCoords координаты углов зоны
