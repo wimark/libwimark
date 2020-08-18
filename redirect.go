@@ -1,9 +1,5 @@
 package libwimark
 
-// import (
-// 	tc "bitbucket.org/wimarksystems/libwimark/libtc"
-// )
-
 // GuestControlSettings for WLAN/Wired Guest Control settings
 type GuestControlSettings struct {
 	CaptiveRedirect UUID   `json:"captive_redirect" bson:"captive_redirect"`
@@ -27,9 +23,6 @@ type CaptiveRedirect struct {
 
 	URLWhiteList []DnsAddress `json:"url_list" bson:"url_list"`
 	PreAuthList  []string     `json:"preauth_list" bson:"preauth_list"`
-
-	// DefaultProfile string                  `json:"default_profile" bson:"default_profile"`
-	// Profiles       map[string]tc.UserClass `json:"user_profiles" bson:"user_profiles"`
 
 	NoMasquerade bool `json:"no_masquerade" bson:"no_masquerade"`
 }
