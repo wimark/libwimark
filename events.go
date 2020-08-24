@@ -299,6 +299,8 @@ type ClientAuthorizationData struct {
 	MAC            string `json:"mac"`
 	CPE            string `json:"cpe_id"`
 	WLAN           string `json:"wlan_id"`
+	NasID          string `json:"nas_id"`
+	LocID          string `json:"loc_id"`
 	Radio          string `json:"radio_id"` // from what -- ?
 	SessionTimeout int64  `json:"session_timeout"`
 	UserName       string `json:"username,omitempty"`

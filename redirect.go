@@ -63,8 +63,8 @@ type RedirectRequest struct {
 	// IP address of user -- if has
 	IP string `json:"ip" bson:"ip"`
 
-	// group if location was passed
-	GroupID string `json:"group-id"`
+	// Loc ID == location ID
+	LocID string `json:"loc-id"`
 }
 
 // RedirectClientSession struct for store redirect session on platform
