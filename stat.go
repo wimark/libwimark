@@ -343,6 +343,7 @@ type CPEStatInfo struct {
 	// Hits int `json:"-" bson:"-"`
 }
 
+// WLANStatInfo struct for store WLAN accumulated stats
 type WLANStatInfo struct {
 	ID        string `json:"id" bson:"_id"`
 	WLAN      string `json:"wlan_id" bson:"wlan_id"`
@@ -358,9 +359,10 @@ type WLANStatInfo struct {
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
 
 	// new clients
-	Clients map[string]bool `json:"-" bson:"-"`
+	// Clients map[string]bool `json:"-" bson:"-"`
 }
 
+// BSSStatInfo struct for store BSS (CPE+WLAN) accumulated stats
 type BSSStatInfo struct {
 	ID        string `json:"id" bson:"_id"`
 	WLAN      string `json:"wlan_id" bson:"wlan_id"`
@@ -378,7 +380,7 @@ type BSSStatInfo struct {
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
 
 	// new clients
-	Clients map[string]bool `json:"-" bson:"-"`
+	// Clients map[string]bool `json:"-" bson:"-"`
 }
 
 type ClientStatInfo struct {
