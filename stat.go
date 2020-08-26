@@ -499,9 +499,10 @@ type ClientSessionInfo struct {
 	Freq  string `json:"freq" bson:"freq"`
 	Mode  string `json:"mode" bson:"mode"`
 
-	Start    int64 `json:"start" bson:"start"`
-	Stop     int64 `json:"stop" bson:"stop"`
-	Duration int64 `json:"duration" bson:"duration"`
+	Start     int64 `json:"start" bson:"start"`
+	Stop      int64 `json:"stop" bson:"stop"`
+	Duration  int64 `json:"duration" bson:"duration"`
+	Timestamp int64 `json:"timestamp" bson:"timestamp"`
 
 	StartNoise int `json:"start_noise" bson:"start_noise"`
 	StopNoise  int `json:"stop_noise" bson:"stop_noise"`
