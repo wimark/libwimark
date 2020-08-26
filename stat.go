@@ -319,6 +319,7 @@ type LBSClientCoords struct {
 	Z         float64 `json:"z"`
 }
 
+// CPEStatInfo struct for store CPE accumulated stats
 type CPEStatInfo struct {
 	ID           string    `json:"id" bson:"_id"`
 	CPE          string    `json:"cpe_id" bson:"cpe_id"`
@@ -336,10 +337,10 @@ type CPEStatInfo struct {
 
 	ConnectedClients []string `json:"connected_clients" bson:"connected_clients"`
 
-	// new clients
-	Clients map[string]bool `json:"-" bson:"-"`
-	// hits to count average cpu / mem load
-	Hits int `json:"-" bson:"-"`
+	// // new clients
+	// Clients map[string]bool `json:"-" bson:"-"`
+	// // hits to count average cpu / mem load
+	// Hits int `json:"-" bson:"-"`
 }
 
 type WLANStatInfo struct {
