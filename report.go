@@ -1,6 +1,12 @@
 package libwimark
 
 import (
+	"bytes"
+	"encoding/csv"
+	"errors"
+	"fmt"
+	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/jung-kurt/gofpdf"
 	"time"
 )
 
@@ -61,4 +67,91 @@ type StatReportResult struct {
 	Data   interface{} `json:"data" bson:"data"`
 
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
+}
+
+//GenerateFileReport return []byte as format: csv,pdf,xls
+// format set as format variable
+// set data as [][]string by table(columns and rows)
+func GenerateFileReport(data [][]string, format string) ([]byte, error) {
+	switch format {
+	case "pdf":
+		return generatePDFReport(data)
+	case "csv":
+		return generateCSVReport(data)
+	case "xls":
+		return generateXLSReport(data)
+	default:
+		return []byte{}, errors.New("Empty format")
+	}
+}
+
+func generateCSVReport(data [][]string) ([]byte, error) {
+	buffer := new(bytes.Buffer)
+	writer := csv.NewWriter(buffer)
+	writer.UseCRLF = true
+	writer.WriteAll(data)
+	return buffer.Bytes(), nil
+}
+
+func generatePDFReport(data [][]string) ([]byte, error) {
+	var buffer bytes.Buffer
+	pdf := gofpdf.New("L", "mm", "Letter", "")
+
+	pdf.AddPage()
+
+	pdf.SetFont("Times", "B", 28)
+
+	pdf.Cell(40, 10, "Отчет")
+
+	pdf.Ln(12)
+
+	pdf.SetFont("Times", "", 20)
+	pdf.Cell(40, 10, time.Now().Format("Mon Jan 2, 2006"))
+	pdf.Ln(20)
+
+	pdf.SetFont("Times", "", 10)
+	pdf.SetFillColor(255, 255, 255)
+
+	for _, line := range data {
+		for _, str := range line {
+			pdf.Cell(10, 7, str)
+			//pdf.CellFormat(40, 7, str, "1", 0, "L", false, 0, "")
+		}
+		pdf.Ln(-1)
+	}
+
+	err := pdf.Output(&buffer)
+	if err != nil {
+		return nil, err
+	}
+	return buffer.Bytes(), nil
+}
+
+func generateXLSReport(data [][]string) ([]byte, error) {
+	f := excelize.NewFile()
+	buffer := new(bytes.Buffer)
+	for i, row := range data {
+		for g, column := range row {
+			f.SetCellValue("Sheet1", createXLSRowIndex(i, g), column)
+		}
+	}
+
+	f.Write(buffer)
+	return buffer.Bytes(), nil
+}
+
+func createXLSRowIndex(row, column int) string {
+	rowIndexes := [26]string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P,", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+
+	row = row + 1
+	column = column + 1
+	var indexColumn string
+	//var columnIndexes []string
+	for column > 0 {
+		module := (column - 1) % 26
+		indexColumn = indexColumn + rowIndexes[module]
+		column = (column - module) / 26
+	}
+
+	return fmt.Sprintf("%v%v", indexColumn, row)
 }
