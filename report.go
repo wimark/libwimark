@@ -99,12 +99,6 @@ func generatePDFReport(data [][]string) ([]byte, error) {
 
 	pdf.AddPage()
 
-	pdf.SetFont("Times", "B", 28)
-
-	pdf.Cell(40, 10, "Отчет")
-
-	pdf.Ln(12)
-
 	pdf.SetFont("Times", "", 20)
 	pdf.Cell(40, 10, time.Now().Format("Mon Jan 2, 2006"))
 	pdf.Ln(20)
