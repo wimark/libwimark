@@ -212,6 +212,17 @@ func MacAddrIsGlobalAssigned(s string) bool {
 	return first_byte&2 == 0
 }
 
+func MacAddrVendor(s string) string {
+	if len(s) < 6 {
+		return ""
+	}
+	return MACPrefixVendorMap.Get(s[0:6])
+}
+
+func MacAddrIsReal(s string) bool {
+	return MacAddrIsGlobalAssigned(s) && MacAddrVendor(s) != ""
+}
+
 func MacAddrHash(mac string) string {
 	if len(mac) < 12 {
 		return ""
