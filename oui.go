@@ -37,7 +37,7 @@ func (e *ManufMap) check() {
 }
 
 //Len возвращает длинну
-func (e ManufMap) Len() int {
+func (e *ManufMap) Len() int {
 	e.m.RLock()
 	e.check()
 	defer e.m.RUnlock()

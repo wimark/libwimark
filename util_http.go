@@ -23,7 +23,6 @@ func SendHTTPPost(url, mime string, request []byte) ([]byte, error) {
 	defer resp.Body.Close()
 
 	return ioutil.ReadAll(resp.Body)
-
 }
 
 func SendHTTPGet(url string) ([]byte, error) {

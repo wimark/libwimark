@@ -82,44 +82,45 @@ func (sc *SpeedConfig) String() string {
 }
 
 type WLAN struct {
-	Name                string       `json:"name"`
-	SSID                string       `json:"ssid"`
-	Description         string       `json:"description"`
-	Security            EnumSecurity `json:"security"`
-	VLAN                int          `json:"vlan"`
-	Hidden              bool         `json:"hidden"`
-	NasID               *string      `json:"nas_id"`
-	NasPortID           string       `json:"nas_port_id" bson:"nas_port_id"`
-	RadiusAcctServers   []UUID       `json:"radius_acct_servers"`
-	RadiusAcctInterval  int          `json:"radius_acct_interval"`
-	RadiusAcctMirroring bool         `json:"radius_acct_mirroring" bson:"radius_acct_mirroring"`
+	Name               string       `json:"name"`
+	SSID               string       `json:"ssid"`
+	Description        string       `json:"description"`
+	Security           EnumSecurity `json:"security"`
+	VLAN               int          `json:"vlan"`
+	NasID              *string      `json:"nas_id"`
+	NasPortID          string       `json:"nas_port_id" bson:"nas_port_id"`
+	RadiusAcctServers  []UUID       `json:"radius_acct_servers"`
+	RadiusAcctInterval int          `json:"radius_acct_interval"`
 
 	FilterMode MacFilterType `json:"filtermode"`
 	WhiteList  []string      `json:"whitelist"`
 	BlackList  []string      `json:"blacklist"`
 
-	L2Isolate     bool                 `json:"l2isolate"`
-	PMKCaching    bool                 `json:"pmkcaching"`
-	Roaming80211r bool                 `json:"roam80211r"`
-	Tunneling     bool                 `json:"tunneling"`
 	DefaultTunnel string               `json:"default_tunnel"`
 	Firewall      FireWallSettings     `json:"firewall"`
 	GuestControl  GuestControlSettings `json:"guest_control"`
 	WMMConfig     WMMConfig            `json:"wmm" bson:"wmm"`
-	NAT           bool                 `json:"nat" bson:"nat"`
 	NATNetwork    IPAddress            `json:"nat_network" bson:"nat_network"`
 
 	SpeedUpload   SpeedConfig `json:"speed_upload" bson:"speed_upload"`
 	SpeedDownload SpeedConfig `json:"speed_download" bson:"speed_download"`
 
 	BeelineAccountingType string `json:"beeline_accountng_type"`
+
+	Hidden              bool `json:"hidden"`
+	RadiusAcctMirroring bool `json:"radius_acct_mirroring" bson:"radius_acct_mirroring"`
+	NAT                 bool `json:"nat" bson:"nat"`
+
+	L2Isolate     bool `json:"l2isolate"`
+	PMKCaching    bool `json:"pmkcaching"`
+	Roaming80211r bool `json:"roam80211r"`
+	Tunneling     bool `json:"tunneling"`
 }
 
 type WLANCompact struct {
 	Name        string `json:"name" bson:"name"`
 	SSID        string `json:"ssid" bson:"ssid"`
 	Description string `json:"description" bson:"description"`
-	// Security    EnumSecurity `json:"security" bson:"security"`
 }
 
 // ==== CPE ====
@@ -146,13 +147,13 @@ type LogConfig struct {
 	LogIP     string `json:"log_ip" bson:"log_ip"`
 	LogPrefix string `json:"log_prefix" bson:"log_prefix"`
 	LogProto  string `json:"log_proto" bson:"log_proto"`
-	LogRemote bool   `json:"enabled" bson:"log_remote"`
 	LogPort   int    `json:"log_port" bson:"log_port"`
+	LogRemote bool   `json:"enabled" bson:"log_remote"`
 }
 
 type DHCPCapConfig struct {
-	Enabled       bool     `json:"enabled"`
 	MsgTypeFilter []string `json:"msgtypefilter"`
+	Enabled       bool     `json:"enabled"`
 }
 
 type ScanConfig struct {

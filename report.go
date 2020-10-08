@@ -5,9 +5,10 @@ import (
 	"encoding/csv"
 	"errors"
 	"fmt"
+	"time"
+
 	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/jung-kurt/gofpdf"
-	"time"
 )
 
 const (
@@ -126,7 +127,7 @@ func generateXLSReport(data [][]string) ([]byte, error) {
 	buffer := new(bytes.Buffer)
 	for i, row := range data {
 		for g, column := range row {
-			f.SetCellValue("Sheet1", createXLSRowIndex(i, g), column)
+			f.SetCellValue("Sheet1", createXLSRowIndex(i+1, g+1), column)
 		}
 	}
 
@@ -134,18 +135,23 @@ func generateXLSReport(data [][]string) ([]byte, error) {
 	return buffer.Bytes(), nil
 }
 
-func createXLSRowIndex(row, column int) string {
-	rowIndexes := [26]string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P,", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+const letters = 26
 
-	row = row + 1
-	column = column + 1
+var (
+	xlsRowIndexes = [letters]string{"A", "B", "C", "D", "E", "F", "G", "H",
+		"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
+		"W", "X", "Y", "Z"}
+)
+
+func createXLSRowIndex(row, column int) string {
+
 	var indexColumn string
-	//var columnIndexes []string
+
 	for column > 0 {
-		module := (column - 1) % 26
-		indexColumn = indexColumn + rowIndexes[module]
-		column = (column - module) / 26
+		module := (column - 1) % letters
+		indexColumn += xlsRowIndexes[module]
+		column = (column - module) / letters
 	}
 
-	return fmt.Sprintf("%v%v", indexColumn, row)
+	return fmt.Sprintf("%s%d", indexColumn, row)
 }
