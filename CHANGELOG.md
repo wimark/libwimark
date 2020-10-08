@@ -1,6 +1,6 @@
 # Changelog
 
-## [v1.5.0]
+## [v1.5.0] - 08-10-2020
 
  - WNE-1976: Fix: maligned/errcheck errors with golangci-lint (2b50ae3)
  - WNE-1976: Delete: go.sum with append to gitignore (5d3ee37)
