@@ -30,6 +30,9 @@ type UciLbsCfg struct {
 	ModelName      string   `json:"model_name"`
 	MacList        []string `json:"maclist"`
 	MacFilter      string   `json:"macfilter"`
+	MaxQuiet 	   string	`json:"max_quiet"`
+	MaxCacheQueue  string	`json:"max_cache_queue"`
+	EmptyWatcher   string   `json:"empty_watcher"`
 	Type           string   `json:".type,omitempty"`
 }
 type UciStatCfg struct {
@@ -106,7 +109,7 @@ type innerUciWimark struct {
 }
 type UciWimark innerUciWimark
 
-//------------- Wireless config ----------------
+//------------- Wireless config ----------------`
 
 type UciWifiWlan struct {
 	Type           string      `json:".type,omitempty"`
