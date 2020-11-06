@@ -132,6 +132,9 @@ type LBSConfig struct {
 	// in seconds
 	ReportPeriod  int           `json:"reportperiod"`
 	ClientTimeout int           `json:"clienttimeout"`
+	MaxQuiet      int           `json:"maxquiet"`
+	MaxCacheQueue int           `json:"maxcachequeue"`
+	EmptyWatcher  bool          `json:"emptywatcher"`
 	WhiteList     []string      `json:"whitelist"`
 	BlackList     []string      `json:"blacklist"`
 	FilterMode    MacFilterType `json:"filtermode"`
