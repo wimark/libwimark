@@ -109,7 +109,7 @@ type innerUciWimark struct {
 }
 type UciWimark innerUciWimark
 
-//------------- Wireless config ----------------`
+//------------- Wireless config ----------------
 
 type UciWifiWlan struct {
 	Type           string      `json:".type,omitempty"`
