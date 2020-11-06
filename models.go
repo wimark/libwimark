@@ -130,6 +130,7 @@ type WLANCompact struct {
 type LBSConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
+
 	ReportPeriod  int `json:"reportperiod"`
 	ClientTimeout int `json:"clienttimeout"`
 
@@ -140,6 +141,8 @@ type LBSConfig struct {
 	WhiteList  []string      `json:"whitelist"`
 	BlackList  []string      `json:"blacklist"`
 	FilterMode MacFilterType `json:"filtermode"`
+
+
 }
 
 type StatisticsConfig struct {
