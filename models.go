@@ -141,8 +141,6 @@ type LBSConfig struct {
 	WhiteList  []string      `json:"whitelist"`
 	BlackList  []string      `json:"blacklist"`
 	FilterMode MacFilterType `json:"filtermode"`
-
-
 }
 
 type StatisticsConfig struct {
@@ -204,6 +202,7 @@ type WiFiConfig struct {
 	SupportedRates interface{} `json:"supported_rates"`
 	LegacyRates    string      `json:"legacy_rates"`
 	LogLevel       string      `json:"log_level"`
+	MaxInactivity  int         `json:"max_inactivity"`
 }
 
 type WiFiConfigs map[string]WiFiConfig

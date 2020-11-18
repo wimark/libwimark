@@ -30,8 +30,8 @@ type UciLbsCfg struct {
 	ModelName      string   `json:"model_name"`
 	MacList        []string `json:"maclist"`
 	MacFilter      string   `json:"macfilter"`
-	MaxQuiet 	   string	`json:"max_quiet"`
-	MaxCacheQueue  string	`json:"max_cache_queue"`
+	MaxQuiet       string   `json:"max_quiet"`
+	MaxCacheQueue  string   `json:"max_cache_queue"`
 	EmptyWatcher   string   `json:"empty_watcher"`
 	Type           string   `json:".type,omitempty"`
 }
@@ -222,11 +222,13 @@ type UciWifiWlan struct {
 	WmmAcVOAcm   string `json:"wmm_ac_vo_acm"`
 
 	// speed limit
-
 	// limit_fromrf -- FROM client -- UPLOAD
 	// limit_torf -- TO client -- DOWNLOAD
 	LimitFromRf string `json:"limit_fromrf"`
 	LimitToRf   string `json:"limit_torf"`
+
+	// timeouts
+	MaxInactivity string `json:"max_inactivity"`
 }
 type UciWifiIface struct {
 	Type           string      `json:".type"`
@@ -243,6 +245,7 @@ type UciWifiIface struct {
 	SupportedRates interface{} `json:"supported_rates,omitempty"`
 	LegacyRates    string      `json:"legacy_rates,omitempty"`
 	LogLevel       string      `json:"log_level,omitempty"`
+	MaxInactivity  string      `json:"max_inactivity,omitempty"`
 }
 type UciRadius struct {
 	Type       string `json:".type"`
