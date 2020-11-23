@@ -75,6 +75,19 @@ type UciFirmwareCfg struct {
 	CurrentMD5   string `json:"current_md5,omitempty"`
 	AvailableMD5 string `json:"available_md5,omitempty"`
 }
+
+type UciWsnmpd struct {
+	Default UciWsnmpdDefautl `json:"default,omitempty"`
+}
+
+type UciWsnmpdDefautl struct {
+	Enabled         string   `json:"enabled"`
+	Community       string   `json:"community"`
+	Location        string   `json:"location"`
+	ListenInterface string   `json:"listen_interface"`
+	Interfaces      []string `json:"interfaces"`
+}
+
 type UciEthernetAcct struct {
 	Type       string   `json:".type,omitempty"`
 	Interfaces []string `json:"interface,omitempty"`
@@ -339,6 +352,7 @@ type UciConfig struct {
 	Wireless UciWireless `json:"wireless,omitempty"`
 	System   UciSystem   `json:"system,omitempty"`
 	Network  UciNetwork  `json:"network,omitempty"`
+	Wsnmpd   UciWsnmpd   `json:"wmsnmpd,omitempty"`
 }
 
 //------------- JSON conversion ----------------

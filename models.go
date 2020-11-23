@@ -474,6 +474,7 @@ type CPE struct {
 	ConfigStatus    ConfigurationStatus `json:"config_status"`
 	LastError       ModelError          `json:"last_error" bson:"last_error"`
 	FirstConnection int64               `json:"first_connection"`
+	Wmsnmpd         WMSNMPDConfig       `json:"wmsnmpd" bson:"wmsnmpd"`
 	Config          CPEConfig           `json:"config"`
 	State           CPEState            `json:"state"`
 }
@@ -583,4 +584,18 @@ type RRMGroup struct {
 	Name string        `json:"name" bson:"name"`
 	CPEs []UUID        `json:"cpes" bson:"cpes"`
 	Algo RRMAlgoObject `json:"algo" bson:"algo"`
+}
+
+// ==== WSNMPD config =====
+
+type WMSNMPDConfig struct {
+	Default WMSNMPDDefault `json:"default"`
+}
+
+type WMSNMPDDefault struct {
+	Enabled         bool     `json:"enabled"`
+	Community       string   `json:"community"`
+	Location        string   `json:"location"`
+	ListenInterface string   `json:"listen_interface,omitempty"`
+	Interfaces      []string `json:"interfaces"`
 }
