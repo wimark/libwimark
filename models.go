@@ -130,11 +130,17 @@ type WLANCompact struct {
 type LBSConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
-	ReportPeriod  int           `json:"reportperiod"`
-	ClientTimeout int           `json:"clienttimeout"`
-	WhiteList     []string      `json:"whitelist"`
-	BlackList     []string      `json:"blacklist"`
-	FilterMode    MacFilterType `json:"filtermode"`
+
+	ReportPeriod  int `json:"reportperiod"`
+	ClientTimeout int `json:"clienttimeout"`
+
+	MaxQuiet      int  `json:"maxquiet"`
+	MaxCacheQueue int  `json:"maxcachequeue"`
+	EmptyWatcher  bool `json:"emptywatcher"`
+
+	WhiteList  []string      `json:"whitelist"`
+	BlackList  []string      `json:"blacklist"`
+	FilterMode MacFilterType `json:"filtermode"`
 }
 
 type StatisticsConfig struct {
@@ -196,6 +202,7 @@ type WiFiConfig struct {
 	SupportedRates interface{} `json:"supported_rates"`
 	LegacyRates    string      `json:"legacy_rates"`
 	LogLevel       string      `json:"log_level"`
+	MaxInactivity  int         `json:"max_inactivity"`
 }
 
 type WiFiConfigs map[string]WiFiConfig
