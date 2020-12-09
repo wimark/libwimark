@@ -1,7 +1,14 @@
 # Changelog
 
+## current
+ - WNE-2059: Add: snmp module name (fa9b531)
+ - WNE-2055: Add: wmsnmpd config in cpe and uci model (f73ae6c)
+ - WNE-2060: Add: new field first connection in cpe model (dcf6654)
+ - WNE-2047: Add: MaxInactivity timeout to WiFiConfig (8c01a7e)
+
 ## [v1.5.0] - 08-10-2020
 
+ - WNE-1925: Add: add new fields in UciLbsCfg and LBSConfig (0d91ccf)
  - WNE-1976: Fix: maligned/errcheck errors with golangci-lint (2b50ae3)
  - WNE-1976: Delete: go.sum with append to gitignore (5d3ee37)
  - WNE-1918: Delete: func (69be4f8)

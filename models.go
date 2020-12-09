@@ -130,11 +130,17 @@ type WLANCompact struct {
 type LBSConfig struct {
 	Enabled bool `json:"enabled"`
 	// in seconds
-	ReportPeriod  int           `json:"reportperiod"`
-	ClientTimeout int           `json:"clienttimeout"`
-	WhiteList     []string      `json:"whitelist"`
-	BlackList     []string      `json:"blacklist"`
-	FilterMode    MacFilterType `json:"filtermode"`
+
+	ReportPeriod  int `json:"reportperiod"`
+	ClientTimeout int `json:"clienttimeout"`
+
+	MaxQuiet      int  `json:"maxquiet"`
+	MaxCacheQueue int  `json:"maxcachequeue"`
+	EmptyWatcher  bool `json:"emptywatcher"`
+
+	WhiteList  []string      `json:"whitelist"`
+	BlackList  []string      `json:"blacklist"`
+	FilterMode MacFilterType `json:"filtermode"`
 }
 
 type StatisticsConfig struct {
@@ -196,6 +202,7 @@ type WiFiConfig struct {
 	SupportedRates interface{} `json:"supported_rates"`
 	LegacyRates    string      `json:"legacy_rates"`
 	LogLevel       string      `json:"log_level"`
+	MaxInactivity  int         `json:"max_inactivity"`
 }
 
 type WiFiConfigs map[string]WiFiConfig
@@ -460,15 +467,16 @@ type IPAddress struct {
 	NetMask string `json:"netmask"`
 }
 type CPE struct {
-	Name         string              `json:"name"`
-	Connected    bool                `json:"connected"`
-	Description  string              `json:"description"`
-	Model        CPEModelLink        `json:"model"`
-	ConfigStatus ConfigurationStatus `json:"config_status"`
-	LastError    ModelError          `json:"last_error" bson:"last_error"`
-
-	Config CPEConfig `json:"config"`
-	State  CPEState  `json:"state"`
+	Name            string              `json:"name"`
+	Connected       bool                `json:"connected"`
+	Description     string              `json:"description"`
+	Model           CPEModelLink        `json:"model"`
+	ConfigStatus    ConfigurationStatus `json:"config_status"`
+	LastError       ModelError          `json:"last_error" bson:"last_error"`
+	FirstConnection int64               `json:"first_connection"`
+	Wmsnmpd         WMSNMPDConfig       `json:"wmsnmpd" bson:"wmsnmpd"`
+	Config          CPEConfig           `json:"config"`
+	State           CPEState            `json:"state"`
 }
 
 type CPECompact struct {
@@ -576,4 +584,18 @@ type RRMGroup struct {
 	Name string        `json:"name" bson:"name"`
 	CPEs []UUID        `json:"cpes" bson:"cpes"`
 	Algo RRMAlgoObject `json:"algo" bson:"algo"`
+}
+
+// ==== WSNMPD config =====
+
+type WMSNMPDConfig struct {
+	Default WMSNMPDDefault `json:"default"`
+}
+
+type WMSNMPDDefault struct {
+	Enabled         bool     `json:"enabled"`
+	Community       string   `json:"community"`
+	Location        string   `json:"location"`
+	ListenInterface string   `json:"listen_interface,omitempty"`
+	Interfaces      []string `json:"interfaces"`
 }
