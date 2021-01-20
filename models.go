@@ -474,6 +474,7 @@ type CPE struct {
 	ConfigStatus    ConfigurationStatus `json:"config_status"`
 	LastError       ModelError          `json:"last_error" bson:"last_error"`
 	FirstConnection int64               `json:"first_connection"`
+	LastConnection  int64               `json:"last_connection"`
 	Wmsnmpd         WMSNMPDConfig       `json:"wmsnmpd" bson:"wmsnmpd"`
 	Config          CPEConfig           `json:"config"`
 	State           CPEState            `json:"state"`
