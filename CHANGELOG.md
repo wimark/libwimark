@@ -1,7 +1,7 @@
 # Changelog
 
 ## current
- - WNE-2125  Add: last connection to cpe model ()
+ - WNE-2125  Add: last connection to cpe model (71b5d67)
  - WNE-2059: Add: snmp module name (fa9b531)
  - WNE-2055: Add: wmsnmpd config in cpe and uci model (f73ae6c)
  - WNE-2060: Add: new field first connection in cpe model (dcf6654)
