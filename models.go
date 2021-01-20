@@ -317,6 +317,7 @@ type CPEConfig struct {
 	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
 	Beeline          BeelineConfig    `json:"beeline_config" bson:"beeline_config"`
 	WiFiLock         bool             `json:"wifi_lock" bson:"wifi_lock"`
+	Wmsnmpd          WMSNMPDConfig    `json:"wmsnmpd" bson:"wmsnmpd"`
 }
 
 // ---- Beeline config ----
@@ -475,7 +476,6 @@ type CPE struct {
 	LastError       ModelError          `json:"last_error" bson:"last_error"`
 	FirstConnection int64               `json:"first_connection"`
 	LastConnection  int64               `json:"last_connection"`
-	Wmsnmpd         WMSNMPDConfig       `json:"wmsnmpd" bson:"wmsnmpd"`
 	Config          CPEConfig           `json:"config"`
 	State           CPEState            `json:"state"`
 }
