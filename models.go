@@ -468,16 +468,17 @@ type IPAddress struct {
 	NetMask string `json:"netmask"`
 }
 type CPE struct {
-	Name            string              `json:"name"`
-	Connected       bool                `json:"connected"`
-	Description     string              `json:"description"`
-	Model           CPEModelLink        `json:"model"`
-	ConfigStatus    ConfigurationStatus `json:"config_status"`
-	LastError       ModelError          `json:"last_error" bson:"last_error"`
-	FirstConnection int64               `json:"first_connection"`
-	LastConnection  int64               `json:"last_connection"`
-	Config          CPEConfig           `json:"config"`
-	State           CPEState            `json:"state"`
+	Name              string              `json:"name"`
+	Connected         bool                `json:"connected"`
+	Description       string              `json:"description"`
+	Model             CPEModelLink        `json:"model"`
+	ConfigStatus      ConfigurationStatus `json:"config_status"`
+	LastError         ModelError          `json:"last_error" bson:"last_error"`
+	FirstConnection   int64               `json:"first_connection"`
+	LastConnection    int64               `json:"last_connection"`
+	LastDisconnection int64               `json:"last_disconnection"`
+	Config            CPEConfig           `json:"config"`
+	State             CPEState            `json:"state"`
 }
 
 type CPECompact struct {
