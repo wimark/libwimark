@@ -1,6 +1,9 @@
 # Changelog
 
 ## current
+ - WNE-2146: Add: tx/rx speed & delta from CPE (d1469ab)
+ - WNE-2125: Add: bson tags for cpe connect fields (2165eda)
+ - WNE-2055: Move: wmsnmpd config to CPE.Config (7787ba3)
  - WNE-2125  Add: last connection to cpe model (71b5d67)
  - WNE-2059: Add: snmp module name (fa9b531)
  - WNE-2055: Add: wmsnmpd config in cpe and uci model (f73ae6c)
