@@ -23,9 +23,14 @@ type Stat struct {
 	ProcActive   uint64  `json:"processes_active"`
 	ProcSleeping uint64  `json:"processes_sleeping"`
 	Interfaces   map[string]struct {
-		Type string  `json:"type"`
-		Tx   float64 `json:"tx"`
-		Rx   float64 `json:"rx"`
+		Type    string  `json:"type"`
+		Uptime  int64   `json:"uptime"`
+		Tx      float64 `json:"tx"`
+		Rx      float64 `json:"rx"`
+		TxSpeed float64 `json:"tx_speed"`
+		RxSpeed float64 `json:"rx_speed"`
+		TxDelta float64 `json:"tx_delta"`
+		RxDelta float64 `json:"rx_delta"`
 	} `json:"interfaces"`
 }
 
