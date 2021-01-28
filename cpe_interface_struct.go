@@ -352,7 +352,7 @@ type UciConfig struct {
 	Wireless UciWireless `json:"wireless,omitempty"`
 	System   UciSystem   `json:"system,omitempty"`
 	Network  UciNetwork  `json:"network,omitempty"`
-	Wsnmpd   UciWsnmpd   `json:"wmsnmpd,omitempty"`
+	Wsnmpd   interface{}   `json:"wmsnmpd,omitempty"`
 }
 
 //------------- JSON conversion ----------------
