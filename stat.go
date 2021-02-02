@@ -338,6 +338,8 @@ type CPEStatInfo struct {
 	LastTxBytes  int64     `json:"last_tx_bytes" bson:"last_tx_bytes"`
 	DeltaTxBytes int64     `json:"delta_tx_bytes" bson:"delta_tx_bytes"`
 	DeltaRxBytes int64     `json:"delta_rx_bytes" bson:"delta_rx_bytes"`
+	TxSpeed      float64   `json:"tx_speed" bson:"tx_speed"`
+	RxSpeed      float64   `json:"rx_speed" bson:"rx_speed"`
 	Uptime       int64     `json:"uptime" bson:"uptime"`
 
 	ConnectedClients []string `json:"connected_clients" bson:"connected_clients"`
