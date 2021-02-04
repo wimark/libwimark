@@ -65,6 +65,9 @@ type RedirectRequest struct {
 
 	// Loc ID == location ID
 	LocID string `json:"loc-id"`
+
+	// is CNA (Captive Network Assistant)
+	CNA bool `json:"cna"`
 }
 
 // RedirectClientSession struct for store redirect session on platform
