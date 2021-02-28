@@ -1,6 +1,7 @@
 # Changelog
 
 ## current
+ - WNE-2161: Add: new module resampling ()
  - WNE-2148: Add: tx/rx speed in CPEStatInfo (dbe6c6c)
  - WNE-2146: Add: tx/rx speed & delta from CPE (d1469ab)
  - WNE-2125: Add: bson tags for cpe connect fields (2165eda)

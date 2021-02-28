@@ -1575,6 +1575,7 @@ const ModuleStat Module = "STAT"
 const ModuleStatLBS Module = "STAT-LBS"
 const ModuleTunManager Module = "TUN_MANAGER"
 const ModuleSnmpWalker Module = "SNMP_WALKER"
+const ModuleResampling Module = "RESAMPLING"
 
 func (self Module) GetPtr() *Module { var v = self; return &v }
 
@@ -1634,6 +1635,8 @@ func (self Module) String() string {
 		return "TUN_MANAGER"
 	case ModuleSnmpWalker:
 		return "SNMP_WALKER"
+	case ModuleResampling:
+		return "RESAMPLING"
 
 	}
 	if len(self) == 0 {
@@ -1698,6 +1701,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("TUN_MANAGER")
 	case ModuleSnmpWalker:
 		return json.Marshal("SNMP_WALKER")
+	case ModuleResampling:
+		return json.Marshal("RESAMPLING")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("")
@@ -1761,6 +1766,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "TUN_MANAGER", nil
 	case ModuleSnmpWalker:
 		return "SNMP_WALKER",nil
+	case ModuleResampling:
+		return "RESAMPLING",nil
 	}
 	if len(*self) == 0 {
 		return "", nil
@@ -1855,7 +1862,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 	case "SNMP_WALKER":
 		*self = ModuleSnmpWalker
 		return nil
-
+	case "RESAMPLING":
+		*self = ModuleResampling
+		return nil
 	}
 	if len(s) == 0 {
 		*self = ModuleNone
@@ -1950,6 +1959,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "SNMP_WALKER":
 		*self = ModuleSnmpWalker
+		return nil
+	case "RESAMPLING":
+		*self = ModuleResampling
 		return nil
 	}
 	if len(s) == 0 {
