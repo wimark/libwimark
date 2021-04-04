@@ -3,7 +3,6 @@ package libwimark
 import (
 	"encoding/json"
 	"errors"
-
 	"github.com/globalsign/mgo/bson"
 )
 
@@ -1574,8 +1573,6 @@ const ModuleRedirect Module = "REDIRECT"
 const ModuleStat Module = "STAT"
 const ModuleStatLBS Module = "STAT-LBS"
 const ModuleTunManager Module = "TUN_MANAGER"
-const ModuleSnmpWalker Module = "SNMP_WALKER"
-const ModuleResampling Module = "RESAMPLING"
 
 func (self Module) GetPtr() *Module { var v = self; return &v }
 
@@ -1633,11 +1630,6 @@ func (self Module) String() string {
 		return "STAT-LBS"
 	case ModuleTunManager:
 		return "TUN_MANAGER"
-	case ModuleSnmpWalker:
-		return "SNMP_WALKER"
-	case ModuleResampling:
-		return "RESAMPLING"
-
 	}
 	if len(self) == 0 {
 		return ""
@@ -1699,10 +1691,6 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("STAT-LBS")
 	case ModuleTunManager:
 		return json.Marshal("TUN_MANAGER")
-	case ModuleSnmpWalker:
-		return json.Marshal("SNMP_WALKER")
-	case ModuleResampling:
-		return json.Marshal("RESAMPLING")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("")
@@ -1764,10 +1752,6 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "STAT-LBS", nil
 	case ModuleTunManager:
 		return "TUN_MANAGER", nil
-	case ModuleSnmpWalker:
-		return "SNMP_WALKER",nil
-	case ModuleResampling:
-		return "RESAMPLING",nil
 	}
 	if len(*self) == 0 {
 		return "", nil
@@ -1858,12 +1842,6 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "TUN_MANAGER":
 		*self = ModuleTunManager
-		return nil
-	case "SNMP_WALKER":
-		*self = ModuleSnmpWalker
-		return nil
-	case "RESAMPLING":
-		*self = ModuleResampling
 		return nil
 	}
 	if len(s) == 0 {
@@ -1956,12 +1934,6 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "TUN_MANAGER":
 		*self = ModuleTunManager
-		return nil
-	case "SNMP_WALKER":
-		*self = ModuleSnmpWalker
-		return nil
-	case "RESAMPLING":
-		*self = ModuleResampling
 		return nil
 	}
 	if len(s) == 0 {
@@ -4539,6 +4511,92 @@ func (self *TunManagerRPC) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	return errors.New("Unknown TunManagerRPC: " + s)
+}
+
+type TunnelType string
+
+const TunnelTypeGRE TunnelType = "gre"
+const TunnelTypeL2TP TunnelType = "l2tp"
+
+func (self TunnelType) GetPtr() *TunnelType { var v = self; return &v }
+
+func (self TunnelType) String() string {
+	switch self {
+	case TunnelTypeGRE:
+		return "gre"
+	case TunnelTypeL2TP:
+		return "l2tp"
+	}
+	if len(self) == 0 {
+		return "l2tp"
+	}
+	panic(errors.New("Invalid value of TunnelType: " + string(self)))
+}
+
+func (self *TunnelType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case TunnelTypeGRE:
+		return json.Marshal("gre")
+	case TunnelTypeL2TP:
+		return json.Marshal("l2tp")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("l2tp")
+	}
+	return nil, errors.New("Invalid value of TunnelType: " + string(*self))
+}
+
+func (self *TunnelType) GetBSON() (interface{}, error) {
+	switch *self {
+	case TunnelTypeGRE:
+		return "gre", nil
+	case TunnelTypeL2TP:
+		return "l2tp", nil
+	}
+	if len(*self) == 0 {
+		return "l2tp", nil
+	}
+	return nil, errors.New("Invalid value of TunnelType: " + string(*self))
+}
+
+func (self *TunnelType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "gre":
+		*self = TunnelTypeGRE
+		return nil
+	case "l2tp":
+		*self = TunnelTypeL2TP
+		return nil
+	}
+	if len(s) == 0 {
+		*self = TunnelTypeL2TP
+		return nil
+	}
+	return errors.New("Unknown TunnelType: " + s)
+}
+
+func (self *TunnelType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "gre":
+		*self = TunnelTypeGRE
+		return nil
+	case "l2tp":
+		*self = TunnelTypeL2TP
+		return nil
+	}
+	if len(s) == 0 {
+		*self = TunnelTypeL2TP
+		return nil
+	}
+	return errors.New("Unknown TunnelType: " + s)
 }
 
 type WMMAccessCategory string

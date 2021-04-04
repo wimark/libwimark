@@ -344,3 +344,9 @@ Clients   = "clients"
 CPEs      = "cpes"
 Events    = "events"
 CPECommon = "cpes_common"
+
+[TunnelType]
+default = "L2TP"
+[TunnelType.variants]
+L2TP  = "l2tp"
+GRE   = "gre"

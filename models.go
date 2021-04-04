@@ -82,39 +82,53 @@ func (sc *SpeedConfig) String() string {
 }
 
 type WLAN struct {
-	Name               string       `json:"name"`
-	SSID               string       `json:"ssid"`
-	Description        string       `json:"description"`
-	Security           EnumSecurity `json:"security"`
-	VLAN               int          `json:"vlan"`
-	NasID              *string      `json:"nas_id"`
-	NasPortID          string       `json:"nas_port_id" bson:"nas_port_id"`
-	RadiusAcctServers  []UUID       `json:"radius_acct_servers"`
-	RadiusAcctInterval int          `json:"radius_acct_interval"`
+	Name        string       `json:"name"`
+	SSID        string       `json:"ssid"`
+	Description string       `json:"description"`
+	Security    EnumSecurity `json:"security"`
 
-	FilterMode MacFilterType `json:"filtermode"`
-	WhiteList  []string      `json:"whitelist"`
-	BlackList  []string      `json:"blacklist"`
+	// RADIUS section
+	NasID               *string `json:"nas_id"`
+	NasPortID           string  `json:"nas_port_id" bson:"nas_port_id"`
+	RadiusAcctServers   []UUID  `json:"radius_acct_servers"`
+	RadiusAcctInterval  int     `json:"radius_acct_interval"`
+	RadiusAcctMirroring bool    `json:"radius_acct_mirroring" bson:"radius_acct_mirroring"`
 
-	DefaultTunnel string               `json:"default_tunnel"`
-	Firewall      FireWallSettings     `json:"firewall"`
-	GuestControl  GuestControlSettings `json:"guest_control"`
-	WMMConfig     WMMConfig            `json:"wmm" bson:"wmm"`
-	NATNetwork    IPAddress            `json:"nat_network" bson:"nat_network"`
+	// ACL section
+	FilterMode MacFilterType    `json:"filtermode"`
+	WhiteList  []string         `json:"whitelist"`
+	BlackList  []string         `json:"blacklist"`
+	Firewall   FireWallSettings `json:"firewall"`
+
+	// WLAN related specifics
+	Hidden        bool      `json:"hidden"`
+	L2Isolate     bool      `json:"l2isolate"`
+	PMKCaching    bool      `json:"pmkcaching"`
+	Roaming80211r bool      `json:"roam80211r"`
+	WMMConfig     WMMConfig `json:"wmm" bson:"wmm"`
 
 	SpeedUpload   SpeedConfig `json:"speed_upload" bson:"speed_upload"`
 	SpeedDownload SpeedConfig `json:"speed_download" bson:"speed_download"`
 
+	// network section
+	// remote tunneling
+	Tunneling     bool       `json:"tunneling"`      // turn on tunneling
+	Proto         TunnelType `json:"proto"`          // l2tp or gre
+	DefaultTunnel string     `json:"default_tunnel"` // network name on Server
+	PeerAddress   string     `json:"peer_address"`   // peer address of server
+
+	// local vlan (if 0 than untag)
+	VLAN int `json:"vlan"`
+
+	// local nat
+	NAT        bool      `json:"nat" bson:"nat"`
+	NATNetwork IPAddress `json:"nat_network" bson:"nat_network"`
+
+	// Portal authorization section
+	GuestControl GuestControlSettings `json:"guest_control"`
+
+	// clients specifics section
 	BeelineAccountingType string `json:"beeline_accountng_type"`
-
-	Hidden              bool `json:"hidden"`
-	RadiusAcctMirroring bool `json:"radius_acct_mirroring" bson:"radius_acct_mirroring"`
-	NAT                 bool `json:"nat" bson:"nat"`
-
-	L2Isolate     bool `json:"l2isolate"`
-	PMKCaching    bool `json:"pmkcaching"`
-	Roaming80211r bool `json:"roam80211r"`
-	Tunneling     bool `json:"tunneling"`
 }
 
 type WLANCompact struct {
@@ -256,18 +270,23 @@ type WiredSpeedConfig struct {
 }
 
 type WiredVlanConfig struct {
-	Vlan          int                  `json:"vlan" bson:"vlan"`
-	Vid           int                  `json:"vid" bson:"vid"`
-	Ports         []string             `json:"ports" bson:"ports"`
-	Tunnel        string               `json:"tunnel" bson:"tunnel"`
-	FakeWlan      UUID                 `json:"fake_wlan" bson:"fake_wlan"`
-	Accounting    bool                 `json:"acct" bson:"acct"`
-	Interface     string               `json:"interface" bson:"interface"`
-	GuestControl  GuestControlSettings `json:"guest_control" bson:"guest_control"`
-	NAT           bool                 `json:"nat" bson:"nat"`
-	NATNetwork    IPAddress            `json:"nat_network" bson:"nat_network"`
-	NatAccess     bool                 `json:"nat_access" bson:"nat_access"`
-	SpeedDownload WiredSpeedConfig     `json:"speed_download" bson:"speed_download"`
+	Vlan  int      `json:"vlan" bson:"vlan"`
+	Vid   int      `json:"vid" bson:"vid"`
+	Ports []string `json:"ports" bson:"ports"`
+
+	TunnelProto TunnelType `json:"tunnel_proto" bson:"tunnel_proto"`
+	Tunnel      string     `json:"tunnel" bson:"tunnel"`
+	Interface   string     `json:"interface" bson:"interface"`
+
+	Accounting   bool                 `json:"acct" bson:"acct"`
+	FakeWlan     UUID                 `json:"fake_wlan" bson:"fake_wlan"`
+	GuestControl GuestControlSettings `json:"guest_control" bson:"guest_control"`
+
+	NAT        bool      `json:"nat" bson:"nat"`
+	NATNetwork IPAddress `json:"nat_network" bson:"nat_network"`
+	NatAccess  bool      `json:"nat_access" bson:"nat_access"`
+
+	SpeedDownload WiredSpeedConfig `json:"speed_download" bson:"speed_download"`
 }
 
 type WiredConfig struct {
@@ -303,6 +322,8 @@ func (self *WiredConfigs) SetBSON(raw bson.Raw) error {
 	return nil
 }
 
+// Network Manual interface
+
 // ---- CPE config ----
 
 type CPEConfig struct {
@@ -318,6 +339,9 @@ type CPEConfig struct {
 	Beeline          BeelineConfig    `json:"beeline_config" bson:"beeline_config"`
 	WiFiLock         bool             `json:"wifi_lock" bson:"wifi_lock"`
 	Wmsnmpd          WMSNMPDConfig    `json:"wmsnmpd" bson:"wmsnmpd"`
+
+	NetManual  NetManual  `json:"net_manual" bson:"net_manual"`
+	WifiManual WifiManual `json:"wifi_manual" bson:"wifi_manual"`
 }
 
 // ---- Beeline config ----
@@ -333,6 +357,9 @@ type CPEConfigItemCompact struct {
 type CPEConfigCompact struct {
 	LbsConfig CPEConfigItemCompact `json:"lbs_config" bson:"lbs_config"`
 }
+
+type NetManual map[string]UciNetIface
+type WifiManual map[string]UciWifiWlan
 
 // ---- Service states ----
 
@@ -449,6 +476,9 @@ type CPEState struct {
 	L2TPState L2TPState     `json:"l2tp_state" bson:"l2tp_state"`
 	Network   NetworkState  `json:"network" bson:"network"`
 	Tunnels   TunnelConfigs `json:"tunnels" bson:"tunnels"`
+
+	NetManual  NetManual  `json:"net_manual" bson:"net_manual"`
+	WifiManual WifiManual `json:"wifi_manual" bson:"wifi_manual"`
 }
 
 type CPEStateCompact struct {

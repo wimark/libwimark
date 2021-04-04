@@ -237,11 +237,15 @@ type UciWifiWlan struct {
 	// speed limit
 	// limit_fromrf -- FROM client -- UPLOAD
 	// limit_torf -- TO client -- DOWNLOAD
-	LimitFromRf string `json:"limit_fromrf"`
-	LimitToRf   string `json:"limit_torf"`
+	LimitFromRf string `json:"limit_fromrf,omitempty"`
+	LimitToRf   string `json:"limit_torf,omitempty"`
 
 	// timeouts
-	MaxInactivity string `json:"max_inactivity"`
+	MaxInactivity string `json:"max_inactivity,omitempty"`
+
+	// mesh settings
+	MeshID         string `json:"mesh_id"`
+	MeshForwarding string `json:"mesh_fwding"`
 }
 type UciWifiIface struct {
 	Type           string      `json:".type"`
@@ -352,7 +356,7 @@ type UciConfig struct {
 	Wireless UciWireless `json:"wireless,omitempty"`
 	System   UciSystem   `json:"system,omitempty"`
 	Network  UciNetwork  `json:"network,omitempty"`
-	Wsnmpd   interface{}   `json:"wmsnmpd,omitempty"`
+	Wsnmpd   interface{} `json:"wmsnmpd,omitempty"`
 }
 
 //------------- JSON conversion ----------------
