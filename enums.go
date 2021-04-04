@@ -4515,46 +4515,53 @@ func (self *TunManagerRPC) SetBSON(v bson.Raw) error {
 
 type TunnelType string
 
+const TunnelTypeEoGRE TunnelType = "gretap"
 const TunnelTypeGRE TunnelType = "gre"
-const TunnelTypeL2TP TunnelType = "l2tp"
+const TunnelTypeL2TP TunnelType = "l2tpv3"
 
 func (self TunnelType) GetPtr() *TunnelType { var v = self; return &v }
 
 func (self TunnelType) String() string {
 	switch self {
+	case TunnelTypeEoGRE:
+		return "gretap"
 	case TunnelTypeGRE:
 		return "gre"
 	case TunnelTypeL2TP:
-		return "l2tp"
+		return "l2tpv3"
 	}
 	if len(self) == 0 {
-		return "l2tp"
+		return "l2tpv3"
 	}
 	panic(errors.New("Invalid value of TunnelType: " + string(self)))
 }
 
 func (self *TunnelType) MarshalJSON() ([]byte, error) {
 	switch *self {
+	case TunnelTypeEoGRE:
+		return json.Marshal("gretap")
 	case TunnelTypeGRE:
 		return json.Marshal("gre")
 	case TunnelTypeL2TP:
-		return json.Marshal("l2tp")
+		return json.Marshal("l2tpv3")
 	}
 	if len(*self) == 0 {
-		return json.Marshal("l2tp")
+		return json.Marshal("l2tpv3")
 	}
 	return nil, errors.New("Invalid value of TunnelType: " + string(*self))
 }
 
 func (self *TunnelType) GetBSON() (interface{}, error) {
 	switch *self {
+	case TunnelTypeEoGRE:
+		return "gretap", nil
 	case TunnelTypeGRE:
 		return "gre", nil
 	case TunnelTypeL2TP:
-		return "l2tp", nil
+		return "l2tpv3", nil
 	}
 	if len(*self) == 0 {
-		return "l2tp", nil
+		return "l2tpv3", nil
 	}
 	return nil, errors.New("Invalid value of TunnelType: " + string(*self))
 }
@@ -4565,10 +4572,13 @@ func (self *TunnelType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
+	case "gretap":
+		*self = TunnelTypeEoGRE
+		return nil
 	case "gre":
 		*self = TunnelTypeGRE
 		return nil
-	case "l2tp":
+	case "l2tpv3":
 		*self = TunnelTypeL2TP
 		return nil
 	}
@@ -4585,10 +4595,13 @@ func (self *TunnelType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
+	case "gretap":
+		*self = TunnelTypeEoGRE
+		return nil
 	case "gre":
 		*self = TunnelTypeGRE
 		return nil
-	case "l2tp":
+	case "l2tpv3":
 		*self = TunnelTypeL2TP
 		return nil
 	}
