@@ -40,6 +40,7 @@ RadarMW    = "RADAR-MW"
 RadarExportMW  = "RADAR-EXPORT-MW"
 ClientDistance = "CLIENT-DISTANCE"
 Resampling = "RESAMPLING"
+SnmpWalker = "SNMP_WALKER"
 
 [Operation]
 [Operation.variants]
