@@ -39,6 +39,7 @@ AnalMW     = "ANAL-MW"
 RadarMW    = "RADAR-MW"
 RadarExportMW  = "RADAR-EXPORT-MW"
 ClientDistance = "CLIENT-DISTANCE"
+Resampling = "RESAMPLING"
 
 [Operation]
 [Operation.variants]

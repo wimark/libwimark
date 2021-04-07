@@ -1570,6 +1570,7 @@ const ModuleRadarExportMW Module = "RADAR-EXPORT-MW"
 const ModuleRadarMW Module = "RADAR-MW"
 const ModuleRadiusGw Module = "RADIUS_GATEWAY"
 const ModuleRedirect Module = "REDIRECT"
+const ModuleResampling Module = "RESAMPLING"
 const ModuleStat Module = "STAT"
 const ModuleStatLBS Module = "STAT-LBS"
 const ModuleTunManager Module = "TUN_MANAGER"
@@ -1624,6 +1625,8 @@ func (self Module) String() string {
 		return "RADIUS_GATEWAY"
 	case ModuleRedirect:
 		return "REDIRECT"
+	case ModuleResampling:
+		return "RESAMPLING"
 	case ModuleStat:
 		return "STAT"
 	case ModuleStatLBS:
@@ -1685,6 +1688,8 @@ func (self *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("RADIUS_GATEWAY")
 	case ModuleRedirect:
 		return json.Marshal("REDIRECT")
+	case ModuleResampling:
+		return json.Marshal("RESAMPLING")
 	case ModuleStat:
 		return json.Marshal("STAT")
 	case ModuleStatLBS:
@@ -1746,6 +1751,8 @@ func (self *Module) GetBSON() (interface{}, error) {
 		return "RADIUS_GATEWAY", nil
 	case ModuleRedirect:
 		return "REDIRECT", nil
+	case ModuleResampling:
+		return "RESAMPLING", nil
 	case ModuleStat:
 		return "STAT", nil
 	case ModuleStatLBS:
@@ -1833,6 +1840,9 @@ func (self *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "REDIRECT":
 		*self = ModuleRedirect
+		return nil
+	case "RESAMPLING":
+		*self = ModuleResampling
 		return nil
 	case "STAT":
 		*self = ModuleStat
@@ -1925,6 +1935,9 @@ func (self *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "REDIRECT":
 		*self = ModuleRedirect
+		return nil
+	case "RESAMPLING":
+		*self = ModuleResampling
 		return nil
 	case "STAT":
 		*self = ModuleStat
