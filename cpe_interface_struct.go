@@ -314,6 +314,7 @@ type UciNetIface struct {
 	IpV6     string      `json:"ipv6,omitempty"`
 	UciType  string      `json:".type,omitempty"`
 	Redirect string      `json:"wimark_redirect_l2,omitempty"`
+	Zone     string      `json:"zone,omitempty"`
 }
 
 type UciNetTunnel struct {
