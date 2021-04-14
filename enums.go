@@ -3,6 +3,7 @@ package libwimark
 import (
 	"encoding/json"
 	"errors"
+
 	"github.com/globalsign/mgo/bson"
 )
 

@@ -113,8 +113,8 @@ type WLAN struct {
 	// network section
 	// remote tunneling
 	Tunneling     bool       `json:"tunneling"`      // turn on tunneling
-	Proto         TunnelType `json:"proto"`          // l2tp or gre
-	DefaultTunnel string     `json:"default_tunnel"` // network name on Server
+	Proto         TunnelType `json:"proto"`          // l2tp or gretap or ??
+	DefaultTunnel string     `json:"default_tunnel"` // network name on server (only for l2tp)
 	PeerAddress   string     `json:"peer_address"`   // peer address of server
 
 	// local vlan (if 0 than untag)
@@ -277,6 +277,7 @@ type WiredVlanConfig struct {
 	TunnelProto TunnelType `json:"tunnel_proto" bson:"tunnel_proto"`
 	Tunnel      string     `json:"tunnel" bson:"tunnel"`
 	Interface   string     `json:"interface" bson:"interface"`
+	PeerAddr    string     `json:"peer_addr" bson:"peer_addr"`
 
 	Accounting   bool                 `json:"acct" bson:"acct"`
 	FakeWlan     UUID                 `json:"fake_wlan" bson:"fake_wlan"`
@@ -337,8 +338,10 @@ type CPEConfig struct {
 	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
 	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
 	Beeline          BeelineConfig    `json:"beeline_config" bson:"beeline_config"`
-	WiFiLock         bool             `json:"wifi_lock" bson:"wifi_lock"`
 	Wmsnmpd          WMSNMPDConfig    `json:"wmsnmpd" bson:"wmsnmpd"`
+
+	WiFiLock          bool   `json:"wifi_lock" bson:"wifi_lock"`
+	GrePeerAddrConfig string `json:"gre_peer_addr" bson:"gre_peer_addr"`
 
 	NetManual  NetManual  `json:"net_manual" bson:"net_manual"`
 	WifiManual WifiManual `json:"wifi_manual" bson:"wifi_manual"`
