@@ -304,17 +304,19 @@ type UciSystem innerUciSystem
 //------------- Network config ----------------
 
 type UciNetIface struct {
-	Id       string      `json:"id,omitempty"`
-	HostId   string      `json:"peerid,omitempty"`
-	Tunnel   string      `json:"tunnel,omitempty"`
-	Network  string      `json:"network,omitempty"`
-	Type     string      `json:"type,omitempty"`
-	Proto    string      `json:"proto,omitempty"`
-	IfName   interface{} `json:"ifname,omitempty"`
-	IpV6     string      `json:"ipv6,omitempty"`
-	UciType  string      `json:".type,omitempty"`
-	Redirect string      `json:"wimark_redirect_l2,omitempty"`
-	Zone     string      `json:"zone,omitempty"`
+	Id           string      `json:"id,omitempty"`
+	HostId       string      `json:"peerid,omitempty"`
+	Tunnel       string      `json:"tunnel,omitempty"`
+	Network      string      `json:"network,omitempty"`
+	Type         string      `json:"type,omitempty"`
+	Proto        string      `json:"proto,omitempty"`
+	IfName       interface{} `json:"ifname,omitempty"`
+	IpV6         string      `json:"ipv6,omitempty"`
+	UciType      string      `json:".type,omitempty"`
+	Redirect     string      `json:"wimark_redirect_l2,omitempty"`
+	Zone         string      `json:"zone,omitempty"`
+	PeerAddr     string      `json:"peeraddr,omitempty"`
+	DontFragment string      `json:"df,omitempty"`
 }
 
 type UciNetTunnel struct {
