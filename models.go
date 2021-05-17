@@ -129,6 +129,16 @@ type WLAN struct {
 
 	// clients specifics section
 	BeelineAccountingType string `json:"beeline_accountng_type"`
+
+	// 802.11k
+	RoamingIEEE80211k bool `json:"ieee80211k,omitempty"`
+	RrmNeighborReport bool `json:"rrm_neighbor_report,omitempty"`
+	RrmBeaconReport   bool `json:"rrm_beacon_report,omitempty"`
+
+	// 802.11v
+	RoamingIEEE80211v bool `json:"ieee80211v,omitempty"`
+	WnmSleepMode      bool `json:"wnm_sleep_mode,omitempty"`
+	BssTransition     bool `json:"bss_transition,omitempty"`
 }
 
 type WLANCompact struct {

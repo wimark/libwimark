@@ -125,26 +125,32 @@ type UciWimark innerUciWimark
 //------------- Wireless config ----------------
 
 type UciWifiWlan struct {
-	Type           string      `json:".type,omitempty"`
-	SSID           string      `json:"ssid,omitempty"`
-	UUID           string      `json:"uuid,omitempty"`
-	Iface          string      `json:"device,omitempty"`
-	Hidden         string      `json:"hidden,omitempty"`
-	WifiMode       string      `json:"mode,omitempty"`
-	PMKCaching     string      `json:"auth_cache,omitempty"`
-	IEEE80211r     string      `json:"ieee80211r,omitempty"`
-	MobDomain      string      `json:"mobility_domain,omitempty"`
-	R0KH           interface{} `json:"r0kh,omitempty"`
-	R1KH           interface{} `json:"r1kh,omitempty"`
-	VLAN           interface{} `json:"network,omitempty"`
-	MacList        interface{} `json:"maclist,omitempty"`
-	MacFilter      interface{} `json:"macfilter,omitempty"`
-	L2Isolate      string      `json:"isolate"`
-	MaxClients     string      `json:"maxassoc,omitempty"`
-	OwnIp          string      `json:"ownip,omitempty"`
-	Redirect       string      `json:"wimark_redirect,omitempty"`
-	MACAddr        string      `json:"macaddr,omitempty"`
-	UbusAcctPeriod string      `json:"ubus_acct_interval,omitempty"`
+	Type              string      `json:".type,omitempty"`
+	SSID              string      `json:"ssid,omitempty"`
+	UUID              string      `json:"uuid,omitempty"`
+	Iface             string      `json:"device,omitempty"`
+	Hidden            string      `json:"hidden,omitempty"`
+	WifiMode          string      `json:"mode,omitempty"`
+	PMKCaching        string      `json:"auth_cache,omitempty"`
+	IEEE80211r        string      `json:"ieee80211r,omitempty"`
+	IEEE80211k        string      `json:"ieee80211k,omitempty"`
+	IEEE80211v        string      `json:"ieee80211v,omitempty"`
+	RrmNeighborReport string      `json:"rrm_neighbor_report,omitempty"`
+	RrmBeaconReport   string      `json:"rrm_beacon_report,omitempty"`
+	WnmSleepMode      string      `json:"wnm_sleep_mode,omitempty"`
+	BssTransition     string      `json:"bss_transition,omitempty"`
+	MobDomain         string      `json:"mobility_domain,omitempty"`
+	R0KH              interface{} `json:"r0kh,omitempty"`
+	R1KH              interface{} `json:"r1kh,omitempty"`
+	VLAN              interface{} `json:"network,omitempty"`
+	MacList           interface{} `json:"maclist,omitempty"`
+	MacFilter         interface{} `json:"macfilter,omitempty"`
+	L2Isolate         string      `json:"isolate"`
+	MaxClients        string      `json:"maxassoc,omitempty"`
+	OwnIp             string      `json:"ownip,omitempty"`
+	Redirect          string      `json:"wimark_redirect,omitempty"`
+	MACAddr           string      `json:"macaddr,omitempty"`
+	UbusAcctPeriod    string      `json:"ubus_acct_interval,omitempty"`
 
 	// security
 	NasID       string `json:"nasid,omitempty"`
