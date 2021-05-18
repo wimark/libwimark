@@ -131,14 +131,14 @@ type WLAN struct {
 	BeelineAccountingType string `json:"beeline_accountng_type"`
 
 	// 802.11k
-	RoamingIEEE80211k bool `json:"ieee80211k,omitempty"`
-	RrmNeighborReport bool `json:"rrm_neighbor_report,omitempty"`
-	RrmBeaconReport   bool `json:"rrm_beacon_report,omitempty"`
+	RoamingIEEE80211k bool `json:"ieee80211k"`
+	RrmNeighborReport bool `json:"rrm_neighbor_report"`
+	RrmBeaconReport   bool `json:"rrm_beacon_report"`
 
 	// 802.11v
-	RoamingIEEE80211v bool `json:"ieee80211v,omitempty"`
-	WnmSleepMode      bool `json:"wnm_sleep_mode,omitempty"`
-	BssTransition     bool `json:"bss_transition,omitempty"`
+	RoamingIEEE80211v bool `json:"ieee80211v"`
+	WnmSleepMode      bool `json:"wnm_sleep_mode"`
+	BssTransition     bool `json:"bss_transition"`
 }
 
 type WLANCompact struct {
