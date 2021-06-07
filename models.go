@@ -139,6 +139,10 @@ type WLAN struct {
 	RoamingIEEE80211v bool `json:"ieee80211v"`
 	WnmSleepMode      bool `json:"wnm_sleep_mode"`
 	BssTransition     bool `json:"bss_transition"`
+
+	// QTECH fields
+	RSSIThreshold int  `json:"rssi_threshold"`
+	BandSteering  bool `json:"band_steering"`
 }
 
 type WLANCompact struct {
