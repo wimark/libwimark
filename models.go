@@ -529,6 +529,9 @@ type CPE struct {
 	FirstConnection   int64 `json:"first_connection" bson:"first_connection"`
 	LastConnection    int64 `json:"last_connection" bson:"last_connection"`
 	LastDisconnection int64 `json:"last_disconnection" bson:"last_disconnection"`
+
+	// reconfiguration
+	ConfigNotSend bool `json:"сonfig_not_send"`
 }
 
 type CPECompact struct {
