@@ -253,9 +253,10 @@ type UciWifiWlan struct {
 	MeshID         string `json:"mesh_id"`
 	MeshForwarding string `json:"mesh_fwding"`
 
-	// QTECH fields
-	RSSIThreshold string  `json:"rssi_reject_assoc_rssi"`
+	RSSIThreshold string `json:"rssi_reject_assoc_rssi"`
 	BandSteering  string `json:"band_steering"`
+
+	FTOverDS string `json:"ft_over_ds"`
 }
 type UciWifiIface struct {
 	Type           string      `json:".type"`
