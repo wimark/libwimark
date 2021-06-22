@@ -531,7 +531,7 @@ type CPE struct {
 	LastDisconnection int64 `json:"last_disconnection" bson:"last_disconnection"`
 
 	// reconfiguration
-	ConfigNotSend bool `json:"config_not_send"`
+	ConfigNotSend bool `json:"config_not_send" bson:"config_not_send"`
 }
 
 type CPECompact struct {
