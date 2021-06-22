@@ -141,8 +141,10 @@ type WLAN struct {
 	BssTransition     bool `json:"bss_transition"`
 
 	// QTECH fields
-	RSSIThreshold int  `json:"rssi_reject_assoc_rssi"`
+	RSSIThreshold int  `json:"rssi_threshold"`
 	BandSteering  bool `json:"band_steering"`
+
+	FTOverDS bool `json:"ft_over_ds"`
 }
 
 type WLANCompact struct {
