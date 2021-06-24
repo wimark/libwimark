@@ -20,6 +20,9 @@ type Radius struct {
 	Secret    string `json:"secret"`
 	Is_local  bool   `json:"is_local"`
 	IsPortal  bool   `json:"is_portal"`
+	DaeServer string `json:"dae_server"`
+	DaeSecret string `json:"dae_secret"`
+	DaePort   string `json:"dae_port"`
 }
 
 // ==== WLANs ====
@@ -145,6 +148,8 @@ type WLAN struct {
 	BandSteering  bool `json:"band_steering"`
 
 	FTOverDS bool `json:"ft_over_ds"`
+
+	LoadBalancing bool `json:"load_balancing"`
 }
 
 type WLANCompact struct {

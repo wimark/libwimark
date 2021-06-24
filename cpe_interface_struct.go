@@ -257,7 +257,13 @@ type UciWifiWlan struct {
 	BandSteering  string `json:"band_steering"`
 
 	FTOverDS string `json:"ft_over_ds"`
+
+	// Config for dae aka Dynamic Authorization Extension client in hostapd
+	DaeServer string `json:"dae_server"`
+	DaeSecret string `json:"dae_secret"`
+	DaePort   string `json:"dae_port"`
 }
+
 type UciWifiIface struct {
 	Type           string      `json:".type"`
 	Addr           string      `json:"macaddr,omitempty"`
