@@ -259,7 +259,7 @@ type UciWifiWlan struct {
 	FTOverDS string `json:"ft_over_ds"`
 
 	// Config for dae aka Dynamic Authorization Extension client in hostapd
-	DaeServer string `json:"dae_server"`
+	DaeClient string `json:"dae_client"`
 	DaeSecret string `json:"dae_secret"`
 	DaePort   string `json:"dae_port"`
 }

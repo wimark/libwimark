@@ -20,7 +20,7 @@ type Radius struct {
 	Secret    string `json:"secret"`
 	Is_local  bool   `json:"is_local"`
 	IsPortal  bool   `json:"is_portal"`
-	DaeServer string `json:"dae_server"`
+	DaeClient string `json:"dae_client"`
 	DaeSecret string `json:"dae_secret"`
 	DaePort   string `json:"dae_port"`
 }
