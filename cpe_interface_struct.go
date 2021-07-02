@@ -253,11 +253,16 @@ type UciWifiWlan struct {
 	MeshID         string `json:"mesh_id"`
 	MeshForwarding string `json:"mesh_fwding"`
 
-	RSSIThreshold string `json:"rssi_reject_assoc_rssi"`
-	BandSteering  string `json:"band_steering"`
+	BandSteering string `json:"band_steering"`
 
 	FTOverDS string `json:"ft_over_ds"`
+
+	// Config for dae aka Dynamic Authorization Extension client in hostapd
+	DaeClient string `json:"dae_client"`
+	DaeSecret string `json:"dae_secret"`
+	DaePort   string `json:"dae_port"`
 }
+
 type UciWifiIface struct {
 	Type           string      `json:".type"`
 	Addr           string      `json:"macaddr,omitempty"`
@@ -274,6 +279,7 @@ type UciWifiIface struct {
 	LegacyRates    string      `json:"legacy_rates,omitempty"`
 	LogLevel       string      `json:"log_level,omitempty"`
 	MaxInactivity  string      `json:"max_inactivity,omitempty"`
+	RSSIThreshold  string      `json:"rssi_reject_assoc_rssi"`
 }
 type UciRadius struct {
 	Type       string `json:".type"`
