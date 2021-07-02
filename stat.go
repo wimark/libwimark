@@ -314,14 +314,15 @@ type LBSCPEInfo struct {
 }
 
 type LBSClientCoords struct {
-	Timestamp int64   `json:"timestamp"`
-	Group     UUID    `json:"group"`
-	Mac       string  `json:"mac"`
-	BestCPE   UUID    `json:"bestcpe"`
-	Zone      string  `json:"zone"`
-	X         float64 `json:"x"`
-	Y         float64 `json:"y"`
-	Z         float64 `json:"z"`
+	Timestamp int64     `json:"timestamp"`
+	Group     UUID      `json:"group"`
+	Mac       string    `json:"mac"`
+	BestCPE   UUID      `json:"bestcpe"`
+	Zone      string    `json:"zone"`
+	ExpireAt  time.Time `json:"expire_at"`
+	X         float64   `json:"x"`
+	Y         float64   `json:"y"`
+	Z         float64   `json:"z"`
 }
 
 // CPEStatInfo struct for store CPE accumulated stats
