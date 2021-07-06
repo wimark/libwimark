@@ -1,6 +1,7 @@
 package libwimark
 
 import (
+	"strconv"
 	"sync"
 )
 
@@ -15,14 +16,14 @@ type MACPrefixVendor struct {
 
 // ManufMap struct for store MAC prefix-vendor pairs
 type ManufMap struct {
-	data   map[string]string
+	data   map[int64]string
 	m      sync.RWMutex
 	inited bool
 }
 
 //GenerateMap принмает массив, переводит его в мапу
 func (e *ManufMap) GenerateMap(data []MACPrefixVendor) {
-	e.data = make(map[string]string, len(data))
+	e.data = make(map[int64]string, len(data))
 	for _, v := range data {
 		e.Add(v.Prefix, v.Vendor)
 	}
@@ -31,7 +32,7 @@ func (e *ManufMap) GenerateMap(data []MACPrefixVendor) {
 
 func (e *ManufMap) check() {
 	if e.data == nil {
-		e.data = make(map[string]string)
+		e.data = make(map[int64]string)
 		e.inited = false
 	}
 }
@@ -49,7 +50,10 @@ func (e *ManufMap) Add(key, c string) {
 	e.m.Lock()
 	e.check()
 	defer e.m.Unlock()
-	e.data[key] = c
+	v, err := strconv.ParseInt(key, 16, 64)
+	if err == nil {
+		e.data[v] = c
+	}
 }
 
 //Get возвращает значение из мапы
@@ -57,7 +61,11 @@ func (e *ManufMap) Get(key string) string {
 	e.m.RLock()
 	e.check()
 	defer e.m.RUnlock()
-	return e.data[key]
+	v, err := strconv.ParseInt(key, 16, 64)
+	if err == nil {
+		return e.data[v]
+	}
+	return ""
 }
 
 //Delete удаляет значение из базы
@@ -65,5 +73,35 @@ func (e *ManufMap) Delete(key string) {
 	e.m.Lock()
 	e.check()
 	defer e.m.Unlock()
+	v, err := strconv.ParseInt(key, 16, 64)
+	if err == nil {
+		delete(e.data, v)
+	}
+}
+
+//Add добавляет канал в базу
+func (e *ManufMap) AddI(key int64, c string) {
+	e.m.Lock()
+	e.check()
+	defer e.m.Unlock()
+	e.data[key] = c
+}
+
+//Get возвращает значение из мапы
+func (e *ManufMap) GetI(key int64) string {
+	e.m.RLock()
+	e.check()
+	defer e.m.RUnlock()
+
+	return e.data[key]
+
+}
+
+//Delete удаляет значение из базы
+func (e *ManufMap) DeleteI(key int64) {
+	e.m.Lock()
+	e.check()
+	defer e.m.Unlock()
 	delete(e.data, key)
+
 }
