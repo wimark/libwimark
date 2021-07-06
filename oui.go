@@ -10,8 +10,8 @@ var MACPrefixVendorMap ManufMap
 
 // MACPrefixVendor тип данных mac префикс и производитель оборудования
 type MACPrefixVendor struct {
-	Prefix string `bson:"prefix"`
-	Vendor string `bson:"vendor"`
+	Prefix string `bson:"_id" json:"prefix"`
+	Vendor string `bson:"vendor" json:"vendor"`
 }
 
 // ManufMap struct for store MAC prefix-vendor pairs
