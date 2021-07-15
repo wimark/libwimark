@@ -1,6 +1,7 @@
 # Changelog
 
 ## current
+ - WNE-2347: Add: ExpireAt field for LBSClientCoords (74297bb)
  - WNE-2314: Add: RSSI threshold and Band steering (d9f880b)
  - WNE-2276: Add: 802.11v and 802.11k (1ffa1e2)
  - WNE-2161: Add: new module resampling (bd401f1)

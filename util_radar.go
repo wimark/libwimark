@@ -104,16 +104,17 @@ type AnalyticsMwHttpRequest struct {
 	Timeout int    `query:"timeout"`
 	Period  string `query:"period"`
 
-	Rate   int    `query:"rate"`
-	Raw    bool   `query:"raw"`
-	Long   bool   `query:"long"`
-	Hash   bool   `query:"hash"`
-	Filter string `query:"filter"`
+	Rate     int    `query:"rate"`
+	Raw      bool   `query:"raw"`
+	Long     bool   `query:"long"`
+	Hash     bool   `query:"hash"`
+	Filter   string `query:"filter"`
+	Duration int    `query:"duration"`
 }
 
 func (r *AnalyticsMwHttpRequest) String() string {
-	s := fmt.Sprintf("start=%d&stop=%d&timeout=%d&period=%s&rate=%d&filter=%s&raw=%s&long=%s&hash=%s",
-		r.Start, r.Stop, r.Timeout, r.Period, r.Rate, r.Filter,
+	s := fmt.Sprintf("start=%d&stop=%d&timeout=%d&period=%s&rate=%d&filter=%s&duration=%s&raw=%s&long=%s&hash=%s",
+		r.Start, r.Stop, r.Timeout, r.Period, r.Rate, r.Filter, r.Duration,
 		strconv.FormatBool(r.Raw),
 		strconv.FormatBool(r.Long),
 		strconv.FormatBool(r.Hash))
