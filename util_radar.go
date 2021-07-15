@@ -113,7 +113,7 @@ type AnalyticsMwHttpRequest struct {
 }
 
 func (r *AnalyticsMwHttpRequest) String() string {
-	s := fmt.Sprintf("start=%d&stop=%d&timeout=%d&period=%s&rate=%d&filter=%s&duration=%s&raw=%s&long=%s&hash=%s",
+	s := fmt.Sprintf("start=%d&stop=%d&timeout=%d&period=%s&rate=%d&filter=%s&duration=%d&raw=%s&long=%s&hash=%s",
 		r.Start, r.Stop, r.Timeout, r.Period, r.Rate, r.Filter, r.Duration,
 		strconv.FormatBool(r.Raw),
 		strconv.FormatBool(r.Long),
