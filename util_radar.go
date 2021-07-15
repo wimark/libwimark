@@ -235,7 +235,7 @@ func MacAddrHash(mac string) string {
 
 func stripchars(str, chr string) string {
 	return strings.Map(func(r rune) rune {
-		if strings.IndexRune(chr, r) < 0 {
+		if !strings.ContainsRune(chr, r) {
 			return r
 		}
 		return -1
