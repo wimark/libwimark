@@ -111,6 +111,8 @@ type AnalyticsMwHttpRequest struct {
 	Filter           string `query:"filter"`
 	Duration         int    `query:"duration"`
 	WithNightClients bool   `query:"with_night_clients"`
+	WorkTimeRange    string `query:"work_time_range"`
+	Zone             string `query:"zone"`
 }
 
 func (r *AnalyticsMwHttpRequest) String() string {
