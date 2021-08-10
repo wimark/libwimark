@@ -104,12 +104,13 @@ type AnalyticsMwHttpRequest struct {
 	Timeout int    `query:"timeout"`
 	Period  string `query:"period"`
 
-	Rate     int    `query:"rate"`
-	Raw      bool   `query:"raw"`
-	Long     bool   `query:"long"`
-	Hash     bool   `query:"hash"`
-	Filter   string `query:"filter"`
-	Duration int    `query:"duration"`
+	Rate             int    `query:"rate"`
+	Raw              bool   `query:"raw"`
+	Long             bool   `query:"long"`
+	Hash             bool   `query:"hash"`
+	Filter           string `query:"filter"`
+	Duration         int    `query:"duration"`
+	WithNightClients bool   `query:"with_night_clients"`
 }
 
 func (r *AnalyticsMwHttpRequest) String() string {

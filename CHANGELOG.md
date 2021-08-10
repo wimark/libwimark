@@ -1,6 +1,7 @@
 # Changelog
 
 ## current
+ - WNE-2351: Add: Duration field for AnalyticsMwHttpRequest (24e972f)
  - WNE-2347: Add: ExpireAt field for LBSClientCoords (74297bb)
 ## [v1.6.0]
 
