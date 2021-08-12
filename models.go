@@ -150,6 +150,13 @@ type WLAN struct {
 	FTOverDS bool `json:"ft_over_ds"`
 
 	LoadBalancing bool `json:"load_balancing"`
+
+	// for wmwdisd - rssi based disconnector
+	SignalConnect    int `json:"signal_connect"`
+	SignalStay       int `json:"signal_stay"`
+	SignalStrikes    int `json:"signal_strikes"`
+	SignalPollTime   int `json:"signal_poll_time"`
+	SignalDropReason int `json:"signal_drop_reason"`
 }
 
 type WLANCompact struct {
