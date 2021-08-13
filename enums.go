@@ -4918,3 +4918,102 @@ func (self *WirelessClientType) SetBSON(v bson.Raw) error {
 	}
 	return errors.New("Unknown WirelessClientType: " + s)
 }
+
+type RadarExportMacs string
+
+const RadarExportMacsAll RadarExportMacs = "all"
+const RadarExportMacsReal RadarExportMacs = "real"
+const RadarExportMacsFake RadarExportMacs = "fake"
+
+func (self RadarExportMacs) GetPtr() *RadarExportMacs { var v = self; return &v }
+
+func (self RadarExportMacs) String() string {
+	switch self {
+	case RadarExportMacsAll:
+		return "all"
+	case RadarExportMacsReal:
+		return "real"
+	case RadarExportMacsFake:
+		return "fake"
+	}
+	if len(self) == 0 {
+		return "all"
+	}
+	panic(errors.New("Invalid value of RadarExportMacs: " + string(self)))
+}
+
+func (self *RadarExportMacs) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case RadarExportMacsAll:
+		return json.Marshal("all")
+	case RadarExportMacsReal:
+		return json.Marshal("real")
+	case RadarExportMacsFake:
+		return json.Marshal("fake")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("all")
+	}
+	return nil, errors.New("Invalid value of RadarExportMacs: " + string(*self))
+}
+
+func (self *RadarExportMacs) GetBSON() (interface{}, error) {
+	switch *self {
+	case RadarExportMacsAll:
+		return "all", nil
+	case RadarExportMacsReal:
+		return "real", nil
+	case RadarExportMacsFake:
+		return "fake", nil
+	}
+	if len(*self) == 0 {
+		return "all", nil
+	}
+	return nil, errors.New("Invalid value of RadarExportMacs: " + string(*self))
+}
+
+func (self *RadarExportMacs) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "all":
+		*self = RadarExportMacsAll
+		return nil
+	case "real":
+		*self = RadarExportMacsReal
+		return nil
+	case "fake":
+		*self = RadarExportMacsFake
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportMacsAll
+		return nil
+	}
+	return errors.New("Unknown RadarExportMacs: " + s)
+}
+
+func (self *RadarExportMacs) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "all":
+		*self = RadarExportMacsAll
+		return nil
+	case "real":
+		*self = RadarExportMacsReal
+		return nil
+	case "fake":
+		*self = RadarExportMacsFake
+		return nil
+	}
+	if len(s) == 0 {
+		*self = RadarExportMacsAll
+		return nil
+	}
+	return errors.New("Unknown RadarExportMacs: " + s)
+}

@@ -171,6 +171,7 @@ type RadarExportObject struct {
 	Format     RadarExportFormat `json:"format" bson:"format"`
 	Period     RadarExportPeriod `json:"period" bson:"period"`
 	Filter     RadarExportFilter `json:"filter" bson:"filter"`
+	MacFilter  RadarExportMacs   `json:"mac_filter" bson:"mac_filter"`
 	Hash       bool              `json:"hash" bson:"hash"`
 	Auto       bool              `json:"auto" bson:"auto"`               // auto export
 	AutoPeriod int               `json:"auto_period" bson:"auto_period"` // auto period in hours. 24 for 1-day update
