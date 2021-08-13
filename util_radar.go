@@ -116,11 +116,14 @@ type AnalyticsMwHttpRequest struct {
 }
 
 func (r *AnalyticsMwHttpRequest) String() string {
-	s := fmt.Sprintf("start=%d&stop=%d&timeout=%d&period=%s&rate=%d&filter=%s&duration=%d&raw=%s&long=%s&hash=%s",
+	s := fmt.Sprintf(
+		"start=%d&stop=%d&timeout=%d&period=%s&rate=%d&filter=%s&duration=%d&raw=%s&long=%s&hash=%s&with_night_clients=%s&work_time_range=%szone=%s",
 		r.Start, r.Stop, r.Timeout, r.Period, r.Rate, r.Filter, r.Duration,
 		strconv.FormatBool(r.Raw),
 		strconv.FormatBool(r.Long),
-		strconv.FormatBool(r.Hash))
+		strconv.FormatBool(r.Hash),
+		strconv.FormatBool(r.WithNightClients),
+		r.WorkTimeRange, r.Zone)
 	if len(r.CPEs) != 0 {
 		cpes := strings.Join(r.CPEs, "&cpes[]=")
 		s = s + "&cpes[]=" + cpes
