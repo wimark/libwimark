@@ -261,6 +261,18 @@ type UciWifiWlan struct {
 	DaeClient string `json:"dae_client"`
 	DaeSecret string `json:"dae_secret"`
 	DaePort   string `json:"dae_port"`
+
+	// config for wmwdiscd - rssi based disconnector
+	// signal_connect '-50'
+	// signal_stay '-60'
+	// signal_strikes '3'
+	// signal_poll_time '5'
+	// signal_drop_reason '3'
+	SignalConnect    string `json:"signal_connect"`
+	SignalStay       string `json:"signal_stay"`
+	SignalStrikes    string `json:"signal_strikes"`
+	SignalPollTime   string `json:"signal_poll_time"`
+	SignalDropReason string `json:"signal_drop_reason"`
 }
 
 type UciWifiIface struct {
