@@ -146,7 +146,7 @@ type RadarExportCreds struct {
 	// subject for email subject
 	Subject string `json:"subject" bson:"subject"`
 
-	// share for list of emails, yandex accounts to share with
+	// share for list of emails, yandex accounts to share with or CTN for BeePro integration
 	Share []string `json:"share" bson:"share"`
 }
 

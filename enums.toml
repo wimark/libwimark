@@ -273,6 +273,7 @@ Email    = "email"
 Yandex   = "yandex"
 Mytarget = "mytarget"
 External = "external"
+BeePro   = "beepro"
 
 [RadarExportFormat]
 default = "CSV"
@@ -295,6 +296,13 @@ Created  = "created"
 Updated  = "updated"
 Running  = "running"
 Finished = "finished"
+
+[RadarExportMacs]
+default = "All"
+[RadarExportMacs.variants]
+All   = "all"
+Real  = "real"
+Fake  = "fake"
 
 [SpeedType]
 default = "Kbit"
