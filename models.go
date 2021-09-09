@@ -157,6 +157,9 @@ type WLAN struct {
 	SignalStrikes    int `json:"signal_strikes"`
 	SignalPollTime   int `json:"signal_poll_time"`
 	SignalDropReason int `json:"signal_drop_reason"`
+
+	// generate NAS ID (for roaming - will be generated from bssid)
+	NASGenerate bool `json:"nas_generate"`
 }
 
 type WLANCompact struct {
