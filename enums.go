@@ -4005,6 +4005,7 @@ const StatEventRuleTypeConnected StatEventRuleType = "connected"
 const StatEventRuleTypeDisconnected StatEventRuleType = "disconnected"
 const StatEventRuleTypeFreeRAM StatEventRuleType = "free_ram"
 const StatEventRuleTypeIfaceError StatEventRuleType = "iface_error"
+const StatEventCustomerActivity StatEventRuleType = "customer_activity"
 
 func (self StatEventRuleType) GetPtr() *StatEventRuleType { var v = self; return &v }
 
@@ -4028,6 +4029,8 @@ func (self StatEventRuleType) String() string {
 		return "free_ram"
 	case StatEventRuleTypeIfaceError:
 		return "iface_error"
+	case StatEventCustomerActivity:
+		return "customer_activity"
 	}
 	panic(errors.New("Invalid value of StatEventRuleType: " + string(self)))
 }
@@ -4052,6 +4055,8 @@ func (self *StatEventRuleType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("free_ram")
 	case StatEventRuleTypeIfaceError:
 		return json.Marshal("iface_error")
+	case StatEventCustomerActivity:
+		return json.Marshal("customer_activity")
 	}
 	return nil, errors.New("Invalid value of StatEventRuleType: " + string(*self))
 }
@@ -4076,6 +4081,8 @@ func (self *StatEventRuleType) GetBSON() (interface{}, error) {
 		return "free_ram", nil
 	case StatEventRuleTypeIfaceError:
 		return "iface_error", nil
+	case StatEventCustomerActivity:
+		return "customer_activity", nil
 	}
 	return nil, errors.New("Invalid value of StatEventRuleType: " + string(*self))
 }
@@ -4113,6 +4120,9 @@ func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
 	case "iface_error":
 		*self = StatEventRuleTypeIfaceError
 		return nil
+	case "customer_activity":
+		*self = StatEventCustomerActivity
+		return nil
 	}
 	return errors.New("Unknown StatEventRuleType: " + s)
 }
@@ -4149,6 +4159,9 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 		return nil
 	case "iface_error":
 		*self = StatEventRuleTypeIfaceError
+		return nil
+	case "customer_activity":
+		*self = StatEventCustomerActivity
 		return nil
 	}
 	return errors.New("Unknown StatEventRuleType: " + s)
