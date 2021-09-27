@@ -35,8 +35,8 @@ type Stat struct {
 	Eth0State struct {
 		Carrier       int16  `json:"carrier"`
 		CarrierChange int16  `json:"carrier_changes"`
-		OperState     int16  `json:"operstate"`
-		Speed         string `json:"speed"`
+		Speed         int16  `json:"speed"`
+		OperState     string `json:"operstate"`
 		Duplex        string `json:"duplex"`
 	} `json:"eth0_state"`
 }
