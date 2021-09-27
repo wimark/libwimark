@@ -273,6 +273,9 @@ type UciWifiWlan struct {
 	SignalStrikes    string `json:"signal_strikes"`
 	SignalPollTime   string `json:"signal_poll_time"`
 	SignalDropReason string `json:"signal_drop_reason"`
+
+	PMKR1Push          string `json:"pmk_r1_push"`
+	FTPskGenerateLocal string `json:"ft_psk_generate_local"`
 }
 
 type UciWifiIface struct {
