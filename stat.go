@@ -32,6 +32,13 @@ type Stat struct {
 		TxDelta float64 `json:"tx_delta"`
 		RxDelta float64 `json:"rx_delta"`
 	} `json:"interfaces"`
+	Eth0State struct {
+		Carrier       int16  `json:"carrier"`
+		CarrierChange int16  `json:"carrier_changes"`
+		Speed         int16  `json:"speed"`
+		OperState     string `json:"operstate"`
+		Duplex        string `json:"duplex"`
+	} `json:"eth0_state"`
 }
 
 type ClientStatOld struct {
