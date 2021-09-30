@@ -5042,3 +5042,74 @@ func (self *WirelessClientType) SetBSON(v bson.Raw) error {
 	}
 	return errors.New("Unknown WirelessClientType: " + s)
 }
+
+type NotifyType string
+
+const (
+	NotifyTypeEmail    NotifyType = "email"
+	NotifyTypeTelegram NotifyType = "telegram"
+)
+
+func (t NotifyType) GetPtr() *NotifyType { var v = t; return &v }
+
+func (t NotifyType) String() string {
+	switch t {
+	case NotifyTypeEmail:
+		return "email"
+	case NotifyTypeTelegram:
+		return "telegram"
+	}
+	panic(errors.New("Invalid value of NotifyType: " + string(t)))
+}
+
+func (t *NotifyType) MarshalJSON() ([]byte, error) {
+	switch *t {
+	case NotifyTypeEmail:
+		return json.Marshal("email")
+	case NotifyTypeTelegram:
+		return json.Marshal("telegram")
+	}
+	return nil, errors.New("Invalid value of NotifyTypeEmail: " + string(*t))
+}
+
+func (t *NotifyType) GetBSON() (interface{}, error) {
+	switch *t {
+	case NotifyTypeEmail:
+		return "email", nil
+	case NotifyTypeTelegram:
+		return "telegram", nil
+	}
+	return nil, errors.New("Invalid value of NotifyTypeEmail: " + string(*t))
+}
+
+func (t *NotifyType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "email":
+		*t = NotifyTypeEmail
+		return nil
+	case "telegram":
+		*t = NotifyTypeTelegram
+		return nil
+	}
+	return errors.New("Unknown NotifyType: " + s)
+}
+
+func (t *NotifyType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "email":
+		*t = NotifyTypeEmail
+		return nil
+	case "telegram":
+		*t = NotifyTypeTelegram
+		return nil
+	}
+	return errors.New("Unknown NotifyType: " + s)
+}

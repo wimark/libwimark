@@ -146,8 +146,10 @@ type CPEPollSettings struct {
 
 type StatEventRule struct {
 	StatEventRuleObject
-	Name       string `json:"name"`
-	PostScript string `json:"post_script"`
+	Name           string      `json:"name"`
+	PostScript     string      `json:"post_script"`
+	NotifyType     NotifyType  `json:"notify_type"`
+	NotifySettings interface{} `json:"notify_settings"`
 }
 
 func (self *StatEventRule) MarshalJSON() ([]byte, error) {
