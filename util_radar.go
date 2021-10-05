@@ -104,26 +104,27 @@ type AnalyticsMwHttpRequest struct {
 	Timeout int    `query:"timeout"`
 	Period  string `query:"period"`
 
-	Rate             int    `query:"rate"`
-	Raw              bool   `query:"raw"`
-	Long             bool   `query:"long"`
-	Hash             bool   `query:"hash"`
-	Filter           string `query:"filter"`
-	Duration         int    `query:"duration"`
-	WithNightClients bool   `query:"with_night_clients"`
-	WorkTimeRange    string `query:"work_time_range"`
-	Zone             string `query:"zone"`
+	Rate             int             `query:"rate"`
+	Raw              bool            `query:"raw"`
+	Long             bool            `query:"long"`
+	Hash             bool            `query:"hash"`
+	Filter           string          `query:"filter"`
+	Duration         int             `query:"duration"`
+	WithNightClients bool            `query:"with_night_clients"`
+	WorkTimeRange    string          `query:"work_time_range"`
+	Zone             string          `query:"zone"`
+	ExportMac        RadarExportMacs `query:"export_mac"`
 }
 
 func (r *AnalyticsMwHttpRequest) String() string {
 	s := fmt.Sprintf(
-		"start=%d&stop=%d&timeout=%d&period=%s&rate=%d&filter=%s&duration=%d&raw=%s&long=%s&hash=%s&with_night_clients=%s&work_time_range=%s&zone=%s",
+		"start=%d&stop=%d&timeout=%d&period=%s&rate=%d&filter=%s&duration=%d&raw=%s&long=%s&hash=%s&with_night_clients=%s&work_time_range=%s&zone=%s&export_mac=%s",
 		r.Start, r.Stop, r.Timeout, r.Period, r.Rate, r.Filter, r.Duration,
 		strconv.FormatBool(r.Raw),
 		strconv.FormatBool(r.Long),
 		strconv.FormatBool(r.Hash),
 		strconv.FormatBool(r.WithNightClients),
-		r.WorkTimeRange, r.Zone)
+		r.WorkTimeRange, r.Zone, r.ExportMac.String())
 	if len(r.CPEs) != 0 {
 		cpes := strings.Join(r.CPEs, "&cpes[]=")
 		s = s + "&cpes[]=" + cpes
