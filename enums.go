@@ -1969,6 +1969,118 @@ func (self *Module) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown Module: " + s)
 }
 
+type NotifyType string
+
+const NotifyTypeEmail NotifyType = "email"
+const NotifyTypeEmpty NotifyType = ""
+const NotifyTypeMqtt NotifyType = "mqtt"
+const NotifyTypeTelegram NotifyType = "telegram"
+
+func (self NotifyType) GetPtr() *NotifyType { var v = self; return &v }
+
+func (self NotifyType) String() string {
+	switch self {
+	case NotifyTypeEmail:
+		return "email"
+	case NotifyTypeEmpty:
+		return ""
+	case NotifyTypeMqtt:
+		return "mqtt"
+	case NotifyTypeTelegram:
+		return "telegram"
+	}
+	if len(self) == 0 {
+		return ""
+	}
+	panic(errors.New("Invalid value of NotifyType: " + string(self)))
+}
+
+func (self *NotifyType) MarshalJSON() ([]byte, error) {
+	switch *self {
+	case NotifyTypeEmail:
+		return json.Marshal("email")
+	case NotifyTypeEmpty:
+		return json.Marshal("")
+	case NotifyTypeMqtt:
+		return json.Marshal("mqtt")
+	case NotifyTypeTelegram:
+		return json.Marshal("telegram")
+	}
+	if len(*self) == 0 {
+		return json.Marshal("")
+	}
+	return nil, errors.New("Invalid value of NotifyType: " + string(*self))
+}
+
+func (self *NotifyType) GetBSON() (interface{}, error) {
+	switch *self {
+	case NotifyTypeEmail:
+		return "email", nil
+	case NotifyTypeEmpty:
+		return "", nil
+	case NotifyTypeMqtt:
+		return "mqtt", nil
+	case NotifyTypeTelegram:
+		return "telegram", nil
+	}
+	if len(*self) == 0 {
+		return "", nil
+	}
+	return nil, errors.New("Invalid value of NotifyType: " + string(*self))
+}
+
+func (self *NotifyType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "email":
+		*self = NotifyTypeEmail
+		return nil
+	case "":
+		*self = NotifyTypeEmpty
+		return nil
+	case "mqtt":
+		*self = NotifyTypeMqtt
+		return nil
+	case "telegram":
+		*self = NotifyTypeTelegram
+		return nil
+	}
+	if len(s) == 0 {
+		*self = NotifyTypeEmpty
+		return nil
+	}
+	return errors.New("Unknown NotifyType: " + s)
+}
+
+func (self *NotifyType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "email":
+		*self = NotifyTypeEmail
+		return nil
+	case "":
+		*self = NotifyTypeEmpty
+		return nil
+	case "mqtt":
+		*self = NotifyTypeMqtt
+		return nil
+	case "telegram":
+		*self = NotifyTypeTelegram
+		return nil
+	}
+	if len(s) == 0 {
+		*self = NotifyTypeEmpty
+		return nil
+	}
+	return errors.New("Unknown NotifyType: " + s)
+}
+
 type Operation string
 
 const OperationAny Operation = "+"
@@ -4005,7 +4117,6 @@ const StatEventRuleTypeConnected StatEventRuleType = "connected"
 const StatEventRuleTypeDisconnected StatEventRuleType = "disconnected"
 const StatEventRuleTypeFreeRAM StatEventRuleType = "free_ram"
 const StatEventRuleTypeIfaceError StatEventRuleType = "iface_error"
-const StatEventCustomerActivity StatEventRuleType = "customer_activity"
 
 func (self StatEventRuleType) GetPtr() *StatEventRuleType { var v = self; return &v }
 
@@ -4029,8 +4140,6 @@ func (self StatEventRuleType) String() string {
 		return "free_ram"
 	case StatEventRuleTypeIfaceError:
 		return "iface_error"
-	case StatEventCustomerActivity:
-		return "customer_activity"
 	}
 	panic(errors.New("Invalid value of StatEventRuleType: " + string(self)))
 }
@@ -4055,8 +4164,6 @@ func (self *StatEventRuleType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("free_ram")
 	case StatEventRuleTypeIfaceError:
 		return json.Marshal("iface_error")
-	case StatEventCustomerActivity:
-		return json.Marshal("customer_activity")
 	}
 	return nil, errors.New("Invalid value of StatEventRuleType: " + string(*self))
 }
@@ -4081,8 +4188,6 @@ func (self *StatEventRuleType) GetBSON() (interface{}, error) {
 		return "free_ram", nil
 	case StatEventRuleTypeIfaceError:
 		return "iface_error", nil
-	case StatEventCustomerActivity:
-		return "customer_activity", nil
 	}
 	return nil, errors.New("Invalid value of StatEventRuleType: " + string(*self))
 }
@@ -4120,9 +4225,6 @@ func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
 	case "iface_error":
 		*self = StatEventRuleTypeIfaceError
 		return nil
-	case "customer_activity":
-		*self = StatEventCustomerActivity
-		return nil
 	}
 	return errors.New("Unknown StatEventRuleType: " + s)
 }
@@ -4159,9 +4261,6 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 		return nil
 	case "iface_error":
 		*self = StatEventRuleTypeIfaceError
-		return nil
-	case "customer_activity":
-		*self = StatEventCustomerActivity
 		return nil
 	}
 	return errors.New("Unknown StatEventRuleType: " + s)
@@ -5041,75 +5140,4 @@ func (self *WirelessClientType) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	return errors.New("Unknown WirelessClientType: " + s)
-}
-
-type NotifyType string
-
-const (
-	NotifyTypeEmail    NotifyType = "email"
-	NotifyTypeTelegram NotifyType = "telegram"
-)
-
-func (t NotifyType) GetPtr() *NotifyType { var v = t; return &v }
-
-func (t NotifyType) String() string {
-	switch t {
-	case NotifyTypeEmail:
-		return "email"
-	case NotifyTypeTelegram:
-		return "telegram"
-	}
-	panic(errors.New("Invalid value of NotifyType: " + string(t)))
-}
-
-func (t *NotifyType) MarshalJSON() ([]byte, error) {
-	switch *t {
-	case NotifyTypeEmail:
-		return json.Marshal("email")
-	case NotifyTypeTelegram:
-		return json.Marshal("telegram")
-	}
-	return nil, errors.New("Invalid value of NotifyTypeEmail: " + string(*t))
-}
-
-func (t *NotifyType) GetBSON() (interface{}, error) {
-	switch *t {
-	case NotifyTypeEmail:
-		return "email", nil
-	case NotifyTypeTelegram:
-		return "telegram", nil
-	}
-	return nil, errors.New("Invalid value of NotifyTypeEmail: " + string(*t))
-}
-
-func (t *NotifyType) UnmarshalJSON(b []byte) error {
-	var s string
-	if err := json.Unmarshal(b, &s); err != nil {
-		return err
-	}
-	switch s {
-	case "email":
-		*t = NotifyTypeEmail
-		return nil
-	case "telegram":
-		*t = NotifyTypeTelegram
-		return nil
-	}
-	return errors.New("Unknown NotifyType: " + s)
-}
-
-func (t *NotifyType) SetBSON(v bson.Raw) error {
-	var s string
-	if err := v.Unmarshal(&s); err != nil {
-		return err
-	}
-	switch s {
-	case "email":
-		*t = NotifyTypeEmail
-		return nil
-	case "telegram":
-		*t = NotifyTypeTelegram
-		return nil
-	}
-	return errors.New("Unknown NotifyType: " + s)
 }

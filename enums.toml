@@ -361,3 +361,12 @@ default = "L2TP"
 L2TP  = "l2tpv3"
 EoGRE = "gretap"
 GRE   = "gre"
+
+[NotifyType]
+default = "Empty"
+[NotifyType.variants]
+Empty  = ""
+Telegram  = "telegram"
+Email = "email"
+Mqtt   = "mqtt"
+
