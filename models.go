@@ -549,6 +549,9 @@ type CPE struct {
 
 	// reconfiguration
 	ConfigNotSend bool `json:"config_not_send" bson:"config_not_send"`
+
+	Latitude  float64 `json:"latitude"  bson:"latitude"`
+	Longitude float64 `json:"longitude" bson:"longitude"`
 }
 
 type CPECompact struct {
