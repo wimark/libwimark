@@ -119,6 +119,7 @@ IfaceError   = "iface_error"
 ClientCon    = "client_con"
 ClientDis    = "client_dis"
 ClientFar    = "client_far"
+CustomerActivity = "customer_activity"
 
 [ClientStatPacketType]
 [ClientStatPacketType.variants]

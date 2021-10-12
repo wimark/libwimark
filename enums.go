@@ -4114,6 +4114,7 @@ const StatEventRuleTypeClientDis StatEventRuleType = "client_dis"
 const StatEventRuleTypeClientFar StatEventRuleType = "client_far"
 const StatEventRuleTypeConfigError StatEventRuleType = "config_error"
 const StatEventRuleTypeConnected StatEventRuleType = "connected"
+const StatEventRuleTypeCustomerActivity StatEventRuleType = "customer_activity"
 const StatEventRuleTypeDisconnected StatEventRuleType = "disconnected"
 const StatEventRuleTypeFreeRAM StatEventRuleType = "free_ram"
 const StatEventRuleTypeIfaceError StatEventRuleType = "iface_error"
@@ -4134,6 +4135,8 @@ func (self StatEventRuleType) String() string {
 		return "config_error"
 	case StatEventRuleTypeConnected:
 		return "connected"
+	case StatEventRuleTypeCustomerActivity:
+		return "customer_activity"
 	case StatEventRuleTypeDisconnected:
 		return "disconnected"
 	case StatEventRuleTypeFreeRAM:
@@ -4158,6 +4161,8 @@ func (self *StatEventRuleType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("config_error")
 	case StatEventRuleTypeConnected:
 		return json.Marshal("connected")
+	case StatEventRuleTypeCustomerActivity:
+		return json.Marshal("customer_activity")
 	case StatEventRuleTypeDisconnected:
 		return json.Marshal("disconnected")
 	case StatEventRuleTypeFreeRAM:
@@ -4182,6 +4187,8 @@ func (self *StatEventRuleType) GetBSON() (interface{}, error) {
 		return "config_error", nil
 	case StatEventRuleTypeConnected:
 		return "connected", nil
+	case StatEventRuleTypeCustomerActivity:
+		return "customer_activity", nil
 	case StatEventRuleTypeDisconnected:
 		return "disconnected", nil
 	case StatEventRuleTypeFreeRAM:
@@ -4215,6 +4222,9 @@ func (self *StatEventRuleType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "connected":
 		*self = StatEventRuleTypeConnected
+		return nil
+	case "customer_activity":
+		*self = StatEventRuleTypeCustomerActivity
 		return nil
 	case "disconnected":
 		*self = StatEventRuleTypeDisconnected
@@ -4252,6 +4262,9 @@ func (self *StatEventRuleType) SetBSON(v bson.Raw) error {
 		return nil
 	case "connected":
 		*self = StatEventRuleTypeConnected
+		return nil
+	case "customer_activity":
+		*self = StatEventRuleTypeCustomerActivity
 		return nil
 	case "disconnected":
 		*self = StatEventRuleTypeDisconnected
