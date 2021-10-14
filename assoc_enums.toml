@@ -43,6 +43,8 @@ IfaceError   = "null"
 ClientCon    = "null"
 ClientDis    = "null"
 ClientFar    = "LimitBetween"
+CustomerActivity = "LimitBetween"
+
 
 [WirelessClientObject]
 constraint = "WirelessClientType"
