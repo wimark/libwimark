@@ -1,7 +1,7 @@
+//go:generate easyjson -all stat.go
 package libwimark
 
 import (
-	"encoding/json"
 	"errors"
 	"time"
 
@@ -151,82 +151,13 @@ type CPEPollSettings struct {
 	Rules []UUID `json:"rules"`
 }
 
+//easyjson:json
 type StatEventRule struct {
 	StatEventRuleObject
 	Name           string      `json:"name"`
 	PostScript     string      `json:"post_script"`
 	NotifyType     NotifyType  `json:"notify_type"`
 	NotifySettings interface{} `json:"notify_settings"`
-}
-
-func (self *StatEventRule) MarshalJSON() ([]byte, error) {
-	var b []byte
-	{
-		var err error
-		b, err = json.Marshal(self.StatEventRuleObject)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	var doc Document
-	{
-		var err error
-		err = json.Unmarshal(b, &doc)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	doc["name"] = self.Name
-	doc["post_script"] = self.PostScript
-
-	return json.Marshal(doc)
-}
-
-func (self *StatEventRule) UnmarshalJSON(b []byte) error {
-	var doc map[string]json.RawMessage
-	var err = json.Unmarshal(b, &doc)
-	if err != nil {
-		return err
-	}
-
-	if doc == nil {
-		return nil
-	}
-
-	// may be there is a way how to make code more reusable
-	// don't have time to figure out
-
-	var nameRaw, nameExists = doc["name"]
-	if nameExists {
-		var name string
-		var tsErr = json.Unmarshal(nameRaw, &name)
-		if tsErr == nil {
-			self.Name = name
-		} else {
-			return tsErr
-		}
-	}
-
-	delete(doc, "name")
-
-	var postScriptRaw, postScriptExists = doc["post_script"]
-	if postScriptExists {
-		var postScript string
-		var tsErr = json.Unmarshal(postScriptRaw, &postScript)
-		if tsErr == nil {
-			self.PostScript = postScript
-		} else {
-			return tsErr
-		}
-	}
-
-	delete(doc, "post_script")
-
-	var v, _ = json.Marshal(doc)
-
-	return self.StatEventRuleObject.UnmarshalJSON(v)
 }
 
 func (self *StatEventRule) GetBSON() (interface{}, error) {
