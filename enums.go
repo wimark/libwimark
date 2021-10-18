@@ -3524,6 +3524,8 @@ type ReportType string
 
 const ReportTypeCurrent ReportType = "current"
 const ReportTypeSummary ReportType = "summary"
+const ReportTypeClientsAll ReportType = "clients"
+const ReportTypeClientsAuthorized ReportType = "clients_auth"
 
 func (self ReportType) GetPtr() *ReportType { var v = self; return &v }
 
@@ -3533,6 +3535,10 @@ func (self ReportType) String() string {
 		return "current"
 	case ReportTypeSummary:
 		return "summary"
+	case ReportTypeClientsAll:
+		return "clients"
+	case ReportTypeClientsAuthorized:
+		return "clients_auth"
 	}
 	if len(self) == 0 {
 		return "current"
@@ -3546,6 +3552,10 @@ func (self *ReportType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("current")
 	case ReportTypeSummary:
 		return json.Marshal("summary")
+	case ReportTypeClientsAll:
+		return json.Marshal("clients")
+	case ReportTypeClientsAuthorized:
+		return json.Marshal("clients_auth")
 	}
 	if len(*self) == 0 {
 		return json.Marshal("current")
@@ -3559,6 +3569,10 @@ func (self *ReportType) GetBSON() (interface{}, error) {
 		return "current", nil
 	case ReportTypeSummary:
 		return "summary", nil
+	case ReportTypeClientsAll:
+		return "clients", nil
+	case ReportTypeClientsAuthorized:
+		return "clients_auth", nil
 	}
 	if len(*self) == 0 {
 		return "current", nil
@@ -3577,6 +3591,12 @@ func (self *ReportType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "summary":
 		*self = ReportTypeSummary
+		return nil
+	case "clients":
+		*self = ReportTypeClientsAll
+		return nil
+	case "clients_auth":
+		*self = ReportTypeClientsAuthorized
 		return nil
 	}
 	if len(s) == 0 {
@@ -3597,6 +3617,12 @@ func (self *ReportType) SetBSON(v bson.Raw) error {
 		return nil
 	case "summary":
 		*self = ReportTypeSummary
+		return nil
+	case "clients":
+		*self = ReportTypeClientsAll
+		return nil
+	case "clients_auth":
+		*self = ReportTypeClientsAuthorized
 		return nil
 	}
 	if len(s) == 0 {
