@@ -1,3 +1,4 @@
+//go:generate easyjson -all stat.go
 package libwimark
 
 import (
@@ -180,6 +181,8 @@ func (self *StatEventRule) MarshalJSON() ([]byte, error) {
 
 	doc["name"] = self.Name
 	doc["post_script"] = self.PostScript
+	doc["notify_type"] = self.NotifyType
+	doc["notify_settings"] = self.NotifySettings
 
 	return json.Marshal(doc)
 }
@@ -224,6 +227,32 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 
 	delete(doc, "post_script")
 
+	var notifyTypeRaw, notifyTypeExists = doc["notify_type"]
+	if notifyTypeExists {
+		var notifyType NotifyType
+		var tsErr = json.Unmarshal(notifyTypeRaw, &notifyType)
+		if tsErr == nil {
+			self.NotifyType = notifyType
+		} else {
+			return tsErr
+		}
+	}
+
+	delete(doc, "notify_type")
+
+	var notifySettingsRaw, notifySettingsExists = doc["notify_settings"]
+	if notifySettingsExists {
+		var notifySettings interface{}
+		var tsErr = json.Unmarshal(notifySettingsRaw, &notifySettings)
+		if tsErr == nil {
+			self.NotifySettings = notifySettings
+		} else {
+			return tsErr
+		}
+	}
+
+	delete(doc, "notify_settings")
+
 	var v, _ = json.Marshal(doc)
 
 	return self.StatEventRuleObject.UnmarshalJSON(v)
@@ -252,6 +281,8 @@ func (self *StatEventRule) GetBSON() (interface{}, error) {
 	out = obj
 	out["name"] = self.Name
 	out["post_script"] = self.PostScript
+	out["notify_type"] = self.NotifyType
+	out["notify_settings"] = self.NotifySettings
 
 	return out, nil
 }
@@ -268,7 +299,6 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 
 	//name
 	var v_name, k_found = in["name"]
-
 	if !k_found {
 		return errors.New("No name found")
 	}
@@ -278,10 +308,23 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 
 	//post_script
 	var ps_script, ps_found = in["post_script"]
-
 	if ps_found {
 		self.PostScript = ps_script.(string)
 		delete(in, "post_script")
+	}
+
+	//notify_type
+	var notify_type, notify_type_found = in["notify_type"]
+	if notify_type_found {
+		self.NotifyType = NotifyType(notify_type.(string))
+		delete(in, "notify_type")
+	}
+
+	//notify_settings
+	var notify_settings, notify_settings_found = in["notify_settings"]
+	if notify_settings_found {
+		self.NotifySettings = notify_settings
+		delete(in, "notify_settings")
 	}
 
 	var err error

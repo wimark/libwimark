@@ -119,6 +119,7 @@ IfaceError   = "iface_error"
 ClientCon    = "client_con"
 ClientDis    = "client_dis"
 ClientFar    = "client_far"
+CustomerActivity = "customer_activity"
 
 [ClientStatPacketType]
 [ClientStatPacketType.variants]
@@ -363,3 +364,12 @@ default = "L2TP"
 L2TP  = "l2tpv3"
 EoGRE = "gretap"
 GRE   = "gre"
+
+[NotifyType]
+default = "Empty"
+[NotifyType.variants]
+Empty  = ""
+Telegram  = "telegram"
+Email = "email"
+Mqtt   = "mqtt"
+
