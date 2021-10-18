@@ -2,7 +2,11 @@
 package libwimark
 
 import (
+	"encoding/json"
+	"errors"
 	"time"
+
+	"github.com/globalsign/mgo/bson"
 )
 
 type Stat struct {
@@ -150,10 +154,190 @@ type CPEPollSettings struct {
 
 type StatEventRule struct {
 	StatEventRuleObject
-	Name           string      `json:"name" bson:"name"`
-	PostScript     string      `json:"post_script" bson:"post_script"`
-	NotifyType     NotifyType  `json:"notify_type" bson:"notify_type"`
-	NotifySettings interface{} `json:"notify_settings" bson:"notify_settings"`
+	Name           string      `json:"name"`
+	PostScript     string      `json:"post_script"`
+	NotifyType     NotifyType  `json:"notify_type"`
+	NotifySettings interface{} `json:"notify_settings"`
+}
+
+func (self *StatEventRule) MarshalJSON() ([]byte, error) {
+	var b []byte
+	{
+		var err error
+		b, err = json.Marshal(self.StatEventRuleObject)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	var doc Document
+	{
+		var err error
+		err = json.Unmarshal(b, &doc)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	doc["name"] = self.Name
+	doc["post_script"] = self.PostScript
+	doc["notify_type"] = self.NotifyType
+	doc["notify_settings"] = self.NotifySettings
+
+	return json.Marshal(doc)
+}
+
+func (self *StatEventRule) UnmarshalJSON(b []byte) error {
+	var doc map[string]json.RawMessage
+	var err = json.Unmarshal(b, &doc)
+	if err != nil {
+		return err
+	}
+
+	if doc == nil {
+		return nil
+	}
+
+	// may be there is a way how to make code more reusable
+	// don't have time to figure out
+
+	var nameRaw, nameExists = doc["name"]
+	if nameExists {
+		var name string
+		var tsErr = json.Unmarshal(nameRaw, &name)
+		if tsErr == nil {
+			self.Name = name
+		} else {
+			return tsErr
+		}
+	}
+
+	delete(doc, "name")
+
+	var postScriptRaw, postScriptExists = doc["post_script"]
+	if postScriptExists {
+		var postScript string
+		var tsErr = json.Unmarshal(postScriptRaw, &postScript)
+		if tsErr == nil {
+			self.PostScript = postScript
+		} else {
+			return tsErr
+		}
+	}
+
+	delete(doc, "post_script")
+
+	var notifyTypeRaw, notifyTypeExists = doc["notify_type"]
+	if notifyTypeExists {
+		var notifyType NotifyType
+		var tsErr = json.Unmarshal(notifyTypeRaw, &notifyType)
+		if tsErr == nil {
+			self.NotifyType = notifyType
+		} else {
+			return tsErr
+		}
+	}
+
+	delete(doc, "notify_type")
+
+	var notifySettingsRaw, notifySettingsExists = doc["notify_settings"]
+	if notifySettingsExists {
+		var notifySettings interface{}
+		var tsErr = json.Unmarshal(notifySettingsRaw, &notifySettings)
+		if tsErr == nil {
+			self.NotifySettings = notifySettings
+		} else {
+			return tsErr
+		}
+	}
+
+	delete(doc, "notify_settings")
+
+	var v, _ = json.Marshal(doc)
+
+	return self.StatEventRuleObject.UnmarshalJSON(v)
+}
+
+func (self *StatEventRule) GetBSON() (interface{}, error) {
+	var out bson.M
+
+	var obj_b []byte
+	{
+		var err error
+		obj_b, err = bson.Marshal(self.StatEventRuleObject)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	var obj bson.M
+	{
+		var err error
+		err = bson.Unmarshal(obj_b, &obj)
+		if err != nil {
+			return nil, err
+		}
+	}
+	out = obj
+	out["name"] = self.Name
+	out["post_script"] = self.PostScript
+	out["notify_type"] = self.NotifyType
+	out["notify_settings"] = self.NotifySettings
+
+	return out, nil
+}
+
+func (self *StatEventRule) SetBSON(raw bson.Raw) error {
+	var in = bson.M{}
+	{
+		var err error
+		err = raw.Unmarshal(&in)
+		if err != nil {
+			return err
+		}
+	}
+
+	//name
+	var v_name, k_found = in["name"]
+	if !k_found {
+		return errors.New("No name found")
+	}
+
+	self.Name = v_name.(string)
+	delete(in, "name")
+
+	//post_script
+	var ps_script, ps_found = in["post_script"]
+	if ps_found {
+		self.PostScript = ps_script.(string)
+		delete(in, "post_script")
+	}
+
+	//notify_type
+	var notify_type, notify_type_found = in["notify_type"]
+	if notify_type_found {
+		self.NotifyType = notify_type.(NotifyType)
+		delete(in, "notify_type")
+	}
+
+	//notify_settings
+	var notify_settings, notify_settings_found = in["notify_settings"]
+	if notify_settings_found {
+		self.NotifySettings = notify_settings.(interface{})
+		delete(in, "notify_settings")
+	}
+
+	var err error
+	obj_b, err := bson.Marshal(in)
+	if err != nil {
+		return err
+	}
+	err = bson.Unmarshal(obj_b, &self.StatEventRuleObject)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 type LBSClientSignal struct {
