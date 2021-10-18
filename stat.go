@@ -316,7 +316,7 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 	//notify_type
 	var notify_type, notify_type_found = in["notify_type"]
 	if notify_type_found {
-		self.NotifyType = notify_type.(NotifyType)
+		self.NotifyType = NotifyType(notify_type.(string))
 		delete(in, "notify_type")
 	}
 
