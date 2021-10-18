@@ -150,10 +150,10 @@ type CPEPollSettings struct {
 
 type StatEventRule struct {
 	StatEventRuleObject
-	Name           string      `json:"name"`
-	PostScript     string      `json:"post_script"`
-	NotifyType     NotifyType  `json:"notify_type"`
-	NotifySettings interface{} `json:"notify_settings"`
+	Name           string      `json:"name" bson:"name"`
+	PostScript     string      `json:"post_script" bson:"post_script"`
+	NotifyType     NotifyType  `json:"notify_type" bson:"notify_type"`
+	NotifySettings interface{} `json:"notify_settings" bson:"notify_settings"`
 }
 
 type LBSClientSignal struct {
