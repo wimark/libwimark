@@ -2,10 +2,7 @@
 package libwimark
 
 import (
-	"errors"
 	"time"
-
-	"github.com/globalsign/mgo/bson"
 )
 
 type Stat struct {
@@ -151,81 +148,12 @@ type CPEPollSettings struct {
 	Rules []UUID `json:"rules"`
 }
 
-//easyjson:json
 type StatEventRule struct {
 	StatEventRuleObject
 	Name           string      `json:"name"`
 	PostScript     string      `json:"post_script"`
 	NotifyType     NotifyType  `json:"notify_type"`
 	NotifySettings interface{} `json:"notify_settings"`
-}
-
-func (self *StatEventRule) GetBSON() (interface{}, error) {
-	var out bson.M
-
-	var obj_b []byte
-	{
-		var err error
-		obj_b, err = bson.Marshal(self.StatEventRuleObject)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	var obj bson.M
-	{
-		var err error
-		err = bson.Unmarshal(obj_b, &obj)
-		if err != nil {
-			return nil, err
-		}
-	}
-	out = obj
-	out["name"] = self.Name
-	out["post_script"] = self.PostScript
-
-	return out, nil
-}
-
-func (self *StatEventRule) SetBSON(raw bson.Raw) error {
-	var in = bson.M{}
-	{
-		var err error
-		err = raw.Unmarshal(&in)
-		if err != nil {
-			return err
-		}
-	}
-
-	//name
-	var v_name, k_found = in["name"]
-
-	if !k_found {
-		return errors.New("No name found")
-	}
-
-	self.Name = v_name.(string)
-	delete(in, "name")
-
-	//post_script
-	var ps_script, ps_found = in["post_script"]
-
-	if ps_found {
-		self.PostScript = ps_script.(string)
-		delete(in, "post_script")
-	}
-
-	var err error
-	obj_b, err := bson.Marshal(in)
-	if err != nil {
-		return err
-	}
-	err = bson.Unmarshal(obj_b, &self.StatEventRuleObject)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 type LBSClientSignal struct {
