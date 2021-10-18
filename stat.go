@@ -323,7 +323,7 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 	//notify_settings
 	var notify_settings, notify_settings_found = in["notify_settings"]
 	if notify_settings_found {
-		self.NotifySettings = notify_settings.(interface{})
+		self.NotifySettings = notify_settings
 		delete(in, "notify_settings")
 	}
 
