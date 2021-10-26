@@ -185,6 +185,9 @@ type RadarExportObject struct {
 	LastAt   int64             `json:"last_at" bson:"last_at"`
 	Status   RadarExportStatus `json:"status" bson:"status"`
 	State    RadarExportState  `json:"state" bson:"state"`
+
+	// CTN for BeePro -- just for storing in DB
+	CTN string `json:"ctn" bson:"ctn"`
 }
 
 type RadarExportObjectUpdate struct {
