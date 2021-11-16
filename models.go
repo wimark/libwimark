@@ -166,6 +166,13 @@ type WLANCompact struct {
 	Name        string `json:"name" bson:"name"`
 	SSID        string `json:"ssid" bson:"ssid"`
 	Description string `json:"description" bson:"description"`
+
+	// network section
+	// remote tunneling
+	Tunneling     bool       `json:"tunneling"`      // turn on tunneling
+	Proto         TunnelType `json:"proto"`          // l2tp or gretap or ??
+	DefaultTunnel string     `json:"default_tunnel"` // network name on server (only for l2tp)
+	PeerAddress   string     `json:"peer_address"`   // peer address of server
 }
 
 // ==== CPE ====
