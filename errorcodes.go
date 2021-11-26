@@ -22,10 +22,10 @@ const WimarkErrorCodeProtocol WimarkErrorCode = "ERROR_PROTOCOL"
 const WimarkErrorCodeRequestCheck WimarkErrorCode = "ERROR_REQUEST_CHECK"
 const WimarkErrorCodeRspTimeout WimarkErrorCode = "ERROR_RSP_TIMEOUT"
 
-func (self WimarkErrorCode) GetPtr() *WimarkErrorCode { var v = self; return &v }
+func (en WimarkErrorCode) GetPtr() *WimarkErrorCode { var v = en; return &v }
 
-func (self WimarkErrorCode) String() string {
-	switch self {
+func (en WimarkErrorCode) String() string {
+	switch en {
 	case WimarkErrorCodeBadEnvironment:
 		return "ERROR_BAD_ENV"
 	case WimarkErrorCodeCPE:
@@ -53,14 +53,14 @@ func (self WimarkErrorCode) String() string {
 	case WimarkErrorCodeRspTimeout:
 		return "ERROR_RSP_TIMEOUT"
 	}
-	if len(self) == 0 {
+	if len(en) == 0 {
 		return ""
 	}
-	panic(errors.New("Invalid value of WimarkErrorCode: " + string(self)))
+	panic(errors.New("Invalid value of WimarkErrorCode: " + string(en)))
 }
 
-func (self *WimarkErrorCode) MarshalJSON() ([]byte, error) {
-	switch *self {
+func (en *WimarkErrorCode) MarshalJSON() ([]byte, error) {
+	switch *en {
 	case WimarkErrorCodeBadEnvironment:
 		return json.Marshal("ERROR_BAD_ENV")
 	case WimarkErrorCodeCPE:
@@ -88,14 +88,14 @@ func (self *WimarkErrorCode) MarshalJSON() ([]byte, error) {
 	case WimarkErrorCodeRspTimeout:
 		return json.Marshal("ERROR_RSP_TIMEOUT")
 	}
-	if len(*self) == 0 {
+	if len(*en) == 0 {
 		return json.Marshal("")
 	}
-	return nil, errors.New("Invalid value of WimarkErrorCode: " + string(*self))
+	return nil, errors.New("Invalid value of WimarkErrorCode: " + string(*en))
 }
 
-func (self *WimarkErrorCode) GetBSON() (interface{}, error) {
-	switch *self {
+func (en *WimarkErrorCode) GetBSON() (interface{}, error) {
+	switch *en {
 	case WimarkErrorCodeBadEnvironment:
 		return "ERROR_BAD_ENV", nil
 	case WimarkErrorCodeCPE:
@@ -123,113 +123,113 @@ func (self *WimarkErrorCode) GetBSON() (interface{}, error) {
 	case WimarkErrorCodeRspTimeout:
 		return "ERROR_RSP_TIMEOUT", nil
 	}
-	if len(*self) == 0 {
+	if len(*en) == 0 {
 		return "", nil
 	}
-	return nil, errors.New("Invalid value of WimarkErrorCode: " + string(*self))
+	return nil, errors.New("Invalid value of WimarkErrorCode: " + string(*en))
 }
 
-func (self *WimarkErrorCode) UnmarshalJSON(b []byte) error {
+func (en *WimarkErrorCode) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
 		return err
 	}
 	switch s {
 	case "ERROR_BAD_ENV":
-		*self = WimarkErrorCodeBadEnvironment
+		*en = WimarkErrorCodeBadEnvironment
 		return nil
 	case "ERROR_CPE":
-		*self = WimarkErrorCodeCPE
+		*en = WimarkErrorCodeCPE
 		return nil
 	case "ERROR_DB":
-		*self = WimarkErrorCodeDB
+		*en = WimarkErrorCodeDB
 		return nil
 	case "ERROR_JSON":
-		*self = WimarkErrorCodeJson
+		*en = WimarkErrorCodeJson
 		return nil
 	case "ERROR_JSONRPC":
-		*self = WimarkErrorCodeJsonRpc
+		*en = WimarkErrorCodeJsonRpc
 		return nil
 	case "ERROR_MODULE_OFFLINE":
-		*self = WimarkErrorCodeModuleOffline
+		*en = WimarkErrorCodeModuleOffline
 		return nil
 	case "ERROR_MQTT":
-		*self = WimarkErrorCodeMqtt
+		*en = WimarkErrorCodeMqtt
 		return nil
 	case "":
-		*self = WimarkErrorCodeNoError
+		*en = WimarkErrorCodeNoError
 		return nil
 	case "ERROR_OBJECT_NOT_EXIST":
-		*self = WimarkErrorCodeObjectNotExist
+		*en = WimarkErrorCodeObjectNotExist
 		return nil
 	case "ERROR_OTHER":
-		*self = WimarkErrorCodeOther
+		*en = WimarkErrorCodeOther
 		return nil
 	case "ERROR_PROTOCOL":
-		*self = WimarkErrorCodeProtocol
+		*en = WimarkErrorCodeProtocol
 		return nil
 	case "ERROR_REQUEST_CHECK":
-		*self = WimarkErrorCodeRequestCheck
+		*en = WimarkErrorCodeRequestCheck
 		return nil
 	case "ERROR_RSP_TIMEOUT":
-		*self = WimarkErrorCodeRspTimeout
+		*en = WimarkErrorCodeRspTimeout
 		return nil
 	}
 	if len(s) == 0 {
-		*self = WimarkErrorCodeNoError
+		*en = WimarkErrorCodeNoError
 		return nil
 	}
 	return errors.New("Unknown WimarkErrorCode: " + s)
 }
 
-func (self *WimarkErrorCode) SetBSON(v bson.Raw) error {
+func (en *WimarkErrorCode) SetBSON(v bson.Raw) error {
 	var s string
 	if err := v.Unmarshal(&s); err != nil {
 		return err
 	}
 	switch s {
 	case "ERROR_BAD_ENV":
-		*self = WimarkErrorCodeBadEnvironment
+		*en = WimarkErrorCodeBadEnvironment
 		return nil
 	case "ERROR_CPE":
-		*self = WimarkErrorCodeCPE
+		*en = WimarkErrorCodeCPE
 		return nil
 	case "ERROR_DB":
-		*self = WimarkErrorCodeDB
+		*en = WimarkErrorCodeDB
 		return nil
 	case "ERROR_JSON":
-		*self = WimarkErrorCodeJson
+		*en = WimarkErrorCodeJson
 		return nil
 	case "ERROR_JSONRPC":
-		*self = WimarkErrorCodeJsonRpc
+		*en = WimarkErrorCodeJsonRpc
 		return nil
 	case "ERROR_MODULE_OFFLINE":
-		*self = WimarkErrorCodeModuleOffline
+		*en = WimarkErrorCodeModuleOffline
 		return nil
 	case "ERROR_MQTT":
-		*self = WimarkErrorCodeMqtt
+		*en = WimarkErrorCodeMqtt
 		return nil
 	case "":
-		*self = WimarkErrorCodeNoError
+		*en = WimarkErrorCodeNoError
 		return nil
 	case "ERROR_OBJECT_NOT_EXIST":
-		*self = WimarkErrorCodeObjectNotExist
+		*en = WimarkErrorCodeObjectNotExist
 		return nil
 	case "ERROR_OTHER":
-		*self = WimarkErrorCodeOther
+		*en = WimarkErrorCodeOther
 		return nil
 	case "ERROR_PROTOCOL":
-		*self = WimarkErrorCodeProtocol
+		*en = WimarkErrorCodeProtocol
 		return nil
 	case "ERROR_REQUEST_CHECK":
-		*self = WimarkErrorCodeRequestCheck
+		*en = WimarkErrorCodeRequestCheck
 		return nil
 	case "ERROR_RSP_TIMEOUT":
-		*self = WimarkErrorCodeRspTimeout
+		*en = WimarkErrorCodeRspTimeout
 		return nil
 	}
 	if len(s) == 0 {
-		*self = WimarkErrorCodeNoError
+		*en = WimarkErrorCodeNoError
 		return nil
 	}
 	return errors.New("Unknown WimarkErrorCode: " + s)

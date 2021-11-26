@@ -15,11 +15,11 @@ type SystemEvent struct {
 	Description string           `json:"description"`
 }
 
-func (self *SystemEvent) MarshalJSON() ([]byte, error) {
+func (event *SystemEvent) MarshalJSON() ([]byte, error) {
 	var b []byte
 	{
 		var err error
-		b, err = json.Marshal(self.SystemEventObject)
+		b, err = json.Marshal(event.SystemEventObject)
 		if err != nil {
 			return nil, err
 		}
@@ -27,22 +27,21 @@ func (self *SystemEvent) MarshalJSON() ([]byte, error) {
 
 	var doc Document
 	{
-		var err error
-		err = json.Unmarshal(b, &doc)
+		var err = json.Unmarshal(b, &doc)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	doc["timestamp"] = self.Timestamp
-	doc["subject_id"] = self.Subject_id
-	doc["level"] = self.Level
-	doc["description"] = self.Description
+	doc["timestamp"] = event.Timestamp
+	doc["subject_id"] = event.Subject_id
+	doc["level"] = event.Level
+	doc["description"] = event.Description
 
 	return json.Marshal(doc)
 }
 
-func (self *SystemEvent) UnmarshalJSON(b []byte) error {
+func (event *SystemEvent) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	var err = json.Unmarshal(b, &doc)
 	if err != nil {
@@ -61,7 +60,7 @@ func (self *SystemEvent) UnmarshalJSON(b []byte) error {
 		var ts int64
 		var tsErr = json.Unmarshal(tsRaw, &ts)
 		if tsErr == nil {
-			self.Timestamp = ts
+			event.Timestamp = ts
 		} else {
 			return tsErr
 		}
@@ -74,7 +73,7 @@ func (self *SystemEvent) UnmarshalJSON(b []byte) error {
 		var subject_id string
 		var subErr = json.Unmarshal(subRaw, &subject_id)
 		if subErr == nil {
-			self.Subject_id = subject_id
+			event.Subject_id = subject_id
 		} else {
 			return subErr
 		}
@@ -87,7 +86,7 @@ func (self *SystemEvent) UnmarshalJSON(b []byte) error {
 		var level SystemEventLevel
 		var levErr = json.Unmarshal(levelRaw, &level)
 		if levErr == nil {
-			self.Level = level
+			event.Level = level
 		} else {
 			return levErr
 		}
@@ -100,7 +99,7 @@ func (self *SystemEvent) UnmarshalJSON(b []byte) error {
 		var desc string
 		var desErr = json.Unmarshal(descRaw, &desc)
 		if desErr == nil {
-			self.Description = desc
+			event.Description = desc
 		} else {
 			return desErr
 		}
@@ -110,13 +109,13 @@ func (self *SystemEvent) UnmarshalJSON(b []byte) error {
 
 	var v, _ = json.Marshal(doc)
 
-	return self.SystemEventObject.UnmarshalJSON(v)
+	return event.SystemEventObject.UnmarshalJSON(v)
 }
 
-func (self *SystemEvent) GetBSON() (interface{}, error) {
+func (event *SystemEvent) GetBSON() (interface{}, error) {
 	var out bson.M
 
-	levelBson, err := self.Level.GetBSON()
+	levelBson, err := event.Level.GetBSON()
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +123,7 @@ func (self *SystemEvent) GetBSON() (interface{}, error) {
 	var obj_b []byte
 	{
 		var err error
-		obj_b, err = bson.Marshal(self.SystemEventObject)
+		obj_b, err = bson.Marshal(event.SystemEventObject)
 		if err != nil {
 			return nil, err
 		}
@@ -132,22 +131,21 @@ func (self *SystemEvent) GetBSON() (interface{}, error) {
 
 	var obj bson.M
 	{
-		var err error
-		err = bson.Unmarshal(obj_b, &obj)
+		var err = bson.Unmarshal(obj_b, &obj)
 		if err != nil {
 			return nil, err
 		}
 	}
 	out = obj
-	out["timestamp"] = self.Timestamp
-	out["subject_id"] = self.Subject_id
+	out["timestamp"] = event.Timestamp
+	out["subject_id"] = event.Subject_id
 	out["level"] = levelBson
-	out["description"] = self.Description
+	out["description"] = event.Description
 
 	return out, nil
 }
 
-func (self *SystemEvent) SetBSON(raw bson.Raw) error {
+func (event *SystemEvent) SetBSON(raw bson.Raw) error {
 	var in = map[string]bson.Raw{}
 	{
 		if err := raw.Unmarshal(&in); err != nil {
@@ -159,9 +157,9 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 	{
 		var v, k_found = in["timestamp"]
 		if !k_found {
-			return errors.New("No timestamp found")
+			return errors.New("no timestamp found")
 		}
-		if err := v.Unmarshal(&self.Timestamp); err != nil {
+		if err := v.Unmarshal(&event.Timestamp); err != nil {
 			return err
 		}
 
@@ -172,9 +170,9 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 	{
 		var v, k_found = in["subject_id"]
 		if !k_found {
-			return errors.New("No subject_id found")
+			return errors.New("no subject_id found")
 		}
-		if err := v.Unmarshal(&self.Subject_id); err != nil {
+		if err := v.Unmarshal(&event.Subject_id); err != nil {
 			return err
 		}
 
@@ -185,9 +183,9 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 	{
 		var v, k_found = in["level"]
 		if !k_found {
-			return errors.New("No subject_id found")
+			return errors.New("no subject_id found")
 		}
-		if err := v.Unmarshal(&self.Level); err != nil {
+		if err := v.Unmarshal(&event.Level); err != nil {
 			return err
 		}
 
@@ -198,7 +196,7 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 	{
 		var v, k_found = in["description"]
 		if k_found {
-			if err := v.Unmarshal(&self.Description); err != nil {
+			if err := v.Unmarshal(&event.Description); err != nil {
 				return err
 			}
 
@@ -212,7 +210,7 @@ func (self *SystemEvent) SetBSON(raw bson.Raw) error {
 		return mErr
 	}
 
-	if err := bson.Unmarshal(obj_b, &self.SystemEventObject); err != nil {
+	if err := bson.Unmarshal(obj_b, &event.SystemEventObject); err != nil {
 		return err
 	}
 	return nil

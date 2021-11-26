@@ -90,8 +90,8 @@ func generateCSVReport(data [][]string) ([]byte, error) {
 	buffer := new(bytes.Buffer)
 	writer := csv.NewWriter(buffer)
 	writer.UseCRLF = true
-	writer.WriteAll(data)
-	return buffer.Bytes(), nil
+	err := writer.WriteAll(data)
+	return buffer.Bytes(), err
 }
 
 func generatePDFReport(data [][]string) ([]byte, error) {
@@ -131,8 +131,8 @@ func generateXLSReport(data [][]string) ([]byte, error) {
 		}
 	}
 
-	f.Write(buffer)
-	return buffer.Bytes(), nil
+	err := f.Write(buffer)
+	return buffer.Bytes(), err
 }
 
 const letters = 26

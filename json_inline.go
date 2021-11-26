@@ -184,7 +184,7 @@ func UnmarshalInline(b []byte, val interface{}, tmpl map[string]interface{}) err
 		var f = v.Field(i)
 		tmp, ok := tmpl[tag.Key]
 		if !ok {
-			return errors.New(fmt.Sprintf("No template for %s", tag.Key))
+			return fmt.Errorf("no template for %s", tag.Key)
 		}
 		err = strDecode(attrs, tmp)
 		if err != nil {
@@ -196,7 +196,7 @@ func UnmarshalInline(b []byte, val interface{}, tmpl map[string]interface{}) err
 		var f = v.Field(i)
 		tmp, ok := tmpl[""]
 		if !ok {
-			return errors.New("No template for default key")
+			return errors.New("no template for default key")
 		}
 		err = strDecode(none_attrs, tmp)
 		if err != nil {

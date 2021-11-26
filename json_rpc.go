@@ -111,7 +111,7 @@ type RPCServer struct {
 func (server *RPCServer) ExecuteRPC(req JSONRPCClientRequest) *JSONRPCClientResponse {
 	p, ok := server.RPCs[req.Method]
 	if !ok {
-		err := errors.New("There is no such method")
+		err := errors.New("there is no such method")
 		return MakeRPCError(E_NO_METHOD, err.Error(), req.Id, nil)
 	}
 	return p.ProcedureExecute(req)
@@ -122,8 +122,8 @@ func ProcessJSONRPCMessage(msg mqtt.Message, server *RPCServer) (JSONRPCClientRe
 	// get topic in common structure
 	_, err = ParseRequestTopic(msg.Topic())
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("Topic is not supported err := (%s), topic := (%s)",
-			err.Error(), msg.Topic()))
+		return nil, fmt.Errorf("topic is not supported err := (%s), topic := (%s)",
+			err.Error(), msg.Topic())
 	}
 	var in []JSONRPCClientRequest
 	// parse incoming rpcs

@@ -160,11 +160,11 @@ type StatEventRule struct {
 	NotifySettings interface{} `json:"notify_settings"`
 }
 
-func (self *StatEventRule) MarshalJSON() ([]byte, error) {
+func (eventRule *StatEventRule) MarshalJSON() ([]byte, error) {
 	var b []byte
 	{
 		var err error
-		b, err = json.Marshal(self.StatEventRuleObject)
+		b, err = json.Marshal(eventRule.StatEventRuleObject)
 		if err != nil {
 			return nil, err
 		}
@@ -172,22 +172,21 @@ func (self *StatEventRule) MarshalJSON() ([]byte, error) {
 
 	var doc Document
 	{
-		var err error
-		err = json.Unmarshal(b, &doc)
+		var err = json.Unmarshal(b, &doc)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	doc["name"] = self.Name
-	doc["post_script"] = self.PostScript
-	doc["notify_type"] = self.NotifyType
-	doc["notify_settings"] = self.NotifySettings
+	doc["name"] = eventRule.Name
+	doc["post_script"] = eventRule.PostScript
+	doc["notify_type"] = eventRule.NotifyType
+	doc["notify_settings"] = eventRule.NotifySettings
 
 	return json.Marshal(doc)
 }
 
-func (self *StatEventRule) UnmarshalJSON(b []byte) error {
+func (eventRule *StatEventRule) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	var err = json.Unmarshal(b, &doc)
 	if err != nil {
@@ -206,7 +205,7 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 		var name string
 		var tsErr = json.Unmarshal(nameRaw, &name)
 		if tsErr == nil {
-			self.Name = name
+			eventRule.Name = name
 		} else {
 			return tsErr
 		}
@@ -219,7 +218,7 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 		var postScript string
 		var tsErr = json.Unmarshal(postScriptRaw, &postScript)
 		if tsErr == nil {
-			self.PostScript = postScript
+			eventRule.PostScript = postScript
 		} else {
 			return tsErr
 		}
@@ -232,7 +231,7 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 		var notifyType NotifyType
 		var tsErr = json.Unmarshal(notifyTypeRaw, &notifyType)
 		if tsErr == nil {
-			self.NotifyType = notifyType
+			eventRule.NotifyType = notifyType
 		} else {
 			return tsErr
 		}
@@ -245,7 +244,7 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 		var notifySettings interface{}
 		var tsErr = json.Unmarshal(notifySettingsRaw, &notifySettings)
 		if tsErr == nil {
-			self.NotifySettings = notifySettings
+			eventRule.NotifySettings = notifySettings
 		} else {
 			return tsErr
 		}
@@ -255,16 +254,16 @@ func (self *StatEventRule) UnmarshalJSON(b []byte) error {
 
 	var v, _ = json.Marshal(doc)
 
-	return self.StatEventRuleObject.UnmarshalJSON(v)
+	return eventRule.StatEventRuleObject.UnmarshalJSON(v)
 }
 
-func (self *StatEventRule) GetBSON() (interface{}, error) {
+func (eventRule *StatEventRule) GetBSON() (interface{}, error) {
 	var out bson.M
 
 	var obj_b []byte
 	{
 		var err error
-		obj_b, err = bson.Marshal(self.StatEventRuleObject)
+		obj_b, err = bson.Marshal(eventRule.StatEventRuleObject)
 		if err != nil {
 			return nil, err
 		}
@@ -272,26 +271,24 @@ func (self *StatEventRule) GetBSON() (interface{}, error) {
 
 	var obj bson.M
 	{
-		var err error
-		err = bson.Unmarshal(obj_b, &obj)
+		var err = bson.Unmarshal(obj_b, &obj)
 		if err != nil {
 			return nil, err
 		}
 	}
 	out = obj
-	out["name"] = self.Name
-	out["post_script"] = self.PostScript
-	out["notify_type"] = self.NotifyType
-	out["notify_settings"] = self.NotifySettings
+	out["name"] = eventRule.Name
+	out["post_script"] = eventRule.PostScript
+	out["notify_type"] = eventRule.NotifyType
+	out["notify_settings"] = eventRule.NotifySettings
 
 	return out, nil
 }
 
-func (self *StatEventRule) SetBSON(raw bson.Raw) error {
+func (eventRule *StatEventRule) SetBSON(raw bson.Raw) error {
 	var in = bson.M{}
 	{
-		var err error
-		err = raw.Unmarshal(&in)
+		var err = raw.Unmarshal(&in)
 		if err != nil {
 			return err
 		}
@@ -300,30 +297,30 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 	//name
 	var v_name, k_found = in["name"]
 	if !k_found {
-		return errors.New("No name found")
+		return errors.New("no name found")
 	}
 
-	self.Name = v_name.(string)
+	eventRule.Name = v_name.(string)
 	delete(in, "name")
 
 	//post_script
 	var ps_script, ps_found = in["post_script"]
 	if ps_found {
-		self.PostScript = ps_script.(string)
+		eventRule.PostScript = ps_script.(string)
 		delete(in, "post_script")
 	}
 
 	//notify_type
 	var notify_type, notify_type_found = in["notify_type"]
 	if notify_type_found {
-		self.NotifyType = NotifyType(notify_type.(string))
+		eventRule.NotifyType = NotifyType(notify_type.(string))
 		delete(in, "notify_type")
 	}
 
 	//notify_settings
 	var notify_settings, notify_settings_found = in["notify_settings"]
 	if notify_settings_found {
-		self.NotifySettings = notify_settings
+		eventRule.NotifySettings = notify_settings
 		delete(in, "notify_settings")
 	}
 
@@ -332,7 +329,7 @@ func (self *StatEventRule) SetBSON(raw bson.Raw) error {
 	if err != nil {
 		return err
 	}
-	err = bson.Unmarshal(obj_b, &self.StatEventRuleObject)
+	err = bson.Unmarshal(obj_b, &eventRule.StatEventRuleObject)
 	if err != nil {
 		return err
 	}

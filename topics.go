@@ -24,7 +24,7 @@ const (
 	TOPIC_RSP_REGEXP    = `RSP/(.*)/(.*)/(.*)/(.*)/(.*)`
 )
 
-var parseErr = errors.New("Failed to parse topic")
+var errTopicParse = errors.New("failed to parse topic")
 
 type Topic interface {
 	TopicPath() string
@@ -39,7 +39,7 @@ func ParseBroadcastTopic(s string, format string) (BroadcastTopic, error) {
 	var v BroadcastTopic
 	var r = regexp.MustCompile(format)
 	var ds = r.FindAllStringSubmatch(s, -1)
-	if ds != nil && len(ds) == 1 {
+	if len(ds) == 1 {
 		var data = ds[0]
 		if data != nil && len(data) == 2+1 {
 			var smodule Module
@@ -54,13 +54,13 @@ func ParseBroadcastTopic(s string, format string) (BroadcastTopic, error) {
 		}
 	}
 
-	return v, parseErr
+	return v, errTopicParse
 }
 
-func (self BroadcastTopic) TopicPathGeneric(format string) string {
-	var sm, _ = self.SenderModule.MarshalJSON()
+func (topic BroadcastTopic) TopicPathGeneric(format string) string {
+	var sm, _ = topic.SenderModule.MarshalJSON()
 	var sm_s, _ = strconv.Unquote(string(sm))
-	return fmt.Sprintf(format, sm_s, self.SenderID)
+	return fmt.Sprintf(format, sm_s, topic.SenderID)
 }
 
 type StatusTopic BroadcastTopic
@@ -70,8 +70,8 @@ func ParseStatusTopic(s string) (StatusTopic, error) {
 	return StatusTopic(v), err
 }
 
-func (self StatusTopic) TopicPath() string {
-	return (BroadcastTopic)(self).TopicPathGeneric(TOPIC_STATUS_FORMAT)
+func (topic StatusTopic) TopicPath() string {
+	return (BroadcastTopic)(topic).TopicPathGeneric(TOPIC_STATUS_FORMAT)
 }
 
 type LogTopic BroadcastTopic
@@ -81,8 +81,8 @@ func ParseLogTopic(s string) (LogTopic, error) {
 	return LogTopic(v), err
 }
 
-func (self LogTopic) TopicPath() string {
-	return (BroadcastTopic)(self).TopicPathGeneric(TOPIC_LOG_FORMAT)
+func (topic LogTopic) TopicPath() string {
+	return (BroadcastTopic)(topic).TopicPathGeneric(TOPIC_LOG_FORMAT)
 }
 
 type EventTopic struct {
@@ -95,7 +95,7 @@ func ParseEventTopic(s string) (EventTopic, error) {
 	var v EventTopic
 	var r = regexp.MustCompile(TOPIC_EVENT_REGEXP)
 	var ds = r.FindAllStringSubmatch(s, -1)
-	if ds != nil && len(ds) == 1 {
+	if len(ds) == 1 {
 		var data = ds[0]
 		if data != nil && len(data) == 3+1 {
 			var smodule Module
@@ -112,15 +112,15 @@ func ParseEventTopic(s string) (EventTopic, error) {
 		}
 	}
 
-	return v, parseErr
+	return v, errTopicParse
 }
 
-func (self EventTopic) TopicPath() string {
-	var sm, _ = self.SenderModule.MarshalJSON()
+func (topic EventTopic) TopicPath() string {
+	var sm, _ = topic.SenderModule.MarshalJSON()
 	var sm_s, _ = strconv.Unquote(string(sm))
-	var t, _ = self.Type.MarshalJSON()
+	var t, _ = topic.Type.MarshalJSON()
 	var t_s, _ = strconv.Unquote(string(t))
-	return fmt.Sprintf(TOPIC_EVENT_FORMAT, sm_s, self.SenderID, t_s)
+	return fmt.Sprintf(TOPIC_EVENT_FORMAT, sm_s, topic.SenderID, t_s)
 }
 
 type RequestTopic struct {
@@ -133,25 +133,25 @@ type RequestTopic struct {
 	Tag            string
 }
 
-func (self RequestTopic) TopicPath() string {
+func (topic RequestTopic) TopicPath() string {
 	var u = strconv.Unquote
 
-	var sm, _ = self.SenderModule.MarshalJSON()
+	var sm, _ = topic.SenderModule.MarshalJSON()
 	var sm_s, _ = u(string(sm))
-	var rm, _ = self.ReceiverModule.MarshalJSON()
+	var rm, _ = topic.ReceiverModule.MarshalJSON()
 	var rm_s, _ = u(string(rm))
-	var op, _ = self.Operation.MarshalJSON()
+	var op, _ = topic.Operation.MarshalJSON()
 	var op_s, _ = u(string(op))
-	return fmt.Sprintf(TOPIC_REQ_FORMAT, sm_s, self.SenderID, rm_s, self.ReceiverID, self.RequestID, op_s, self.Tag)
+	return fmt.Sprintf(TOPIC_REQ_FORMAT, sm_s, topic.SenderID, rm_s, topic.ReceiverID, topic.RequestID, op_s, topic.Tag)
 }
 
-func (self RequestTopic) ToResponse() ResponseTopic {
+func (topic RequestTopic) ToResponse() ResponseTopic {
 	return ResponseTopic{
-		SenderModule:   self.ReceiverModule,
-		SenderID:       self.ReceiverID,
-		ReceiverModule: self.SenderModule,
-		ReceiverID:     self.SenderID,
-		RequestID:      self.RequestID,
+		SenderModule:   topic.ReceiverModule,
+		SenderID:       topic.ReceiverID,
+		ReceiverModule: topic.SenderModule,
+		ReceiverID:     topic.SenderID,
+		RequestID:      topic.RequestID,
 	}
 }
 
@@ -159,7 +159,7 @@ func ParseRequestTopic(s string) (RequestTopic, error) {
 	var v RequestTopic
 	var r = regexp.MustCompile(TOPIC_REQ_REGEXP)
 	var ds = r.FindAllStringSubmatch(s, -1)
-	if ds != nil && len(ds) == 1 {
+	if len(ds) == 1 {
 		var data = ds[0]
 		if data != nil && len(data) == 7+1 {
 			var smodule Module
@@ -184,7 +184,7 @@ func ParseRequestTopic(s string) (RequestTopic, error) {
 		}
 	}
 
-	return v, parseErr
+	return v, errTopicParse
 }
 
 type ResponseTopic struct {
@@ -195,22 +195,22 @@ type ResponseTopic struct {
 	RequestID      string
 }
 
-func (self ResponseTopic) TopicPath() string {
+func (topic ResponseTopic) TopicPath() string {
 	var u = strconv.Unquote
 
-	var sm, _ = self.SenderModule.MarshalJSON()
-	var rm, _ = self.ReceiverModule.MarshalJSON()
+	var sm, _ = topic.SenderModule.MarshalJSON()
+	var rm, _ = topic.ReceiverModule.MarshalJSON()
 
 	var sm_s, _ = u(string(sm))
 	var rm_s, _ = u(string(rm))
-	return fmt.Sprintf(TOPIC_RSP_FORMAT, sm_s, self.SenderID, rm_s, self.ReceiverID, self.RequestID)
+	return fmt.Sprintf(TOPIC_RSP_FORMAT, sm_s, topic.SenderID, rm_s, topic.ReceiverID, topic.RequestID)
 }
 
 func ParseResponseTopic(s string) (ResponseTopic, error) {
 	var v ResponseTopic
 	var r = regexp.MustCompile(TOPIC_RSP_REGEXP)
 	var ds = r.FindAllStringSubmatch(s, -1)
-	if ds != nil && len(ds) == 1 {
+	if len(ds) == 1 {
 		var data = ds[0]
 		if data != nil && len(data) == 5+1 {
 			var smodule Module
@@ -231,7 +231,7 @@ func ParseResponseTopic(s string) (ResponseTopic, error) {
 		}
 	}
 
-	return v, parseErr
+	return v, errTopicParse
 }
 
 func ParseTopicPath(s string) Topic {

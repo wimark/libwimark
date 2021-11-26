@@ -2,7 +2,6 @@ package libwimark
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"time"
 
@@ -76,7 +75,7 @@ func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta in
 
 	b, err := json.Marshal(eventDisconnetPayload)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("error: (%s) during service start", err.Error()))
+		return nil, fmt.Errorf("error: (%s) during service start", err.Error())
 	}
 	opts.SetWill(eventDisconnetTopic.TopicPath(), string(b), 2, false)
 
@@ -86,7 +85,7 @@ func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta in
 
 	client, err := MQTTConnectSyncOpts(opts)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("error: (%s) while connecting to broker", err.Error()))
+		return nil, fmt.Errorf("error: (%s) while connecting to broker", err.Error())
 	}
 
 	//sending retain status message
@@ -111,7 +110,7 @@ func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta in
 		R: true,
 	})
 	if err != nil {
-		return client, errors.New(fmt.Sprintf("error: (%s) while publishing retained in service start", err.Error()))
+		return client, fmt.Errorf("error: (%s) while publishing retained in service start", err.Error())
 	}
 
 	// sending connect event
@@ -123,7 +122,7 @@ func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta in
 
 	level = SystemEventLevelINFO
 
-	eventData := ServiceConnectedData{
+	eventData := Version{
 		Version: v.Version,
 		Commit:  v.Commit,
 		Build:   v.Build,
@@ -145,7 +144,7 @@ func MQTTServiceStartWithId(addr string, s Module, v Version, id string, meta in
 		R: false,
 	})
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("error: (%s) publishing connected event in service start", err.Error()))
+		return nil, fmt.Errorf("error: (%s) publishing connected event in service start", err.Error())
 	}
 	return client, nil
 }
@@ -162,20 +161,20 @@ type MQTTDocumentMessage struct {
 	R bool
 }
 
-func (self MQTTDocumentMessage) Topic() Topic {
-	return self.T
+func (mq MQTTDocumentMessage) Topic() Topic {
+	return mq.T
 }
 
-func (self MQTTDocumentMessage) Payload() ([]byte, error) {
-	if self.D != nil {
-		return json.Marshal(self.D)
+func (mq MQTTDocumentMessage) Payload() ([]byte, error) {
+	if mq.D != nil {
+		return json.Marshal(mq.D)
 	} else {
 		return nil, nil
 	}
 }
 
-func (self MQTTDocumentMessage) Retained() bool {
-	return self.R
+func (mq MQTTDocumentMessage) Retained() bool {
+	return mq.R
 }
 
 type MQTTRawMessage struct {
@@ -184,16 +183,16 @@ type MQTTRawMessage struct {
 	R bool
 }
 
-func (self MQTTRawMessage) Topic() Topic {
-	return self.T
+func (mq MQTTRawMessage) Topic() Topic {
+	return mq.T
 }
 
-func (self MQTTRawMessage) Payload() ([]byte, error) {
-	return self.D, nil
+func (mq MQTTRawMessage) Payload() ([]byte, error) {
+	return mq.D, nil
 }
 
-func (self MQTTRawMessage) Retained() bool {
-	return self.R
+func (mq MQTTRawMessage) Retained() bool {
+	return mq.R
 }
 
 func MQTTPublishMsg(client mqtt.Client, msg MQTTMessage) error {

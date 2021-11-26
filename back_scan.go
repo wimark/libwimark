@@ -157,7 +157,7 @@ func AvailablePowers(cfg WiFiConfig, caps WifiCapabilities) []int {
 }
 
 func ParseBandmode(bandmode string) (width int, mode int, offset int) {
-	var re = regexp.MustCompile("(V?HT)?([0-9]+)?([\\+-])?")
+	var re = regexp.MustCompile(`(V?HT)?([0-9]+)?([\\+-])?`)
 	var modes = re.FindStringSubmatch(bandmode)
 	if len(modes) < 3 {
 		return 20, 0, 0
