@@ -31,8 +31,8 @@ type DBDataObj struct {
 	LBSZones        map[UUID]LBSZone          `json:"lbs_zones,omitempty"`
 }
 
-func (self *DBDataObj) Reset() {
-	*self = DBDataObj{}
+func (dbd *DBDataObj) Reset() {
+	*dbd = DBDataObj{}
 }
 
 type DBDataUUID struct {
@@ -58,8 +58,8 @@ type DBDataUUID struct {
 	LBSZones        []UUID `json:"lbs_zones,omitempty"`
 }
 
-func (self *DBDataUUID) Reset() {
-	*self = DBDataUUID{}
+func (dbd *DBDataUUID) Reset() {
+	*dbd = DBDataUUID{}
 }
 
 type DBDataMasks struct {
@@ -85,8 +85,8 @@ type DBDataMasks struct {
 	LBSZones        *SimpleMask          `json:"lbs_zones,omitempty"`
 }
 
-func (self *DBDataMasks) Reset() {
-	*self = DBDataMasks{}
+func (dbd *DBDataMasks) Reset() {
+	*dbd = DBDataMasks{}
 }
 
 type DBRequestC DBDataObj
@@ -94,28 +94,28 @@ type DBRequestU DBDataObj
 type DBRequestR DBDataMasks
 type DBRequestD DBDataMasks
 
-func (self *DBRequestC) UnmarshalJSON(b []byte) error {
-	(*DBDataObj)(self).Reset()
+func (dbd *DBRequestC) UnmarshalJSON(b []byte) error {
+	(*DBDataObj)(dbd).Reset()
 
-	return json.Unmarshal(b, (*DBDataObj)(self))
+	return json.Unmarshal(b, (*DBDataObj)(dbd))
 }
 
-func (self *DBRequestR) UnmarshalJSON(b []byte) error {
-	(*DBDataMasks)(self).Reset()
+func (dbd *DBRequestR) UnmarshalJSON(b []byte) error {
+	(*DBDataMasks)(dbd).Reset()
 
-	return json.Unmarshal(b, (*DBDataMasks)(self))
+	return json.Unmarshal(b, (*DBDataMasks)(dbd))
 }
 
-func (self *DBRequestU) UnmarshalJSON(b []byte) error {
-	(*DBDataObj)(self).Reset()
+func (dbd *DBRequestU) UnmarshalJSON(b []byte) error {
+	(*DBDataObj)(dbd).Reset()
 
-	return json.Unmarshal(b, (*DBDataObj)(self))
+	return json.Unmarshal(b, (*DBDataObj)(dbd))
 }
 
-func (self *DBRequestD) UnmarshalJSON(b []byte) error {
-	(*DBDataMasks)(self).Reset()
+func (dbd *DBRequestD) UnmarshalJSON(b []byte) error {
+	(*DBDataMasks)(dbd).Reset()
 
-	return json.Unmarshal(b, (*DBDataMasks)(self))
+	return json.Unmarshal(b, (*DBDataMasks)(dbd))
 }
 
 type DBResponseObj struct {
@@ -133,28 +133,28 @@ type DBResponseR DBResponseObj
 type DBResponseU DBResponseUUID
 type DBResponseD DBResponseUUID
 
-func (self *DBResponseC) UnmarshalJSON(b []byte) error {
-	self.DBDataUUID.Reset()
+func (dbd *DBResponseC) UnmarshalJSON(b []byte) error {
+	dbd.DBDataUUID.Reset()
 
-	return json.Unmarshal(b, (*DBResponseUUID)(self))
+	return json.Unmarshal(b, (*DBResponseUUID)(dbd))
 }
 
-func (self *DBResponseR) UnmarshalJSON(b []byte) error {
-	self.DBDataObj.Reset()
+func (dbd *DBResponseR) UnmarshalJSON(b []byte) error {
+	dbd.DBDataObj.Reset()
 
-	return json.Unmarshal(b, (*DBResponseObj)(self))
+	return json.Unmarshal(b, (*DBResponseObj)(dbd))
 }
 
-func (self *DBResponseU) UnmarshalJSON(b []byte) error {
-	self.DBDataUUID.Reset()
+func (dbd *DBResponseU) UnmarshalJSON(b []byte) error {
+	dbd.DBDataUUID.Reset()
 
-	return json.Unmarshal(b, (*DBResponseUUID)(self))
+	return json.Unmarshal(b, (*DBResponseUUID)(dbd))
 }
 
-func (self *DBResponseD) UnmarshalJSON(b []byte) error {
-	self.DBDataUUID.Reset()
+func (dbd *DBResponseD) UnmarshalJSON(b []byte) error {
+	dbd.DBDataUUID.Reset()
 
-	return json.Unmarshal(b, (*DBResponseUUID)(self))
+	return json.Unmarshal(b, (*DBResponseUUID)(dbd))
 }
 
 type ConnectorInfo struct {

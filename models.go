@@ -263,17 +263,17 @@ type wifiCfg struct {
 	Contents WiFiConfig `bson:",inline"`
 }
 
-func (self WiFiConfigs) GetBSON() (interface{}, error) {
-	var out = make([]wifiCfg, len(self))
+func (wc WiFiConfigs) GetBSON() (interface{}, error) {
+	var out = make([]wifiCfg, len(wc))
 	var index = 0
-	for k, v := range self {
+	for k, v := range wc {
 		out[index] = wifiCfg{k, v}
 		index += 1
 	}
 	return out, nil
 }
 
-func (self *WiFiConfigs) SetBSON(raw bson.Raw) error {
+func (wc *WiFiConfigs) SetBSON(raw bson.Raw) error {
 	var in = []wifiCfg{}
 	if err := raw.Unmarshal(&in); err != nil {
 		return err
@@ -282,7 +282,7 @@ func (self *WiFiConfigs) SetBSON(raw bson.Raw) error {
 	for _, v := range in {
 		out[v.Id] = v.Contents
 	}
-	*self = out
+	*wc = out
 	return nil
 }
 
@@ -338,17 +338,17 @@ type wiredCfg struct {
 	Contents WiredConfig `bson:",inline"`
 }
 
-func (self WiredConfigs) GetBSON() (interface{}, error) {
-	var out = make([]wiredCfg, len(self))
+func (wc WiredConfigs) GetBSON() (interface{}, error) {
+	var out = make([]wiredCfg, len(wc))
 	var index = 0
-	for k, v := range self {
+	for k, v := range wc {
 		out[index] = wiredCfg{k, v}
 		index += 1
 	}
 	return out, nil
 }
 
-func (self *WiredConfigs) SetBSON(raw bson.Raw) error {
+func (wc *WiredConfigs) SetBSON(raw bson.Raw) error {
 	var in = []wiredCfg{}
 	if err := raw.Unmarshal(&in); err != nil {
 		return err
@@ -357,7 +357,7 @@ func (self *WiredConfigs) SetBSON(raw bson.Raw) error {
 	for _, v := range in {
 		out[v.Id] = v.Contents
 	}
-	*self = out
+	*wc = out
 	return nil
 }
 
@@ -448,17 +448,17 @@ type wifiStat struct {
 	Contents WiFiState `bson:",inline"`
 }
 
-func (self WiFiStates) GetBSON() (interface{}, error) {
-	var out = make([]wifiStat, len(self))
+func (wc WiFiStates) GetBSON() (interface{}, error) {
+	var out = make([]wifiStat, len(wc))
 	var index = 0
-	for k, v := range self {
+	for k, v := range wc {
 		out[index] = wifiStat{k, v}
 		index += 1
 	}
 	return out, nil
 }
 
-func (self *WiFiStates) SetBSON(raw bson.Raw) error {
+func (wc *WiFiStates) SetBSON(raw bson.Raw) error {
 	var in = []wifiStat{}
 	if err := raw.Unmarshal(&in); err != nil {
 		return err
@@ -467,7 +467,7 @@ func (self *WiFiStates) SetBSON(raw bson.Raw) error {
 	for _, v := range in {
 		out[v.Id] = v.Contents
 	}
-	*self = out
+	*wc = out
 	return nil
 }
 
@@ -526,7 +526,7 @@ type CPEStateCompact struct {
 	Network NetworkStateCompact `json:"network" bson:"network"`
 }
 
-// ---- CPE itself ----
+// ---- CPE itwc ----
 
 type CPEModelLink struct {
 	Id        UUID   `json:"id"`

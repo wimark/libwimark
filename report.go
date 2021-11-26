@@ -3,7 +3,6 @@ package libwimark
 import (
 	"bytes"
 	"encoding/csv"
-	"errors"
 	"fmt"
 	"time"
 
@@ -82,7 +81,7 @@ func GenerateFileReport(data [][]string, format string) ([]byte, error) {
 	case "xls":
 		return generateXLSReport(data)
 	default:
-		return []byte{}, errors.New("Empty format")
+		return []byte{}, fmt.Errorf("unknown format %s", format)
 	}
 }
 
