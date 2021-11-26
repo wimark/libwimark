@@ -396,10 +396,10 @@ type UciConfig struct {
 
 //------------- JSON conversion ----------------
 
-func (self UciWimark) MarshalJSON() (b []byte, e error) {
-	return MarshalInline((*innerUciWimark)(&self))
+func (uci UciWimark) MarshalJSON() (b []byte, e error) {
+	return MarshalInline((*innerUciWimark)(&uci))
 }
-func (self *UciWimark) UnmarshalJSON(b []byte) error {
+func (uci *UciWimark) UnmarshalJSON(b []byte) error {
 	var tmp = map[string]interface{}{
 		".type:firmware": &UciFirmwareCfg{},
 		".type:scanning": &map[string]UciScanningCfg{},
@@ -408,39 +408,39 @@ func (self *UciWimark) UnmarshalJSON(b []byte) error {
 		".type:eth_acct": &UciEthernetAcct{},
 		".type:wsmd":     &UciEthernetStat{},
 	}
-	return UnmarshalInline(b, (*innerUciWimark)(self), tmp)
+	return UnmarshalInline(b, (*innerUciWimark)(uci), tmp)
 }
-func (self UciWireless) MarshalJSON() (b []byte, e error) {
-	return MarshalInline((*innerUciWireless)(&self))
+func (uci UciWireless) MarshalJSON() (b []byte, e error) {
+	return MarshalInline((*innerUciWireless)(&uci))
 }
-func (self *UciWireless) UnmarshalJSON(b []byte) error {
+func (uci *UciWireless) UnmarshalJSON(b []byte) error {
 	var tmp = map[string]interface{}{
 		".type:wifi-iface":  &map[string]UciWifiWlan{},
 		".type:wifi-device": &map[string]UciWifiIface{},
 		".type:radius":      &map[string]UciRadius{},
 	}
-	return UnmarshalInline(b, (*innerUciWireless)(self), tmp)
+	return UnmarshalInline(b, (*innerUciWireless)(uci), tmp)
 }
-func (self UciNetwork) MarshalJSON() (b []byte, e error) {
-	return MarshalInline((*innerUciNetwork)(&self))
+func (uci UciNetwork) MarshalJSON() (b []byte, e error) {
+	return MarshalInline((*innerUciNetwork)(&uci))
 }
-func (self *UciNetwork) UnmarshalJSON(b []byte) error {
+func (uci *UciNetwork) UnmarshalJSON(b []byte) error {
 	var tmp = map[string]interface{}{
 		".type:interface":   &map[string]UciNetIface{},
 		".type:l2tunnel":    &map[string]UciNetTunnel{},
 		".type:switch_vlan": &map[string]UciNetSwitchVlan{},
 		//".type:switch_port": &map[string]UciNetSwitchPort{},
 	}
-	return UnmarshalInline(b, (*innerUciNetwork)(self), tmp)
+	return UnmarshalInline(b, (*innerUciNetwork)(uci), tmp)
 }
-func (self UciSystem) MarshalJSON() (b []byte, e error) {
-	return MarshalInline((*innerUciSystem)(&self))
+func (uci UciSystem) MarshalJSON() (b []byte, e error) {
+	return MarshalInline((*innerUciSystem)(&uci))
 }
-func (self *UciSystem) UnmarshalJSON(b []byte) error {
+func (uci *UciSystem) UnmarshalJSON(b []byte) error {
 	var tmp = map[string]interface{}{
 		".type:system": &UciDotSystem{},
 	}
-	return UnmarshalInline(b, (*innerUciSystem)(self), tmp)
+	return UnmarshalInline(b, (*innerUciSystem)(uci), tmp)
 }
 
 //============= JSONRPC get:network ================

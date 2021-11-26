@@ -29,7 +29,7 @@ type TunManagerBroadcastMeta struct {
 	HostTunnels    []CPETunnelDescription `json:"active_cpe_tunnels"`
 }
 
-func (self *ModuleStatus) UnmarshalJSON(b []byte) error {
+func (ms *ModuleStatus) UnmarshalJSON(b []byte) error {
 	var doc map[string]json.RawMessage
 	if err := json.Unmarshal(b, &doc); err != nil {
 		return err
@@ -39,11 +39,11 @@ func (self *ModuleStatus) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &s); err != nil {
 		return err
 	}
-	*self = ModuleStatus(s)
+	*ms = ModuleStatus(s)
 	var meta, has_meta = doc["meta"]
 	has_meta = has_meta && !bytes.Equal(meta, []byte("null"))
 
-	switch self.Service {
+	switch ms.Service {
 	case ModuleCPE:
 		var m CpeStatusMeta
 		if has_meta {
@@ -51,7 +51,7 @@ func (self *ModuleStatus) UnmarshalJSON(b []byte) error {
 				return err
 			}
 		}
-		self.Meta = m
+		ms.Meta = m
 	case ModuleTunManager:
 		var m TunManagerBroadcastMeta
 		if has_meta {
@@ -59,27 +59,27 @@ func (self *ModuleStatus) UnmarshalJSON(b []byte) error {
 				return err
 			}
 		}
-		self.Meta = m
+		ms.Meta = m
 	}
 	return nil
 }
 
-func (self ModuleStatus) Connected() ModuleStatus {
-	var v = self
+func (ms ModuleStatus) Connected() ModuleStatus {
+	var v = ms
 	v.State = ServiceStateConnected
 
 	return v
 }
 
-func (self ModuleStatus) Disconnected() ModuleStatus {
-	var v = self
+func (ms ModuleStatus) Disconnected() ModuleStatus {
+	var v = ms
 	v.State = ServiceStateConnected
 
 	return v
 }
 
-func (self ModuleStatus) String() string {
-	var s, sErr = json.Marshal(self)
+func (ms ModuleStatus) String() string {
+	var s, sErr = json.Marshal(ms)
 	if sErr != nil {
 		panic(sErr)
 	}
@@ -94,12 +94,12 @@ type Version struct {
 }
 
 func MakeVersion(version string, commit string, build string) Version {
-	var self Version
+	var ms Version
 
-	self.Version = version
-	self.Commit = commit
+	ms.Version = version
+	ms.Commit = commit
 	build_num, _ := strconv.Atoi(build)
-	self.Build = build_num
+	ms.Build = build_num
 
-	return self
+	return ms
 }
