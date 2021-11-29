@@ -170,7 +170,6 @@ type RadarExportObject struct {
 
 	// config part
 	CPEs       []string          `json:"cpes" bson:"cpes"`
-	Ctn        string            `json:"ctn" bson:"ctn"`
 	Type       RadarExportType   `json:"type" bson:"type"`
 	Creds      RadarExportCreds  `json:"creds" bson:"creds"`
 	Format     RadarExportFormat `json:"format" bson:"format"`
