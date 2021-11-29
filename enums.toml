@@ -347,6 +347,8 @@ default = "Current"
 [ReportType.variants]
 Current = "current"
 Summary = "summary"
+ClientsAll = "clients"
+ClientsAuthorized = "clients_auth"
 
 [ReportSubject]
 default = "Clients"
