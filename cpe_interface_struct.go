@@ -523,19 +523,20 @@ type GAWifiStatus struct {
 //============= Get all ================
 
 type CPEAllInfo struct {
-	Wifi       map[string]GAWifi  `json:"wifi,omitempty"`
-	Network    GANetwork          `json:"network,omitempty"`
-	Config     UciConfig          `json:"configuration,omitempty"`
-	System     GASysInfo          `json:"system,omitempty"`
-	Capability Capabilities       `json:"capabilities,omitempty"`
-	Model      GAModelInfo        `json:"model,omitempty"`
-	Version    GAVersion          `json:"version,omitempty"`
-	Status     CPEAgentStatus     `json:"status,omitempty"`
-	Packages   map[string]string  `json:"packages,omitempty"`
-	Statics    map[string]Version `json:"statics,omitempty"`
-	WifiStatus []GAWifiStatus     `json:"wifistatus,omitempty"`
-
-	Errors map[int]JSONRPC_Error `json:"-"`
+	Wifi       map[string]GAWifi     `json:"wifi,omitempty"`
+	Network    GANetwork             `json:"network,omitempty"`
+	Config     UciConfig             `json:"configuration,omitempty"`
+	System     GASysInfo             `json:"system,omitempty"`
+	Capability Capabilities          `json:"capabilities,omitempty"`
+	Model      GAModelInfo           `json:"model,omitempty"`
+	Version    GAVersion             `json:"version,omitempty"`
+	Status     CPEAgentStatus        `json:"status,omitempty"`
+	Packages   map[string]string     `json:"packages,omitempty"`
+	Statics    map[string]Version    `json:"statics,omitempty"`
+	WifiStatus []GAWifiStatus        `json:"wifistatus,omitempty"`
+	Latitude   float64               `json:"latitude,omitempty"`
+	Longitude  float64               `json:"longitude,omitempty"`
+	Errors     map[int]JSONRPC_Error `json:"-"`
 }
 
 type CPEMeta struct {
