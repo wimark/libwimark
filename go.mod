@@ -1,4 +1,4 @@
-module github.org/wimark/libwimark
+module github.com/wimark/libwimark
 
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
