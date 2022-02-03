@@ -249,6 +249,8 @@ type UciWifiWlan struct {
 	// timeouts
 	MaxInactivity string `json:"max_inactivity,omitempty"`
 
+	DisAssocLowAck string `json:"disassoc_low_ack,omitempty"`
+
 	// mesh settings
 	MeshID         string `json:"mesh_id"`
 	MeshForwarding string `json:"mesh_fwding"`
