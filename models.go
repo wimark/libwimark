@@ -366,6 +366,8 @@ func (wc *WiredConfigs) SetBSON(raw bson.Raw) error {
 // ---- CPE config ----
 
 type CPEConfig struct {
+	Name             string           `json:"name" bson:"name"`
+	Description      string           `json:"description" bson:"description"`
 	Wifi             WiFiConfigs      `json:"wifi" bson:"wifi"`
 	Wired            WiredConfigs     `json:"wired" bson:"wired"`
 	LbsConfig        LBSConfig        `json:"lbs_config" bson:"lbs_config"`
