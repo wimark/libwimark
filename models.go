@@ -616,10 +616,11 @@ type Capabilities struct {
 // ==== L2TP objects ====
 
 type VPNHost struct {
-	HostName   string       `json:"hostname"`
-	OSUUID     UUID         `json:"os_uuid"`
-	Interfaces []string     `json:"interfaces"`
-	State      ServiceState `json:"state"`
+	HostName   string           `json:"hostname"`
+	OSUUID     UUID             `json:"os_uuid"`
+	Interfaces []string         `json:"interfaces"`
+	State      ServiceState     `json:"state"`
+	Ifaces     []LinkDescriptor `json:"interfaces_details"`
 }
 
 // ==== CPE model ====
