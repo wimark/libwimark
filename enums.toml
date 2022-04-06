@@ -41,6 +41,7 @@ RadarExportMW  = "RADAR-EXPORT-MW"
 ClientDistance = "CLIENT-DISTANCE"
 Resampling = "RESAMPLING"
 SnmpWalker = "SNMP_WALKER"
+CLI        = "CLI"
 
 [Operation]
 [Operation.variants]
@@ -77,6 +78,7 @@ LoggedError             = "LOGGED_ERROR"
 RadarExportUpdate       = "RADAR_EXPORT_UPDATE"
 ClientAuthorization     = "CLIENT_AUTHORIZATION"
 DHCPAck                 = "DHCP_ACK"
+LocationCacheReload     = "LOCATION_CACHE_RELOAD"
 
 [SystemEventLevel]
 default = "DEBUG"
@@ -90,6 +92,7 @@ WARNING   = "WARNING"
 [SecuritySuite.variants]
 AES  = "aes"
 TKIP = "tkip"
+CCMP = "ccmp"
 
 [SecurityType]
 default = "None"
@@ -99,6 +102,10 @@ WPA2Personal   = "wpa2personal"
 WPAEnterprise  = "wpaenterprise"
 WPAPersonal    = "wpapersonal"
 None           = "open"
+WPA3Enterprise = "wpa3enterprise"
+WPA3Personal   = "wpa3personal"
+WPA23Personal  = "wpa23personal"
+WPA23Enterprise= "wpa23enterprise"
 
 [CPEAgentStatusType]
 default = "Undefined"
@@ -150,6 +157,7 @@ default = "ModeLegacy"
 ModeAC      = "ac"
 ModeN       = "n"
 ModeLegacy  = "legacy"
+ModeAX      = "ax"
 
 [MacFilterType]
 default = "None"

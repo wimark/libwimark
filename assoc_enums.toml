@@ -5,6 +5,10 @@ WPA2Personal   = "WPA2PersonalData"
 WPA2Enterprise = "WPA2EnterpriseData"
 WPAPersonal    = "WPAPersonalData"
 WPAEnterprise  = "WPAEnterpriseData"
+WPA3Personal   = "WPA2PersonalData"
+WPA3Enterprise = "WPA2EnterpriseData"
+WPA23Personal   = "WPA2PersonalData"
+WPA23Enterprise = "WPA2EnterpriseData"
 None           = "null"
 
 [SystemEventObject]
@@ -30,6 +34,7 @@ LoggedError             = "ModelError"
 RadarExportUpdate       = "RadarExportUpdate"
 ClientAuthorization     = "ClientAuthorizationData"
 DHCPAck                 = "DHCPAckData"
+LocationCacheReload     = "null"
 
 [StatEventRuleObject]
 constraint = "StatEventRuleType"

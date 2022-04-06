@@ -35,6 +35,26 @@ func (en *EnumSecurity) UnmarshalJSON(b []byte) error {
 	switch t {
 	case SecurityTypeNone:
 		en.Data = nil
+	case SecurityTypeWPA23Enterprise:
+		if !data_found {
+			return errors.New("no associated data found for enum EnumSecurity")
+		}
+		var d WPA2EnterpriseData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		en.Data = &d
+	case SecurityTypeWPA23Personal:
+		if !data_found {
+			return errors.New("no associated data found for enum EnumSecurity")
+		}
+		var d WPA2PersonalData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		en.Data = &d
 	case SecurityTypeWPA2Enterprise:
 		if !data_found {
 			return errors.New("no associated data found for enum EnumSecurity")
@@ -46,6 +66,26 @@ func (en *EnumSecurity) UnmarshalJSON(b []byte) error {
 		}
 		en.Data = &d
 	case SecurityTypeWPA2Personal:
+		if !data_found {
+			return errors.New("no associated data found for enum EnumSecurity")
+		}
+		var d WPA2PersonalData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		en.Data = &d
+	case SecurityTypeWPA3Enterprise:
+		if !data_found {
+			return errors.New("no associated data found for enum EnumSecurity")
+		}
+		var d WPA2EnterpriseData
+		var data_err = json.Unmarshal(data_raw, &d)
+		if data_err != nil {
+			return data_err
+		}
+		en.Data = &d
+	case SecurityTypeWPA3Personal:
 		if !data_found {
 			return errors.New("no associated data found for enum EnumSecurity")
 		}
@@ -103,6 +143,26 @@ func (en *EnumSecurity) SetBSON(v bson.Raw) error {
 	switch t {
 	case SecurityTypeNone:
 		en.Data = nil
+	case SecurityTypeWPA23Enterprise:
+		if !data_found {
+			return errors.New("no associated data found for enum EnumSecurity")
+		}
+		var d WPA2EnterpriseData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		en.Data = &d
+	case SecurityTypeWPA23Personal:
+		if !data_found {
+			return errors.New("no associated data found for enum EnumSecurity")
+		}
+		var d WPA2PersonalData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		en.Data = &d
 	case SecurityTypeWPA2Enterprise:
 		if !data_found {
 			return errors.New("no associated data found for enum EnumSecurity")
@@ -114,6 +174,26 @@ func (en *EnumSecurity) SetBSON(v bson.Raw) error {
 		}
 		en.Data = &d
 	case SecurityTypeWPA2Personal:
+		if !data_found {
+			return errors.New("no associated data found for enum EnumSecurity")
+		}
+		var d WPA2PersonalData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		en.Data = &d
+	case SecurityTypeWPA3Enterprise:
+		if !data_found {
+			return errors.New("no associated data found for enum EnumSecurity")
+		}
+		var d WPA2EnterpriseData
+		var data_err = data_raw.Unmarshal(&d)
+		if data_err != nil {
+			return data_err
+		}
+		en.Data = &d
+	case SecurityTypeWPA3Personal:
 		if !data_found {
 			return errors.New("no associated data found for enum EnumSecurity")
 		}
@@ -673,6 +753,8 @@ func (en *SystemEventObject) UnmarshalJSON(b []byte) error {
 			return data_err
 		}
 		en.Data = &d
+	case SystemEventTypeLocationCacheReload:
+		en.Data = nil
 	case SystemEventTypeLoggedError:
 		if !data_found {
 			return errors.New("no associated data found for enum SystemEventObject")
@@ -867,6 +949,8 @@ func (en *SystemEventObject) SetBSON(v bson.Raw) error {
 			return data_err
 		}
 		en.Data = &d
+	case SystemEventTypeLocationCacheReload:
+		en.Data = nil
 	case SystemEventTypeLoggedError:
 		if !data_found {
 			return errors.New("no associated data found for enum SystemEventObject")

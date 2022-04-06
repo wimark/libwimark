@@ -592,6 +592,7 @@ func (en *ConfigurationStatus) SetBSON(v bson.Raw) error {
 type ConnectionModeType string
 
 const ConnectionModeTypeModeAC ConnectionModeType = "ac"
+const ConnectionModeTypeModeAX ConnectionModeType = "ax"
 const ConnectionModeTypeModeLegacy ConnectionModeType = "legacy"
 const ConnectionModeTypeModeN ConnectionModeType = "n"
 
@@ -601,6 +602,8 @@ func (en ConnectionModeType) String() string {
 	switch en {
 	case ConnectionModeTypeModeAC:
 		return "ac"
+	case ConnectionModeTypeModeAX:
+		return "ax"
 	case ConnectionModeTypeModeLegacy:
 		return "legacy"
 	case ConnectionModeTypeModeN:
@@ -616,6 +619,8 @@ func (en *ConnectionModeType) MarshalJSON() ([]byte, error) {
 	switch *en {
 	case ConnectionModeTypeModeAC:
 		return json.Marshal("ac")
+	case ConnectionModeTypeModeAX:
+		return json.Marshal("ax")
 	case ConnectionModeTypeModeLegacy:
 		return json.Marshal("legacy")
 	case ConnectionModeTypeModeN:
@@ -631,6 +636,8 @@ func (en *ConnectionModeType) GetBSON() (interface{}, error) {
 	switch *en {
 	case ConnectionModeTypeModeAC:
 		return "ac", nil
+	case ConnectionModeTypeModeAX:
+		return "ax", nil
 	case ConnectionModeTypeModeLegacy:
 		return "legacy", nil
 	case ConnectionModeTypeModeN:
@@ -650,6 +657,9 @@ func (en *ConnectionModeType) UnmarshalJSON(b []byte) error {
 	switch s {
 	case "ac":
 		*en = ConnectionModeTypeModeAC
+		return nil
+	case "ax":
+		*en = ConnectionModeTypeModeAX
 		return nil
 	case "legacy":
 		*en = ConnectionModeTypeModeLegacy
@@ -673,6 +683,9 @@ func (en *ConnectionModeType) SetBSON(v bson.Raw) error {
 	switch s {
 	case "ac":
 		*en = ConnectionModeTypeModeAC
+		return nil
+	case "ax":
+		*en = ConnectionModeTypeModeAX
 		return nil
 	case "legacy":
 		*en = ConnectionModeTypeModeLegacy
@@ -1551,6 +1564,7 @@ const ModuleAC Module = "AC"
 const ModuleAnalMW Module = "ANAL-MW"
 const ModuleAny Module = "+"
 const ModuleBackend Module = "BACKEND"
+const ModuleCLI Module = "CLI"
 const ModuleCPE Module = "CPE"
 const ModuleCPEStat Module = "CPE_STAT"
 const ModuleClientDistance Module = "CLIENT-DISTANCE"
@@ -1588,6 +1602,8 @@ func (en Module) String() string {
 		return "+"
 	case ModuleBackend:
 		return "BACKEND"
+	case ModuleCLI:
+		return "CLI"
 	case ModuleCPE:
 		return "CPE"
 	case ModuleCPEStat:
@@ -1653,6 +1669,8 @@ func (en *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("+")
 	case ModuleBackend:
 		return json.Marshal("BACKEND")
+	case ModuleCLI:
+		return json.Marshal("CLI")
 	case ModuleCPE:
 		return json.Marshal("CPE")
 	case ModuleCPEStat:
@@ -1718,6 +1736,8 @@ func (en *Module) GetBSON() (interface{}, error) {
 		return "+", nil
 	case ModuleBackend:
 		return "BACKEND", nil
+	case ModuleCLI:
+		return "CLI", nil
 	case ModuleCPE:
 		return "CPE", nil
 	case ModuleCPEStat:
@@ -1790,6 +1810,9 @@ func (en *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "BACKEND":
 		*en = ModuleBackend
+		return nil
+	case "CLI":
+		*en = ModuleCLI
 		return nil
 	case "CPE":
 		*en = ModuleCPE
@@ -1888,6 +1911,9 @@ func (en *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "BACKEND":
 		*en = ModuleBackend
+		return nil
+	case "CLI":
+		*en = ModuleCLI
 		return nil
 	case "CPE":
 		*en = ModuleCPE
@@ -3747,6 +3773,7 @@ func (en *ReportType) SetBSON(v bson.Raw) error {
 type SecuritySuite string
 
 const SecuritySuiteAES SecuritySuite = "aes"
+const SecuritySuiteCCMP SecuritySuite = "ccmp"
 const SecuritySuiteTKIP SecuritySuite = "tkip"
 
 func (en SecuritySuite) GetPtr() *SecuritySuite { var v = en; return &v }
@@ -3755,6 +3782,8 @@ func (en SecuritySuite) String() string {
 	switch en {
 	case SecuritySuiteAES:
 		return "aes"
+	case SecuritySuiteCCMP:
+		return "ccmp"
 	case SecuritySuiteTKIP:
 		return "tkip"
 	}
@@ -3765,6 +3794,8 @@ func (en *SecuritySuite) MarshalJSON() ([]byte, error) {
 	switch *en {
 	case SecuritySuiteAES:
 		return json.Marshal("aes")
+	case SecuritySuiteCCMP:
+		return json.Marshal("ccmp")
 	case SecuritySuiteTKIP:
 		return json.Marshal("tkip")
 	}
@@ -3775,6 +3806,8 @@ func (en *SecuritySuite) GetBSON() (interface{}, error) {
 	switch *en {
 	case SecuritySuiteAES:
 		return "aes", nil
+	case SecuritySuiteCCMP:
+		return "ccmp", nil
 	case SecuritySuiteTKIP:
 		return "tkip", nil
 	}
@@ -3789,6 +3822,9 @@ func (en *SecuritySuite) UnmarshalJSON(b []byte) error {
 	switch s {
 	case "aes":
 		*en = SecuritySuiteAES
+		return nil
+	case "ccmp":
+		*en = SecuritySuiteCCMP
 		return nil
 	case "tkip":
 		*en = SecuritySuiteTKIP
@@ -3806,6 +3842,9 @@ func (en *SecuritySuite) SetBSON(v bson.Raw) error {
 	case "aes":
 		*en = SecuritySuiteAES
 		return nil
+	case "ccmp":
+		*en = SecuritySuiteCCMP
+		return nil
 	case "tkip":
 		*en = SecuritySuiteTKIP
 		return nil
@@ -3816,8 +3855,12 @@ func (en *SecuritySuite) SetBSON(v bson.Raw) error {
 type SecurityType string
 
 const SecurityTypeNone SecurityType = "open"
+const SecurityTypeWPA23Enterprise SecurityType = "wpa23enterprise"
+const SecurityTypeWPA23Personal SecurityType = "wpa23personal"
 const SecurityTypeWPA2Enterprise SecurityType = "wpa2enterprise"
 const SecurityTypeWPA2Personal SecurityType = "wpa2personal"
+const SecurityTypeWPA3Enterprise SecurityType = "wpa3enterprise"
+const SecurityTypeWPA3Personal SecurityType = "wpa3personal"
 const SecurityTypeWPAEnterprise SecurityType = "wpaenterprise"
 const SecurityTypeWPAPersonal SecurityType = "wpapersonal"
 
@@ -3827,10 +3870,18 @@ func (en SecurityType) String() string {
 	switch en {
 	case SecurityTypeNone:
 		return "open"
+	case SecurityTypeWPA23Enterprise:
+		return "wpa23enterprise"
+	case SecurityTypeWPA23Personal:
+		return "wpa23personal"
 	case SecurityTypeWPA2Enterprise:
 		return "wpa2enterprise"
 	case SecurityTypeWPA2Personal:
 		return "wpa2personal"
+	case SecurityTypeWPA3Enterprise:
+		return "wpa3enterprise"
+	case SecurityTypeWPA3Personal:
+		return "wpa3personal"
 	case SecurityTypeWPAEnterprise:
 		return "wpaenterprise"
 	case SecurityTypeWPAPersonal:
@@ -3846,10 +3897,18 @@ func (en *SecurityType) MarshalJSON() ([]byte, error) {
 	switch *en {
 	case SecurityTypeNone:
 		return json.Marshal("open")
+	case SecurityTypeWPA23Enterprise:
+		return json.Marshal("wpa23enterprise")
+	case SecurityTypeWPA23Personal:
+		return json.Marshal("wpa23personal")
 	case SecurityTypeWPA2Enterprise:
 		return json.Marshal("wpa2enterprise")
 	case SecurityTypeWPA2Personal:
 		return json.Marshal("wpa2personal")
+	case SecurityTypeWPA3Enterprise:
+		return json.Marshal("wpa3enterprise")
+	case SecurityTypeWPA3Personal:
+		return json.Marshal("wpa3personal")
 	case SecurityTypeWPAEnterprise:
 		return json.Marshal("wpaenterprise")
 	case SecurityTypeWPAPersonal:
@@ -3865,10 +3924,18 @@ func (en *SecurityType) GetBSON() (interface{}, error) {
 	switch *en {
 	case SecurityTypeNone:
 		return "open", nil
+	case SecurityTypeWPA23Enterprise:
+		return "wpa23enterprise", nil
+	case SecurityTypeWPA23Personal:
+		return "wpa23personal", nil
 	case SecurityTypeWPA2Enterprise:
 		return "wpa2enterprise", nil
 	case SecurityTypeWPA2Personal:
 		return "wpa2personal", nil
+	case SecurityTypeWPA3Enterprise:
+		return "wpa3enterprise", nil
+	case SecurityTypeWPA3Personal:
+		return "wpa3personal", nil
 	case SecurityTypeWPAEnterprise:
 		return "wpaenterprise", nil
 	case SecurityTypeWPAPersonal:
@@ -3889,11 +3956,23 @@ func (en *SecurityType) UnmarshalJSON(b []byte) error {
 	case "open":
 		*en = SecurityTypeNone
 		return nil
+	case "wpa23enterprise":
+		*en = SecurityTypeWPA23Enterprise
+		return nil
+	case "wpa23personal":
+		*en = SecurityTypeWPA23Personal
+		return nil
 	case "wpa2enterprise":
 		*en = SecurityTypeWPA2Enterprise
 		return nil
 	case "wpa2personal":
 		*en = SecurityTypeWPA2Personal
+		return nil
+	case "wpa3enterprise":
+		*en = SecurityTypeWPA3Enterprise
+		return nil
+	case "wpa3personal":
+		*en = SecurityTypeWPA3Personal
 		return nil
 	case "wpaenterprise":
 		*en = SecurityTypeWPAEnterprise
@@ -3918,11 +3997,23 @@ func (en *SecurityType) SetBSON(v bson.Raw) error {
 	case "open":
 		*en = SecurityTypeNone
 		return nil
+	case "wpa23enterprise":
+		*en = SecurityTypeWPA23Enterprise
+		return nil
+	case "wpa23personal":
+		*en = SecurityTypeWPA23Personal
+		return nil
 	case "wpa2enterprise":
 		*en = SecurityTypeWPA2Enterprise
 		return nil
 	case "wpa2personal":
 		*en = SecurityTypeWPA2Personal
+		return nil
+	case "wpa3enterprise":
+		*en = SecurityTypeWPA3Enterprise
+		return nil
+	case "wpa3personal":
+		*en = SecurityTypeWPA3Personal
 		return nil
 	case "wpaenterprise":
 		*en = SecurityTypeWPAEnterprise
@@ -4430,6 +4521,7 @@ const SystemEventTypeCpeFirmwareAvailable SystemEventType = "CPE_FIRMWARE_AVAILA
 const SystemEventTypeDHCPAck SystemEventType = "DHCP_ACK"
 const SystemEventTypeDaemonSettingsChanged SystemEventType = "DAEMON_SETTINGS_CHANGE"
 const SystemEventTypeFirmwareUploaded SystemEventType = "FIRMWARE_UPLOADED"
+const SystemEventTypeLocationCacheReload SystemEventType = "LOCATION_CACHE_RELOAD"
 const SystemEventTypeLoggedError SystemEventType = "LOGGED_ERROR"
 const SystemEventTypeMonitorRuleViolation SystemEventType = "MONITOR_RULE_VIOLATION"
 const SystemEventTypeRRMStatus SystemEventType = "RRM_STATUS_DATA"
@@ -4467,6 +4559,8 @@ func (en SystemEventType) String() string {
 		return "DAEMON_SETTINGS_CHANGE"
 	case SystemEventTypeFirmwareUploaded:
 		return "FIRMWARE_UPLOADED"
+	case SystemEventTypeLocationCacheReload:
+		return "LOCATION_CACHE_RELOAD"
 	case SystemEventTypeLoggedError:
 		return "LOGGED_ERROR"
 	case SystemEventTypeMonitorRuleViolation:
@@ -4515,6 +4609,8 @@ func (en *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("DAEMON_SETTINGS_CHANGE")
 	case SystemEventTypeFirmwareUploaded:
 		return json.Marshal("FIRMWARE_UPLOADED")
+	case SystemEventTypeLocationCacheReload:
+		return json.Marshal("LOCATION_CACHE_RELOAD")
 	case SystemEventTypeLoggedError:
 		return json.Marshal("LOGGED_ERROR")
 	case SystemEventTypeMonitorRuleViolation:
@@ -4563,6 +4659,8 @@ func (en *SystemEventType) GetBSON() (interface{}, error) {
 		return "DAEMON_SETTINGS_CHANGE", nil
 	case SystemEventTypeFirmwareUploaded:
 		return "FIRMWARE_UPLOADED", nil
+	case SystemEventTypeLocationCacheReload:
+		return "LOCATION_CACHE_RELOAD", nil
 	case SystemEventTypeLoggedError:
 		return "LOGGED_ERROR", nil
 	case SystemEventTypeMonitorRuleViolation:
@@ -4625,6 +4723,9 @@ func (en *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "FIRMWARE_UPLOADED":
 		*en = SystemEventTypeFirmwareUploaded
+		return nil
+	case "LOCATION_CACHE_RELOAD":
+		*en = SystemEventTypeLocationCacheReload
 		return nil
 	case "LOGGED_ERROR":
 		*en = SystemEventTypeLoggedError
@@ -4698,6 +4799,9 @@ func (en *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "FIRMWARE_UPLOADED":
 		*en = SystemEventTypeFirmwareUploaded
+		return nil
+	case "LOCATION_CACHE_RELOAD":
+		*en = SystemEventTypeLocationCacheReload
 		return nil
 	case "LOGGED_ERROR":
 		*en = SystemEventTypeLoggedError
