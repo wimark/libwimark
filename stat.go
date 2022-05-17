@@ -94,12 +94,14 @@ type AccountingRadio struct {
 
 	RxMhz  int  `json:"rx_mhz"`
 	TxMhz  int  `json:"tx_mhz"`
-	TxRate int  `json:"tx_rate"`
 	RxRate int  `json:"rx_rate"`
-	TxHt   bool `json:"tx_ht"`
+	TxRate int  `json:"tx_rate"`
 	RxHt   bool `json:"rx_ht"`
+	TxHt   bool `json:"tx_ht"`
 	RxVht  bool `json:"rx_vht"`
 	TxVht  bool `json:"tx_vht"`
+	RxHE   bool `json:"rx_he"`
+	TxHE   bool `json:"tx_he"`
 
 	TxMcs     int  `json:"tx_mcs"`
 	RxMcs     int  `json:"rx_mcs"`

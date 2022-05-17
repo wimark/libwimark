@@ -10,6 +10,7 @@ require (
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f // indirect
+	golang.org/x/tools v0.1.10 // indirect
 )
 
 go 1.13
