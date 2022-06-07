@@ -62,6 +62,8 @@ type RedirectClientSession struct {
 	AcctOutputOctets    int `json:"Acct-Output-Octets"`
 	AcctInputPackets    int `json:"Acct-Input-Packets"`
 	AcctOutputPackets   int `json:"Acct-Output-Packets"`
+
+	Transferable bool `json:"transferable"`
 }
 
 // struct for update acct of redirect session on platform
