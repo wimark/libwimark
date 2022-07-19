@@ -163,9 +163,10 @@ type WLAN struct {
 }
 
 type WLANCompact struct {
-	Name        string `json:"name" bson:"name"`
-	SSID        string `json:"ssid" bson:"ssid"`
-	Description string `json:"description" bson:"description"`
+	Name        string       `json:"name" bson:"name"`
+	SSID        string       `json:"ssid" bson:"ssid"`
+	Description string       `json:"description" bson:"description"`
+	Security    EnumSecurity `json:"security"`
 
 	// network section
 	// remote tunneling
