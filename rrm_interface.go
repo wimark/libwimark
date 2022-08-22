@@ -3,6 +3,7 @@ package libwimark
 // JSONRPC functions of RRM daemon
 const (
 	JSONRPC_RRM_UPDATE_GROUP = "UpdateRRMGroup"
+	JSONRPC_RRM_FORCE_GROUP  = "ForceRRMGroup"
 )
 
 // JSONRPC parameters
