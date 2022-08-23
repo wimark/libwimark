@@ -667,9 +667,10 @@ type CPEFirmware struct {
 const COLLECTION_RRM_GROUPS = "rrm_groups"
 
 type RRMGroup struct {
-	Name string        `json:"name" bson:"name"`
-	CPEs []UUID        `json:"cpes" bson:"cpes"`
-	Algo RRMAlgoObject `json:"algo" bson:"algo"`
+	Name  string        `json:"name"  bson:"name"`
+	CPEs  []UUID        `json:"cpes"  bson:"cpes"`
+	Algo  RRMAlgoObject `json:"algo"  bson:"algo"`
+	Force bool          `json:"force" bson:"force"`
 }
 
 // ==== WSNMPD config =====
