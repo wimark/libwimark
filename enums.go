@@ -4524,6 +4524,7 @@ const SystemEventTypeFirmwareUploaded SystemEventType = "FIRMWARE_UPLOADED"
 const SystemEventTypeLocationCacheReload SystemEventType = "LOCATION_CACHE_RELOAD"
 const SystemEventTypeLoggedError SystemEventType = "LOGGED_ERROR"
 const SystemEventTypeMonitorRuleViolation SystemEventType = "MONITOR_RULE_VIOLATION"
+const SystemEventTypeRRMGroupApplyAlgo SystemEventType = "RRM_GROUP_APPLY_ALGO"
 const SystemEventTypeRRMStatus SystemEventType = "RRM_STATUS_DATA"
 const SystemEventTypeRadarExportUpdate SystemEventType = "RADAR_EXPORT_UPDATE"
 const SystemEventTypeRadiusAccountingSend SystemEventType = "RADIUS_ACCOUNTING_SEND"
@@ -4565,6 +4566,8 @@ func (en SystemEventType) String() string {
 		return "LOGGED_ERROR"
 	case SystemEventTypeMonitorRuleViolation:
 		return "MONITOR_RULE_VIOLATION"
+	case SystemEventTypeRRMGroupApplyAlgo:
+		return "RRM_GROUP_APPLY_ALGO"
 	case SystemEventTypeRRMStatus:
 		return "RRM_STATUS_DATA"
 	case SystemEventTypeRadarExportUpdate:
@@ -4615,6 +4618,8 @@ func (en *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("LOGGED_ERROR")
 	case SystemEventTypeMonitorRuleViolation:
 		return json.Marshal("MONITOR_RULE_VIOLATION")
+	case SystemEventTypeRRMGroupApplyAlgo:
+		return json.Marshal("RRM_GROUP_APPLY_ALGO")
 	case SystemEventTypeRRMStatus:
 		return json.Marshal("RRM_STATUS_DATA")
 	case SystemEventTypeRadarExportUpdate:
@@ -4665,6 +4670,8 @@ func (en *SystemEventType) GetBSON() (interface{}, error) {
 		return "LOGGED_ERROR", nil
 	case SystemEventTypeMonitorRuleViolation:
 		return "MONITOR_RULE_VIOLATION", nil
+	case SystemEventTypeRRMGroupApplyAlgo:
+		return "RRM_GROUP_APPLY_ALGO", nil
 	case SystemEventTypeRRMStatus:
 		return "RRM_STATUS_DATA", nil
 	case SystemEventTypeRadarExportUpdate:
@@ -4732,6 +4739,9 @@ func (en *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "MONITOR_RULE_VIOLATION":
 		*en = SystemEventTypeMonitorRuleViolation
+		return nil
+	case "RRM_GROUP_APPLY_ALGO":
+		*en = SystemEventTypeRRMGroupApplyAlgo
 		return nil
 	case "RRM_STATUS_DATA":
 		*en = SystemEventTypeRRMStatus
@@ -4808,6 +4818,9 @@ func (en *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "MONITOR_RULE_VIOLATION":
 		*en = SystemEventTypeMonitorRuleViolation
+		return nil
+	case "RRM_GROUP_APPLY_ALGO":
+		*en = SystemEventTypeRRMGroupApplyAlgo
 		return nil
 	case "RRM_STATUS_DATA":
 		*en = SystemEventTypeRRMStatus

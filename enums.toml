@@ -79,6 +79,7 @@ RadarExportUpdate       = "RADAR_EXPORT_UPDATE"
 ClientAuthorization     = "CLIENT_AUTHORIZATION"
 DHCPAck                 = "DHCP_ACK"
 LocationCacheReload     = "LOCATION_CACHE_RELOAD"
+RRMGroupApplyAlgo       = "RRM_GROUP_APPLY_ALGO"
 
 [SystemEventLevel]
 default = "DEBUG"
