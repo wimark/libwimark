@@ -39,6 +39,7 @@ type RedirectClientSession struct {
 	Radio     string `json:"radio_id" bson:"radio_id"`
 	UserAgent string `json:"useragent" bson:"useragent"`
 	IP        string `json:"ip" bson:"ip"`
+	CPEIP     string `json:"cpe_ip" bson:"cpe_ip"`
 
 	AcctStart int64 `json:"acct_start" bson:"acct_start"`
 	AuthStart int64 `json:"auth_start" bson:"auth_start"`
