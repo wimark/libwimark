@@ -1,5 +1,7 @@
 package libwimark
 
+import "fmt"
+
 // GuestControlSettings for WLAN/Wired Guest Control settings
 type GuestControlSettings struct {
 	CaptiveRedirect UUID   `json:"captive_redirect" bson:"captive_redirect"`
@@ -65,6 +67,11 @@ type RedirectClientSession struct {
 	AcctOutputPackets   int `json:"Acct-Output-Packets"`
 
 	Transferable bool `json:"transferable"`
+}
+
+func (session *RedirectClientSession) String() string {
+	return fmt.Sprintf("packet (username, mac, session, framed, nas, calling): '%s' '%s' '%s' '%s' '%s' '%s'",
+		session.UserName, session.MAC, session.Session, session.FramedIPAddress, session.NasIPAddress, session.CallingStationId)
 }
 
 // struct for update acct of redirect session on platform
