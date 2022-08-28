@@ -93,6 +93,7 @@ type WLAN struct {
 	// RADIUS section
 	NasID               *string `json:"nas_id"`
 	NasPortID           string  `json:"nas_port_id" bson:"nas_port_id"`
+	NasIPAddress        string  `json:"nas_ip_address" bson:"nas_ip_address"`
 	RadiusAcctServers   []UUID  `json:"radius_acct_servers"`
 	RadiusAcctInterval  int     `json:"radius_acct_interval"`
 	RadiusAcctMirroring bool    `json:"radius_acct_mirroring" bson:"radius_acct_mirroring"`
@@ -104,12 +105,11 @@ type WLAN struct {
 	Firewall   FireWallSettings `json:"firewall"`
 
 	// WLAN related specifics
-	Hidden        bool      `json:"hidden"`
-	L2Isolate     bool      `json:"l2isolate"`
-	PMKCaching    bool      `json:"pmkcaching"`
-	Roaming80211r bool      `json:"roam80211r"`
-	WMMConfig     WMMConfig `json:"wmm" bson:"wmm"`
+	Hidden    bool      `json:"hidden"`
+	L2Isolate bool      `json:"l2isolate"`
+	WMMConfig WMMConfig `json:"wmm" bson:"wmm"`
 
+	// traffic shaping
 	SpeedUpload   SpeedConfig `json:"speed_upload" bson:"speed_upload"`
 	SpeedDownload SpeedConfig `json:"speed_download" bson:"speed_download"`
 
@@ -133,6 +133,13 @@ type WLAN struct {
 	// clients specifics section
 	BeelineAccountingType string `json:"beeline_accountng_type"`
 
+	// 802.11r
+	PMKCaching    bool `json:"pmkcaching"`
+	Roaming80211r bool `json:"roam80211r"`
+	FTOverDS      bool `json:"ft_over_ds"`
+	// generate NAS ID (for roaming - will be generated from bssid)
+	NASGenerate bool `json:"nas_generate"`
+
 	// 802.11k
 	RoamingIEEE80211k bool `json:"ieee80211k"`
 	RrmNeighborReport bool `json:"rrm_neighbor_report"`
@@ -143,12 +150,9 @@ type WLAN struct {
 	WnmSleepMode      bool `json:"wnm_sleep_mode"`
 	BssTransition     bool `json:"bss_transition"`
 
-	// QTECH fields
+	// roaming marketing
 	RSSIThreshold int  `json:"rssi_threshold"`
 	BandSteering  bool `json:"band_steering"`
-
-	FTOverDS bool `json:"ft_over_ds"`
-
 	LoadBalancing bool `json:"load_balancing"`
 
 	// for wmwdisd - rssi based disconnector
@@ -157,9 +161,6 @@ type WLAN struct {
 	SignalStrikes    int `json:"signal_strikes"`
 	SignalPollTime   int `json:"signal_poll_time"`
 	SignalDropReason int `json:"signal_drop_reason"`
-
-	// generate NAS ID (for roaming - will be generated from bssid)
-	NASGenerate bool `json:"nas_generate"`
 }
 
 type WLANCompact struct {
