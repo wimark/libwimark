@@ -96,8 +96,9 @@ type RadarClientVisitGroup struct {
 }
 
 type AnalyticsMwHttpRequest struct {
-	CPEs     []string `query:"cpes[]"`
-	Location string   `query:"location"`
+	CPEs         []string `query:"cpes[]"`
+	Location     string   `query:"location"`
+	WithChildren bool     `query:"with_childs"`
 
 	Start   int64  `query:"start"`
 	Stop    int64  `query:"stop"`
