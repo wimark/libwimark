@@ -297,6 +297,10 @@ type UciWifiIface struct {
 	LogLevel       string      `json:"log_level,omitempty"`
 	MaxInactivity  string      `json:"max_inactivity,omitempty"`
 	RSSIThreshold  string      `json:"rssi_reject_assoc_rssi"`
+	NoScan         string      `json:"noscan"`
+	// Band           string      `json:"band,omitempty"`
+	ChanBandwidth string `json:"chanbw,omitempty"`
+	CellDensity   string `json:"cell_density,omitempty"`
 }
 type UciRadius struct {
 	Type       string `json:".type"`

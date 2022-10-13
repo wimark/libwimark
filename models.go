@@ -257,6 +257,7 @@ type WiFiConfig struct {
 	LegacyRates    string      `json:"legacy_rates"`
 	LogLevel       string      `json:"log_level"`
 	MaxInactivity  int         `json:"max_inactivity"`
+	CellDensity    int         `json:"cell_density"`
 }
 
 type WiFiConfigs map[string]WiFiConfig
