@@ -318,3 +318,8 @@ type DHCPAckData struct {
 	RouterAddrs []string `json:"router_addrs"`
 	Subnet      string   `json:"subnet"`
 }
+
+type UserAuthorizationSuccessData struct {
+	Username string `json:"username"`
+	Role     string `json:"role"`
+}

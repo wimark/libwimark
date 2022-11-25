@@ -4532,6 +4532,7 @@ const SystemEventTypeServiceConnected SystemEventType = "SERVICE_CONNECTED"
 const SystemEventTypeServiceDisconnected SystemEventType = "SERVICE_DISCONNECTED"
 const SystemEventTypeServiceFatalError SystemEventType = "SERVICE_FATAL_ERROR"
 const SystemEventTypeSystemTimeChanged SystemEventType = "SYSTEM_TIME_CHANGE"
+const SystemEventTypeUserAuthSuccess SystemEventType = "USER_AUTHORIZATION_SUCCESS"
 const SystemEventTypeWLANCentrAccChanged SystemEventType = "WLAN_CENTR_ACC_CHANGE"
 
 func (en SystemEventType) GetPtr() *SystemEventType { var v = en; return &v }
@@ -4582,6 +4583,8 @@ func (en SystemEventType) String() string {
 		return "SERVICE_FATAL_ERROR"
 	case SystemEventTypeSystemTimeChanged:
 		return "SYSTEM_TIME_CHANGE"
+	case SystemEventTypeUserAuthSuccess:
+		return "USER_AUTHORIZATION_SUCCESS"
 	case SystemEventTypeWLANCentrAccChanged:
 		return "WLAN_CENTR_ACC_CHANGE"
 	}
@@ -4634,6 +4637,8 @@ func (en *SystemEventType) MarshalJSON() ([]byte, error) {
 		return json.Marshal("SERVICE_FATAL_ERROR")
 	case SystemEventTypeSystemTimeChanged:
 		return json.Marshal("SYSTEM_TIME_CHANGE")
+	case SystemEventTypeUserAuthSuccess:
+		return json.Marshal("USER_AUTHORIZATION_SUCCESS")
 	case SystemEventTypeWLANCentrAccChanged:
 		return json.Marshal("WLAN_CENTR_ACC_CHANGE")
 	}
@@ -4686,6 +4691,8 @@ func (en *SystemEventType) GetBSON() (interface{}, error) {
 		return "SERVICE_FATAL_ERROR", nil
 	case SystemEventTypeSystemTimeChanged:
 		return "SYSTEM_TIME_CHANGE", nil
+	case SystemEventTypeUserAuthSuccess:
+		return "USER_AUTHORIZATION_SUCCESS", nil
 	case SystemEventTypeWLANCentrAccChanged:
 		return "WLAN_CENTR_ACC_CHANGE", nil
 	}
@@ -4763,6 +4770,9 @@ func (en *SystemEventType) UnmarshalJSON(b []byte) error {
 		return nil
 	case "SYSTEM_TIME_CHANGE":
 		*en = SystemEventTypeSystemTimeChanged
+		return nil
+	case "USER_AUTHORIZATION_SUCCESS":
+		*en = SystemEventTypeUserAuthSuccess
 		return nil
 	case "WLAN_CENTR_ACC_CHANGE":
 		*en = SystemEventTypeWLANCentrAccChanged
@@ -4842,6 +4852,9 @@ func (en *SystemEventType) SetBSON(v bson.Raw) error {
 		return nil
 	case "SYSTEM_TIME_CHANGE":
 		*en = SystemEventTypeSystemTimeChanged
+		return nil
+	case "USER_AUTHORIZATION_SUCCESS":
+		*en = SystemEventTypeUserAuthSuccess
 		return nil
 	case "WLAN_CENTR_ACC_CHANGE":
 		*en = SystemEventTypeWLANCentrAccChanged
