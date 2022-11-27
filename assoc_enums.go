@@ -829,16 +829,6 @@ func (en *SystemEventObject) UnmarshalJSON(b []byte) error {
 		en.Data = &d
 	case SystemEventTypeSystemTimeChanged:
 		en.Data = nil
-	case SystemEventTypeUserAuthSuccess:
-		if !data_found {
-			return errors.New("no associated data found for enum SystemEventObject")
-		}
-		var d UserAuthorizationSuccessData
-		var data_err = json.Unmarshal(data_raw, &d)
-		if data_err != nil {
-			return data_err
-		}
-		en.Data = &d
 	case SystemEventTypeWLANCentrAccChanged:
 		if !data_found {
 			return errors.New("no associated data found for enum SystemEventObject")
@@ -1035,16 +1025,6 @@ func (en *SystemEventObject) SetBSON(v bson.Raw) error {
 		en.Data = &d
 	case SystemEventTypeSystemTimeChanged:
 		en.Data = nil
-	case SystemEventTypeUserAuthSuccess:
-		if !data_found {
-			return errors.New("no associated data found for enum SystemEventObject")
-		}
-		var d UserAuthorizationSuccessData
-		var data_err = data_raw.Unmarshal(&d)
-		if data_err != nil {
-			return data_err
-		}
-		en.Data = &d
 	case SystemEventTypeWLANCentrAccChanged:
 		if !data_found {
 			return errors.New("no associated data found for enum SystemEventObject")
