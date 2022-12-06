@@ -10,6 +10,13 @@ type LimitBetweenOptional struct {
 	Lower *float64 `json:"lower"`
 }
 
+type BaseLocationMask struct {
+	UUID       []UUID   `json:"uuid"`
+	LocationID []UUID   `json:"location_id"`
+	Model      []string `json:"model"`
+	ModelID    []UUID   `json:"model_id"`
+}
+
 type SimpleMask struct {
 	UUID []UUID `json:"uuid"`
 }

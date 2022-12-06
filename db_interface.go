@@ -83,6 +83,7 @@ type DBDataMasks struct {
 	HotspotProfile  *SimpleMask          `json:"hotspot-profile,omitempty"`
 	Controller      *ControllerMask      `json:"controller,omitempty"`
 	LBSZones        *SimpleMask          `json:"lbs_zones,omitempty"`
+	BaseLocation    *BaseLocationMask    `json:"base_locations,omitempty"`
 }
 
 func (dbd *DBDataMasks) Reset() {
