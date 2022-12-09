@@ -301,6 +301,9 @@ type UciWifiIface struct {
 	// Band           string      `json:"band,omitempty"`
 	ChanBandwidth string `json:"chanbw,omitempty"`
 	CellDensity   string `json:"cell_density,omitempty"`
+
+	HESUBeamformee string `json:"he_su_beamformee,omitempty"`
+	HEBSSColor     string `json:"he_bss_color,omitempty"`
 }
 type UciRadius struct {
 	Type       string `json:".type"`
