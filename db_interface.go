@@ -29,6 +29,7 @@ type DBDataObj struct {
 	HotspotProfile  map[UUID]Hotspot20Profile `json:"hotspot-profile,omitempty"`
 	Controller      map[UUID]Controller       `json:"controller,omitempty"`
 	LBSZones        map[UUID]LBSZone          `json:"lbs_zones,omitempty"`
+	ConfigGroups    map[string]ConfigGroup    `json:"groups,omitempty"`
 }
 
 func (dbd *DBDataObj) Reset() {
@@ -84,6 +85,7 @@ type DBDataMasks struct {
 	Controller      *ControllerMask      `json:"controller,omitempty"`
 	LBSZones        *SimpleMask          `json:"lbs_zones,omitempty"`
 	BaseLocation    *BaseLocationMask    `json:"base_locations,omitempty"`
+	RRMGroup        *SimpleMask          `json:",omitempty"`
 }
 
 func (dbd *DBDataMasks) Reset() {

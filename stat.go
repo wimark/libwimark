@@ -614,7 +614,7 @@ type StationDumpData struct {
 	AssocList map[string]AccountingRadio `json:"assoclist" bson:"assoclist"`
 }
 
-//LBSZone зоны на картах как Cisco CMX
+// LBSZone зоны на картах как Cisco CMX
 type LBSZone struct {
 	Name        string `json:"name" bson:"name"`
 	Description string `json:"description" bson:"description"`
@@ -624,7 +624,13 @@ type LBSZone struct {
 	Corners  []CornerCoords `json:"corners" bson:"corners"`
 }
 
-//CornerCoords координаты углов зоны
+// Конфиг группы для применения шаблона по RRM группе
+type ConfigGroup struct {
+	TemplateID UUID `json:"template_id"`
+	RRMGroupID UUID `json:"rrm_group_id"`
+}
+
+// CornerCoords координаты углов зоны
 type CornerCoords struct {
 	X float64 `json:"x" bson:"x"`
 	Y float64 `json:"y" bson:"y"`
