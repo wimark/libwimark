@@ -293,15 +293,15 @@ type RadiusAccountingSendData struct {
 }
 
 type ClientAuthorizationData struct {
-	Session        string `json:"session_id"`
+	Session        string `json:"session_id,omitempty"`
 	MAC            string `json:"mac"`
-	CPE            string `json:"cpe_id"`
-	WLAN           string `json:"wlan_id"`
-	NasID          string `json:"nas_id"`
-	LocID          string `json:"loc_id"`
-	Radio          string `json:"radio_id"` // from what -- ?
-	SessionTimeout int64  `json:"session_timeout"`
-	AcctSessionID  string `json:"acct_session_id"`
+	CPE            string `json:"cpe_id,omitempty"`
+	WLAN           string `json:"wlan_id,omitempty"`
+	NasID          string `json:"nas_id,omitempty"`
+	LocID          string `json:"loc_id,omitempty"`
+	Radio          string `json:"radio_id,omitempty"` // from what -- ?
+	SessionTimeout int64  `json:"session_timeout,omitempty"`
+	AcctSessionID  string `json:"acct_session_id,omitempty"`
 
 	UserName   string `json:"username,omitempty"`
 	UserAgent  string `json:"useragent,omitempty"`
