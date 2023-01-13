@@ -301,10 +301,16 @@ type ClientAuthorizationData struct {
 	LocID          string `json:"loc_id"`
 	Radio          string `json:"radio_id"` // from what -- ?
 	SessionTimeout int64  `json:"session_timeout"`
-	UserName       string `json:"username,omitempty"`
-	UserAgent      string `json:"useragent,omitempty"`
-	AuthenType     string `json:"authen_type,omitempty"`
-	AuthType       string `json:"auth_type,omitempty"`
+	AcctSessionID  string `json:"acct_session_id"`
+
+	UserName   string `json:"username,omitempty"`
+	UserAgent  string `json:"useragent,omitempty"`
+	AuthenType string `json:"authen_type,omitempty"`
+	AuthType   string `json:"auth_type,omitempty"`
+
+	Method  string `json:"method"` // HTTP or RADIUS
+	Success bool   `json:"success"`
+	Error   string `json:"error,omitempty"`
 }
 
 type DHCPAckData struct {
@@ -322,4 +328,21 @@ type DHCPAckData struct {
 type UserAuthorizationSuccessData struct {
 	Username string `json:"username"`
 	Role     string `json:"role"`
+	Location string `json:"location"`
+}
+
+type ClientAuthErrorData struct {
+	Session        string `json:"session_id"`
+	MAC            string `json:"mac"`
+	CPE            string `json:"cpe_id"`
+	WLAN           string `json:"wlan_id"`
+	NasID          string `json:"nas_id"`
+	LocID          string `json:"loc_id"`
+	Radio          string `json:"radio_id"` // from what -- ?
+	SessionTimeout int64  `json:"session_timeout"`
+
+	UserName   string `json:"username,omitempty"`
+	UserAgent  string `json:"useragent,omitempty"`
+	AuthenType string `json:"authen_type,omitempty"`
+	AuthType   string `json:"auth_type,omitempty"`
 }
