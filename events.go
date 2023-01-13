@@ -311,6 +311,7 @@ type ClientAuthorizationData struct {
 	Method  string `json:"method"` // HTTP or RADIUS
 	Success bool   `json:"success"`
 	Error   string `json:"error,omitempty"`
+	Deauth  bool   `json:"deauth,omitempty"`
 }
 
 type DHCPAckData struct {
