@@ -67,6 +67,10 @@ type RedirectClientSession struct {
 	AcctOutputPackets   int `json:"Acct-Output-Packets"`
 
 	Transferable bool `json:"transferable"`
+
+	// for storing sessions for ISE
+	// need index on this field
+	AuditSessionID string `json:"audit_session_id" bson:"audit_session_id"`
 }
 
 func (session *RedirectClientSession) String() string {
