@@ -371,6 +371,7 @@ func (wc *WiredConfigs) SetBSON(raw bson.Raw) error {
 type CPEConfig struct {
 	Name             string           `json:"name" bson:"name"`
 	Description      string           `json:"description" bson:"description"`
+	TimeZone         string           `json:"timezone" bson:"timezone"`
 	Wifi             WiFiConfigs      `json:"wifi" bson:"wifi"`
 	Wired            WiredConfigs     `json:"wired" bson:"wired"`
 	LbsConfig        LBSConfig        `json:"lbs_config" bson:"lbs_config"`

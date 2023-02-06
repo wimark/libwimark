@@ -322,6 +322,7 @@ type UciWireless innerUciWireless
 type UciDotSystem struct {
 	Type      string `json:".type"`
 	HostName  string `json:"hostname"`
+	TimeZone  string `json:"timezone"`
 	LogIP     string `json:"log_ip"`
 	LogPrefix string `json:"log_prefix"`
 	LogProto  string `json:"log_proto"`
