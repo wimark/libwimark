@@ -369,22 +369,22 @@ func (wc *WiredConfigs) SetBSON(raw bson.Raw) error {
 // ---- CPE config ----
 
 type CPEConfig struct {
-	Name             string           `json:"name" bson:"name"`
-	Description      string           `json:"description" bson:"description"`
-	Wifi             WiFiConfigs      `json:"wifi" bson:"wifi"`
-	Wired            WiredConfigs     `json:"wired" bson:"wired"`
-	LbsConfig        LBSConfig        `json:"lbs_config" bson:"lbs_config"`
-	StatisticsConfig StatisticsConfig `json:"stats_config" bson:"stats_config"`
-	LogConfig        LogConfig        `json:"log_config" bson:"log_config"`
-	DHCPCapConfig    DHCPCapConfig    `json:"dhcpcap_config" bson:"dhcpcap_config"`
-	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
-	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
-	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
-	Beeline          BeelineConfig    `json:"beeline_config" bson:"beeline_config"`
-	Wmsnmpd          WMSNMPDConfig    `json:"wmsnmpd" bson:"wmsnmpd"`
-
-	WiFiLock          bool   `json:"wifi_lock" bson:"wifi_lock"`
-	GrePeerAddrConfig string `json:"gre_peer_addr" bson:"gre_peer_addr"`
+	Name              string           `json:"name" bson:"name"`
+	Description       string           `json:"description" bson:"description"`
+	Wifi              WiFiConfigs      `json:"wifi" bson:"wifi"`
+	Wired             WiredConfigs     `json:"wired" bson:"wired"`
+	LbsConfig         LBSConfig        `json:"lbs_config" bson:"lbs_config"`
+	StatisticsConfig  StatisticsConfig `json:"stats_config" bson:"stats_config"`
+	LogConfig         LogConfig        `json:"log_config" bson:"log_config"`
+	DHCPCapConfig     DHCPCapConfig    `json:"dhcpcap_config" bson:"dhcpcap_config"`
+	Firewall          FireWallSettings `json:"firewall" bson:"firewall"`
+	Firmware          FirmwareConfig   `json:"firmware" bson:"firmware"`
+	Tunnels           TunnelConfigs    `json:"tunnels" bson:"tunnels"`
+	Beeline           BeelineConfig    `json:"beeline_config" bson:"beeline_config"`
+	Wmsnmpd           WMSNMPDConfig    `json:"wmsnmpd" bson:"wmsnmpd"`
+	NTPServerConfig   NTPServerConfig  `json:"ntp_config" bson:"ntp_config"`
+	WiFiLock          bool             `json:"wifi_lock" bson:"wifi_lock"`
+	GrePeerAddrConfig string           `json:"gre_peer_addr" bson:"gre_peer_addr"`
 
 	NetManual  NetManual  `json:"net_manual" bson:"net_manual"`
 	WifiManual WifiManual `json:"wifi_manual" bson:"wifi_manual"`
@@ -687,4 +687,10 @@ type WMSNMPDDefault struct {
 	Location        string   `json:"location"`
 	ListenInterface string   `json:"listen_interface,omitempty"`
 	Interfaces      []string `json:"interfaces"`
+}
+
+type NTPServerConfig struct {
+	Type    string   `json:"type" bson:"type"`
+	Enable  bool     `json:"enable" bson:"enable"`
+	Servers []string `json:"servers" bson:"servers"`
 }
