@@ -13,16 +13,18 @@ type UUID string
 // ==== Radius ====
 
 type Radius struct {
-	Name      string `json:"name"`
-	Hostname  string `json:"hostname"`
-	Auth_port string `json:"auth_port"`
-	Acc_port  string `json:"acc_port"`
-	Secret    string `json:"secret"`
-	Is_local  bool   `json:"is_local"`
-	IsPortal  bool   `json:"is_portal"`
-	DaeClient string `json:"dae_client"`
-	DaeSecret string `json:"dae_secret"`
-	DaePort   string `json:"dae_port"`
+	Name             string `json:"name"`
+	Hostname         string `json:"hostname"`
+	Auth_port        string `json:"auth_port"`
+	Acc_port         string `json:"acc_port"`
+	Secret           string `json:"secret"`
+	Is_local         bool   `json:"is_local"`
+	IsPortal         bool   `json:"is_portal"`
+	DaeClient        string `json:"dae_client"`
+	DaeSecret        string `json:"dae_secret"`
+	DaePort          string `json:"dae_port"`
+	ACLAuthorized    string `json:"acl_authorized"`
+	ACLNotAuthorized string `json:"acl_not_authorized"`
 }
 
 // ==== WLANs ====
