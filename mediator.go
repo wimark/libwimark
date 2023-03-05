@@ -8,6 +8,13 @@ type SSHAccess struct {
 	Port     int    `json:"port"`
 }
 
+// SNMPAccess for SNMP credentials
+type SNMPAccess struct {
+	Community string `json:"community"`
+	Version   string `json:"version"`
+	Port      int    `json:"port"`
+}
+
 // Controller for integration with external controller (like Cisco)
 type Controller struct {
 	Status ControllerStatusType `json:"status"`
@@ -32,11 +39,14 @@ type ExtAccessPoint struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 
+	// config
+	IPAddr string     `json:"ip_addr"`
+	Access SSHAccess  `json:"ssh"`
+	SNMP   SNMPAccess `json:"snmp"`
+
+	// state
 	MAC      string `json:"mac"`
 	Serial   string `json:"serial"`
 	Vendor   string `json:"vendor"`
 	Firmware string `json:"fw_version"`
-
-	IPAddr string    `json:"ip_addr"`
-	Access SSHAccess `json:"access"`
 }
