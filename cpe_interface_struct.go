@@ -278,6 +278,9 @@ type UciWifiWlan struct {
 
 	PMKR1Push          string `json:"pmk_r1_push"`
 	FTPskGenerateLocal string `json:"ft_psk_generate_local"`
+
+	// additional MAB attr for special VSA
+	RadiusAuthRequestAttr interface{} `json:"radius_auth_req_attr,omitempty"`
 }
 
 type UciWifiIface struct {
