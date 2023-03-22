@@ -110,3 +110,8 @@ type ControllerMask struct {
 	UUID    []UUID `json:"uuid"`
 	Enabled *bool  `json:"is_enabled"`
 }
+
+type ExtAccessPointMask struct {
+	UUID  []UUID   `json:"uuid"`
+	Names []string `json:"names"`
+}
