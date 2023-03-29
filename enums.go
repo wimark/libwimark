@@ -461,6 +461,13 @@ const CollOperation Coll = "operation"
 const CollRADIUS Coll = "radius"
 const CollRRMGroups Coll = "rrm_groups"
 const CollRadarExport Coll = "radar_export"
+const CollRadarExportResult Coll = "radar_export_result"
+const CollRadarProbesRaw Coll = "radar_probes_raw"
+const CollRadarProbesReal Coll = "radar_probes_real"
+const CollRadarVisits Coll = "radar_visits"
+const CollRadarVisitsFirst Coll = "radar_visits_first"
+const CollRadarVisitsHour Coll = "radar_visits_hour"
+const CollReportResult Coll = "report_results"
 const CollResamplingConf Coll = "resampling_conf"
 const CollSnmpWalker Coll = "snmp_walker"
 const CollStatReport Coll = "reports"
@@ -541,6 +548,20 @@ func (en Coll) String() string {
 		return "rrm_groups"
 	case CollRadarExport:
 		return "radar_export"
+	case CollRadarExportResult:
+		return "radar_export_result"
+	case CollRadarProbesRaw:
+		return "radar_probes_raw"
+	case CollRadarProbesReal:
+		return "radar_probes_real"
+	case CollRadarVisits:
+		return "radar_visits"
+	case CollRadarVisitsFirst:
+		return "radar_visits_first"
+	case CollRadarVisitsHour:
+		return "radar_visits_hour"
+	case CollReportResult:
+		return "report_results"
 	case CollResamplingConf:
 		return "resampling_conf"
 	case CollSnmpWalker:
@@ -629,6 +650,20 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("rrm_groups")
 	case CollRadarExport:
 		return json.Marshal("radar_export")
+	case CollRadarExportResult:
+		return json.Marshal("radar_export_result")
+	case CollRadarProbesRaw:
+		return json.Marshal("radar_probes_raw")
+	case CollRadarProbesReal:
+		return json.Marshal("radar_probes_real")
+	case CollRadarVisits:
+		return json.Marshal("radar_visits")
+	case CollRadarVisitsFirst:
+		return json.Marshal("radar_visits_first")
+	case CollRadarVisitsHour:
+		return json.Marshal("radar_visits_hour")
+	case CollReportResult:
+		return json.Marshal("report_results")
 	case CollResamplingConf:
 		return json.Marshal("resampling_conf")
 	case CollSnmpWalker:
@@ -717,6 +752,20 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "rrm_groups", nil
 	case CollRadarExport:
 		return "radar_export", nil
+	case CollRadarExportResult:
+		return "radar_export_result", nil
+	case CollRadarProbesRaw:
+		return "radar_probes_raw", nil
+	case CollRadarProbesReal:
+		return "radar_probes_real", nil
+	case CollRadarVisits:
+		return "radar_visits", nil
+	case CollRadarVisitsFirst:
+		return "radar_visits_first", nil
+	case CollRadarVisitsHour:
+		return "radar_visits_hour", nil
+	case CollReportResult:
+		return "report_results", nil
 	case CollResamplingConf:
 		return "resampling_conf", nil
 	case CollSnmpWalker:
@@ -842,6 +891,27 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 		return nil
 	case "radar_export":
 		*en = CollRadarExport
+		return nil
+	case "radar_export_result":
+		*en = CollRadarExportResult
+		return nil
+	case "radar_probes_raw":
+		*en = CollRadarProbesRaw
+		return nil
+	case "radar_probes_real":
+		*en = CollRadarProbesReal
+		return nil
+	case "radar_visits":
+		*en = CollRadarVisits
+		return nil
+	case "radar_visits_first":
+		*en = CollRadarVisitsFirst
+		return nil
+	case "radar_visits_hour":
+		*en = CollRadarVisitsHour
+		return nil
+	case "report_results":
+		*en = CollReportResult
 		return nil
 	case "resampling_conf":
 		*en = CollResamplingConf
@@ -975,6 +1045,27 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 		return nil
 	case "radar_export":
 		*en = CollRadarExport
+		return nil
+	case "radar_export_result":
+		*en = CollRadarExportResult
+		return nil
+	case "radar_probes_raw":
+		*en = CollRadarProbesRaw
+		return nil
+	case "radar_probes_real":
+		*en = CollRadarProbesReal
+		return nil
+	case "radar_visits":
+		*en = CollRadarVisits
+		return nil
+	case "radar_visits_first":
+		*en = CollRadarVisitsFirst
+		return nil
+	case "radar_visits_hour":
+		*en = CollRadarVisitsHour
+		return nil
+	case "report_results":
+		*en = CollReportResult
 		return nil
 	case "resampling_conf":
 		*en = CollResamplingConf
