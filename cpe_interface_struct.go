@@ -152,6 +152,9 @@ type UciWifiWlan struct {
 	MACAddr           string      `json:"macaddr,omitempty"`
 	UbusAcctPeriod    string      `json:"ubus_acct_interval,omitempty"`
 
+	//option 82
+	Option82Enabled string `json:"option82_state,omitempty"`
+
 	// security
 	NasID       string `json:"nasid,omitempty"`
 	NasPortID   string `json:"nas_port_id,omitempty"`
