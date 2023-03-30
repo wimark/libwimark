@@ -9,7 +9,13 @@ require (
 	github.com/mitchellh/mapstructure v1.4.2
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826
 	github.com/stretchr/testify v1.7.0
-	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f // indirect
 )
 
-go 1.13
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
+)
+
+go 1.19

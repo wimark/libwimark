@@ -86,6 +86,18 @@ func (sc *SpeedConfig) String() string {
 	return fmt.Sprintf("%d%s", sc.Value, sc.Type.String())
 }
 
+// ==== Otion 82 config ====
+type Option82Default struct {
+	Enabled bool   `json:"enabled"`
+	Iface   string `json:"iface"`
+	CID     string `json:"cid"` //circuit_id
+	RID     string `json:"rid"` //remote_id
+}
+
+type Opion82Config struct {
+	Default Option82Default `json:"default"`
+}
+
 type WLAN struct {
 	Name        string       `json:"name"`
 	SSID        string       `json:"ssid"`
@@ -371,25 +383,28 @@ func (wc *WiredConfigs) SetBSON(raw bson.Raw) error {
 // ---- CPE config ----
 
 type CPEConfig struct {
-	Name              string           `json:"name" bson:"name"`
-	Description       string           `json:"description" bson:"description"`
-	Wifi              WiFiConfigs      `json:"wifi" bson:"wifi"`
-	Wired             WiredConfigs     `json:"wired" bson:"wired"`
-	LbsConfig         LBSConfig        `json:"lbs_config" bson:"lbs_config"`
-	StatisticsConfig  StatisticsConfig `json:"stats_config" bson:"stats_config"`
-	LogConfig         LogConfig        `json:"log_config" bson:"log_config"`
-	DHCPCapConfig     DHCPCapConfig    `json:"dhcpcap_config" bson:"dhcpcap_config"`
-	Firewall          FireWallSettings `json:"firewall" bson:"firewall"`
-	Firmware          FirmwareConfig   `json:"firmware" bson:"firmware"`
-	Tunnels           TunnelConfigs    `json:"tunnels" bson:"tunnels"`
-	Beeline           BeelineConfig    `json:"beeline_config" bson:"beeline_config"`
-	Wmsnmpd           WMSNMPDConfig    `json:"wmsnmpd" bson:"wmsnmpd"`
-	NTPServerConfig   NTPServerConfig  `json:"ntp_config" bson:"ntp_config"`
-	WiFiLock          bool             `json:"wifi_lock" bson:"wifi_lock"`
-	GrePeerAddrConfig string           `json:"gre_peer_addr" bson:"gre_peer_addr"`
+	Name             string           `json:"name" bson:"name"`
+	Description      string           `json:"description" bson:"description"`
+	Wifi             WiFiConfigs      `json:"wifi" bson:"wifi"`
+	Wired            WiredConfigs     `json:"wired" bson:"wired"`
+	LbsConfig        LBSConfig        `json:"lbs_config" bson:"lbs_config"`
+	StatisticsConfig StatisticsConfig `json:"stats_config" bson:"stats_config"`
+	LogConfig        LogConfig        `json:"log_config" bson:"log_config"`
+	DHCPCapConfig    DHCPCapConfig    `json:"dhcpcap_config" bson:"dhcpcap_config"`
+	Firewall         FireWallSettings `json:"firewall" bson:"firewall"`
+	Firmware         FirmwareConfig   `json:"firmware" bson:"firmware"`
+	Tunnels          TunnelConfigs    `json:"tunnels" bson:"tunnels"`
+	Beeline          BeelineConfig    `json:"beeline_config" bson:"beeline_config"`
+	Wmsnmpd          WMSNMPDConfig    `json:"wmsnmpd" bson:"wmsnmpd"`
+
+	NTPServerConfig   NTPServerConfig `json:"ntp_config" bson:"ntp_config"`
+	WiFiLock          bool            `json:"wifi_lock" bson:"wifi_lock"`
+	GrePeerAddrConfig string          `json:"gre_peer_addr" bson:"gre_peer_addr"`
 
 	NetManual  NetManual  `json:"net_manual" bson:"net_manual"`
 	WifiManual WifiManual `json:"wifi_manual" bson:"wifi_manual"`
+
+	Option82 Opion82Config `json:"option82" bson:"option82"`
 }
 
 // ---- Beeline config ----
@@ -432,7 +447,7 @@ type L2TPState struct {
 }
 
 // ---- Wifi state ----
-
+// -->> state
 type WlanState struct {
 	State        CPEInterfaceState `json:"state"`
 	VirtualIface string            `json:"virtual_iface" bson:"virtual_iface"`

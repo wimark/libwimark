@@ -5,7 +5,6 @@ import (
 	"crypto/tls"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -32,7 +31,7 @@ func SendHTTPSGet(url, bearerKey string) ([]byte, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusOK {
-		res, err = ioutil.ReadAll(resp.Body)
+		res, err = io.ReadAll(resp.Body)
 		if err != nil {
 			return res, err
 		}
@@ -71,7 +70,7 @@ func SendHTTPSRequest(url, bearerKey,
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusOK {
-		res, err = ioutil.ReadAll(resp.Body)
+		res, err = io.ReadAll(resp.Body)
 		if err != nil {
 			return res, err
 		}

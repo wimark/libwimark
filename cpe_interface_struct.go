@@ -307,6 +307,8 @@ type UciWifiIface struct {
 
 	HESUBeamformee string `json:"he_su_beamformee,omitempty"`
 	HEBSSColor     string `json:"he_bss_color,omitempty"`
+	//Dhcp injection
+	Option82 interface{} `json:"option82,omitempty"`
 }
 type UciRadius struct {
 	Type       string `json:".type"`
