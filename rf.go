@@ -2,14 +2,6 @@ package libwimark
 
 import "time"
 
-const (
-	// CollClientRF collection for client rf
-	CollClientRF = "client_rf"
-
-	// CollClientDistance collection for client distance from CPE
-	CollClientDistance = "client_distance"
-)
-
 // ClientRF struct for history client rf data
 type ClientRF struct {
 	ID       string          `json:"id" bson:"_id,omitempty"`

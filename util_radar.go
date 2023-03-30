@@ -10,33 +10,15 @@ import (
 )
 
 const (
-	TAG_MATCH = "$match"
-	TAG_GROUP = "$group"
-	TAG_LIMIT = "$limit"
-
-	// необработанные пробы от точки -- TTL 24 часа
-	COLL_RADAR_BASE = "radar_probes_raw"
-	// отфильтрованные пробы по реальным MAC -- TTL 24 часа
-	COLL_RADAR_BASE_REAL = "radar_probes_real"
-	// первое появление конкретного клиента с привязской к точке -- TTL 1 год
-	COLL_RADAR_VISITS_FIRST = "radar_visits_first"
-
-	// подсчет клиентских визитов RadarClientVisit -- TTL 1 год -- аггрегация раз в сутки
-	COLL_RADAR_VISITS = "radar_visits"
-	// клиентские визиты с привязкой к конкретному часу -- TTL 1 год -- аггрегация раз в сутки
-	COLL_RADAR_VISITS_HOUR = "radar_visits_hour"
-
-	// radar export
-	COLL_RADAR_EXPORT = "radar_export"
-
-	// radar export result -- save every worker state to DB -- TTL 6 months
-	COLL_RADAR_EXPORT_RESULT = "radar_export_result"
+	TagMatch = "$match"
+	TagGroup = "$group"
+	TagLimit = "$limit"
 
 	// resample periods
-	RADAR_RESAMPLE_HOUR  = "h"
-	RADAR_RESAMPLE_DAY   = "d"
-	RADAR_RESAMPLE_WEEK  = "w"
-	RADAR_RESAMPLE_MONTH = "m"
+	RadarResampleHour  = "h"
+	RadarResampleDay   = "d"
+	RadarResampleWeek  = "w"
+	RadarResampleMonth = "m"
 )
 
 // base object for

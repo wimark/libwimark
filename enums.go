@@ -425,6 +425,673 @@ func (en *ClientStatPacketType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown ClientStatPacketType: " + s)
 }
 
+type Coll string
+
+const CollBSSStatInfo Coll = "bss_stat_info"
+const CollBaseLocation Coll = "base_location"
+const CollCPE Coll = "cpes"
+const CollCPEConfigTemplate Coll = "config_rule"
+const CollCPEMap Coll = "cpe_maps"
+const CollCPEModel Coll = "cpe_model"
+const CollCPESessionInfo Coll = "cpe_session_info"
+const CollCPEStatInfo Coll = "cpe_stat_info"
+const CollCPEStats Coll = "stats"
+const CollCaptiveRedirect Coll = "captive_redirects"
+const CollClientDistance Coll = "client_distance"
+const CollClientRF Coll = "client_rf"
+const CollClientSession Coll = "client_session_info"
+const CollClientStatInfo Coll = "client_stat_info"
+const CollClientStats Coll = "client_stats"
+const CollClients Coll = "clients"
+const CollCollLBSZones Coll = "lbs_zones"
+const CollController Coll = "controllers"
+const CollExternalAP Coll = "ext_access_points"
+const CollHotspotProfiles Coll = "hotspot_profile"
+const CollL2Chain Coll = "l2_chains"
+const CollLBSCPEInfo Coll = "lbs_cpe_info"
+const CollLBSClientCoord Coll = "lbs_client_coords"
+const CollLBSClientData Coll = "lbs_client_data"
+const CollLBSClientProbes Coll = "lbs_client_probes"
+const CollLicenseLogDaily Coll = "license_log_daily"
+const CollLocation Coll = "location"
+const CollMonitorCPE Coll = "poll_cpe"
+const CollMonitorEvents Coll = "events"
+const CollMonitorRules Coll = "stat_event_rule"
+const CollOperation Coll = "operation"
+const CollRADIUS Coll = "radius"
+const CollRRMGroups Coll = "rrm_groups"
+const CollRadarExport Coll = "radar_export"
+const CollRadarExportResult Coll = "radar_export_result"
+const CollRadarProbesRaw Coll = "radar_probes_raw"
+const CollRadarProbesReal Coll = "radar_probes_real"
+const CollRadarVisits Coll = "radar_visits"
+const CollRadarVisitsFirst Coll = "radar_visits_first"
+const CollRadarVisitsHour Coll = "radar_visits_hour"
+const CollReportResult Coll = "report_results"
+const CollResamplingConf Coll = "resampling_conf"
+const CollSnmpWalker Coll = "snmp_walker"
+const CollStatReport Coll = "reports"
+const CollTags Coll = "tags"
+const CollUser Coll = "user"
+const CollWLAN Coll = "wlans"
+const CollWLANStatInfo Coll = "wlan_stat_info"
+
+func (en Coll) GetPtr() *Coll { var v = en; return &v }
+
+func (en Coll) String() string {
+	switch en {
+	case CollBSSStatInfo:
+		return "bss_stat_info"
+	case CollBaseLocation:
+		return "base_location"
+	case CollCPE:
+		return "cpes"
+	case CollCPEConfigTemplate:
+		return "config_rule"
+	case CollCPEMap:
+		return "cpe_maps"
+	case CollCPEModel:
+		return "cpe_model"
+	case CollCPESessionInfo:
+		return "cpe_session_info"
+	case CollCPEStatInfo:
+		return "cpe_stat_info"
+	case CollCPEStats:
+		return "stats"
+	case CollCaptiveRedirect:
+		return "captive_redirects"
+	case CollClientDistance:
+		return "client_distance"
+	case CollClientRF:
+		return "client_rf"
+	case CollClientSession:
+		return "client_session_info"
+	case CollClientStatInfo:
+		return "client_stat_info"
+	case CollClientStats:
+		return "client_stats"
+	case CollClients:
+		return "clients"
+	case CollCollLBSZones:
+		return "lbs_zones"
+	case CollController:
+		return "controllers"
+	case CollExternalAP:
+		return "ext_access_points"
+	case CollHotspotProfiles:
+		return "hotspot_profile"
+	case CollL2Chain:
+		return "l2_chains"
+	case CollLBSCPEInfo:
+		return "lbs_cpe_info"
+	case CollLBSClientCoord:
+		return "lbs_client_coords"
+	case CollLBSClientData:
+		return "lbs_client_data"
+	case CollLBSClientProbes:
+		return "lbs_client_probes"
+	case CollLicenseLogDaily:
+		return "license_log_daily"
+	case CollLocation:
+		return "location"
+	case CollMonitorCPE:
+		return "poll_cpe"
+	case CollMonitorEvents:
+		return "events"
+	case CollMonitorRules:
+		return "stat_event_rule"
+	case CollOperation:
+		return "operation"
+	case CollRADIUS:
+		return "radius"
+	case CollRRMGroups:
+		return "rrm_groups"
+	case CollRadarExport:
+		return "radar_export"
+	case CollRadarExportResult:
+		return "radar_export_result"
+	case CollRadarProbesRaw:
+		return "radar_probes_raw"
+	case CollRadarProbesReal:
+		return "radar_probes_real"
+	case CollRadarVisits:
+		return "radar_visits"
+	case CollRadarVisitsFirst:
+		return "radar_visits_first"
+	case CollRadarVisitsHour:
+		return "radar_visits_hour"
+	case CollReportResult:
+		return "report_results"
+	case CollResamplingConf:
+		return "resampling_conf"
+	case CollSnmpWalker:
+		return "snmp_walker"
+	case CollStatReport:
+		return "reports"
+	case CollTags:
+		return "tags"
+	case CollUser:
+		return "user"
+	case CollWLAN:
+		return "wlans"
+	case CollWLANStatInfo:
+		return "wlan_stat_info"
+	}
+	panic(errors.New("Invalid value of Coll: " + string(en)))
+}
+
+func (en *Coll) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case CollBSSStatInfo:
+		return json.Marshal("bss_stat_info")
+	case CollBaseLocation:
+		return json.Marshal("base_location")
+	case CollCPE:
+		return json.Marshal("cpes")
+	case CollCPEConfigTemplate:
+		return json.Marshal("config_rule")
+	case CollCPEMap:
+		return json.Marshal("cpe_maps")
+	case CollCPEModel:
+		return json.Marshal("cpe_model")
+	case CollCPESessionInfo:
+		return json.Marshal("cpe_session_info")
+	case CollCPEStatInfo:
+		return json.Marshal("cpe_stat_info")
+	case CollCPEStats:
+		return json.Marshal("stats")
+	case CollCaptiveRedirect:
+		return json.Marshal("captive_redirects")
+	case CollClientDistance:
+		return json.Marshal("client_distance")
+	case CollClientRF:
+		return json.Marshal("client_rf")
+	case CollClientSession:
+		return json.Marshal("client_session_info")
+	case CollClientStatInfo:
+		return json.Marshal("client_stat_info")
+	case CollClientStats:
+		return json.Marshal("client_stats")
+	case CollClients:
+		return json.Marshal("clients")
+	case CollCollLBSZones:
+		return json.Marshal("lbs_zones")
+	case CollController:
+		return json.Marshal("controllers")
+	case CollExternalAP:
+		return json.Marshal("ext_access_points")
+	case CollHotspotProfiles:
+		return json.Marshal("hotspot_profile")
+	case CollL2Chain:
+		return json.Marshal("l2_chains")
+	case CollLBSCPEInfo:
+		return json.Marshal("lbs_cpe_info")
+	case CollLBSClientCoord:
+		return json.Marshal("lbs_client_coords")
+	case CollLBSClientData:
+		return json.Marshal("lbs_client_data")
+	case CollLBSClientProbes:
+		return json.Marshal("lbs_client_probes")
+	case CollLicenseLogDaily:
+		return json.Marshal("license_log_daily")
+	case CollLocation:
+		return json.Marshal("location")
+	case CollMonitorCPE:
+		return json.Marshal("poll_cpe")
+	case CollMonitorEvents:
+		return json.Marshal("events")
+	case CollMonitorRules:
+		return json.Marshal("stat_event_rule")
+	case CollOperation:
+		return json.Marshal("operation")
+	case CollRADIUS:
+		return json.Marshal("radius")
+	case CollRRMGroups:
+		return json.Marshal("rrm_groups")
+	case CollRadarExport:
+		return json.Marshal("radar_export")
+	case CollRadarExportResult:
+		return json.Marshal("radar_export_result")
+	case CollRadarProbesRaw:
+		return json.Marshal("radar_probes_raw")
+	case CollRadarProbesReal:
+		return json.Marshal("radar_probes_real")
+	case CollRadarVisits:
+		return json.Marshal("radar_visits")
+	case CollRadarVisitsFirst:
+		return json.Marshal("radar_visits_first")
+	case CollRadarVisitsHour:
+		return json.Marshal("radar_visits_hour")
+	case CollReportResult:
+		return json.Marshal("report_results")
+	case CollResamplingConf:
+		return json.Marshal("resampling_conf")
+	case CollSnmpWalker:
+		return json.Marshal("snmp_walker")
+	case CollStatReport:
+		return json.Marshal("reports")
+	case CollTags:
+		return json.Marshal("tags")
+	case CollUser:
+		return json.Marshal("user")
+	case CollWLAN:
+		return json.Marshal("wlans")
+	case CollWLANStatInfo:
+		return json.Marshal("wlan_stat_info")
+	}
+	return nil, errors.New("Invalid value of Coll: " + string(*en))
+}
+
+func (en *Coll) GetBSON() (interface{}, error) {
+	switch *en {
+	case CollBSSStatInfo:
+		return "bss_stat_info", nil
+	case CollBaseLocation:
+		return "base_location", nil
+	case CollCPE:
+		return "cpes", nil
+	case CollCPEConfigTemplate:
+		return "config_rule", nil
+	case CollCPEMap:
+		return "cpe_maps", nil
+	case CollCPEModel:
+		return "cpe_model", nil
+	case CollCPESessionInfo:
+		return "cpe_session_info", nil
+	case CollCPEStatInfo:
+		return "cpe_stat_info", nil
+	case CollCPEStats:
+		return "stats", nil
+	case CollCaptiveRedirect:
+		return "captive_redirects", nil
+	case CollClientDistance:
+		return "client_distance", nil
+	case CollClientRF:
+		return "client_rf", nil
+	case CollClientSession:
+		return "client_session_info", nil
+	case CollClientStatInfo:
+		return "client_stat_info", nil
+	case CollClientStats:
+		return "client_stats", nil
+	case CollClients:
+		return "clients", nil
+	case CollCollLBSZones:
+		return "lbs_zones", nil
+	case CollController:
+		return "controllers", nil
+	case CollExternalAP:
+		return "ext_access_points", nil
+	case CollHotspotProfiles:
+		return "hotspot_profile", nil
+	case CollL2Chain:
+		return "l2_chains", nil
+	case CollLBSCPEInfo:
+		return "lbs_cpe_info", nil
+	case CollLBSClientCoord:
+		return "lbs_client_coords", nil
+	case CollLBSClientData:
+		return "lbs_client_data", nil
+	case CollLBSClientProbes:
+		return "lbs_client_probes", nil
+	case CollLicenseLogDaily:
+		return "license_log_daily", nil
+	case CollLocation:
+		return "location", nil
+	case CollMonitorCPE:
+		return "poll_cpe", nil
+	case CollMonitorEvents:
+		return "events", nil
+	case CollMonitorRules:
+		return "stat_event_rule", nil
+	case CollOperation:
+		return "operation", nil
+	case CollRADIUS:
+		return "radius", nil
+	case CollRRMGroups:
+		return "rrm_groups", nil
+	case CollRadarExport:
+		return "radar_export", nil
+	case CollRadarExportResult:
+		return "radar_export_result", nil
+	case CollRadarProbesRaw:
+		return "radar_probes_raw", nil
+	case CollRadarProbesReal:
+		return "radar_probes_real", nil
+	case CollRadarVisits:
+		return "radar_visits", nil
+	case CollRadarVisitsFirst:
+		return "radar_visits_first", nil
+	case CollRadarVisitsHour:
+		return "radar_visits_hour", nil
+	case CollReportResult:
+		return "report_results", nil
+	case CollResamplingConf:
+		return "resampling_conf", nil
+	case CollSnmpWalker:
+		return "snmp_walker", nil
+	case CollStatReport:
+		return "reports", nil
+	case CollTags:
+		return "tags", nil
+	case CollUser:
+		return "user", nil
+	case CollWLAN:
+		return "wlans", nil
+	case CollWLANStatInfo:
+		return "wlan_stat_info", nil
+	}
+	return nil, errors.New("Invalid value of Coll: " + string(*en))
+}
+
+func (en *Coll) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "bss_stat_info":
+		*en = CollBSSStatInfo
+		return nil
+	case "base_location":
+		*en = CollBaseLocation
+		return nil
+	case "cpes":
+		*en = CollCPE
+		return nil
+	case "config_rule":
+		*en = CollCPEConfigTemplate
+		return nil
+	case "cpe_maps":
+		*en = CollCPEMap
+		return nil
+	case "cpe_model":
+		*en = CollCPEModel
+		return nil
+	case "cpe_session_info":
+		*en = CollCPESessionInfo
+		return nil
+	case "cpe_stat_info":
+		*en = CollCPEStatInfo
+		return nil
+	case "stats":
+		*en = CollCPEStats
+		return nil
+	case "captive_redirects":
+		*en = CollCaptiveRedirect
+		return nil
+	case "client_distance":
+		*en = CollClientDistance
+		return nil
+	case "client_rf":
+		*en = CollClientRF
+		return nil
+	case "client_session_info":
+		*en = CollClientSession
+		return nil
+	case "client_stat_info":
+		*en = CollClientStatInfo
+		return nil
+	case "client_stats":
+		*en = CollClientStats
+		return nil
+	case "clients":
+		*en = CollClients
+		return nil
+	case "lbs_zones":
+		*en = CollCollLBSZones
+		return nil
+	case "controllers":
+		*en = CollController
+		return nil
+	case "ext_access_points":
+		*en = CollExternalAP
+		return nil
+	case "hotspot_profile":
+		*en = CollHotspotProfiles
+		return nil
+	case "l2_chains":
+		*en = CollL2Chain
+		return nil
+	case "lbs_cpe_info":
+		*en = CollLBSCPEInfo
+		return nil
+	case "lbs_client_coords":
+		*en = CollLBSClientCoord
+		return nil
+	case "lbs_client_data":
+		*en = CollLBSClientData
+		return nil
+	case "lbs_client_probes":
+		*en = CollLBSClientProbes
+		return nil
+	case "license_log_daily":
+		*en = CollLicenseLogDaily
+		return nil
+	case "location":
+		*en = CollLocation
+		return nil
+	case "poll_cpe":
+		*en = CollMonitorCPE
+		return nil
+	case "events":
+		*en = CollMonitorEvents
+		return nil
+	case "stat_event_rule":
+		*en = CollMonitorRules
+		return nil
+	case "operation":
+		*en = CollOperation
+		return nil
+	case "radius":
+		*en = CollRADIUS
+		return nil
+	case "rrm_groups":
+		*en = CollRRMGroups
+		return nil
+	case "radar_export":
+		*en = CollRadarExport
+		return nil
+	case "radar_export_result":
+		*en = CollRadarExportResult
+		return nil
+	case "radar_probes_raw":
+		*en = CollRadarProbesRaw
+		return nil
+	case "radar_probes_real":
+		*en = CollRadarProbesReal
+		return nil
+	case "radar_visits":
+		*en = CollRadarVisits
+		return nil
+	case "radar_visits_first":
+		*en = CollRadarVisitsFirst
+		return nil
+	case "radar_visits_hour":
+		*en = CollRadarVisitsHour
+		return nil
+	case "report_results":
+		*en = CollReportResult
+		return nil
+	case "resampling_conf":
+		*en = CollResamplingConf
+		return nil
+	case "snmp_walker":
+		*en = CollSnmpWalker
+		return nil
+	case "reports":
+		*en = CollStatReport
+		return nil
+	case "tags":
+		*en = CollTags
+		return nil
+	case "user":
+		*en = CollUser
+		return nil
+	case "wlans":
+		*en = CollWLAN
+		return nil
+	case "wlan_stat_info":
+		*en = CollWLANStatInfo
+		return nil
+	}
+	return errors.New("Unknown Coll: " + s)
+}
+
+func (en *Coll) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "bss_stat_info":
+		*en = CollBSSStatInfo
+		return nil
+	case "base_location":
+		*en = CollBaseLocation
+		return nil
+	case "cpes":
+		*en = CollCPE
+		return nil
+	case "config_rule":
+		*en = CollCPEConfigTemplate
+		return nil
+	case "cpe_maps":
+		*en = CollCPEMap
+		return nil
+	case "cpe_model":
+		*en = CollCPEModel
+		return nil
+	case "cpe_session_info":
+		*en = CollCPESessionInfo
+		return nil
+	case "cpe_stat_info":
+		*en = CollCPEStatInfo
+		return nil
+	case "stats":
+		*en = CollCPEStats
+		return nil
+	case "captive_redirects":
+		*en = CollCaptiveRedirect
+		return nil
+	case "client_distance":
+		*en = CollClientDistance
+		return nil
+	case "client_rf":
+		*en = CollClientRF
+		return nil
+	case "client_session_info":
+		*en = CollClientSession
+		return nil
+	case "client_stat_info":
+		*en = CollClientStatInfo
+		return nil
+	case "client_stats":
+		*en = CollClientStats
+		return nil
+	case "clients":
+		*en = CollClients
+		return nil
+	case "lbs_zones":
+		*en = CollCollLBSZones
+		return nil
+	case "controllers":
+		*en = CollController
+		return nil
+	case "ext_access_points":
+		*en = CollExternalAP
+		return nil
+	case "hotspot_profile":
+		*en = CollHotspotProfiles
+		return nil
+	case "l2_chains":
+		*en = CollL2Chain
+		return nil
+	case "lbs_cpe_info":
+		*en = CollLBSCPEInfo
+		return nil
+	case "lbs_client_coords":
+		*en = CollLBSClientCoord
+		return nil
+	case "lbs_client_data":
+		*en = CollLBSClientData
+		return nil
+	case "lbs_client_probes":
+		*en = CollLBSClientProbes
+		return nil
+	case "license_log_daily":
+		*en = CollLicenseLogDaily
+		return nil
+	case "location":
+		*en = CollLocation
+		return nil
+	case "poll_cpe":
+		*en = CollMonitorCPE
+		return nil
+	case "events":
+		*en = CollMonitorEvents
+		return nil
+	case "stat_event_rule":
+		*en = CollMonitorRules
+		return nil
+	case "operation":
+		*en = CollOperation
+		return nil
+	case "radius":
+		*en = CollRADIUS
+		return nil
+	case "rrm_groups":
+		*en = CollRRMGroups
+		return nil
+	case "radar_export":
+		*en = CollRadarExport
+		return nil
+	case "radar_export_result":
+		*en = CollRadarExportResult
+		return nil
+	case "radar_probes_raw":
+		*en = CollRadarProbesRaw
+		return nil
+	case "radar_probes_real":
+		*en = CollRadarProbesReal
+		return nil
+	case "radar_visits":
+		*en = CollRadarVisits
+		return nil
+	case "radar_visits_first":
+		*en = CollRadarVisitsFirst
+		return nil
+	case "radar_visits_hour":
+		*en = CollRadarVisitsHour
+		return nil
+	case "report_results":
+		*en = CollReportResult
+		return nil
+	case "resampling_conf":
+		*en = CollResamplingConf
+		return nil
+	case "snmp_walker":
+		*en = CollSnmpWalker
+		return nil
+	case "reports":
+		*en = CollStatReport
+		return nil
+	case "tags":
+		*en = CollTags
+		return nil
+	case "user":
+		*en = CollUser
+		return nil
+	case "wlans":
+		*en = CollWLAN
+		return nil
+	case "wlan_stat_info":
+		*en = CollWLANStatInfo
+		return nil
+	}
+	return errors.New("Unknown Coll: " + s)
+}
+
 type ConfigurationStatus string
 
 const ConfigurationStatusDontUse1 ConfigurationStatus = "pending"
@@ -1558,6 +2225,1271 @@ func (en *MacFilterType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown MacFilterType: " + s)
 }
 
+type Model string
+
+const ModelBSSRating Model = "bss_rating"
+const ModelBaseLocation Model = "base_location"
+const ModelCPE Model = "cpe"
+const ModelCPEAggStat Model = "cpe_agg_stats"
+const ModelCPEConfigTemplates Model = "cpe_config_templates"
+const ModelCPECurrentState Model = "cpe_current_state"
+const ModelCPEDashboard Model = "cpe_dashboard"
+const ModelCPEEvents Model = "cpe_events"
+const ModelCPEFWUpgrade Model = "cpe_fw_upgrade"
+const ModelCPEMap Model = "mapobjects"
+const ModelCPEMapCPEList Model = "cpe_map_cpe_list"
+const ModelCPEMapPosition Model = "cpe_map_position"
+const ModelCPEMapScale Model = "cpe_map_scale"
+const ModelCPEModels Model = "cpe_models"
+const ModelCPERating Model = "cpe_rating"
+const ModelCPERemote Model = "cpe_remote"
+const ModelCPEReport Model = "cpe_report"
+const ModelCPEScanLast Model = "cpe_scan_last"
+const ModelCPESession Model = "cpe_session"
+const ModelCPESessionAvg Model = "cpe_session_avg"
+const ModelCPEStats Model = "stat"
+const ModelCPETags Model = "cpe_tags"
+const ModelCPETimeline Model = "cpe_timeline"
+const ModelCPEWLANAggStat Model = "cpe_wlan_agg_stats"
+const ModelCaptiveRedirect Model = "captive-redirect"
+const ModelClient Model = "client"
+const ModelClientCurrentState Model = "client_current_state"
+const ModelClientDashboard Model = "client_dashboard"
+const ModelClientDistance Model = "client_distance"
+const ModelClientEvents Model = "client_events"
+const ModelClientList Model = "client-list"
+const ModelClientRF Model = "client_rf"
+const ModelClientRating Model = "client_rating"
+const ModelClientSession Model = "client_session"
+const ModelClientSessionAvg Model = "client_session_avg"
+const ModelClientStatExt Model = "client-stat-ext"
+const ModelClientStats Model = "client-stat"
+const ModelClientTimeline Model = "client_timeline"
+const ModelCommonDashboard Model = "common_dashboard"
+const ModelCommonEvents Model = "common_events"
+const ModelCompactDashboard Model = "compact_dashboard"
+const ModelConfiguration Model = "configuration"
+const ModelController Model = "controller"
+const ModelDitExport Model = "dit_export"
+const ModelExternalAP Model = "ext_access_point"
+const ModelHeatMapClients Model = "heatmap_clients"
+const ModelHeatMapLBSClients Model = "heatmap_lbs_clients"
+const ModelHeatMapTraffic Model = "heatmap_traffic"
+const ModelHost Model = "host"
+const ModelHotspotProfile Model = "hotspot-profile"
+const ModelL2Chain Model = "l2-chain"
+const ModelLBSCPEInfo Model = "lbs-cpe-info"
+const ModelLBSClientCoord Model = "lbs-client-coords"
+const ModelLBSClientData Model = "lbs-client-data"
+const ModelLBSClientProbes Model = "lbs-client-probes"
+const ModelLBSClientTrack Model = "lbs-client-track"
+const ModelLBSZones Model = "lbs_zones"
+const ModelLicense Model = "license"
+const ModelLicenseLogDaily Model = "license_log_daily"
+const ModelLoaderSettings Model = "settings_loader"
+const ModelLoaderTask Model = "periodic_task"
+const ModelLocation Model = "location"
+const ModelMoniEvents Model = "monitor_events"
+const ModelMonitorCPE Model = "poll-cpe"
+const ModelMonitorEvents Model = "event-stat-rule-violation"
+const ModelMonitorRules Model = "stat-event-rule"
+const ModelOperation Model = "operation"
+const ModelRADIUS Model = "radius"
+const ModelRRMGroups Model = "rrm-groups"
+const ModelRadarExport Model = "radar_exports"
+const ModelResampling Model = "resampling"
+const ModelSnmpWalker Model = "snmp_walker"
+const ModelStatReport Model = "report"
+const ModelSystemCPERateStats Model = "system_cpe_rate_stats"
+const ModelSystemCPEStats Model = "system_cpe_stats"
+const ModelSystemDashboard Model = "system_dashboard"
+const ModelSystemEvents Model = "system_events"
+const ModelSystemRating Model = "system_rating"
+const ModelSystemTimeline Model = "system_timeline"
+const ModelUser Model = "user"
+const ModelWLAN Model = "wlan"
+const ModelWLANAggStat Model = "wlan_agg_stats"
+const ModelWLANCPEAggStat Model = "wlan_cpe_agg_stats"
+const ModelWLANCPETimeline Model = "wlan_cpe_timeline"
+const ModelWLANClientRating Model = "wlan_client_rating"
+const ModelWLANClientTimeline Model = "wlan_client_timeline"
+const ModelWLANCurrentState Model = "wlan_current_state"
+const ModelWLANRateStats Model = "wlans_rate_stats"
+const ModelWLANRating Model = "wlan_rating"
+const ModelWLANSessionAvg Model = "wlan_session_avg"
+const ModelWLANStats Model = "wlans_stats"
+const ModelWLANTags Model = "wlan_tags"
+const ModelWLANTimeline Model = "wlan_timeline"
+const ModelWlanDashboard Model = "wlan_dashboard"
+
+func (en Model) GetPtr() *Model { var v = en; return &v }
+
+func (en Model) String() string {
+	switch en {
+	case ModelBSSRating:
+		return "bss_rating"
+	case ModelBaseLocation:
+		return "base_location"
+	case ModelCPE:
+		return "cpe"
+	case ModelCPEAggStat:
+		return "cpe_agg_stats"
+	case ModelCPEConfigTemplates:
+		return "cpe_config_templates"
+	case ModelCPECurrentState:
+		return "cpe_current_state"
+	case ModelCPEDashboard:
+		return "cpe_dashboard"
+	case ModelCPEEvents:
+		return "cpe_events"
+	case ModelCPEFWUpgrade:
+		return "cpe_fw_upgrade"
+	case ModelCPEMap:
+		return "mapobjects"
+	case ModelCPEMapCPEList:
+		return "cpe_map_cpe_list"
+	case ModelCPEMapPosition:
+		return "cpe_map_position"
+	case ModelCPEMapScale:
+		return "cpe_map_scale"
+	case ModelCPEModels:
+		return "cpe_models"
+	case ModelCPERating:
+		return "cpe_rating"
+	case ModelCPERemote:
+		return "cpe_remote"
+	case ModelCPEReport:
+		return "cpe_report"
+	case ModelCPEScanLast:
+		return "cpe_scan_last"
+	case ModelCPESession:
+		return "cpe_session"
+	case ModelCPESessionAvg:
+		return "cpe_session_avg"
+	case ModelCPEStats:
+		return "stat"
+	case ModelCPETags:
+		return "cpe_tags"
+	case ModelCPETimeline:
+		return "cpe_timeline"
+	case ModelCPEWLANAggStat:
+		return "cpe_wlan_agg_stats"
+	case ModelCaptiveRedirect:
+		return "captive-redirect"
+	case ModelClient:
+		return "client"
+	case ModelClientCurrentState:
+		return "client_current_state"
+	case ModelClientDashboard:
+		return "client_dashboard"
+	case ModelClientDistance:
+		return "client_distance"
+	case ModelClientEvents:
+		return "client_events"
+	case ModelClientList:
+		return "client-list"
+	case ModelClientRF:
+		return "client_rf"
+	case ModelClientRating:
+		return "client_rating"
+	case ModelClientSession:
+		return "client_session"
+	case ModelClientSessionAvg:
+		return "client_session_avg"
+	case ModelClientStatExt:
+		return "client-stat-ext"
+	case ModelClientStats:
+		return "client-stat"
+	case ModelClientTimeline:
+		return "client_timeline"
+	case ModelCommonDashboard:
+		return "common_dashboard"
+	case ModelCommonEvents:
+		return "common_events"
+	case ModelCompactDashboard:
+		return "compact_dashboard"
+	case ModelConfiguration:
+		return "configuration"
+	case ModelController:
+		return "controller"
+	case ModelDitExport:
+		return "dit_export"
+	case ModelExternalAP:
+		return "ext_access_point"
+	case ModelHeatMapClients:
+		return "heatmap_clients"
+	case ModelHeatMapLBSClients:
+		return "heatmap_lbs_clients"
+	case ModelHeatMapTraffic:
+		return "heatmap_traffic"
+	case ModelHost:
+		return "host"
+	case ModelHotspotProfile:
+		return "hotspot-profile"
+	case ModelL2Chain:
+		return "l2-chain"
+	case ModelLBSCPEInfo:
+		return "lbs-cpe-info"
+	case ModelLBSClientCoord:
+		return "lbs-client-coords"
+	case ModelLBSClientData:
+		return "lbs-client-data"
+	case ModelLBSClientProbes:
+		return "lbs-client-probes"
+	case ModelLBSClientTrack:
+		return "lbs-client-track"
+	case ModelLBSZones:
+		return "lbs_zones"
+	case ModelLicense:
+		return "license"
+	case ModelLicenseLogDaily:
+		return "license_log_daily"
+	case ModelLoaderSettings:
+		return "settings_loader"
+	case ModelLoaderTask:
+		return "periodic_task"
+	case ModelLocation:
+		return "location"
+	case ModelMoniEvents:
+		return "monitor_events"
+	case ModelMonitorCPE:
+		return "poll-cpe"
+	case ModelMonitorEvents:
+		return "event-stat-rule-violation"
+	case ModelMonitorRules:
+		return "stat-event-rule"
+	case ModelOperation:
+		return "operation"
+	case ModelRADIUS:
+		return "radius"
+	case ModelRRMGroups:
+		return "rrm-groups"
+	case ModelRadarExport:
+		return "radar_exports"
+	case ModelResampling:
+		return "resampling"
+	case ModelSnmpWalker:
+		return "snmp_walker"
+	case ModelStatReport:
+		return "report"
+	case ModelSystemCPERateStats:
+		return "system_cpe_rate_stats"
+	case ModelSystemCPEStats:
+		return "system_cpe_stats"
+	case ModelSystemDashboard:
+		return "system_dashboard"
+	case ModelSystemEvents:
+		return "system_events"
+	case ModelSystemRating:
+		return "system_rating"
+	case ModelSystemTimeline:
+		return "system_timeline"
+	case ModelUser:
+		return "user"
+	case ModelWLAN:
+		return "wlan"
+	case ModelWLANAggStat:
+		return "wlan_agg_stats"
+	case ModelWLANCPEAggStat:
+		return "wlan_cpe_agg_stats"
+	case ModelWLANCPETimeline:
+		return "wlan_cpe_timeline"
+	case ModelWLANClientRating:
+		return "wlan_client_rating"
+	case ModelWLANClientTimeline:
+		return "wlan_client_timeline"
+	case ModelWLANCurrentState:
+		return "wlan_current_state"
+	case ModelWLANRateStats:
+		return "wlans_rate_stats"
+	case ModelWLANRating:
+		return "wlan_rating"
+	case ModelWLANSessionAvg:
+		return "wlan_session_avg"
+	case ModelWLANStats:
+		return "wlans_stats"
+	case ModelWLANTags:
+		return "wlan_tags"
+	case ModelWLANTimeline:
+		return "wlan_timeline"
+	case ModelWlanDashboard:
+		return "wlan_dashboard"
+	}
+	panic(errors.New("Invalid value of Model: " + string(en)))
+}
+
+func (en *Model) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case ModelBSSRating:
+		return json.Marshal("bss_rating")
+	case ModelBaseLocation:
+		return json.Marshal("base_location")
+	case ModelCPE:
+		return json.Marshal("cpe")
+	case ModelCPEAggStat:
+		return json.Marshal("cpe_agg_stats")
+	case ModelCPEConfigTemplates:
+		return json.Marshal("cpe_config_templates")
+	case ModelCPECurrentState:
+		return json.Marshal("cpe_current_state")
+	case ModelCPEDashboard:
+		return json.Marshal("cpe_dashboard")
+	case ModelCPEEvents:
+		return json.Marshal("cpe_events")
+	case ModelCPEFWUpgrade:
+		return json.Marshal("cpe_fw_upgrade")
+	case ModelCPEMap:
+		return json.Marshal("mapobjects")
+	case ModelCPEMapCPEList:
+		return json.Marshal("cpe_map_cpe_list")
+	case ModelCPEMapPosition:
+		return json.Marshal("cpe_map_position")
+	case ModelCPEMapScale:
+		return json.Marshal("cpe_map_scale")
+	case ModelCPEModels:
+		return json.Marshal("cpe_models")
+	case ModelCPERating:
+		return json.Marshal("cpe_rating")
+	case ModelCPERemote:
+		return json.Marshal("cpe_remote")
+	case ModelCPEReport:
+		return json.Marshal("cpe_report")
+	case ModelCPEScanLast:
+		return json.Marshal("cpe_scan_last")
+	case ModelCPESession:
+		return json.Marshal("cpe_session")
+	case ModelCPESessionAvg:
+		return json.Marshal("cpe_session_avg")
+	case ModelCPEStats:
+		return json.Marshal("stat")
+	case ModelCPETags:
+		return json.Marshal("cpe_tags")
+	case ModelCPETimeline:
+		return json.Marshal("cpe_timeline")
+	case ModelCPEWLANAggStat:
+		return json.Marshal("cpe_wlan_agg_stats")
+	case ModelCaptiveRedirect:
+		return json.Marshal("captive-redirect")
+	case ModelClient:
+		return json.Marshal("client")
+	case ModelClientCurrentState:
+		return json.Marshal("client_current_state")
+	case ModelClientDashboard:
+		return json.Marshal("client_dashboard")
+	case ModelClientDistance:
+		return json.Marshal("client_distance")
+	case ModelClientEvents:
+		return json.Marshal("client_events")
+	case ModelClientList:
+		return json.Marshal("client-list")
+	case ModelClientRF:
+		return json.Marshal("client_rf")
+	case ModelClientRating:
+		return json.Marshal("client_rating")
+	case ModelClientSession:
+		return json.Marshal("client_session")
+	case ModelClientSessionAvg:
+		return json.Marshal("client_session_avg")
+	case ModelClientStatExt:
+		return json.Marshal("client-stat-ext")
+	case ModelClientStats:
+		return json.Marshal("client-stat")
+	case ModelClientTimeline:
+		return json.Marshal("client_timeline")
+	case ModelCommonDashboard:
+		return json.Marshal("common_dashboard")
+	case ModelCommonEvents:
+		return json.Marshal("common_events")
+	case ModelCompactDashboard:
+		return json.Marshal("compact_dashboard")
+	case ModelConfiguration:
+		return json.Marshal("configuration")
+	case ModelController:
+		return json.Marshal("controller")
+	case ModelDitExport:
+		return json.Marshal("dit_export")
+	case ModelExternalAP:
+		return json.Marshal("ext_access_point")
+	case ModelHeatMapClients:
+		return json.Marshal("heatmap_clients")
+	case ModelHeatMapLBSClients:
+		return json.Marshal("heatmap_lbs_clients")
+	case ModelHeatMapTraffic:
+		return json.Marshal("heatmap_traffic")
+	case ModelHost:
+		return json.Marshal("host")
+	case ModelHotspotProfile:
+		return json.Marshal("hotspot-profile")
+	case ModelL2Chain:
+		return json.Marshal("l2-chain")
+	case ModelLBSCPEInfo:
+		return json.Marshal("lbs-cpe-info")
+	case ModelLBSClientCoord:
+		return json.Marshal("lbs-client-coords")
+	case ModelLBSClientData:
+		return json.Marshal("lbs-client-data")
+	case ModelLBSClientProbes:
+		return json.Marshal("lbs-client-probes")
+	case ModelLBSClientTrack:
+		return json.Marshal("lbs-client-track")
+	case ModelLBSZones:
+		return json.Marshal("lbs_zones")
+	case ModelLicense:
+		return json.Marshal("license")
+	case ModelLicenseLogDaily:
+		return json.Marshal("license_log_daily")
+	case ModelLoaderSettings:
+		return json.Marshal("settings_loader")
+	case ModelLoaderTask:
+		return json.Marshal("periodic_task")
+	case ModelLocation:
+		return json.Marshal("location")
+	case ModelMoniEvents:
+		return json.Marshal("monitor_events")
+	case ModelMonitorCPE:
+		return json.Marshal("poll-cpe")
+	case ModelMonitorEvents:
+		return json.Marshal("event-stat-rule-violation")
+	case ModelMonitorRules:
+		return json.Marshal("stat-event-rule")
+	case ModelOperation:
+		return json.Marshal("operation")
+	case ModelRADIUS:
+		return json.Marshal("radius")
+	case ModelRRMGroups:
+		return json.Marshal("rrm-groups")
+	case ModelRadarExport:
+		return json.Marshal("radar_exports")
+	case ModelResampling:
+		return json.Marshal("resampling")
+	case ModelSnmpWalker:
+		return json.Marshal("snmp_walker")
+	case ModelStatReport:
+		return json.Marshal("report")
+	case ModelSystemCPERateStats:
+		return json.Marshal("system_cpe_rate_stats")
+	case ModelSystemCPEStats:
+		return json.Marshal("system_cpe_stats")
+	case ModelSystemDashboard:
+		return json.Marshal("system_dashboard")
+	case ModelSystemEvents:
+		return json.Marshal("system_events")
+	case ModelSystemRating:
+		return json.Marshal("system_rating")
+	case ModelSystemTimeline:
+		return json.Marshal("system_timeline")
+	case ModelUser:
+		return json.Marshal("user")
+	case ModelWLAN:
+		return json.Marshal("wlan")
+	case ModelWLANAggStat:
+		return json.Marshal("wlan_agg_stats")
+	case ModelWLANCPEAggStat:
+		return json.Marshal("wlan_cpe_agg_stats")
+	case ModelWLANCPETimeline:
+		return json.Marshal("wlan_cpe_timeline")
+	case ModelWLANClientRating:
+		return json.Marshal("wlan_client_rating")
+	case ModelWLANClientTimeline:
+		return json.Marshal("wlan_client_timeline")
+	case ModelWLANCurrentState:
+		return json.Marshal("wlan_current_state")
+	case ModelWLANRateStats:
+		return json.Marshal("wlans_rate_stats")
+	case ModelWLANRating:
+		return json.Marshal("wlan_rating")
+	case ModelWLANSessionAvg:
+		return json.Marshal("wlan_session_avg")
+	case ModelWLANStats:
+		return json.Marshal("wlans_stats")
+	case ModelWLANTags:
+		return json.Marshal("wlan_tags")
+	case ModelWLANTimeline:
+		return json.Marshal("wlan_timeline")
+	case ModelWlanDashboard:
+		return json.Marshal("wlan_dashboard")
+	}
+	return nil, errors.New("Invalid value of Model: " + string(*en))
+}
+
+func (en *Model) GetBSON() (interface{}, error) {
+	switch *en {
+	case ModelBSSRating:
+		return "bss_rating", nil
+	case ModelBaseLocation:
+		return "base_location", nil
+	case ModelCPE:
+		return "cpe", nil
+	case ModelCPEAggStat:
+		return "cpe_agg_stats", nil
+	case ModelCPEConfigTemplates:
+		return "cpe_config_templates", nil
+	case ModelCPECurrentState:
+		return "cpe_current_state", nil
+	case ModelCPEDashboard:
+		return "cpe_dashboard", nil
+	case ModelCPEEvents:
+		return "cpe_events", nil
+	case ModelCPEFWUpgrade:
+		return "cpe_fw_upgrade", nil
+	case ModelCPEMap:
+		return "mapobjects", nil
+	case ModelCPEMapCPEList:
+		return "cpe_map_cpe_list", nil
+	case ModelCPEMapPosition:
+		return "cpe_map_position", nil
+	case ModelCPEMapScale:
+		return "cpe_map_scale", nil
+	case ModelCPEModels:
+		return "cpe_models", nil
+	case ModelCPERating:
+		return "cpe_rating", nil
+	case ModelCPERemote:
+		return "cpe_remote", nil
+	case ModelCPEReport:
+		return "cpe_report", nil
+	case ModelCPEScanLast:
+		return "cpe_scan_last", nil
+	case ModelCPESession:
+		return "cpe_session", nil
+	case ModelCPESessionAvg:
+		return "cpe_session_avg", nil
+	case ModelCPEStats:
+		return "stat", nil
+	case ModelCPETags:
+		return "cpe_tags", nil
+	case ModelCPETimeline:
+		return "cpe_timeline", nil
+	case ModelCPEWLANAggStat:
+		return "cpe_wlan_agg_stats", nil
+	case ModelCaptiveRedirect:
+		return "captive-redirect", nil
+	case ModelClient:
+		return "client", nil
+	case ModelClientCurrentState:
+		return "client_current_state", nil
+	case ModelClientDashboard:
+		return "client_dashboard", nil
+	case ModelClientDistance:
+		return "client_distance", nil
+	case ModelClientEvents:
+		return "client_events", nil
+	case ModelClientList:
+		return "client-list", nil
+	case ModelClientRF:
+		return "client_rf", nil
+	case ModelClientRating:
+		return "client_rating", nil
+	case ModelClientSession:
+		return "client_session", nil
+	case ModelClientSessionAvg:
+		return "client_session_avg", nil
+	case ModelClientStatExt:
+		return "client-stat-ext", nil
+	case ModelClientStats:
+		return "client-stat", nil
+	case ModelClientTimeline:
+		return "client_timeline", nil
+	case ModelCommonDashboard:
+		return "common_dashboard", nil
+	case ModelCommonEvents:
+		return "common_events", nil
+	case ModelCompactDashboard:
+		return "compact_dashboard", nil
+	case ModelConfiguration:
+		return "configuration", nil
+	case ModelController:
+		return "controller", nil
+	case ModelDitExport:
+		return "dit_export", nil
+	case ModelExternalAP:
+		return "ext_access_point", nil
+	case ModelHeatMapClients:
+		return "heatmap_clients", nil
+	case ModelHeatMapLBSClients:
+		return "heatmap_lbs_clients", nil
+	case ModelHeatMapTraffic:
+		return "heatmap_traffic", nil
+	case ModelHost:
+		return "host", nil
+	case ModelHotspotProfile:
+		return "hotspot-profile", nil
+	case ModelL2Chain:
+		return "l2-chain", nil
+	case ModelLBSCPEInfo:
+		return "lbs-cpe-info", nil
+	case ModelLBSClientCoord:
+		return "lbs-client-coords", nil
+	case ModelLBSClientData:
+		return "lbs-client-data", nil
+	case ModelLBSClientProbes:
+		return "lbs-client-probes", nil
+	case ModelLBSClientTrack:
+		return "lbs-client-track", nil
+	case ModelLBSZones:
+		return "lbs_zones", nil
+	case ModelLicense:
+		return "license", nil
+	case ModelLicenseLogDaily:
+		return "license_log_daily", nil
+	case ModelLoaderSettings:
+		return "settings_loader", nil
+	case ModelLoaderTask:
+		return "periodic_task", nil
+	case ModelLocation:
+		return "location", nil
+	case ModelMoniEvents:
+		return "monitor_events", nil
+	case ModelMonitorCPE:
+		return "poll-cpe", nil
+	case ModelMonitorEvents:
+		return "event-stat-rule-violation", nil
+	case ModelMonitorRules:
+		return "stat-event-rule", nil
+	case ModelOperation:
+		return "operation", nil
+	case ModelRADIUS:
+		return "radius", nil
+	case ModelRRMGroups:
+		return "rrm-groups", nil
+	case ModelRadarExport:
+		return "radar_exports", nil
+	case ModelResampling:
+		return "resampling", nil
+	case ModelSnmpWalker:
+		return "snmp_walker", nil
+	case ModelStatReport:
+		return "report", nil
+	case ModelSystemCPERateStats:
+		return "system_cpe_rate_stats", nil
+	case ModelSystemCPEStats:
+		return "system_cpe_stats", nil
+	case ModelSystemDashboard:
+		return "system_dashboard", nil
+	case ModelSystemEvents:
+		return "system_events", nil
+	case ModelSystemRating:
+		return "system_rating", nil
+	case ModelSystemTimeline:
+		return "system_timeline", nil
+	case ModelUser:
+		return "user", nil
+	case ModelWLAN:
+		return "wlan", nil
+	case ModelWLANAggStat:
+		return "wlan_agg_stats", nil
+	case ModelWLANCPEAggStat:
+		return "wlan_cpe_agg_stats", nil
+	case ModelWLANCPETimeline:
+		return "wlan_cpe_timeline", nil
+	case ModelWLANClientRating:
+		return "wlan_client_rating", nil
+	case ModelWLANClientTimeline:
+		return "wlan_client_timeline", nil
+	case ModelWLANCurrentState:
+		return "wlan_current_state", nil
+	case ModelWLANRateStats:
+		return "wlans_rate_stats", nil
+	case ModelWLANRating:
+		return "wlan_rating", nil
+	case ModelWLANSessionAvg:
+		return "wlan_session_avg", nil
+	case ModelWLANStats:
+		return "wlans_stats", nil
+	case ModelWLANTags:
+		return "wlan_tags", nil
+	case ModelWLANTimeline:
+		return "wlan_timeline", nil
+	case ModelWlanDashboard:
+		return "wlan_dashboard", nil
+	}
+	return nil, errors.New("Invalid value of Model: " + string(*en))
+}
+
+func (en *Model) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "bss_rating":
+		*en = ModelBSSRating
+		return nil
+	case "base_location":
+		*en = ModelBaseLocation
+		return nil
+	case "cpe":
+		*en = ModelCPE
+		return nil
+	case "cpe_agg_stats":
+		*en = ModelCPEAggStat
+		return nil
+	case "cpe_config_templates":
+		*en = ModelCPEConfigTemplates
+		return nil
+	case "cpe_current_state":
+		*en = ModelCPECurrentState
+		return nil
+	case "cpe_dashboard":
+		*en = ModelCPEDashboard
+		return nil
+	case "cpe_events":
+		*en = ModelCPEEvents
+		return nil
+	case "cpe_fw_upgrade":
+		*en = ModelCPEFWUpgrade
+		return nil
+	case "mapobjects":
+		*en = ModelCPEMap
+		return nil
+	case "cpe_map_cpe_list":
+		*en = ModelCPEMapCPEList
+		return nil
+	case "cpe_map_position":
+		*en = ModelCPEMapPosition
+		return nil
+	case "cpe_map_scale":
+		*en = ModelCPEMapScale
+		return nil
+	case "cpe_models":
+		*en = ModelCPEModels
+		return nil
+	case "cpe_rating":
+		*en = ModelCPERating
+		return nil
+	case "cpe_remote":
+		*en = ModelCPERemote
+		return nil
+	case "cpe_report":
+		*en = ModelCPEReport
+		return nil
+	case "cpe_scan_last":
+		*en = ModelCPEScanLast
+		return nil
+	case "cpe_session":
+		*en = ModelCPESession
+		return nil
+	case "cpe_session_avg":
+		*en = ModelCPESessionAvg
+		return nil
+	case "stat":
+		*en = ModelCPEStats
+		return nil
+	case "cpe_tags":
+		*en = ModelCPETags
+		return nil
+	case "cpe_timeline":
+		*en = ModelCPETimeline
+		return nil
+	case "cpe_wlan_agg_stats":
+		*en = ModelCPEWLANAggStat
+		return nil
+	case "captive-redirect":
+		*en = ModelCaptiveRedirect
+		return nil
+	case "client":
+		*en = ModelClient
+		return nil
+	case "client_current_state":
+		*en = ModelClientCurrentState
+		return nil
+	case "client_dashboard":
+		*en = ModelClientDashboard
+		return nil
+	case "client_distance":
+		*en = ModelClientDistance
+		return nil
+	case "client_events":
+		*en = ModelClientEvents
+		return nil
+	case "client-list":
+		*en = ModelClientList
+		return nil
+	case "client_rf":
+		*en = ModelClientRF
+		return nil
+	case "client_rating":
+		*en = ModelClientRating
+		return nil
+	case "client_session":
+		*en = ModelClientSession
+		return nil
+	case "client_session_avg":
+		*en = ModelClientSessionAvg
+		return nil
+	case "client-stat-ext":
+		*en = ModelClientStatExt
+		return nil
+	case "client-stat":
+		*en = ModelClientStats
+		return nil
+	case "client_timeline":
+		*en = ModelClientTimeline
+		return nil
+	case "common_dashboard":
+		*en = ModelCommonDashboard
+		return nil
+	case "common_events":
+		*en = ModelCommonEvents
+		return nil
+	case "compact_dashboard":
+		*en = ModelCompactDashboard
+		return nil
+	case "configuration":
+		*en = ModelConfiguration
+		return nil
+	case "controller":
+		*en = ModelController
+		return nil
+	case "dit_export":
+		*en = ModelDitExport
+		return nil
+	case "ext_access_point":
+		*en = ModelExternalAP
+		return nil
+	case "heatmap_clients":
+		*en = ModelHeatMapClients
+		return nil
+	case "heatmap_lbs_clients":
+		*en = ModelHeatMapLBSClients
+		return nil
+	case "heatmap_traffic":
+		*en = ModelHeatMapTraffic
+		return nil
+	case "host":
+		*en = ModelHost
+		return nil
+	case "hotspot-profile":
+		*en = ModelHotspotProfile
+		return nil
+	case "l2-chain":
+		*en = ModelL2Chain
+		return nil
+	case "lbs-cpe-info":
+		*en = ModelLBSCPEInfo
+		return nil
+	case "lbs-client-coords":
+		*en = ModelLBSClientCoord
+		return nil
+	case "lbs-client-data":
+		*en = ModelLBSClientData
+		return nil
+	case "lbs-client-probes":
+		*en = ModelLBSClientProbes
+		return nil
+	case "lbs-client-track":
+		*en = ModelLBSClientTrack
+		return nil
+	case "lbs_zones":
+		*en = ModelLBSZones
+		return nil
+	case "license":
+		*en = ModelLicense
+		return nil
+	case "license_log_daily":
+		*en = ModelLicenseLogDaily
+		return nil
+	case "settings_loader":
+		*en = ModelLoaderSettings
+		return nil
+	case "periodic_task":
+		*en = ModelLoaderTask
+		return nil
+	case "location":
+		*en = ModelLocation
+		return nil
+	case "monitor_events":
+		*en = ModelMoniEvents
+		return nil
+	case "poll-cpe":
+		*en = ModelMonitorCPE
+		return nil
+	case "event-stat-rule-violation":
+		*en = ModelMonitorEvents
+		return nil
+	case "stat-event-rule":
+		*en = ModelMonitorRules
+		return nil
+	case "operation":
+		*en = ModelOperation
+		return nil
+	case "radius":
+		*en = ModelRADIUS
+		return nil
+	case "rrm-groups":
+		*en = ModelRRMGroups
+		return nil
+	case "radar_exports":
+		*en = ModelRadarExport
+		return nil
+	case "resampling":
+		*en = ModelResampling
+		return nil
+	case "snmp_walker":
+		*en = ModelSnmpWalker
+		return nil
+	case "report":
+		*en = ModelStatReport
+		return nil
+	case "system_cpe_rate_stats":
+		*en = ModelSystemCPERateStats
+		return nil
+	case "system_cpe_stats":
+		*en = ModelSystemCPEStats
+		return nil
+	case "system_dashboard":
+		*en = ModelSystemDashboard
+		return nil
+	case "system_events":
+		*en = ModelSystemEvents
+		return nil
+	case "system_rating":
+		*en = ModelSystemRating
+		return nil
+	case "system_timeline":
+		*en = ModelSystemTimeline
+		return nil
+	case "user":
+		*en = ModelUser
+		return nil
+	case "wlan":
+		*en = ModelWLAN
+		return nil
+	case "wlan_agg_stats":
+		*en = ModelWLANAggStat
+		return nil
+	case "wlan_cpe_agg_stats":
+		*en = ModelWLANCPEAggStat
+		return nil
+	case "wlan_cpe_timeline":
+		*en = ModelWLANCPETimeline
+		return nil
+	case "wlan_client_rating":
+		*en = ModelWLANClientRating
+		return nil
+	case "wlan_client_timeline":
+		*en = ModelWLANClientTimeline
+		return nil
+	case "wlan_current_state":
+		*en = ModelWLANCurrentState
+		return nil
+	case "wlans_rate_stats":
+		*en = ModelWLANRateStats
+		return nil
+	case "wlan_rating":
+		*en = ModelWLANRating
+		return nil
+	case "wlan_session_avg":
+		*en = ModelWLANSessionAvg
+		return nil
+	case "wlans_stats":
+		*en = ModelWLANStats
+		return nil
+	case "wlan_tags":
+		*en = ModelWLANTags
+		return nil
+	case "wlan_timeline":
+		*en = ModelWLANTimeline
+		return nil
+	case "wlan_dashboard":
+		*en = ModelWlanDashboard
+		return nil
+	}
+	return errors.New("Unknown Model: " + s)
+}
+
+func (en *Model) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "bss_rating":
+		*en = ModelBSSRating
+		return nil
+	case "base_location":
+		*en = ModelBaseLocation
+		return nil
+	case "cpe":
+		*en = ModelCPE
+		return nil
+	case "cpe_agg_stats":
+		*en = ModelCPEAggStat
+		return nil
+	case "cpe_config_templates":
+		*en = ModelCPEConfigTemplates
+		return nil
+	case "cpe_current_state":
+		*en = ModelCPECurrentState
+		return nil
+	case "cpe_dashboard":
+		*en = ModelCPEDashboard
+		return nil
+	case "cpe_events":
+		*en = ModelCPEEvents
+		return nil
+	case "cpe_fw_upgrade":
+		*en = ModelCPEFWUpgrade
+		return nil
+	case "mapobjects":
+		*en = ModelCPEMap
+		return nil
+	case "cpe_map_cpe_list":
+		*en = ModelCPEMapCPEList
+		return nil
+	case "cpe_map_position":
+		*en = ModelCPEMapPosition
+		return nil
+	case "cpe_map_scale":
+		*en = ModelCPEMapScale
+		return nil
+	case "cpe_models":
+		*en = ModelCPEModels
+		return nil
+	case "cpe_rating":
+		*en = ModelCPERating
+		return nil
+	case "cpe_remote":
+		*en = ModelCPERemote
+		return nil
+	case "cpe_report":
+		*en = ModelCPEReport
+		return nil
+	case "cpe_scan_last":
+		*en = ModelCPEScanLast
+		return nil
+	case "cpe_session":
+		*en = ModelCPESession
+		return nil
+	case "cpe_session_avg":
+		*en = ModelCPESessionAvg
+		return nil
+	case "stat":
+		*en = ModelCPEStats
+		return nil
+	case "cpe_tags":
+		*en = ModelCPETags
+		return nil
+	case "cpe_timeline":
+		*en = ModelCPETimeline
+		return nil
+	case "cpe_wlan_agg_stats":
+		*en = ModelCPEWLANAggStat
+		return nil
+	case "captive-redirect":
+		*en = ModelCaptiveRedirect
+		return nil
+	case "client":
+		*en = ModelClient
+		return nil
+	case "client_current_state":
+		*en = ModelClientCurrentState
+		return nil
+	case "client_dashboard":
+		*en = ModelClientDashboard
+		return nil
+	case "client_distance":
+		*en = ModelClientDistance
+		return nil
+	case "client_events":
+		*en = ModelClientEvents
+		return nil
+	case "client-list":
+		*en = ModelClientList
+		return nil
+	case "client_rf":
+		*en = ModelClientRF
+		return nil
+	case "client_rating":
+		*en = ModelClientRating
+		return nil
+	case "client_session":
+		*en = ModelClientSession
+		return nil
+	case "client_session_avg":
+		*en = ModelClientSessionAvg
+		return nil
+	case "client-stat-ext":
+		*en = ModelClientStatExt
+		return nil
+	case "client-stat":
+		*en = ModelClientStats
+		return nil
+	case "client_timeline":
+		*en = ModelClientTimeline
+		return nil
+	case "common_dashboard":
+		*en = ModelCommonDashboard
+		return nil
+	case "common_events":
+		*en = ModelCommonEvents
+		return nil
+	case "compact_dashboard":
+		*en = ModelCompactDashboard
+		return nil
+	case "configuration":
+		*en = ModelConfiguration
+		return nil
+	case "controller":
+		*en = ModelController
+		return nil
+	case "dit_export":
+		*en = ModelDitExport
+		return nil
+	case "ext_access_point":
+		*en = ModelExternalAP
+		return nil
+	case "heatmap_clients":
+		*en = ModelHeatMapClients
+		return nil
+	case "heatmap_lbs_clients":
+		*en = ModelHeatMapLBSClients
+		return nil
+	case "heatmap_traffic":
+		*en = ModelHeatMapTraffic
+		return nil
+	case "host":
+		*en = ModelHost
+		return nil
+	case "hotspot-profile":
+		*en = ModelHotspotProfile
+		return nil
+	case "l2-chain":
+		*en = ModelL2Chain
+		return nil
+	case "lbs-cpe-info":
+		*en = ModelLBSCPEInfo
+		return nil
+	case "lbs-client-coords":
+		*en = ModelLBSClientCoord
+		return nil
+	case "lbs-client-data":
+		*en = ModelLBSClientData
+		return nil
+	case "lbs-client-probes":
+		*en = ModelLBSClientProbes
+		return nil
+	case "lbs-client-track":
+		*en = ModelLBSClientTrack
+		return nil
+	case "lbs_zones":
+		*en = ModelLBSZones
+		return nil
+	case "license":
+		*en = ModelLicense
+		return nil
+	case "license_log_daily":
+		*en = ModelLicenseLogDaily
+		return nil
+	case "settings_loader":
+		*en = ModelLoaderSettings
+		return nil
+	case "periodic_task":
+		*en = ModelLoaderTask
+		return nil
+	case "location":
+		*en = ModelLocation
+		return nil
+	case "monitor_events":
+		*en = ModelMoniEvents
+		return nil
+	case "poll-cpe":
+		*en = ModelMonitorCPE
+		return nil
+	case "event-stat-rule-violation":
+		*en = ModelMonitorEvents
+		return nil
+	case "stat-event-rule":
+		*en = ModelMonitorRules
+		return nil
+	case "operation":
+		*en = ModelOperation
+		return nil
+	case "radius":
+		*en = ModelRADIUS
+		return nil
+	case "rrm-groups":
+		*en = ModelRRMGroups
+		return nil
+	case "radar_exports":
+		*en = ModelRadarExport
+		return nil
+	case "resampling":
+		*en = ModelResampling
+		return nil
+	case "snmp_walker":
+		*en = ModelSnmpWalker
+		return nil
+	case "report":
+		*en = ModelStatReport
+		return nil
+	case "system_cpe_rate_stats":
+		*en = ModelSystemCPERateStats
+		return nil
+	case "system_cpe_stats":
+		*en = ModelSystemCPEStats
+		return nil
+	case "system_dashboard":
+		*en = ModelSystemDashboard
+		return nil
+	case "system_events":
+		*en = ModelSystemEvents
+		return nil
+	case "system_rating":
+		*en = ModelSystemRating
+		return nil
+	case "system_timeline":
+		*en = ModelSystemTimeline
+		return nil
+	case "user":
+		*en = ModelUser
+		return nil
+	case "wlan":
+		*en = ModelWLAN
+		return nil
+	case "wlan_agg_stats":
+		*en = ModelWLANAggStat
+		return nil
+	case "wlan_cpe_agg_stats":
+		*en = ModelWLANCPEAggStat
+		return nil
+	case "wlan_cpe_timeline":
+		*en = ModelWLANCPETimeline
+		return nil
+	case "wlan_client_rating":
+		*en = ModelWLANClientRating
+		return nil
+	case "wlan_client_timeline":
+		*en = ModelWLANClientTimeline
+		return nil
+	case "wlan_current_state":
+		*en = ModelWLANCurrentState
+		return nil
+	case "wlans_rate_stats":
+		*en = ModelWLANRateStats
+		return nil
+	case "wlan_rating":
+		*en = ModelWLANRating
+		return nil
+	case "wlan_session_avg":
+		*en = ModelWLANSessionAvg
+		return nil
+	case "wlans_stats":
+		*en = ModelWLANStats
+		return nil
+	case "wlan_tags":
+		*en = ModelWLANTags
+		return nil
+	case "wlan_timeline":
+		*en = ModelWLANTimeline
+		return nil
+	case "wlan_dashboard":
+		*en = ModelWlanDashboard
+		return nil
+	}
+	return errors.New("Unknown Model: " + s)
+}
+
 type Module string
 
 const ModuleAC Module = "AC"
@@ -2265,6 +4197,88 @@ func (en *Operation) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	return errors.New("Unknown Operation: " + s)
+}
+
+type OperationStatus string
+
+const OperationStatusError OperationStatus = "error"
+const OperationStatusPending OperationStatus = "pending"
+const OperationStatusSuccess OperationStatus = "success"
+
+func (en OperationStatus) GetPtr() *OperationStatus { var v = en; return &v }
+
+func (en OperationStatus) String() string {
+	switch en {
+	case OperationStatusError:
+		return "error"
+	case OperationStatusPending:
+		return "pending"
+	case OperationStatusSuccess:
+		return "success"
+	}
+	panic(errors.New("Invalid value of OperationStatus: " + string(en)))
+}
+
+func (en *OperationStatus) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case OperationStatusError:
+		return json.Marshal("error")
+	case OperationStatusPending:
+		return json.Marshal("pending")
+	case OperationStatusSuccess:
+		return json.Marshal("success")
+	}
+	return nil, errors.New("Invalid value of OperationStatus: " + string(*en))
+}
+
+func (en *OperationStatus) GetBSON() (interface{}, error) {
+	switch *en {
+	case OperationStatusError:
+		return "error", nil
+	case OperationStatusPending:
+		return "pending", nil
+	case OperationStatusSuccess:
+		return "success", nil
+	}
+	return nil, errors.New("Invalid value of OperationStatus: " + string(*en))
+}
+
+func (en *OperationStatus) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "error":
+		*en = OperationStatusError
+		return nil
+	case "pending":
+		*en = OperationStatusPending
+		return nil
+	case "success":
+		*en = OperationStatusSuccess
+		return nil
+	}
+	return errors.New("Unknown OperationStatus: " + s)
+}
+
+func (en *OperationStatus) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "error":
+		*en = OperationStatusError
+		return nil
+	case "pending":
+		*en = OperationStatusPending
+		return nil
+	case "success":
+		*en = OperationStatusSuccess
+		return nil
+	}
+	return errors.New("Unknown OperationStatus: " + s)
 }
 
 type PortalAuthType string

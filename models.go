@@ -679,8 +679,6 @@ type CPEFirmware struct {
 
 // ==== RRM template ====
 
-const COLLECTION_RRM_GROUPS = "rrm_groups"
-
 type RRMGroup struct {
 	Name  string        `json:"name"  bson:"name"`
 	CPEs  []UUID        `json:"cpes"  bson:"cpes"`

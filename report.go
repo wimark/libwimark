@@ -10,11 +10,6 @@ import (
 	"github.com/jung-kurt/gofpdf"
 )
 
-const (
-	COLL_STAT_REPORT        = "reports"
-	COLL_STAT_REPORT_RESULT = "report_results"
-)
-
 type timeBounds struct {
 	Start int64 `json:"start" bson:"start"`
 	Stop  int64 `json:"stop" bson:"stop"`
@@ -69,7 +64,7 @@ type StatReportResult struct {
 	CreateAt time.Time `json:"create_at" bson:"create_at"`
 }
 
-//GenerateFileReport return []byte as format: csv,pdf,xls
+// GenerateFileReport return []byte as format: csv,pdf,xls
 // format set as format variable
 // set data as [][]string by table(columns and rows)
 func GenerateFileReport(data [][]string, format string) ([]byte, error) {
