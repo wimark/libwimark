@@ -2,10 +2,7 @@ package libwimark
 
 import (
 	"bytes"
-	// "encoding/json"
-	// "errors"
 	"io"
-	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -22,7 +19,7 @@ func SendHTTPPost(url, mime string, request []byte) ([]byte, error) {
 	}
 	defer resp.Body.Close()
 
-	return ioutil.ReadAll(resp.Body)
+	return io.ReadAll(resp.Body)
 }
 
 func SendHTTPGet(url string) ([]byte, error) {
@@ -32,7 +29,7 @@ func SendHTTPGet(url string) ([]byte, error) {
 	}
 	defer resp.Body.Close()
 
-	return ioutil.ReadAll(resp.Body)
+	return io.ReadAll(resp.Body)
 }
 
 func SendHTTPPostFile(url, filename, filetype string) ([]byte, error) {
@@ -68,5 +65,5 @@ func SendHTTPPostFile(url, filename, filetype string) ([]byte, error) {
 	}
 	defer resp.Body.Close()
 
-	return ioutil.ReadAll(resp.Body)
+	return io.ReadAll(resp.Body)
 }

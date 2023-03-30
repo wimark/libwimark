@@ -86,6 +86,18 @@ func (sc *SpeedConfig) String() string {
 	return fmt.Sprintf("%d%s", sc.Value, sc.Type.String())
 }
 
+// ==== Otion 82 config ====
+type Option82Default struct {
+	Enabled bool   `json:"enabled"`
+	Iface   string `json:"iface"`
+	CID     string `json:"cid"` //circuit_id
+	RID     string `json:"rid"` //remote_id
+}
+
+type Opion82Config struct {
+	Default Option82Default `json:"default"`
+}
+
 type WLAN struct {
 	Name        string       `json:"name"`
 	SSID        string       `json:"ssid"`
@@ -163,16 +175,6 @@ type WLAN struct {
 	SignalStrikes    int `json:"signal_strikes"`
 	SignalPollTime   int `json:"signal_poll_time"`
 	SignalDropReason int `json:"signal_drop_reason"`
-
-	//option 82
-	Option82 Option82 `json:"option82"`
-}
-
-type Option82 struct {
-	Enable bool `json:"option82_enable"`
-	//todo; check ascii data
-	CircuetID string `json:"option82_cid"`
-	RemoteID  string `json:"option82_rid"`
 }
 
 type WLANCompact struct {
@@ -401,6 +403,8 @@ type CPEConfig struct {
 
 	NetManual  NetManual  `json:"net_manual" bson:"net_manual"`
 	WifiManual WifiManual `json:"wifi_manual" bson:"wifi_manual"`
+
+	Option82 Opion82Config `json:"option82" bson:"option82"`
 }
 
 // ---- Beeline config ----

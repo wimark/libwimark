@@ -404,6 +404,7 @@ type UciConfig struct {
 	System   UciSystem   `json:"system,omitempty"`
 	Network  UciNetwork  `json:"network,omitempty"`
 	Wsnmpd   interface{} `json:"wmsnmpd,omitempty"`
+	Option82 interface{} `json:"option82,omitempty"`
 }
 
 //------------- JSON conversion ----------------

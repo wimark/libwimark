@@ -54,14 +54,14 @@ var SampleStruct = GeneralStruct{
 	I: 1,
 	S: "string",
 	E1: map[string]Embedded1{
-		"A": Embedded1{
+		"A": {
 			A1:   42,
 			A2:   "24",
 			Type: "a",
 		},
 	},
 	E2: map[string]Embedded2{
-		"B2": Embedded2{
+		"B2": {
 			A1:   "24",
 			A2:   42,
 			Type: "b",
@@ -69,14 +69,14 @@ var SampleStruct = GeneralStruct{
 		},
 	},
 	E3: map[string]Embedded3{
-		"B3": Embedded3{
+		"B3": {
 			S:    "sss",
 			Type: "b",
 			Num:  "3",
 		},
 	},
 	E: map[string]EmbeddedFull{
-		"E": EmbeddedFull{
+		"E": {
 			B:    true,
 			Type: "type",
 		},
