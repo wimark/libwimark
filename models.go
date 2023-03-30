@@ -88,10 +88,10 @@ func (sc *SpeedConfig) String() string {
 
 // ==== Otion 82 config ====
 type Option82Default struct {
-	Enabled bool   `json:"enabled"` //tdod: legacy option?
-	Iface   string `json:"iface"`
-	CID     string `json:"cid"` //circuit_id
-	RID     string `json:"rid"` //remote_id
+	//Enabled bool   `json:"enabled"` //tdod: legacy option?
+	Iface string `json:"iface"`
+	CID   string `json:"cid"` //circuit_id
+	RID   string `json:"rid"` //remote_id
 }
 
 type Opion82Config struct {
