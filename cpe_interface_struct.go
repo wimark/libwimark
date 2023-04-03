@@ -152,8 +152,10 @@ type UciWifiWlan struct {
 	MACAddr           string      `json:"macaddr,omitempty"`
 	UbusAcctPeriod    string      `json:"ubus_acct_interval,omitempty"`
 
-	//option 82
+	//Dhcp injection
 	Option82State string `json:"option82state,omitempty"`
+	Option82CID   string `json:"option82CID,omitempty"` //todo: check it in wlan?
+	Option82RID   string `json:"option82RID,omitempty"` //todo: check it in wlan?
 
 	// security
 	NasID       string `json:"nasid,omitempty"`
@@ -305,16 +307,10 @@ type UciWifiIface struct {
 	RSSIThreshold  string      `json:"rssi_reject_assoc_rssi"`
 	NoScan         string      `json:"noscan"`
 	// Band           string      `json:"band,omitempty"`
-	ChanBandwidth string `json:"chanbw,omitempty"`
-	CellDensity   string `json:"cell_density,omitempty"`
-
+	ChanBandwidth  string `json:"chanbw,omitempty"`
+	CellDensity    string `json:"cell_density,omitempty"`
 	HESUBeamformee string `json:"he_su_beamformee,omitempty"`
 	HEBSSColor     string `json:"he_bss_color,omitempty"`
-	//Dhcp injection
-	//todo: here make opt not an interface
-	Option82Enabled bool   `json:"option82enabled,omitempty"`
-	Option82CID     string `json:"option82CID,omitempty"` //todo: check it in wlan?
-	Option82RID     string `json:"option82RID,omitempty"` //todo: check it in wlan?
 }
 type UciRadius struct {
 	Type       string `json:".type"`
