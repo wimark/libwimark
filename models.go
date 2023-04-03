@@ -87,15 +87,11 @@ func (sc *SpeedConfig) String() string {
 }
 
 // ==== Otion 82 config ====
-type Option82Default struct {
-	//Enabled bool   `json:"enabled"` //tdod: legacy option?
-	Iface string `json:"iface"`
-	CID   string `json:"cid"` //circuit_id
-	RID   string `json:"rid"` //remote_id
-}
-
-type Opion82Config struct {
-	Default Option82Default `json:"default"`
+type Option82Config struct {
+	Enabled bool   `json:"enabled"`
+	Iface   string `json:"iface"`
+	CID     string `json:"cid"` //circuit_id
+	RID     string `json:"rid"` //remote_id
 }
 
 type WLAN struct {
@@ -192,6 +188,8 @@ type WLANCompact struct {
 	Proto         TunnelType `json:"proto"`          // l2tp or gretap or ??
 	DefaultTunnel string     `json:"default_tunnel"` // network name on server (only for l2tp)
 	PeerAddress   string     `json:"peer_address"`   // peer address of server
+	//-->> option82 state
+	Option82State bool `json:"option82state"` // turn on option82
 }
 
 // ==== CPE ====
@@ -257,27 +255,29 @@ type PowerConfig struct {
 }
 
 type WiFiConfig struct {
-	BandMode       string      `json:"bandmode"`
-	Bandwidth      string      `json:"bandwidth"`
-	TxPower        string      `json:"txpower"`
-	MinTxPower     string      `json:"mintxpower"`
-	Power          PowerConfig `json:"power"`
-	WLANs          []UUID      `json:"wlans"`
-	Channels       []int       `json:"channels"`
-	Country        string      `json:"country"`
-	MaxClients     int         `json:"maxclients"`
-	ScanConfig     ScanConfig  `json:"scanningconfig"`
-	RequireMode    MCSRequire  `json:"require_mode"`
-	Frequency      string      `json:"frequency"`
-	BasicRate      string      `json:"basic_rate"`
-	SupportedRates interface{} `json:"supported_rates"`
-	LegacyRates    string      `json:"legacy_rates"`
-	LogLevel       string      `json:"log_level"`
-	MaxInactivity  int         `json:"max_inactivity"`
-	CellDensity    int         `json:"cell_density"`
+	BandMode       string         `json:"bandmode"`
+	Bandwidth      string         `json:"bandwidth"`
+	TxPower        string         `json:"txpower"`
+	MinTxPower     string         `json:"mintxpower"`
+	Power          PowerConfig    `json:"power"`
+	WLANs          []UUID         `json:"wlans"`
+	Channels       []int          `json:"channels"`
+	Country        string         `json:"country"`
+	MaxClients     int            `json:"maxclients"`
+	ScanConfig     ScanConfig     `json:"scanningconfig"`
+	Option82Config Option82Config `json:"option82config"`
+	RequireMode    MCSRequire     `json:"require_mode"`
+	Frequency      string         `json:"frequency"`
+	BasicRate      string         `json:"basic_rate"`
+	SupportedRates interface{}    `json:"supported_rates"`
+	LegacyRates    string         `json:"legacy_rates"`
+	LogLevel       string         `json:"log_level"`
+	MaxInactivity  int            `json:"max_inactivity"`
+	CellDensity    int            `json:"cell_density"`
 }
 
 type WiFiConfigs map[string]WiFiConfig
+
 type wifiCfg struct {
 	Id       string     `bson:"_id"`
 	Contents WiFiConfig `bson:",inline"`
@@ -406,8 +406,6 @@ type CPEConfig struct {
 
 	NetManual  NetManual  `json:"net_manual" bson:"net_manual"`
 	WifiManual WifiManual `json:"wifi_manual" bson:"wifi_manual"`
-	//-->>mal
-	Option82 Opion82Config `json:"option82" bson:"option82"`
 }
 
 // ---- Beeline config ----
