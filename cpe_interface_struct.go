@@ -154,8 +154,8 @@ type UciWifiWlan struct {
 
 	//Dhcp injection
 	Option82State string `json:"option82state,omitempty"`
-	Option82CID   string `json:"option82CID,omitempty"` //todo: check it in wlan?
-	Option82RID   string `json:"option82RID,omitempty"` //todo: check it in wlan?
+	Option82CID   string `json:"option82cid,omitempty"` //todo: check it in wlan?
+	Option82RID   string `json:"option82rid,omitempty"` //todo: check it in wlan?
 
 	// security
 	NasID       string `json:"nasid,omitempty"`
