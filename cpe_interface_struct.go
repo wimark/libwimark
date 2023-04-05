@@ -153,7 +153,7 @@ type UciWifiWlan struct {
 	UbusAcctPeriod    string      `json:"ubus_acct_interval,omitempty"`
 
 	//Dhcp injection
-	Option82State string `json:"option82state,omitempty"`
+	Option82State bool   `json:"option82state,omitempty"`
 	Option82CID   string `json:"option82cid,omitempty"` //todo: check it in wlan?
 	Option82RID   string `json:"option82rid,omitempty"` //todo: check it in wlan?
 

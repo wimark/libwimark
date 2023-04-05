@@ -87,12 +87,12 @@ func (sc *SpeedConfig) String() string {
 }
 
 // ==== Otion 82 config ====
-type Option82Config struct {
-	Enabled bool   `json:"enabled"`
-	Iface   string `json:"iface"`
-	CID     string `json:"cid"` //circuit_id
-	RID     string `json:"rid"` //remote_id
-}
+// type Option82Config struct {
+// 	Enabled bool   `json:"enabled"`
+// 	Iface   string `json:"iface"`
+// 	CID     string `json:"cid"` //circuit_id
+// 	RID     string `json:"rid"` //remote_id
+// }
 
 type WLAN struct {
 	Name        string       `json:"name"`
@@ -255,25 +255,25 @@ type PowerConfig struct {
 }
 
 type WiFiConfig struct {
-	BandMode       string         `json:"bandmode"`
-	Bandwidth      string         `json:"bandwidth"`
-	TxPower        string         `json:"txpower"`
-	MinTxPower     string         `json:"mintxpower"`
-	Power          PowerConfig    `json:"power"`
-	WLANs          []UUID         `json:"wlans"`
-	Channels       []int          `json:"channels"`
-	Country        string         `json:"country"`
-	MaxClients     int            `json:"maxclients"`
-	ScanConfig     ScanConfig     `json:"scanningconfig"`
-	Option82Config Option82Config `json:"option82config"`
-	RequireMode    MCSRequire     `json:"require_mode"`
-	Frequency      string         `json:"frequency"`
-	BasicRate      string         `json:"basic_rate"`
-	SupportedRates interface{}    `json:"supported_rates"`
-	LegacyRates    string         `json:"legacy_rates"`
-	LogLevel       string         `json:"log_level"`
-	MaxInactivity  int            `json:"max_inactivity"`
-	CellDensity    int            `json:"cell_density"`
+	BandMode       string      `json:"bandmode"`
+	Bandwidth      string      `json:"bandwidth"`
+	TxPower        string      `json:"txpower"`
+	MinTxPower     string      `json:"mintxpower"`
+	Power          PowerConfig `json:"power"`
+	WLANs          []UUID      `json:"wlans"`
+	Channels       []int       `json:"channels"`
+	Country        string      `json:"country"`
+	MaxClients     int         `json:"maxclients"`
+	ScanConfig     ScanConfig  `json:"scanningconfig"`
+	RequireMode    MCSRequire  `json:"require_mode"`
+	Frequency      string      `json:"frequency"`
+	BasicRate      string      `json:"basic_rate"`
+	SupportedRates interface{} `json:"supported_rates"`
+	LegacyRates    string      `json:"legacy_rates"`
+	LogLevel       string      `json:"log_level"`
+	MaxInactivity  int         `json:"max_inactivity"`
+	CellDensity    int         `json:"cell_density"`
+	//Option82Config Option82Config `json:"option82config"`
 }
 
 type WiFiConfigs map[string]WiFiConfig
