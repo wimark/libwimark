@@ -10,9 +10,10 @@ type SSHAccess struct {
 
 // SNMPAccess for SNMP credentials
 type SNMPAccess struct {
-	Community string `json:"community"`
-	Version   string `json:"version"`
-	Port      int    `json:"port"`
+	Community     string `json:"community"`
+	Version       string `json:"version"`
+	Port          int    `json:"port"`
+	SetTrapServer bool   `json:"set_trap_server"`
 }
 
 // Controller for integration with external controller (like Cisco)
