@@ -4281,6 +4281,131 @@ func (en *OperationStatus) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown OperationStatus: " + s)
 }
 
+type Option82CircuitIDType string
+
+const Option82CircuitIDTypeApMacSSID Option82CircuitIDType = "APMAC:SSID"
+const Option82CircuitIDTypeApMacSiteID Option82CircuitIDType = "APMAC:SITEID"
+const Option82CircuitIDTypeBSSIDHostname Option82CircuitIDType = "BSSID:HOSTNAME"
+const Option82CircuitIDTypeVlanSSID Option82CircuitIDType = "VLAN:SSID"
+const Option82CircuitIDTypeWlanIFName Option82CircuitIDType = "WLAN:IFNAME"
+
+func (en Option82CircuitIDType) GetPtr() *Option82CircuitIDType { var v = en; return &v }
+
+func (en Option82CircuitIDType) String() string {
+	switch en {
+	case Option82CircuitIDTypeApMacSSID:
+		return "APMAC:SSID"
+	case Option82CircuitIDTypeApMacSiteID:
+		return "APMAC:SITEID"
+	case Option82CircuitIDTypeBSSIDHostname:
+		return "BSSID:HOSTNAME"
+	case Option82CircuitIDTypeVlanSSID:
+		return "VLAN:SSID"
+	case Option82CircuitIDTypeWlanIFName:
+		return "WLAN:IFNAME"
+	}
+	if len(en) == 0 {
+		return "APMAC:SSID"
+	}
+	panic(errors.New("Invalid value of Option82CircuitIDType: " + string(en)))
+}
+
+func (en *Option82CircuitIDType) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case Option82CircuitIDTypeApMacSSID:
+		return json.Marshal("APMAC:SSID")
+	case Option82CircuitIDTypeApMacSiteID:
+		return json.Marshal("APMAC:SITEID")
+	case Option82CircuitIDTypeBSSIDHostname:
+		return json.Marshal("BSSID:HOSTNAME")
+	case Option82CircuitIDTypeVlanSSID:
+		return json.Marshal("VLAN:SSID")
+	case Option82CircuitIDTypeWlanIFName:
+		return json.Marshal("WLAN:IFNAME")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("APMAC:SSID")
+	}
+	return nil, errors.New("Invalid value of Option82CircuitIDType: " + string(*en))
+}
+
+func (en *Option82CircuitIDType) GetBSON() (interface{}, error) {
+	switch *en {
+	case Option82CircuitIDTypeApMacSSID:
+		return "APMAC:SSID", nil
+	case Option82CircuitIDTypeApMacSiteID:
+		return "APMAC:SITEID", nil
+	case Option82CircuitIDTypeBSSIDHostname:
+		return "BSSID:HOSTNAME", nil
+	case Option82CircuitIDTypeVlanSSID:
+		return "VLAN:SSID", nil
+	case Option82CircuitIDTypeWlanIFName:
+		return "WLAN:IFNAME", nil
+	}
+	if len(*en) == 0 {
+		return "APMAC:SSID", nil
+	}
+	return nil, errors.New("Invalid value of Option82CircuitIDType: " + string(*en))
+}
+
+func (en *Option82CircuitIDType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "APMAC:SSID":
+		*en = Option82CircuitIDTypeApMacSSID
+		return nil
+	case "APMAC:SITEID":
+		*en = Option82CircuitIDTypeApMacSiteID
+		return nil
+	case "BSSID:HOSTNAME":
+		*en = Option82CircuitIDTypeBSSIDHostname
+		return nil
+	case "VLAN:SSID":
+		*en = Option82CircuitIDTypeVlanSSID
+		return nil
+	case "WLAN:IFNAME":
+		*en = Option82CircuitIDTypeWlanIFName
+		return nil
+	}
+	if len(s) == 0 {
+		*en = Option82CircuitIDTypeApMacSSID
+		return nil
+	}
+	return errors.New("Unknown Option82CircuitIDType: " + s)
+}
+
+func (en *Option82CircuitIDType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "APMAC:SSID":
+		*en = Option82CircuitIDTypeApMacSSID
+		return nil
+	case "APMAC:SITEID":
+		*en = Option82CircuitIDTypeApMacSiteID
+		return nil
+	case "BSSID:HOSTNAME":
+		*en = Option82CircuitIDTypeBSSIDHostname
+		return nil
+	case "VLAN:SSID":
+		*en = Option82CircuitIDTypeVlanSSID
+		return nil
+	case "WLAN:IFNAME":
+		*en = Option82CircuitIDTypeWlanIFName
+		return nil
+	}
+	if len(s) == 0 {
+		*en = Option82CircuitIDTypeApMacSSID
+		return nil
+	}
+	return errors.New("Unknown Option82CircuitIDType: " + s)
+}
+
 type PortalAuthType string
 
 const PortalAuthTypeExternal PortalAuthType = "external"

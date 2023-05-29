@@ -383,6 +383,15 @@ Telegram  = "telegram"
 Email = "email"
 Mqtt   = "mqtt"
 
+[Option82CircuitIDType]
+default="ApMacSSID"
+[Option82CircuitIDType.variants]
+ApMacSSID="APMAC:SSID"
+WlanIFName="WLAN:IFNAME"
+VlanSSID="VLAN:SSID"
+BSSIDHostname="BSSID:HOSTNAME"
+ApMacSiteID="APMAC:SITEID"
+
 [OperationStatus]
 [OperationStatus.variants]
 Success = "success"
