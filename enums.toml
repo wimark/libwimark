@@ -383,9 +383,9 @@ Telegram  = "telegram"
 Email = "email"
 Mqtt   = "mqtt"
 
-[Option82CircuitIDType]
+[Option82RemoteIDType]
 default="ApMacSSID"
-[Option82CircuitIDType.variants]
+[Option82RemoteIDType.variants]
 ApMacSSID="APMAC:SSID"
 WlanIFName="WLAN:IFNAME"
 VlanSSID="VLAN:SSID"

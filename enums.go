@@ -4281,129 +4281,129 @@ func (en *OperationStatus) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown OperationStatus: " + s)
 }
 
-type Option82CircuitIDType string
+type Option82RemoteIDType string
 
-const Option82CircuitIDTypeApMacSSID Option82CircuitIDType = "APMAC:SSID"
-const Option82CircuitIDTypeApMacSiteID Option82CircuitIDType = "APMAC:SITEID"
-const Option82CircuitIDTypeBSSIDHostname Option82CircuitIDType = "BSSID:HOSTNAME"
-const Option82CircuitIDTypeVlanSSID Option82CircuitIDType = "VLAN:SSID"
-const Option82CircuitIDTypeWlanIFName Option82CircuitIDType = "WLAN:IFNAME"
+const Option82RemoteIDTypeApMacSSID Option82RemoteIDType = "APMAC:SSID"
+const Option82RemoteIDTypeApMacSiteID Option82RemoteIDType = "APMAC:SITEID"
+const Option82RemoteIDTypeBSSIDHostname Option82RemoteIDType = "BSSID:HOSTNAME"
+const Option82RemoteIDTypeVlanSSID Option82RemoteIDType = "VLAN:SSID"
+const Option82RemoteIDTypeWlanIFName Option82RemoteIDType = "WLAN:IFNAME"
 
-func (en Option82CircuitIDType) GetPtr() *Option82CircuitIDType { var v = en; return &v }
+func (en Option82RemoteIDType) GetPtr() *Option82RemoteIDType { var v = en; return &v }
 
-func (en Option82CircuitIDType) String() string {
+func (en Option82RemoteIDType) String() string {
 	switch en {
-	case Option82CircuitIDTypeApMacSSID:
+	case Option82RemoteIDTypeApMacSSID:
 		return "APMAC:SSID"
-	case Option82CircuitIDTypeApMacSiteID:
+	case Option82RemoteIDTypeApMacSiteID:
 		return "APMAC:SITEID"
-	case Option82CircuitIDTypeBSSIDHostname:
+	case Option82RemoteIDTypeBSSIDHostname:
 		return "BSSID:HOSTNAME"
-	case Option82CircuitIDTypeVlanSSID:
+	case Option82RemoteIDTypeVlanSSID:
 		return "VLAN:SSID"
-	case Option82CircuitIDTypeWlanIFName:
+	case Option82RemoteIDTypeWlanIFName:
 		return "WLAN:IFNAME"
 	}
 	if len(en) == 0 {
 		return "APMAC:SSID"
 	}
-	panic(errors.New("Invalid value of Option82CircuitIDType: " + string(en)))
+	panic(errors.New("Invalid value of Option82RemoteIDType: " + string(en)))
 }
 
-func (en *Option82CircuitIDType) MarshalJSON() ([]byte, error) {
+func (en *Option82RemoteIDType) MarshalJSON() ([]byte, error) {
 	switch *en {
-	case Option82CircuitIDTypeApMacSSID:
+	case Option82RemoteIDTypeApMacSSID:
 		return json.Marshal("APMAC:SSID")
-	case Option82CircuitIDTypeApMacSiteID:
+	case Option82RemoteIDTypeApMacSiteID:
 		return json.Marshal("APMAC:SITEID")
-	case Option82CircuitIDTypeBSSIDHostname:
+	case Option82RemoteIDTypeBSSIDHostname:
 		return json.Marshal("BSSID:HOSTNAME")
-	case Option82CircuitIDTypeVlanSSID:
+	case Option82RemoteIDTypeVlanSSID:
 		return json.Marshal("VLAN:SSID")
-	case Option82CircuitIDTypeWlanIFName:
+	case Option82RemoteIDTypeWlanIFName:
 		return json.Marshal("WLAN:IFNAME")
 	}
 	if len(*en) == 0 {
 		return json.Marshal("APMAC:SSID")
 	}
-	return nil, errors.New("Invalid value of Option82CircuitIDType: " + string(*en))
+	return nil, errors.New("Invalid value of Option82RemoteIDType: " + string(*en))
 }
 
-func (en *Option82CircuitIDType) GetBSON() (interface{}, error) {
+func (en *Option82RemoteIDType) GetBSON() (interface{}, error) {
 	switch *en {
-	case Option82CircuitIDTypeApMacSSID:
+	case Option82RemoteIDTypeApMacSSID:
 		return "APMAC:SSID", nil
-	case Option82CircuitIDTypeApMacSiteID:
+	case Option82RemoteIDTypeApMacSiteID:
 		return "APMAC:SITEID", nil
-	case Option82CircuitIDTypeBSSIDHostname:
+	case Option82RemoteIDTypeBSSIDHostname:
 		return "BSSID:HOSTNAME", nil
-	case Option82CircuitIDTypeVlanSSID:
+	case Option82RemoteIDTypeVlanSSID:
 		return "VLAN:SSID", nil
-	case Option82CircuitIDTypeWlanIFName:
+	case Option82RemoteIDTypeWlanIFName:
 		return "WLAN:IFNAME", nil
 	}
 	if len(*en) == 0 {
 		return "APMAC:SSID", nil
 	}
-	return nil, errors.New("Invalid value of Option82CircuitIDType: " + string(*en))
+	return nil, errors.New("Invalid value of Option82RemoteIDType: " + string(*en))
 }
 
-func (en *Option82CircuitIDType) UnmarshalJSON(b []byte) error {
+func (en *Option82RemoteIDType) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
 		return err
 	}
 	switch s {
 	case "APMAC:SSID":
-		*en = Option82CircuitIDTypeApMacSSID
+		*en = Option82RemoteIDTypeApMacSSID
 		return nil
 	case "APMAC:SITEID":
-		*en = Option82CircuitIDTypeApMacSiteID
+		*en = Option82RemoteIDTypeApMacSiteID
 		return nil
 	case "BSSID:HOSTNAME":
-		*en = Option82CircuitIDTypeBSSIDHostname
+		*en = Option82RemoteIDTypeBSSIDHostname
 		return nil
 	case "VLAN:SSID":
-		*en = Option82CircuitIDTypeVlanSSID
+		*en = Option82RemoteIDTypeVlanSSID
 		return nil
 	case "WLAN:IFNAME":
-		*en = Option82CircuitIDTypeWlanIFName
+		*en = Option82RemoteIDTypeWlanIFName
 		return nil
 	}
 	if len(s) == 0 {
-		*en = Option82CircuitIDTypeApMacSSID
+		*en = Option82RemoteIDTypeApMacSSID
 		return nil
 	}
-	return errors.New("Unknown Option82CircuitIDType: " + s)
+	return errors.New("Unknown Option82RemoteIDType: " + s)
 }
 
-func (en *Option82CircuitIDType) SetBSON(v bson.Raw) error {
+func (en *Option82RemoteIDType) SetBSON(v bson.Raw) error {
 	var s string
 	if err := v.Unmarshal(&s); err != nil {
 		return err
 	}
 	switch s {
 	case "APMAC:SSID":
-		*en = Option82CircuitIDTypeApMacSSID
+		*en = Option82RemoteIDTypeApMacSSID
 		return nil
 	case "APMAC:SITEID":
-		*en = Option82CircuitIDTypeApMacSiteID
+		*en = Option82RemoteIDTypeApMacSiteID
 		return nil
 	case "BSSID:HOSTNAME":
-		*en = Option82CircuitIDTypeBSSIDHostname
+		*en = Option82RemoteIDTypeBSSIDHostname
 		return nil
 	case "VLAN:SSID":
-		*en = Option82CircuitIDTypeVlanSSID
+		*en = Option82RemoteIDTypeVlanSSID
 		return nil
 	case "WLAN:IFNAME":
-		*en = Option82CircuitIDTypeWlanIFName
+		*en = Option82RemoteIDTypeWlanIFName
 		return nil
 	}
 	if len(s) == 0 {
-		*en = Option82CircuitIDTypeApMacSSID
+		*en = Option82RemoteIDTypeApMacSSID
 		return nil
 	}
-	return errors.New("Unknown Option82CircuitIDType: " + s)
+	return errors.New("Unknown Option82RemoteIDType: " + s)
 }
 
 type PortalAuthType string
