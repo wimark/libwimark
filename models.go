@@ -173,7 +173,7 @@ type WLAN struct {
 	SignalDropReason int `json:"signal_drop_reason"`
 	//-->> option82 state
 	Option82State   bool                 `json:"option82state"` // turn on option82
-	Option82CIDType Option82RemoteIDType `json:"option82_cid_type"`
+	Option82RIDType Option82RemoteIDType `json:"option82rid_type"`
 }
 
 type WLANCompact struct {
@@ -190,7 +190,7 @@ type WLANCompact struct {
 	PeerAddress   string     `json:"peer_address"`   // peer address of server
 	//-->> option82 state
 	Option82State   bool                 `json:"option82state"` // turn on option82
-	Option82CIDType Option82RemoteIDType `json:"option82_cid_type"`
+	Option82RIDType Option82RemoteIDType `json:"option82rid_type"`
 }
 
 // ==== CPE ====
