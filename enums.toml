@@ -429,6 +429,13 @@ AES="AES"
 AES192="AES-192"
 AES256="AES-256"
 
+[SNMPVersion]
+default="V1"
+[SNMPVersion.variants]
+V1="1"
+V2="2c"
+V3="3"
+
 [Model]
 [Model.variants]
 WLAN         	   = "wlan"

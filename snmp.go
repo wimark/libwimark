@@ -47,11 +47,12 @@ type SNMPV3UserGroups struct {
 
 // SNMPHost -
 type SNMPHost struct {
-	ID              UUID   `json:"id" bson:"_id"`
-	IPAddress       string `json:"ip_address" bson:"ip_address"`
-	Port            int    `json:"port" bson:"port"`
-	CommunityString UUID   `json:"community_string" bson:"community_string"`
-	Type            string `json:"type" bson:"type"`
+	ID              UUID        `json:"id" bson:"_id"`
+	IPAddress       string      `json:"ip_address" bson:"ip_address"`
+	Version         SNMPVersion `json:"version" bson:"version"`
+	Port            int         `json:"port" bson:"port"`
+	CommunityString UUID        `json:"community_string" bson:"community_string"`
+	Type            string      `json:"type" bson:"type"`
 }
 
 // SNMPWirelessTraps -

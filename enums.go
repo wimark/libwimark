@@ -6344,6 +6344,105 @@ func (en *SNMPSecurityLevelType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown SNMPSecurityLevelType: " + s)
 }
 
+type SNMPVersion string
+
+const SNMPVersionV1 SNMPVersion = "1"
+const SNMPVersionV2 SNMPVersion = "2c"
+const SNMPVersionV3 SNMPVersion = "3"
+
+func (en SNMPVersion) GetPtr() *SNMPVersion { var v = en; return &v }
+
+func (en SNMPVersion) String() string {
+	switch en {
+	case SNMPVersionV1:
+		return "1"
+	case SNMPVersionV2:
+		return "2c"
+	case SNMPVersionV3:
+		return "3"
+	}
+	if len(en) == 0 {
+		return "1"
+	}
+	panic(errors.New("Invalid value of SNMPVersion: " + string(en)))
+}
+
+func (en *SNMPVersion) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case SNMPVersionV1:
+		return json.Marshal("1")
+	case SNMPVersionV2:
+		return json.Marshal("2c")
+	case SNMPVersionV3:
+		return json.Marshal("3")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("1")
+	}
+	return nil, errors.New("Invalid value of SNMPVersion: " + string(*en))
+}
+
+func (en *SNMPVersion) GetBSON() (interface{}, error) {
+	switch *en {
+	case SNMPVersionV1:
+		return "1", nil
+	case SNMPVersionV2:
+		return "2c", nil
+	case SNMPVersionV3:
+		return "3", nil
+	}
+	if len(*en) == 0 {
+		return "1", nil
+	}
+	return nil, errors.New("Invalid value of SNMPVersion: " + string(*en))
+}
+
+func (en *SNMPVersion) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "1":
+		*en = SNMPVersionV1
+		return nil
+	case "2c":
+		*en = SNMPVersionV2
+		return nil
+	case "3":
+		*en = SNMPVersionV3
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPVersionV1
+		return nil
+	}
+	return errors.New("Unknown SNMPVersion: " + s)
+}
+
+func (en *SNMPVersion) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "1":
+		*en = SNMPVersionV1
+		return nil
+	case "2c":
+		*en = SNMPVersionV2
+		return nil
+	case "3":
+		*en = SNMPVersionV3
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPVersionV1
+		return nil
+	}
+	return errors.New("Unknown SNMPVersion: " + s)
+}
+
 type SecuritySuite string
 
 const SecuritySuiteAES SecuritySuite = "aes"
