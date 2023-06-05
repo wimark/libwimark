@@ -398,6 +398,36 @@ Success = "success"
 Error   = "error"
 Pending = "pending"
 
+[SNMPAccessMode]
+default = "Read"
+[SNMPAccessMode.variants]
+Read = "read"
+ReadWrite = "read/write"
+
+[SNMPSecurityLevelType]
+default="NoAuthNoPriv"
+[SNMPSecurityLevelType.variants]
+NoAuthNoPriv = "noAuthNoPriv"
+AuthNoPriv = "authNoPriv"
+AuthPriv = "authPriv"
+
+[SNMPAuthProtocol]
+default="MD5"
+[SNMPAuthProtocol.variants]
+MD5="MD5"
+SHA="SHA"
+SHA224="SHA-224"
+SHA256="SHA-256"
+SHA384="SHA-384"
+SHA512="SHA-512"
+
+[SNMPPrivacyProtocol]
+default="DES"
+[SNMPPrivacyProtocol.variants]
+DES="DES"
+AES="AES"
+AES192="AES-192"
+AES256="AES-256"
 
 [Model]
 [Model.variants]
