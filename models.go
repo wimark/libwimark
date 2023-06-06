@@ -563,6 +563,7 @@ type IPAddress struct {
 	NetMask string `json:"netmask"`
 }
 type CPE struct {
+	ID          UUID         `json:"id" bson:"_id"`
 	Name        string       `json:"name"`
 	Connected   bool         `json:"connected"`
 	Description string       `json:"description"`
