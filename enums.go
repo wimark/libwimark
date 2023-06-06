@@ -469,6 +469,11 @@ const CollRadarVisitsFirst Coll = "radar_visits_first"
 const CollRadarVisitsHour Coll = "radar_visits_hour"
 const CollReportResult Coll = "report_results"
 const CollResamplingConf Coll = "resampling_conf"
+const CollSnmpCommunity Coll = "snmp_community"
+const CollSnmpGeneral Coll = "snmp_general"
+const CollSnmpHosts Coll = "snmp_hosts"
+const CollSnmpUsers Coll = "snmp_users"
+const CollSnmpUsersGroup Coll = "snmp_user_group"
 const CollSnmpWalker Coll = "snmp_walker"
 const CollStatReport Coll = "reports"
 const CollTags Coll = "tags"
@@ -564,6 +569,16 @@ func (en Coll) String() string {
 		return "report_results"
 	case CollResamplingConf:
 		return "resampling_conf"
+	case CollSnmpCommunity:
+		return "snmp_community"
+	case CollSnmpGeneral:
+		return "snmp_general"
+	case CollSnmpHosts:
+		return "snmp_hosts"
+	case CollSnmpUsers:
+		return "snmp_users"
+	case CollSnmpUsersGroup:
+		return "snmp_user_group"
 	case CollSnmpWalker:
 		return "snmp_walker"
 	case CollStatReport:
@@ -666,6 +681,16 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("report_results")
 	case CollResamplingConf:
 		return json.Marshal("resampling_conf")
+	case CollSnmpCommunity:
+		return json.Marshal("snmp_community")
+	case CollSnmpGeneral:
+		return json.Marshal("snmp_general")
+	case CollSnmpHosts:
+		return json.Marshal("snmp_hosts")
+	case CollSnmpUsers:
+		return json.Marshal("snmp_users")
+	case CollSnmpUsersGroup:
+		return json.Marshal("snmp_user_group")
 	case CollSnmpWalker:
 		return json.Marshal("snmp_walker")
 	case CollStatReport:
@@ -768,6 +793,16 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "report_results", nil
 	case CollResamplingConf:
 		return "resampling_conf", nil
+	case CollSnmpCommunity:
+		return "snmp_community", nil
+	case CollSnmpGeneral:
+		return "snmp_general", nil
+	case CollSnmpHosts:
+		return "snmp_hosts", nil
+	case CollSnmpUsers:
+		return "snmp_users", nil
+	case CollSnmpUsersGroup:
+		return "snmp_user_group", nil
 	case CollSnmpWalker:
 		return "snmp_walker", nil
 	case CollStatReport:
@@ -915,6 +950,21 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 		return nil
 	case "resampling_conf":
 		*en = CollResamplingConf
+		return nil
+	case "snmp_community":
+		*en = CollSnmpCommunity
+		return nil
+	case "snmp_general":
+		*en = CollSnmpGeneral
+		return nil
+	case "snmp_hosts":
+		*en = CollSnmpHosts
+		return nil
+	case "snmp_users":
+		*en = CollSnmpUsers
+		return nil
+	case "snmp_user_group":
+		*en = CollSnmpUsersGroup
 		return nil
 	case "snmp_walker":
 		*en = CollSnmpWalker
@@ -1069,6 +1119,21 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 		return nil
 	case "resampling_conf":
 		*en = CollResamplingConf
+		return nil
+	case "snmp_community":
+		*en = CollSnmpCommunity
+		return nil
+	case "snmp_general":
+		*en = CollSnmpGeneral
+		return nil
+	case "snmp_hosts":
+		*en = CollSnmpHosts
+		return nil
+	case "snmp_users":
+		*en = CollSnmpUsers
+		return nil
+	case "snmp_user_group":
+		*en = CollSnmpUsersGroup
 		return nil
 	case "snmp_walker":
 		*en = CollSnmpWalker
