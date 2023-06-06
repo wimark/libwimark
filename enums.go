@@ -469,6 +469,11 @@ const CollRadarVisitsFirst Coll = "radar_visits_first"
 const CollRadarVisitsHour Coll = "radar_visits_hour"
 const CollReportResult Coll = "report_results"
 const CollResamplingConf Coll = "resampling_conf"
+const CollSnmpCommunity Coll = "snmp_community"
+const CollSnmpGeneral Coll = "snmp_general"
+const CollSnmpHosts Coll = "snmp_hosts"
+const CollSnmpUsers Coll = "snmp_users"
+const CollSnmpUsersGroup Coll = "snmp_user_group"
 const CollSnmpWalker Coll = "snmp_walker"
 const CollStatReport Coll = "reports"
 const CollTags Coll = "tags"
@@ -564,6 +569,16 @@ func (en Coll) String() string {
 		return "report_results"
 	case CollResamplingConf:
 		return "resampling_conf"
+	case CollSnmpCommunity:
+		return "snmp_community"
+	case CollSnmpGeneral:
+		return "snmp_general"
+	case CollSnmpHosts:
+		return "snmp_hosts"
+	case CollSnmpUsers:
+		return "snmp_users"
+	case CollSnmpUsersGroup:
+		return "snmp_user_group"
 	case CollSnmpWalker:
 		return "snmp_walker"
 	case CollStatReport:
@@ -666,6 +681,16 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("report_results")
 	case CollResamplingConf:
 		return json.Marshal("resampling_conf")
+	case CollSnmpCommunity:
+		return json.Marshal("snmp_community")
+	case CollSnmpGeneral:
+		return json.Marshal("snmp_general")
+	case CollSnmpHosts:
+		return json.Marshal("snmp_hosts")
+	case CollSnmpUsers:
+		return json.Marshal("snmp_users")
+	case CollSnmpUsersGroup:
+		return json.Marshal("snmp_user_group")
 	case CollSnmpWalker:
 		return json.Marshal("snmp_walker")
 	case CollStatReport:
@@ -768,6 +793,16 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "report_results", nil
 	case CollResamplingConf:
 		return "resampling_conf", nil
+	case CollSnmpCommunity:
+		return "snmp_community", nil
+	case CollSnmpGeneral:
+		return "snmp_general", nil
+	case CollSnmpHosts:
+		return "snmp_hosts", nil
+	case CollSnmpUsers:
+		return "snmp_users", nil
+	case CollSnmpUsersGroup:
+		return "snmp_user_group", nil
 	case CollSnmpWalker:
 		return "snmp_walker", nil
 	case CollStatReport:
@@ -915,6 +950,21 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 		return nil
 	case "resampling_conf":
 		*en = CollResamplingConf
+		return nil
+	case "snmp_community":
+		*en = CollSnmpCommunity
+		return nil
+	case "snmp_general":
+		*en = CollSnmpGeneral
+		return nil
+	case "snmp_hosts":
+		*en = CollSnmpHosts
+		return nil
+	case "snmp_users":
+		*en = CollSnmpUsers
+		return nil
+	case "snmp_user_group":
+		*en = CollSnmpUsersGroup
 		return nil
 	case "snmp_walker":
 		*en = CollSnmpWalker
@@ -1069,6 +1119,21 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 		return nil
 	case "resampling_conf":
 		*en = CollResamplingConf
+		return nil
+	case "snmp_community":
+		*en = CollSnmpCommunity
+		return nil
+	case "snmp_general":
+		*en = CollSnmpGeneral
+		return nil
+	case "snmp_hosts":
+		*en = CollSnmpHosts
+		return nil
+	case "snmp_users":
+		*en = CollSnmpUsers
+		return nil
+	case "snmp_user_group":
+		*en = CollSnmpUsersGroup
 		return nil
 	case "snmp_walker":
 		*en = CollSnmpWalker
@@ -5907,6 +5972,540 @@ func (en *ReportType) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	return errors.New("Unknown ReportType: " + s)
+}
+
+type SNMPAccessMode string
+
+const SNMPAccessModeRead SNMPAccessMode = "read"
+const SNMPAccessModeReadWrite SNMPAccessMode = "read/write"
+
+func (en SNMPAccessMode) GetPtr() *SNMPAccessMode { var v = en; return &v }
+
+func (en SNMPAccessMode) String() string {
+	switch en {
+	case SNMPAccessModeRead:
+		return "read"
+	case SNMPAccessModeReadWrite:
+		return "read/write"
+	}
+	if len(en) == 0 {
+		return "read"
+	}
+	panic(errors.New("Invalid value of SNMPAccessMode: " + string(en)))
+}
+
+func (en *SNMPAccessMode) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case SNMPAccessModeRead:
+		return json.Marshal("read")
+	case SNMPAccessModeReadWrite:
+		return json.Marshal("read/write")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("read")
+	}
+	return nil, errors.New("Invalid value of SNMPAccessMode: " + string(*en))
+}
+
+func (en *SNMPAccessMode) GetBSON() (interface{}, error) {
+	switch *en {
+	case SNMPAccessModeRead:
+		return "read", nil
+	case SNMPAccessModeReadWrite:
+		return "read/write", nil
+	}
+	if len(*en) == 0 {
+		return "read", nil
+	}
+	return nil, errors.New("Invalid value of SNMPAccessMode: " + string(*en))
+}
+
+func (en *SNMPAccessMode) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "read":
+		*en = SNMPAccessModeRead
+		return nil
+	case "read/write":
+		*en = SNMPAccessModeReadWrite
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPAccessModeRead
+		return nil
+	}
+	return errors.New("Unknown SNMPAccessMode: " + s)
+}
+
+func (en *SNMPAccessMode) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "read":
+		*en = SNMPAccessModeRead
+		return nil
+	case "read/write":
+		*en = SNMPAccessModeReadWrite
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPAccessModeRead
+		return nil
+	}
+	return errors.New("Unknown SNMPAccessMode: " + s)
+}
+
+type SNMPAuthProtocol string
+
+const SNMPAuthProtocolMD5 SNMPAuthProtocol = "MD5"
+const SNMPAuthProtocolSHA SNMPAuthProtocol = "SHA"
+const SNMPAuthProtocolSHA224 SNMPAuthProtocol = "SHA-224"
+const SNMPAuthProtocolSHA256 SNMPAuthProtocol = "SHA-256"
+const SNMPAuthProtocolSHA384 SNMPAuthProtocol = "SHA-384"
+const SNMPAuthProtocolSHA512 SNMPAuthProtocol = "SHA-512"
+
+func (en SNMPAuthProtocol) GetPtr() *SNMPAuthProtocol { var v = en; return &v }
+
+func (en SNMPAuthProtocol) String() string {
+	switch en {
+	case SNMPAuthProtocolMD5:
+		return "MD5"
+	case SNMPAuthProtocolSHA:
+		return "SHA"
+	case SNMPAuthProtocolSHA224:
+		return "SHA-224"
+	case SNMPAuthProtocolSHA256:
+		return "SHA-256"
+	case SNMPAuthProtocolSHA384:
+		return "SHA-384"
+	case SNMPAuthProtocolSHA512:
+		return "SHA-512"
+	}
+	if len(en) == 0 {
+		return "MD5"
+	}
+	panic(errors.New("Invalid value of SNMPAuthProtocol: " + string(en)))
+}
+
+func (en *SNMPAuthProtocol) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case SNMPAuthProtocolMD5:
+		return json.Marshal("MD5")
+	case SNMPAuthProtocolSHA:
+		return json.Marshal("SHA")
+	case SNMPAuthProtocolSHA224:
+		return json.Marshal("SHA-224")
+	case SNMPAuthProtocolSHA256:
+		return json.Marshal("SHA-256")
+	case SNMPAuthProtocolSHA384:
+		return json.Marshal("SHA-384")
+	case SNMPAuthProtocolSHA512:
+		return json.Marshal("SHA-512")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("MD5")
+	}
+	return nil, errors.New("Invalid value of SNMPAuthProtocol: " + string(*en))
+}
+
+func (en *SNMPAuthProtocol) GetBSON() (interface{}, error) {
+	switch *en {
+	case SNMPAuthProtocolMD5:
+		return "MD5", nil
+	case SNMPAuthProtocolSHA:
+		return "SHA", nil
+	case SNMPAuthProtocolSHA224:
+		return "SHA-224", nil
+	case SNMPAuthProtocolSHA256:
+		return "SHA-256", nil
+	case SNMPAuthProtocolSHA384:
+		return "SHA-384", nil
+	case SNMPAuthProtocolSHA512:
+		return "SHA-512", nil
+	}
+	if len(*en) == 0 {
+		return "MD5", nil
+	}
+	return nil, errors.New("Invalid value of SNMPAuthProtocol: " + string(*en))
+}
+
+func (en *SNMPAuthProtocol) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "MD5":
+		*en = SNMPAuthProtocolMD5
+		return nil
+	case "SHA":
+		*en = SNMPAuthProtocolSHA
+		return nil
+	case "SHA-224":
+		*en = SNMPAuthProtocolSHA224
+		return nil
+	case "SHA-256":
+		*en = SNMPAuthProtocolSHA256
+		return nil
+	case "SHA-384":
+		*en = SNMPAuthProtocolSHA384
+		return nil
+	case "SHA-512":
+		*en = SNMPAuthProtocolSHA512
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPAuthProtocolMD5
+		return nil
+	}
+	return errors.New("Unknown SNMPAuthProtocol: " + s)
+}
+
+func (en *SNMPAuthProtocol) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "MD5":
+		*en = SNMPAuthProtocolMD5
+		return nil
+	case "SHA":
+		*en = SNMPAuthProtocolSHA
+		return nil
+	case "SHA-224":
+		*en = SNMPAuthProtocolSHA224
+		return nil
+	case "SHA-256":
+		*en = SNMPAuthProtocolSHA256
+		return nil
+	case "SHA-384":
+		*en = SNMPAuthProtocolSHA384
+		return nil
+	case "SHA-512":
+		*en = SNMPAuthProtocolSHA512
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPAuthProtocolMD5
+		return nil
+	}
+	return errors.New("Unknown SNMPAuthProtocol: " + s)
+}
+
+type SNMPPrivacyProtocol string
+
+const SNMPPrivacyProtocolAES SNMPPrivacyProtocol = "AES"
+const SNMPPrivacyProtocolAES192 SNMPPrivacyProtocol = "AES-192"
+const SNMPPrivacyProtocolAES256 SNMPPrivacyProtocol = "AES-256"
+const SNMPPrivacyProtocolDES SNMPPrivacyProtocol = "DES"
+
+func (en SNMPPrivacyProtocol) GetPtr() *SNMPPrivacyProtocol { var v = en; return &v }
+
+func (en SNMPPrivacyProtocol) String() string {
+	switch en {
+	case SNMPPrivacyProtocolAES:
+		return "AES"
+	case SNMPPrivacyProtocolAES192:
+		return "AES-192"
+	case SNMPPrivacyProtocolAES256:
+		return "AES-256"
+	case SNMPPrivacyProtocolDES:
+		return "DES"
+	}
+	if len(en) == 0 {
+		return "DES"
+	}
+	panic(errors.New("Invalid value of SNMPPrivacyProtocol: " + string(en)))
+}
+
+func (en *SNMPPrivacyProtocol) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case SNMPPrivacyProtocolAES:
+		return json.Marshal("AES")
+	case SNMPPrivacyProtocolAES192:
+		return json.Marshal("AES-192")
+	case SNMPPrivacyProtocolAES256:
+		return json.Marshal("AES-256")
+	case SNMPPrivacyProtocolDES:
+		return json.Marshal("DES")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("DES")
+	}
+	return nil, errors.New("Invalid value of SNMPPrivacyProtocol: " + string(*en))
+}
+
+func (en *SNMPPrivacyProtocol) GetBSON() (interface{}, error) {
+	switch *en {
+	case SNMPPrivacyProtocolAES:
+		return "AES", nil
+	case SNMPPrivacyProtocolAES192:
+		return "AES-192", nil
+	case SNMPPrivacyProtocolAES256:
+		return "AES-256", nil
+	case SNMPPrivacyProtocolDES:
+		return "DES", nil
+	}
+	if len(*en) == 0 {
+		return "DES", nil
+	}
+	return nil, errors.New("Invalid value of SNMPPrivacyProtocol: " + string(*en))
+}
+
+func (en *SNMPPrivacyProtocol) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "AES":
+		*en = SNMPPrivacyProtocolAES
+		return nil
+	case "AES-192":
+		*en = SNMPPrivacyProtocolAES192
+		return nil
+	case "AES-256":
+		*en = SNMPPrivacyProtocolAES256
+		return nil
+	case "DES":
+		*en = SNMPPrivacyProtocolDES
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPPrivacyProtocolDES
+		return nil
+	}
+	return errors.New("Unknown SNMPPrivacyProtocol: " + s)
+}
+
+func (en *SNMPPrivacyProtocol) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "AES":
+		*en = SNMPPrivacyProtocolAES
+		return nil
+	case "AES-192":
+		*en = SNMPPrivacyProtocolAES192
+		return nil
+	case "AES-256":
+		*en = SNMPPrivacyProtocolAES256
+		return nil
+	case "DES":
+		*en = SNMPPrivacyProtocolDES
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPPrivacyProtocolDES
+		return nil
+	}
+	return errors.New("Unknown SNMPPrivacyProtocol: " + s)
+}
+
+type SNMPSecurityLevelType string
+
+const SNMPSecurityLevelTypeAuthNoPriv SNMPSecurityLevelType = "authNoPriv"
+const SNMPSecurityLevelTypeAuthPriv SNMPSecurityLevelType = "authPriv"
+const SNMPSecurityLevelTypeNoAuthNoPriv SNMPSecurityLevelType = "noAuthNoPriv"
+
+func (en SNMPSecurityLevelType) GetPtr() *SNMPSecurityLevelType { var v = en; return &v }
+
+func (en SNMPSecurityLevelType) String() string {
+	switch en {
+	case SNMPSecurityLevelTypeAuthNoPriv:
+		return "authNoPriv"
+	case SNMPSecurityLevelTypeAuthPriv:
+		return "authPriv"
+	case SNMPSecurityLevelTypeNoAuthNoPriv:
+		return "noAuthNoPriv"
+	}
+	if len(en) == 0 {
+		return "noAuthNoPriv"
+	}
+	panic(errors.New("Invalid value of SNMPSecurityLevelType: " + string(en)))
+}
+
+func (en *SNMPSecurityLevelType) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case SNMPSecurityLevelTypeAuthNoPriv:
+		return json.Marshal("authNoPriv")
+	case SNMPSecurityLevelTypeAuthPriv:
+		return json.Marshal("authPriv")
+	case SNMPSecurityLevelTypeNoAuthNoPriv:
+		return json.Marshal("noAuthNoPriv")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("noAuthNoPriv")
+	}
+	return nil, errors.New("Invalid value of SNMPSecurityLevelType: " + string(*en))
+}
+
+func (en *SNMPSecurityLevelType) GetBSON() (interface{}, error) {
+	switch *en {
+	case SNMPSecurityLevelTypeAuthNoPriv:
+		return "authNoPriv", nil
+	case SNMPSecurityLevelTypeAuthPriv:
+		return "authPriv", nil
+	case SNMPSecurityLevelTypeNoAuthNoPriv:
+		return "noAuthNoPriv", nil
+	}
+	if len(*en) == 0 {
+		return "noAuthNoPriv", nil
+	}
+	return nil, errors.New("Invalid value of SNMPSecurityLevelType: " + string(*en))
+}
+
+func (en *SNMPSecurityLevelType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "authNoPriv":
+		*en = SNMPSecurityLevelTypeAuthNoPriv
+		return nil
+	case "authPriv":
+		*en = SNMPSecurityLevelTypeAuthPriv
+		return nil
+	case "noAuthNoPriv":
+		*en = SNMPSecurityLevelTypeNoAuthNoPriv
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPSecurityLevelTypeNoAuthNoPriv
+		return nil
+	}
+	return errors.New("Unknown SNMPSecurityLevelType: " + s)
+}
+
+func (en *SNMPSecurityLevelType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "authNoPriv":
+		*en = SNMPSecurityLevelTypeAuthNoPriv
+		return nil
+	case "authPriv":
+		*en = SNMPSecurityLevelTypeAuthPriv
+		return nil
+	case "noAuthNoPriv":
+		*en = SNMPSecurityLevelTypeNoAuthNoPriv
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPSecurityLevelTypeNoAuthNoPriv
+		return nil
+	}
+	return errors.New("Unknown SNMPSecurityLevelType: " + s)
+}
+
+type SNMPVersion string
+
+const SNMPVersionV1 SNMPVersion = "1"
+const SNMPVersionV2 SNMPVersion = "2c"
+const SNMPVersionV3 SNMPVersion = "3"
+
+func (en SNMPVersion) GetPtr() *SNMPVersion { var v = en; return &v }
+
+func (en SNMPVersion) String() string {
+	switch en {
+	case SNMPVersionV1:
+		return "1"
+	case SNMPVersionV2:
+		return "2c"
+	case SNMPVersionV3:
+		return "3"
+	}
+	if len(en) == 0 {
+		return "1"
+	}
+	panic(errors.New("Invalid value of SNMPVersion: " + string(en)))
+}
+
+func (en *SNMPVersion) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case SNMPVersionV1:
+		return json.Marshal("1")
+	case SNMPVersionV2:
+		return json.Marshal("2c")
+	case SNMPVersionV3:
+		return json.Marshal("3")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("1")
+	}
+	return nil, errors.New("Invalid value of SNMPVersion: " + string(*en))
+}
+
+func (en *SNMPVersion) GetBSON() (interface{}, error) {
+	switch *en {
+	case SNMPVersionV1:
+		return "1", nil
+	case SNMPVersionV2:
+		return "2c", nil
+	case SNMPVersionV3:
+		return "3", nil
+	}
+	if len(*en) == 0 {
+		return "1", nil
+	}
+	return nil, errors.New("Invalid value of SNMPVersion: " + string(*en))
+}
+
+func (en *SNMPVersion) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "1":
+		*en = SNMPVersionV1
+		return nil
+	case "2c":
+		*en = SNMPVersionV2
+		return nil
+	case "3":
+		*en = SNMPVersionV3
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPVersionV1
+		return nil
+	}
+	return errors.New("Unknown SNMPVersion: " + s)
+}
+
+func (en *SNMPVersion) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "1":
+		*en = SNMPVersionV1
+		return nil
+	case "2c":
+		*en = SNMPVersionV2
+		return nil
+	case "3":
+		*en = SNMPVersionV3
+		return nil
+	}
+	if len(s) == 0 {
+		*en = SNMPVersionV1
+		return nil
+	}
+	return errors.New("Unknown SNMPVersion: " + s)
 }
 
 type SecuritySuite string

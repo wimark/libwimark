@@ -398,6 +398,43 @@ Success = "success"
 Error   = "error"
 Pending = "pending"
 
+[SNMPAccessMode]
+default = "Read"
+[SNMPAccessMode.variants]
+Read = "read"
+ReadWrite = "read/write"
+
+[SNMPSecurityLevelType]
+default="NoAuthNoPriv"
+[SNMPSecurityLevelType.variants]
+NoAuthNoPriv = "noAuthNoPriv"
+AuthNoPriv = "authNoPriv"
+AuthPriv = "authPriv"
+
+[SNMPAuthProtocol]
+default="MD5"
+[SNMPAuthProtocol.variants]
+MD5="MD5"
+SHA="SHA"
+SHA224="SHA-224"
+SHA256="SHA-256"
+SHA384="SHA-384"
+SHA512="SHA-512"
+
+[SNMPPrivacyProtocol]
+default="DES"
+[SNMPPrivacyProtocol.variants]
+DES="DES"
+AES="AES"
+AES192="AES-192"
+AES256="AES-256"
+
+[SNMPVersion]
+default="V1"
+[SNMPVersion.variants]
+V1="1"
+V2="2c"
+V3="3"
 
 [Model]
 [Model.variants]
@@ -546,3 +583,8 @@ RadarVisitsFirst  = "radar_visits_first"
 RadarVisitsHour   = "radar_visits_hour"
 RadarExport       = "radar_export"
 RadarExportResult = "radar_export_result"
+SnmpGeneral       = "snmp_general"
+SnmpCommunity     = "snmp_community"
+SnmpUsersGroup    = "snmp_user_group"
+SnmpUsers         = "snmp_users"
+SnmpHosts         = "snmp_hosts"
