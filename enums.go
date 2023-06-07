@@ -3,6 +3,7 @@ package libwimark
 import (
 	"encoding/json"
 	"errors"
+
 	"github.com/globalsign/mgo/bson"
 )
 
@@ -3521,6 +3522,7 @@ const ModuleSnmpWalker Module = "SNMP_WALKER"
 const ModuleStat Module = "STAT"
 const ModuleStatLBS Module = "STAT-LBS"
 const ModuleTunManager Module = "TUN_MANAGER"
+const ModuleGSNMP Module = "GSNMP"
 
 func (en Module) GetPtr() *Module { var v = en; return &v }
 
@@ -3584,6 +3586,8 @@ func (en Module) String() string {
 		return "STAT-LBS"
 	case ModuleTunManager:
 		return "TUN_MANAGER"
+	case ModuleGSNMP:
+		return "GSNMP"
 	}
 	if len(en) == 0 {
 		return ""
@@ -3651,6 +3655,8 @@ func (en *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("STAT-LBS")
 	case ModuleTunManager:
 		return json.Marshal("TUN_MANAGER")
+	case ModuleGSNMP:
+		return json.Marshal("GSNMP")
 	}
 	if len(*en) == 0 {
 		return json.Marshal("")
@@ -3718,6 +3724,8 @@ func (en *Module) GetBSON() (interface{}, error) {
 		return "STAT-LBS", nil
 	case ModuleTunManager:
 		return "TUN_MANAGER", nil
+	case ModuleGSNMP:
+		return "GSNMP", nil
 	}
 	if len(*en) == 0 {
 		return "", nil
@@ -3817,6 +3825,9 @@ func (en *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "TUN_MANAGER":
 		*en = ModuleTunManager
+		return nil
+	case "GSNMP":
+		*en= ModuleGSNMP
 		return nil
 	}
 	if len(s) == 0 {
@@ -3918,6 +3929,9 @@ func (en *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "TUN_MANAGER":
 		*en = ModuleTunManager
+		return nil
+	case "GSNMP":
+		*en = ModuleGSNMP
 		return nil
 	}
 	if len(s) == 0 {
