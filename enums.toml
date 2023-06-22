@@ -383,6 +383,13 @@ Telegram  = "telegram"
 Email = "email"
 Mqtt   = "mqtt"
 
+[Option82CircuitIDType]
+default="Empty"
+[Option82CircuitIDType.variants]
+Empty=""
+Ssid="SSID"
+Ifname="IFNAME" 
+
 [Option82RemoteIDType]
 default="ApMacSSID"
 [Option82RemoteIDType.variants]
