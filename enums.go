@@ -3,7 +3,6 @@ package libwimark
 import (
 	"encoding/json"
 	"errors"
-
 	"github.com/globalsign/mgo/bson"
 )
 
@@ -3571,6 +3570,7 @@ const ModuleConfig Module = "CONFIG"
 const ModuleDB Module = "DB"
 const ModuleDummy Module = "DUMMY"
 const ModuleFW Module = "FW"
+const ModuleGSNMP Module = "GSNMP"
 const ModuleLBS Module = "LBS"
 const ModuleMQTTLog Module = "MQTT_LOG"
 const ModuleMediator Module = "MEDIATOR"
@@ -3587,7 +3587,6 @@ const ModuleSnmpWalker Module = "SNMP_WALKER"
 const ModuleStat Module = "STAT"
 const ModuleStatLBS Module = "STAT-LBS"
 const ModuleTunManager Module = "TUN_MANAGER"
-const ModuleGSNMP Module = "GSNMP"
 
 func (en Module) GetPtr() *Module { var v = en; return &v }
 
@@ -3619,6 +3618,8 @@ func (en Module) String() string {
 		return "DUMMY"
 	case ModuleFW:
 		return "FW"
+	case ModuleGSNMP:
+		return "GSNMP"
 	case ModuleLBS:
 		return "LBS"
 	case ModuleMQTTLog:
@@ -3651,8 +3652,6 @@ func (en Module) String() string {
 		return "STAT-LBS"
 	case ModuleTunManager:
 		return "TUN_MANAGER"
-	case ModuleGSNMP:
-		return "GSNMP"
 	}
 	if len(en) == 0 {
 		return ""
@@ -3688,6 +3687,8 @@ func (en *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("DUMMY")
 	case ModuleFW:
 		return json.Marshal("FW")
+	case ModuleGSNMP:
+		return json.Marshal("GSNMP")
 	case ModuleLBS:
 		return json.Marshal("LBS")
 	case ModuleMQTTLog:
@@ -3720,8 +3721,6 @@ func (en *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("STAT-LBS")
 	case ModuleTunManager:
 		return json.Marshal("TUN_MANAGER")
-	case ModuleGSNMP:
-		return json.Marshal("GSNMP")
 	}
 	if len(*en) == 0 {
 		return json.Marshal("")
@@ -3757,6 +3756,8 @@ func (en *Module) GetBSON() (interface{}, error) {
 		return "DUMMY", nil
 	case ModuleFW:
 		return "FW", nil
+	case ModuleGSNMP:
+		return "GSNMP", nil
 	case ModuleLBS:
 		return "LBS", nil
 	case ModuleMQTTLog:
@@ -3789,8 +3790,6 @@ func (en *Module) GetBSON() (interface{}, error) {
 		return "STAT-LBS", nil
 	case ModuleTunManager:
 		return "TUN_MANAGER", nil
-	case ModuleGSNMP:
-		return "GSNMP", nil
 	}
 	if len(*en) == 0 {
 		return "", nil
@@ -3843,6 +3842,9 @@ func (en *Module) UnmarshalJSON(b []byte) error {
 	case "FW":
 		*en = ModuleFW
 		return nil
+	case "GSNMP":
+		*en = ModuleGSNMP
+		return nil
 	case "LBS":
 		*en = ModuleLBS
 		return nil
@@ -3890,9 +3892,6 @@ func (en *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "TUN_MANAGER":
 		*en = ModuleTunManager
-		return nil
-	case "GSNMP":
-		*en = ModuleGSNMP
 		return nil
 	}
 	if len(s) == 0 {
@@ -3947,6 +3946,9 @@ func (en *Module) SetBSON(v bson.Raw) error {
 	case "FW":
 		*en = ModuleFW
 		return nil
+	case "GSNMP":
+		*en = ModuleGSNMP
+		return nil
 	case "LBS":
 		*en = ModuleLBS
 		return nil
@@ -3994,9 +3996,6 @@ func (en *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "TUN_MANAGER":
 		*en = ModuleTunManager
-		return nil
-	case "GSNMP":
-		*en = ModuleGSNMP
 		return nil
 	}
 	if len(s) == 0 {
@@ -4360,15 +4359,11 @@ func (en *OperationStatus) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown OperationStatus: " + s)
 }
 
-// Option 82
-// CID
 type Option82CircuitIDType string
 
 const Option82CircuitIDTypeEmpty Option82CircuitIDType = ""
-const Option82CircuitIDTypeSSID Option82CircuitIDType = "SSID"
-const Option82CircuitIDTypeIFNAME Option82CircuitIDType = "IFNAME"
-
-type Option82RemoteIDType string
+const Option82CircuitIDTypeIfname Option82CircuitIDType = "IFNAME"
+const Option82CircuitIDTypeSsid Option82CircuitIDType = "SSID"
 
 func (en Option82CircuitIDType) GetPtr() *Option82CircuitIDType { var v = en; return &v }
 
@@ -4376,10 +4371,10 @@ func (en Option82CircuitIDType) String() string {
 	switch en {
 	case Option82CircuitIDTypeEmpty:
 		return ""
-	case Option82CircuitIDTypeSSID:
-		return "SSID"
-	case Option82CircuitIDTypeIFNAME:
+	case Option82CircuitIDTypeIfname:
 		return "IFNAME"
+	case Option82CircuitIDTypeSsid:
+		return "SSID"
 	}
 	if len(en) == 0 {
 		return ""
@@ -4391,10 +4386,10 @@ func (en *Option82CircuitIDType) MarshalJSON() ([]byte, error) {
 	switch *en {
 	case Option82CircuitIDTypeEmpty:
 		return json.Marshal("")
-	case Option82CircuitIDTypeSSID:
-		return json.Marshal("SSIAD")
-	case Option82CircuitIDTypeIFNAME:
-		return json.Marshal("IFMAME")
+	case Option82CircuitIDTypeIfname:
+		return json.Marshal("IFNAME")
+	case Option82CircuitIDTypeSsid:
+		return json.Marshal("SSID")
 	}
 	if len(*en) == 0 {
 		return json.Marshal("")
@@ -4406,10 +4401,10 @@ func (en *Option82CircuitIDType) GetBSON() (interface{}, error) {
 	switch *en {
 	case Option82CircuitIDTypeEmpty:
 		return "", nil
-	case Option82CircuitIDTypeSSID:
-		return "SSID", nil
-	case Option82CircuitIDTypeIFNAME:
+	case Option82CircuitIDTypeIfname:
 		return "IFNAME", nil
+	case Option82CircuitIDTypeSsid:
+		return "SSID", nil
 	}
 	if len(*en) == 0 {
 		return "", nil
@@ -4426,11 +4421,11 @@ func (en *Option82CircuitIDType) UnmarshalJSON(b []byte) error {
 	case "":
 		*en = Option82CircuitIDTypeEmpty
 		return nil
-	case "SSID":
-		*en = Option82CircuitIDTypeSSID
-		return nil
 	case "IFNAME":
-		*en = Option82CircuitIDTypeIFNAME
+		*en = Option82CircuitIDTypeIfname
+		return nil
+	case "SSID":
+		*en = Option82CircuitIDTypeSsid
 		return nil
 	}
 	if len(s) == 0 {
@@ -4439,6 +4434,7 @@ func (en *Option82CircuitIDType) UnmarshalJSON(b []byte) error {
 	}
 	return errors.New("Unknown Option82CircuitIDType: " + s)
 }
+
 func (en *Option82CircuitIDType) SetBSON(v bson.Raw) error {
 	var s string
 	if err := v.Unmarshal(&s); err != nil {
@@ -4448,23 +4444,23 @@ func (en *Option82CircuitIDType) SetBSON(v bson.Raw) error {
 	case "":
 		*en = Option82CircuitIDTypeEmpty
 		return nil
-	case "SSID":
-		*en = Option82CircuitIDTypeIFNAME
-		return nil
 	case "IFNAME":
-		*en = Option82CircuitIDTypeIFNAME
+		*en = Option82CircuitIDTypeIfname
+		return nil
+	case "SSID":
+		*en = Option82CircuitIDTypeSsid
 		return nil
 	}
 	if len(s) == 0 {
 		*en = Option82CircuitIDTypeEmpty
 		return nil
 	}
-	return errors.New("Unknown Option82RemoteIDType: " + s)
+	return errors.New("Unknown Option82CircuitIDType: " + s)
 }
 
-// <<CID
+type Option82RemoteIDType string
 
-// RID
+const Option82RemoteIDTypeApMac Option82RemoteIDType = "APMAC"
 const Option82RemoteIDTypeApMacSSID Option82RemoteIDType = "APMAC:SSID"
 const Option82RemoteIDTypeApMacSiteID Option82RemoteIDType = "APMAC:SITEID"
 const Option82RemoteIDTypeBSSIDHostname Option82RemoteIDType = "BSSID:HOSTNAME"
@@ -4475,6 +4471,8 @@ func (en Option82RemoteIDType) GetPtr() *Option82RemoteIDType { var v = en; retu
 
 func (en Option82RemoteIDType) String() string {
 	switch en {
+	case Option82RemoteIDTypeApMac:
+		return "APMAC"
 	case Option82RemoteIDTypeApMacSSID:
 		return "APMAC:SSID"
 	case Option82RemoteIDTypeApMacSiteID:
@@ -4494,6 +4492,8 @@ func (en Option82RemoteIDType) String() string {
 
 func (en *Option82RemoteIDType) MarshalJSON() ([]byte, error) {
 	switch *en {
+	case Option82RemoteIDTypeApMac:
+		return json.Marshal("APMAC")
 	case Option82RemoteIDTypeApMacSSID:
 		return json.Marshal("APMAC:SSID")
 	case Option82RemoteIDTypeApMacSiteID:
@@ -4513,6 +4513,8 @@ func (en *Option82RemoteIDType) MarshalJSON() ([]byte, error) {
 
 func (en *Option82RemoteIDType) GetBSON() (interface{}, error) {
 	switch *en {
+	case Option82RemoteIDTypeApMac:
+		return "APMAC", nil
 	case Option82RemoteIDTypeApMacSSID:
 		return "APMAC:SSID", nil
 	case Option82RemoteIDTypeApMacSiteID:
@@ -4536,6 +4538,9 @@ func (en *Option82RemoteIDType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
+	case "APMAC":
+		*en = Option82RemoteIDTypeApMac
+		return nil
 	case "APMAC:SSID":
 		*en = Option82RemoteIDTypeApMacSSID
 		return nil
@@ -4565,6 +4570,9 @@ func (en *Option82RemoteIDType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
+	case "APMAC":
+		*en = Option82RemoteIDTypeApMac
+		return nil
 	case "APMAC:SSID":
 		*en = Option82RemoteIDTypeApMacSSID
 		return nil
@@ -4587,9 +4595,6 @@ func (en *Option82RemoteIDType) SetBSON(v bson.Raw) error {
 	}
 	return errors.New("Unknown Option82RemoteIDType: " + s)
 }
-
-// <<RID
-// <<Option82
 
 type PortalAuthType string
 

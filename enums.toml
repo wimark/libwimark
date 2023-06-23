@@ -42,6 +42,7 @@ ClientDistance = "CLIENT-DISTANCE"
 Resampling = "RESAMPLING"
 SnmpWalker = "SNMP_WALKER"
 CLI        = "CLI"
+GSNMP      = "GSNMP"
 
 [Operation]
 [Operation.variants]
@@ -398,6 +399,7 @@ WlanIFName="WLAN:IFNAME"
 VlanSSID="VLAN:SSID"
 BSSIDHostname="BSSID:HOSTNAME"
 ApMacSiteID="APMAC:SITEID"
+ApMac="APMAC"
 
 [OperationStatus]
 [OperationStatus.variants]
