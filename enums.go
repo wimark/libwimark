@@ -480,6 +480,7 @@ const CollTags Coll = "tags"
 const CollUser Coll = "user"
 const CollWLAN Coll = "wlans"
 const CollWLANStatInfo Coll = "wlan_stat_info"
+const CollWLCConfigs Coll = "wlc_configs"
 
 func (en Coll) GetPtr() *Coll { var v = en; return &v }
 
@@ -591,6 +592,8 @@ func (en Coll) String() string {
 		return "wlans"
 	case CollWLANStatInfo:
 		return "wlan_stat_info"
+	case CollWLCConfigs:
+		return "wlc_configs"
 	}
 	panic(errors.New("Invalid value of Coll: " + string(en)))
 }
@@ -703,6 +706,8 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("wlans")
 	case CollWLANStatInfo:
 		return json.Marshal("wlan_stat_info")
+	case CollWLCConfigs:
+		return json.Marshal("wlc_configs")
 	}
 	return nil, errors.New("Invalid value of Coll: " + string(*en))
 }
@@ -815,6 +820,8 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "wlans", nil
 	case CollWLANStatInfo:
 		return "wlan_stat_info", nil
+	case CollWLCConfigs:
+		return "wlc_configs", nil
 	}
 	return nil, errors.New("Invalid value of Coll: " + string(*en))
 }
@@ -984,6 +991,9 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 	case "wlan_stat_info":
 		*en = CollWLANStatInfo
 		return nil
+	case "wlc_configs":
+		*en = CollWLCConfigs
+		return nil
 	}
 	return errors.New("Unknown Coll: " + s)
 }
@@ -1152,6 +1162,9 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 		return nil
 	case "wlan_stat_info":
 		*en = CollWLANStatInfo
+		return nil
+	case "wlc_configs":
+		*en = CollWLCConfigs
 		return nil
 	}
 	return errors.New("Unknown Coll: " + s)
