@@ -4031,6 +4031,191 @@ func (en *Module) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown Module: " + s)
 }
 
+type NTPGeneralActive string
+
+const NTPGeneralActiveActive NTPGeneralActive = "active"
+const NTPGeneralActiveNotActive NTPGeneralActive = "not active"
+
+func (en NTPGeneralActive) GetPtr() *NTPGeneralActive { var v = en; return &v }
+
+func (en NTPGeneralActive) String() string {
+	switch en {
+	case NTPGeneralActiveActive:
+		return "active"
+	case NTPGeneralActiveNotActive:
+		return "not active"
+	}
+	if len(en) == 0 {
+		return "not active"
+	}
+	panic(errors.New("Invalid value of NTPGeneralActive: " + string(en)))
+}
+
+func (en *NTPGeneralActive) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case NTPGeneralActiveActive:
+		return json.Marshal("active")
+	case NTPGeneralActiveNotActive:
+		return json.Marshal("not active")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("not active")
+	}
+	return nil, errors.New("Invalid value of NTPGeneralActive: " + string(*en))
+}
+
+func (en *NTPGeneralActive) GetBSON() (interface{}, error) {
+	switch *en {
+	case NTPGeneralActiveActive:
+		return "active", nil
+	case NTPGeneralActiveNotActive:
+		return "not active", nil
+	}
+	if len(*en) == 0 {
+		return "not active", nil
+	}
+	return nil, errors.New("Invalid value of NTPGeneralActive: " + string(*en))
+}
+
+func (en *NTPGeneralActive) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "active":
+		*en = NTPGeneralActiveActive
+		return nil
+	case "not active":
+		*en = NTPGeneralActiveNotActive
+		return nil
+	}
+	if len(s) == 0 {
+		*en = NTPGeneralActiveNotActive
+		return nil
+	}
+	return errors.New("Unknown NTPGeneralActive: " + s)
+}
+
+func (en *NTPGeneralActive) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "active":
+		*en = NTPGeneralActiveActive
+		return nil
+	case "not active":
+		*en = NTPGeneralActiveNotActive
+		return nil
+	}
+	if len(s) == 0 {
+		*en = NTPGeneralActiveNotActive
+		return nil
+	}
+	return errors.New("Unknown NTPGeneralActive: " + s)
+}
+
+type NTPServerStatus string
+
+const NTPServerStatusConfigured NTPServerStatus = "configured"
+const NTPServerStatusPeer NTPServerStatus = "peer"
+const NTPServerStatusUnsyncronized NTPServerStatus = "unsyncronized"
+
+func (en NTPServerStatus) GetPtr() *NTPServerStatus { var v = en; return &v }
+
+func (en NTPServerStatus) String() string {
+	switch en {
+	case NTPServerStatusConfigured:
+		return "configured"
+	case NTPServerStatusPeer:
+		return "peer"
+	case NTPServerStatusUnsyncronized:
+		return "unsyncronized"
+	}
+	if len(en) == 0 {
+		return "unsyncronized"
+	}
+	panic(errors.New("Invalid value of NTPServerStatus: " + string(en)))
+}
+
+func (en *NTPServerStatus) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case NTPServerStatusConfigured:
+		return json.Marshal("configured")
+	case NTPServerStatusPeer:
+		return json.Marshal("peer")
+	case NTPServerStatusUnsyncronized:
+		return json.Marshal("unsyncronized")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("unsyncronized")
+	}
+	return nil, errors.New("Invalid value of NTPServerStatus: " + string(*en))
+}
+
+func (en *NTPServerStatus) GetBSON() (interface{}, error) {
+	switch *en {
+	case NTPServerStatusConfigured:
+		return "configured", nil
+	case NTPServerStatusPeer:
+		return "peer", nil
+	case NTPServerStatusUnsyncronized:
+		return "unsyncronized", nil
+	}
+	if len(*en) == 0 {
+		return "unsyncronized", nil
+	}
+	return nil, errors.New("Invalid value of NTPServerStatus: " + string(*en))
+}
+
+func (en *NTPServerStatus) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "configured":
+		*en = NTPServerStatusConfigured
+		return nil
+	case "peer":
+		*en = NTPServerStatusPeer
+		return nil
+	case "unsyncronized":
+		*en = NTPServerStatusUnsyncronized
+		return nil
+	}
+	if len(s) == 0 {
+		*en = NTPServerStatusUnsyncronized
+		return nil
+	}
+	return errors.New("Unknown NTPServerStatus: " + s)
+}
+
+func (en *NTPServerStatus) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "configured":
+		*en = NTPServerStatusConfigured
+		return nil
+	case "peer":
+		*en = NTPServerStatusPeer
+		return nil
+	case "unsyncronized":
+		*en = NTPServerStatusUnsyncronized
+		return nil
+	}
+	if len(s) == 0 {
+		*en = NTPServerStatusUnsyncronized
+		return nil
+	}
+	return errors.New("Unknown NTPServerStatus: " + s)
+}
+
 type NotifyType string
 
 const NotifyTypeEmail NotifyType = "email"
