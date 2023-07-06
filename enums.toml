@@ -389,7 +389,7 @@ default="Empty"
 [Option82CircuitIDType.variants]
 Empty=""
 Ssid="SSID"
-Ifname="IFNAME" 
+Ifname="IFNAME"
 
 [Option82RemoteIDType]
 default="ApMacSSID"
@@ -444,6 +444,19 @@ default="V1"
 V1="1"
 V2="2c"
 V3="3"
+
+[NTPGeneralActive]
+default="NotActive"
+[NTPGeneralActive.variants]
+NotActive="not active"
+Active="active"
+
+[NTPServerStatus]
+default="Unsyncronized"
+[NTPServerStatus.variants]
+Unsyncronized="unsyncronized"
+Configured="configured"
+Peer="peer"
 
 [Model]
 [Model.variants]
@@ -598,3 +611,4 @@ SnmpUsersGroup    = "snmp_user_group"
 SnmpUsers         = "snmp_users"
 SnmpHosts         = "snmp_hosts"
 WLCConfigs        = "wlc_configs"
+NTPConfig         = "ntp_config"
