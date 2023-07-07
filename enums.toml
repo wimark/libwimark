@@ -42,6 +42,7 @@ ClientDistance = "CLIENT-DISTANCE"
 Resampling = "RESAMPLING"
 SnmpWalker = "SNMP_WALKER"
 CLI        = "CLI"
+GSNMP      = "GSNMP"
 
 [Operation]
 [Operation.variants]
@@ -383,6 +384,13 @@ Telegram  = "telegram"
 Email = "email"
 Mqtt   = "mqtt"
 
+[Option82CircuitIDType]
+default="Empty"
+[Option82CircuitIDType.variants]
+Empty=""
+Ssid="SSID"
+Ifname="IFNAME"
+
 [Option82RemoteIDType]
 default="ApMacSSID"
 [Option82RemoteIDType.variants]
@@ -391,6 +399,7 @@ WlanIFName="WLAN:IFNAME"
 VlanSSID="VLAN:SSID"
 BSSIDHostname="BSSID:HOSTNAME"
 ApMacSiteID="APMAC:SITEID"
+ApMac="APMAC"
 
 [OperationStatus]
 [OperationStatus.variants]
@@ -435,6 +444,19 @@ default="V1"
 V1="1"
 V2="2c"
 V3="3"
+
+[NTPGeneralActive]
+default="NotActive"
+[NTPGeneralActive.variants]
+NotActive="not active"
+Active="active"
+
+[NTPServerStatus]
+default="Unsyncronized"
+[NTPServerStatus.variants]
+Unsyncronized="unsyncronized"
+Configured="configured"
+Peer="peer"
 
 [Model]
 [Model.variants]
@@ -588,3 +610,5 @@ SnmpCommunity     = "snmp_community"
 SnmpUsersGroup    = "snmp_user_group"
 SnmpUsers         = "snmp_users"
 SnmpHosts         = "snmp_hosts"
+WLCConfigs        = "wlc_configs"
+NTPConfig         = "ntp_config"

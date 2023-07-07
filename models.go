@@ -172,8 +172,9 @@ type WLAN struct {
 	SignalPollTime   int `json:"signal_poll_time"`
 	SignalDropReason int `json:"signal_drop_reason"`
 	//-->> option82 state
-	Option82State   bool                 `json:"option82state"` // turn on option82
-	Option82RIDType Option82RemoteIDType `json:"option82rid_type"`
+	Option82State   bool                  `json:"option82state"` // turn on option82
+	Option82RIDType Option82RemoteIDType  `json:"option82rid_type"`
+	Option82CIDType Option82CircuitIDType `json:"option82cid_type"`
 }
 
 type WLANCompact struct {
@@ -189,8 +190,9 @@ type WLANCompact struct {
 	DefaultTunnel string     `json:"default_tunnel"` // network name on server (only for l2tp)
 	PeerAddress   string     `json:"peer_address"`   // peer address of server
 	//-->> option82 state
-	Option82State   bool                 `json:"option82state"` // turn on option82
-	Option82RIDType Option82RemoteIDType `json:"option82rid_type"`
+	Option82State   bool                  `json:"option82state"` // turn on option82
+	Option82RIDType Option82RemoteIDType  `json:"option82rid_type"`
+	Option82CIDType Option82CircuitIDType `json:"option82cid_type"`
 }
 
 // ==== CPE ====
@@ -274,7 +276,6 @@ type WiFiConfig struct {
 	LogLevel       string      `json:"log_level"`
 	MaxInactivity  int         `json:"max_inactivity"`
 	CellDensity    int         `json:"cell_density"`
-	//Option82Config Option82Config `json:"option82config"`
 }
 
 type WiFiConfigs map[string]WiFiConfig

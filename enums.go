@@ -457,6 +457,7 @@ const CollLocation Coll = "location"
 const CollMonitorCPE Coll = "poll_cpe"
 const CollMonitorEvents Coll = "events"
 const CollMonitorRules Coll = "stat_event_rule"
+const CollNTPConfig Coll = "ntp_config"
 const CollOperation Coll = "operation"
 const CollRADIUS Coll = "radius"
 const CollRRMGroups Coll = "rrm_groups"
@@ -480,6 +481,7 @@ const CollTags Coll = "tags"
 const CollUser Coll = "user"
 const CollWLAN Coll = "wlans"
 const CollWLANStatInfo Coll = "wlan_stat_info"
+const CollWLCConfigs Coll = "wlc_configs"
 
 func (en Coll) GetPtr() *Coll { var v = en; return &v }
 
@@ -545,6 +547,8 @@ func (en Coll) String() string {
 		return "events"
 	case CollMonitorRules:
 		return "stat_event_rule"
+	case CollNTPConfig:
+		return "ntp_config"
 	case CollOperation:
 		return "operation"
 	case CollRADIUS:
@@ -591,6 +595,8 @@ func (en Coll) String() string {
 		return "wlans"
 	case CollWLANStatInfo:
 		return "wlan_stat_info"
+	case CollWLCConfigs:
+		return "wlc_configs"
 	}
 	panic(errors.New("Invalid value of Coll: " + string(en)))
 }
@@ -657,6 +663,8 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("events")
 	case CollMonitorRules:
 		return json.Marshal("stat_event_rule")
+	case CollNTPConfig:
+		return json.Marshal("ntp_config")
 	case CollOperation:
 		return json.Marshal("operation")
 	case CollRADIUS:
@@ -703,6 +711,8 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("wlans")
 	case CollWLANStatInfo:
 		return json.Marshal("wlan_stat_info")
+	case CollWLCConfigs:
+		return json.Marshal("wlc_configs")
 	}
 	return nil, errors.New("Invalid value of Coll: " + string(*en))
 }
@@ -769,6 +779,8 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "events", nil
 	case CollMonitorRules:
 		return "stat_event_rule", nil
+	case CollNTPConfig:
+		return "ntp_config", nil
 	case CollOperation:
 		return "operation", nil
 	case CollRADIUS:
@@ -815,6 +827,8 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "wlans", nil
 	case CollWLANStatInfo:
 		return "wlan_stat_info", nil
+	case CollWLCConfigs:
+		return "wlc_configs", nil
 	}
 	return nil, errors.New("Invalid value of Coll: " + string(*en))
 }
@@ -915,6 +929,9 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 	case "stat_event_rule":
 		*en = CollMonitorRules
 		return nil
+	case "ntp_config":
+		*en = CollNTPConfig
+		return nil
 	case "operation":
 		*en = CollOperation
 		return nil
@@ -983,6 +1000,9 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 		return nil
 	case "wlan_stat_info":
 		*en = CollWLANStatInfo
+		return nil
+	case "wlc_configs":
+		*en = CollWLCConfigs
 		return nil
 	}
 	return errors.New("Unknown Coll: " + s)
@@ -1084,6 +1104,9 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 	case "stat_event_rule":
 		*en = CollMonitorRules
 		return nil
+	case "ntp_config":
+		*en = CollNTPConfig
+		return nil
 	case "operation":
 		*en = CollOperation
 		return nil
@@ -1152,6 +1175,9 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 		return nil
 	case "wlan_stat_info":
 		*en = CollWLANStatInfo
+		return nil
+	case "wlc_configs":
+		*en = CollWLCConfigs
 		return nil
 	}
 	return errors.New("Unknown Coll: " + s)
@@ -3570,6 +3596,7 @@ const ModuleConfig Module = "CONFIG"
 const ModuleDB Module = "DB"
 const ModuleDummy Module = "DUMMY"
 const ModuleFW Module = "FW"
+const ModuleGSNMP Module = "GSNMP"
 const ModuleLBS Module = "LBS"
 const ModuleMQTTLog Module = "MQTT_LOG"
 const ModuleMediator Module = "MEDIATOR"
@@ -3617,6 +3644,8 @@ func (en Module) String() string {
 		return "DUMMY"
 	case ModuleFW:
 		return "FW"
+	case ModuleGSNMP:
+		return "GSNMP"
 	case ModuleLBS:
 		return "LBS"
 	case ModuleMQTTLog:
@@ -3684,6 +3713,8 @@ func (en *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("DUMMY")
 	case ModuleFW:
 		return json.Marshal("FW")
+	case ModuleGSNMP:
+		return json.Marshal("GSNMP")
 	case ModuleLBS:
 		return json.Marshal("LBS")
 	case ModuleMQTTLog:
@@ -3751,6 +3782,8 @@ func (en *Module) GetBSON() (interface{}, error) {
 		return "DUMMY", nil
 	case ModuleFW:
 		return "FW", nil
+	case ModuleGSNMP:
+		return "GSNMP", nil
 	case ModuleLBS:
 		return "LBS", nil
 	case ModuleMQTTLog:
@@ -3834,6 +3867,9 @@ func (en *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "FW":
 		*en = ModuleFW
+		return nil
+	case "GSNMP":
+		*en = ModuleGSNMP
 		return nil
 	case "LBS":
 		*en = ModuleLBS
@@ -3936,6 +3972,9 @@ func (en *Module) SetBSON(v bson.Raw) error {
 	case "FW":
 		*en = ModuleFW
 		return nil
+	case "GSNMP":
+		*en = ModuleGSNMP
+		return nil
 	case "LBS":
 		*en = ModuleLBS
 		return nil
@@ -3990,6 +4029,191 @@ func (en *Module) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	return errors.New("Unknown Module: " + s)
+}
+
+type NTPGeneralActive string
+
+const NTPGeneralActiveActive NTPGeneralActive = "active"
+const NTPGeneralActiveNotActive NTPGeneralActive = "not active"
+
+func (en NTPGeneralActive) GetPtr() *NTPGeneralActive { var v = en; return &v }
+
+func (en NTPGeneralActive) String() string {
+	switch en {
+	case NTPGeneralActiveActive:
+		return "active"
+	case NTPGeneralActiveNotActive:
+		return "not active"
+	}
+	if len(en) == 0 {
+		return "not active"
+	}
+	panic(errors.New("Invalid value of NTPGeneralActive: " + string(en)))
+}
+
+func (en *NTPGeneralActive) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case NTPGeneralActiveActive:
+		return json.Marshal("active")
+	case NTPGeneralActiveNotActive:
+		return json.Marshal("not active")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("not active")
+	}
+	return nil, errors.New("Invalid value of NTPGeneralActive: " + string(*en))
+}
+
+func (en *NTPGeneralActive) GetBSON() (interface{}, error) {
+	switch *en {
+	case NTPGeneralActiveActive:
+		return "active", nil
+	case NTPGeneralActiveNotActive:
+		return "not active", nil
+	}
+	if len(*en) == 0 {
+		return "not active", nil
+	}
+	return nil, errors.New("Invalid value of NTPGeneralActive: " + string(*en))
+}
+
+func (en *NTPGeneralActive) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "active":
+		*en = NTPGeneralActiveActive
+		return nil
+	case "not active":
+		*en = NTPGeneralActiveNotActive
+		return nil
+	}
+	if len(s) == 0 {
+		*en = NTPGeneralActiveNotActive
+		return nil
+	}
+	return errors.New("Unknown NTPGeneralActive: " + s)
+}
+
+func (en *NTPGeneralActive) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "active":
+		*en = NTPGeneralActiveActive
+		return nil
+	case "not active":
+		*en = NTPGeneralActiveNotActive
+		return nil
+	}
+	if len(s) == 0 {
+		*en = NTPGeneralActiveNotActive
+		return nil
+	}
+	return errors.New("Unknown NTPGeneralActive: " + s)
+}
+
+type NTPServerStatus string
+
+const NTPServerStatusConfigured NTPServerStatus = "configured"
+const NTPServerStatusPeer NTPServerStatus = "peer"
+const NTPServerStatusUnsyncronized NTPServerStatus = "unsyncronized"
+
+func (en NTPServerStatus) GetPtr() *NTPServerStatus { var v = en; return &v }
+
+func (en NTPServerStatus) String() string {
+	switch en {
+	case NTPServerStatusConfigured:
+		return "configured"
+	case NTPServerStatusPeer:
+		return "peer"
+	case NTPServerStatusUnsyncronized:
+		return "unsyncronized"
+	}
+	if len(en) == 0 {
+		return "unsyncronized"
+	}
+	panic(errors.New("Invalid value of NTPServerStatus: " + string(en)))
+}
+
+func (en *NTPServerStatus) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case NTPServerStatusConfigured:
+		return json.Marshal("configured")
+	case NTPServerStatusPeer:
+		return json.Marshal("peer")
+	case NTPServerStatusUnsyncronized:
+		return json.Marshal("unsyncronized")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("unsyncronized")
+	}
+	return nil, errors.New("Invalid value of NTPServerStatus: " + string(*en))
+}
+
+func (en *NTPServerStatus) GetBSON() (interface{}, error) {
+	switch *en {
+	case NTPServerStatusConfigured:
+		return "configured", nil
+	case NTPServerStatusPeer:
+		return "peer", nil
+	case NTPServerStatusUnsyncronized:
+		return "unsyncronized", nil
+	}
+	if len(*en) == 0 {
+		return "unsyncronized", nil
+	}
+	return nil, errors.New("Invalid value of NTPServerStatus: " + string(*en))
+}
+
+func (en *NTPServerStatus) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "configured":
+		*en = NTPServerStatusConfigured
+		return nil
+	case "peer":
+		*en = NTPServerStatusPeer
+		return nil
+	case "unsyncronized":
+		*en = NTPServerStatusUnsyncronized
+		return nil
+	}
+	if len(s) == 0 {
+		*en = NTPServerStatusUnsyncronized
+		return nil
+	}
+	return errors.New("Unknown NTPServerStatus: " + s)
+}
+
+func (en *NTPServerStatus) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "configured":
+		*en = NTPServerStatusConfigured
+		return nil
+	case "peer":
+		*en = NTPServerStatusPeer
+		return nil
+	case "unsyncronized":
+		*en = NTPServerStatusUnsyncronized
+		return nil
+	}
+	if len(s) == 0 {
+		*en = NTPServerStatusUnsyncronized
+		return nil
+	}
+	return errors.New("Unknown NTPServerStatus: " + s)
 }
 
 type NotifyType string
@@ -4346,8 +4570,108 @@ func (en *OperationStatus) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown OperationStatus: " + s)
 }
 
+type Option82CircuitIDType string
+
+const Option82CircuitIDTypeEmpty Option82CircuitIDType = ""
+const Option82CircuitIDTypeIfname Option82CircuitIDType = "IFNAME"
+const Option82CircuitIDTypeSsid Option82CircuitIDType = "SSID"
+
+func (en Option82CircuitIDType) GetPtr() *Option82CircuitIDType { var v = en; return &v }
+
+func (en Option82CircuitIDType) String() string {
+	switch en {
+	case Option82CircuitIDTypeEmpty:
+		return ""
+	case Option82CircuitIDTypeIfname:
+		return "IFNAME"
+	case Option82CircuitIDTypeSsid:
+		return "SSID"
+	}
+	if len(en) == 0 {
+		return ""
+	}
+	panic(errors.New("Invalid value of Option82CircuitIDType: " + string(en)))
+}
+
+func (en *Option82CircuitIDType) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case Option82CircuitIDTypeEmpty:
+		return json.Marshal("")
+	case Option82CircuitIDTypeIfname:
+		return json.Marshal("IFNAME")
+	case Option82CircuitIDTypeSsid:
+		return json.Marshal("SSID")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("")
+	}
+	return nil, errors.New("Invalid value of Option82CircuitIDType: " + string(*en))
+}
+
+func (en *Option82CircuitIDType) GetBSON() (interface{}, error) {
+	switch *en {
+	case Option82CircuitIDTypeEmpty:
+		return "", nil
+	case Option82CircuitIDTypeIfname:
+		return "IFNAME", nil
+	case Option82CircuitIDTypeSsid:
+		return "SSID", nil
+	}
+	if len(*en) == 0 {
+		return "", nil
+	}
+	return nil, errors.New("Invalid value of Option82CircuitIDType: " + string(*en))
+}
+
+func (en *Option82CircuitIDType) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "":
+		*en = Option82CircuitIDTypeEmpty
+		return nil
+	case "IFNAME":
+		*en = Option82CircuitIDTypeIfname
+		return nil
+	case "SSID":
+		*en = Option82CircuitIDTypeSsid
+		return nil
+	}
+	if len(s) == 0 {
+		*en = Option82CircuitIDTypeEmpty
+		return nil
+	}
+	return errors.New("Unknown Option82CircuitIDType: " + s)
+}
+
+func (en *Option82CircuitIDType) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "":
+		*en = Option82CircuitIDTypeEmpty
+		return nil
+	case "IFNAME":
+		*en = Option82CircuitIDTypeIfname
+		return nil
+	case "SSID":
+		*en = Option82CircuitIDTypeSsid
+		return nil
+	}
+	if len(s) == 0 {
+		*en = Option82CircuitIDTypeEmpty
+		return nil
+	}
+	return errors.New("Unknown Option82CircuitIDType: " + s)
+}
+
 type Option82RemoteIDType string
 
+const Option82RemoteIDTypeApMac Option82RemoteIDType = "APMAC"
 const Option82RemoteIDTypeApMacSSID Option82RemoteIDType = "APMAC:SSID"
 const Option82RemoteIDTypeApMacSiteID Option82RemoteIDType = "APMAC:SITEID"
 const Option82RemoteIDTypeBSSIDHostname Option82RemoteIDType = "BSSID:HOSTNAME"
@@ -4358,6 +4682,8 @@ func (en Option82RemoteIDType) GetPtr() *Option82RemoteIDType { var v = en; retu
 
 func (en Option82RemoteIDType) String() string {
 	switch en {
+	case Option82RemoteIDTypeApMac:
+		return "APMAC"
 	case Option82RemoteIDTypeApMacSSID:
 		return "APMAC:SSID"
 	case Option82RemoteIDTypeApMacSiteID:
@@ -4377,6 +4703,8 @@ func (en Option82RemoteIDType) String() string {
 
 func (en *Option82RemoteIDType) MarshalJSON() ([]byte, error) {
 	switch *en {
+	case Option82RemoteIDTypeApMac:
+		return json.Marshal("APMAC")
 	case Option82RemoteIDTypeApMacSSID:
 		return json.Marshal("APMAC:SSID")
 	case Option82RemoteIDTypeApMacSiteID:
@@ -4396,6 +4724,8 @@ func (en *Option82RemoteIDType) MarshalJSON() ([]byte, error) {
 
 func (en *Option82RemoteIDType) GetBSON() (interface{}, error) {
 	switch *en {
+	case Option82RemoteIDTypeApMac:
+		return "APMAC", nil
 	case Option82RemoteIDTypeApMacSSID:
 		return "APMAC:SSID", nil
 	case Option82RemoteIDTypeApMacSiteID:
@@ -4419,6 +4749,9 @@ func (en *Option82RemoteIDType) UnmarshalJSON(b []byte) error {
 		return err
 	}
 	switch s {
+	case "APMAC":
+		*en = Option82RemoteIDTypeApMac
+		return nil
 	case "APMAC:SSID":
 		*en = Option82RemoteIDTypeApMacSSID
 		return nil
@@ -4448,6 +4781,9 @@ func (en *Option82RemoteIDType) SetBSON(v bson.Raw) error {
 		return err
 	}
 	switch s {
+	case "APMAC":
+		*en = Option82RemoteIDTypeApMac
+		return nil
 	case "APMAC:SSID":
 		*en = Option82RemoteIDTypeApMacSSID
 		return nil

@@ -28,7 +28,6 @@ type SNMPCommunityString struct {
 // SNMPV3Users -
 type SNMPV3Users struct {
 	ID                UUID                  `json:"id" bson:"_id"`
-	UserName          string                `json:"user_name" bson:"user_name"`
 	UserGroup         UUID                  `json:"user_group" bson:"user_group"`
 	SecurityLevel     SNMPSecurityLevelType `json:"security_level" bson:"security_level"`
 	AuthProtocol      SNMPAuthProtocol      `json:"auth_protocol" bson:"auth_protocol"`
