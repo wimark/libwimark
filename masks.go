@@ -115,3 +115,8 @@ type ExtAccessPointMask struct {
 	UUID  []UUID   `json:"uuid"`
 	Names []string `json:"names"`
 }
+
+type RRMGroupMask struct {
+	UUID []UUID `json:"uuid"`
+	CPEs []UUID `json:"has_cpes"`
+}
