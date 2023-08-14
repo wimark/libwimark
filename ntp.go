@@ -14,10 +14,11 @@ type NTPGeneral struct {
 type NTPServers []NTPServer
 
 type NTPServer struct {
-	ID       string          `json:"id" bson:"_id"`
-	Title    string          `json:"title" bson:"title"`
-	Address  string          `json:"address" bson:"address"`
-	Port     string          `json:"port" bson:"port"`
-	Status   NTPServerStatus `json:"status" bson:"status"`
-	Priority string          `json:"priority" bson:"priority"`
+	ID             string          `json:"id" bson:"_id"`
+	Title          string          `json:"title" bson:"title"`
+	Address        string          `json:"address" bson:"address"`
+	ResolveAddress string          `json:"-" bson:"resolve_address"`
+	Port           string          `json:"port" bson:"port"`
+	Status         NTPServerStatus `json:"status" bson:"status"`
+	Priority       string          `json:"priority" bson:"priority"`
 }
