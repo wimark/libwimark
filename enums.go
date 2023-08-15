@@ -479,7 +479,6 @@ const CollSnmpWalker Coll = "snmp_walker"
 const CollStatReport Coll = "reports"
 const CollTags Coll = "tags"
 const CollTroubleshooting Coll = "troubleshooting"
-const CollTroubleshootingFilters Coll = "troubleshooting_filters"
 const CollUser Coll = "user"
 const CollWLAN Coll = "wlans"
 const CollWLANStatInfo Coll = "wlan_stat_info"
@@ -593,8 +592,6 @@ func (en Coll) String() string {
 		return "tags"
 	case CollTroubleshooting:
 		return "troubleshooting"
-	case CollTroubleshootingFilters:
-		return "troubleshooting_filters"
 	case CollUser:
 		return "user"
 	case CollWLAN:
@@ -713,8 +710,6 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("tags")
 	case CollTroubleshooting:
 		return json.Marshal("troubleshooting")
-	case CollTroubleshootingFilters:
-		return json.Marshal("troubleshooting_filters")
 	case CollUser:
 		return json.Marshal("user")
 	case CollWLAN:
@@ -833,8 +828,6 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "tags", nil
 	case CollTroubleshooting:
 		return "troubleshooting", nil
-	case CollTroubleshootingFilters:
-		return "troubleshooting_filters", nil
 	case CollUser:
 		return "user", nil
 	case CollWLAN:
@@ -1008,9 +1001,6 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 		return nil
 	case "troubleshooting":
 		*en = CollTroubleshooting
-		return nil
-	case "troubleshooting_filters":
-		*en = CollTroubleshootingFilters
 		return nil
 	case "user":
 		*en = CollUser
@@ -1189,9 +1179,6 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 		return nil
 	case "troubleshooting":
 		*en = CollTroubleshooting
-		return nil
-	case "troubleshooting_filters":
-		*en = CollTroubleshootingFilters
 		return nil
 	case "user":
 		*en = CollUser
@@ -5692,14 +5679,14 @@ func (en *RadarExportType) SetBSON(v bson.Raw) error {
 
 type RadioActiveState string
 
-const RadioActiveStateStarts RadioActiveState = "start"
+const RadioActiveStateStart RadioActiveState = "start"
 const RadioActiveStateStop RadioActiveState = "stop"
 
 func (en RadioActiveState) GetPtr() *RadioActiveState { var v = en; return &v }
 
 func (en RadioActiveState) String() string {
 	switch en {
-	case RadioActiveStateStarts:
+	case RadioActiveStateStart:
 		return "start"
 	case RadioActiveStateStop:
 		return "stop"
@@ -5712,7 +5699,7 @@ func (en RadioActiveState) String() string {
 
 func (en *RadioActiveState) MarshalJSON() ([]byte, error) {
 	switch *en {
-	case RadioActiveStateStarts:
+	case RadioActiveStateStart:
 		return json.Marshal("start")
 	case RadioActiveStateStop:
 		return json.Marshal("stop")
@@ -5725,7 +5712,7 @@ func (en *RadioActiveState) MarshalJSON() ([]byte, error) {
 
 func (en *RadioActiveState) GetBSON() (interface{}, error) {
 	switch *en {
-	case RadioActiveStateStarts:
+	case RadioActiveStateStart:
 		return "start", nil
 	case RadioActiveStateStop:
 		return "stop", nil
@@ -5743,7 +5730,7 @@ func (en *RadioActiveState) UnmarshalJSON(b []byte) error {
 	}
 	switch s {
 	case "start":
-		*en = RadioActiveStateStarts
+		*en = RadioActiveStateStart
 		return nil
 	case "stop":
 		*en = RadioActiveStateStop
@@ -5763,7 +5750,7 @@ func (en *RadioActiveState) SetBSON(v bson.Raw) error {
 	}
 	switch s {
 	case "start":
-		*en = RadioActiveStateStarts
+		*en = RadioActiveStateStart
 		return nil
 	case "stop":
 		*en = RadioActiveStateStop
