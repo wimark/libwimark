@@ -458,6 +458,13 @@ Unsyncronized="unsyncronized"
 Configured="configured"
 Peer="peer"
 
+[RadioActiveState]
+default="Stop"
+[RadioActiveState.variants]
+Stop="stop"
+Starts="start"
+
+
 [Model]
 [Model.variants]
 WLAN         	   = "wlan"

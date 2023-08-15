@@ -5690,6 +5690,92 @@ func (en *RadarExportType) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown RadarExportType: " + s)
 }
 
+type RadioActiveState string
+
+const RadioActiveStateStarts RadioActiveState = "start"
+const RadioActiveStateStop RadioActiveState = "stop"
+
+func (en RadioActiveState) GetPtr() *RadioActiveState { var v = en; return &v }
+
+func (en RadioActiveState) String() string {
+	switch en {
+	case RadioActiveStateStarts:
+		return "start"
+	case RadioActiveStateStop:
+		return "stop"
+	}
+	if len(en) == 0 {
+		return "stop"
+	}
+	panic(errors.New("Invalid value of RadioActiveState: " + string(en)))
+}
+
+func (en *RadioActiveState) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case RadioActiveStateStarts:
+		return json.Marshal("start")
+	case RadioActiveStateStop:
+		return json.Marshal("stop")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("stop")
+	}
+	return nil, errors.New("Invalid value of RadioActiveState: " + string(*en))
+}
+
+func (en *RadioActiveState) GetBSON() (interface{}, error) {
+	switch *en {
+	case RadioActiveStateStarts:
+		return "start", nil
+	case RadioActiveStateStop:
+		return "stop", nil
+	}
+	if len(*en) == 0 {
+		return "stop", nil
+	}
+	return nil, errors.New("Invalid value of RadioActiveState: " + string(*en))
+}
+
+func (en *RadioActiveState) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "start":
+		*en = RadioActiveStateStarts
+		return nil
+	case "stop":
+		*en = RadioActiveStateStop
+		return nil
+	}
+	if len(s) == 0 {
+		*en = RadioActiveStateStop
+		return nil
+	}
+	return errors.New("Unknown RadioActiveState: " + s)
+}
+
+func (en *RadioActiveState) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "start":
+		*en = RadioActiveStateStarts
+		return nil
+	case "stop":
+		*en = RadioActiveStateStop
+		return nil
+	}
+	if len(s) == 0 {
+		*en = RadioActiveStateStop
+		return nil
+	}
+	return errors.New("Unknown RadioActiveState: " + s)
+}
+
 type RadiusMessageType string
 
 const RadiusMessageTypeAccessAccept RadiusMessageType = "access-accept"
