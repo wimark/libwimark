@@ -468,7 +468,6 @@ const CollRadarProbesReal Coll = "radar_probes_real"
 const CollRadarVisits Coll = "radar_visits"
 const CollRadarVisitsFirst Coll = "radar_visits_first"
 const CollRadarVisitsHour Coll = "radar_visits_hour"
-const CollRadioactiveLog Coll = "radioactive_log"
 const CollReportResult Coll = "report_results"
 const CollResamplingConf Coll = "resampling_conf"
 const CollSnmpCommunity Coll = "snmp_community"
@@ -479,6 +478,8 @@ const CollSnmpUsersGroup Coll = "snmp_user_group"
 const CollSnmpWalker Coll = "snmp_walker"
 const CollStatReport Coll = "reports"
 const CollTags Coll = "tags"
+const CollTroubleshooting Coll = "troubleshooting"
+const CollTroubleshootingFilters Coll = "troubleshooting_filters"
 const CollUser Coll = "user"
 const CollWLAN Coll = "wlans"
 const CollWLANStatInfo Coll = "wlan_stat_info"
@@ -570,8 +571,6 @@ func (en Coll) String() string {
 		return "radar_visits_first"
 	case CollRadarVisitsHour:
 		return "radar_visits_hour"
-	case CollRadioactiveLog:
-		return "radioactive_log"
 	case CollReportResult:
 		return "report_results"
 	case CollResamplingConf:
@@ -592,6 +591,10 @@ func (en Coll) String() string {
 		return "reports"
 	case CollTags:
 		return "tags"
+	case CollTroubleshooting:
+		return "troubleshooting"
+	case CollTroubleshootingFilters:
+		return "troubleshooting_filters"
 	case CollUser:
 		return "user"
 	case CollWLAN:
@@ -688,8 +691,6 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("radar_visits_first")
 	case CollRadarVisitsHour:
 		return json.Marshal("radar_visits_hour")
-	case CollRadioactiveLog:
-		return json.Marshal("radioactive_log")
 	case CollReportResult:
 		return json.Marshal("report_results")
 	case CollResamplingConf:
@@ -710,6 +711,10 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("reports")
 	case CollTags:
 		return json.Marshal("tags")
+	case CollTroubleshooting:
+		return json.Marshal("troubleshooting")
+	case CollTroubleshootingFilters:
+		return json.Marshal("troubleshooting_filters")
 	case CollUser:
 		return json.Marshal("user")
 	case CollWLAN:
@@ -806,8 +811,6 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "radar_visits_first", nil
 	case CollRadarVisitsHour:
 		return "radar_visits_hour", nil
-	case CollRadioactiveLog:
-		return "radioactive_log", nil
 	case CollReportResult:
 		return "report_results", nil
 	case CollResamplingConf:
@@ -828,6 +831,10 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "reports", nil
 	case CollTags:
 		return "tags", nil
+	case CollTroubleshooting:
+		return "troubleshooting", nil
+	case CollTroubleshootingFilters:
+		return "troubleshooting_filters", nil
 	case CollUser:
 		return "user", nil
 	case CollWLAN:
@@ -969,9 +976,6 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 	case "radar_visits_hour":
 		*en = CollRadarVisitsHour
 		return nil
-	case "radioactive_log":
-		*en = CollRadioactiveLog
-		return nil
 	case "report_results":
 		*en = CollReportResult
 		return nil
@@ -1001,6 +1005,12 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 		return nil
 	case "tags":
 		*en = CollTags
+		return nil
+	case "troubleshooting":
+		*en = CollTroubleshooting
+		return nil
+	case "troubleshooting_filters":
+		*en = CollTroubleshootingFilters
 		return nil
 	case "user":
 		*en = CollUser
@@ -1147,9 +1157,6 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 	case "radar_visits_hour":
 		*en = CollRadarVisitsHour
 		return nil
-	case "radioactive_log":
-		*en = CollRadioactiveLog
-		return nil
 	case "report_results":
 		*en = CollReportResult
 		return nil
@@ -1179,6 +1186,12 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 		return nil
 	case "tags":
 		*en = CollTags
+		return nil
+	case "troubleshooting":
+		*en = CollTroubleshooting
+		return nil
+	case "troubleshooting_filters":
+		*en = CollTroubleshootingFilters
 		return nil
 	case "user":
 		*en = CollUser
