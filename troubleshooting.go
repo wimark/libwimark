@@ -1,5 +1,15 @@
 package libwimark
 
+// JSONRPC functions for configurer
+const (
+	JSONRPC_TROUBLESHOOTING = "troubleshooting"
+)
+
+// for cpeagent:*
+type TroubleshootingCpe struct {
+	State RadioActiveState `json:"state"`
+}
+
 type Troubleshooting struct {
 	State                  RadioActiveState       `json:"state" bson:"state"`
 	TroubleshootingFilters TroubleshootingFilters `json:"troubleshooting_filters" bson:"troubleshooting_filters"`
