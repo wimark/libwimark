@@ -15,3 +15,8 @@ type TroubleshootingFilter struct {
 	StartAt  int64  `json:"start_at" bson:"start_at"`
 	StopAt   string `json:"stop_at" bson:"stop_at"`
 }
+
+type TroubleshootingGenerateLog struct {
+	ID       string `json:"id"`
+	Interval int64  `json:"interval"`
+}
