@@ -13,7 +13,7 @@ type TroubleshootingFilter struct {
 	FileName string `json:"filename" bson:"filename"`
 	URL      string `json:"url" bson:"url"`
 	StartAt  int64  `json:"start_at" bson:"start_at"`
-	StopAt   string `json:"stop_at" bson:"stop_at"`
+	StopAt   int64  `json:"stop_at" bson:"stop_at"`
 }
 
 type TroubleshootingGenerateLog struct {
