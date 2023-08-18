@@ -478,6 +478,7 @@ const CollSnmpUsersGroup Coll = "snmp_user_group"
 const CollSnmpWalker Coll = "snmp_walker"
 const CollStatReport Coll = "reports"
 const CollTags Coll = "tags"
+const CollTroubleshooting Coll = "troubleshooting"
 const CollUser Coll = "user"
 const CollWLAN Coll = "wlans"
 const CollWLANStatInfo Coll = "wlan_stat_info"
@@ -589,6 +590,8 @@ func (en Coll) String() string {
 		return "reports"
 	case CollTags:
 		return "tags"
+	case CollTroubleshooting:
+		return "troubleshooting"
 	case CollUser:
 		return "user"
 	case CollWLAN:
@@ -705,6 +708,8 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("reports")
 	case CollTags:
 		return json.Marshal("tags")
+	case CollTroubleshooting:
+		return json.Marshal("troubleshooting")
 	case CollUser:
 		return json.Marshal("user")
 	case CollWLAN:
@@ -821,6 +826,8 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "reports", nil
 	case CollTags:
 		return "tags", nil
+	case CollTroubleshooting:
+		return "troubleshooting", nil
 	case CollUser:
 		return "user", nil
 	case CollWLAN:
@@ -991,6 +998,9 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 		return nil
 	case "tags":
 		*en = CollTags
+		return nil
+	case "troubleshooting":
+		*en = CollTroubleshooting
 		return nil
 	case "user":
 		*en = CollUser
@@ -1166,6 +1176,9 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 		return nil
 	case "tags":
 		*en = CollTags
+		return nil
+	case "troubleshooting":
+		*en = CollTroubleshooting
 		return nil
 	case "user":
 		*en = CollUser
@@ -5662,6 +5675,92 @@ func (en *RadarExportType) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	return errors.New("Unknown RadarExportType: " + s)
+}
+
+type RadioActiveState string
+
+const RadioActiveStateStart RadioActiveState = "start"
+const RadioActiveStateStop RadioActiveState = "stop"
+
+func (en RadioActiveState) GetPtr() *RadioActiveState { var v = en; return &v }
+
+func (en RadioActiveState) String() string {
+	switch en {
+	case RadioActiveStateStart:
+		return "start"
+	case RadioActiveStateStop:
+		return "stop"
+	}
+	if len(en) == 0 {
+		return "stop"
+	}
+	panic(errors.New("Invalid value of RadioActiveState: " + string(en)))
+}
+
+func (en *RadioActiveState) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case RadioActiveStateStart:
+		return json.Marshal("start")
+	case RadioActiveStateStop:
+		return json.Marshal("stop")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("stop")
+	}
+	return nil, errors.New("Invalid value of RadioActiveState: " + string(*en))
+}
+
+func (en *RadioActiveState) GetBSON() (interface{}, error) {
+	switch *en {
+	case RadioActiveStateStart:
+		return "start", nil
+	case RadioActiveStateStop:
+		return "stop", nil
+	}
+	if len(*en) == 0 {
+		return "stop", nil
+	}
+	return nil, errors.New("Invalid value of RadioActiveState: " + string(*en))
+}
+
+func (en *RadioActiveState) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "start":
+		*en = RadioActiveStateStart
+		return nil
+	case "stop":
+		*en = RadioActiveStateStop
+		return nil
+	}
+	if len(s) == 0 {
+		*en = RadioActiveStateStop
+		return nil
+	}
+	return errors.New("Unknown RadioActiveState: " + s)
+}
+
+func (en *RadioActiveState) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "start":
+		*en = RadioActiveStateStart
+		return nil
+	case "stop":
+		*en = RadioActiveStateStop
+		return nil
+	}
+	if len(s) == 0 {
+		*en = RadioActiveStateStop
+		return nil
+	}
+	return errors.New("Unknown RadioActiveState: " + s)
 }
 
 type RadiusMessageType string

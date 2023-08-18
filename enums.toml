@@ -458,6 +458,13 @@ Unsyncronized="unsyncronized"
 Configured="configured"
 Peer="peer"
 
+[RadioActiveState]
+default="Stop"
+[RadioActiveState.variants]
+Stop="stop"
+Start="start"
+
+
 [Model]
 [Model.variants]
 WLAN         	   = "wlan"
@@ -612,3 +619,4 @@ SnmpUsers         = "snmp_users"
 SnmpHosts         = "snmp_hosts"
 WLCConfigs        = "wlc_configs"
 NTPConfig         = "ntp_config"
+Troubleshooting   = "troubleshooting"
