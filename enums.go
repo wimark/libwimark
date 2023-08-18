@@ -3609,6 +3609,7 @@ const ModuleRadarMW Module = "RADAR-MW"
 const ModuleRadiusGw Module = "RADIUS_GATEWAY"
 const ModuleRedirect Module = "REDIRECT"
 const ModuleResampling Module = "RESAMPLING"
+const ModuleSessionManager Module = "SESSION_MANAGER"
 const ModuleSnmpWalker Module = "SNMP_WALKER"
 const ModuleStat Module = "STAT"
 const ModuleStatLBS Module = "STAT-LBS"
@@ -3670,6 +3671,8 @@ func (en Module) String() string {
 		return "REDIRECT"
 	case ModuleResampling:
 		return "RESAMPLING"
+	case ModuleSessionManager:
+		return "SESSION_MANAGER"
 	case ModuleSnmpWalker:
 		return "SNMP_WALKER"
 	case ModuleStat:
@@ -3739,6 +3742,8 @@ func (en *Module) MarshalJSON() ([]byte, error) {
 		return json.Marshal("REDIRECT")
 	case ModuleResampling:
 		return json.Marshal("RESAMPLING")
+	case ModuleSessionManager:
+		return json.Marshal("SESSION_MANAGER")
 	case ModuleSnmpWalker:
 		return json.Marshal("SNMP_WALKER")
 	case ModuleStat:
@@ -3808,6 +3813,8 @@ func (en *Module) GetBSON() (interface{}, error) {
 		return "REDIRECT", nil
 	case ModuleResampling:
 		return "RESAMPLING", nil
+	case ModuleSessionManager:
+		return "SESSION_MANAGER", nil
 	case ModuleSnmpWalker:
 		return "SNMP_WALKER", nil
 	case ModuleStat:
@@ -3906,6 +3913,9 @@ func (en *Module) UnmarshalJSON(b []byte) error {
 		return nil
 	case "RESAMPLING":
 		*en = ModuleResampling
+		return nil
+	case "SESSION_MANAGER":
+		*en = ModuleSessionManager
 		return nil
 	case "SNMP_WALKER":
 		*en = ModuleSnmpWalker
@@ -4010,6 +4020,9 @@ func (en *Module) SetBSON(v bson.Raw) error {
 		return nil
 	case "RESAMPLING":
 		*en = ModuleResampling
+		return nil
+	case "SESSION_MANAGER":
+		*en = ModuleSessionManager
 		return nil
 	case "SNMP_WALKER":
 		*en = ModuleSnmpWalker
