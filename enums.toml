@@ -43,6 +43,7 @@ Resampling = "RESAMPLING"
 SnmpWalker = "SNMP_WALKER"
 CLI        = "CLI"
 GSNMP      = "GSNMP"
+SessionManager = "SESSION_MANAGER"
 
 [Operation]
 [Operation.variants]
