@@ -7,6 +7,7 @@ const (
 	JSONRPC_CPE_CPEAGENT_GET_METHODS = "cpeagent:get_methods"
 	JSONRPC_CPE_CPEAGENT_STATUS      = "cpeagent:status"
 	JSONRPC_CPE_CPEAGENT_OPKG        = "cpeagent:opkg"
+	JSONRPC_CPE_CPEAGENT_LOGUPLOAD   = "cpeagent:logupload"
 )
 
 // JSONRPC functions from CPE for UCI
