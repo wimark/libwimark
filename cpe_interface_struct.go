@@ -109,6 +109,7 @@ type UciRedirectCfg struct {
 	Type         string   `json:".type,omitempty"`
 }
 type UciLogupload struct {
+	Type          string `json:".type,omitempty"`
 	Enabled       string `json:"enabled"`
 	LoguploadHost string `json:"logupload_host"`
 	LoguploadPort string `json:"logupload_port"`
