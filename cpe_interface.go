@@ -7,7 +7,6 @@ const (
 	JSONRPC_CPE_CPEAGENT_GET_METHODS = "cpeagent:get_methods"
 	JSONRPC_CPE_CPEAGENT_STATUS      = "cpeagent:status"
 	JSONRPC_CPE_CPEAGENT_OPKG        = "cpeagent:opkg"
-	JSONRPC_CPE_CPEAGENT_LOGUPLOAD   = "cpeagent:logupload"
 )
 
 // JSONRPC functions from CPE for UCI
@@ -123,6 +122,12 @@ const (
 const (
 	JSONRPC_CPE_SYSTEM_FIRSTBOOT = "system:firstboot"
 	JSONRPC_CPE_SYSTEM_REBOOT    = "system:reboot"
+)
+
+// JSONRPC logupload functions for CPE
+const (
+	JSONRPC_CPE_LOGUPLOAD_START_LOGGING = "logupload:start_logging"
+	JSONRPC_CPE_LOGUPLOAD_STOP_LOGGING  = "logupload:stop_logging"
 )
 
 const (
