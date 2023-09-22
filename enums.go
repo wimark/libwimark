@@ -458,6 +458,7 @@ const CollMonitorCPE Coll = "poll_cpe"
 const CollMonitorEvents Coll = "events"
 const CollMonitorRules Coll = "stat_event_rule"
 const CollNTPConfig Coll = "ntp_config"
+const CollNtpServers Coll = "ntp_servers"
 const CollOperation Coll = "operation"
 const CollRADIUS Coll = "radius"
 const CollRRMGroups Coll = "rrm_groups"
@@ -550,6 +551,8 @@ func (en Coll) String() string {
 		return "stat_event_rule"
 	case CollNTPConfig:
 		return "ntp_config"
+	case CollNtpServers:
+		return "ntp_servers"
 	case CollOperation:
 		return "operation"
 	case CollRADIUS:
@@ -668,6 +671,8 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("stat_event_rule")
 	case CollNTPConfig:
 		return json.Marshal("ntp_config")
+	case CollNtpServers:
+		return json.Marshal("ntp_servers")
 	case CollOperation:
 		return json.Marshal("operation")
 	case CollRADIUS:
@@ -786,6 +791,8 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "stat_event_rule", nil
 	case CollNTPConfig:
 		return "ntp_config", nil
+	case CollNtpServers:
+		return "ntp_servers", nil
 	case CollOperation:
 		return "operation", nil
 	case CollRADIUS:
@@ -938,6 +945,9 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ntp_config":
 		*en = CollNTPConfig
+		return nil
+	case "ntp_servers":
+		*en = CollNtpServers
 		return nil
 	case "operation":
 		*en = CollOperation
@@ -1116,6 +1126,9 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 		return nil
 	case "ntp_config":
 		*en = CollNTPConfig
+		return nil
+	case "ntp_servers":
+		*en = CollNtpServers
 		return nil
 	case "operation":
 		*en = CollOperation
