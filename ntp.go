@@ -27,9 +27,9 @@ type NTPServer struct {
 }
 
 type NtpServer struct {
-	ID             UUID   `json:"id" bson:"_id"`
-	Address        string `json:"address" bson:"address"`
-	ResolveAddress string `json:"resolve_address" bson:"resolve_address"`
-	Port           string `json:"port" bson:"port"`
-	Status         string `json:"status" bson:"status"`
+	ID             string          `json:"id" bson:"_id"`
+	Address        string          `json:"address" bson:"address"`
+	ResolveAddress string          `json:"resolve_address" bson:"resolve_address"`
+	Port           string          `json:"port" bson:"port"`
+	Status         NtpServerStatus `json:"status" bson:"status"`
 }

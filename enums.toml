@@ -459,6 +459,14 @@ Unsyncronized="unsyncronized"
 Configured="configured"
 Peer="peer"
 
+[NtpServerStatus]
+default="Unspecified"
+[NtpServerStatus.variants]
+Unspecified="unspecified"
+Sync="sync"
+Combined="combined"
+NotSync="not sync"
+
 [RadioActiveState]
 default="Stop"
 [RadioActiveState.variants]

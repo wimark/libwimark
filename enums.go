@@ -4156,6 +4156,7 @@ func (en *NTPGeneralActive) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown NTPGeneralActive: " + s)
 }
 
+// Deprecated: use only backend
 type NTPServerStatus string
 
 const NTPServerStatusConfigured NTPServerStatus = "configured"
@@ -4365,6 +4366,118 @@ func (en *NotifyType) SetBSON(v bson.Raw) error {
 		return nil
 	}
 	return errors.New("Unknown NotifyType: " + s)
+}
+
+type NtpServerStatus string
+
+const NtpServerStatusCombined NtpServerStatus = "combined"
+const NtpServerStatusNotSync NtpServerStatus = "not sync"
+const NtpServerStatusSync NtpServerStatus = "sync"
+const NtpServerStatusUnspecified NtpServerStatus = "unspecified"
+
+func (en NtpServerStatus) GetPtr() *NtpServerStatus { var v = en; return &v }
+
+func (en NtpServerStatus) String() string {
+	switch en {
+	case NtpServerStatusCombined:
+		return "combined"
+	case NtpServerStatusNotSync:
+		return "not sync"
+	case NtpServerStatusSync:
+		return "sync"
+	case NtpServerStatusUnspecified:
+		return "unspecified"
+	}
+	if len(en) == 0 {
+		return "unspecified"
+	}
+	panic(errors.New("Invalid value of NtpServerStatus: " + string(en)))
+}
+
+func (en *NtpServerStatus) MarshalJSON() ([]byte, error) {
+	switch *en {
+	case NtpServerStatusCombined:
+		return json.Marshal("combined")
+	case NtpServerStatusNotSync:
+		return json.Marshal("not sync")
+	case NtpServerStatusSync:
+		return json.Marshal("sync")
+	case NtpServerStatusUnspecified:
+		return json.Marshal("unspecified")
+	}
+	if len(*en) == 0 {
+		return json.Marshal("unspecified")
+	}
+	return nil, errors.New("Invalid value of NtpServerStatus: " + string(*en))
+}
+
+func (en *NtpServerStatus) GetBSON() (interface{}, error) {
+	switch *en {
+	case NtpServerStatusCombined:
+		return "combined", nil
+	case NtpServerStatusNotSync:
+		return "not sync", nil
+	case NtpServerStatusSync:
+		return "sync", nil
+	case NtpServerStatusUnspecified:
+		return "unspecified", nil
+	}
+	if len(*en) == 0 {
+		return "unspecified", nil
+	}
+	return nil, errors.New("Invalid value of NtpServerStatus: " + string(*en))
+}
+
+func (en *NtpServerStatus) UnmarshalJSON(b []byte) error {
+	var s string
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+	switch s {
+	case "combined":
+		*en = NtpServerStatusCombined
+		return nil
+	case "not sync":
+		*en = NtpServerStatusNotSync
+		return nil
+	case "sync":
+		*en = NtpServerStatusSync
+		return nil
+	case "unspecified":
+		*en = NtpServerStatusUnspecified
+		return nil
+	}
+	if len(s) == 0 {
+		*en = NtpServerStatusUnspecified
+		return nil
+	}
+	return errors.New("Unknown NtpServerStatus: " + s)
+}
+
+func (en *NtpServerStatus) SetBSON(v bson.Raw) error {
+	var s string
+	if err := v.Unmarshal(&s); err != nil {
+		return err
+	}
+	switch s {
+	case "combined":
+		*en = NtpServerStatusCombined
+		return nil
+	case "not sync":
+		*en = NtpServerStatusNotSync
+		return nil
+	case "sync":
+		*en = NtpServerStatusSync
+		return nil
+	case "unspecified":
+		*en = NtpServerStatusUnspecified
+		return nil
+	}
+	if len(s) == 0 {
+		*en = NtpServerStatusUnspecified
+		return nil
+	}
+	return errors.New("Unknown NtpServerStatus: " + s)
 }
 
 type Operation string
