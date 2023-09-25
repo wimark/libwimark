@@ -2,6 +2,7 @@ package libwimark
 
 import "time"
 
+// Deprecated: use only backend
 type NTPGeneral struct {
 	Active        NTPGeneralActive `json:"active" bson:"active"`
 	LocalTimeTZ   time.Time        `json:"local_time_tz" bson:"local_time_tz"`
@@ -11,8 +12,10 @@ type NTPGeneral struct {
 	NTPServers    NTPServers       `json:"ntp_servers" bson:"ntp_servers"`
 }
 
+// Deprecated: use only backend
 type NTPServers []NTPServer
 
+// Deprecated: use only backend
 type NTPServer struct {
 	ID             string          `json:"id" bson:"_id"`
 	Title          string          `json:"title" bson:"title"`
@@ -21,4 +24,12 @@ type NTPServer struct {
 	Port           string          `json:"port" bson:"port"`
 	Status         NTPServerStatus `json:"status" bson:"status"`
 	Priority       string          `json:"priority" bson:"priority"`
+}
+
+type NtpServer struct {
+	ID             string          `json:"id" bson:"_id"`
+	Address        string          `json:"address" bson:"address"`
+	ResolveAddress string          `json:"resolve_address" bson:"resolve_address"`
+	Port           string          `json:"port" bson:"port"`
+	Status         NtpServerStatus `json:"status" bson:"status"`
 }
