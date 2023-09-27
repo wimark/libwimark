@@ -117,7 +117,6 @@ type UciLogupload struct {
 	Debug         string `json:"debug"`
 }
 type innerUciWimark struct {
-	Logupload        UciLogupload              `json:"logupload"`
 	CpeAgent         UciCpeagentCfg            `json:"broker"`
 	Lbs              UciLbsCfg                 `json:"lbs"`
 	Stat             UciStatCfg                `json:"statistic"`
