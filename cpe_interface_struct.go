@@ -109,14 +109,18 @@ type UciRedirectCfg struct {
 	Type         string   `json:".type,omitempty"`
 }
 type UciLogupload struct {
-	Type          string `json:".type,omitempty"`
-	Enabled       string `json:"enabled"`
-	LoguploadHost string `json:"logupload_host"`
-	LoguploadPort string `json:"logupload_port"`
-	RetryInterval string `json:"retry_interval"`
-	Debug         string `json:"debug"`
+	Type                  string `json:".type,omitempty"`
+	Enabled               string `json:"enabled"`
+	LoguploadHost         string `json:"logupload_host"`
+	LoguploadPort         string `json:"logupload_port"`
+	RetryInterval         string `json:"retry_interval"`
+	Debug                 string `json:"debug"`
+	DebugHostapd          string `json:"debug_hostapd"`
+	DebugNTPD             string `json:"debug_ntpd"`
+	DebugDHCPOptionInject string `json:"debug_dhcpoptinj"`
 }
 type innerUciWimark struct {
+	Logupload        UciLogupload              `json:"logupload"`
 	CpeAgent         UciCpeagentCfg            `json:"broker"`
 	Lbs              UciLbsCfg                 `json:"lbs"`
 	Stat             UciStatCfg                `json:"statistic"`
@@ -128,11 +132,8 @@ type innerUciWimark struct {
 	RedirectSettings map[string]UciRedirectCfg `json:"-" inline:"yes,.type:redirect"`
 	Brokers          map[string]UciBrokerCfg   `json:"-" inline:"yes,.type:broker"`
 }
-type innerUciWimarkLogupload struct {
-	Logupload UciLogupload `json:"logupload"`
-}
+
 type UciWimark innerUciWimark
-type UciWimarkLogupload innerUciWimarkLogupload
 
 //------------- Wireless config ----------------
 
@@ -617,9 +618,6 @@ type SLMessageContentsJSONRPC struct {
 	Timeout   time.Duration          `json:"-"`
 	WireTCAdd []CPEWireTCConfig      `json:"-"`
 	WireTCDel []CPEWireTCConfig      `json:"-"`
-}
-type SLMessageLoguploadContentJSONRPC struct {
-	Wimark UciWimarkLogupload `json:"wimark"`
 }
 
 //======== Params for NAI realm compile JSON RPC ====

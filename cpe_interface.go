@@ -128,6 +128,16 @@ const (
 const (
 	JSONRPC_CPE_LOGUPLOAD_START_LOGGING = "logupload:start_logging"
 	JSONRPC_CPE_LOGUPLOAD_STOP_LOGGING  = "logupload:stop_logging"
+
+	JSONRPC_CPE_LOGUPLOAD_ENABLE_DEBUG_HOSTAPD   = "logupload:enable_debug_hostapd"
+	JSONRPC_CPE_LOGUPLOAD_ENABLE_DEBUG_2_HOSTAPD = "logupload:enable_debug2_hostapd"
+	JSONRPC_CPE_LOGUPLOAD_DISABLE_DEBUG_HOSTAPD  = "logupload:disable_debug_hostapd"
+
+	JSONRPC_CPE_LOGUPLOAD_ENABLE_DEBUG_NTPD  = "logupload:enable_debug_ntpd"
+	JSONRPC_CPE_LOGUPLOAD_DISABLE_DEBUG_NTPD = "logupload:disable_debug_ntpd"
+
+	JSONRPC_CPE_LOGUPLOAD_ENABLE_DEBUG_DHCPOPTINJ  = "logupload:enable_debug_dhcpoptinj"
+	JSONRPC_CPE_LOGUPLOAD_DISABLE_DEBUG_DHCPOPTINJ = "logupload:disable_debug_dhcpoptinj"
 )
 
 const (
