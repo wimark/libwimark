@@ -109,15 +109,12 @@ type UciRedirectCfg struct {
 	Type         string   `json:".type,omitempty"`
 }
 type UciLogupload struct {
-	Type                  string `json:".type,omitempty"`
-	Enabled               string `json:"enabled"`
-	LoguploadHost         string `json:"logupload_host"`
-	LoguploadPort         string `json:"logupload_port"`
-	RetryInterval         string `json:"retry_interval"`
-	Debug                 string `json:"debug"`
-	DebugHostapd          string `json:"debug_hostapd"`
-	DebugNTPD             string `json:"debug_ntpd"`
-	DebugDHCPOptionInject string `json:"debug_dhcpoptinj"`
+	Type          string `json:".type,omitempty"`
+	Enabled       string `json:"enabled"`
+	LoguploadHost string `json:"logupload_host"`
+	LoguploadPort string `json:"logupload_port"`
+	RetryInterval string `json:"retry_interval"`
+	Debug         string `json:"debug"`
 }
 type innerUciWimark struct {
 	Logupload        UciLogupload              `json:"logupload"`
