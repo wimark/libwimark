@@ -41,7 +41,23 @@ type NtpServerMeta struct {
 }
 
 type NtpServerNetwork struct {
-	IP   [4]byte `json:"ip" bson:"ip"`
-	Host string  `json:"host" bson:"host"`
-	Port string  `json:"port" bson:"port"`
+	IP   string `json:"ip" bson:"ip"`
+	Host string `json:"host" bson:"host"`
+	Port string `json:"port" bson:"port"`
+}
+
+func NewNtpTimeSettings(sec int64, zone string) *NtpTimeSettings {
+	return &NtpTimeSettings{
+		ID:          NewUUID(),
+		Time:        sec,
+		TimeZone:    zone,
+		LastUpdated: time.Now(),
+	}
+}
+
+type NtpTimeSettings struct {
+	ID          string    `json:"id" bson:"_id"`
+	Time        int64     `json:"time" bson:"time"`
+	TimeZone    string    `json:"time_zone" bson:"time_zone"`
+	LastUpdated time.Time `json:"last_updated" bson:"last_updated"`
 }
