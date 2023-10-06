@@ -1,6 +1,8 @@
 package libwimark
 
-import "time"
+import (
+	"time"
+)
 
 // Deprecated: use only backend
 type NTPGeneral struct {
@@ -27,9 +29,19 @@ type NTPServer struct {
 }
 
 type NtpServer struct {
-	ID             string          `json:"id" bson:"_id"`
-	Address        string          `json:"address" bson:"address"`
-	ResolveAddress string          `json:"resolve_address" bson:"resolve_address"`
-	Port           string          `json:"port" bson:"port"`
-	Status         NtpServerStatus `json:"status" bson:"status"`
+	ID      string           `json:"id" bson:"_id"`
+	Title   string           `json:"title" bson:"title"`
+	Network NtpServerNetwork `json:"network" bson:"network"`
+	Meta    NtpServerMeta    `json:"meta" bson:"meta"`
+}
+
+type NtpServerMeta struct {
+	Priority uint32          `json:"priority" bson:"priority"`
+	Status   NtpServerStatus `json:"status" bson:"status"`
+}
+
+type NtpServerNetwork struct {
+	IP   [4]byte `json:"ip" bson:"ip"`
+	Host string  `json:"host" bson:"host"`
+	Port string  `json:"port" bson:"port"`
 }
