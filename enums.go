@@ -459,6 +459,7 @@ const CollMonitorEvents Coll = "events"
 const CollMonitorRules Coll = "stat_event_rule"
 const CollNTPConfig Coll = "ntp_config"
 const CollNtpServers Coll = "ntp_servers"
+const CollNtpTimeSettings Coll = "ntp_time_settings"
 const CollOperation Coll = "operation"
 const CollRADIUS Coll = "radius"
 const CollRRMGroups Coll = "rrm_groups"
@@ -553,6 +554,8 @@ func (en Coll) String() string {
 		return "ntp_config"
 	case CollNtpServers:
 		return "ntp_servers"
+	case CollNtpTimeSettings:
+		return "ntp_time_settings"
 	case CollOperation:
 		return "operation"
 	case CollRADIUS:
@@ -673,6 +676,8 @@ func (en *Coll) MarshalJSON() ([]byte, error) {
 		return json.Marshal("ntp_config")
 	case CollNtpServers:
 		return json.Marshal("ntp_servers")
+	case CollNtpTimeSettings:
+		return json.Marshal("ntp_time_settings")
 	case CollOperation:
 		return json.Marshal("operation")
 	case CollRADIUS:
@@ -793,6 +798,8 @@ func (en *Coll) GetBSON() (interface{}, error) {
 		return "ntp_config", nil
 	case CollNtpServers:
 		return "ntp_servers", nil
+	case CollNtpTimeSettings:
+		return "ntp_time_settings", nil
 	case CollOperation:
 		return "operation", nil
 	case CollRADIUS:
@@ -948,6 +955,9 @@ func (en *Coll) UnmarshalJSON(b []byte) error {
 		return nil
 	case "ntp_servers":
 		*en = CollNtpServers
+		return nil
+	case "ntp_time_settings":
+		*en = CollNtpTimeSettings
 		return nil
 	case "operation":
 		*en = CollOperation
@@ -1129,6 +1139,9 @@ func (en *Coll) SetBSON(v bson.Raw) error {
 		return nil
 	case "ntp_servers":
 		*en = CollNtpServers
+		return nil
+	case "ntp_time_settings":
+		*en = CollNtpTimeSettings
 		return nil
 	case "operation":
 		*en = CollOperation
@@ -4156,7 +4169,6 @@ func (en *NTPGeneralActive) SetBSON(v bson.Raw) error {
 	return errors.New("Unknown NTPGeneralActive: " + s)
 }
 
-// Deprecated: use only backend
 type NTPServerStatus string
 
 const NTPServerStatusConfigured NTPServerStatus = "configured"
