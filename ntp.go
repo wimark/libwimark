@@ -14,6 +14,7 @@ type NTPServer struct {
 	Status   NTPServerStatus `json:"status" bson:"status"`
 	Priority string          `json:"priority" bson:"priority"`
 	Prefer   bool            `json:"prefer" bson:"prefer"`
+	LastSync time.Time       `json:"last_sync,omitempty" bson:"last_sync"`
 }
 
 type NtpTimeZone struct {
