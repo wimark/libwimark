@@ -17,9 +17,15 @@ type NTPServer struct {
 }
 
 type NtpTimeZone struct {
-	ID          string    `json:"id" bson:"_id"`
-	Zone        string    `json:"time_zone" bson:"time_zone"`
-	LastUpdated time.Time `json:"last_updated" bson:"last_updated"`
+	ID          string            `json:"id" bson:"_id"`
+	Zone        string            `json:"time_zone" bson:"time_zone"`
+	Offset      NtpTimeZoneOffset `json:"offset" bson:"offset"`
+	LastUpdated time.Time         `json:"last_updated" bson:"last_updated"`
+}
+
+type NtpTimeZoneOffset struct {
+	Hour int `json:"hour" bson:"hour"`
+	Min  int `json:"min" bson:"min"`
 }
 
 type NtpServerDeps struct {
@@ -41,10 +47,11 @@ func NewNtpServer(deps NtpServerDeps) *NTPServer {
 	}
 }
 
-func NewNtpTimeZone(zone string) *NtpTimeZone {
+func NewNtpTimeZone(zone string, hour, min int) *NtpTimeZone {
 	return &NtpTimeZone{
 		ID:          NewUUID(),
 		Zone:        zone,
+		Offset:      NtpTimeZoneOffset{Hour: hour, Min: min},
 		LastUpdated: time.Now(),
 	}
 }
