@@ -4,60 +4,55 @@ import (
 	"time"
 )
 
-// Deprecated: use only backend
-type NTPGeneral struct {
-	Active        NTPGeneralActive `json:"active" bson:"active"`
-	LocalTimeTZ   time.Time        `json:"local_time_tz" bson:"local_time_tz"`
-	LocalTimeZone string           `json:"local_time_zone" bson:"local_time_zone"`
-	ExternalNTP   string           `json:"external_ntp" bson:"external_ntp"`
-	NTPPort       string           `json:"ntp_port" bson:"ntp_port"`
-	NTPServers    NTPServers       `json:"ntp_servers" bson:"ntp_servers"`
-}
-
-// Deprecated: use only backend
 type NTPServers []NTPServer
 
-// Deprecated: use only backend
 type NTPServer struct {
-	ID             string          `json:"id" bson:"_id"`
-	Title          string          `json:"title" bson:"title"`
-	Address        string          `json:"address" bson:"address"`
-	ResolveAddress string          `json:"resolve_address" bson:"resolve_address"`
-	Port           string          `json:"port" bson:"port"`
-	Status         NTPServerStatus `json:"status" bson:"status"`
-	Priority       string          `json:"priority" bson:"priority"`
+	ID       string          `json:"id" bson:"_id"`
+	Title    string          `json:"title" bson:"title"`
+	Address  string          `json:"address" bson:"address"`
+	Port     string          `json:"port" bson:"port"`
+	Status   NTPServerStatus `json:"status" bson:"status"`
+	Priority string          `json:"priority" bson:"priority"`
+	Prefer   bool            `json:"prefer" bson:"prefer"`
+	LastSync time.Time       `json:"last_sync,omitempty" bson:"last_sync"`
 }
 
-type NtpServer struct {
-	ID      string           `json:"id" bson:"_id"`
-	Title   string           `json:"title" bson:"title"`
-	Network NtpServerNetwork `json:"network" bson:"network"`
-	Meta    NtpServerMeta    `json:"meta" bson:"meta"`
+type NtpTimeZone struct {
+	ID          string            `json:"id" bson:"_id"`
+	Zone        string            `json:"time_zone" bson:"time_zone"`
+	Offset      NtpTimeZoneOffset `json:"offset" bson:"offset"`
+	LastUpdated time.Time         `json:"last_updated" bson:"last_updated"`
 }
 
-type NtpServerMeta struct {
-	Priority uint32          `json:"priority" bson:"priority"`
-	Status   NtpServerStatus `json:"status" bson:"status"`
+type NtpTimeZoneOffset struct {
+	Hour int `json:"hour" bson:"hour"`
+	Min  int `json:"min" bson:"min"`
 }
 
-type NtpServerNetwork struct {
-	IP   string `json:"ip" bson:"ip"`
-	Host string `json:"host" bson:"host"`
-	Port string `json:"port" bson:"port"`
+type NtpServerDeps struct {
+	Title    string
+	Host     string
+	Port     string
+	Priority string
+	Prefer   bool
 }
 
-func NewNtpTimeSettings(sec int64, zone string) *NtpTimeSettings {
-	return &NtpTimeSettings{
-		ID:          NewUUID(),
-		Time:        sec,
-		TimeZone:    zone,
-		LastUpdated: time.Now(),
+func NewNtpServer(deps NtpServerDeps) *NTPServer {
+	return &NTPServer{
+		ID:       NewUUID(),
+		Title:    deps.Title,
+		Address:  deps.Host,
+		Port:     deps.Port,
+		Priority: deps.Priority,
+		Prefer:   deps.Prefer,
 	}
 }
 
-type NtpTimeSettings struct {
-	ID          string    `json:"id" bson:"_id"`
-	Time        int64     `json:"time" bson:"time"`
-	TimeZone    string    `json:"time_zone" bson:"time_zone"`
-	LastUpdated time.Time `json:"last_updated" bson:"last_updated"`
+func NewNtpTimeZone(zone string, hour, min int) *NtpTimeZone {
+	return &NtpTimeZone{
+		ID:          NewUUID(),
+		Zone:        zone,
+		Offset:      NtpTimeZoneOffset{Hour: hour, Min: min},
+		LastUpdated: time.Now(),
+	}
 }
