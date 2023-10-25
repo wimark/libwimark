@@ -29,4 +29,6 @@ type TroubleshootingFilter struct {
 type TroubleshootingGenerateLog struct {
 	ID       string `json:"id"`
 	Interval int64  `json:"interval"`
+	StartAt  int64  `json:"start_at"`
+	StopAt   int64  `json:"stop_at"`
 }
